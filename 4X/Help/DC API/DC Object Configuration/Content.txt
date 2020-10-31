@@ -1,0 +1,82 @@
+
+Description: Content properties configure the type and source of the content being rendered.
+
+Note: Each property may be set declaratively when creating new DC objects, or directly by modifying individual properties on instantiated DC objects.
+
+Declarative Syntax
+
+{
+  PropertyName1: Value1,
+  PropertyName2: Value2
+  // Etc.
+}
+
+Direct Syntax
+
+var Value = DC.PropertyName;
+
+DC.PropertyName = Value;
+
+DC Object Properties
+
+Note: The displayed value for each property represents its default value when omitted.
+
+// Suppress the automatic addition of extra div elements around the source when rendered.
+// Extra divs are added to create accessibility support for widgets and complex interactive structures.
+// For simple structures that don't require these however, these can be suppressed so that only the source is rendered.
+// Important: Must not be plain text, valid elements are required since event bindings will be applied to the source element container.
+  sourceOnly: true
+
+// Set the mode to determine the type of the content being rendered.
+// 0 = DC.source includes DOM elements or source code to be rendered directly.
+// 1 = perform Load function where DC.fetch.url includes an external resource url, and DC.fetch.data is also configured as needed.
+// 2 = perform Get function where DC.fetch.url includes an external resource url, DC.fetch.data is also configured, and content must be manually added to DC.source within the Fetch Success callback.
+  mode: 0
+
+// The source content to load within the DC object when rendered.
+// When mode=0, markup strings or DOM nodes can be set as DC.source.
+// When mode=1 or 2, DC.source must be populated from the success callback after a Fetch API call is made using DC.fetch.url.
+  source: ""
+
+// Fetch API configuration within the DC object.
+  fetch: {
+    // Resource URL.
+    url: "",
+    data: {
+      // Return type options: "text", "html", "xml", "json"
+      returnType: "html",
+      // CSS selector to parse markup content when loaded into the Success callback function. (Relevant for returnType html or xml)
+      selector: ""
+    },
+    success: function(content, promise, DC) {
+      // Explicitly set the content to be rendered visually.
+      DC.source = content;
+    },
+    error: function(errorMsg, promise, DC) {   }
+  }
+
+Example 1: Mode 0 with markup string
+
+{
+  id: "UniqueID1",
+  source: '<b> Tooltip text. </b>'
+}
+
+Example 2: Mode 1 with resource URL plus selector to filter returned content
+
+{
+  id: "UniqueID2",
+  mode: 1,
+  fetch: {
+    url: "https://server/resource?params",
+    data: {
+      returnType: "html",
+      selector: "#help-tooltip-id"
+    },
+    success: function(content, promise, DC) {
+      // Optionally do stuff after specified content is pulled in prior to rendering.
+      // Then explicitly set the content to be rendered.
+      DC.source = content;
+    }
+  }
+}

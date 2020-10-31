@@ -1,0 +1,56 @@
+Description: Props allow for custom properties and methods to be added to DC objects without risk of conflicting with internal states, properties, and methods.
+
+Note: Each property may be set declaratively when creating new DC objects, or directly by modifying individual properties on instantiated DC objects.
+
+Declarative Syntax
+
+{
+  props: {
+    PropertyName1: Value1,
+    PropertyName2: Value2
+    // Etc.
+  }
+}
+
+Direct Syntax
+
+var Value = DC.props.PropertyName;
+
+DC.setProps({
+  PropertyName: Value
+});
+
+Note: Any function declared within the DC.props object using setProps() or declaratively during setup, can access the primary DC object using this.DC.
+
+Declarative Example
+
+{
+  id: "UniqueID",
+  props: {
+    myState: false,
+    myFunct: function() {
+      // Toggle myState
+      this.myState = !this.myState;
+      // Access the DC object
+      var DC = this.DC;
+      // Do other stuff
+    }
+  }
+}
+
+Direct Example
+
+var DC = $A("UniqueID");
+
+DC.setProps({
+  myState: false,
+  myFunct: function() {
+    // Toggle myState
+    this.myState = !this.myState;
+    // Access the DC object
+    var DC = this.DC;
+    // Do other stuff
+  }
+});
+
+DC.props.myFunct();

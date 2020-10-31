@@ -1,0 +1,69 @@
+/* Specific styles for ARIA Listboxes */
+
+.sortableWrapper {
+  text-align: center;
+  padding: 1rem;
+}
+
+#listboxId {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#listboxId > li {
+  padding: 0.3em;
+}
+
+#listboxId > li > a span {
+  display: block;
+  font-size: 1em;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: transparent;
+  padding: 0.3em 0.5em;
+  border-radius: 0.3em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+#listboxId > li > a:hover {
+  text-decoration: none;
+}
+
+#listboxId > li > a:hover span {
+  box-shadow: none;
+}
+
+#listboxId > li > a[aria-selected="true"] span {
+}
+
+#listboxId > li > a[aria-grabbed="true"] span {
+  opacity: 0.5;
+}
+
+#listboxId > li > a[aria-grabbed="true"][aria-selected="true"] span {
+  box-shadow: 0 2px 5px rgba(241, 249, 0, 0.7);
+}
+
+#listboxId #sortableOpt1 span {
+  background: #f90;
+}
+
+#listboxId #sortableOpt2 span {
+  color: #fff;
+  background: #639;
+}
+
+#listboxId #sortableOpt3 span {
+  color: #fff;
+  background: #00965a;
+}
+
+#listboxId #sortableOpt4 span {
+  color: #fff;
+  background: #015684;
+}
+
+#listboxId #sortableOpt5 span {
+  color: #fff;
+  background: #000;
+}

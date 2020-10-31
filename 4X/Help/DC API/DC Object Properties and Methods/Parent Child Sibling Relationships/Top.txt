@@ -1,0 +1,13 @@
+
+DC.top
+
+Description: References the top level DC object associated with the current DC object parent child relationship.
+
+Returns: DC Object.
+
+Note: When there is no parent child structure, or when the current DC object is the top level object, DC.top will equal the same object as DC.
+
+Example:
+
+// Remove the top DC object and all of its descendants.
+DC.top.remove();

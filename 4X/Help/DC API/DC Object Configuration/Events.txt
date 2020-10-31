@@ -1,0 +1,100 @@
+Description: Event properties can be set to handle standard interactions.
+
+Note: When set, events are bound to the DOM element associated with DC.outerNode. Each property may be set declaratively when creating new DC objects, or directly by modifying individual properties on instantiated DC objects.
+
+When DC.sourceOnly is true, bound events will be added to the outer-most container element for the DC object as specified using DC.source.
+
+All events that provide an associated DC object provide access to all properties and methods associated with that DC instance. For example, DC.triggerObj will always reference the triggering element that triggered the currently rendered DC object.
+
+Declarative Syntax
+
+{
+  EventName1: function(event, DC) { //... },
+  EventName2: function(event, DC) { //... }
+  // Etc.
+}
+
+Direct Syntax
+
+DC.EventName = function(event, DC) { //... };
+
+DC Object Properties
+
+Note: When omitted, no event is added to DC.outerNode. All event names when declared must be in camel case.
+
+click: function(event, DC) {   }
+
+dblClick: function(event, DC) {   }
+
+mouseOver: function(event, DC) {   }
+
+mouseOut: function(event, DC) {   }
+
+mouseDown: function(event, DC) {   }
+
+mouseUp: function(event, DC) {   }
+
+mouseMove: function(event, DC) {   }
+
+mouseEnter: function(event, DC) {   }
+
+mouseLeave: function(event, DC) {   }
+
+keyDown: function(event, DC) {   }
+
+keyUp: function(event, DC) {   }
+
+focusIn: function(event, DC) {   }
+
+focusOut: function(event, DC) {   }
+
+resize: function(event, DC) {   }
+
+scroll: function(event, DC) {   }
+
+onRemove: function(event, DC) {   }
+
+Special Events
+
+// Assign a handler to execute when tabbing forward out of a DC object.
+// Requires that both DC.exposeHiddenClose and DC.displayHiddenClose are set to true.
+// This event will be ignored when DC.circularTabbing is true.
+  tabOut: function(event, DC) {   }
+
+// Set a delay in milliseconds before rendering the DC object.
+// The delay will reset every time the DC.render() method is invoked.
+  delay: 0,
+
+// Set a delay in milliseconds before running a timeout function.
+// The timer starts counting down after the DC object is fully rendered.
+  delayTimeout: 0
+
+// Assign a handler to execute when the delayTimeout period finishes counting down.
+// If DC.remove() is used to close the DC object, focus will be returned to the triggering element if DC.returnFocus is true.
+  timeout: function(DC) {   }
+
+Supported Events
+
+// The events list that is included within every DC object.
+// If modified, it will change the events that are automatically bound to the DC object when rendered.
+
+events: [
+  "mouseOver",
+  "mouseOut",
+  "resize",
+  "scroll",
+  "click",
+  "dblClick",
+  "mouseDown",
+  "mouseUp",
+  "mouseMove",
+  "mouseEnter",
+  "mouseLeave",
+  "keyDown",
+  "keyPress",
+  "keyUp",
+  "error",
+  "focusIn",
+  "focusOut",
+  "onRemove"
+]

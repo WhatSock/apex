@@ -1,0 +1,67 @@
+Description: Rendering properties control the rendering processes of DC objects.
+
+Note: Each property may be set declaratively when creating new DC objects, or directly by modifying individual properties on instantiated DC objects.
+
+Declarative Syntax
+
+{
+  PropertyName1: Value1,
+  PropertyName2: Value2
+  // Etc.
+}
+
+Direct Syntax
+
+var Value = DC.PropertyName;
+
+DC.PropertyName = Value;
+
+DC Object Properties
+
+Note: The displayed value for each property represents its default value when omitted.
+
+// Set a root node for a DC object.
+// This will be used as the target element instead of DC.trigger or DC.targetObj, and will disable auto-positioning.
+// DC.root may include a CSS selector string, or a DOM element object.
+  root: ""
+
+Positioning Properties
+
+Note: if all of these positioning properties are false or undefined, then the DC object will be rendered within DC.root, and all prior content within DC.root will be overwritten.
+
+// Specify that the DC object should be rendered before DC.root.
+// True to render before, false or undefined to ignore.
+  before: false
+
+// Specify that the DC object should be prepended within DC.root.
+// True to prepend within, false or undefined to ignore.
+  prepend: false
+
+// Specify that the DC object should be appended within DC.root.
+// True to append within, false or undefined to ignore.
+  append: false
+
+// Specify that the DC object should be rendered after DC.root.
+// True to render after, false or undefined to ignore.
+  after: false
+
+Note: A function may optionally be used instead of a boolean value if custom positioning is needed during the rendering process. This is true for all of the rendering position properties.
+
+Example 1: Render with standard functionality.
+
+{
+  id: "UniqueID1",
+  root: "body",
+  append: true
+}
+
+Example 2: Render with custome functionality.
+
+{
+  id: "UniqueID2",
+  root: "body",
+  append: function(outerNode, rootNode) {
+    var DC = this;
+    // Do something with outerNode
+  }
+}

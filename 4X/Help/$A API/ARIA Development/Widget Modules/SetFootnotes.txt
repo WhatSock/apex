@@ -1,0 +1,52 @@
+
+ARIA Footnotes
+
+Expected behaviors: Each footnote must be actionable using both the keyboard and the mouse, focus must move to the beginning of the definition when activated, and focus must move back to the footnote when the back link is activated.
+
+The 4X ARIA Footnote module automatically configures all required focus handling and interaction events to ensure accessibility.
+
+Required attributes
+
+The Footnote module utilizes traditional skip link syntax, which consists of a standard link with an href attribute. The href attribute includes an id reference to the associated footnote definition, by pointing to a back link at the beginning of the definition content.
+
+Example:
+
+<!-- The footnote skip link -->
+
+[Key Word or Phrase Here] <a class="aria-footnote" href="#footnoteId1"><sup>1</sup></a>
+
+<!-- The footnote back link -->
+
+<a id="footnoteId1" href="#" class="footnote-back-link" aria-label="Go Back" >&#8224;</a> [Definition Content Here]
+
+(Multiple footnotes that reference the same definition are supported.)
+
+JavaScript syntax:
+
+$A.setFootnotes({
+// Configuration key / value map
+});
+
+Configuration
+
+{
+
+// Specify all footnote links to configure.
+// Must reference links with an href attribute;
+// The href attribute must contain an id reference pointing to the associated footnote definition.
+
+footnotes: 'span.aria-footnote > a[href^="#"]',
+
+// Modify the smooth scrolling animation effects.
+override: {
+duration: 550,
+easing: "ease-in"
+}
+
+}
+
+Bootstrapping
+
+Bootstrapping is designed to handle common control types that span multiple pages with similar setup configurations.
+
+When the Bootstrap module is loaded, it parses the newly loaded document, recognizes the class "aria-footnote" on the link or button triggering element, then configures each footnote accordingly.

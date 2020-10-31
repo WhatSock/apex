@@ -1,0 +1,22 @@
+Description: Required properties must be set before a DC object can be created.
+
+Declarative Syntax
+
+{
+  PropertyName1: Value1,
+  PropertyName2: Value2
+  // Etc.
+}
+
+DC Object Properties
+
+Note: A required property must not be changed after it is initially set.
+
+// REQUIRED: The unique ID of the DC object.
+// 'id' is the only required property that must be set on every DC object, and every id must be unique.
+// May consist of any type of object, including DOM elements.
+// Caution: If a DOM element is used as the ID, and the element is removed or destroyed, there will be no way to retrieve the associated DC object afterwards.
+
+var DC = $A({
+  id: "UniqueId"
+})[0];

@@ -1,0 +1,15 @@
+
+DC.parent
+
+Description: References the parent DC object associated with the current DC object.
+
+Returns: DC Object, or Null if there is no parent.
+
+Example:
+
+// Execute a custom function on the parent DC object.
+DC.parent.props.doSomething();
+
+// Close the parent DC object.
+DC.parent.remove();
+

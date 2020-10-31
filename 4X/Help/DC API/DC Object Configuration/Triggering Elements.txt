@@ -1,0 +1,64 @@
+Description: Triggering element properties control the assignment and behaviors of DC object triggering elements.
+
+Note: Each property must be set declaratively when creating new DC objects, otherwise event bindings will not be created when the DC object is instantiated.
+
+Declarative Syntax
+
+{
+  PropertyName1: Value1,
+  PropertyName2: Value2
+  // Etc.
+}
+
+Note: The displayed value for each property represents its default value when omitted.
+
+When 'on' is set to "click", and 'trigger' references an element that is not keyboard focusable, it will automatically become keyboard accessible and include a valid role of "button" for non-sighted screen reader users. All triggering elements must include unique and informative names to ensure accessibility.
+
+DC Object Properties
+
+// Set one or more triggering elements for a DC object.
+// The 'trigger' property may reference a DOM element, or reference one or more elements using a CSS selector.
+// When a DC object is rendered after a triggering element is activated, the triggering element DOM node can be accessed using the DC.triggerObj property.
+  trigger: ""
+
+// Manually set a different DOM element to insert a DC object after when rendered.
+// This is for addressing issues when a DC object cannot be practically inserted after the triggering element.
+// So, instead, 'targetObj' will pretend to be the triggering element for the purpose of DOM insertion.
+  targetObj: null
+
+// Set one or more event bindings to trigger the opening process of a DC object.
+// All event bindings specified using the 'on' property are bound to the triggering element specified declaratively using the 'trigger' property.
+// Individual events must be added using just the name of the event in lowercase: "click"
+// Or, multiple events may be added by seperating each with a space: "click focus"
+// Additionally, the 'on' property may consist of a key value map of event:handler syntax declarations.
+// The associated DC object is always passed through to the event handler as the second argument.
+  on: ""
+
+Or
+
+on: {
+  click: function(event, DC) {
+    // Do stuff, then render the DC object.
+    DC.render();
+  },
+  focus: function(event, DC) {
+    // Do stuff, then render the DC object.
+    DC.render();
+  }
+}
+
+Example 1: Set a triggering element with a basic click handler to open.
+
+{
+  id: "UniqueID1",
+  trigger: "button.login",
+  on: "click"
+}
+
+Example 2: Set a triggering element with multiple events to open.
+
+{
+  id: "UniqueID2",
+  trigger: "button.help-tooltip",
+  on: "click focus"
+}

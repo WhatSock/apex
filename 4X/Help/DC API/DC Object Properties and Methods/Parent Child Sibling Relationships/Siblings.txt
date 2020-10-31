@@ -1,0 +1,15 @@
+
+DC.siblings
+
+Description: References the array of sibling DC objects associated with the current DC object.
+
+Returns: Array of DC Objects.
+
+Note: If there are no sibling DC objects associated with the current object, DC.siblings will reference an array that includes only the current DC object. The current DC object is always included in the DC.siblings array.
+
+Example:
+
+$A.loop(DC.siblings, function(index, sibDC) {
+  // Remove the 'active' class on the triggering elements on all siblings except for the one that is currently rendered, which will be added.
+  $A(sibDC.triggerObj).toggleClass("active", sibDC.loaded);
+}, "array");

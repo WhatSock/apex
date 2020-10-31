@@ -1,0 +1,117 @@
+Description: Behavioral properties control the dynamic behaviors of DC objects.
+
+Note: Each property may be set declaratively when creating new DC objects, or directly by modifying individual properties on instantiated DC objects.
+
+Declarative Syntax
+
+{
+  PropertyName1: Value1,
+  PropertyName2: Value2
+  // Etc.
+}
+
+Direct Syntax
+
+var Value = DC.PropertyName;
+
+DC.PropertyName = Value;
+
+DC Object Properties
+
+Note: The displayed value for each property represents its default value when omitted.
+
+  // Automatically invoke DC.render() when the DC object is instantiated.
+  autoRender: false
+
+  // Convey beginning and ending boundary information to screen reader users.
+  // Causes a named region to be created when rendered.
+  // Requires DC.role be set to an informative name, which will become the name for the region.
+  exposeBounds: false
+
+  // Assigns an informative name to convey the purpose of the DC object when rendered.
+  // This is required if exposeBounds is set to true, and if ariaLabelledby is set to false.
+  role: ""
+
+  // Explicitly assigns an informative name to convey the purpose of the DC object when rendered by referencing the ID of the triggering element.
+  // This does not require that the role property be set.
+  ariaLabelledby: false
+
+  // Explicitly set the triggering element to reference the rendered DC object as being controlled by the triggering element.
+  ariaControls: false
+
+  // Automatically announce the textual content of the DC object when rendered.
+  announce: false
+
+  // Expose an offscreen positioned Close link for screen reader users.
+  exposeHiddenClose: false
+
+  // Visually display the offscreen Close link when it receives keyboard focus
+  displayHiddenClose: true
+
+  // Assign link text for the offscreen Close link when rendered.
+  hiddenCloseName: "Close"
+
+  // Set a control type name for an interactive widget.
+  // This is used when creating widget type profiles to establish common properties for similare widget templates.
+  // View help for the 4X API $A.addWidgetTypeProfile() function for more details.
+  widgetType: ""
+
+  // Automatically close the widget DC object when another widget of a different widget type is opened.
+  // Requires that widgetType is set to a widget type name.
+  // Auto-closing only occurs when a different DC object including a different widgetType name is opened.
+  // Auto-closing does not occur when another widget of the same widget type is opened.
+  autoCloseWidget: false
+
+  // Automatically close the widget DC object when another widget of the same widget type is opened.
+  // Requires that widgetType is set to a widget type name.
+  // Auto-closing only occurs when a different DC object including the same widgetType name is opened.
+  // Auto-closing does not occur when another widget of a different widget type is opened.
+  autoCloseSameWidget: false
+
+  // Specify that the collection of sibling DC objects will function as independant objects, where multiple DC objects may be open at the same time.
+  allowMultiple: true
+
+  // Specify that the currently open DC object can be reopened, which will cause all related lifecycle methods to exicute as though DC.remove() and DC.render() were separatly invoked.
+  // If not enabled, nothing will happen when attempting to reopen a DC object that is already open.
+  allowReopen: false
+
+  // Specify that the DC object must receive focus as soon as the object is rendered.
+  forceFocus: false
+
+  // Specify that pressing the Escape key within the DC object will cause it to close.
+  escToClose: false
+
+  // Specify that the collection of sibling DC objects will function like tabs, where only one can be opened at a time.
+  // No ARIA attributes are added as part of this functionality; these must be added separately if desired.
+  // View the TabList module for creating client-side TabList widgets with proper ARIA markup.
+  isTab: false
+
+  // Specify that the collection of sibling DC objects will function like toggles, where the currently open DC object can be closed.
+  // No ARIA attributes are added as part of this functionality; these must be added separately if desired.
+  // View the Toggle module for creating client-side toggle widgets with proper ARIA markup.
+  isToggle: false
+
+  // Set a lock on the DC object to maintain its current state.
+  // Locking a DC object when currently open makes the object impossible to close, nor can it be opened if it is locked in its closed state.
+  lock: false
+
+  // Specify that the triggering element, if present, will receive focus as soon as the associated DC object is closed.
+  returnFocus: true
+
+  // Optionally override returnFocus and send focus to a different element after the DC object closes.
+  // Rerouting focus is a temporary behavior, where the property will clear itself after rerouting is complete.
+  // Property supports a DOM node or CSS selector.
+  rerouteFocus: null
+
+  // Specify that the newly rendered content will be scrolled into view automatically after it is rendered.
+  // May include a boolean value, or a function to perform a custom scroll action using any method.
+scrollIntoView: false
+
+Or
+
+scrollIntoView: function(DC, containerElement) {
+  // Scroll containerElement into view.
+}
+
+  // Specify that keyboard tabbing is confined within the DC object container element when pressing Tab and Shift+Tab between active elements.
+circularTabbing: false

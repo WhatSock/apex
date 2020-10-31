@@ -1,0 +1,1 @@
+npm -g install static-server

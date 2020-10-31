@@ -1,0 +1,131 @@
+
+ARIA Accordions
+
+Expected behaviors: All accordion triggering elements should be in the tab order, pressing Enter or Space should expand the desired accordion panel, the expanded state should be toggled appropriately on the triggering element, and the expanded accordion panel should be rendered directly after the triggering element in the tab order.
+
+Though similar in both concept and execution to Tab controls, accordions are not the same. A Tab control has a series of grouped triggering elements that expand and collapse, the rendered content of which is inserted directly after the triggering element group when opened. The container element insertion point for all Tab control triggering elements is shared between them. Also, the group of triggering elements in a Tab control has only one tab stop. The arrow keys are then used to switch focus between each Tab, and the Enter or Space key is used to expand the desired Tab content panel.
+
+In contrast, an Accordion has a series of triggering elements that expand and collapse, the rendered content of which is inserted directly after the triggering element when opened. The container element insertion points for Accordions are not shared. Also, all Accordion links appear in the tab order. The reason why ARIA attributes such as role="tablist" and role="tab" are not included within accordions, is because the insertion of inline content would place dynamic content sections within the same Tablist container, making it impossible to determine the order of nested Tab controls when present within the inserted content. The chosen implementation should always match the UI that it's being applied to, to prevent confusion.
+
+The 4X ARIA Accordion module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 specification.
+
+HTML5 "data-" attributes are used to configure specific functionality for each accordion expand/collapse link. These include the following:
+
+• data-controls : The resource path and pointer to the ID attribute of the accordion content container element.
+• data-insert : The ID attribute of the container element where the accordion content will be inserted when rendered. (This must not be inside the triggering element)
+• data-defaultopen="true" : Specifies that the referenced accordion node will open automatically. Only one accordion node per group should include this attribute.
+
+Required attributes:
+
+• All accordion triggering elements must include unique ID attribute values.
+
+The following attributes are dynamically applied:
+
+• aria-expanded
+• aria-controls
+• role=region
+• aria-labelledby
+
+JavaScript syntax:
+
+$A.setAccordion({
+// Configuration key / value mappings
+});
+
+Configuration
+
+{
+
+// Set all triggering elements with the class "aria-accordion-trigger" into accordion toggles.
+triggers: ".aria-accordion-trigger",
+
+// Set the class name that will be added to the triggering element of the currently open accordion
+toggleClass: "open",
+
+animate: {
+// Requires the "Animate" module.
+onRender: function(dc, outerNode, complete) {
+// Optionally add an animation effect when the accordion panel is rendered.
+// To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
+complete();
+},
+onRemove: function(dc, outerNode, complete) {
+// Optionally add an animation effect when the accordion panel is removed.
+// To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
+complete();
+}
+},
+
+// Choose whether or not to make accordion expand/collapse links toggles as well
+isToggle: false,
+allowMultiple: false,
+
+// Preload external content in advance to speed rendering.
+preload: true,
+preloadImages: true,
+
+// Preload CSS stylesheets to speed rendering
+// preloadCSS: true,
+// importCSS: [
+// "path/stylesheet.css"
+// ],
+
+context: document,
+
+callback: function(dc) {
+// if (dc.loaded) {
+// dc.container = the newly displayed region if dc.loaded = true
+// dc.triggerObj is the triggering element for the executed callback
+// }
+}
+
+// Additional 4X API properties and methods may be applied here as well if desired.
+
+}
+
+Programmatic Control
+
+Every accordion node is registered as an DC object, the ID of which matches the ID attribute value on the accordion expand/collapse link. For this reason, all accordion expand/collapse links must have unique ID attribute values.
+
+As such, you can programmatically control each accordion node using JavaScript if desired, like so:
+
+// Get a reference to the accordion DC object for the accordion expand/collapse link with id="uniqueId"
+
+var dc = $A('uniqueId');
+
+// Now invoke the object
+
+dc.render();
+
+// Or
+
+dc.remove();
+
+// All other 4X API properties and methods can be applied here as well.
+
+Triggering Element Requirements
+
+Regarding the triggering element for expand/collapse links, a native active element should always be used to ensure accessibility for both screen reader and keyboard only users.
+
+Bootstrapping
+
+Bootstrapping is designed to handle common control types that span multiple pages with similar setup configurations.
+
+The accordions within the Bootstrap folders are configured using HTML5 "data-" attributes within the HTML markup.
+
+Available HTML5 attributes for the triggering element:
+
+• data-controls : The resource path and pointer to the ID attribute of the accordion content container element.
+• data-defaultopen="true" : Specifies that the referenced accordion node will open automatically. Only one accordion node per group should include this attribute.
+• data-insert : The ID attribute of the container element where accordion node content will be inserted. The referenced container element must not be included within the accordion link node.
+• data-group : The shared group name for all related nodes within an accordion. This is used to differentiate separate accordion groups within the same document.
+
+Additional HTML5 attributes can be added to enhance functionality by editing the file "4X_bootstrap.js".
+
+Required attributes for the triggering element:
+
+• class="aria-accordion-trigger" : The bootstrap class name that specifies an accessible accordion node.
+• id : The unique ID of the element. This value is also registered as the ID of the individual accordion node DC object, making it possible to invoke the object programmatically.
+E.G $A(uniqueID).open();
+// All other 4X API properties and methods are similarly available.
+

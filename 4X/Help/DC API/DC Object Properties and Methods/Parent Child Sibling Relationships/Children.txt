@@ -1,0 +1,12 @@
+
+DC.children
+
+Description: References the array of child DC objects associated with the current DC object.
+
+Returns: Array of DC Objects.
+
+Note: If there are no child DC objects associated with the current object, DC.children will reference an empty array.
+
+Example:
+
+alert(DC.children.length);

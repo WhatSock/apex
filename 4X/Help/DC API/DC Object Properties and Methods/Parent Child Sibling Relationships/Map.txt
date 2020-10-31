@@ -1,0 +1,30 @@
+
+DC.map(objectKeyValueMap, boolExtend)
+
+Description: Manually set parent, child, and sibling relationships using custom mappings.
+
+Note: The key value map must include DC objects within the specified format to enable remapping. When boolExtend is false or undefined, the old mappings for associated children and siblings will be deleted before the new properties are added. When boolExtend is true however, the new DC objects will be added to those already present within the relevant properties. When DC.widgetType is set on a control, the DC.top property will only go as high as the last parent DC object that includes the same widgetType value. Otherwise, if DC.widgetType is null or undefined, DC.top will reference the highest parent DC object regardless of widgetType.
+
+Example:
+
+// Set a parent DC object for reference using DC.parent.
+DC1.map({
+  parent: DC0
+});
+
+// Set a collection of sibling DC objects for reference using DC.siblings.
+DC1.map({
+  siblings: [DC2, DC3, DC4]
+});
+
+// Set a collection of child DC objects for reference using DC.children.
+DC1.map({
+  children: [DC1.1, DC1.2, DC1.3]
+});
+
+// Set multiple properties and merge them with others that are already indexed.
+DC1.map({
+  parent: DC0,
+  siblings: [DC2, DC3, DC4],
+  children: [DC1.1, DC1.2, DC1.3]
+}, true);

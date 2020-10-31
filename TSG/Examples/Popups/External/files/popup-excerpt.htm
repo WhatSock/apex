@@ -1,0 +1,41 @@
+<html>
+
+<body>
+
+    <!-- Important
+When Implementing a Close link or button, the className must match the "closeClassName" property within the script declaration.
+(If not explicitly set, the default value "CloseDC" is configured within the module script file, and should be used for all Close links or buttons)
+Doing so will automatically bind the close methods with this element, and set keyboard focus properly when the DC object is closed.
+-->
+    <div hidden id="popupId">
+        <h4>Hamlet: Act 3, Scene 2</h4>
+        <p class="close">
+            <a href="#" class="popupClose"><img src="img/ic_close.svg" alt="Close Popup" title="Close Popup" /></a>
+        </p>
+        <dl>
+            <dt>HAMLET</dt>
+            <dd>Do you see yonder cloud that's almost in shape of a camel?</dd>
+            <dt>POLONIUS</dt>
+            <dd>By th' mass, and 'tis like a camel indeed.</dd>
+            <dt>HAMLET</dt>
+            <dd>Methinks it is like a weasel.</dd>
+            <dt>POLONIUS</dt>
+            <dd>It is backed like a weasel.</dd>
+            <dt>HAMLET</dt>
+            <dd>Or like a whale.</dd>
+            <dt>POLONIUS</dt>
+            <dd>Very like a whale.</dd>
+        </dl>
+        <script type="text/javascript">
+            (function() {
+                // The DC object is automatically declared when an embedded script is included within an external content resource to be imported.
+                // DC provides access to the originating DC object instance.
+                // E.G. DC.container is the container element where this content is rendered within.
+                // alert(DC.id);
+            })();
+        </script>
+    </div>
+
+</body>
+
+</html>

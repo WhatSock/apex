@@ -1,0 +1,130 @@
+Description: CSS properties control local styling options for DC objects.
+
+Note: Each property may be set declaratively when creating new DC objects, or directly by modifying individual properties on instantiated DC objects.
+
+Declarative Syntax
+
+{
+  PropertyName1: Value1,
+  PropertyName2: Value2
+  // Etc.
+}
+
+Direct Syntax
+
+var Value = DC.PropertyName;
+
+DC.PropertyName = Value;
+
+DC Object Properties
+
+Note: The displayed value for each property represents its default value when omitted.
+
+// Set a class name for the DC.outerNode container element.
+// Multiple classes can be added by separating each with a space.
+  className: ""
+
+// Set a class name for the offscreen close link element.
+// Multiple classes can be added by separating each with a space.
+// Requires that DC.exposeHiddenClose is set to true.
+  closeClassName: "CloseDC"
+
+// Set a toggle class name for the triggering element.
+// Multiple classes can be added by separating each with a space.
+// A toggle class will be added when the DC object is opened, and removed when closed.
+// Requires that DC.trigger or DC.triggerObj is set to assign a triggering element.
+  toggleClassName: ""
+
+// Assign inline styles for DC.outerNode that will be applied when the DC object is rendered.
+// This can also be directly modified using the syntax: DC.style["PropertyName"] = "Value".
+// Property names including dashes must be added in camel case or within quotes.
+// E.G marginLeft, or "margin-left"
+  style: {
+    // PropertyName: value,
+    // Etc.
+  }
+
+// Load an external stylesheet when a DC object is rendered.
+// The stylesheet will be removed when the DC object is closed.
+// Multiple stylesheets can be added by setting DC.importCSS as an array of path strings.
+// When DC.preloadCSS is true, the stylesheet content will automatically be preloaded to prevent any rendering delays when the DC object is rendered.
+  importCSS: ""
+
+Or
+
+  importCSS: [
+"path/style1.css", "path/style2.css"
+]
+
+// Preload CSS stylesheets when imported using DC.importCSS.
+preloadCSS: false
+
+// Automatically set style="display:inline;" upon the DC.outerNode and DC.container elements when rendered.
+// Otherwise, default block level styling for div elements will be inherited.
+// This property is ignored when DC.sourceOnly is true.
+  displayInline: false
+
+// Set an auto-position value to visually position a floating DC object relative to its triggering element or a specified target.
+// Requires that DC.className or DC.style includes "position: absolute", and possibly z-index.
+// Requires that DC.trigger or DC.targetObj is set to assign a triggering element, and that DC.root is not set.
+  autoPosition: 0
+
+/*
+Accepted Values for DC.autoPosition
+• 0: Disabled 
+• 1: Above/Center/Left Edge Aligned 
+• 2: Above/Right/Right Edge Aligned 
+• 3: Level/Right/Right Edge Aligned 
+• 4: Below/Right/Right Edge Aligned 
+• 5: Below/Center/Left Edge Aligned 
+• 6: Below/Left/Left Edge Aligned 
+• 7: Level/Left/Left Edge Aligned 
+• 8: Above/Left/Left Edge Aligned 
+• 9: Level/Center/Left Edge Aligned 
+• 10: Above/Center/Right Edge Aligned 
+• 11: Level/Center/Right Edge Aligned 
+• 12: Below/Center/Right Edge Aligned  
+*/
+
+// Set an auto-fix value to visually position a floating DC object to a fixed viewport location.
+// Requires that DC.className or DC.style includes "position: fixed", and possibly z-index.
+  autoFix: 0
+
+/*
+Accepted Values for DC.autoFix
+• 0: Disabled 
+• 1: Top/Center 
+• 2: Top/Right 
+• 3: Right/Middle 
+• 4: Right/Bottom 
+• 5: Bottom/Center 
+• 6: Bottom/Left 
+• 7: Left/Middle 
+• 8: Left/Top 
+• 9: Center/Middle
+*/
+
+// Apply a top and left offset when DC.autoPosition or DC.autoFix is set for auto-positioning.
+// May be set to either positive or negative values, or manually set using DC.offsetTop or DC.offsetLeft.
+  offsetTop: 0
+  offsetLeft: 0
+
+// Alternately set a different DOM element as the reference point for auto-positioning.
+// When set, DC.trigger and DC.targetObj will not be used as the positioning reference points.
+// This only applies to DC.autoPosition, and has no impact on DC.autoFix.
+  posAnchor: null
+
+// Add animation effects when a DC object is rendered or removed.
+animate: {
+  onRender: function(DC, outerNode, complete) {
+    // Optionally add an animation effect when the component is rendered.
+    // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
+    // Running complete() is required to continue executing built-in lifecycle methods after the animation completes.
+    complete();
+  },
+  onRemove: function(DC, outerNode, complete) {
+    // Optionally add an animation effect when the component is removed.
+    // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
+    complete();
+  }
+}

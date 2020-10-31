@@ -1,0 +1,110 @@
+Description: Lifecycle events trigger at different stages of a DC object when rendering, including construction, rendering, closing, and destruction, and these methods provide advanced functionality by controlling the order in which process handlers are run.
+
+Note: Each property may be set declaratively when creating new DC objects, or directly by modifying individual properties on instantiated DC objects.
+
+When an external JS resource is referenced using runJSOnceBefore, runJSBefore, runJSAfter, or runJSOnceAfter, the originating DC instance is automatically available within the external code using "DC". E.G. "DC.render();", "DC.remove();", amongst all DC API properties and methods. DC.props for example, will provide access to any custom data stored within the DC object. See the Props help file to see how to add custom data to a DC object.
+
+Additionally, when external content is pulled into a DC object using the fetch object or DC.load() method, all embedded scripts within the external resources automatically have access to the originating DC instance using "DC". E.G. alert(DC.id);
+
+Declarative Syntax
+
+{
+  EventName1: Function1,
+  EventName2: Function2
+  // Etc.
+}
+
+Direct Syntax
+
+var Value = DC.PropertyName;
+
+DC.EventName = Function;
+
+Lifecycle State Properties
+
+// Reflects when the DC object is in the process of being rendered. True when loading, false otherwise.
+  DC.loading
+
+// Reflects when the DC object is completely rendered. True when rendered, false otherwise.
+  DC.loaded
+
+// Reflects when the DC object is in the process of being closed. True when closing, false otherwise.
+  DC.closing
+
+// Optionally abort the rendering of a DC object when in the process of loading.
+// Must be set from within a lifecycle event, such as runBefore, runDuring, or runBeforeClose.
+  DC.cancel = true
+
+Lifecycle Events
+
+// Execute when a DC object is instantiated as a live DC object.
+// This event will fire regardless if the DC object is rendered or not.
+  onCreated: function(DC) {   }
+
+// Execute an array of external JS resources before a DC object opens.
+// Only runs once.
+  runJSOnceBefore: ["URL1.js", "URL2.js"]
+
+// Execute before a DC object opens.
+// Only runs once.
+// Setting DC.cancel to true will abort rendering.
+  runOnceBefore: function(DC) {   }
+
+// Execute an array of external JS resources before a DC object opens.
+// Runs every time.
+  runJSBefore: ["URL1.js", "URL2.js"]
+
+// Execute before a DC object opens.
+// Runs every time.
+// Setting DC.cancel to true will abort rendering.
+  runBefore: function(DC) {   }
+
+// Execute during the opening process of a DC object.
+// Runs every time.
+// Runs after all nodes are created, but just before the DOM rendering processes.
+// Setting DC.cancel to true will abort rendering.
+  runDuring: function(DC) {   }
+
+// Execute an array of external JS resources after a DC object has opened.
+// Only runs once.
+  runJSOnceAfter: ["URL1.js", "URL2.js"]
+
+// Execute after a DC object has opened.
+// Only runs once.
+  runOnceAfter: function(DC) {   }
+
+// Execute an array of external JS resources after a DC object has opened.
+// Runs every time.
+  runJSAfter: ["URL1.js", "URL2.js"]
+
+// Execute after a DC object has opened.
+// Runs every time.
+  runAfter: function(DC) {   }
+
+// Execute before a DC object closes.
+// Runs every time.
+// Setting DC.cancel to true will abort closing.
+  runBeforeClose: function(DC) {   }
+
+// Execute after a DC object is closed.
+// Runs every time.
+  runAfterClose: function(DC) {   }
+
+// Exicute before a DC object is destroyed.
+// This only occurs when DC.destroy() or $A.destroy() is used to completely destroy a DC object.
+  runBeforeDestroy: function(DC) {   }
+
+Special Properties
+
+// Reverse the external JavaScript execution order.
+// When true, external JS scripts will run after the associated inline scripts instead of before, as they do by default.
+// E.G This means, runJSBefore will exicute after runBefore, instead of the other way around as shown above.
+// This reversal will occur for all lifecycle events that include the exicution of external scripts.
+  reverseJSOrder: false
+
+// Allow for the cascading of lifecycle events when multiple events of the same type are declared.
+// When true, lifecycle events with the same name declared as overrides when instantiating DC objects using $A(), will exicute in succession instead of being overwritten.
+// The same is true when setting a globalDC lifecycle method using $A.setGlobal(),
+// which will exicute in the order: first the individual DC method, followed by the shared method, followed by the globalDC method.
+// This allows for a runAfter function to be executed on a DC object, a different runAfter function to be executed on all DC objects within the same DC.sibling array, and a different runAfter function to be executed on all DC objects everywhere.
+  allowCascade: true

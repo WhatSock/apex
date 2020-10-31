@@ -1,0 +1,101 @@
+
+ARIA Dialogs
+
+Expected behaviors: Move focus into the dialog when it is rendered, ensure that the background content is hidden from screen reader users, ensure that the beginning and ending boundaries are conveyed to screen reader users, make sure the dialog can be closed from the keyboard, ensure that circular tabbing confines keyboard focus within the dialog content, and move focus back to the triggering element after the dialog is removed.
+
+The 4X ARIA Dialog module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 Dialog design pattern.
+
+The following attributes are handled automatically by the Dialog module:
+
+• role=dialog/alertdialog
+• aria-label
+• aria-hidden
+
+JavaScript syntax:
+
+$A.setDialog({
+// Configure functionality key / value mappings
+});
+
+Configuration
+
+{
+
+// Set a unique ID for the dialog DC object, which can be referenced through $A('uniqueId')
+id: 'uniqueId',
+
+// Optionally Set a triggering element using either the DOM node or a CSS Selector
+trigger: '#dialogTrigger',
+
+// Optionally prevent focus from returning to a triggering element
+returnFocus: false,
+
+// Specify the content to be rendered when referencing internal content.
+// May be a DOM node or CSS selector.
+source: "#uniqueId",
+
+// Specify the content to be rendered when referencing external content.
+fetch: {
+url: "path/file.htm",
+data: {
+selector: "#uniqueId"
+}
+},
+
+// Set the class name for the top level container element
+className: 'dialog',
+
+// Set the class name for the screen reader accessible close link
+// This must match the class name for any close links or buttons within the dialog content, which will cause Close Method Binding to automatically occur when the content is rendered.
+closeClassName: "CloseDC",
+
+// Specify if the dialog is a modal.
+isModal: true,
+
+// Specify if the dialog is an alert dialog.
+// If true, a system alert will be fired when the dialog is rendered, causing screen reader users to be aggressively notified.
+isAlert: false,
+
+// Run script after the dialog finishes rendering.
+runAfter: function(DC) {
+// DC.container is the rendered dialog content.
+},
+
+// Run script after the dialog is removed.
+runAfterClose: function(DC) {
+// Do something.
+}
+
+// (Other 4X API properties and methods can be declared here also to customize functionality and behavior)
+
+}
+
+Programmatic Control
+
+// Get the DC object for the dialog.
+var DC = $A("dialogId");
+
+// Open the dialog manually.
+DC.render();
+
+// Close the dialog manually.
+DC.remove();
+
+// All other 4X API properties and methods can be applied here as well.
+
+Bootstrapping
+
+Bootstrapping is designed to handle common control types that span multiple pages with similar setup configurations.
+
+When the Bootstrap module is loaded, it parses the newly loaded document, recognizes the class "aria-dialog" on the link or button triggering element, then configures the dialog using these HTML5 attributes.
+
+Available HTML5 attributes for the triggering element:
+
+• data-controls : The resource path and pointer to the ID attribute of the dialog container element.
+
+Additional HTML5 attributes can be added to enhance functionality by editing the file "4X/Modules/Bootstrap".
+
+Required attributes for the triggering element:
+
+• class="aria-dialog" : The bootstrap class name that specifies an accessible dialog.
+• id : The unique ID of the element. This value is also registered as the ID of the dialog DC object, making it possible to invoke the object programmatically.

@@ -1,0 +1,164 @@
+
+ARIA Listboxes
+
+Expected behaviors: ARIA Listboxes should only receive one tab stop, the Up/Down/Home/End keys should move focus appropriately, typing letters or numbers should jump ahead to the next matching option, and every listbox and option element should be explicitly labeled.
+
+The 4X ARIA Listbox module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 Listbox design pattern.
+
+JavaScript syntax:
+
+var myListbox = new $A.Listbox({
+// Configuration key / value mappings
+});
+
+Configuration
+
+{
+
+label: "My informative listbox label",
+
+// Optionally set a reference to a list element that already exists within the DOM.
+// If present, the markup must conform with the syntax specified in the parentTag property.
+// Otherwise, if omitted, a listbox will automatically be generated and inserted at the position of the select element if present, or within the node specified by the context property.
+listbox: "#listboxId",
+
+// Optionally set a reference to a native select element that already exists within the DOM.
+// When set, the listbox will automatically be generated to match all options within the select, including all natively supported attributes such as "multiple", "required", and "disabled".
+// Preselected options will also be reflected in the listbox, and both controls will be bound using two-way binding, so that when one changes it will automatically be reflected in the other.
+select: "#standardSelectId",
+
+// Set the parent tag markup where role="listbox" will be applied.
+// All child tag markup specified by childTag will be dynamically appended within this container element.
+parentTag: '<ul class="aria-listbox"></ul>',
+
+// Set the child tag markup to be appended within the parentTag container element.
+// If the listbox property is already set, the child tag markup will be appended within that container element instead.
+// IMPORTANT: This does not specify the element where role="option" will be applied.
+// The placeholder "{OPTION-TEXT}" must not be changed, since this will be automatically populated when an accompanying select element is specified.
+childTag: '<li role="none"><a href="#"><span class="lbl">{OPTION-TEXT}</span></a></li>',
+
+// Set the CSS selector that identifies the focusable active element within each child tag markup.
+// Only one focusable element is allowed within each child tag markup.
+// These active elements are where role="option" will automatically be applied.
+// If the child tag markup is changed, this selector must also be changed to point to the focusable active element within that markup.
+activeElementSelector: "a[href]",
+
+// Optionally specify if the bound native select element should remain visible, otherwise it will be hidden automatically.
+showSelect: false,
+
+// Optionally prevent dynamic insertion of the listbox markup into the DOM.
+// This should be set to true when referencing a list element that already exists within the DOM.
+preventInsert: false,
+
+// Optionally specify a DOM node as the insertion point for the listbox.
+// If left null or undefined, the bound select element will be used as the insertion point.
+context: null,
+
+// Optionally set the DOM insertion method that will be used when dynamically rendering the listbox at the insertion point.
+// Supported values must be one of the following: "insert", "before", "after", "prepend", or "append".
+insertAction: "insert",
+
+// Specify if the listbox is multiselect or single-select.
+// If a native select element is specified, this property will automatically be set to match the select element.
+multiple: false,
+
+// Specify if the listbox is required.
+// If a native select element is specified, this property will automatically be set to match the select element.
+required: false,
+
+// Specify if the listbox is disabled.
+// If a native select element is specified, this property will automatically be set to match the select element.
+disabled: false,
+
+// Specify if the listbox includes checkable options.
+// Checkable options support the values "false", "true", and "mixed" to represent the partially checked state.
+// When checkable is true, the multiple and sortable properties are automatically set to false to ensure intuitive accessibility.
+// Use the myListbox.check() method to dynamically set a new value.
+checkable: false,
+
+// Specify if the listbox includes sortable options.
+// When sortable is true, the multiple and checkable properties are automatically set to false to ensure intuitive accessibility.
+sortable: false,
+
+// Set the class to be applied when a listbox option is selected.
+toggleClass: "selected",
+
+// Set screen reader accessible description text for key functionality.
+grabText: "Grabbable",
+grabbedText: "Grabbed",
+dropText: "Droppable",
+selectText: "Selected",
+unselectText: "Not Selected",
+
+// Set a callback to run every time selection is toggled on a listbox option.
+callback: function(state, option) {
+// Do something.
+},
+
+// Orientation: 0 = both, 1 = horizontal, 2 = vertical.
+// Default if not specified: 2
+orientation: 2,
+
+// Auto configure orientation using dynamic switching based on the visual layout of focusable elements.
+// "off"=Inactive, "semi"=Switches between vertical and horizontal only, "full"= Switches between vertical, horizontal, and both when line-wrapping is detected.
+autoSwitch: "off",
+
+handlers: {
+// Interaction event Handlers to be added to each focusable role=option node.
+// To view all available handlers, read the help documentation at:
+//"4X/Help/$A API/ARIA Development/Action Modules/RovingTabIndex"
+}
+
+}
+
+Programmatic Control
+
+Since the Listbox control is an instantiated object, all of the following public properties and methods are available:
+
+Properties
+
+myListbox.listbox // The Listbox DOM node for the element with role="listbox"
+
+myListbox.options // The array of list option DOM nodes that contain role="option"
+
+myListbox.index // The array index number for the currently selected list option element (relative to myListbox.options)
+
+// Screen reader accessible text that is conveyed during specific user interactions.
+myListbox.grabText
+myListbox.grabbedText
+myListbox.dropText
+myListbox.selectText
+myListbox.unselectText
+
+// The parent and child markup structures that are used to dynamically generate listbox container and child option elements.
+myListbox.parentTag
+myListbox.childTag
+
+// The CSS selector that is used to identify the focusable active element in each childTag markup element when rendered.
+myListbox.activeElementSelector
+
+// The class name that is dynamically toggled every time a listbox option is selected.
+myListbox.toggleClass
+
+Methods
+
+// Force the listbox widget to redraw itself and recompute all child options and reset all event handlers.
+// Only applicable when a native select element is bound to the listbox.
+// This is necessary when new options are added, removed, or reordered within the bound select element to ensure proper keyboard accessibility.
+myListbox.update();
+
+// Toggle selection on a specific listbox option node.
+myListbox.toggleSelect(listboxOption, boolStateOptional); // Omit boolState to simply toggle the current state instead of setting it to a specific one.
+
+// Set the checked state of the listbox option to a specific value.
+// Only valid when config.checkable is set to true.
+myListbox.check(listboxOption, stringValue); // stringValue must be set to either "false", "true", or "mixed"
+
+// Returns an array of currently selected listbox option nodes.
+// If there is a bound select element, the returned array will consist of all selected option elements within that select element.
+// Otherwise, the returned array will consist of all selected option elements within the ARIA listbox widget.
+var selectedOptions = myListbox.checkValue();
+
+// Returns the checked value of an option node when "checkable" is true.
+// Otherwise, if the listbox is bound to a native select element, the value attribute of the specified select option element will be returned. Equivalent to: $A.getAttribute($A.boundTo(listboxOption), "value");
+var optionValue = myListbox.checkValue(listboxOption);

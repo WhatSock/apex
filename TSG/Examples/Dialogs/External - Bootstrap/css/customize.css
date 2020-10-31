@@ -1,0 +1,54 @@
+#triggerId {
+  font: 1.2em open_sansbold, Frutiger, "Frutiger Linotype", Univers, Calibri,
+    "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed",
+    "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue",
+    Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  background: #286278;
+  padding: 0.3em 0.5em;
+  border: none;
+  border-radius: 3px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
+  transition: border-radius, text-shadow, box-shadow;
+  -webkit-transition: border-radius, text-shadow, box-shadow;
+}
+#triggerId:hover {
+  text-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+/* Specific styles for ACCESSIBLE Dialog */
+
+div.modal {
+  position: fixed;
+  overflow: auto;
+  width: 305px;
+  top: 35%;
+  left: 37%;
+  background-color: #fff;
+  padding: 1rem;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  border-radius: 2px;
+  z-index: 1000;
+}
+
+div#lightbox1 .buttons-bar {
+  text-align: left;
+}
+
+/* Now shade out the backdrop Div */
+div.modalBackdrop {
+  background-color: #000;
+  -moz-opacity: 0.7;
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}

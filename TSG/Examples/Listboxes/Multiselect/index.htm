@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Multiselect Listbox - Apex 4X Technical Style Guide</title>
+    <link rel="stylesheet" type="text/css" href="../../_common/css/global.css" />
+    <link rel="stylesheet" type="text/css" href="css/customize.css" />
+
+
+    <script type="text/javascript" src="/4X/4X.js"></script>
+    <script type="text/javascript" src="js/setup.js"></script>
+
+
+</head>
+
+<body>
+
+    <div id="coding-arena">
+        <header>
+            <div class="innerHeader">
+                <a href="http://whatsock.com/"><img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg" />
+                    <strong>Apex 4X</strong> Technical Style Guide</a>
+            </div>
+        </header>
+        <main>
+            <h1 class="pageTitle" id="multiselectLbl1">Keyboard Accessible ARIA Multiselect Listbox</h1>
+            <div class="demo-block">
+                <div class="sample">
+                    <div class="multiselectWrapper">
+                        <ul id="listboxId"></ul>
+                    </div>
+                    <select multiple size="5" title="Multiselect field" id="standardSelectId" name="stuff">
+                        <option value="multiselectOpt1">Apple</option>
+                        <option value="multiselectOpt2">Grape</option>
+                        <option value="multiselectOpt3">Banana</option>
+                        <option value="multiselectOpt4">Orange</option>
+                        <option value="multiselectOpt5">Shoe</option>
+                    </select>
+                </div>
+                <div>
+                    <form class="addFrm" method="post" action="#">
+                        <p><label for="addNew">Dynamically add another fruit:</label>
+                            <input required type="text" maxlength="15" id="addNew" name="fruit-name" /></p>
+                        <p><label for="addNewId">Set the new list item ID value:</label>
+                            <input required type="text" maxlength="15" id="addNewId" name="fruit-id" /></p>
+                        <p><input type="submit" value="Add" /></p>
+                    </form>
+                </div>
+
+                <div class="note">
+                    <p>The ARIA Multiselect Listbox and standard Select element mirror each other.</p>
+                </div>
+            </div>
+
+            <div class="keyboard">
+                <p>The Listbox is keyboard accessible:</p>
+                <ul>
+                    <li>Set focus on the Listbox or the Select field.</li>
+                    <li>Press the Arrow keys to change options, or press <kbd class="home">Home</kbd> or <kbd class="end">End</kbd> to jump to the beginning or end of the list.</li>
+                    <li>Press <kbd>PageUp</kbd> or <kbd>PageDown</kbd> to jump backward or forward incrementally.</li>
+                    <li>Press any letter or number to jump to an item starting with that character or digit.</li>
+                    <li>Press the <kbd>Spacebar</kbd> to toggle checkability on the ARIA Listbox.</li>
+                    <li>In IE, press <kbd><kbd>Shift</kbd>+<kbd>F8</kbd></kbd> on the standard Select field to select non-contiguous items using the <kbd>Spacebar</kbd>.</li>
+                    <li>in Firefox, hold down the <kbd>Control</kbd> key and use the Arrows on the standard Select field to select non-contiguous items using the Spacebar.</li>
+                </ul>
+            </div>
+
+        </main>
+    </div>
+</body>
+
+</html>
