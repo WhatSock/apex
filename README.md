@@ -24,6 +24,55 @@ In contrast, the DC API is only applicable when creating DC instances for the co
 "4X/Help/$A API/DC Objects/", and 
 "4X/Help/DC API/DC Object Configuration".
 
+Modules
+-----
+
+Dynamic modularization is one of the most powerful features that 4X provides.
+
+This makes it possible to dynamically import functionality modules on an as-needed basis, and to chain required dependancies that are shared between multiple modules, without having to preload all related script files in advance when the page first loads.
+
+Custom props can also be passed from the originating import statement into all chaned external modules, which are fully sandboxed within each module instance to ensure that no conflicts can occur, even when passing different props to the same module within differing import statements.
+
+Module Usage
+-----
+
+By default, the 4X module folder is located at "/4X/Modules/", which is why the 4X folder needs to be placed at the root of your website directory. However, this can be changed if a different location is necessary.
+
+If the 4X folder needs to be place somewhere else, such as at "/Subfolder/Path/4X", then it will be necessary to change the internal "moduleFolder" property in 4X.js to reference the correct module folder. E.G. Change it to "/Subfolder/Path/4X/Modules/".
+
+This will allow 4X to dynamically import required modules as needed to ensure proper functionality.
+
+If changed like this, the webpage script src path must also be changed, like so.
+
+<script type="text/javascript" src="/Subfolder/Path/4X/4X.js"></script>
+
+Importing Modules
+-----
+
+All modules used by 4X should be added to the 4X/Modules folder. This allows any module saved in this location to be imported using its file name alone. When importing a JS file, it is not necessary to add the .js extension. However, when importing a CSS file, the extension is needed to differentiate implicit JS files from explicit CSS files.
+
+To better understand dynamic importing, view the help documentation at:
+"/4X/Help/$A API/Import and Fetch APIs/Import.txt".
+
+Alternative Method for Module Imports
+
+It is also possible to import any number of modules using the website script tag using the src attribute.
+
+Modules can be declared for importing by appending a hash symbol ("#") to the 4X.js file path, followed by the module name to import. Multiple modules can be imported by separating each with a comma (",").
+
+Example:
+
+<script type="text/javascript" src="/4X/4X.js#Bootstrap,VisualARIA"></script>
+
+Module Design
+-----
+
+When creating new modules, it is important to use the "ModuleTemplate.js" file syntax to do so.
+
+For example, the props object is required to be passed down to all imported modules to ensure that defered callbacks can be queued correctly when chained together. This is an extremely powerful feature, and allows for shared props to be passed between external modules when loaded dynamically for custom behavior configurations.
+
+For more information regarding props, view the help file at: "4X/Help/$A API/Import and Fetch APIs/Props"
+
 Distributed under the terms of the Open Source Initiative OSI - MIT License.
 
 Developed and maintained by: Bryan Garaventa https://www.linkedin.com/in/bgaraventa
@@ -32,7 +81,6 @@ Or on Twitter at https://twitter.com/bryanegaraventa
 Contributors:
 
 * Laurence Lewis (Editor): https://www.linkedin.com/in/laurence-lewis-77520365/  
-* Danny Allen (Contributor) (dannya.com) / Wonderscore Ltd (wonderscore.co.uk) https://www.linkedin.com/in/danny-allen-49690451/
 * Visual design by Angela Ricci (web designer and web front-end developer). You can check her work at her personal site http://gericci.me/ Or you can follow her on Twitter at https://twitter.com/gericci
 
 Project home:
