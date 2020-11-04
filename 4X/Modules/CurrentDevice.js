@@ -87,7 +87,7 @@
         enumerable: true,
         value: value
       });
-      /******/ if (mode & 2 && typeof value != "string")
+      /******/ if (mode & 2 && typeof value !== "string")
         for (var key in value)
           __webpack_require__.d(
             ns,
@@ -468,7 +468,7 @@
         }
 
         device.onChangeOrientation = function(cb) {
-          if (typeof cb == "function") {
+          if (typeof cb === "function") {
             changeOrientationList.push(cb);
           }
         };

@@ -5594,7 +5594,7 @@
       };
     });
 
-    return ($A.Velocity = Velocity);
+    return Velocity;
   })(
     window.jQuery || window.Zepto || window,
     window,

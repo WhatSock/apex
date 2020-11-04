@@ -3762,6 +3762,7 @@ error: function(error, promise){}
           $A.data(dc.id, "DC-ON", true);
           if (dc.trigger)
             $A.query(dc.trigger, function(i, o) {
+              if (!dc.triggerObj) dc.triggerObj = o;
               $A.data(o, "DC", dc);
               $A.data(o, "DC-ON", true);
               if (dc.on) {

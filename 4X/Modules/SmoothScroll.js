@@ -27,7 +27,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             if (!$A.isDOMNode(o)) o = $A.morph(o);
             if ($A.isDOMNode(o)) {
               $A.isScrolling = true;
-              $A.Velocity(
+              window.Velocity(
                 o,
                 "scroll",
                 $A.extend(

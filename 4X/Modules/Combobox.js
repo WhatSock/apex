@@ -997,8 +997,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               onCreated: function(dc) {
                 that.combobox = dc.triggerObj;
                 that.select = dc.cb.sel;
-                dc.targetObj = dc.triggerObj;
-              }
+              },
+              scrollConfig: config.scrollConfig || {}
             };
             $A.extend(options, config.override || {});
 
