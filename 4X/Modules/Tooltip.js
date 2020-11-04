@@ -25,13 +25,18 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           manualClose: true,
           escToClose: true,
           validate: function(target) {
-            return true;
+            if (!target.value) return "Field is required.";
           },
           validateCondition: function() {
             var dc = this;
             if (!dc.isError) return dc;
-            if (dc.validate(dc.target) === false) {
-              dc.render();
+            var v = dc.validate(dc.target);
+            if ($A.isStr(v) && v.length) {
+              if (dc.loaded) dc.insert(v);
+              else {
+                dc.source = v;
+                dc.render();
+              }
             }
           },
           on: {
@@ -45,17 +50,22 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             focus: function(ev, dc) {
               if (!dc.isError && !dc.manualOpen)
                 $A.trigger(this, "rendertooltip");
+              else if (dc.isError && !dc.isResponsive && dc.loaded) dc.remove();
+            },
+            blur: function(ev, dc) {
+              if (!dc.isError && !dc.manualClose) dc.remove();
+              else if (dc.isError && !dc.isResponsive)
+                $A.trigger(this, "checkvalidate");
             },
             touchstart: function(ev, dc) {
               if (!dc.isError && !dc.manualOpen)
                 $A.trigger(this, "rendertooltip");
+              else if (dc.isError && !dc.isResponsive && dc.loaded) dc.remove();
             },
             click: function(ev, dc) {
-              if (!dc.isError && dc.manualOpen)
+              if (!dc.isError && dc.manualOpen && !dc.loaded)
                 $A.trigger(this, "rendertooltip");
-            },
-            blur: function(ev, dc) {
-              if (!dc.isError && !dc.manualClose) dc.remove();
+              else if (!dc.isError && dc.manualOpen && dc.loaded) dc.remove();
             },
             mouseleave: function(ev, dc) {
               if (!dc.isError && !dc.manualClose) dc.remove();
@@ -65,15 +75,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               dc.validateCondition();
             },
             keydown: function(ev, dc) {
-              var k = $A.keyEvent(ev);
-              if (dc.isResponsive) $A.trigger(this, "checkvalidate");
+              if (dc.isError && dc.isResponsive)
+                $A.trigger(this, "checkvalidate");
             },
             change: function(ev, dc) {
-              if (dc.isResponsive) $A.trigger(this, "checkvalidate");
+              if (dc.isError && dc.isResponsive)
+                $A.trigger(this, "checkvalidate");
             }
           },
           mouseLeave: function(ev, dc) {
-            if (!dc.isError && dc.manualClose) dc.remove();
+            dc.remove();
+          },
+          click: function(ev, dc) {
+            dc.remove();
           }
         };
       },
