@@ -359,8 +359,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           false,
         isSel = $A.isSelector(sel),
         id = "";
-      config.source = o;
-      if (!config.trigger && !fetch && ref && !isPath && isSel) ref = sel;
+
+      if (!config.source && o) config.source = o;
+
+      if (!t && !fetch && ref && !isPath && isSel) ref = sel;
 
       if (fetch && isSel) {
         isPath = true;
@@ -3795,14 +3797,6 @@ error: function(error, promise){}
           f.prototype = dc;
           var nDC = new f();
           nDC.props.DC = nDC.DC = nDC;
-          if (
-            $A.module[nDC.widgetType] &&
-            $A.isFn($A.module[nDC.widgetType].configure)
-          )
-            nDC = $A.extend(
-              $A.module[nDC.widgetType].configure(nDC) || {},
-              nDC
-            );
           $A.lastCreated.push(nDC);
           if (nDC.widgetType && nDC.autoCloseWidget) {
             $A._widgetTypes.push(nDC.id);
@@ -4389,6 +4383,12 @@ onRemove: function(mutationRecordObject, dc){ },
             iO[svs[s]] = gImport[svs[s]];
           }
         }
+
+        if (
+          $A.module[aO.widgetType] &&
+          $A.isFn($A.module[aO.widgetType].configure)
+        )
+          $A.extend(true, dc, $A.module[aO.widgetType].configure(aO) || {});
 
         $A.extend(true, dc, $A.fn.globalDC);
 

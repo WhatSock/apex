@@ -10,7 +10,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     $A.addWidgetTypeProfile("Tooltip", {
       configure: function(dc) {
         return {
-          delay: 1000,
+          delay: 1500,
           isAlert: false,
           exposeBounds: true,
           forceFocus: false,
@@ -24,70 +24,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           manualOpen: false,
           manualClose: true,
           escToClose: true,
-          validate: function(target) {
-            if (!target.value) return "Field is required.";
-          },
-          validateCondition: function() {
-            var dc = this;
-            if (!dc.isError) return dc;
-            var v = dc.validate(dc.target);
-            if ($A.isStr(v) && v.length) {
-              if (dc.loaded) dc.insert(v);
-              else {
-                dc.source = v;
-                dc.render();
-              }
-            }
-          },
-          on: {
-            rendertooltip: function(ev, dc) {
-              dc.render();
-            },
-            mouseenter: function(ev, dc) {
-              if (!dc.isError && !dc.manualOpen)
-                $A.trigger(this, "rendertooltip");
-            },
-            focus: function(ev, dc) {
-              if (!dc.isError && !dc.manualOpen)
-                $A.trigger(this, "rendertooltip");
-              else if (dc.isError && !dc.isResponsive && dc.loaded) dc.remove();
-            },
-            blur: function(ev, dc) {
-              if (!dc.isError && !dc.manualClose) dc.remove();
-              else if (dc.isError && !dc.isResponsive)
-                $A.trigger(this, "checkvalidate");
-            },
-            touchstart: function(ev, dc) {
-              if (!dc.isError && !dc.manualOpen)
-                $A.trigger(this, "rendertooltip");
-              else if (dc.isError && !dc.isResponsive && dc.loaded) dc.remove();
-            },
-            click: function(ev, dc) {
-              if (!dc.isError && dc.manualOpen && !dc.loaded)
-                $A.trigger(this, "rendertooltip");
-              else if (!dc.isError && dc.manualOpen && dc.loaded) dc.remove();
-            },
-            mouseleave: function(ev, dc) {
-              if (!dc.isError && !dc.manualClose) dc.remove();
-            },
-            checkvalidate: function(ev, dc) {
-              dc.target = this;
-              dc.validateCondition();
-            },
-            keydown: function(ev, dc) {
-              if (dc.isError && dc.isResponsive)
-                $A.trigger(this, "checkvalidate");
-            },
-            change: function(ev, dc) {
-              if (dc.isError && dc.isResponsive)
-                $A.trigger(this, "checkvalidate");
-            }
-          },
           mouseLeave: function(ev, dc) {
             dc.remove();
           },
           click: function(ev, dc) {
             dc.remove();
+            ev.preventDefault();
           }
         };
       },
@@ -97,13 +39,17 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           "aria-label": "Tooltip"
         };
       },
+      innerRole: function(dc) {
+        return {
+          role: "tooltip"
+        };
+      },
       onRender: function(dc, container) {
-        var desc =
-          (!dc.isError && !dc.isResponsive && $A.getText(container)) || null;
-        if (desc && dc.target) $A.setAttr(dc.target, "aria-description", desc);
+        $A.setAttr(dc.target, "aria-describedby", container.id);
+        if ($A.isIE()) $A.announce(container);
       },
       onRemove: function(dc, container) {
-        // Do something before removing.
+        $A.remAttr(dc.target, "aria-describedby");
       }
     });
 
@@ -123,7 +69,80 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         var baseDC = function() {
             return $A.extend(
               {
-                widgetType: "Tooltip"
+                widgetType: "Tooltip",
+                validate: function(target) {
+                  if (!target.value) return "Field is required.";
+                },
+                validateCondition: function() {
+                  var dc = this;
+                  if (!dc.isError) return dc;
+                  var v = dc.validate(dc.target);
+                  if ($A.isStr(v) && v.length) {
+                    if (dc.loaded) dc.insert(v);
+                    else {
+                      dc.source = v;
+                      dc.render();
+                    }
+                  }
+                },
+                on: {
+                  rendertooltip: function(ev, dc) {
+                    dc.render();
+                  },
+                  focus: function(ev, dc) {
+                    if (!dc.isError && !dc.manualOpen)
+                      $A.trigger(this, "rendertooltip");
+                    else if (dc.isError && !dc.isResponsive && dc.loaded)
+                      dc.remove();
+                  },
+                  blur: function(ev, dc) {
+                    if (!dc.isError && dc.loaded) dc.remove();
+                    else if (dc.isError && !dc.isResponsive)
+                      $A.trigger(this, "checkvalidate");
+                  },
+                  touchstart: function(ev, dc) {
+                    if (!dc.isError && !dc.manualOpen)
+                      $A.trigger(this, "rendertooltip");
+                    else if (dc.isError && !dc.isResponsive && dc.loaded)
+                      dc.remove();
+                  },
+                  click: function(ev, dc) {
+                    if (!dc.isError && dc.manualOpen && !dc.loaded) {
+                      $A.trigger(this, "rendertooltip");
+                      ev.stopPropagation();
+                      ev.preventDefault();
+                    } else if (!dc.isError && dc.manualOpen && dc.loaded) {
+                      dc.remove();
+                      ev.stopPropagation();
+                      ev.preventDefault();
+                    }
+                  },
+                  mouseenter: function(ev, dc) {
+                    if (!dc.isError && !dc.manualOpen && !dc.onFocusOnly)
+                      $A.trigger(this, "rendertooltip");
+                  },
+                  mouseleave: function(ev, dc) {
+                    if (
+                      !dc.isError &&
+                      !dc.manualClose &&
+                      !dc.onFocusOnly &&
+                      dc.loaded
+                    )
+                      dc.remove();
+                  },
+                  checkvalidate: function(ev, dc) {
+                    dc.target = this;
+                    dc.validateCondition();
+                  },
+                  keydown: function(ev, dc) {
+                    if (dc.isError && dc.isResponsive)
+                      $A.trigger(this, "checkvalidate");
+                  },
+                  change: function(ev, dc) {
+                    if (dc.isError && dc.isResponsive)
+                      $A.trigger(this, "checkvalidate");
+                  }
+                }
               },
               config || {}
             );
@@ -140,9 +159,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
           if (error)
             dcArray.push(
-              $A(o).toDC(
+              $A.toDC(
                 $A.extend(baseDC(), {
                   target: o,
+                  trigger: o,
                   source: error,
                   isError: true
                 })
@@ -151,9 +171,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
           if (tooltip)
             dcArray.push(
-              $A(o).toDC(
+              $A.toDC(
                 $A.extend(baseDC(), {
                   target: o,
+                  trigger: o,
                   source: tooltip
                 })
               )
@@ -161,9 +182,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
           if (!error && !tooltip)
             dcArray.push(
-              $A(o).toDC(
+              $A.toDC(
                 $A.extend(baseDC(), {
-                  target: o
+                  target: o,
+                  trigger: o
                 })
               )
             );
