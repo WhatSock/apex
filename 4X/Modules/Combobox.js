@@ -45,6 +45,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               returnFocus: false,
               exposeBounds: true,
               exposeHiddenClose: true,
+              style: config.style,
+              animate: config.animate,
               hiddenCloseName: "Close Popup",
               displayHiddenClose: false,
               className: "toplevel-div clearfix",

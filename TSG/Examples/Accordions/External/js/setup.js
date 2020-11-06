@@ -18,16 +18,21 @@ $A.import(["Animate", "Accordion"], { defer: true }, function() {
     // Set the class name that will be added to the triggering element of the currently open accordion
     toggleClass: "open",
 
+    style: { display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {
-        // Optionally add an animation effect when the accordion panel is rendered.
-        // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-        complete();
+        Velocity(outerNode, "transition.slideLeftIn", {
+          complete: function() {
+            complete();
+          }
+        });
       },
       onRemove: function(dc, outerNode, complete) {
-        // Optionally add an animation effect when the accordion panel is removed.
-        // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-        complete();
+        Velocity(outerNode, "transition.slideLeftOut", {
+          complete: function() {
+            complete();
+          }
+        });
       }
     },
 

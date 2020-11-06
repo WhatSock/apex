@@ -2403,10 +2403,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             offsetLeft: isNaN(config.comments && config.comments.offsetLeft)
               ? 0
               : config.comments.offsetLeft,
-            style: {
-              position: "absolute",
-              zIndex: mainDC.style.zIndex
-            },
             className:
               (config.comments && config.comments.className) ||
               "commentTooltip",
@@ -2433,10 +2429,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             offsetLeft: isNaN(config.editor && config.editor.offsetLeft)
               ? 0
               : config.editor.offsetLeft,
-            style: {
-              position: "absolute",
-              zIndex: mainDC.style.zIndex
-            },
             className:
               (config.editor && config.editor.className) || "commentAdd",
             openEditor: false,

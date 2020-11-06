@@ -10,16 +10,21 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
     // Native or simulated input element
     input: $A.getEl("date"),
 
+    style: { display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {
-        // Optionally add an animation effect when the calendar is rendered.
-        // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-        complete();
+        Velocity(outerNode, "transition.fadeIn", {
+          complete: function() {
+            complete();
+          }
+        });
       },
       onRemove: function(dc, outerNode, complete) {
-        // Optionally add an animation effect when the calendar is removed.
-        // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-        complete();
+        Velocity(outerNode, "transition.fadeOut", {
+          complete: function() {
+            complete();
+          }
+        });
       }
     },
 

@@ -39,16 +39,22 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   preload: true,
                   preloadImages: true,
                   preloadCSS: true,
+
+                  style: { display: "none" },
                   animate: {
                     onRender: function(dc, outerNode, complete) {
-                      // Optionally add an animation effect when the accordion panel is rendered.
-                      // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-                      complete();
+                      Velocity(outerNode, "", {
+                        complete: function() {
+                          complete();
+                        }
+                      });
                     },
                     onRemove: function(dc, outerNode, complete) {
-                      // Optionally add an animation effect when the accordion panel is removed.
-                      // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-                      complete();
+                      Velocity(outerNode, "", {
+                        complete: function() {
+                          complete();
+                        }
+                      });
                     }
                   },
                   toggleClass: "open",
@@ -83,16 +89,22 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   preload: true,
                   preloadImages: true,
                   preloadCSS: true,
+
+                  style: { display: "none" },
                   animate: {
                     onRender: function(dc, outerNode, complete) {
-                      // Optionally add an animation effect when the tab panel is rendered.
-                      // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-                      complete();
+                      Velocity(outerNode, "", {
+                        complete: function() {
+                          complete();
+                        }
+                      });
                     },
                     onRemove: function(dc, outerNode, complete) {
-                      // Optionally add an animation effect when the tab panel is removed.
-                      // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-                      complete();
+                      Velocity(outerNode, "", {
+                        complete: function() {
+                          complete();
+                        }
+                      });
                     }
                   },
                   isToggle: false,
@@ -144,74 +156,22 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         // Native or simulated input element
                         input: props.input,
 
-                        // Enable comment dialog
-                        enableComments: false,
-
-                        // Using a token system, set a specific date string format to be used when setting the selected value into the calendar input box
-                        // 'YYYY': 4 digit year, 2019
-                        // 'MMMM': Full name of month, January, etc.
-                        // 'dddd': Full name of weekday, Monday, etc.
-                        // 'MM': 2 digit month, 01, etc.
-                        // 'DD': 2 digit day, 01, etc.
-                        // 'Do': getDateOrdinalSuffix, 1st, 2nd, 3rd.
-                        // 'M': 1 or 2 digit month, 1 through 12
-                        // 'D': 1 or 2 digit day, 1 through 31.
-                        inputDateFormat: "MM/DD/YYYY",
-
-                        // Optional override to choose a different process for handling date selection
-                        // onDateActivate: function(ev, dc, target) {},
-
-                        // Uncomment to disable auto positioning
-                        // autoPosition: 0,
-
-                        // Uncomment to combine the year and month selectors
-                        // condenseYear: true,
-
-                        // Uncomment to switch the behaviour when the PageUp or PageDown keys are pressed to a "natural" behaviour (PageUp goes to previous month, PageDown goes to next month)
-                        // pageUpDownNatural: true,
-
-                        // Uncomment to append a "dayToday" CSS class to the current day cell element - this allows styling to be targeted to this specific element
-                        // highlightToday: true,
-
-                        // Uncomment to fill in the day cells outside of the current month so that the calendar grid is always filled with day cells
-                        // drawFullCalendar: true,
-
-                        // Uncomment to run custom functions at the end of the code within the following component functions. Receives a single parameter "dc", which provides access to the Datepicker object.
-                        // runBefore: function (dc) {
-                        // 	console.log('runBefore');
-                        // 	console.log(dc);
-                        // },
-                        // runAfterClose: function (dc) {
-                        // 	console.log('runAfterClose');
-                        // 	console.log(dc);
-                        // },
-
-                        // Uncomment to override the character used on the month / year change buttons
-                        // leftButtonYearText: '&lt;',
-                        // rightButtonYearText: '&gt;',
-                        // leftButtonMonthText: '&lt;',
-                        // rightButtonMonthText: '&gt;',
-
-                        // Uncomment to set specific start / end boundaries of a date range. Can be Date objects (absolute boundaries), or integers (relative boundaries)
-                        // minDate: (new Date(1987, 4, 19)),
-                        // maxDate: 28,
-
+                        style: { display: "none" },
                         animate: {
                           onRender: function(dc, outerNode, complete) {
-                            // Optionally add an animation effect when the calendar is rendered.
-                            // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-                            complete();
+                            Velocity(outerNode, "", {
+                              complete: function() {
+                                complete();
+                              }
+                            });
                           },
                           onRemove: function(dc, outerNode, complete) {
-                            // Optionally add an animation effect when the calendar is removed.
-                            // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-                            complete();
+                            Velocity(outerNode, "", {
+                              complete: function() {
+                                complete();
+                              }
+                            });
                           }
-                        },
-
-                        style: {
-                          position: "absolute",
-                          zIndex: 1
                         }
                       });
                     }
@@ -250,16 +210,22 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         // forceFocus must always be true if not setting focus into the dialog manually.
                         forceFocus: true,
                         returnFocus: true,
+
+                        style: { display: "none" },
                         animate: {
                           onRender: function(dc, outerNode, complete) {
-                            // Optionally add an animation effect when the dialog is rendered.
-                            // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-                            complete();
+                            Velocity(outerNode, "", {
+                              complete: function() {
+                                complete();
+                              }
+                            });
                           },
                           onRemove: function(dc, outerNode, complete) {
-                            // Optionally add an animation effect when the dialog is removed.
-                            // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-                            complete();
+                            Velocity(outerNode, "", {
+                              complete: function() {
+                                complete();
+                              }
+                            });
                           }
                         }
                       });
@@ -321,16 +287,22 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         // forceFocus must always be true if not setting focus into the popup manually.
                         forceFocus: true,
                         circularTabbing: true,
+
+                        style: { display: "none" },
                         animate: {
                           onRender: function(dc, outerNode, complete) {
-                            // Optionally add an animation effect when the popup is rendered.
-                            // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-                            complete();
+                            Velocity(outerNode, "", {
+                              complete: function() {
+                                complete();
+                              }
+                            });
                           },
                           onRemove: function(dc, outerNode, complete) {
-                            // Optionally add an animation effect when the popup is removed.
-                            // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-                            complete();
+                            Velocity(outerNode, "", {
+                              complete: function() {
+                                complete();
+                              }
+                            });
                           }
                         },
                         runAfter: function(dc) {

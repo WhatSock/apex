@@ -10,40 +10,22 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
     // Native or simulated input element
     input: $A.getEl("dateId"),
 
+    style: { display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {
-        // Optionally add an animation effect when the calendar is rendered.
-        // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-        complete();
+        Velocity(outerNode, "transition.fadeIn", {
+          complete: function() {
+            complete();
+          }
+        });
       },
       onRemove: function(dc, outerNode, complete) {
-        // Optionally add an animation effect when the calendar is removed.
-        // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-        complete();
+        Velocity(outerNode, "transition.fadeOut", {
+          complete: function() {
+            complete();
+          }
+        });
       }
-    },
-
-    // Enable comment dialog
-    enableComments: false,
-
-    // Using a token system, set a specific date string format to be used when setting the selected value into the calendar input box
-    // 'YYYY': 4 digit year, 2019
-    // 'MMMM': Full name of month, January, etc.
-    // 'dddd': Full name of weekday, Monday, etc.
-    // 'MM': 2 digit month, 01, etc.
-    // 'DD': 2 digit day, 01, etc.
-    // 'Do': getDateOrdinalSuffix, 1st, 2nd, 3rd.
-    // 'M': 1 or 2 digit month, 1 through 12
-    // 'D': 1 or 2 digit day, 1 through 31.
-    inputDateFormat: "MM/DD/YYYY",
-
-    // Optional override to choose a different process for handling date selection
-    // onDateActivate: function(ev, dc, target) {},
-
-    // Set CSS positioning calculation for the calendar
-    autoPosition: 3,
-    // Customize with positive or negative offsets
-    offsetTop: 0,
-    offsetLeft: 5
+    }
   });
 });

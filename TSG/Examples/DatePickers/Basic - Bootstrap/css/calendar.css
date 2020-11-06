@@ -28,6 +28,8 @@ a.aria-date-picker {
 }
 
 div.calendar {
+  position: absolute;
+  z-index: 1;
   text-align: center;
   color: #fff;
   background: #2e3135;
@@ -128,6 +130,8 @@ td.disabled.selected {
 }
 
 div.commentTooltip {
+  position: absolute;
+  z-index: 1;
   width: 271px;
   padding: 0.5rem;
   color: #fff;
@@ -142,6 +146,8 @@ div.commentTooltip {
 }
 
 div.commentAdd {
+  position: absolute;
+  z-index: 1;
   background: #2e3135;
   border-radius: 0.3rem;
 }

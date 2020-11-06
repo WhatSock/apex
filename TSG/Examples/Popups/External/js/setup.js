@@ -12,16 +12,21 @@ $A.import(["Animate", "Popup"], { defer: true }, function() {
     // forceFocus must always be true if not setting focus into the popup manually.
     forceFocus: true,
     circularTabbing: true,
+    style: { display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {
-        // Optionally add an animation effect when the popup is rendered.
-        // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-        complete();
+        Velocity(outerNode, "transition.fadeIn", {
+          complete: function() {
+            complete();
+          }
+        });
       },
       onRemove: function(dc, outerNode, complete) {
-        // Optionally add an animation effect when the popup is removed.
-        // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-        complete();
+        Velocity(outerNode, "transition.fadeOut", {
+          complete: function() {
+            complete();
+          }
+        });
       }
     },
     runAfter: function(dc) {
