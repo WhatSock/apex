@@ -9,7 +9,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
   if (!("Listbox" in $A)) {
     $A.import("RovingTabIndex", {
       name: "ListBoxModule",
-      once: true,
       props: props,
       call: function(props) {
         $A.extend({

@@ -9,7 +9,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
   if (!("setTabList" in $A)) {
     $A.import("RovingTabIndex", {
       name: "TabListModule",
-      once: true,
       props: props,
       call: function(props) {
         $A.addWidgetTypeProfile("TabPanel", {

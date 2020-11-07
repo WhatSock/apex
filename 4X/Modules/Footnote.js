@@ -9,7 +9,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
   if (!("setFootnotes" in $A)) {
     $A.import("SmoothScroll", {
       name: "FootnoteModule",
-      once: true,
       props: props,
       call: function(props) {
         $A.extend({
