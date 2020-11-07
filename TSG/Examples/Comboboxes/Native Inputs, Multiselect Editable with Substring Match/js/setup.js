@@ -3,6 +3,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   var myAuthorCombobox = new $A.Combobox({
     select: $A.getEl("authors"),
     input: $A.getEl("authrEdit"),
+    delay: 1000,
     style: { display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {

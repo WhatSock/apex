@@ -28,7 +28,15 @@
             <div class="demo-block">
                 <p><label for="dummyField1"> Field1 to set focus to: </label>
                     <input type="text" id="dummyField1" /></p>
+
+                <h3>Tooltip with manual click to render</h3>
+
+                <!-- Here the data-tooltip attribute is used to set the tooltip content. -->
                 <p><a data-tooltip='"It is a mistake to think you can solve any major problems just with potatoes.", Douglas Adams' id="helpIcon" href="#" class="helpIcon aria-tooltip"><img src="img/ic_help.svg" alt="What is the greatest secret known to man?" title="What is the greatest secret known to man?" /></a></p>
+
+                <h3>Tooltip with explicit onFocus to render</h3>
+
+                <!-- Here the data-tooltip attribute is used to reference the id of the hidden tooltip container element. -->
                 <p><label for="pWord">Password:</label>
                     <input data-tooltip="#password-tooltip" id="pWord" type="password" /></p>
 
@@ -43,16 +51,26 @@
                     </ul>
                 </div>
 
+                <h3>Tooltip with hover support to render</h3>
+
+                <!-- Here the data-tooltip attribute is used to reference the id of the hidden tooltip container element. -->
+                <button data-tooltip="#hover-tooltip" class="action-btn" onclick="alert('Do something else.')">Action</button>
+
+                <div hidden id="hover-tooltip">
+                    <p>
+                        Wow, look at that!
+                    </p>
+                </div>
+
                 <p><label for="dummyField2">Field2 to set focus to:</label> <input type="text" id="dummyField2" /></p>
             </div>
 
             <div class="intro tal keyboard">
-                <p>The tooltip is optimized for screen readers and keyboard only users:</p>
+                <p>The tooltip is optimized for screen reader and keyboard only users:</p>
                 <ul>
                     <li>Set focus on one of the Focus fields,
                         then press <kbd>Tab</kbd> and <kbd><kbd>Shift</kbd>+<kbd>Tab</kbd></kbd> to navigate between them.</li>
                     <li>Tabbing away from an active element with a tooltip, or pressing <kbd>Escape</kbd>, will close the tooltip.</li>
-                    <li>Mouse users can mouse in and out of the icon to show or hide the tooltip as usual.</li>
                 </ul>
             </div>
         </main>

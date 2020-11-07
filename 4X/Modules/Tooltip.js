@@ -10,7 +10,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     $A.addWidgetTypeProfile("Tooltip", {
       configure: function(dc) {
         return {
-          delay: 1500,
+          delay: 0,
+          delayTimeout: 0,
+          isError: false,
+          isFocusOnly: false,
+          isResponsive: false,
+          isManualOpen: false,
+          isManualClose: true,
           isAlert: false,
           exposeBounds: true,
           forceFocus: false,
@@ -20,15 +26,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           preloadCSS: true,
           className: "tooltip",
           allowReopen: false,
-          isResponsive: false,
-          manualOpen: false,
-          manualClose: true,
           escToClose: true,
           mouseLeave: function(ev, dc) {
             dc.remove();
           },
           click: function(ev, dc) {
             dc.remove();
+            ev.stopPropagation();
             ev.preventDefault();
           }
         };
@@ -45,8 +49,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         };
       },
       onRender: function(dc, container) {
-        $A.setAttr(dc.target, "aria-describedby", container.id);
-        if ($A.isIE()) $A.announce(container);
+        if (
+          !(
+            !dc.isError &&
+            !dc.isFocusOnly &&
+            !dc.isResponsive &&
+            !dc.isManualOpen &&
+            !dc.isAlert &&
+            !dc.isIE
+          )
+        )
+          $A.setAttr(dc.target, "aria-describedby", container.id);
+        else if (dc.isAlert) $A.announce(container, false, true);
+        else if (dc.isIE) $A.announce(container);
       },
       onRemove: function(dc, container) {
         $A.remAttr(dc.target, "aria-describedby");
@@ -65,6 +80,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           o = config.trigger || null;
         }
         if (!o) return null;
+        if (!config) config = {};
+        config.isIE = $A.isIE();
 
         var baseDC = function() {
             return $A.extend(
@@ -90,44 +107,37 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     dc.render();
                   },
                   focus: function(ev, dc) {
-                    if (!dc.isError && !dc.manualOpen)
+                    if (!dc.isError && !dc.isManualOpen)
                       $A.trigger(this, "rendertooltip");
-                    else if (dc.isError && !dc.isResponsive && dc.loaded)
-                      dc.remove();
+                    else if (dc.isError && !dc.isResponsive) dc.remove();
                   },
                   blur: function(ev, dc) {
-                    if (!dc.isError && dc.loaded) dc.remove();
+                    if (!dc.isError) dc.remove();
                     else if (dc.isError && !dc.isResponsive)
                       $A.trigger(this, "checkvalidate");
                   },
                   touchstart: function(ev, dc) {
-                    if (!dc.isError && !dc.manualOpen)
+                    if (!dc.isError && !dc.isManualOpen)
                       $A.trigger(this, "rendertooltip");
-                    else if (dc.isError && !dc.isResponsive && dc.loaded)
-                      dc.remove();
+                    else if (dc.isError && !dc.isResponsive) dc.remove();
                   },
                   click: function(ev, dc) {
-                    if (!dc.isError && dc.manualOpen && !dc.loaded) {
+                    if (!dc.isError && dc.isManualOpen) {
                       $A.trigger(this, "rendertooltip");
                       ev.stopPropagation();
                       ev.preventDefault();
-                    } else if (!dc.isError && dc.manualOpen && dc.loaded) {
+                    } else if (!dc.isError && dc.isManualOpen) {
                       dc.remove();
                       ev.stopPropagation();
                       ev.preventDefault();
                     }
                   },
                   mouseenter: function(ev, dc) {
-                    if (!dc.isError && !dc.manualOpen && !dc.onFocusOnly)
+                    if (!dc.isError && !dc.isManualOpen && !dc.isFocusOnly)
                       $A.trigger(this, "rendertooltip");
                   },
                   mouseleave: function(ev, dc) {
-                    if (
-                      !dc.isError &&
-                      !dc.manualClose &&
-                      !dc.onFocusOnly &&
-                      dc.loaded
-                    )
+                    if (!dc.isError && !dc.isManualClose && !dc.isFocusOnly)
                       dc.remove();
                   },
                   checkvalidate: function(ev, dc) {
@@ -169,7 +179,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               )
             );
 
-          if (tooltip)
+          if (tooltip) {
             dcArray.push(
               $A.toDC(
                 $A.extend(baseDC(), {
@@ -179,8 +189,17 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 })
               )
             );
+            if (
+              !config.isFocusOnly &&
+              !config.isResponsive &&
+              !config.isManualOpen &&
+              !config.isAlert &&
+              !config.isIE
+            )
+              $A.setAttr(o, "aria-description", $A.getText(tooltip));
+          }
 
-          if (!error && !tooltip)
+          if (!error && !tooltip) {
             dcArray.push(
               $A.toDC(
                 $A.extend(baseDC(), {
@@ -189,6 +208,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 })
               )
             );
+            if (
+              !config.isFocusOnly &&
+              !config.isResponsive &&
+              !config.isManualOpen &&
+              !config.isAlert &&
+              !config.isIE
+            )
+              $A.setAttr(
+                o,
+                "aria-description",
+                $A.getText($A.morph(config.source))
+              );
+          }
         });
 
         return dcArray.length === 1 ? dcArray[0] : dcArray;

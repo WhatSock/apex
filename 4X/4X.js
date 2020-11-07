@@ -3566,10 +3566,12 @@ error: function(error, promise){}
               if (dc.forceFocus) $A.focus(dc.container);
               if (dc.announce) $A.announce(dc.container);
               if ($A.bootstrap) $A.bootstrap(dc.container);
-              if (dc.delayTimeout)
-                dc.timer = setTimeout(function() {
+              if ($A.isNum(dc.delayTimeout) && dc.delayTimeout > 0) {
+                if (dc.fn.timer) clearTimeout(dc.fn.timer);
+                dc.fn.timer = setTimeout(function() {
                   dc.timeout(dc);
                 }, dc.delayTimeout);
+              }
             });
           };
 
@@ -4220,7 +4222,10 @@ onRemove: function(mutationRecordObject, dc){ },
 
             //            tabOut: function(ev, dc) {},
             //            delayTimeout: 0,
-            //            timeout: function(dc) {},
+            timeout: function(dc) {
+              dc.remove();
+              return dc;
+            },
 
             // escToClose: false,
             //            className: "",

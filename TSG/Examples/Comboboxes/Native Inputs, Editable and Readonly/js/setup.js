@@ -3,6 +3,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   var myStateCombobox = new $A.Combobox({
     select: $A.getEl("states"),
     input: $A.getEl("stt"),
+    delay: 1000,
     style: { display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {
@@ -93,6 +94,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   var myCountryCombobox = new $A.Combobox({
     select: $A.getEl("countries"),
     input: $A.getEl("ctry"),
+    delay: 1000,
     style: { display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {
