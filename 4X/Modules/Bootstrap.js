@@ -33,6 +33,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               props: $A.extend(props, {
                 accordionGroup: groups[n]
               }),
+              once: true,
               call: function(props) {
                 $A.setAccordion({
                   triggers: props.accordionGroup,
@@ -83,6 +84,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               props: $A.extend(props, {
                 tabList: groups
               }),
+              once: true,
               call: function(props) {
                 $A.setTabList({
                   tabList: props.tabList,
@@ -145,6 +147,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       button: o,
                       input: target
                     }),
+                    once: true,
                     call: function(props) {
                       $A.setDatePicker({
                         // Unique ID for the date picker instance
@@ -195,6 +198,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               props: $A.extend(props, {
                 triggers: triggers
               }),
+              once: true,
               call: function(props) {
                 $A.loop(
                   props.triggers,
@@ -247,6 +251,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               name: "BootstrapFootnote",
               defer: true,
               props: props,
+              once: true,
               call: function(props) {
                 $A.setFootnotes({
                   footnotes: fnSelector,
@@ -273,6 +278,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               props: $A.extend(props, {
                 triggers: triggers
               }),
+              once: true,
               call: function(props) {
                 $A.loop(
                   props.triggers,

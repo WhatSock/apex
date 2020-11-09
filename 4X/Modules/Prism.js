@@ -1234,6 +1234,7 @@ Prism.languages.js = Prism.languages.javascript;
   $A.import("Prism.css", {
     defer: true,
     props: props,
+    once: true,
     call: function(props) {
       self.Prism.fileHighlight();
     }

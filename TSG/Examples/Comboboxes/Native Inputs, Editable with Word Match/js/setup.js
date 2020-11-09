@@ -10,7 +10,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   var myHardwareCombobox = new $A.Combobox({
     select: $A.getEl("devicesId"),
     input: $A.getEl("hardwareEdit"),
-    delay: 1000,
+    delay: 200,
     style: { display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {

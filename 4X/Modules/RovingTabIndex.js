@@ -10,6 +10,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     $A.import("AccName", {
       name: "RovingTabIndexModule",
       props: props,
+      once: true,
       call: function(props) {
         $A.extend({
           RovingTabIndex: function(options) {

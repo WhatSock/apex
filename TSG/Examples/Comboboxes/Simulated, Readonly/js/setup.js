@@ -4,7 +4,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
     select: $A.getEl("languagesId"),
     input: $A.getEl("langBtnId"),
     childNode: $A.getEl("langChild"),
-    delay: 1000,
+    delay: 200,
     style: { display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {
