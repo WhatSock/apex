@@ -1020,18 +1020,28 @@ error: function(error, promise){}
       var pDeferred = config.props._Defer ? true : false;
       if (pDeferred) config.defer = true;
       if (config.defer) config.props._Defer = true;
+      var impId = config.props._ImpId ? config.props._ImpId : $A.genId();
+      config.props._ImpId = impId;
       if (!$A.isFn(config.call)) config.call = function() {};
+      var refs = [],
+        m = !$A.isArray(source) ? 0 : source.length - 1,
+        cb = function(iA, i, rs) {
+          if (iA.length) {
+            iA[iA.length - 1].call(window, iA[iA.length - 1]["_props"], rs);
+            if (i === m) iA.splice(iA.length - 1, 1);
+          }
+        };
       if (
         !source ||
         ($A.isArray(source) && !source.length) ||
         (!nC && config.name && $A._cacheName[config.name])
       ) {
-        if ($A.isFn(config.call)) {
-          if (config.defer && !$A.isDocLoaded)
+        if ($A.isFn($A._cacheName[config.name])) {
+          if (!pDeferred && config.defer && !$A.isDocLoaded)
             $A.on("load", function() {
-              config.call.call(context, config.props || context);
+              $A._cacheName[config.name].call(window, config.props);
             });
-          else config.call.call(context, config.props || context);
+          else $A._cacheName[config.name].call(window, config.props);
         }
       } else if (
         config.tag === "img" &&
@@ -1055,8 +1065,6 @@ error: function(error, promise){}
           config.call["_props"] = config.props || null;
           $A[config.defer ? "_ICBD" : "_ICB"].push(config.call);
         }
-        var refs = [],
-          m = !$A.isArray(source) ? 0 : source.length - 1;
         $A.loop(
           source,
           function(i, s) {
@@ -1076,18 +1084,34 @@ error: function(error, promise){}
               if ($A.isFn(config.call) && (config.callOnAll || i === m)) {
                 config.call.call(window, config.call["_props"]);
               }
-            } else if (!nC && !isCSS && $A._jsCache[u]) {
+            } else if (
+              !nC &&
+              !isCSS &&
+              $A._jsCache[u] &&
+              $A._jsCache[u]._ImpId !== impId
+            ) {
               var rs;
-              if (!$A._jsCache[u].once)
-                rs = $A._jsCache[u].call(
-                  window,
-                  window,
-                  document,
-                  $A,
-                  config.props
-                );
-              if ($A.isFn(config.call) && (config.callOnAll || i === m)) {
-                config.call.call(window, config.call["_props"], rs);
+              if (!$A._jsCache[u].once) {
+                try {
+                  rs = $A._jsCache[u].call(
+                    window,
+                    window,
+                    document,
+                    $A,
+                    config.props,
+                    config.props.DC
+                  );
+                } catch (e) {
+                  $A.parseDebug(e);
+                }
+              }
+
+              if ((config.callOnAll || i === m) && $A.isFn(config.call)) {
+                if (!pDeferred && config.defer && !$A.isDocLoaded)
+                  $A.on("load", function() {
+                    cb($A._ICBD, i, rs);
+                  });
+                else cb($A[config.defer ? "_ICBD" : "_ICB"], i, rs);
               }
             } else
               refs.push(
@@ -1114,51 +1138,43 @@ error: function(error, promise){}
                             document.body
                           ).appendChild(rs.cloneNode(true));
                         } else {
-                          if (nC || !$A._jsCache[u] || !$A._jsCache[u].once) {
-                            try {
-                              var f = new Function(
-                                "window,document,$A,props,DC,dc",
+                          try {
+                            var f =
+                              $A._jsCache[u] ||
+                              new Function(
+                                "window,document,$A,props,DC",
                                 content
                               );
-                            } catch (e) {
-                              $A.parseDebug(e);
-                            }
-                            rs = f.call(
-                              window,
-                              window,
-                              document,
-                              $A,
-                              config.props,
-                              config.props.DC,
-                              config.props.DC
-                            );
+                            rs =
+                              $A._jsCache[u] && $A._jsCache[u].once
+                                ? null
+                                : f.call(
+                                    window,
+                                    window,
+                                    document,
+                                    $A,
+                                    config.props,
+                                    config.props.DC
+                                  );
                             if (!nC && config.once) f.once = true;
-                            if (!nC) $A._jsCache[u] = f;
+                            f._ImpId = impId;
+                            if (!nC && !$A._jsCache[u]) $A._jsCache[u] = f;
+                          } catch (e) {
+                            $A.parseDebug(e);
                           }
                         }
                         if (!nC && config.name)
-                          $A._cacheName[config.name] = true;
+                          $A._cacheName[config.name] = config.call;
                       }
                       if (
                         (config.callOnAll || i === m) &&
                         $A.isFn(config.call)
                       ) {
-                        var cb = function(iA) {
-                          if (iA.length) {
-                            iA[iA.length - 1].call(
-                              window,
-                              iA[iA.length - 1]["_props"],
-                              rs
-                            );
-                            if (i === m) iA.splice(iA.length - 1, 1);
-                          }
-                        };
-
                         if (!pDeferred && config.defer && !$A.isDocLoaded)
                           $A.on("load", function() {
-                            cb($A._ICBD);
+                            cb($A._ICBD, i, rs);
                           });
-                        else cb($A[config.defer ? "_ICBD" : "_ICB"]);
+                        else cb($A[config.defer ? "_ICBD" : "_ICB"], i, rs);
                       }
                     }
                   },

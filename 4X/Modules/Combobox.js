@@ -62,6 +62,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               cb: {
                 selected: [],
                 select: function(dc, o, select) {
+                  if (!$A.isDOMNode(o) || !o.id) return;
                   $A.remAttr(dc.cb.selected, "aria-selected");
                   $A.remClass(dc.cb.selected, dc.activeClass);
                   dc.cb.selected = [];
