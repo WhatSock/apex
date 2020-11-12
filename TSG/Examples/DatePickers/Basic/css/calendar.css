@@ -1,13 +1,12 @@
-div.dateField {
-  margin: 100px 0px;
+/* Specific styles for ARIA Calendar. Moved to common forms.css*/
+/*.accCalendar{
+  background:none;
+  border:none;
 }
-
-/* Specific styles for ARIA Calendar */
-
 #datepicker-demo {
-  background: #e0e0e0;
-  padding: 1rem;
-  margin: 1rem 0 2rem;
+  background: var(--combobox-lightGrey2);
+  padding: 1em;
+  margin: 1em 0 2em;
 }
 
 #datepicker-demo em {
@@ -28,16 +27,15 @@ a.accCalendar {
 }
 
 div.calendar {
-  position: absolute;
-  z-index: 1;
   text-align: center;
-  color: #fff;
-  background: #2e3135;
-  padding: 0.5rem;
-  border-radius: 0.3rem;
-  -webkit-box-shadow: 0 10px 6px -6px #777;
-  -moz-box-shadow: 0 10px 6px -6px #777;
-  box-shadow: 0 10px 6px -6px #777;
+  color: var(--globalWhite);
+  background: var(--elementBlack);
+  padding: 0.5em;
+  border-radius: 0.3em;
+  max-width:16.5em;
+  -webkit-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  -moz-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
 }
 
 table.calendar {
@@ -48,7 +46,7 @@ table.calendar {
 table.calendar td,
 table.calendar th {
   padding: 0.3em 0.5em;
-  border-radius: 0.15rem;
+  border-radius: 0.15em;
 }
 
 td.empty {
@@ -65,27 +63,27 @@ td.day {
 
 td.day {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  color: #000;
-  background: #63b7c2;
+  color: var(--bodyText);
+  background: var(--whatsock-blue);
 }
 
 td.dayToday {
-  color: #000;
-  background: #db7093;
+  color: var(--bodyText);
+  background: var(--datepicker-pink);
 }
 
 td.dayInPrevMonth,
 td.dayInNextMonth {
-  color: #000;
-  background: #e6e6e6;
+  color: var(--bodyText);
+  background: var(--datepicker-dayInMonth);
 }
 
 td.day:hover {
-  background: #e2a037;
+  background: var(--datepicker-day);
 }
 
 td[aria-current="date"] {
-  background: #e2a037;
+  background: var(--datepicker-day);
 }
 
 div.calendar *:focus,
@@ -95,8 +93,8 @@ div.commentAdd *:focus {
 
 td.month {
   font-weight: 600;
-  color: #63b7c2;
-  text-shadow: 0 1px 0 #000;
+  color: var(--whatsock-blue);
+  text-shadow: 0 1px 0 var(--bodyText);
 }
 
 td.comment {
@@ -107,35 +105,33 @@ td.comment span::after {
   position: absolute;
   width: 7px;
   height: 7px;
-  top: 0.2rem;
-  right: 0.2rem;
+  top: 0.2em;
+  right: 0.2em;
   content: "";
-  background: #49182e;
+  background: var(--datepicker-darkGrey);
   border-radius: 7px;
 }
 
 td.comment.selected {
-  background: #e2a037;
+  background: var(--datepicker-day);
 }
 
 td.disabled,
 td.disabled:hover {
-  color: #ccc;
-  background: #bdbdbd;
+  color: var(--datepicker-lightGrey);
+  background: var(--datepicker-lmGrey);
   cursor: auto;
 }
 
 td.disabled.selected {
-  background: #c2c2c2;
+  background: var(--datepicker-mmGrey);
 }
 
 div.commentTooltip {
-  position: absolute;
-  z-index: 1;
   width: 271px;
-  padding: 0.5rem;
-  color: #fff;
-  background: #3d4043;
+  padding: 0.5em;
+  color: var(--globalWhite);
+  background: var(--datepicket-dGrey);
   font-size: 0.8em;
   font-weight: bold;
   max-height: 50px;
@@ -146,25 +142,23 @@ div.commentTooltip {
 }
 
 div.commentAdd {
-  position: absolute;
-  z-index: 1;
-  background: #2e3135;
-  border-radius: 0.3rem;
+  background: var(--elementBlack);
+  border-radius: 0.3em;
 }
 
 div.commentAdd button {
   font-size: 100%;
   text-transform: uppercase;
-  color: #fff;
-  background: #2e3135;
-  padding: 0.5rem;
+  color: var(--globalWhite);
+  background: var(--elementBlack);
+  padding: 0.5em;
   margin-top: -5px;
   border: none;
-  border-bottom-left-radius: 0.3rem;
-  border-bottom-right-radius: 0.3rem;
-  -webkit-box-shadow: 0 10px 6px -6px #777;
-  -moz-box-shadow: 0 10px 6px -6px #777;
-  box-shadow: 0 10px 6px -6px #777;
+  border-bottom-left-radius: 0.3em;
+  border-bottom-right-radius: 0.3em;
+  -webkit-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  -moz-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
 }
 
 div.commentAdd textarea {
@@ -174,11 +168,12 @@ div.commentAdd textarea {
   word-wrap: break-word;
   text-align: left;
   padding: 0.2em;
-  margin: 0.5rem 0.5rem 0;
+  margin: 0.5em 0.5em 0;
 }
 
 div.monthMessage {
-  border: 1px solid #000;
+  border: 1px solid var(--bodyText);
   margin: 20px 10px 10px 10px;
   padding: 10px;
 }
+*/

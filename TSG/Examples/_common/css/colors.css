@@ -1,0 +1,59 @@
+/*--------------------------------------------------------------------
+         WHATSOCK AccDC
+         TECHNICAL STYLEGUIDE
+         2016-2020
+-------------------------------------------------------------------- */
+
+/*--------------------------------------------------------------------
+         CSS by Laurence Lewis October 2020
+-------------------------------------------------------------------- */
+
+/***************
+Lets modernise this and use css variables to define the colours so we only have to define them once.
+There are a lot of different colours used in the modules. We can review all the colours used and reduce the number by examining the root colours below.
+
+If root color is  --color-06: #c0294245;
+Call 'background-color:  var(--whatsock-red);
+************/
+:root {
+  /*common*/
+  --whatsock-red: #c13836;
+  --whatsock-blue: #63b7c2;
+  --whatsock-orange-main: #fc0;
+  --whatsock-orange-highlight: #fce7c7;
+  --whatsock-gray: #b8b7ab;
+  --whatsock-contrast-red: #CB4A48;
+  --whatsock-black: #2e3135;
+  /*--whatsock-beige: */
+  --bodyText: #262626;
+  --elementBlack: #2e3135;
+  --globalWhite: #fff;
+
+  /*Tablist*/
+  --tablist-black: #2e3135;
+  --tablist-brown: #5d1f2c;
+
+  /*Listbox*/
+  --listbox-lightGrey: #e0e0e0;
+  --listbox-darkGrey: #333;
+  --listbox-limeGreen: #80FF00;  
+  --listbox-limeBlue: #92dbf6;
+
+  /*Comboboxes*/
+  --combobox-lightGrey: #eee;
+  --combobox-lightGrey2: #e0e0e0;
+  --combobox-darkGrey: #333;
+  --combobox-midGrey: #777;
+  --combobox-red: #c1384d;
+
+  /*datepickers*/
+  --datepicker-pink: #db7093;
+  --datepicker-dayInMonth: #e6e6e6;
+  --datepicker-day: #e2a037;
+  --datepicker-darkGrey: #49182e;
+  --datepicker-lightGrey: #ccc;
+  --datepicker-lmGrey: #bdbdbd;
+  --datepicker-mmGrey: #C2C2C2;
+  --datepicker-dGrey: #3d4043;
+  --datepicker-codeBGrey: #e4e4e4;
+}

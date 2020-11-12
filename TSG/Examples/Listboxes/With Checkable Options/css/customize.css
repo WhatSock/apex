@@ -1,87 +1,49 @@
 /* Specific styles for ARIA Listboxes */
 
-div.sample {
-  -webkit-display: flex;
-  -ms-display: flex;
-  display: flex;
-}
-
-.standardWrapper {
-  position: relative;
-  overflow-x: hidden;
-  overflow-y: auto;
-  text-align: center;
-  background-color: #e0e0e0;
-}
-
-#standardSelectId {
-  max-width: 200px;
-  -webkit-flex: 0 1 70%;
-  -ms-flex: 0 1 70%;
-  flex: 0 1 70%;
-  margin-left: 5%;
-}
-
 #listboxId {
-  list-style: none;
-  display: -webkit-flex;
-  display: -ms-flex;
+  list-style-type:none;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-justify-content: space-around;
-  -ms-justify-content: space-around;
-  justify-content: space-around;
-  padding: 1rem;
-  margin: 0;
+  justify-content: space-between;
+  margin-left:0;
 }
-
 #listboxId > li {
-  position: relative;
-  padding: 0.5rem;
+  margin-bottom:0.25em;
+  position:relative;
+}
+#listboxId > li > [role="option"] {
+  border:none;
+  width:3em;
+  height: 3em;
+}
+#listboxId [role="option"] .lbl {
+  position:absolute;
+  left: 0;
+  width:100%;
+  top:0.8em;
+  width:10em;
 }
 
-#listboxId > li > a {
-  cursor: pointer;
-  display: inline-block;
-  text-decoration: none;
-  height: 40px;
-  width: 40px;
-}
-
-#listboxId a[aria-selected="true"],
-#listboxId a:hover,
-#listboxId a:focus {
+#listboxId [role="option"][aria-selected="true"],
+#listboxId [role="option"]:hover,
+#listboxId [role="option"]:focus {
   background: #92dbf6;
 }
 
-#listboxId a[role="option"][aria-checked="false"] {
+#listboxId [role="option"][aria-checked="false"] {
   background: url("../img/unchecked.svg");
   background-repeat: no-repeat;
   background-position: center;
 }
 
-#listboxId a[role="option"][aria-checked="mixed"] {
+#listboxId [role="option"][aria-checked="mixed"] {
   background: url("../img/indeterminate.svg");
   background-repeat: no-repeat;
   background-position: center;
 }
 
-#listboxId a[role="option"][aria-checked="true"] {
+#listboxId [role="option"][aria-checked="true"] {
   background: url("../img/checked.svg");
   background-repeat: no-repeat;
   background-position: center;
-}
-
-#listboxId a .lbl {
-  position: relative;
-  top: 30px;
-  display: inline-block;
-  width: 100%;
-  height: 20px;
-}
-
-.desc {
-  clear: both;
 }

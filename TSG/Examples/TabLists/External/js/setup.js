@@ -1,7 +1,7 @@
 $A.import(["Animate", "TabList"], { defer: true }, function() {
   $A.setTabList({
     // Specify the tab container that includes role="tablist".
-    tabList: 'ul.aria-tablist[role="tablist"]',
+    tabList: '.aria-tablist[role="tablist"]',
 
     // Preload HTML markup when pulling content from external content files to speed rendering
     preload: true,
