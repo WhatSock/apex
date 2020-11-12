@@ -1204,7 +1204,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 o,
                 $A.extend(
                   {
-                    duration: 300,
+                    duration: 150,
                     container: that.listboxNode,
                     complete: function() {
                       if ($A.isFn(cb)) cb.call(o, o);

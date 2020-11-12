@@ -192,8 +192,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     debug: true,
     parseDebug: function(e) {
       if ($A.debug) {
-        var a = [e.message, e.filename, e.lineno + ":" + e.colno, e.error];
-        alert(a);
+        throw e;
       }
     },
 
@@ -940,8 +939,11 @@ error: function(error, promise){}
                       options.returnType.toLowerCase() === "html"
                     )
                       content = $A.toNode(content);
-                    if (options.selector)
-                      content = $A.query(options.selector, content)[0];
+                    if (
+                      $A.isDOMNode(content, null, document, 11) &&
+                      $A.isSelector(options.selector)
+                    )
+                      content = content.querySelector(options.selector);
                     if ($A.isFn(success)) success.call(this, content, response);
                     i++;
                     if (o[i])
@@ -1062,7 +1064,7 @@ error: function(error, promise){}
         );
       } else {
         if ($A.isFn(config.call)) {
-          config.call["_props"] = config.props || null;
+          config.call["_props"] = config.props || {};
           $A[config.defer ? "_ICBD" : "_ICB"].push(config.call);
         }
         $A.loop(
