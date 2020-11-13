@@ -1,7 +1,8 @@
 @font-face {
   font-family: "open_sansregular";
   src: url("../fonts/OpenSans-Regular-webfont.eot");
-  src: url("../fonts/OpenSans-Regular-webfont.eot?#iefix") format("embedded-opentype"),
+  src: url("../fonts/OpenSans-Regular-webfont.eot?#iefix")
+      format("embedded-opentype"),
     url("../fonts/OpenSans-Regular-webfont.woff") format("woff"),
     url("../fonts/OpenSans-Regular-webfont.ttf") format("truetype"),
     url("../fonts/OpenSans-Regular-webfont.svg#open_sansregular") format("svg");
@@ -34,7 +35,8 @@
 @font-face {
   font-family: "open_sansbold";
   src: url("../fonts/OpenSans-Bold-webfont.eot");
-  src: url("../fonts/OpenSans-Bold-webfont.eot?#iefix") format("embedded-opentype"),
+  src: url("../fonts/OpenSans-Bold-webfont.eot?#iefix")
+      format("embedded-opentype"),
     url("../fonts/OpenSans-Bold-webfont.woff") format("woff"),
     url("../fonts/OpenSans-Bold-webfont.ttf") format("truetype"),
     url("../fonts/OpenSans-Bold-webfont.svg#open_sansbold") format("svg");

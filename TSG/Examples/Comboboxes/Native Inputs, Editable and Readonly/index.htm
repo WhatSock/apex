@@ -42,49 +42,49 @@
                     <div class="component flex-item">
                         <h1 class="pageTitle">ARIA Combobox <small>(Native Inputs, Editable and Readonly)</small></h1>
                         <div class="form--container">
-                        <form id="frm1">
-                            <fieldset>
-                                <legend> Home Address</legend>
-                                <p>
-                                    <label for="strt">Street:</label> 
-                                    <input type="text" name="street" required aria-required="true" id="strt">
-                                </p>
-                                <p>
-                                    <label for="cty">City:</label> 
-                                    <input type="text" name="city" required aria-required="true" id="cty">
-                                </p>
-                                <p>
-                                    <label for="stt">State or province:</label>
-                                    <!-- The attribute role=combobox is required. -->
-                                    <input role="combobox" type="text" name="state-input-value" required id="stt">
-                                    <!-- For editable Input elements:
+                            <form id="frm1">
+                                <fieldset>
+                                    <legend> Home Address</legend>
+                                    <p>
+                                        <label for="strt">Street:</label>
+                                        <input type="text" name="street" required aria-required="true" id="strt">
+                                    </p>
+                                    <p>
+                                        <label for="cty">City:</label>
+                                        <input type="text" name="city" required aria-required="true" id="cty">
+                                    </p>
+                                    <p>
+                                        <label for="stt">State or province:</label>
+                                        <!-- The attribute role=combobox is required. -->
+                                        <input role="combobox" type="text" name="state-input-value" required id="stt">
+                                        <!-- For editable Input elements:
                                         To ensure accessibility for non-sighted touch screen device users, a dynamic Close icon is needed.
                                         This must include an active element role such as 'button' or 'link', and include informative label text. -->
-                                    <img id="mobileCloseIcon" class="hidden" src="img/close.png" role="button" title="Close State Dropdown" aria-label="Close State Dropdown">
-                                </p>
-                                <p>
-                                    <label for="zp">Zipcode:</label> 
-                                    <input type="text" name="zipcode" required aria-required="true" id="zp">
-                                </p>
-                                <p class="select--container">
-                                    <label for="ctry">Country:</label>
-                                    <!--
+                                        <img id="mobileCloseIcon" class="hidden" src="img/close.png" role="button" title="Close State Dropdown" aria-label="Close State Dropdown">
+                                    </p>
+                                    <p>
+                                        <label for="zp">Zipcode:</label>
+                                        <input type="text" name="zipcode" required aria-required="true" id="zp">
+                                    </p>
+                                    <p class="select--container">
+                                        <label for="ctry">Country:</label>
+                                        <!--
                                         The attribute role=combobox is required.
                                         -->
-                                    <input role="combobox" type="text" name="country-input-value" required readonly id="ctry">
-                                    <!--
+                                        <input role="combobox" type="text" name="country-input-value" required readonly id="ctry">
+                                        <!--
                                         For readonly Input elements:
                                         To ensure accessibility for sighted mouse and non-sighted touch screen device users, a dynamic Toggle icon is needed.
                                         This must include informative label text.
                                         -->
-                                    <img id="ctryIcon" title="Country selector" src="img/down.svg" alt="Open options">
+                                        <img id="ctryIcon" title="Country selector" src="img/down.svg" alt="Open options">
+                                    </p>
+                                </fieldset>
+                                <p>
+                                    <input type="submit" value="Submit">
                                 </p>
-                            </fieldset>
-                            <p>
-                                <input type="submit" value="Submit">
-                            </p>
-                        </form>
-                    </div>
+                            </form>
+                        </div>
                         <div class="note">
                             <p>The State field is an editable ARIA Combobox widget that uses a native Input element. The Country field is a readonly ARIA Combobox widget that uses a native Input element.</p>
                         </div>
@@ -109,7 +109,7 @@
         </div>
         <footer class="footer">
             <p class="copyright">&copy;<script type="text/javascript">
-                document.write(new Date().getFullYear());
+                    document.write(new Date().getFullYear());
                 </script> WhatSock. All rights reserved.</p>
             <p>Visual design by <a href="http://gericci.me/">Angela Ricci</a>. Styling updated by Laurence Lewis October 2020</p>
         </footer>

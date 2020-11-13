@@ -2,13 +2,13 @@
 /***Overwrite the auto positioning***/
 
 div.toplevel-div {
-    left:auto !important;
-    right:0.6em !important;
-    top: 8.5em!important;
-    width: 50%;
+  left: auto !important;
+  right: 0.6em !important;
+  top: 8.5em !important;
+  width: 50%;
 }
 @media (min-width: 31.6em) {
-    div.toplevel-div {
-    top: 6.6em!important;
-    }
+  div.toplevel-div {
+    top: 6.6em !important;
+  }
 }

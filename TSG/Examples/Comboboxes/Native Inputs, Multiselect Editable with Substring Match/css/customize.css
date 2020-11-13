@@ -2,7 +2,7 @@
 /***Overwrite the auto positioning***/
 
 div.toplevel-div {
-    left: 7em !important;
-    top: 6em!important;
-    width: 17em;
+  left: 7em !important;
+  top: 6em !important;
+  width: 17em;
 }

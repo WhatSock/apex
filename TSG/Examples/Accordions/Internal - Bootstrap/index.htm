@@ -42,7 +42,7 @@
             attribute.
             * id : The unique ID of the element. This value is also registered as the ID of the individual accordion node DC object, making it possible to invoke
             the object programmatically.
-            E.G $A(uniqueID).open();
+            E.G $A(uniqueID).render();
 
             All other 4X API features are available as documented in the folder: /4X/Help/DC API from the root folder.
             -->
@@ -54,19 +54,37 @@
                                 Section One
                             </button>
                         </h2>
-                        <div id="sect1" class="insertContent"></div>
+                        <div id="sect1" class="insertContent">
+
+                            <div hidden class="content" id="accordion-sect1">
+                                <p>Section One Content</p>
+                            </div>
+
+                        </div>
                         <h2>
                             <button class="aria-accordion-trigger" data-controls="accordion-sect2" data-insert="sect2" id="accordion2id">
                                 Section Two
                             </button>
                         </h2>
-                        <div id="sect2" class="insertContent"></div>
+                        <div id="sect2" class="insertContent">
+
+                            <div hidden class="content" id="accordion-sect2">
+                                <p>Section Two Content</p>
+                            </div>
+
+                        </div>
                         <h2>
                             <button class="aria-accordion-trigger" data-controls="accordion-sect3" data-insert="sect3" id="accordion3id">
                                 Section Three
                             </button>
                         </h2>
-                        <div id="sect3" class="insertContent"></div>
+                        <div id="sect3" class="insertContent">
+
+                            <div hidden class="content" id="accordion-sect3">
+                                <p>Section Three Content</p>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="keyboard flex-item">
                         <h2>The accordion controls are keyboard accessible:</h2>
@@ -77,23 +95,11 @@
                         </ul>
                     </div>
                 </div>
-                <div hidden class="hidden">
-                    <!-- Accordion sections to dynamically display -->
-                    <div class="content" id="accordion-sect1">
-                        <p>Section One Content</p>
-                    </div>
-                    <div class="content" id="accordion-sect2">
-                        <p>Section Two Content</p>
-                    </div>
-                    <div class="content" id="accordion-sect3">
-                        <p>Section Three Content</p>
-                    </div>
-                </div>
             </main>
         </div>
         <footer class="footer">
             <p class="copyright">&copy;<script type="text/javascript">
-                document.write(new Date().getFullYear());
+                    document.write(new Date().getFullYear());
                 </script> WhatSock. All rights reserved.</p>
             <p>Visual design by <a href="http://gericci.me/">Angela Ricci</a>. Styling updated by Laurence Lewis October 2020</p>
         </footer>

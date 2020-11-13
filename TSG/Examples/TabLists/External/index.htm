@@ -53,7 +53,7 @@
                         * data-insert : The ID attribute of the container element where tab panel content will be inserted.
                         * id : The unique ID of the element. This value is also registered as the ID of the individual tab DC object, making it possible to invoke the object
                         programmatically.
-                        E.G $A(uniqueID).open();
+                        E.G $A(uniqueID).render();
                         -->
                         <div class="aria-tablist" role="tablist">
                             <button role="tab" id="xTab1id" class="accTab tab1" data-controls="files/tabs.html#tab1content" data-insert="tabInsertId" data-defaultopen="true">
@@ -88,7 +88,7 @@
         </div>
         <footer class="footer">
             <p class="copyright">&copy;<script type="text/javascript">
-                document.write(new Date().getFullYear());
+                    document.write(new Date().getFullYear());
                 </script> WhatSock. All rights reserved.</p>
             <p>Visual design by <a href="http://gericci.me/">Angela Ricci</a>. Styling updated by Laurence Lewis October 2020</p>
         </footer>

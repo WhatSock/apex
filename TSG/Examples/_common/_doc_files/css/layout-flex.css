@@ -1,54 +1,53 @@
-.outer-wrapper{
-margin:auto;
+.outer-wrapper {
+  margin: auto;
 }
 .wrapper {
-position:relative;
+  position: relative;
 }
 main {
-padding: 1em 2em;
-padding-top:2.5em; 
+  padding: 1em 2em;
+  padding-top: 2.5em;
 }
-main:focus{
-outline:none;
+main:focus {
+  outline: none;
 }
-.left-aside{
-padding:1em;
+.left-aside {
+  padding: 1em;
 }
 .wrapper > * {
   margin-bottom: 10px;
 }
-@media (min-width: 87.5em)  {
-    .wrapper {
+@media (min-width: 87.5em) {
+  .wrapper {
     margin: 0 auto;
-    display:flex;
+    display: flex;
     flex-flow: row nowrap;
     justify-content: space-around;
-    }
-    .wrapper .left-aside{
+  }
+  .wrapper .left-aside {
     flex: 1 0 15em;
-    position:relative;
-    }
-    .wrapper main{
+    position: relative;
+  }
+  .wrapper main {
     flex: 3 auto;
-    padding:0;
-    }
+    padding: 0;
+  }
 }
 /***********************************
 INTERNAL COMPONENT LAYOUT
 ***********************************/
 footer .flex-container-row {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    margin-bottom: 2rem;
-    margin: auto;
-    position:relative;
-    
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+  margin: auto;
+  position: relative;
 }
 footer .flex-container-row .flex-item {
-    color:#fff;
-    flex: 1 1 0;
-    background-color: transparent; 
-    margin: 0;
-    padding:0;
+  color: #fff;
+  flex: 1 1 0;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
 }

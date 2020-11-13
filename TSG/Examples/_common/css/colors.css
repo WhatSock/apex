@@ -22,7 +22,7 @@ Call 'background-color:  var(--whatsock-red);
   --whatsock-orange-main: #fc0;
   --whatsock-orange-highlight: #fce7c7;
   --whatsock-gray: #b8b7ab;
-  --whatsock-contrast-red: #CB4A48;
+  --whatsock-contrast-red: #cb4a48;
   --whatsock-black: #2e3135;
   /*--whatsock-beige: */
   --bodyText: #262626;
@@ -36,7 +36,7 @@ Call 'background-color:  var(--whatsock-red);
   /*Listbox*/
   --listbox-lightGrey: #e0e0e0;
   --listbox-darkGrey: #333;
-  --listbox-limeGreen: #80FF00;  
+  --listbox-limeGreen: #80ff00;
   --listbox-limeBlue: #92dbf6;
 
   /*Comboboxes*/
@@ -53,7 +53,7 @@ Call 'background-color:  var(--whatsock-red);
   --datepicker-darkGrey: #49182e;
   --datepicker-lightGrey: #ccc;
   --datepicker-lmGrey: #bdbdbd;
-  --datepicker-mmGrey: #C2C2C2;
+  --datepicker-mmGrey: #c2c2c2;
   --datepicker-dGrey: #3d4043;
   --datepicker-codeBGrey: #e4e4e4;
 }

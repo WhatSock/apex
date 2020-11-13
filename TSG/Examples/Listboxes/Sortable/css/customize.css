@@ -14,9 +14,9 @@
 #listboxId > li {
   padding: 0.3em;
 }
-[role="option"]{
-  display:block;
-  width:100%;
+[role="option"] {
+  display: block;
+  width: 100%;
 }
 #listboxId > li > [role="option"] span {
   display: block;
@@ -29,7 +29,7 @@
   border-radius: 0.3em;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
 }
-#listboxId > li > [role="option"]:hover  {
+#listboxId > li > [role="option"]:hover {
   text-decoration: none;
 }
 
@@ -44,7 +44,10 @@
   opacity: 0.5;
 }
 
-#listboxId > li > [role="option"][aria-grabbed="true"][aria-selected="true"] span {
+#listboxId
+  > li
+  > [role="option"][aria-grabbed="true"][aria-selected="true"]
+  span {
   box-shadow: 0 2px 5px rgba(241, 249, 0, 0.7);
 }
 

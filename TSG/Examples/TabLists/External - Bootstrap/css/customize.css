@@ -12,10 +12,10 @@
 [role="tab"] {
   color: #fff;
   background: var(--tablist-brown);
-  font-size:1em;
-  margin-bottom:1px;
+  font-size: 1em;
+  margin-bottom: 1px;
   padding: 0.3em 0.5em 0.3em;
-  cursor:auto;
+  cursor: auto;
 }
 
 [role="tab"]:hover,
@@ -28,7 +28,7 @@
 [role="tab"][aria-expanded="true"] {
   color: #fff;
   background-color: var(--tablist-black);
-  font-weight:bold;
+  font-weight: bold;
 }
 
 [role="tabpanel"] {

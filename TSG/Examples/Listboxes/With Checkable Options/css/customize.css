@@ -1,27 +1,27 @@
 /* Specific styles for ARIA Listboxes */
 
 #listboxId {
-  list-style-type:none;
+  list-style-type: none;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left:0;
+  margin-left: 0;
 }
 #listboxId > li {
-  margin-bottom:0.25em;
-  position:relative;
+  margin-bottom: 0.25em;
+  position: relative;
 }
 #listboxId > li > [role="option"] {
-  border:none;
-  width:3em;
+  border: none;
+  width: 3em;
   height: 3em;
 }
 #listboxId [role="option"] .lbl {
-  position:absolute;
+  position: absolute;
   left: 0;
-  width:100%;
-  top:0.8em;
-  width:10em;
+  width: 100%;
+  top: 0.8em;
+  width: 10em;
 }
 
 #listboxId [role="option"][aria-selected="true"],

@@ -1,8 +1,8 @@
 /* Specific styles for ARIA Accordion */
 
 .aria-accordion h2 {
-  font-size:inherit;
-  margin-bottom:1px;
+  font-size: inherit;
+  margin-bottom: 1px;
   position: relative;
 }
 .aria-accordion-trigger {
@@ -13,12 +13,12 @@
   font-size: 1em;
   padding: 0.5em 0.6em;
   text-transform: uppercase;
-  width:100%;
+  width: 100%;
 }
 .aria-accordion-trigger:hover,
-.aria-accordion-trigger:focus{
-  background-color:#24575B;
-  color:#fff;
+.aria-accordion-trigger:focus {
+  background-color: #24575b;
+  color: #fff;
 }
 .aria-accordion-trigger[aria-expanded="true"] {
   background-position-y: -7.2em;
@@ -31,6 +31,6 @@
 }
 #accordion-sect1,
 #accordion-sect2,
-#accordion-sect3{
-  padding:0.5em;
+#accordion-sect3 {
+  padding: 0.5em;
 }
