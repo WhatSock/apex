@@ -14,33 +14,37 @@
 #listboxId > li {
   padding: 0.3em;
 }
-
-#listboxId > li > a span {
+[role="option"]{
+  display:block;
+  width:100%;
+}
+#listboxId > li > [role="option"] span {
   display: block;
   font-size: 1em;
   font-weight: bold;
   text-transform: uppercase;
   background: transparent;
-  padding: 0.3em 0.5em;
+  padding: 0.5em 0;
+  padding-top: 0.7em;
   border-radius: 0.3em;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
 }
-#listboxId > li > a:hover {
+#listboxId > li > [role="option"]:hover  {
   text-decoration: none;
 }
 
-#listboxId > li > a:hover span {
+#listboxId > li > [role="option"]:hover span {
   box-shadow: none;
 }
 
-#listboxId > li > a[aria-selected="true"] span {
+#listboxId > li > [role="option"][aria-selected="true"] span {
 }
 
-#listboxId > li > a[aria-grabbed="true"] span {
+#listboxId > li > [role="option"][aria-grabbed="true"] span {
   opacity: 0.5;
 }
 
-#listboxId > li > a[aria-grabbed="true"][aria-selected="true"] span {
+#listboxId > li > [role="option"][aria-grabbed="true"][aria-selected="true"] span {
   box-shadow: 0 2px 5px rgba(241, 249, 0, 0.7);
 }
 

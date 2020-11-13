@@ -1,7 +1,7 @@
 $A.import(["Animate", "TabList"], { defer: true }, function() {
   $A.setTabList({
     // Specify the tab container that includes role="tablist".
-    tabList: 'ul.aria-tablist[role="tablist"]',
+    tabList: '.aria-tablist[role="tablist"]',
 
     // Set the DC object to render literal content
     mode: 0,

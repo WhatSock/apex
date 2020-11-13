@@ -1,49 +1,52 @@
 /* Specific styles for ARIA Listboxes */
 
-div.sample {
-  -webkit-display: flex;
-  -ms-display: flex;
-  display: flex;
-}
 
 .standardWrapper {
-  position: relative;
-  overflow-x: hidden;
-  overflow-y: auto;
-  text-align: center;
+    position: relative;
+    padding-top: 1.6em;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
 }
 
+.selectLabel {
+    max-width: 200px;
+    -webkit-flex: 0 1 70%;
+    -ms-flex: 0 1 70%;
+    flex: 0 1 70%;
+    margin-left: 5%;
+}
+.selectLabel label {
+  padding-bottom:0.8em;
+}
 #standardSelectId {
-  max-width: 200px;
-  -webkit-flex: 0 1 70%;
-  -ms-flex: 0 1 70%;
-  flex: 0 1 70%;
-  margin-left: 5%;
+    width: 100%;
+    min-height: 85%;
+    padding:0.5em;
 }
 
 #listboxId {
-  padding: 0;
-  margin: 0;
-  list-style: none;
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
 
-#listboxId > li {
-  padding: 3px;
+#listboxId>li {
+    padding: 3px;
 }
 
-#listboxId > li > a {
-  display: block;
-  text-decoration: none;
-  padding: 0.3em 0.5em;
+#listboxId>li>[role="option"] {
+    display: block;
+    text-decoration: none;
+    padding: 0.3em 0.5em;
 }
 
-#listboxId > li > a.selected {
-}
+#listboxId>li>[role="option"].selected {}
 
-#listboxId > li > a > span {
-  display: block;
+#listboxId>li>[role="option"]>span {
+    display: block;
 }
 
 .desc {
-  clear: both;
+    clear: both;
 }

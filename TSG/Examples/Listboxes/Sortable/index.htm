@@ -1,62 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Sortable Listbox - Apex 4X Technical Style Guide</title>
-    <link rel="stylesheet" type="text/css" href="../../_common/css/global.css" />
-    <link rel="stylesheet" type="text/css" href="css/customize.css" />
-
-
-    <script type="text/javascript" src="/4X/4X.js"></script>
-    <script type="text/javascript" src="js/setup.js"></script>
-
-
+    <meta name="description" content="Accessible REACT Components">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
+    <link rel="stylesheet" type="text/css" href="css/customize.css">
+    <script src="/4X/4X.js"></script>
+    <script src="js/setup.js"></script>
 </head>
 
 <body>
-    <div id="coding-arena">
-        <header>
-            <div class="innerHeader">
-                <a href="http://whatsock.com"><img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg" />
-                    <strong>Apex 4X</strong> Technical Style Guide</a>
+    <div class="outer-wrapper">
+        <header class="header flex-container">
+            <div class="logo flex-item">
+                <a href="http://whatsock.com">
+                    <img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg"></a>
+            </div>
+            <div class="site-name flex-item">
+                <strong>Apex 4X</strong> Technical Style Guide
             </div>
         </header>
-
-        <main>
-            <h1 class="pageTitle">ARIA Listbox <small> (Sortable)</small></h1>
-            <div class="demo-block">
-                <div class="sample">
-                    <div class="sortableWrapper">
-                        <ul id="listboxId">
-                            <li role="none"><a href="#" id="sortableOpt1"><span class="lbl">Orange</span></a></li>
-                            <li role="none"><a href="#" id="sortableOpt2"><span class="lbl">Purple</span></a></li>
-                            <li role="none"><a href="#" id="sortableOpt3"><span class="lbl">Green</span></a></li>
-                            <li role="none"><a href="#" id="sortableOpt4"><span class="lbl">Blue</span></a></li>
-                            <li role="none"><a href="#" id="sortableOpt5"><span class="lbl">Black</span></a></li>
+        <div class="wrapper">
+            <div class="left-aside">
+                <nav>
+                    <ul>
+                        <li><a href="../../index.htm">Components</a></li>
+                        <li><a href="../Multiselect/index.htm">Multiselect</a></li>
+                        <li><a href="index.htm" aria-current="page">Sortable</a></li>
+                        <li><a href="../Standard/index.htm">Standard</a></li>
+                        <li><a href="../With Checkable Options/index.htm">With Checkable Options</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <main id="main" class="main">
+                <div class="demo-block flex-container">
+                    <div class="component flex-item">
+                        <h1 class="pageTitle">ARIA Listbox <small> (Sortable)</small></h1>
+                        <div class="sample">
+                            <div class="sortableWrapper">
+                                <ul id="listboxId">
+                                    <li role="none"><button id="sortableOpt1"><span>Orange</span></button></li>
+                                    <li role="none"><button id="sortableOpt2"><span>Purple</span></button></li>
+                                    <li role="none"><button id="sortableOpt3"><span>Green</span></button></li>
+                                    <li role="none"><button id="sortableOpt4"><span>Blue</span></button></li>
+                                    <li role="none"><button id="sortableOpt5"><span>Black</span></button></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="note">
+                            <p>The list items within the ARIA Listbox are sortable.</p>
+                        </div>
+                    </div>
+                    <div class="keyboard flex-item">
+                        <h2>The sortable listbox is keyboard accessible:</h2>
+                        <ul>
+                            <li>Set focus on the Listbox or the Select field.</li>
+                            <li>Press the Arrow keys to change options,
+                                or press <kbd class="home">Home</kbd> or <kbd class="end">End</kbd> to jump to the beginning or end of the list.</li>
+                            <li>Press <kbd>PageDown</kbd> or <kbd>PageUp</kbd> to jump backward or forward incrementally.</li>
+                            <li>Press any letter or number to jump to an item starting with that character or digit.</li>
+                            <li>Press the <kbd>Spacebar</kbd> to toggle grabbability on the ARIA Listbox.</li>
+                            <li>Use the Arrow keys to navigate to a new location, then use the <kbd>Spacebar</kbd> to drop the grabbed item.</li>
+                            <li>Press <kbd>Escape</kbd> to cancel a grab action without dropping.</li>
+                            <li>Mouse users can click a list item to grab it, then click another item to drop the grabbed item in that location.</li>
                         </ul>
                     </div>
                 </div>
-                <div class="note">
-                    <p>The list items within the ARIA Listbox are sortable.</p>
-                </div>
-            </div>
-            <div class="keyboard">
-                <p>The sortable listbox is keyboard accessible:</p>
-                <ul>
-                    <li>Set focus on the Listbox or the Select field.</li>
-                    <li>Press the Arrow keys to change options,
-                        or press <kbd class="home">Home</kbd> or <kbd class="end">End</kbd> to jump to the beginning or end of the list.</li>
-                    <li>Press <kbd>PageDown</kbd> or <kbd>PageUp</kbd> to jump backward or forward incrementally.</li>
-                    <li>Press any letter or number to jump to an item starting with that character or digit.</li>
-                    <li>Press the <kbd>Spacebar</kbd> to toggle grabbability on the ARIA Listbox.</li>
-                    <li>Use the Arrow keys to navigate to a new location, then use the <kbd>Spacebar</kbd> to drop the grabbed item.</li>
-                    <li>Press <kbd>Escape</kbd> to cancel a grab action without dropping.</li>
-                    <li>Mouse users can click a list item to grab it, then click another item to drop the grabbed item in that location.</li>
-                </ul>
-            </div>
-        </main>
+            </main>
+        </div>
+        <footer class="footer">
+            <p class="copyright">&copy;<script type="text/javascript">
+                document.write(new Date().getFullYear());
+                </script> WhatSock. All rights reserved.</p>
+            <p>Visual design by <a href="http://gericci.me/">Angela Ricci</a>. Styling updated by Laurence Lewis October 2020</p>
+        </footer>
     </div>
 </body>
 

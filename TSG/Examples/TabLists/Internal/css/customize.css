@@ -1,65 +1,38 @@
 /* Specific styles for Tabs */
 
-ul.aria-tablist {
+[role="tablist"] {
   margin: 0;
-  border-bottom: 3px solid #2e3135;
+  border-bottom: 3px solid var(--tablist-black);
 }
-ul.aria-tablist + div.content {
+[role="tablist"] + div.content {
   background: #fff;
   margin-bottom: 2rem;
 }
 
-ul.aria-tablist li {
-  list-style-type: none;
-  margin: 0 0 1px;
-}
-
-a[role="tab"],
-a[role="tab"]:link,
-a[role="tab"]:visited {
-  display: block;
+[role="tab"] {
   color: #fff;
-  background: #5d1f2c;
-  padding: 0.3em 0.5em 0.5em;
-  cursor: pointer;
+  background: var(--tablist-brown);
+  font-size:1em;
+  margin-bottom:1px;
+  padding: 0.3em 0.5em 0.3em;
+  cursor:auto;
 }
 
-a[role="tab"]:hover,
-a[role="tab"]:focus {
+[role="tab"]:hover,
+[role="tab"]:focus {
   text-decoration: none;
   color: #fff;
-  background-color: #2e3135;
+  background-color: var(--tablist-black);
 }
 
-a[role="tab"].active,
-a[role="tab"].active:link,
-a[role="tab"].active:visited {
+[role="tab"][aria-expanded="true"] {
   color: #fff;
-  background-color: #e2a037;
-  text-decoration: underline;
+  background-color: var(--tablist-black);
+  font-weight:bold;
 }
 
-#tabInsertId {
-  text-align: center;
+[role="tabpanel"] {
   background: #fff;
   padding: 1rem;
-  border-bottom: 3px solid #2e3135;
-}
-#tabInsertId div {
-  padding: 0.5rem;
-}
-
-@media screen and (min-width: 400px) {
-  ul.aria-tablist li {
-    display: inline-block;
-    margin: 0;
-  }
-
-  a[role="tab"],
-  a[role="tab"]:link,
-  a[role="tab"]:visited {
-    display: inline-block;
-    border-top-right-radius: 2px;
-    border-top-left-radius: 2px;
-  }
+  border-bottom: 3px solid var(--tablist-black);
 }

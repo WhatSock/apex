@@ -1,33 +1,48 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>ARIA Tabs (Bootstrap External Content) - Apex 4X Technical Style Guide</title>
-
-    <link rel="stylesheet" type="text/css" href="../../_common/css/global.css" />
-    <link rel="stylesheet" type="text/css" href="css/customize.css" />
-
-    <script type="text/javascript" src="/4X/4X.js#Bootstrap"></script>
-
+    <meta name="description" content="Accessible REACT Components">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
+    <link rel="stylesheet" type="text/css" href="css/customize.css">
+    <script src="/4X/4X.js#Bootstrap"></script>
 </head>
 
 <body>
-
-    <div id="coding-arena">
-
-        <header>
-            <div class="innerHeader">
-                <a href="http://whatsock.com"><img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg" />
-                    <strong>Apex 4X</strong> Technical Style Guide</a>
+    <div class="outer-wrapper">
+        <header class="header flex-container">
+            <div class="logo flex-item">
+                <a href="http://whatsock.com">
+                    <img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg"></a>
+            </div>
+            <div class="site-name flex-item">
+                <strong>Apex 4X</strong> Technical Style Guide
             </div>
         </header>
-
-        <main>
-
-            <h1 class="pageTitle">Tabs <small>(Bootstrap External Content)</small></h1>
-            <!-- The tab list container element must include the attribute role="tablist", and all tab item nodes must include the attribute role="tab" to ensure accessibility for screen reader users.
+        <div class="wrapper">
+            <div class="left-aside">
+                <nav>
+                    <ul>
+                        <nav>
+                            <ul>
+                                <li><a href="../../index.htm">Components</a></li>
+                                <li><a href="../External/index.htm">External</a></li>
+                                <li><a href="index.htm" aria-current="page">External - Bootstrap</a></li>
+                                <li><a href="../Internal/index.htm">Internal</a></li>
+                                <li><a href="../Internal - Bootstrap/index.htm">Internal - Bootstrap</a></li>
+                            </ul>
+                        </nav>
+                    </ul>
+                </nav>
+            </div>
+            <main id="main" class="main">
+                <div class="demo-block flex-container">
+                    <div class="component flex-item">
+                        <h1 class="pageTitle">Tabs <small>(Bootstrap External Content)</small></h1>
+                        <!-- The tab list container element must include the attribute role="tablist", and all tab item nodes must include the attribute role="tab" to ensure accessibility for screen reader users.
                 Additionally, both the tab list container element and all tab item nodes must include unique ID values.
                 Attributes explained:
                 * role="tablist" : The ARIA role that specifies a group of tab controls. This must only be included within the element that contains all individual tabs.
@@ -40,54 +55,43 @@
                 programmatically.
                 E.G $A(uniqueID).open();
                 -->
-
-            <div class="demo-block">
-
-                <ul class="aria-tablist clearfix" role="tablist">
-
-                    <li>
-                        <a role="tab" href="#" id="xTab1id" class="accTab tab1" data-controls="files/tabs.html#tab1content" data-role="Tab" data-insert="tabInsertId" data-defaultopen="true" data-group="SharedGroupName" data-headinglvl="2">
-                            <span>Name 1</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a role="tab" href="#" id="xTab2id" class="accTab tab2" data-controls="files/tabs.html#tab2content" data-role="Tab" data-insert="tabInsertId" data-group="SharedGroupName" data-headinglvl="2">
-                            <span>Name 2</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a role="tab" href="#" id="xTab3id" class="accTab tab3" data-controls="files/tabs.html#tab3content" data-role="Tab" data-insert="tabInsertId" data-group="SharedGroupName" data-headinglvl="2">
-                            <span>Name 3</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a role="tab" href="#" id="xTab4id" class="accTab tab4" data-controls="files/tabs.html#tab4content" data-role="Tab" data-insert="tabInsertId" data-group="SharedGroupName" data-headinglvl="2">
-                            <span>Name 4</span>
-                        </a>
-                    </li>
-
-                </ul>
-
-                <div class="content" id="tabInsertId">
+                        <div class="aria-tablist" role="tablist">
+                            <button role="tab" id="xTab1id" class="accTab tab1" data-controls="files/tabs.html#tab1content" data-insert="tabInsertId" data-defaultopen="true">
+                                Name 1
+                            </button>
+                            <button role="tab" id="xTab2id" class="accTab tab2" data-controls="files/tabs.html#tab2content" data-insert="tabInsertId">
+                                Name 2
+                            </button>
+                            <button role="tab" id="xTab3id" class="accTab tab3" data-controls="files/tabs.html#tab3content" data-insert="tabInsertId">
+                                Name 3
+                            </button>
+                            <button role="tab" id="xTab4id" class="accTab tab4" data-controls="files/tabs.html#tab4content" data-insert="tabInsertId">
+                                Name 4
+                            </button>
+                        </div>
+                        <div class="content" id="tabInsertId">
+                        </div>
+                    </div>
+                    <div class="keyboard flex-item">
+                        <h2>The tab controls are keyboard accessible:</h2>
+                        <ul>
+                            <li>Set focus on the tab control.</li>
+                            <li>Press the Arrow keys to move focus between tabs.</li>
+                            <li>Press <kbd>Home</kbd> or <kbd>End</kbd> to move to the first or last tab.</li>
+                            <li>Press any letter or number to jump to a tab starting with that character or digit.</li>
+                            <li>Press the <kbd>Spacebar</kbd> to open (or optionally toggle if configured) the selected tab.</li>
+                            <li>Mouse users can click the desired tab as usual.</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-
-            <div class="desc keyboard">
-                <p>The tab controls are keyboard accessible:</p>
-                <ul>
-                    <li>Set focus on the tab control.</li>
-                    <li>Press the Arrow keys to move focus between tabs.</li>
-                    <li>Press <kbd>Home</kbd> or <kbd>End</kbd> to move to the first or last tab.</li>
-                    <li>Press any letter or number to jump to a tab starting with that character or digit.</li>
-                    <li>Press the <kbd>Spacebar</kbd> to open (or optionally toggle if configured) the selected tab.</li>
-                    <li>Mouse users can click the desired tab as usual.</li>
-                </ul>
-            </div>
-        </main>
-
+            </main>
+        </div>
+        <footer class="footer">
+            <p class="copyright">&copy;<script type="text/javascript">
+                document.write(new Date().getFullYear());
+                </script> WhatSock. All rights reserved.</p>
+            <p>Visual design by <a href="http://gericci.me/">Angela Ricci</a>. Styling updated by Laurence Lewis October 2020</p>
+        </footer>
     </div>
 </body>
 

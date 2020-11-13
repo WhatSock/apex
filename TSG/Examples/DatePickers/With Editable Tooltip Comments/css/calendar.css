@@ -5,7 +5,7 @@ div.dateField {
 /* Specific styles for ARIA Calendar */
 
 #datepicker-demo {
-  background: #e0e0e0;
+  background: var(--combobox-lightGrey2);
   padding: 1rem;
   margin: 1rem 0 2rem;
 }
@@ -28,16 +28,14 @@ a.accCalendar {
 }
 
 div.calendar {
-  position: absolute;
-  z-index: 1;
   text-align: center;
-  color: #fff;
-  background: #2e3135;
+  color: var(--globalWhite);
+  background: var(--elementBlack);
   padding: 0.5rem;
   border-radius: 0.3rem;
-  -webkit-box-shadow: 0 10px 6px -6px #777;
-  -moz-box-shadow: 0 10px 6px -6px #777;
-  box-shadow: 0 10px 6px -6px #777;
+  -webkit-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  -moz-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
 }
 
 table.calendar {
@@ -65,27 +63,27 @@ td.day {
 
 td.day {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  color: #000;
-  background: #63b7c2;
+  color: var(--bodyText);
+  background: var(--whatsock-blue);
 }
 
 td.dayToday {
-  color: #000;
-  background: #db7093;
+  color: var(--bodyText);
+  background: var(--datepicker-pink);
 }
 
 td.dayInPrevMonth,
 td.dayInNextMonth {
-  color: #000;
-  background: #e6e6e6;
+  color: var(--bodyText);
+  background: var(--datepicker-dayInMonth);
 }
 
 td.day:hover {
-  background: #e2a037;
+  background: var(--datepicker-day);
 }
 
 td[aria-current="date"] {
-  background: #e2a037;
+  background: var(--datepicker-day);
 }
 
 div.calendar *:focus,
@@ -95,8 +93,8 @@ div.commentAdd *:focus {
 
 td.month {
   font-weight: 600;
-  color: #63b7c2;
-  text-shadow: 0 1px 0 #000;
+  color: var(--whatsock-blue);
+  text-shadow: 0 1px 0 var(--bodyText);
 }
 
 td.comment {
@@ -110,32 +108,30 @@ td.comment span::after {
   top: 0.2rem;
   right: 0.2rem;
   content: "";
-  background: #49182e;
+  background: var(--datepicker-darkGrey);
   border-radius: 7px;
 }
 
 td.comment.selected {
-  background: #e2a037;
+  background: var(--datepicker-day);
 }
 
 td.disabled,
 td.disabled:hover {
-  color: #ccc;
-  background: #bdbdbd;
+  color: var(--datepicker-lightGrey);
+  background: var(--datepicker-lmGrey);
   cursor: auto;
 }
 
 td.disabled.selected {
-  background: #c2c2c2;
+  background: var(--datepicker-mmGrey);
 }
 
 div.commentTooltip {
-  position: absolute;
-  z-index: 1;
   width: 271px;
   padding: 0.5rem;
-  color: #fff;
-  background: #3d4043;
+  color: var(--globalWhite);
+  background: var(--datepicket-dGrey);
   font-size: 0.8em;
   font-weight: bold;
   max-height: 50px;
@@ -146,25 +142,23 @@ div.commentTooltip {
 }
 
 div.commentAdd {
-  position: absolute;
-  z-index: 1;
-  background: #2e3135;
+  background: var(--elementBlack);
   border-radius: 0.3rem;
 }
 
 div.commentAdd button {
   font-size: 100%;
   text-transform: uppercase;
-  color: #fff;
-  background: #2e3135;
+  color: var(--globalWhite);
+  background: var(--elementBlack);
   padding: 0.5rem;
   margin-top: -5px;
   border: none;
   border-bottom-left-radius: 0.3rem;
   border-bottom-right-radius: 0.3rem;
-  -webkit-box-shadow: 0 10px 6px -6px #777;
-  -moz-box-shadow: 0 10px 6px -6px #777;
-  box-shadow: 0 10px 6px -6px #777;
+  -webkit-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  -moz-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
 }
 
 div.commentAdd textarea {
@@ -178,7 +172,7 @@ div.commentAdd textarea {
 }
 
 div.monthMessage {
-  border: 1px solid #000;
+  border: 1px solid var(--bodyText);
   margin: 20px 10px 10px 10px;
   padding: 10px;
 }

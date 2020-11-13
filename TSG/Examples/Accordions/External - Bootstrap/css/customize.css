@@ -1,57 +1,36 @@
 /* Specific styles for ARIA Accordion */
 
-.aria-accordion div[role="heading"] {
+.aria-accordion h2 {
+  font-size:inherit;
+  margin-bottom:1px;
   position: relative;
-  text-transform: uppercase;
-  background: #63b7c2;
-  padding: 0.3em 0.5em;
-  margin-bottom: 1px;
 }
-.aria-accordion div.insertContent {
-  text-align: center;
-  background: #fff;
-}
-.aria-accordion div.insertContent img {
-  width: 150px;
-  vertical-align: middle;
-}
-
-.aria-accordion div.content {
-  padding: 1rem;
-}
-
-.aria-accordion-trigger,
-a.aria-accordion-trigger:link,
-a.aria-accordion-trigger:visited {
-  display: block;
-  font-size: 100%;
+.aria-accordion-trigger {
+  background: url(../img/accordion/sprite.svg) right 0.5em top 0.5em no-repeat;
+  background-color: var(--whatsock-blue);
+  color: var(--bodyText);
   text-align: left;
-  text-decoration: none;
-  color: #000;
-  background: transparent url(../img/accordion/sprite.svg) right -0.95em no-repeat;
-  padding: 0.3em 0.5em;
-  cursor: pointer;
-}
-
-.aria-accordion-trigger.open,
-.aria-accordion-trigger.open:link,
-.aria-accordion-trigger.open:visited {
-  background-position: right -135px;
-}
-
-/*Updates for DIV structure*/
-.aria-accordion div[role="heading"] {
-  position: relative;
+  font-size: 1em;
+  padding: 0.5em 0.6em;
   text-transform: uppercase;
-  background: #63b7c2;
-  padding: 0.3em 0.5em;
-  margin-bottom: 1px;
+  width:100%;
 }
-.aria-accordion div.insertContent {
-  text-align: center;
+.aria-accordion-trigger:hover,
+.aria-accordion-trigger:focus{
+  background-color:#24575B;
+  color:#fff;
+}
+.aria-accordion-trigger[aria-expanded="true"] {
+  background-position-y: -7.2em;
+}
+.aria-accordion .insertContent {
   background: #fff;
 }
-.aria-accordion div.insertContent img {
-  width: 150px;
-  vertical-align: middle;
+.aria-accordion .content {
+  padding: 1em;
+}
+#accordion-sect1,
+#accordion-sect2,
+#accordion-sect3{
+  padding:0.5em;
 }
