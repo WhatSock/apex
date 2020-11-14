@@ -30,6 +30,9 @@ Call 'background-color:  var(--whatsock-red);
   --globalWhite: #ffffff;
   --offWhite: #f7f7f7;
 
+  /*Accordion*/
+  --acordDarkGreen: #24575b;
+
   /*NAV*/
   --navLinkBackground: #444a51;
 

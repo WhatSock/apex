@@ -191,6 +191,50 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
   left: 0;
   top: -22px;
 }
+
+/**********************************************
+    Common Accordion styles
+*************************************************/
+.aria-accordion h2 {
+  font-size: inherit;
+  margin-bottom: 1px;
+  position: relative;
+}
+
+.aria-accordion-trigger {
+  background: url(../img/accordion/sprite.svg) right 0.5em top 0.5em no-repeat;
+  background-color: var(--whatsock-blue);
+  color: var(--bodyText);
+  text-align: left;
+  font-size: 1em;
+  padding: 0.5em 0.6em;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.aria-accordion-trigger:hover,
+.aria-accordion-trigger:focus {
+  background-color: var(--acordDarkGreen);
+  color: var(--globalWhite);
+}
+
+.aria-accordion-trigger[aria-expanded="true"] {
+  background-position-y: -7.2em;
+}
+
+.aria-accordion .insertContent {
+  background: var(--globalWhite);
+}
+
+.aria-accordion .content {
+  padding: 1em;
+}
+#accordion-sect1,
+#accordion-sect2,
+#accordion-sect3 {
+  padding: 0.5em;
+}
+
 /**********************************************
    FOOTER
 *************************************************/
@@ -308,5 +352,23 @@ IE11 fallback
 
   footer button {
     color: #fff;
+  }
+
+/**********************************************
+    Common Accordion styles
+*************************************************/
+  .aria-accordion-trigger {
+    background-color: #63b7c2;
+    color: #262626;
+  }
+
+  .aria-accordion-trigger:hover,
+  .aria-accordion-trigger:focus {
+    background-color: #24575b;
+    color: #fff;
+  }
+
+  .aria-accordion .insertContent {
+    background: #fff;
   }
 }

@@ -1,31 +1,7 @@
 /* Specific styles for ARIA Accordion */
 
-.aria-accordion h2 {
-  font-size: inherit;
-  margin-bottom: 1px;
-  position: relative;
-}
-.aria-accordion-trigger {
-  background: url(../img/accordion/sprite.svg) right 0.5em top 0.5em no-repeat;
-  background-color: var(--whatsock-blue);
-  color: var(--bodyText);
-  text-align: left;
-  font-size: 1em;
-  padding: 0.5em 0.6em;
-  text-transform: uppercase;
-  width: 100%;
-}
-.aria-accordion-trigger[aria-expanded="true"] {
-  background-position-y: -7.2em;
-}
-.aria-accordion .insertContent {
-  background: #fff;
-}
-.aria-accordion .content {
-  padding: 1em;
-}
-#accordion-sect1,
-#accordion-sect2,
-#accordion-sect3 {
-  padding: 0.5em;
-}
+
+
+
+
+
