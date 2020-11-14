@@ -153,6 +153,22 @@ IE11 fallback
     color: #c13836;
   }
 
+  h2 {
+  color: #c13836;
+}
+
+h3 {
+  color: #2e3135;
+}
+
+h4 {
+  color: #2e3135;
+}
+
+h5 {
+  color: #2e3135;
+}
+
   a,
   a:link,
   a:visited {
