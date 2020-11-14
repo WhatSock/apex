@@ -1,38 +1,12 @@
 /* Specific styles for Tabs */
 
-[role="tablist"] {
-  margin: 0;
-  border-bottom: 3px solid var(--tablist-black);
-}
-[role="tablist"] + div.content {
-  background: #fff;
-  margin-bottom: 2rem;
-}
 
-[role="tab"] {
-  color: #fff;
-  background: var(--tablist-brown);
-  font-size: 1em;
-  margin-bottom: 1px;
-  padding: 0.3em 0.5em 0.3em;
-  cursor: auto;
-}
 
-[role="tab"]:hover,
-[role="tab"]:focus {
-  text-decoration: none;
-  color: #fff;
-  background-color: var(--tablist-black);
-}
 
-[role="tab"][aria-expanded="true"] {
-  color: #fff;
-  background-color: var(--tablist-black);
-  font-weight: bold;
-}
 
-[role="tabpanel"] {
-  background: #fff;
-  padding: 1rem;
-  border-bottom: 3px solid var(--tablist-black);
-}
+
+
+
+
+
+
