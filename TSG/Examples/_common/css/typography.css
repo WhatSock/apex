@@ -81,12 +81,12 @@ a:hover {
   text-decoration: underline;
   background: transparent;
 }
-
+/*Laurence I am really not convinced this global focus is a good idea visually. I wil revisit and check against WCAg colour contrast recommendations */
 *:focus {
   color: var(--tablist-black);
   background: var(--whatsock-orange-main);
 }
-
+/*Laurence: I have no idea what tis is for. I have never seena positioned link????  Experience says dump*/
 a.permalink,
 a.permalink:link,
 a.permalink:visited {
@@ -113,8 +113,8 @@ code.block {
   display: block;
   color: var(--tablist-black);
   background: var(--datepicker-codeBGrey);
-  padding: 1rem;
-  margin: 1rem 0;
+  padding: 1em;
+  margin: 1em 0;
 }
 
 code.js,
@@ -130,11 +130,48 @@ kbd {
   border: 1px solid var(--datepicker-lightGrey);
   border-radius: 3px;
   box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px var(--globalWhite) inset;
-  color: #333;
+  color: var(--combobox-darkGrey);
   display: inline-block;
   line-height: 1.4;
   margin: 0 0.1em;
   padding: 0.1em 0.6em;
   text-shadow: 0 1px 0 var(--globalWhite);
   white-space: nowrap;
+}
+
+/***********************************
+===================================
+IE11 fallback
+===================================
+***********************************/
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  h1 strong {
+    color: #c13836;
+  }
+
+  h1.pageTitle {
+    color: #c13836;
+  }
+
+  a,
+  a:link,
+  a:visited {
+    color: #2e3135;
+    background: #f2d3a1;
+  }
+
+  *:focus {
+    color: #2e3135;
+    background: #ffcc00;
+  }
+
+  code.block {
+    color: #2e3135;
+    background: #e4e4e4;
+  }
+
+  kbd {
+    background-color: #f7f7f7;
+    border: 1px solid #cccccc;
+  }
 }
