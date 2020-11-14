@@ -445,7 +445,9 @@ IE11 fallback
   body {
   background-color: #2e3135;
   }
-
+  h1 {
+  color: #cccccc;
+  }
   h1 strong {
   color: #c13836;
   }
