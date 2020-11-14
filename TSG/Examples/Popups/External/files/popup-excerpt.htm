@@ -7,11 +7,13 @@ When Implementing a Close link or button, the className must match the "closeCla
 (If not explicitly set, the default value "CloseDC" is configured within the module script file, and should be used for all Close links or buttons)
 Doing so will automatically bind the close methods with this element, and set keyboard focus properly when the DC object is closed.
 -->
-    <div hidden id="popupId">
+    <div hidden id="popupId" class="container--popup">
         <h4>Hamlet: Act 3, Scene 2</h4>
-        <p class="close">
-            <a href="#" class="popupClose"><img src="img/ic_close.svg" alt="Close Popup" title="Close Popup" /></a>
-        </p>
+        <div class="close">
+            <button class="popupClose">
+                <img src="img/ic_close.svg" alt="Close Popup" title="Close Popup" />
+            </button>
+        </div>
         <dl>
             <dt>HAMLET</dt>
             <dd>Do you see yonder cloud that's almost in shape of a camel?</dd>
