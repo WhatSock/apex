@@ -359,6 +359,7 @@ IE11 fallback
 *************************************************/
   .aria-accordion-trigger {
     background-color: #63b7c2;
+    border:none;
     color: #262626;
   }
 
