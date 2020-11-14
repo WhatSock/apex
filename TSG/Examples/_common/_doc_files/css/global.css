@@ -301,6 +301,7 @@ h1 {
   padding: 80px 5% 0 5%;
   margin-bottom: 1em;
 }
+
 h1 strong {
   display: block;
   position: relative;
@@ -406,47 +407,54 @@ footer {
   margin: 1rem 0 2rem;
   text-align: center;
 }
-p.copyright {
-  font-size: 0.7em;
-  text-transform: uppercase;
-  color: var(--globalWhite);
-  background: transparent;
-  margin-top: 1rem;
-}
-footer p:last-child {
-  font-size: 0.7em;
-  margin-top: 0.5em;
-  color: var(--listbox-lightGrey);
-}
 footer p:last-child a,
 footer p:last-child a:link {
   text-decoration: underline;
-  color: var(--globalWhite);
+  color: #fff;
   background: transparent none repeat scroll 0% 0%;
 }
 
-ul.policies li {
-  display: inline-block;
-  position: relative;
-  list-style-type: none;
-}
-ul.policies li::after {
-  position: absolute;
-  top: 0.7em;
-  right: -0.35em;
-  display: block;
-  content: "";
-  width: 5px;
-  height: 5px;
-  background: var(--datepicker-day);
-  border-radius: 5px;
-}
-ul.policies li:last-child::after {
-  content: none;
-}
-
 footer button {
-  color: var(--globalWhite);
+  color: #fff;
   background: transparent;
   border: none;
+}
+/***********************************
+===================================
+IE11 fallback
+===================================
+***********************************/
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  body {
+  background-color: #2e3135;
+  }
+
+  h1 strong {
+  color: #c13836;
+  }
+
+  nav button,
+  nav a,
+  nav a:link,
+  nav a:visited {
+    color: #fff;
+    background: #444a51;
+    border-top: 1px solid #cccccc;
+  }
+  nav button:hover,
+  nav a:hover {
+    color: #fff;
+    background: #c13836;
+  }
+  nav > ul > li > a[aria-current="true"] {
+    color: #fff;
+    background: #c13836;
+  }
+  footer p:last-child a,
+  footer p:last-child a:link {
+    color: #fff;
+  }
+  footer button {
+  color: #fff;
+  }
 }
