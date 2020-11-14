@@ -204,6 +204,7 @@ footer p:last-child {
   margin-top: 0.5em;
   color: var(--combobox-lightGrey2);
 }
+
 footer p:last-child a,
 footer p:last-child a:link {
   text-decoration: underline;
@@ -268,6 +269,13 @@ img {
 .hidden {
   display: none;
 }
+
+/***********************************
+===================================
+IE11 fallback
+===================================
+***********************************/
+
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   main {
     background-color: #fff;
