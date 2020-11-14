@@ -159,11 +159,11 @@ IE11 fallback
     color: #2e3135;
     background: #f2d3a1;
   }
-
-  *:focus {
+ /*Removing this on IE as it is horrible*/
+/*  *:focus {
     color: #2e3135;
     background: #ffcc00;
-  }
+  }*/
 
   code.block {
     color: #2e3135;
