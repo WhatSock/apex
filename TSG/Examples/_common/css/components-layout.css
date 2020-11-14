@@ -277,6 +277,9 @@ IE11 fallback
 ***********************************/
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  body {
+    background-color: #2e3135;
+  }
   main {
     background-color: #fff;
   }
