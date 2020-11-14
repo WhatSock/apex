@@ -18,7 +18,7 @@ h1 {
 }
 
 h1 strong {
-  color: #c13836;
+  color: var(--whatsock-red);
   font-weight: 400;
   top: 0.2em;
 }
@@ -39,8 +39,7 @@ h1.pageTitle small {
 }
 
 h2 {
-  color: #c13836;
-  /*font-family: antonregular, Helvetica, Arial, sans-serif;*/
+  color: var(--whatsock-red);
   font-family: Frutiger, Helvetica, Arial, sans-serif;
   font-size: 1.2rem;
   font-weight: 400;
@@ -49,7 +48,6 @@ h2 {
 }
 
 h3 {
-  /*font: normal 1.8em/1.3 antonregular, Helvetica, Arial, sans-serif;*/
   font-family: Frutiger, Helvetica, Arial, sans-serif;
   color: var(--tablist-black);
   margin: 1.5em 0 0.5em;
@@ -75,8 +73,8 @@ a,
 a:link,
 a:visited {
   text-decoration: none;
-  color: #000;
-  background: #f2d3a1;
+  color: var(--tablist-black);
+  background: var(--whatsockBeige);
 }
 
 a:hover {
@@ -85,8 +83,8 @@ a:hover {
 }
 
 *:focus {
-  color: #000;
-  background: #fc0;
+  color: var(--tablist-black);
+  background: var(--whatsock-orange-main);
 }
 
 a.permalink,
@@ -113,8 +111,8 @@ button {
 
 code.block {
   display: block;
-  color: #000;
-  background: #e4e4e4;
+  color: var(--tablist-black);
+  background: var(--datepicker-codeBGrey);
   padding: 1rem;
   margin: 1rem 0;
 }
@@ -128,15 +126,15 @@ code.css {
  Styled simulated keyboard button
 ******************************************************************************/
 kbd {
-  background-color: #f7f7f7;
-  border: 1px solid #ccc;
+  background-color: var(--offWhite);
+  border: 1px solid var(--datepicker-lightGrey);
   border-radius: 3px;
-  box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px #ffffff inset;
+  box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px var(--globalWhite) inset;
   color: #333;
   display: inline-block;
   line-height: 1.4;
   margin: 0 0.1em;
   padding: 0.1em 0.6em;
-  text-shadow: 0 1px 0 #fff;
+  text-shadow: 0 1px 0 var(--globalWhite);
   white-space: nowrap;
 }

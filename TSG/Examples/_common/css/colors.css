@@ -19,15 +19,25 @@ Call 'background-color:  var(--whatsock-red);
   /*common*/
   --whatsock-red: #c13836;
   --whatsock-blue: #63b7c2;
-  --whatsock-orange-main: #fc0;
+  --whatsock-orange-main: #ffcc00;
   --whatsock-orange-highlight: #fce7c7;
   --whatsock-gray: #b8b7ab;
   --whatsock-contrast-red: #cb4a48;
   --whatsock-black: #2e3135;
-  /*--whatsock-beige: */
+  --whatsockBeige: #f2d3a1;
   --bodyText: #262626;
   --elementBlack: #2e3135;
-  --globalWhite: #fff;
+  --globalWhite: #ffffff;
+  --offWhite: #f7f7f7;
+
+  /*NAV*/
+  --navLinkBackground: #444a51;
+
+  /*Forms*/
+  --inputBorder: #c0c0c0;
+  --buttons-bar: #286278;
+  --resetBackground: #555555;
+  --mediumOrange: #ff6600;
 
   /*Tablist*/
   --tablist-black: #2e3135;
@@ -35,15 +45,15 @@ Call 'background-color:  var(--whatsock-red);
 
   /*Listbox*/
   --listbox-lightGrey: #e0e0e0;
-  --listbox-darkGrey: #333;
+  --listbox-darkGrey: #333333;
   --listbox-limeGreen: #80ff00;
   --listbox-limeBlue: #92dbf6;
 
   /*Comboboxes*/
-  --combobox-lightGrey: #eee;
+  --combobox-lightGrey: #eeeeee;
   --combobox-lightGrey2: #e0e0e0;
-  --combobox-darkGrey: #333;
-  --combobox-midGrey: #777;
+  --combobox-darkGrey: #333333;
+  --combobox-midGrey: #777777;
   --combobox-red: #c1384d;
 
   /*datepickers*/
@@ -51,7 +61,7 @@ Call 'background-color:  var(--whatsock-red);
   --datepicker-dayInMonth: #e6e6e6;
   --datepicker-day: #e2a037;
   --datepicker-darkGrey: #49182e;
-  --datepicker-lightGrey: #ccc;
+  --datepicker-lightGrey: #cccccc;
   --datepicker-lmGrey: #bdbdbd;
   --datepicker-mmGrey: #c2c2c2;
   --datepicker-dGrey: #3d4043;

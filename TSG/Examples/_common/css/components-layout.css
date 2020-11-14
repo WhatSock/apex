@@ -4,6 +4,7 @@ body {
   font-size: 1rem;
   line-height: 1.5;
 }
+
 .outer-wrapper {
   margin: auto;
 }
@@ -14,7 +15,7 @@ body {
 }
 
 main {
-  background-color: #fff;
+  background-color: var(--globalWhite);
   padding: 1em 2em;
   padding-top: 2.5em;
 }
@@ -61,7 +62,7 @@ header.flex-container {
 }
 
 header.flex-container .flex-item {
-  color: #fff;
+  color: var(--globalWhite);
   flex: 1 0 auto;
   margin-top: auto;
   margin-bottom: auto;
@@ -75,11 +76,13 @@ header.flex-container .flex-item:nth-child(2) {
   font-size: 1.5rem;
   text-align: center;
 }
+
 header.flex-container .flex-item a,
 header.flex-container .flex-item a:link,
 header.flex-container .flex-item a:visited {
   background: none;
 }
+
 main .flex-container {
   display: flex;
   flex-flow: row wrap;
@@ -99,6 +102,7 @@ main .flex-container .flex-item:nth-child(1) {
   border-top: 2px dotted var(--whatsock-blue);
   flex: 1 auto;
 }
+
 main .flex-container .flex-item:nth-child(1) a img {
   max-width: 7em;
 }
@@ -115,7 +119,7 @@ main .flex-container .flex-item:nth-child(2) {
   }
 
   header.flex-container .flex-item {
-    color: #fff;
+    color: var(--globalWhite);
     flex: 1 0 auto;
     margin-top: auto;
     margin-bottom: auto;
@@ -126,6 +130,7 @@ main .flex-container .flex-item:nth-child(2) {
     padding-right: 0.5em;
     text-align: right;
   }
+
   header.flex-container .flex-item:nth-child(1) a img {
     max-width: 6em;
   }
@@ -134,6 +139,7 @@ main .flex-container .flex-item:nth-child(2) {
     font-size: 2rem;
     text-align: inherit;
   }
+
   main .flex-container {
     display: flex;
     flex-flow: row nowrap;
@@ -141,10 +147,12 @@ main .flex-container .flex-item:nth-child(2) {
     margin: auto;
     min-height: 30em;
   }
+
   main .flex-container .flex-item:nth-child(1) {
     position: relative;
     max-width: 40em;
   }
+
   main .flex-container .flex-item:nth-child(2) {
     max-width: 30em;
   }
@@ -156,10 +164,12 @@ main .flex-container .flex-item:nth-child(2) {
 main .flex-container.le-grid {
   flex-flow: row wrap;
 }
+
 main .flex-container.le-grid .flex-item {
   flex: 100%;
   max-width: inherit;
 }
+
 main .flex-container.le-grid .flex-item:nth-child(2) {
   padding-top: 3em;
 }
@@ -172,6 +182,7 @@ main .flex-container .flex-item.keyboard h2:first-child {
   padding-left: 4em;
   position: relative;
 }
+
 main .flex-container .flex-item.keyboard h2:first-child::before {
   background: url(../img/keyboard.svg) 0 0 no-repeat;
   content: "";
@@ -188,13 +199,7 @@ footer {
   margin: 1rem 0 2rem;
   text-align: center;
 }
-p.copyright {
-  font-size: 0.7em;
-  text-transform: uppercase;
-  color: #fff;
-  background: transparent;
-  margin-top: 1rem;
-}
+
 footer p:last-child {
   font-size: 0.7em;
   margin-top: 0.5em;
@@ -203,7 +208,7 @@ footer p:last-child {
 footer p:last-child a,
 footer p:last-child a:link {
   text-decoration: underline;
-  color: #fff;
+  color: var(--globalWhite);
   background: transparent none repeat scroll 0% 0%;
 }
 
@@ -212,6 +217,7 @@ ul.policies li {
   position: relative;
   list-style-type: none;
 }
+
 ul.policies li::after {
   position: absolute;
   top: 0.7em;
@@ -220,15 +226,16 @@ ul.policies li::after {
   content: "";
   width: 5px;
   height: 5px;
-  background: #e2a037;
+  background: var(--datepicker-day);
   border-radius: 5px;
 }
+
 ul.policies li:last-child::after {
   content: none;
 }
 
 footer button {
-  color: #fff;
+  color: var(--globalWhite);
   background: transparent;
   border: none;
 }
@@ -241,6 +248,7 @@ main .note {
   margin-top: 2em;
   max-width: 42em;
 }
+
 img {
   max-width: 100%;
 }
@@ -250,6 +258,7 @@ img {
 .keyboard ul {
   list-style: disc;
 }
+
 .keyboard p:first-child {
   padding-left: 3em;
 }

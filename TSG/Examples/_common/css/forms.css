@@ -3,8 +3,22 @@
 /* --------------------------------------------------------------------------- */
 
 /* For Fastclick: Disable certain interactions on touch devices 
-  Laurence: I have no idea what tis actually does never seen it before.
-*/
+  Laurence: I have no idea what this actually does never seen it before.
+
+Non-standard
+This feature is non-standard and is not on a standards track. Do not use it on production sites facing the Web: it will not work for every user. There may also be large incompatibilities between implementations and the behavior may change in the future.
+
+/* Keyword values */
+/*-webkit-touch-callout: default;
+-webkit-touch-callout: none;*/
+
+/* Global values */
+/*-webkit-touch-callout: initial;
+-webkit-touch-callout: inherit;
+-webkit-touch-callout: unset;*/
+
+/*https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-touch-callout*/
+
 body {
   -webkit-touch-callout: none;
   -webkit-text-size-adjust: none;
@@ -37,14 +51,16 @@ label {
 }
 
 input {
-  border: 1px solid #c0c0c0;
+  border: 1px solid var(--inputBorder);
   border-radius: 2px;
   font-size: 100%;
   padding: 0.5em 1em;
 }
+
 input[placeholder] {
   font-size: 0.85rem;
 }
+
 .mandatory-info {
   text-align: right;
 }
@@ -53,14 +69,15 @@ input[placeholder] {
   text-align: center;
   margin: 2em 0 0;
 }
+
 .buttons-bar input {
   margin: 0 0.5em;
 }
 
 .buttons-bar button {
   text-transform: uppercase;
-  color: #fff;
-  background: #286278;
+  color: var(--globalWhite);
+  background: var(--buttons-bar);
   padding: 0.3em 0.5em;
   border: none;
   border-radius: 3px;
@@ -72,26 +89,27 @@ input[placeholder] {
 input[type="submit"],
 input[type="reset"] {
   text-transform: uppercase;
-  color: #fff;
-  background: #49182e;
+  color: var(--globalWhite);
+  background: var(--datepicker-darkGrey);
   border: none;
   border-radius: 0.5em;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
 }
+
 input[type="reset"] {
-  color: #fff;
-  background: #555;
+  color: var(--globalWhite);
+  background: var(--resetBackground);
 }
 
 input[type="submit"]:hover,
 input[type="reset"]:hover {
-  color: #fff;
-  background: #286278;
+  color: var(--globalWhite);
+  background: var(--buttons-bar);
   box-shadow: none;
 }
 
 input[type="submit"]:focus {
-  background: #f60;
+  background: var(--mediumOrange);
 }
 
 /*********************************
@@ -100,6 +118,7 @@ input[type="submit"]:focus {
 .select--container {
   position: relative;
 }
+
 .form--container {
   border-radius: 3px;
   list-style-type: none;
@@ -125,6 +144,7 @@ input[type="submit"]:focus {
   min-width: 13em;
   padding: 0.5em;
 }
+
 @media (min-width: 33em) {
   .form--container p input {
     min-width: 15em;
@@ -136,6 +156,7 @@ input[type="submit"]:focus {
   flex: none;
   min-width: 6em;
 }
+
 .form--container p img {
   margin: auto;
 }
@@ -147,6 +168,7 @@ ul.listbox {
   height: 10em;
   background-color: var(--globalWhite);
 }
+
 #ctryIcon,
 #mobileCloseIcon {
   height: 25px;
@@ -154,9 +176,11 @@ ul.listbox {
   padding-left: 0.5em;
   margin: auto;
 }
+
 #ctryIcon {
   float: right;
 }
+
 #mobileCloseIcon {
   vertical-align: middle;
 }
@@ -192,6 +216,7 @@ li[role="option"][aria-checked="true"] {
   background-repeat: no-repeat;
   background-position: right;
 }
+
 div.toplevel-div {
   border: 1px solid var(--listbox-darkGrey);
   position: absolute;
@@ -207,6 +232,7 @@ div.toplevel-div {
 #frm p {
   display: inline;
 }
+
 span[role="combobox"][aria-expanded="false"] sup:before {
   content: "\2193";
 }
@@ -228,15 +254,18 @@ span[role="combobox"][aria-expanded="true"] sup:before {
   justify-content: flex-start;
   position: relative;
 }
+
 .dateField .dateField--flex-item {
   display: flex;
   align-items: center;
   position: relative;
 }
+
 .accCalendar {
   background: none;
   border: none;
 }
+
 #datepicker-demo {
   background: var(--combobox-lightGrey2);
   padding: 1em;
@@ -247,6 +276,7 @@ span[role="combobox"][aria-expanded="true"] sup:before {
   display: block;
   font-size: 90%;
 }
+
 a.accCalendar {
   display: inline-block;
   background: transparent;
@@ -398,9 +428,11 @@ div.commentAdd textarea {
   padding: 0.2em;
   margin: 0.5em 0.5em 0;
 }
+
 div.monthMessage {
   padding-top: 0.5em;
 }
+
 div.monthMessage p {
   font-size: 0.8rem;
   margin-bottom: 0;
@@ -419,6 +451,7 @@ div.monthMessage p {
 .container--popup {
   padding:0.25em;
 }
+
 .container--popup .popupClose {
   background: transparent;
   border: none;
@@ -432,18 +465,20 @@ div.monthMessage p {
 .keyboard ul li {
   line-height: 1.8;
 }
+
 kbd {
   background-color: #f7f7f7;
   border: 1px solid #ccc;
   border-radius: 3px;
-  box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px #ffffff inset;
+  box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px var(--globalWhite) inset;
   color: #333;
   display: inline-block;
   margin: 0 0.1em;
   padding: 0 0.5em;
-  text-shadow: 0 1px 0 #fff;
+  text-shadow: 0 1px 0 var(--globalWhite);
   white-space: nowrap;
 }
+
 kbd[class]::before {
   display: inline-block;
   line-height: 1;
@@ -453,27 +488,35 @@ kbd[class]::before {
   border-radius: 2px;
   vertical-align: top;
 }
+
 kbd.left::before {
   content: "\2190";
 }
+
 kbd.right::before {
   content: "\2192";
 }
+
 kbd.up::before {
   content: "\2191";
 }
+
 kbd.down::before {
   content: "\2193";
 }
+
 kbd.home::before {
   content: "\21E4";
 }
+
 kbd.end::before {
   content: "\21E5";
 }
+
 kbd.esc::before {
   content: "\238B";
 }
+
 kbd#keyboardHint {
   background: none;
   border: none;
@@ -482,32 +525,37 @@ kbd#keyboardHint {
   right: -2.3em;
   top: 0.6em;
 }
+
 button.esc-button {
   position: relative;
   text-transform: uppercase;
   background: var(--globalWhite);
   font-weight: 700;
-  padding: 0.3rem;
+  padding: 0.3em;
   border: none;
-  border-radius: 0.3rem;
+  border-radius: 0.3em;
   -webkit-box-shadow: 0 10px 6px -6px #777;
   -moz-box-shadow: 0 10px 6px -6px #777;
   box-shadow: 0 10px 6px -6px #777;
   width: 5em;
   margin-top: 0.25em;
 }
+
 button.esc-button:focus {
   border: 2px solid var(--whatsock-contrast-red);
 }
+
 div.description {
   border: 2px solid var(--whatsock-blue);
   border-radius: 0.5em;
   margin-bottom: 3em;
   padding: 0.5em;
 }
+
 div.description p {
   margin-bottom: 0.5em;
 }
+
 div.description code {
   color: var(--bodyText);
   background: var(--datepicker-codeBGrey);
@@ -523,31 +571,33 @@ div.description code {
 span[role="combobox"] {
   display: inline-block;
   line-height: 1.6em;
-  color: #fff;
+  color: var(--globalWhite);
   background: #c1384d url(../img/sprite.svg) right -1686px no-repeat;
   padding: 0.3em 25px 0.3em 0.5em;
   margin-right: 2em;
   border-radius: 0.3em;
 }
+
 button[type="reset"],
 button[type="button"],
 button.btn--set--alert {
   text-transform: uppercase;
-  color: #fff;
-  background: #49182e;
+  color: var(--globalWhite);
+  background: var(--datepicker-darkGrey)
   border: none;
   border-radius: 0.5em;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
   padding: 0.5em 1em;
   margin: 1em 0.5em 0;
 }
+
 button[type="reset"]:hover,
 button[type="button"]:hover,
 button.btn--set--alert:hover,
 button[type="reset"]:focus,
 button[type="button"]:focus,
 button.btn--set--alert:hover {
-  color: #fff;
-  background: #286278;
+  color: var(--globalWhite);
+  background: var(--buttons-bar);
   box-shadow: none;
 }

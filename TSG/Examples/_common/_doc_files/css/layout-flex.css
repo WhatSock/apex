@@ -1,22 +1,28 @@
 .outer-wrapper {
   margin: auto;
 }
+
 .wrapper {
   position: relative;
 }
+
 main {
   padding: 1em 2em;
   padding-top: 2.5em;
 }
+
 main:focus {
   outline: none;
 }
+
 .left-aside {
   padding: 1em;
 }
+
 .wrapper > * {
   margin-bottom: 10px;
 }
+
 @media (min-width: 87.5em) {
   .wrapper {
     margin: 0 auto;
@@ -24,10 +30,12 @@ main:focus {
     flex-flow: row nowrap;
     justify-content: space-around;
   }
+
   .wrapper .left-aside {
     flex: 1 0 15em;
     position: relative;
   }
+
   .wrapper main {
     flex: 3 auto;
     padding: 0;
@@ -44,8 +52,9 @@ footer .flex-container-row {
   margin: auto;
   position: relative;
 }
+
 footer .flex-container-row .flex-item {
-  color: #fff;
+  color: var(--globalWhite);
   flex: 1 1 0;
   background-color: transparent;
   margin: 0;
