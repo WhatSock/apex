@@ -401,21 +401,38 @@ main {
     padding: 0;
   }
 }
-/* --------------- FOOTER --------------- */
+/* --------------- 
+FOOTER --------------- 
+*/
 
 footer {
   margin: 1rem 0 2rem;
   text-align: center;
 }
+
+p.copyright {
+  font-size: 0.7em;
+  text-transform: uppercase;
+  color: var(--globalWhite);
+  background: transparent;
+  margin-top: 1rem;
+}
+
+footer p:last-child {
+  font-size: 0.7em;
+  margin-top: 0.5em;
+  color: var(--combobox-lightGrey2);
+}
+
 footer p:last-child a,
 footer p:last-child a:link {
   text-decoration: underline;
-  color: #fff;
+  color: var(--globalWhite);
   background: transparent none repeat scroll 0% 0%;
 }
 
 footer button {
-  color: #fff;
+  color: var(--globalWhite);
   background: transparent;
   border: none;
 }
@@ -450,10 +467,25 @@ IE11 fallback
     color: #fff;
     background: #c13836;
   }
+  p.copyright {
+  font-size: 0.7em;
+  text-transform: uppercase;
+  color: #fff;
+  background: transparent;
+  margin-top: 1rem;
+  }
+
+  footer p:last-child {
+  font-size: 0.7em;
+  margin-top: 0.5em;
+  color: #e0e0e0;
+  }
+
   footer p:last-child a,
   footer p:last-child a:link {
     color: #fff;
   }
+
   footer button {
   color: #fff;
   }
