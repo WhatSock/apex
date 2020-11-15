@@ -1,5 +1,6 @@
 /* Specific styles for ARIA Combobox */
 /***Overwrite the auto positioning***/
+
 div.toplevel-div {
   left: auto !important;
   right: 2.5em !important;
@@ -7,6 +8,7 @@ div.toplevel-div {
   width: 14.5em;
   min-width: 8em;
 }
+
 @media (min-width: 37.6em) {
   div.toplevel-div {
     left: auto !important;

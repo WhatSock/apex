@@ -471,7 +471,7 @@ kbd {
   border: 1px solid var(--datepicker-lightGrey);
   border-radius: 3px;
   box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px var(--globalWhite) inset;
-  color: #333;
+  color: var(--listbox-darkGrey);
   display: inline-block;
   margin: 0 0.1em;
   padding: 0 0.5em;
@@ -534,9 +534,9 @@ button.esc-button {
   padding: 0.3em;
   border: none;
   border-radius: 0.3em;
-  -webkit-box-shadow: 0 10px 6px -6px #777;
-  -moz-box-shadow: 0 10px 6px -6px #777;
-  box-shadow: 0 10px 6px -6px #777;
+  -webkit-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  -moz-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
   width: 5em;
   margin-top: 0.25em;
 }
@@ -572,7 +572,7 @@ span[role="combobox"] {
   display: inline-block;
   line-height: 1.6em;
   color: var(--globalWhite);
-  background: #c1384d url(../img/sprite.svg) right -1686px no-repeat;
+  background: var(--whatsock-red) url(../img/sprite.svg) right -1686px no-repeat;
   padding: 0.3em 25px 0.3em 0.5em;
   margin-right: 2em;
   border-radius: 0.3em;
@@ -583,7 +583,7 @@ button[type="button"],
 button.btn--set--alert {
   text-transform: uppercase;
   color: var(--globalWhite);
-  background: var(--datepicker-darkGrey)
+  background: var(--datepicker-darkGrey);
   border: none;
   border-radius: 0.5em;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
@@ -611,6 +611,27 @@ IE11 fallback
   input {
       border: 1px solid #c0c0c0;
   }
+  span[role="combobox"] {
+  color: #fff;
+  background: #c1384d url(../img/sprite.svg) right -1686px no-repeat;
+  }
+
+  button[type="reset"],
+button[type="button"],
+button.btn--set--alert {
+  color: #fff;
+  background: #49182e;
+}
+
+button[type="reset"]:hover,
+button[type="button"]:hover,
+button.btn--set--alert:hover,
+button[type="reset"]:focus,
+button[type="button"]:focus,
+button.btn--set--alert:hover {
+  color: #fff;
+  background: #286278;
+}
 
   .buttons-bar button {
     color: #fff;
@@ -742,6 +763,13 @@ IE11 fallback
     -moz-box-shadow: 0 10px 6px -6px #777777;
     box-shadow: 0 10px 6px -6px #777777;
   }
+
+  button.esc-button {
+  background: #fff;
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+  box-shadow: 0 10px 6px -6px #777;
+}
 
   kbd {
     background-color: #f7f7f7;

@@ -7,6 +7,7 @@ div.toplevel-div {
   top: 8.5em !important;
   width: 50%;
 }
+
 @media (min-width: 31.6em) {
   div.toplevel-div {
     top: 6.6em !important;
