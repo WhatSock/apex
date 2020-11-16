@@ -49,14 +49,14 @@
                 * role="tab" : The ARIA role that specifies an individual tab control. To ensure accessibility, this element must not contain any other active elements.
             * data-controls : The resource path and pointer to the ID attribute of the accordion content container element.
                 * data-controls : The resource path and pointer to the ID attribute of the tab content container element.
-                * data-defaultopen="true" : Specifies that the referenced tab will open automatically. Only one tab per group should include this attribute.
+                * data-active="true" : Specifies that the referenced tab will open automatically. Only one tab per group should include this attribute.
                 * data-insert : The ID attribute of the container element where tab panel content will be inserted.
                 * id : The unique ID of the element. This value is also registered as the ID of the individual tab DC object, making it possible to invoke the object
                 programmatically.
                 E.G $A(uniqueID).render();
                 -->
                         <div class="aria-tablist" role="tablist">
-                            <button role="tab" id="xTab1id" class="accTab tab1" data-controls="files/tabs.html#tab1content" data-insert="tabInsertId" data-defaultopen="true">
+                            <button role="tab" id="xTab1id" class="accTab tab1" data-controls="files/tabs.html#tab1content" data-insert="tabInsertId" data-active="true">
                                 Name 1
                             </button>
                             <button role="tab" id="xTab2id" class="accTab tab2" data-controls="files/tabs.html#tab2content" data-insert="tabInsertId">

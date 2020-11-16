@@ -37,7 +37,7 @@
                 <!-- Attributes explained:
             * data-controls : The resource path and pointer to the ID attribute of the accordion content container element.
             * data-insert : The ID attribute of the container element where the accordion content will be inserted when rendered. (This must not be inside the triggering element)
-            * data-defaultopen="true" : Specifies that the referenced accordion node will open automatically. Only one accordion node per group should include this
+            * data-active="true" : Specifies that the referenced accordion node will open automatically. Only one accordion node per group should include this
             attribute.
             * id : The unique ID of the element. This value is also registered as the ID of the individual accordion node DC object, making it possible to invoke
             the object programmatically.
@@ -49,7 +49,7 @@ All other 4X API features are available as documented in the folder: /4X/Help/DC
                     <div class="aria-accordion component flex-item">
                         <h1 class="pageTitle">ARIA Accordion <small>(Bootstrap External Content)</small></h1>
                         <h2>
-                            <button class="aria-accordion-trigger" data-controls="files/accordion.html#accordion-sect1" data-insert="sect1" data-defaultopen="true" id="accordion1id">
+                            <button class="aria-accordion-trigger" data-controls="files/accordion.html#accordion-sect1" data-insert="sect1" data-active="true" id="accordion1id">
                                 Section One
                             </button>
                         </h2>

@@ -3,9 +3,6 @@ $A.import(["Animate", "TabList"], { defer: true }, function() {
     // Specify the tab container that includes role="tablist".
     tabList: '.aria-tablist[role="tablist"]',
 
-    // Set the DC object to render literal content
-    mode: 0,
-
     style: { display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {

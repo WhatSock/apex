@@ -13,7 +13,7 @@ HTML5 "data-" attributes are used to configure specific functionality for each a
 
 • data-controls : The resource path and pointer to the ID attribute of the accordion content container element.
 • data-insert : The ID attribute of the container element where the accordion content will be inserted when rendered. (This must not be inside the triggering element)
-• data-defaultopen="true" : Specifies that the referenced accordion node will open automatically. Only one accordion node per group should include this attribute.
+• data-active="true" : Specifies that the referenced accordion node will open automatically. Only one accordion node per group should include this attribute.
 
 Required attributes:
 
@@ -116,7 +116,7 @@ The accordions within the Bootstrap folders are configured using HTML5 "data-" a
 Available HTML5 attributes for the triggering element:
 
 • data-controls : The resource path and pointer to the ID attribute of the accordion content container element.
-• data-defaultopen="true" : Specifies that the referenced accordion node will open automatically. Only one accordion node per group should include this attribute.
+• data-active="true" : Specifies that the referenced accordion node will open automatically. Only one accordion node per group should include this attribute.
 • data-insert : The ID attribute of the container element where accordion node content will be inserted. The referenced container element must not be included within the accordion link node.
 • data-group : The shared group name for all related nodes within an accordion. This is used to differentiate separate accordion groups within the same document.
 

@@ -3,9 +3,6 @@ $A.import(["Animate", "Accordion"], { defer: true }, function() {
     // Set all triggering elements with the class "aria-accordion-trigger" into accordion toggles.
     triggers: ".aria-accordion-trigger",
 
-    // Set the accordion DC object to render literal content
-    mode: 0,
-
     // Set the class name that will be added to the triggering element of the currently open accordion
     toggleClass: "open",
 

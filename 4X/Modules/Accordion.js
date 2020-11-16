@@ -72,7 +72,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
             var ovrs = {
               id: dcId,
-              autoRender: $A.getAttr(o, "data-defaultopen") === "true",
+              autoRender: $A.getAttr(o, "data-active") === "true",
               widgetType: "AccordionPanel",
               trigger: o,
               root: insertO,

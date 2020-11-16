@@ -13,7 +13,7 @@ HTML5 "data-" attributes are used to configure specific functionality for each T
 
 • data-controls : The resource path and pointer to the ID attribute of the Tab content container element.
 • data-insert : The ID attribute of the container element where the Tab content will be inserted when rendered. (This must not be inside the triggering element, and must be the same for all Tab links within the same group)
-• data-defaultopen="true" : Specifies that the referenced Tab panel will open automatically. (Only one Tab link per group should include this attribute.)
+• data-active="true" : Specifies that the referenced Tab panel will open automatically. (Only one Tab link per group should include this attribute.)
 
 Required attributes:
 
@@ -117,7 +117,7 @@ When the Bootstrap module is executed, it parses the newly loaded DOM, recognize
 Available HTML5 attributes for the triggering element:
 
 • data-controls : The resource path and pointer to the ID attribute of the tab content container element.
-• data-defaultopen="true" : Specifies that the referenced tab will open automatically. Only one tab per group should include this attribute.
+• data-active="true" : Specifies that the referenced tab will open automatically. Only one tab per group should include this attribute.
 • data-insert : The ID attribute of the container element where tab panel content will be inserted.
 
 Additional HTML5 attributes can be added to enhance functionality by editing the file "/4X/Modules/Bootstrap".

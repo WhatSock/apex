@@ -42,6 +42,35 @@
                         <h1 class="pageTitle">Popup <small>Internal Content</small></h1>
                         <p>
                             <button id="triggerId" class="aria-popup">Show me the Shakespeare Quote of the Day!</button>
+
+    <!-- Important
+    When Implementing a Close link or button, the className must match the "closeClassName" property within the script declaration.
+    (If not explicitly set, the default value "CloseDC" is configured within the module script file, and should be used for all Close links or buttons)
+    Doing so will automatically bind the close methods with this element, and set keyboard focus properly when the DC object is closed.
+    -->
+    <div hidden id="popupId" class="container--popup">
+        <h4>Hamlet: Act 3, Scene 2</h4>
+        <p class="close">
+            <button  class="CloseDC">
+                <img src="img/ic_close.svg" alt="Close Popup" title="Close Popup" />
+            </button>
+        </p>
+        <dl>
+            <dt>HAMLET</dt>
+            <dd>Do you see yonder cloud that's almost in shape of a camel?</dd>
+            <dt>POLONIUS</dt>
+            <dd>By th' mass, and 'tis like a camel indeed.</dd>
+            <dt>HAMLET</dt>
+            <dd>Methinks it is like a weasel.</dd>
+            <dt>POLONIUS</dt>
+            <dd>It is backed like a weasel.</dd>
+            <dt>HAMLET</dt>
+            <dd>Or like a whale.</dd>
+            <dt>POLONIUS</dt>
+            <dd>Very like a whale.</dd>
+        </dl>
+    </div>
+
                         </p>
                     </div>
                     <div class="keyboard flex-item">
@@ -65,33 +94,6 @@
                 </script> WhatSock. All rights reserved.</p>
             <p>Visual design by <a href="http://gericci.me/">Angela Ricci</a>. Styling updated by Laurence Lewis October 2020</p>
         </footer>
-    </div>
-    <!-- Important
-    When Implementing a Close link or button, the className must match the "closeClassName" property within the script declaration.
-    (If not explicitly set, the default value "CloseDC" is configured within the module script file, and should be used for all Close links or buttons)
-    Doing so will automatically bind the close methods with this element, and set keyboard focus properly when the DC object is closed.
-    -->
-    <div hidden id="popupId" class="container--popup">
-        <h4>Hamlet: Act 3, Scene 2</h4>
-        <p class="close">
-            <button  class="popupClose">
-                <img src="img/ic_close.svg" alt="Close Popup" title="Close Popup" />
-            </button>
-        </p>
-        <dl>
-            <dt>HAMLET</dt>
-            <dd>Do you see yonder cloud that's almost in shape of a camel?</dd>
-            <dt>POLONIUS</dt>
-            <dd>By th' mass, and 'tis like a camel indeed.</dd>
-            <dt>HAMLET</dt>
-            <dd>Methinks it is like a weasel.</dd>
-            <dt>POLONIUS</dt>
-            <dd>It is backed like a weasel.</dd>
-            <dt>HAMLET</dt>
-            <dd>Or like a whale.</dd>
-            <dt>POLONIUS</dt>
-            <dd>Very like a whale.</dd>
-        </dl>
     </div>
 </body>
 
