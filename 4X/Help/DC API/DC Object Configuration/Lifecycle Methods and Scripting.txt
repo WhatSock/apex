@@ -39,7 +39,7 @@ Lifecycle Events
 
 // Execute when a DC object is instantiated as a live DC object.
 // This event will fire regardless if the DC object is rendered or not.
-  onCreated: function(DC) {   }
+  onCreate: function(DC) {   }
 
 // Execute an array of external JS resources before a DC object opens.
 // Only runs once.

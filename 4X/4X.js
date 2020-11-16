@@ -4449,8 +4449,8 @@ onRemove: function(mutationRecordObject, dc){ },
               c.top = t;
             } else DC.top = DC;
 
-            if (DC.onCreated && $A.isFn(DC.onCreated)) {
-              DC.onCreated.apply(DC, [DC]);
+            if (DC.onCreate && $A.isFn(DC.onCreate)) {
+              DC.onCreate.apply(DC, [DC]);
             }
           }
         }
