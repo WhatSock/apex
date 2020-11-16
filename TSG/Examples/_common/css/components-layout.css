@@ -394,12 +394,12 @@ IE11 fallback
     color: #fff;
   }
 
-/**********************************************
+  /**********************************************
     Common Accordion styles
 *************************************************/
   .aria-accordion-trigger {
     background-color: #63b7c2;
-    border:none;
+    border: none;
     color: #262626;
   }
 
@@ -412,7 +412,7 @@ IE11 fallback
   .aria-accordion .insertContent {
     background: #fff;
   }
-/**********************************************
+  /**********************************************
     Common Tablist styles
 *************************************************/
   [role="tablist"] {

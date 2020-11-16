@@ -154,20 +154,20 @@ IE11 fallback
   }
 
   h2 {
-  color: #c13836;
-}
+    color: #c13836;
+  }
 
-h3 {
-  color: #2e3135;
-}
+  h3 {
+    color: #2e3135;
+  }
 
-h4 {
-  color: #2e3135;
-}
+  h4 {
+    color: #2e3135;
+  }
 
-h5 {
-  color: #2e3135;
-}
+  h5 {
+    color: #2e3135;
+  }
 
   a,
   a:link,
@@ -175,8 +175,8 @@ h5 {
     color: #2e3135;
     background: #f2d3a1;
   }
- /*Removing this on IE as it is horrible*/
-/*  *:focus {
+  /*Removing this on IE as it is horrible*/
+  /*  *:focus {
     color: #2e3135;
     background: #ffcc00;
   }*/

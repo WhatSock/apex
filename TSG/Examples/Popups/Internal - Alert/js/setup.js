@@ -4,8 +4,6 @@ $A.import(["Animate", "Popup"], { defer: true }, function() {
     trigger: "#triggerId",
     className: "popup",
     isAlert: true,
-    // forceFocus must always be true if not setting focus into the popup manually.
-    forceFocus: true,
     circularTabbing: true,
     style: { display: "none" },
     animate: {

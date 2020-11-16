@@ -449,7 +449,7 @@ div.monthMessage p {
   Popups
 *********************************/
 .container--popup {
-  padding:0.25em;
+  padding: 0.25em;
 }
 
 .container--popup .popupClose {
@@ -609,29 +609,29 @@ IE11 fallback
 ***********************************/
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   input {
-      border: 1px solid #c0c0c0;
+    border: 1px solid #c0c0c0;
   }
   span[role="combobox"] {
-  color: #fff;
-  background: #c1384d url(../img/sprite.svg) right -1686px no-repeat;
+    color: #fff;
+    background: #c1384d url(../img/sprite.svg) right -1686px no-repeat;
   }
 
   button[type="reset"],
-button[type="button"],
-button.btn--set--alert {
-  color: #fff;
-  background: #49182e;
-}
+  button[type="button"],
+  button.btn--set--alert {
+    color: #fff;
+    background: #49182e;
+  }
 
-button[type="reset"]:hover,
-button[type="button"]:hover,
-button.btn--set--alert:hover,
-button[type="reset"]:focus,
-button[type="button"]:focus,
-button.btn--set--alert:hover {
-  color: #fff;
-  background: #286278;
-}
+  button[type="reset"]:hover,
+  button[type="button"]:hover,
+  button.btn--set--alert:hover,
+  button[type="reset"]:focus,
+  button[type="button"]:focus,
+  button.btn--set--alert:hover {
+    color: #fff;
+    background: #286278;
+  }
 
   .buttons-bar button {
     color: #fff;
@@ -765,11 +765,11 @@ button.btn--set--alert:hover {
   }
 
   button.esc-button {
-  background: #fff;
-  -webkit-box-shadow: 0 10px 6px -6px #777;
-  -moz-box-shadow: 0 10px 6px -6px #777;
-  box-shadow: 0 10px 6px -6px #777;
-}
+    background: #fff;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+    box-shadow: 0 10px 6px -6px #777;
+  }
 
   kbd {
     background-color: #f7f7f7;

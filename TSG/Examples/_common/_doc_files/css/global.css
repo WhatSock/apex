@@ -443,13 +443,13 @@ IE11 fallback
 ***********************************/
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   body {
-  background-color: #2e3135;
+    background-color: #2e3135;
   }
   h1 {
-  color: #cccccc;
+    color: #cccccc;
   }
   h1 strong {
-  color: #c13836;
+    color: #c13836;
   }
 
   nav button,
@@ -470,17 +470,17 @@ IE11 fallback
     background: #c13836;
   }
   p.copyright {
-  font-size: 0.7em;
-  text-transform: uppercase;
-  color: #fff;
-  background: transparent;
-  margin-top: 1rem;
+    font-size: 0.7em;
+    text-transform: uppercase;
+    color: #fff;
+    background: transparent;
+    margin-top: 1rem;
   }
 
   footer p:last-child {
-  font-size: 0.7em;
-  margin-top: 0.5em;
-  color: #e0e0e0;
+    font-size: 0.7em;
+    margin-top: 0.5em;
+    color: #e0e0e0;
   }
 
   footer p:last-child a,
@@ -489,6 +489,6 @@ IE11 fallback
   }
 
   footer button {
-  color: #fff;
+    color: #fff;
   }
 }
