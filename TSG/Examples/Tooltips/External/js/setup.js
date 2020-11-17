@@ -1,5 +1,11 @@
 $A.import(["Animate", "Tooltip"], { defer: true }, function() {
   var helpTooltipDC = $A.setTooltip("a.aria-tooltip.helpIcon", {
+    fetch: {
+      url: "files/tooltips.htm",
+      data: {
+        selector: "#quote-tooltip"
+      }
+    },
     isManualOpen: true,
     className: "tooltip manual-click",
     delay: 0,
@@ -23,6 +29,12 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
   });
 
   var constraintTooltipDC = $A.setTooltip('input[type="password"]', {
+    fetch: {
+      url: "files/tooltips.htm",
+      data: {
+        selector: "#password-tooltip"
+      }
+    },
     isFocusOnly: true,
     className: "tooltip on-focus",
     delay: 1000,
@@ -46,7 +58,12 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
   });
 
   var hoverTooltipDC = $A.setTooltip("button.action-btn", {
-    source: '<div id="hover-tooltip"><p>Wow, look at that!</p></div>',
+    fetch: {
+      url: "files/tooltips.htm",
+      data: {
+        selector: "#hover-tooltip"
+      }
+    },
     className: "tooltip on-hover",
     delay: 600,
     delayTimeout: 3000,

@@ -44,29 +44,15 @@
 
                         <h2>Tooltip with manual click to render</h2>
 
-                        <!-- Here the data-tooltip attribute is used to set the tooltip content. -->
-                        <p><a data-tooltip='"It is a mistake to think you can solve any major problems just with potatoes.", Douglas Adams' id="helpIcon" href="#" class="helpIcon aria-tooltip"><img src="img/ic_help.svg" alt="What is the greatest secret known to man?" title="What is the greatest secret known to man?" /></a></p>
+                        <p><a id="helpIcon" href="#" class="helpIcon aria-tooltip"><img src="img/ic_help.svg" alt="What is the greatest secret known to man?" title="What is the greatest secret known to man?" /></a></p>
 
                         <h2>Tooltip with explicit onFocus to render</h2>
 
-                        <!-- Here the data-tooltip attribute is used to reference the id of the hidden tooltip container element. -->
                         <p><label for="pWord">Password:</label>
-                            <input data-tooltip="#password-tooltip" id="pWord" type="password" /></p>
-
-                        <div hidden id="password-tooltip">
-                            <p>
-                                Important:
-                            </p>
-                            <ul>
-                                <li> Must be 8 characters in length.</li>
-                                <li> Must not contain special characters.</li>
-                                <li> Must not contain any whitespace characters.</li>
-                            </ul>
-                        </div>
+                            <input id="pWord" type="password" /></p>
 
                         <h2>Tooltip with hover support to render</h2>
 
-                        <!-- Here the tooltip content is specified within setup.js via the source property. -->
                         <button class="action-btn" onclick="alert('Do something else.')">Action</button>
 
                         <p><label for="dummyField2">Field2 to set focus to:</label> <input type="text" id="dummyField2" /></p>

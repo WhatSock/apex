@@ -81,6 +81,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 content
               ) {
                 if (dc.preloadImages) $A.preloadImg(content);
+                $A.getModule(dc, "onFetch", content);
               });
               dc.mode = 0;
             } else if (dc.preloadImages && !dc.mode && dc.source)
@@ -384,7 +385,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               selector: sel
             },
             data || {}
-          )
+          ),
+          function(content) {
+            if (config.preloadImages) $A.preloadImg(content);
+            $A.getModule(config, "onFetch", content);
+          }
         );
       }
 
@@ -1672,6 +1677,11 @@ error: function(error, promise){}
     },
 
     module: {},
+
+    getModule: function(dc, action, content) {
+      if ($A.module[dc.widgetType] && $A.isFn($A.module[dc.widgetType][action]))
+        return $A.module[dc.widgetType][action](dc, content);
+    },
 
     _widgetTypes: [],
     _regWidgets: new Map(),
@@ -3300,6 +3310,8 @@ error: function(error, promise){}
                 dc.source,
                 dc.fetch.data,
                 function(content, promise) {
+                  if (dc.preloadImages) $A.preloadImg(content);
+                  $A.getModule(dc, "onFetch", content);
                   dc.fetch.success(content, promise, dc);
                   DCR3(dc);
                 },
@@ -3314,6 +3326,8 @@ error: function(error, promise){}
                 url: dc.fetch.url,
                 data: dc.fetch.data,
                 success: function(content, promise) {
+                  if (dc.preloadImages) $A.preloadImg(content);
+                  $A.getModule(dc, "onFetch", content);
                   dc.fetch.success(content, promise, dc);
                   DCR3(dc);
                 },
@@ -3538,11 +3552,7 @@ error: function(error, promise){}
                   ev.stopPropagation();
                 }
               });
-            if (
-              $A.module[dc.widgetType] &&
-              $A.isFn($A.module[dc.widgetType].onRender)
-            )
-              $A.module[dc.widgetType].onRender(dc, dc.container);
+            $A.getModule(dc, "onRender", dc.container);
             dc.activeElements = $A.getActEl(dc.container, true);
             if (dc.circularTabbing) $A.setCircTab(dc.activeElements);
             var toBind = {};
@@ -3613,11 +3623,7 @@ error: function(error, promise){}
             dc.loaded = false;
 
             var complete = function() {
-              if (
-                $A.module[dc.widgetType] &&
-                $A.isFn($A.module[dc.widgetType].onRemove)
-              )
-                $A.module[dc.widgetType].onRemove(dc, dc.container);
+              $A.getModule(dc, "onRemove", dc.container);
               $A._cleanAll(dc.container, true);
               if (dc.fn.style) $A.remove(dc.fn.style);
               if (dc.fn.closeLink) $A.remove(dc.fn.closeLink);
