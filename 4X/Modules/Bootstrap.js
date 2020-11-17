@@ -215,6 +215,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         animate: {
                           onRender: function(dc, outerNode, complete) {
                             Velocity(outerNode, "transition.fadeIn", {
+                              queue: false,
                               complete: function() {
                                 complete();
                               }
@@ -222,6 +223,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           },
                           onRemove: function(dc, outerNode, complete) {
                             Velocity(outerNode, "transition.fadeOut", {
+                              queue: false,
                               complete: function() {
                                 complete();
                               }

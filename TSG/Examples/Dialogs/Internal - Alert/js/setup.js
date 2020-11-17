@@ -11,6 +11,7 @@ $A.import(["Animate", "Dialog"], { defer: true }, function() {
     animate: {
       onRender: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeIn", {
+          queue: false,
           complete: function() {
             complete();
           }
@@ -18,6 +19,7 @@ $A.import(["Animate", "Dialog"], { defer: true }, function() {
       },
       onRemove: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeOut", {
+          queue: false,
           complete: function() {
             complete();
           }

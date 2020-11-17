@@ -10,15 +10,25 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     $A.addWidgetTypeProfile("Dialog", {
       track: [],
       configure: function(dc) {
-        var that = this,
-          pos = {};
-        if (dc.isModal && that.track.length) {
-          var subDC = that.track[that.track.length - 1],
-            zI = subDC.css("z-index") || 1000;
-          pos["z-index"] = zI + 2;
+        var that = this;
+        if (dc.isModal) {
+          dc.backdrop = $A(that.backdrop)
+            .on({
+              click: function(ev) {
+                dc.remove();
+                ev.stopPropagation();
+              }
+            })
+            .css(
+              $A.isNum(dc.style["z-index"]) && dc.style["z-index"] > 1
+                ? {
+                    zIndex: dc.style["z-index"] - 1
+                  }
+                : {}
+            )
+            .return();
         }
         return {
-          style: pos,
           isModal: true,
           isAlert: false,
           exposeBounds: true,
@@ -34,6 +44,29 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           append: true,
           escToClose: true,
           on: "click",
+          runBefore: function(dc) {
+            var pos = {};
+            if (dc.isModal && that.track.length) {
+              var subDC = that.track[that.track.length - 1],
+                zI = subDC.css("z-index") || 1000;
+              pos["z-index"] = zI + 2;
+            }
+            $A.extend(dc.style, pos);
+          },
+          runDuring: function(dc) {
+            if (dc.isModal) {
+              var isAnim = dc.animate && $A.isFn(dc.animate.onRender);
+              if (isAnim) $A.css(dc.backdrop, "display", "none");
+              document.body.appendChild(dc.backdrop);
+              if (isAnim) dc.animate.onRender(dc, dc.backdrop, function() {});
+            }
+          },
+          runBeforeClose: function(dc) {
+            if (dc.isModal) {
+              var isAnim = dc.animate && $A.isFn(dc.animate.onRemove);
+              if (isAnim) dc.animate.onRemove(dc, dc.backdrop, function() {});
+            }
+          },
           click: function(ev, dc) {
             ev.stopPropagation();
           }
@@ -58,22 +91,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               });
             }
           });
-          dc.backdrop = $A(that.backdrop)
-            .on({
-              click: function(ev) {
-                dc.remove();
-                ev.stopPropagation();
-              }
-            })
-            .css(
-              $A.isNum(dc.style["z-index"]) && dc.style["z-index"] > 1
-                ? {
-                    zIndex: dc.style["z-index"] - 1
-                  }
-                : {}
-            )
-            .appendTo("body")
-            .return();
         }
         if (dc.isAlert) $A.announce(dc.container, true, true);
       },
