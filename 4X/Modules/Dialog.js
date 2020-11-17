@@ -10,25 +10,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     $A.addWidgetTypeProfile("Dialog", {
       track: [],
       configure: function(dc) {
-        var that = this;
-        if (dc.isModal) {
-          dc.backdrop = $A(that.backdrop)
-            .on({
-              click: function(ev) {
-                dc.remove();
-                ev.stopPropagation();
-              }
-            })
-            .css(
-              $A.isNum(dc.style["z-index"]) && dc.style["z-index"] > 1
-                ? {
-                    zIndex: dc.style["z-index"] - 1
-                  }
-                : {}
-            )
-            .return();
+        var that = this,
+          pos = {};
+        if (dc.isModal && that.track.length) {
+          var subDC = that.track[that.track.length - 1],
+            zI = subDC.css("z-index") || 1000;
+          pos["z-index"] = zI + 2;
         }
         return {
+          style: pos,
           isModal: true,
           isAlert: false,
           exposeBounds: true,
@@ -44,28 +34,37 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           append: true,
           escToClose: true,
           on: "click",
-          runBefore: function(dc) {
-            var pos = {};
-            if (dc.isModal && that.track.length) {
-              var subDC = that.track[that.track.length - 1],
-                zI = subDC.css("z-index") || 1000;
-              pos["z-index"] = zI + 2;
-            }
-            $A.extend(dc.style, pos);
-          },
           runDuring: function(dc) {
             if (dc.isModal) {
-              var isAnim = dc.animate && $A.isFn(dc.animate.onRender);
-              if (isAnim) $A.css(dc.backdrop, "display", "none");
-              document.body.appendChild(dc.backdrop);
-              if (isAnim) dc.animate.onRender(dc, dc.backdrop, function() {});
+              $A.query("body > *", function(i, o) {
+                if (o !== dc.outerNode) {
+                  o.inert = true;
+                  $A.setAttr(o, {
+                    "aria-hidden": "true"
+                  });
+                }
+              });
+              dc.backdrop = $A(that.backdrop)
+                .on({
+                  click: function(ev) {
+                    dc.remove();
+                    ev.stopPropagation();
+                  }
+                })
+                .css(
+                  $A.isNum(dc.style["z-index"]) && dc.style["z-index"] > 1
+                    ? {
+                        zIndex: dc.style["z-index"] - 1
+                      }
+                    : {}
+                )
+                .appendTo("body")
+                .return();
             }
           },
-          runBeforeClose: function(dc) {
-            if (dc.isModal) {
-              var isAnim = dc.animate && $A.isFn(dc.animate.onRemove);
-              if (isAnim) dc.animate.onRemove(dc, dc.backdrop, function() {});
-            }
+          runAfterClose: function(dc) {
+            if (dc.isModal && $A.isDOMNode(dc.backdrop, null, null, 11))
+              $A.remove(dc.backdrop);
           },
           click: function(ev, dc) {
             ev.stopPropagation();
@@ -79,27 +78,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         return r;
       },
       onRender: function(dc, container) {
-        var that = this,
-          isIE = $A.isIE();
+        var that = this;
         that.track.push(dc);
-        if (dc.isModal) {
-          $A.query("body > *", function(i, o) {
-            if (o !== dc.outerNode) {
-              o.inert = true;
-              $A.setAttr(o, {
-                "aria-hidden": "true"
-              });
-            }
-          });
-        }
         if (dc.isAlert) $A.announce(dc.container, true, true);
       },
       onRemove: function(dc, container) {
-        var that = this,
-          isIE = $A.isIE();
+        var that = this;
         that.track.splice(that.track.length - 1, 1);
-        if (dc.isModal && $A.isDOMNode(dc.backdrop, null, null, 11))
-          $A.remove(dc.backdrop);
         if (that.track.length) {
           if (dc.isModal) {
             $A.query("body > *", function(i, o) {
