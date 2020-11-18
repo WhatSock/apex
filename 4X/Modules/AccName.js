@@ -14,7 +14,7 @@ Distributed under the terms of the Open Source Initiative OSI - MIT License
     window[nameSpace] = {};
     nameSpace = window[nameSpace];
   }
-  nameSpace.getAccNameVersion = "2.50";
+  nameSpace.getAccNameVersion = "2.51";
   // AccName Computation Prototype
   nameSpace.getAccName = nameSpace.calcNames = function(
     node,
@@ -318,6 +318,10 @@ Plus roles extended for the Role Parity project.
                   !skipTo.role &&
                   node.getAttribute("aria-describedby")) ||
                 "";
+              var aDescription =
+                !skipTo.tag &&
+                !skipTo.role &&
+                node.getAttribute("aria-description");
               var aLabel =
                 (!skipTo.tag &&
                   !skipTo.role &&
@@ -358,30 +362,33 @@ Plus roles extended for the Role Parity project.
                     ownedBy[node.id].target === node))
               );
 
-              // Check for non-empty value of aria-describedby if current node equals reference node, follow each ID ref, then stop and process no deeper.
+              // Check for non-empty value of aria-describedby/description if current node equals reference node, follow each ID ref, then stop and process no deeper.
               if (
                 !stop &&
                 node === refNode &&
                 !skipTo.tag &&
                 !skipTo.role &&
-                aDescribedby
+                (aDescribedby || aDescription)
               ) {
-                var desc;
-                ids = aDescribedby.split(/\s+/);
-                parts = [];
-                for (i = 0; i < ids.length; i++) {
-                  element = docO.getElementById(ids[i]);
-                  // Also prevent the current form field from having its value included in the naming computation if nested as a child of label
-                  parts.push(
-                    walk(element, true, false, [node], false, {
-                      ref: ownedBy,
-                      top: element
-                    }).name
-                  );
+                if (aDescribedby) {
+                  var desc;
+                  ids = aDescribedby.split(/\s+/);
+                  parts = [];
+                  for (i = 0; i < ids.length; i++) {
+                    element = docO.getElementById(ids[i]);
+                    // Also prevent the current form field from having its value included in the naming computation if nested as a child of label
+                    parts.push(
+                      walk(element, true, false, [node], false, {
+                        ref: ownedBy,
+                        top: element
+                      }).name
+                    );
+                  }
+                  // Check for blank value, since whitespace chars alone are not valid as a name
+                  desc = trim(parts.join(" "));
+                } else {
+                  desc = trim(aDescription);
                 }
-                // Check for blank value, since whitespace chars alone are not valid as a name
-                desc = trim(parts.join(" "));
-
                 if (trim(desc)) {
                   result.desc = desc;
                   hasDesc = true;
@@ -440,6 +447,7 @@ Plus roles extended for the Role Parity project.
                 !skipTo.tag &&
                 !skipTo.role &&
                 !hasName &&
+                nTag !== "iframe" &&
                 nRole &&
                 presentationRoles.indexOf(nRole) !== -1 &&
                 !isFocusable(node) &&
@@ -788,7 +796,9 @@ Plus roles extended for the Role Parity project.
                 !rolePresentation &&
                 trim(nTitle)
               ) {
-                result.title = trim(nTitle);
+                if (!(name && aDescription === " ")) {
+                  result.title = trim(nTitle);
+                }
               }
 
               var nType =
@@ -982,7 +992,7 @@ Plus roles extended for the Role Parity project.
         );
       };
 
-      // ARIA Role Exception Rule Set 1.1
+      // ARIA Role Exception Rule Set 1.2
       // The following Role Exception Rule Set is based on the following ARIA Working Group discussion involving all relevant browser venders.
       // https://lists.w3.org/Archives/Public/public-aria/2017Jun/0057.html
 
@@ -1085,6 +1095,7 @@ Plus roles extended for the Role Parity project.
           "form",
           "header",
           "hr",
+          "iframe",
           "img",
           "textarea",
           "input",
