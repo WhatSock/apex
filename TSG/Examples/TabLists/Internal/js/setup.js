@@ -1,6 +1,5 @@
 $A.import(["Animate", "TabList"], { defer: true }, function() {
   $A.setTabList({
-    // Specify the tab container that includes role="tablist".
     tabList: '.aria-tablist[role="tablist"]',
 
     style: { display: "none" },
@@ -22,13 +21,8 @@ $A.import(["Animate", "TabList"], { defer: true }, function() {
     },
 
     // Allow tabs to be toggled
-    // isToggle: true,
+    isToggle: false,
 
-    // Set a className that will be added to the triggering element for the currently active tab
-    toggleClass: "active",
-
-    context: document,
-
-    callback: function(dc) {}
+    toggleClass: "active"
   });
 });
