@@ -5,8 +5,6 @@ $A.import(["Animate", "Dialog"], { defer: true }, function() {
     className: "modal",
     isModal: true,
     isAlert: false,
-    // forceFocus must always be true if not setting focus into the dialog manually.
-    forceFocus: false,
     style: { display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {
@@ -26,7 +24,6 @@ $A.import(["Animate", "Dialog"], { defer: true }, function() {
     },
     runAfter: function(dc) {
       var frm = $A.getElement("lbForm");
-      frm.uname.focus();
       $A(frm).on("submit", function(ev) {
         if (!frm.uname.value) {
           alert("Woops! You forgot your username...");

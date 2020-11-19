@@ -207,9 +207,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         className: "modal",
                         isModal: true,
                         isAlert: false,
-                        // forceFocus must always be true if not setting focus into the dialog manually.
-                        forceFocus: true,
-                        returnFocus: true,
 
                         style: { display: "none" },
                         animate: {

@@ -19,8 +19,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           isManualClose: true,
           isAlert: false,
           exposeBounds: true,
-          forceFocus: false,
-          returnFocus: false,
           preload: true,
           preloadImages: true,
           preloadCSS: true,

@@ -3554,7 +3554,11 @@ error: function(error, promise){}
               });
             $A.getModule(dc, "onRender", dc.container);
             dc.activeElements = $A.getActEl(dc.container, true);
-            if (dc.circularTabbing) $A.setCircTab(dc.activeElements);
+            if (dc.activeElements.length) {
+              dc.first = dc.activeElements[0];
+              dc.last = dc.activeElements[dc.activeElements.length - 1];
+              if (dc.circularTabbing) $A.setCircTab(dc.activeElements);
+            }
             var toBind = {};
             $A.data(dc.id, "DC", dc);
             $A.loop(
@@ -3591,7 +3595,7 @@ error: function(error, promise){}
                   });
               }
               $A.lastLoaded = dc;
-              if (dc.forceFocus) $A.focus(dc.container);
+              if (dc.forceFocus) dc.focus(dc);
               if (dc.announce) $A.announce(dc.container);
               if ($A.bootstrap) $A.bootstrap(dc.container);
               if ($A.isNum(dc.delayTimeout) && dc.delayTimeout > 0) {
@@ -4017,20 +4021,27 @@ error: function(error, promise){}
               return dc;
             },
 
-            focus: function() {
-              var dc = this;
-              if (dc.loaded) {
-                $A.focus(dc.container);
-              }
-              return dc;
-            },
-
             allowMultiple: false,
             //            allowReopen: false,
             //            isToggle: false,
             //            toggleClassName: "",
+
+            activeElements: [],
             //            forceFocus: false,
+            forceFocusWithin: true,
             returnFocus: true,
+            focus: function(dc) {
+              var dc = dc || this;
+              if (!dc.loaded) return dc;
+              $A.focus(
+                !dc.forceFocusWithin ||
+                  !dc.activeElements.length ||
+                  !$A.isDOMNode(dc.first)
+                  ? dc.container
+                  : dc.first
+              );
+              return dc;
+            },
 
             //            root: "",
             //            before: false,

@@ -10,9 +10,6 @@ $A.import(["Animate", "Dialog"], { defer: true }, function() {
     className: "modal",
     isModal: true,
     isAlert: false,
-    // forceFocus must always be true if not setting focus into the dialog manually.
-    // In this case, focus is being handled within the file files/login-dialog.htm.
-    forceFocus: false,
     style: { display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {

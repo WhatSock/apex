@@ -78,6 +78,9 @@ Note: The displayed value for each property represents its default value when om
   // Specify that the DC object must receive focus as soon as the object is rendered.
   forceFocus: false
 
+  // Specify that the first active element within the DC object must receive focus when dc.focus() is called.
+  forceFocusWithin: true
+
   // Specify that pressing the Escape key within the DC object will cause it to close.
   escToClose: false
 

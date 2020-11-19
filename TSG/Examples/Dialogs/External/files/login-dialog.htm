@@ -18,7 +18,6 @@
                 // DC provides access to the originating DC object instance.
                 // E.G. DC.container is the container element where this content is rendered within.
                 var frm = $A.getElement("lbForm");
-                frm.uname.focus();
                 $A(frm).on("submit", function(ev) {
                     if (!frm.uname.value) {
                         alert("Woops! You forgot your username...");
