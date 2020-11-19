@@ -199,8 +199,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 $A.loop(
                   props.triggers,
                   function(i, t) {
-                    if (!$A.data(t, "_Bound")) {
-                      $A.data(t, "_Bound", true);
+                    if (!$A.data(t, "_BoundDialog")) {
+                      $A.data(t, "_BoundDialog", true);
                       var role = $A.getAttr(t, "data-role") || "";
                       $A.setDialog(t, {
                         role: role,
@@ -277,8 +277,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 $A.loop(
                   props.triggers,
                   function(i, t) {
-                    if (!$A.data(t, "_Bound")) {
-                      $A.data(t, "_Bound", true);
+                    if (!$A.data(t, "_BoundPopup")) {
+                      $A.data(t, "_BoundPopup", true);
                       var role = $A.getAttr(t, "data-role") || "Popup";
                       $A.setPopup(t, {
                         role: role,
@@ -305,6 +305,57 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         },
                         runAfter: function(dc) {
                           // Do something after the popup is rendered.
+                        }
+                      });
+                    }
+                  },
+                  "array"
+                );
+              }
+            });
+        })();
+
+        (function() {
+          // ARIA Tooltips
+          // Search and recognise tooltip triggering elements with the class "aria-tooltip"
+          var triggers = context.querySelectorAll("*.aria-tooltip");
+
+          if (triggers.length)
+            $A.import(["Animate", "Tooltip"], {
+              name: "BootstrapTooltip",
+              defer: true,
+              props: $A.extend(props, {
+                triggers: triggers
+              }),
+              call: function(props) {
+                $A.loop(
+                  props.triggers,
+                  function(i, t) {
+                    if (!$A.data(t, "_BoundTooltip")) {
+                      $A.data(t, "_BoundTooltip", true);
+                      $A.setTooltip(t, {
+                        className: "tooltip",
+                        isFocusOnly: $A.getAttr(t, "data-mode") === "focus",
+                        isManualOpen: $A.getAttr(t, "data-mode") === "click",
+                        delay: parseInt($A.getAttr(t, "data-delay")) || 0,
+                        delayTimeout:
+                          parseInt($A.getAttr(t, "data-timeout")) || 0,
+                        style: { display: "none" },
+                        animate: {
+                          onRender: function(dc, outerNode, complete) {
+                            Velocity(outerNode, "transition.fadeIn", {
+                              complete: function() {
+                                complete();
+                              }
+                            });
+                          },
+                          onRemove: function(dc, outerNode, complete) {
+                            Velocity(outerNode, "transition.fadeOut", {
+                              complete: function() {
+                                complete();
+                              }
+                            });
+                          }
                         }
                       });
                     }

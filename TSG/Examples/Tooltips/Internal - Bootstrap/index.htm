@@ -3,13 +3,12 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Tooltip (Internal Content) - 4X Technical Style Guide</title>
+    <title>Bootstrap Tooltip (Internal Content) - 4X Technical Style Guide</title>
     <meta name="description" content="Accessible REACT Components">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
     <link rel="stylesheet" type="text/css" href="css/customize.css">
-    <script src="/4X/4X.js"></script>
-    <script src="js/setup.js"></script>
+    <script async src="/4X/4X.js#Bootstrap"></script>
 </head>
 
 <body>
@@ -38,20 +37,20 @@
             <main id="main" class="main">
                 <div class="demo-block flex-container">
                     <div class="component flex-item">
-                        <h1 class="pageTitle">Tooltip <small>Internal Content</small></h1>
+                        <h1 class="pageTitle">Bootstrap Tooltip <small>Internal Content</small></h1>
                         <p><label for="dummyField1"> Field1 to set focus to: </label>
                             <input type="text" id="dummyField1" /></p>
 
                         <h2>Tooltip with manual click to render</h2>
 
                         <!-- Here the data-tooltip attribute is used to set the tooltip content. -->
-                        <p><a data-tooltip='<p>"It is a mistake to think you can solve any major problems just with potatoes.", Douglas Adams</p>' id="helpIcon" href="#" class="helpIcon aria-tooltip"><img src="img/ic_help.svg" alt="What is the greatest secret known to man?" title="What is the greatest secret known to man?" /></a></p>
+                        <p><a data-mode="click" data-tooltip='<p>"It is a mistake to think you can solve any major problems just with potatoes.", Douglas Adams</p>' id="helpIcon" href="#" class="helpIcon aria-tooltip"><img src="img/ic_help.svg" alt="What is the greatest secret known to man?" title="What is the greatest secret known to man?" /></a></p>
 
                         <h2>Tooltip with explicit onFocus to render</h2>
 
                         <!-- Here the data-tooltip attribute is used to reference the id of the hidden tooltip container element. -->
                         <p><label for="pWord">Password:</label>
-                            <input data-tooltip="#password-tooltip" id="pWord" type="password" /></p>
+                            <input data-mode="focus" data-delay="1000" data-tooltip="#password-tooltip" id="pWord" type="password" class="aria-tooltip" /></p>
 
                         <div hidden id="password-tooltip">
                             <p>
@@ -66,8 +65,7 @@
 
                         <h2>Tooltip with hover support to render</h2>
 
-                        <!-- Here the tooltip content is specified within setup.js via the source property. -->
-                        <p><button class="action-btn" onclick="alert('Do something else.')">Action</button></p>
+                        <p><button data-delay="600" data-timeout="3000" data-tooltip='<div id="hover-tooltip"><p>Wow, look at that!</p></div>' class="action-btn aria-tooltip" onclick="alert('Do something else.')">Action</button></p>
 
                         <p><label for="dummyField2">Field2 to set focus to:</label> <input type="text" id="dummyField2" /></p>
                     </div>
