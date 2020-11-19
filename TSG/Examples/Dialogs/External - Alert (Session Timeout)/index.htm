@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Alert Dialog (Internal Content) - Apex 4X Technical Style Guide</title>
+    <title>Session Timeout Alert Dialog (External Content) - Apex 4X Technical Style Guide</title>
     <meta name="description" content="Scalable ARIA Components">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
@@ -29,10 +29,10 @@
                     <ul>
                         <li><a href="../../index.htm">Components</a></li>
                         <li><a href="../External/index.htm">External</a></li>
-                        <li><a href="../External - Alert (Session Timeout)/index.htm">External - Alert (Session Timeout)</a></li>
+                        <li><a href="index.htm" aria-current="page">External - Alert (Session Timeout)</a></li>
                         <li><a href="../External - Bootstrap/index.htm">External - Bootstrap</a></li>
                         <li><a href="../Internal/index.htm">Internal</a></li>
-                        <li><a href="index.htm" aria-current="page">Internal - Alert</a></li>
+                        <li><a href="../Internal - Alert/index.htm">Internal - Alert</a></li>
                         <li><a href="../Internal - Alert (Session Timeout)/index.htm">Internal - Alert (Session Timeout)</a></li>
                         <li><a href="../Internal - Bootstrap/index.htm">Internal - Bootstrap</a></li>
                     </ul>
@@ -41,34 +41,12 @@
             <main id="main" class="main">
                 <div class="demo-block flex-container">
                     <div class="component flex-item">
-                        <h1 class="pageTitle">Alert Dialog <small>Internal Content</small></h1>
+                        <h1 class="pageTitle">Session Timeout Alert Dialog <small>External Content</small></h1>
                         <p>
-                            <button id="triggerId" class="aria-dialog lightbox">
-                                Login
+                            <button id="triggerId" class="lightbox">
+                                Set 4 second timeout.
                             </button>
                         </p>
-
-                        <!-- Important
-                     When Implementing a Close link or button, the className must match the "closeClassName" property within the script declaration.
-                    Doing so will automatically bind the close methods with this element, and set keyboard focus properly when the DC object is closed. If closeClassName is not specified, the default class will be set to "CloseDC" instead.
-                    -->
-                        <div hidden id="dialog-login">
-                            <form id="lbForm">
-                                <p>
-                                    <label for="uname">Username:</label>
-                                    <input type="text" id="uname" name="uname">
-                                </p>
-                                <p>
-                                    <label for="pass">Password:</label>
-                                    <input type="password" id="pass" name="pass">
-                                </p>
-                                <p class="buttons-bar">
-                                    <input type="submit" id="lbSubmit" value="OK">
-                                    <input type="reset" class="lbClose CloseDC" id="lbCancel" value="Cancel">
-                                </p>
-                            </form>
-                        </div>
-
                     </div>
                     <div class="keyboard flex-item">
                         <h2>The dialog is optimized for screen reader and keyboard only users:</h2>

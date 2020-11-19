@@ -122,23 +122,29 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
         if ($A.isPlainObject(o)) {
           config = o;
-          o = config.trigger || null;
+          o = config.trigger || config.source || null;
         }
-        if (!o) return null;
 
-        var dcArray = [];
-        $A.query(o, function(i, o) {
-          dcArray.push(
-            $A(o).toDC(
-              $A.extend(
-                {
-                  widgetType: "Dialog"
-                },
-                config || {}
+        var dcArray = [],
+          toDC = function(o) {
+            dcArray.push(
+              $A.toDC(
+                o,
+                $A.extend(
+                  {
+                    widgetType: "Dialog"
+                  },
+                  config || {}
+                )
               )
-            )
-          );
-        });
+            );
+          };
+
+        if (o)
+          $A.query(o, function(i, o) {
+            toDC(o);
+          });
+        else toDC();
 
         return dcArray.length === 1 ? dcArray[0] : dcArray;
       }
