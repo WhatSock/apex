@@ -14,7 +14,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           isAlert: false,
           exposeBounds: true,
           forceFocus: true,
-          forceFocusWithin: true,
+          forceFocusWithin: false,
           returnFocus: true,
           exposeHiddenClose: true,
           displayHiddenClose: true,
