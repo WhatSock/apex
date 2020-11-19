@@ -45,6 +45,28 @@
                                 Login
                             </button>
                         </p>
+
+                        <!-- Important
+                     When Implementing a Close link or button, the className must match the "closeClassName" property within the script declaration.
+                    Doing so will automatically bind the close methods with this element, and set keyboard focus properly when the DC object is closed.
+                    -->
+                        <div hidden id="dialog-login">
+                            <form id="lbForm">
+                                <p>
+                                    <label for="uname">Username:</label>
+                                    <input type="text" id="uname" name="uname">
+                                </p>
+                                <p>
+                                    <label for="pass">Password:</label>
+                                    <input type="password" id="pass" name="pass">
+                                </p>
+                                <p class="buttons-bar">
+                                    <input type="submit" id="lbSubmit" value="OK">
+                                    <input type="reset" class="lbClose CloseDC" id="lbCancel" value="Cancel">
+                                </p>
+                            </form>
+                        </div>
+
                     </div>
                     <div class="keyboard flex-item">
                         <h2>The dialog is optimized for screen reader and keyboard only users:</h2>
@@ -55,26 +77,6 @@
                                 platform and iOS touch screen devices)</li>
                             <li>Keyboard focus is automatically restricted to active elements within the dialog.</li>
                         </ul>
-                    </div>
-                    <!-- Important
-             When Implementing a Close link or button, the className must match the "closeClassName" property within the script declaration.
-            Doing so will automatically bind the close methods with this element, and set keyboard focus properly when the DC object is closed.
-            -->
-                    <div hidden id="dialog-login">
-                        <form id="lbForm">
-                            <p>
-                                <label for="uname">Username:</label>
-                                <input type="text" id="uname" name="uname">
-                            </p>
-                            <p>
-                                <label for="pass">Password:</label>
-                                <input type="password" id="pass" name="pass">
-                            </p>
-                            <p class="buttons-bar">
-                                <input type="submit" id="lbSubmit" value="OK">
-                                <input type="reset" class="lbClose CloseDC" id="lbCancel" value="Cancel">
-                            </p>
-                        </form>
                     </div>
             </main>
         </div>
