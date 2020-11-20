@@ -37,14 +37,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           on: "click",
           runDuring: function(dc) {
             if (dc.isModal) {
-              $A.query("body > *", function(i, o) {
-                if (o !== dc.outerNode) {
-                  o.inert = true;
-                  $A.setAttr(o, {
-                    "aria-hidden": "true"
-                  });
-                }
-              });
               dc.backdrop = $A(that.backdrop)
                 .on({
                   click: function(ev) {
@@ -81,33 +73,18 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       onRender: function(dc, container) {
         var that = this;
         that.track.push(dc);
-        if (dc.isAlert) $A.announce(dc.container, true, true);
+        $A.hideBackground(dc.outerNode);
+        if (dc.isAlert) $A.announce(container, true, true);
       },
       onRemove: function(dc, container) {
         var that = this;
         that.track.splice(that.track.length - 1, 1);
         if (that.track.length) {
-          if (dc.isModal) {
-            $A.query("body > *", function(i, o) {
-              if (o !== that.track[that.track.length - 1].outerNode) {
-                o.inert = true;
-                $A.setAttr(o, {
-                  "aria-hidden": "true"
-                });
-              } else {
-                o.inert = false;
-                $A.remAttr(o, ["aria-hidden"]);
-              }
-            });
-          }
+          if (dc.isModal)
+            $A.hideBackground(that.track[that.track.length - 1].outerNode);
           dc.rerouteFocus = that.track[that.track.length - 1];
         } else {
-          if (dc.isModal) {
-            $A.query("body > *", function(i, o) {
-              o.inert = false;
-              $A.remAttr(o, ["aria-hidden"]);
-            });
-          }
+          if (dc.isModal) $A.showBackground();
         }
       },
       backdrop: '<div class="modalBackdrop"></div>'

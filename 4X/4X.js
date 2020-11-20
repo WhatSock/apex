@@ -3091,6 +3091,67 @@ error: function(error, promise){}
       return false;
     },
 
+    hideBackground: function(eN) {
+      if (this._4X) {
+        eN = this._X;
+      }
+      var n = eN ? $A.morph(eN) : null;
+      if (!$A.isDOMNode(n)) {
+        $A.showBackground();
+      } else {
+        if (
+          !(
+            n &&
+            n.parentNode &&
+            n.parentNode.nodeName &&
+            n.parentNode.nodeName.toLowerCase() === "body"
+          )
+        )
+          document.body.appendChild(n);
+        $A.loop(
+          document.body.children,
+          function(i, o) {
+            if ($A.isDOMNode(o)) {
+              var m = o === n;
+              o.inert = m ? false : true;
+              $A.setAttr(o, "aria-hidden", m ? "false" : "true");
+              if (m) $A.remAttr(o, "aria-hidden");
+            }
+          },
+          "array"
+        );
+      }
+      if (this._4X) {
+        this._X = n;
+        return this;
+      } else return n;
+    },
+
+    showBackground: function(eN) {
+      if (this._4X) {
+        eN = this._X;
+      }
+      var n = eN ? $A.morph(eN) : null;
+      if ($A.isDOMNode(n)) {
+        $A.hideBackground(n);
+      } else {
+        $A.loop(
+          document.body.children,
+          function(i, o) {
+            if ($A.isDOMNode(o)) {
+              o.inert = false;
+              $A.remAttr(o, "aria-hidden");
+            }
+          },
+          "array"
+        );
+      }
+      if (this._4X) {
+        this._X = n;
+        return this;
+      } else return n;
+    },
+
     setKBA11Y: function(node, role, name, noSpacebar) {
       if (this._4X) {
         noSpacebar = name;
