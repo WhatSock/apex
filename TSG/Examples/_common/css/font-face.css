@@ -12,22 +12,22 @@
 
 @font-face {
   font-family: "open_sanslight";
-  src: url("OpenSans-Light-webfont.eot");
-  src: url("OpenSans-Light-webfont.eot?#iefix") format("embedded-opentype"),
-    url("OpenSans-Light-webfont.woff") format("woff"),
-    url("OpenSans-Light-webfont.ttf") format("truetype"),
-    url("OpenSans-Light-webfont.svg#open_sanslight") format("svg");
+  src: url("../fonts/OpenSans-Light-webfont.eot");
+  src: url("../fonts/OpenSans-Light-webfont.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/OpenSans-Light-webfont.woff") format("woff"),
+    url("../fonts/OpenSans-Light-webfont.ttf") format("truetype"),
+    url("../fonts/OpenSans-Light-webfont.svg#open_sanslight") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "open_sansitalic";
-  src: url("OpenSans-Italic-webfont.eot");
-  src: url("OpenSans-Italic-webfont.eot?#iefix") format("embedded-opentype"),
-    url("OpenSans-Italic-webfont.woff") format("woff"),
-    url("OpenSans-Italic-webfont.ttf") format("truetype"),
-    url("OpenSans-Italic-webfont.svg#open_sansitalic") format("svg");
+  src: url("../fonts/OpenSans-Italic-webfont.eot");
+  src: url("../fonts/OpenSans-Italic-webfont.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/OpenSans-Italic-webfont.woff") format("woff"),
+    url("../fonts/OpenSans-Italic-webfont.ttf") format("truetype"),
+    url("../fonts/OpenSans-Italic-webfont.svg#open_sansitalic") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -46,11 +46,11 @@
 
 @font-face {
   font-family: "antonregular";
-  src: url("anton-webfont.eot");
-  src: url("anton-webfont.eot?#iefix") format("embedded-opentype"),
-    url("anton-webfont.woff") format("woff"),
-    url("anton-webfont.ttf") format("truetype"),
-    url("anton-webfont.svg#antonregular") format("svg");
+  src: url("../fonts/anton-webfont.eot");
+  src: url("../fonts/anton-webfont.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/anton-webfont.woff") format("woff"),
+    url("../fonts/anton-webfont.ttf") format("truetype"),
+    url("../fonts/anton-webfont.svg#antonregular") format("svg");
   font-weight: normal;
   font-style: normal;
 }
