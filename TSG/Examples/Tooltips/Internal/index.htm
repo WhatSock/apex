@@ -13,6 +13,15 @@
 </head>
 
 <body>
+    <div class="bypass">
+        <ul class="list-unstyled">
+            <li>
+                <a class="skip--link" href="javascript:void(0);" onclick="document.getElementById('main').focus();">
+                    Skip to Main Content
+                </a>
+            </li>
+        </ul>
+    </div>
     <div class="outer-wrapper">
         <header class="header flex-container">
             <div class="logo flex-item">
@@ -35,7 +44,7 @@
                     </ul>
                 </nav>
             </div>
-            <main id="main" class="main">
+            <main id="main" class="main" tabindex="-1">
                 <div class="demo-block flex-container">
                     <div class="component flex-item">
                         <h1 class="pageTitle">Tooltip <small>Internal Content</small></h1>
@@ -75,7 +84,7 @@
                         <h2>The tooltip is optimized for screen reader and keyboard only users:</h2>
                         <ul>
                             <li>Set focus on one of the Focus fields,
-                                then press <kbd>Tab</kbd> and <kbd><kbd>Shift</kbd>+<kbd>Tab</kbd></kbd> to navigate between them.</li>
+                                then press <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> to navigate between them.</li>
                             <li>Tabbing away from an active element with a tooltip, or pressing <kbd>Escape</kbd>, will close the tooltip.</li>
                         </ul>
                     </div>

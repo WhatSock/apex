@@ -12,6 +12,15 @@
 </head>
 
 <body>
+    <div class="bypass">
+        <ul class="list-unstyled">
+            <li>
+                <a class="skip--link" href="javascript:void(0);" onclick="document.getElementById('main').focus();">
+                    Skip to Main Content
+                </a>
+            </li>
+        </ul>
+    </div>
     <div class="outer-wrapper">
         <header class="header flex-container">
             <div class="logo flex-item">
@@ -42,7 +51,7 @@
                     </ul>
                 </nav>
             </div>
-            <main id="main" class="main">
+            <main id="main" class="main" tabindex="-1">
                 <div class="demo-block flex-container">
                     <div class="component flex-item">
                         <h1 class="pageTitle">ARIA Date Picker <small> (Basic, Auto Open)</small></h1>

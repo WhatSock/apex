@@ -11,6 +11,15 @@
 </head>
 
 <body>
+    <div class="bypass">
+        <ul class="list-unstyled">
+            <li>
+                <a class="skip--link" href="javascript:void(0);" onclick="document.getElementById('main').focus();">
+                    Skip to Main Content
+                </a>
+            </li>
+        </ul>
+    </div>
     <div class="outer-wrapper">
         <header class="header flex-container">
             <div class="logo flex-item">
@@ -33,7 +42,7 @@
                     </ul>
                 </nav>
             </div>
-            <main id="main" class="main">
+            <main id="main" class="main" tabindex="-1">
                 <!-- Attributes explained:
             * data-controls : The resource path and pointer to the ID attribute of the accordion content container element.
             * data-insert : The ID attribute of the container element where the accordion content will be inserted when rendered. (This must not be inside the triggering element)

@@ -53,6 +53,37 @@ main:focus {
 }
 
 /**********************************************
+    INTERNAL COMPONENTS Skip link
+*************************************************/
+.bypass ul {
+margin: 0;
+padding: 0;
+}
+
+.bypass ul li a {
+background-color: var(--whatsock-red);
+border-bottom: 1px solid var(--globalWhite);
+border-bottom-right-radius: 0.8em;
+border-right: 1px solid white;
+color: var(--globalWhite);
+left:0;
+padding: 0.6rem;
+position: absolute;
+top: -4rem;
+transition: top 1s ease-out, background 1s linear;
+z-index: 200;
+}
+
+.bypass ul li a:focus {
+background-color: var(--whatsock-red);
+left:0;
+outline: 0;
+position: absolute;
+top:0;
+transition: top .1s ease-in, background .5s linear;
+}
+
+/**********************************************
     INTERNAL COMPONENTS LAYOUT
 *************************************************/
 header.flex-container {
@@ -202,7 +233,7 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
 }
 
 .aria-accordion-trigger {
-  background: url(../img/accordion/sprite.svg) right 0.5em top 0.5em no-repeat;
+  background: url(../img/sprite.svg) right 0.5em top -18.2em no-repeat;
   background-color: var(--whatsock-blue);
   color: var(--bodyText);
   text-align: left;
@@ -283,6 +314,14 @@ footer {
   text-align: center;
 }
 
+p.copyright {
+  font-size: 0.7em;
+  text-transform: uppercase;
+  color: var(--globalWhite);
+  background: transparent;
+  margin-top: 1rem;
+}
+
 footer p:last-child {
   font-size: 0.7em;
   margin-top: 0.5em;
@@ -359,11 +398,27 @@ img {
 IE11 fallback
 ===================================
 ***********************************/
-
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .bypass ul {
+  margin: 0;
+  padding: 0;
+  }
+
+  .bypass ul li a {
+  background-color: #BF1722;
+  border-bottom: 1px solid #fff;
+  border-right: 1px solid #fff;
+  color:#fff;
+  }
+
+  .bypass ul li a:focus {
+  background-color: #BF1722;
+  }
+
   body {
     background-color: #2e3135;
   }
+
   main {
     background-color: #fff;
   }
