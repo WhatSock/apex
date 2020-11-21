@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Tooltip (Internal Content) - 4X Technical Style Guide</title>
+    <meta name="description" content="Scalable ARIA Components">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
+    <link rel="stylesheet" type="text/css" href="css/customize.css">
+    <script src="/4X/4X.js"></script>
+    <script src="js/setup.js"></script>
+</head>
+
+<body>
+    <div class="bypass">
+        <ul class="list-unstyled">
+            <li>
+                <a class="skip--link" href="javascript:void(0);" onclick="document.getElementById('main').focus();">
+                    Skip to Main Content
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="outer-wrapper">
+        <header class="header flex-container">
+            <div class="logo flex-item">
+                <a href="http://whatsock.com">
+                    <img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg"></a>
+            </div>
+            <div class="site-name flex-item">
+                <strong>Apex 4X</strong> Technical Style Guide
+            </div>
+        </header>
+        <div class="wrapper">
+            <div class="left-aside">
+                <nav>
+                    <ul>
+                        <li><a href="../../index.htm">Components</a></li>
+                        <li><a href="../External/index.htm">External</a></li>
+                        <li><a href="../External - Bootstrap/index.htm">External - Bootstrap</a></li>
+                        <li><a href="../Internal/index.htm" aria-current="page">Internal</a></li>
+                        <li><a href="../Internal - Bootstrap/index.htm">Internal - Bootstrap</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <main id="main" class="main" tabindex="-1">
+                <div class="demo-block flex-container">
+                    <div class="component flex-item">
+                        <h1 class="pageTitle">Tooltip <small>Internal Content</small></h1>
+                        <p><label for="dummyField1"> Field1 to set focus to: </label>
+                            <input type="text" id="dummyField1" /></p>
+
+                        <h2>Tooltip with manual click to render</h2>
+
+                        <!-- Here the data-tooltip attribute is used to set the tooltip content. -->
+                        <p><a data-tooltip='<p>"It is a mistake to think you can solve any major problems just with potatoes.", Douglas Adams</p>' id="helpIcon" href="#" class="helpIcon aria-tooltip"><img src="img/ic_help.svg" alt="What is the greatest secret known to man?" title="What is the greatest secret known to man?" /></a></p>
+
+                        <h2>Tooltip with explicit onFocus to render</h2>
+
+                        <!-- Here the data-tooltip attribute is used to reference the id of the hidden tooltip container element. -->
+                        <p><label for="pWord">Password:</label>
+                            <input data-tooltip="#password-tooltip" id="pWord" type="password" /></p>
+
+                        <div hidden id="password-tooltip">
+                            <p>
+                                Important:
+                            </p>
+                            <ul>
+                                <li> Must be 8 characters in length.</li>
+                                <li> Must not contain special characters.</li>
+                                <li> Must not contain any whitespace characters.</li>
+                            </ul>
+                        </div>
+
+                        <h2>Tooltip with hover support to render</h2>
+
+                        <!-- Here the tooltip content is specified within setup.js via the source property. -->
+                        <p><button class="action-btn" onclick="alert('Do something else.')">Action</button></p>
+
+                        <p><label for="dummyField2">Field2 to set focus to:</label> <input type="text" id="dummyField2" /></p>
+                    </div>
+                    <div class="keyboard flex-item">
+                        <h2>The tooltip is optimized for screen reader and keyboard only users:</h2>
+                        <ul>
+                            <li>Set focus on one of the Focus fields,
+                                then press <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> to navigate between them.</li>
+                            <li>Tabbing away from an active element with a tooltip, or pressing <kbd>Escape</kbd>, will close the tooltip.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+        <footer class="footer">
+            <p class="copyright">&copy;<script type="text/javascript">
+                    document.write(new Date().getFullYear());
+                </script> WhatSock. All rights reserved.</p>
+            <p>Visual design by <a href="http://gericci.me/">Angela Ricci</a>. Styling updated by Laurence Lewis October 2020</p>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -25,6 +25,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           className: "tooltip",
           allowReopen: false,
           escToClose: true,
+          returnFocus: false,
           mouseLeave: function(ev, dc) {
             dc.remove();
           },
@@ -174,33 +175,44 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         $A.query(o, function(i, o) {
           var tooltip = null,
             error = null;
-          if ($A.hasAttr(o, "data-tooltip"))
-            tooltip = $A.morph($A.getAttr(o, "data-tooltip")) || null;
-          if ($A.hasAttr(o, "data-error"))
-            error = $A.morph($A.getAttr(o, "data-error")) || null;
 
-          if (error)
-            dcArray.push(
-              $A.toDC(
-                $A.extend(baseDC(), {
-                  target: o,
-                  trigger: o,
-                  source: error,
-                  isError: true
-                })
-              )
-            );
+          if ($A.hasAttr(o, "data-tooltip")) {
+            var dt = $A.getAttr(o, "data-tooltip");
+            tooltip = {
+              target: o,
+              trigger: o
+            };
+            if ($A.isPath(dt))
+              tooltip.fetch = {
+                url: dt,
+                data: {
+                  selector: $A.getSelectorFromURI(dt)
+                }
+              };
+            else tooltip.source = $A.morph(dt);
+          }
+
+          if ($A.hasAttr(o, "data-error")) {
+            var de = $A.getAttr(o, "data-error");
+            error = {
+              target: o,
+              trigger: o,
+              isError: true
+            };
+            if ($A.isPath(de))
+              error.fetch = {
+                url: de,
+                data: {
+                  selector: $A.getSelectorFromURI(de)
+                }
+              };
+            else error.source = $A.morph(de);
+          }
+
+          if (error) dcArray.push($A.toDC($A.extend(baseDC(), error)));
 
           if (tooltip) {
-            dcArray.push(
-              $A.toDC(
-                $A.extend(baseDC(), {
-                  target: o,
-                  trigger: o,
-                  source: tooltip
-                })
-              )
-            );
+            dcArray.push($A.toDC($A.extend(baseDC(), tooltip)));
             if (
               !config.isFocusOnly &&
               !config.isResponsive &&

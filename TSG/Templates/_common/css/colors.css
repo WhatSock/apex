@@ -1,0 +1,72 @@
+/*--------------------------------------------------------------------
+         WHATSOCK AccDC
+         TECHNICAL STYLEGUIDE
+         2016-2020
+-------------------------------------------------------------------- */
+
+/*--------------------------------------------------------------------
+         CSS by Laurence Lewis October 2020
+-------------------------------------------------------------------- */
+
+/***************
+Lets modernise this and use css variables to define the colours so we only have to define them once.
+There are a lot of different colours used in the modules. We can review all the colours used and reduce the number by examining the root colours below.
+
+If root color is  --color-06: #c0294245;
+Call 'background-color:  var(--whatsock-red);
+************/
+:root {
+  /*common*/
+  --whatsock-red: #c13836;
+  --whatsock-blue: #63b7c2;
+  --whatsock-orange-main: #ffcc00;
+  --whatsock-orange-highlight: #fce7c7;
+  --whatsock-gray: #b8b7ab;
+  --whatsock-contrast-red: #cb4a48;
+  --whatsock-black: #2e3135;
+  --whatsockBeige: #f2d3a1;
+  --bodyText: #262626;
+  --elementBlack: #1f1f23;
+  --globalWhite: #ffffff;
+  --offWhite: #f7f7f7;
+
+  /*Accordion*/
+  --acordDarkGreen: #24575b;
+
+  /*NAV*/
+  --navLinkBackground: #444a51;
+
+  /*Forms*/
+  --inputBorder: #c0c0c0;
+  --buttons-bar: #286278;
+  --resetBackground: #555555;
+  --mediumOrange: #ff6600;
+
+  /*Tablist*/
+  --tablist-black: #2e3135;
+  --tablist-brown: #5d1f2c;
+
+  /*Listbox*/
+  --listbox-lightGrey: #e0e0e0;
+  --listbox-darkGrey: #333333;
+  --listbox-limeGreen: #80ff00;
+  --listbox-limeBlue: #92dbf6;
+
+  /*Comboboxes*/
+  --combobox-lightGrey: #eeeeee;
+  --combobox-lightGrey2: #e0e0e0;
+  --combobox-darkGrey: #333333;
+  --combobox-midGrey: #777777;
+  --combobox-red: #c1384d;
+
+  /*datepickers*/
+  --datepicker-pink: #db7093;
+  --datepicker-dayInMonth: #e6e6e6;
+  --datepicker-day: #e2a037;
+  --datepicker-darkGrey: #49182e;
+  --datepicker-lightGrey: #cccccc;
+  --datepicker-lmGrey: #bdbdbd;
+  --datepicker-mmGrey: #c2c2c2;
+  --datepicker-dGrey: #3d4043;
+  --datepicker-codeBGrey: #e4e4e4;
+}
