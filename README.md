@@ -75,6 +75,14 @@ For example, the props object is required to be passed down to all imported modu
 
 For more information regarding props, view the help file at: "4X/Help/$A API/Import and Fetch APIs/Props"
 
+Apex Widget Templates
+-----
+
+ToBeAdded
+
+Usage License
+-----
+
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 
 Developed and maintained by: Bryan Garaventa https://www.linkedin.com/in/bgaraventa
@@ -83,7 +91,7 @@ Or on Twitter at https://twitter.com/bryanegaraventa
 Contributors
 -----
 
-* Laurence Lewis (Editor): https://www.linkedin.com/in/laurence-lewis-77520365/  
+* Laurence Lewis (Markup and Style Editor): https://www.linkedin.com/in/laurence-lewis-77520365/  
 * Visual design by Angela Ricci (web designer and web front-end developer). You can check her work at her personal site http://gericci.me/ Or you can follow her on Twitter at https://twitter.com/gericci
 
 Project home:
