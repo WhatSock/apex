@@ -82,10 +82,10 @@ a:hover {
   background: transparent;
 }
 /*Laurence I am really not convinced this global focus is a good idea visually. I wil revisit and check against WCAg colour contrast recommendations */
-*:focus {
+/**:focus {
   color: var(--tablist-black);
   background: var(--whatsock-orange-main);
-}
+}*/
 /*Laurence: I have no idea what tis is for. I have never seena positioned link????  Experience says dump*/
 a.permalink,
 a.permalink:link,
