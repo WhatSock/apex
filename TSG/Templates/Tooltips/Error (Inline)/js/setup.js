@@ -1,3 +1,1 @@
-$A.import(["Animate", "Tooltip"], { defer: true }, function() {
-
-});
+$A.import(["Animate", "Tooltip"], { defer: true }, function() {});

@@ -1,16 +1,19 @@
-$A.import(["Animate", "TabList"], { defer: true }, function() {
-  $A.setTabList('*[role="tablist"] *[role="tab"]', {
+$A.import(["Animate", "Accordion"], { defer: true }, function() {
+  $A.setAccordion(".aria-accordion-trigger", {
+    singleTabStop: true,
+    toggleClass: "open",
+
     style: { display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {
-        Velocity(outerNode, "transition.slideUpIn", {
+        Velocity(outerNode, "transition.slideLeftIn", {
           complete: function() {
             complete();
           }
         });
       },
       onRemove: function(dc, outerNode, complete) {
-        Velocity(outerNode, "transition.slideUpOut", {
+        Velocity(outerNode, "transition.slideLeftOut", {
           complete: function() {
             complete();
           }
@@ -18,9 +21,9 @@ $A.import(["Animate", "TabList"], { defer: true }, function() {
       }
     },
 
-    // Allow tabs to be toggled
     isToggle: false,
-
-    toggleClass: "active"
+    allowMultiple: false,
+    preload: true,
+    preloadImages: true
   });
 });

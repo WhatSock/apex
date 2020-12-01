@@ -1,0 +1,1 @@
+call git status >> .\LogStatus.txt 2>> .\LogStatusErrors.txt

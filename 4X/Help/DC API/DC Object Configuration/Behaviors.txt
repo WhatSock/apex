@@ -20,7 +20,11 @@ DC Object Properties
 
 Note: The displayed value for each property represents its default value when omitted.
 
+  // Prevent the DC object from rendering.
+  isDisabled: false
+
   // Automatically invoke DC.render() when the DC object is instantiated.
+  // Will not render if isDisabled is set to true.
   autoRender: false
 
   // Convey beginning and ending boundary information to screen reader users.
@@ -41,6 +45,12 @@ Note: The displayed value for each property represents its default value when om
 
   // Automatically announce the textual content of the DC object when rendered.
   announce: false
+
+  // Prevent the same content from being announced repeatedly when announce is set to true.
+  noRepeat: false
+
+  // Fire a system-wide alert to announce the DC content when announce is set to true.
+  isAlert: false
 
   // Expose an offscreen positioned Close link for screen reader users.
   exposeHiddenClose: false
@@ -74,6 +84,9 @@ Note: The displayed value for each property represents its default value when om
   // Specify that the currently open DC object can be reopened, which will cause all related lifecycle methods to exicute as though DC.remove() and DC.render() were separatly invoked.
   // If not enabled, nothing will happen when attempting to reopen a DC object that is already open.
   allowReopen: false
+
+  // Automatically make the DC object focusable when rendered.
+  isFocusable: false
 
   // Specify that the DC object must receive focus as soon as the object is rendered.
   forceFocus: false

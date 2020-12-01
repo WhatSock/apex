@@ -7,125 +7,105 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
 (function() {
   if (!("setAccordion" in $A)) {
-    $A.addWidgetTypeProfile("AccordionPanel", {
-      configure: function(dc) {
-        return {
-          exposeBounds: true,
-          exposeHiddenClose: false,
-          ariaControls: true,
-          ariaLabelledby: true,
-          isToggle: false,
-          allowMultiple: false,
-          click: function(ev, dc) {
-            ev.stopPropagation();
-          }
-        };
-      },
-      role: function(dc) {
-        return {
-          role: "region"
-        };
-      }
-    });
-
-    $A.extend({
-      setAccordion: function(config) {
-        var config = config || {},
-          selector = config.triggers,
-          wheel = [],
-          context = config.context || document,
-          groupId = $A.genId(),
-          accordions = $A.query(selector, context, function(i, o) {
-            var isBtn =
-                $A.getAttr(o, "role") === "button" ||
-                o.nodeName.toLowerCase() === "button"
-                  ? true
-                  : false,
-              isLnk =
-                $A.getAttr(o, "role") === "link" ||
-                (o.nodeName.toLowerCase() === "a" && $A.getAttr(o, "href"))
-                  ? true
-                  : false;
-            if (!isBtn && !isLnk) {
-              $A.setAttr(o, "role", "button");
-            }
-
-            var insertId = $A.getAttr(o, "data-insert") || false,
-              insertO = insertId && $A.getEl(insertId),
-              isInternalId = $A.getAttr(o, "data-controls") || false,
-              isInternalO =
-                isInternalId &&
-                !$A.isPath(isInternalId) &&
-                $A.getEl(isInternalId),
-              extSrc = ($A.isPath(isInternalId) && isInternalId) || false,
-              dcId = o.id || $A.genId(),
-              eSrc1,
-              eSrc2;
-            if (extSrc) {
-              extSrc = extSrc.replace("#", " #");
-              eSrc1 = extSrc.split(/\s+/)[0];
-              var eI = extSrc.indexOf(" ");
-              if (eI !== -1) eSrc2 = extSrc.slice(eI + 1);
-            }
-
-            $A.setAttr(o, "aria-expanded", "false");
-
-            var ovrs = {
-              id: dcId,
-              autoRender: $A.getAttr(o, "data-active") === "true",
-              widgetType: "AccordionPanel",
-              trigger: o,
-              root: insertO,
-              append: true,
-              allowMultiple: config.allowMultiple === true,
-              preload: config.preload === true,
-              preloadImages: config.preloadImages === true,
-              preloadCSS: config.preloadCSS === true,
-              mode: extSrc ? 1 : 0,
-              source: extSrc
-                ? ""
-                : (function() {
-                    return isInternalO && isInternalO.parentNode
-                      ? isInternalO.parentNode.removeChild(isInternalO)
-                      : isInternalO;
-                  })(),
-              fetch: {
-                url: eSrc1 || "",
-                data: {
-                  selector: eSrc2 || ""
-                },
-                success: function(content, promise, dc) {
-                  dc.source = content;
-                  dc.mode = 0;
-                }
+    $A.import("RovingTabIndex", {
+      name: "AccordionModule",
+      props: props,
+      once: true,
+      call: function(props) {
+        $A.addWidgetTypeProfile("Accordion", {
+          configure: function(dc) {
+            return {
+              exposeBounds: true,
+              exposeHiddenClose: false,
+              ariaControls: true,
+              ariaLabelledby: true,
+              isToggle: false,
+              allowMultiple: false,
+              escToClose: true,
+              returnFocus: false,
+              runDuring: function(dc) {
+                $A.setAttr(dc.triggerObj, "aria-expanded", "true");
               },
-              on: "click",
-              toggleClass: config.toggleClass || "open",
-              isTab: typeof config.isTab === "boolean" ? config.isTab : true,
-              isToggle:
-                typeof config.isToggle === "boolean" ? config.isToggle : false,
-              runAfter: function(dc) {
-                $A.setAttr(dc.triggerObj, {
-                  "aria-expanded": "true"
-                });
-
-                if ($A.isFn(config.callback))
-                  config.callback.apply(dc.triggerObj, [dc]);
+              click: function(ev, dc) {
+                ev.stopPropagation();
               },
-              runAfterClose: function(dc) {
-                $A.setAttr(dc.triggerObj, {
-                  "aria-expanded": "false"
-                });
-
-                if ($A.isFn(config.callback))
-                  config.callback.apply(dc.triggerObj, [dc]);
+              onCreate: function(dc) {
+                $A.setAttr(dc.trigger, "aria-expanded", "false");
               }
             };
+          },
+          role: function(dc) {
+            return {
+              role: "region"
+            };
+          },
+          onRender: function(dc, container) {},
+          onRemove: function(dc, container) {
+            $A.setAttr(dc.triggerObj, "aria-expanded", "false");
+          }
+        });
 
-            wheel.push(ovrs);
-          });
+        $A.extend({
+          setAccordion: function(o, config) {
+            if (this._4X) {
+              config = o;
+              o = this._X;
+            }
 
-        return $A(wheel, config.override || {});
+            if ($A.isPlainObject(o)) {
+              config = o;
+              o = config.trigger || config.source || null;
+            }
+            if (!o) return null;
+
+            var dcArray = [],
+              active = null,
+              triggers = $A.query(o, function(i, o) {
+                var panelContainer = $A.getEl($A.getAttr(o, "data-insert")),
+                  dc = $A(o).toDC(
+                    $A.extend(
+                      {
+                        widgetType: "Accordion",
+                        root: panelContainer
+                      },
+                      config || {}
+                    )
+                  );
+                dcArray.push(dc);
+                if ($A.getAttr(o, "data-active") === "true") active = dc;
+              });
+
+            $A.map({
+              siblings: dcArray
+            });
+
+            if (config.singleTabStop)
+              var RTI = new $A.RovingTabIndex(
+                $A.extend(
+                  {
+                    nodes: triggers,
+                    orientation: 2,
+                    autoSwitch: config.autoSwitch || "full",
+                    autoLoop: true,
+                    onClick: function(ev, triggerNode, RTI, DC, pressed) {
+                      DC.render();
+                    },
+                    onSpace: function(ev, triggerNode, RTI, DC, pressed) {
+                      DC.render();
+                    },
+                    onEnter: function(ev, triggerNode, RTI, DC, pressed) {
+                      DC.render();
+                    }
+                  },
+                  config.extendRTI || {}
+                )
+              );
+
+            if ($A.isDC(active)) active.render();
+
+            return dcArray.length === 1 ? dcArray[0] : dcArray;
+          }
+        });
       }
     });
   }

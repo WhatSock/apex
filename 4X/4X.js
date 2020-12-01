@@ -77,12 +77,25 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           if (dc.preload && !dc.loading && !dc.loaded) {
             if (dc.mode === 1 && dc.fetch.url) {
               dc.source = $A.toNode();
-              $A.load(dc.fetch.url, dc.source, dc.fetch.data, function(
-                content
-              ) {
-                if (dc.preloadImages) $A.preloadImg(content);
-                $A.getModule(dc, "onFetch", content);
-              });
+              dc.isLoading = true;
+              $A.load(
+                dc.fetch.url,
+                dc.source,
+                dc.fetch.data,
+                function(content) {
+                  dc.isLoading = false;
+                  if (dc.preloadImages) $A.preloadImg(content);
+                  $A.getModule(dc, "onFetch", content);
+                  if ($A.isFn(dc.fn.afterLoaded)) {
+                    dc.fn.afterLoaded(dc);
+                    dc.fn.afterLoaded = null;
+                  }
+                },
+                function(e) {
+                  dc.isLoading = false;
+                  $A.parseDebug(e);
+                }
+              );
               dc.mode = 0;
             } else if (dc.preloadImages && !dc.mode && dc.source)
               $A.preloadImg(dc.source);
@@ -320,14 +333,33 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return r;
     },
 
+    toFetch: function(u) {
+      var x = u.indexOf("#");
+      if (!$A.isPath(u) || x === -1) return { data: {} };
+      return {
+        url: $A.trim(u.slice(0, x)),
+        data: {
+          selector: $A.trim(u.slice(x))
+        }
+      };
+    },
+
     getSelectorFromURI: function(u) {
       if (!$A.isStr(u)) return "";
-      var x = u.indexOf("#");
-      return x !== -1 ? u.slice(x) : "";
+      return $A.toFetch(u).data.selector;
     },
 
     isPath: function(p) {
       return p && $A.isStr(p) && p.indexOf("/") !== -1 ? true : false;
+    },
+
+    map: function(config) {
+      if (
+        config &&
+        (($A.isArray(config.siblings) && $A.isDC(config.siblings[0])) ||
+          $A.isDC(config.parent))
+      )
+        config.siblings[0].map(config);
     },
 
     toDC: function(o, config) {
@@ -341,83 +373,39 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       }
       if (!$A.isPlainObject(config)) config = {};
       if (o) o = $A.morph(o);
+      var ctrl = $A.isDOMNode(o) && $A.getAttr(o, "data-controls"),
+        alone = false;
 
-      var t = config.trigger,
-        fetch = (config.fetch && config.fetch.url) || false,
-        data = (fetch && config.fetch.data) || false,
-        ref =
-          (!fetch && $A.isDOMNode(o) && $A.getAttr(o, "data-controls")) ||
-          false,
-        isPath = $A.isPath(ref),
-        sel =
-          (fetch &&
-            config.fetch &&
-            config.fetch.data &&
-            config.fetch.data.selector) ||
-          (!fetch && ref && $A.isSelector("#" + ref) && "#" + ref) ||
-          (!fetch && isPath && $A.getSelectorFromURI(ref)) ||
-          false,
-        isSel = $A.isSelector(sel),
-        id = "";
-
-      if (!config.source && o) config.source = o;
-
-      if (!t && !fetch && ref && !isPath && isSel) ref = sel;
-
-      if (fetch && isSel) {
-        isPath = true;
-        ref = fetch;
-        delete config.fetch;
-      }
-
-      if (!isPath && ref && isSel) {
-        ref = $A.morph(sel);
-        t = o;
-        config.source = ref;
-      } else if (isPath && ref && isSel) {
-        t = o;
-        config.source = $A.toNode();
-        $A.load(
-          ref,
-          config.source,
-          $A.extend(
-            {
-              selector: sel
-            },
-            data || {}
-          ),
-          function(content) {
-            if (config.preloadImages) $A.preloadImg(content);
-            $A.getModule(config, "onFetch", content);
-          }
-        );
-      }
-
-      if (t) {
-        if (!$A.isDOMNode(t)) t = $A.morph(t);
-        if ($A.isDOMNode(t)) {
-          if (!t.id) t.id = $A.genId();
-          id = t.id;
-        }
-      } else if ($A.isDOMNode(config.source)) {
-        if (!config.source.id) config.source.id = $A.genId();
-        id = config.source.id;
-      }
-
-      if (!id) id = $A.genId();
-
-      var rendered =
-        $A.isDOMNode(config.source) &&
-        $A.isWithin(config.source) &&
-        !$A.isHidden(config.source);
-
-      if (
-        $A.isDOMNode(config.source, null, null, 11) &&
-        rendered &&
-        !config.root &&
-        !t &&
-        !config.targetObj
+      if (ctrl && $A.isPath(ctrl)) {
+        config.fetch = $A.toFetch(ctrl);
+        config.source = null;
+        config.trigger = o;
+        config.mode = 1;
+        if ($A.isDOMNode(o) && o.id) config.id = o.id;
+      } else if (
+        ctrl &&
+        $A.isSelector("#" + ctrl) &&
+        document.querySelector("#" + ctrl)
       ) {
+        config.source = document.querySelector("#" + ctrl);
+        config.trigger = o;
+        if ($A.isDOMNode(o) && o.id) config.id = o.id;
+      } else if ($A.isDOMNode(o) && (config.source || config.fetch)) {
+        config.trigger = o;
+        if (o.id) config.id = o.id;
+      } else if ($A.isDOMNode(o)) {
+        config.source = o;
+        if (o.id) config.id = o.id;
+        alone = true;
+      }
+
+      if (!config.id) config.id = $A.genId();
+
+      var rendered = $A.isBool(config.rendered)
+        ? config.rendered
+        : alone && $A.isWithin(config.source) && !$A.isHidden(config.source);
+
+      if (rendered && !config.root) {
         if ($A.isDOMNode($A.next(config.source))) {
           config.root = $A.next(config.source);
           config.before = true;
@@ -428,8 +416,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           config.root = config.source.parentNode;
           config.append = true;
         }
+        config.loaded = true;
       }
+
       config.isRendered = rendered;
+
       config.widgetType =
         config.widgetType || $A.getAttr(o, "data-widget-type") || null;
 
@@ -437,12 +428,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         $A.extend(
           true,
           {
-            id: id,
             fn: {
               isMorphedDC: true
             },
-            autoRender: rendered,
-            trigger: t,
             on: "click"
           },
           config
@@ -2334,7 +2322,7 @@ error: function(error, promise){}
       } else return e;
     },
 
-    closestParent: function(node, fn) {
+    closest: function(node, fn) {
       if (this._4X) {
         fn = node;
         node = this._X;
@@ -2955,6 +2943,18 @@ error: function(error, promise){}
       } else return str;
     },
 
+    alert: function(str, noRepeat) {
+      if (this._4X) {
+        noRepeat = str;
+        str = this._X;
+      }
+      if (str) announceString.apply(str, [str, noRepeat, true]);
+      if (this._4X) {
+        this._X = str;
+        return this;
+      } else return str;
+    },
+
     // Derived from isOutOfViewport.js by Chris Ferdinandi
     // https://vanillajstoolkit.com/helpers/isoutofviewport/
     isOutOfView: function(elem) {
@@ -3366,39 +3366,47 @@ error: function(error, promise){}
           switch (dc.mode) {
             case 1:
               dc.source = $A.toNode();
+              dc.isLoading = true;
               $A.load(
                 dc.fetch.url,
                 dc.source,
                 dc.fetch.data,
                 function(content, promise) {
+                  dc.isLoading = false;
                   if (dc.preloadImages) $A.preloadImg(content);
                   $A.getModule(dc, "onFetch", content);
                   dc.fetch.success(content, promise, dc);
                   DCR3(dc);
                 },
                 function(errorMsg, promise) {
+                  dc.isLoading = false;
                   dc.fetch.error(errorMsg, promise, dc);
+                  $A.parseDebug(errorMsg);
                 }
               );
               break;
             case 2:
               dc.source = $A.toNode();
+              dc.isLoading = true;
               $A.get({
                 url: dc.fetch.url,
                 data: dc.fetch.data,
                 success: function(content, promise) {
+                  dc.isLoading = true;
                   if (dc.preloadImages) $A.preloadImg(content);
                   $A.getModule(dc, "onFetch", content);
                   dc.fetch.success(content, promise, dc);
                   DCR3(dc);
                 },
                 error: function(errorMsg, promise) {
+                  dc.isLoading = false;
                   dc.fetch.error(errorMsg, promise, dc);
                 }
               });
               break;
             default:
-              DCR3(dc);
+              if (dc.isLoading) dc.fn.afterLoaded = DCR3;
+              else DCR3(dc);
           }
 
           return dc;
@@ -3558,6 +3566,11 @@ error: function(error, promise){}
           else dc.source = $A.cloneNodes(dc.container);
 
           var complete = function() {
+            if (dc.isFocusable)
+              dc.setAttr({
+                tabindex: "0",
+                "aria-describedby": dc.containerId
+              });
             if (dc.autoPosition > 0 && !dc.root && !dc.autoFix)
               $A._calcPosition(dc);
             if (dc.autoFix) {
@@ -3657,7 +3670,8 @@ error: function(error, promise){}
               }
               $A.lastLoaded = dc;
               if (dc.forceFocus) dc.focus(dc);
-              if (dc.announce) $A.announce(dc.container);
+              if (dc.announce)
+                $A.announce(dc.container, dc.noRepeat, dc.isAlert);
               if ($A.bootstrap) $A.bootstrap(dc.container);
               if ($A.isNum(dc.delayTimeout) && dc.delayTimeout > 0) {
                 if (dc.fn.timer) clearTimeout(dc.fn.timer);
@@ -3929,7 +3943,7 @@ error: function(error, promise){}
 
       for (a = 0; a < DCObjects.length; a++) {
         var dc = {
-            //            id: "",
+            id: $A.genId(),
             //            role: "",
             //            loaded: false,
 
@@ -3966,6 +3980,22 @@ error: function(error, promise){}
                 forceRelative,
                 returnTopLeftOnly
               );
+            },
+
+            updateDisabled: function(oDC) {
+              var dcs = oDC || this.siblings;
+              $A.loop(
+                dcs,
+                function(i, o) {
+                  $A.query(o.triggerObj || o.trigger, function(x, e) {
+                    o.isDisabled =
+                      ($A.isNatActEl(e) && e.disabled) ||
+                      $A.getAttr(e, "aria-disabled") === "true";
+                  });
+                },
+                "array"
+              );
+              return dc;
             },
 
             //            trigger: "",
@@ -4088,9 +4118,10 @@ error: function(error, promise){}
             //            toggleClassName: "",
 
             activeElements: [],
+            // isFocusable: false,
             //            forceFocus: false,
             forceFocusWithin: true,
-            returnFocus: true,
+            // returnFocus: false,
             focus: function(dc) {
               var dc = dc || this;
               if (!dc.loaded) return dc;
@@ -4116,9 +4147,17 @@ error: function(error, promise){}
             //            mode: 0,
 
             //            announce: false,
-            speak: function(alert) {
+            // noRepeat: false,
+            // isAlert: false,
+
+            speak: function(noRep) {
               var dc = this;
-              $A.announce(dc.container, false, alert);
+              $A.announce(dc.container, noRep);
+              return dc;
+            },
+            alert: function(noRep) {
+              var dc = this;
+              $A.alert(dc.container, noRep);
               return dc;
             },
 
@@ -4128,7 +4167,20 @@ error: function(error, promise){}
                 sCb = data;
                 data = null;
               }
-              $A.load(url, dc.container, data, sCb);
+              dc.isLoading = true;
+              $A.load(
+                url,
+                dc.container,
+                data,
+                function(c) {
+                  dc.isLoading = false;
+                  if ($A.isFn(sCb)) sCb(c);
+                },
+                function(e) {
+                  dc.isLoading = false;
+                  $A.parseDebug(e);
+                }
+              );
               return dc;
             },
 
@@ -4154,6 +4206,7 @@ error: function(error, promise){}
 
             render: function(dc) {
               var dc = dc || this;
+              if (dc.isDisabled) return dc;
               if ($A.isNum(dc.delay) && dc.delay > 0) {
                 if (dc.fn.Delay) clearTimeout(dc.fn.Delay);
                 dc.fn.Delay = setTimeout(function() {
@@ -4530,15 +4583,19 @@ onRemove: function(mutationRecordObject, dc){ },
             if (DC.onCreate && $A.isFn(DC.onCreate)) {
               DC.onCreate.apply(DC, [DC]);
             }
+
+            DC.updateDisabled(DC);
           }
         }
       }
 
       for (a = 0; a < wheel.length; a++) wheel[a].siblings = wheel;
 
-      for (s = 0; s < render.length; s++) {
-        var dc = render[s];
-        dc.render();
+      if (render.length) {
+        for (s = 0; s < render.length; s++) {
+          var dc = render[s];
+          dc.render();
+        }
       }
 
       return wheel;
@@ -4562,7 +4619,7 @@ onRemove: function(mutationRecordObject, dc){ },
     next: $A["nextSibling"],
     first: $A["firstChild"],
     last: $A["lastChild"],
-    parent: $A["closestParent"],
+    parent: $A["closest"],
     removeClass: $A["remClass"],
     addIdReference: $A["addIdRef"],
     removeIdReference: $A["remIdRef"],
@@ -4652,8 +4709,6 @@ onRemove: function(mutationRecordObject, dc){ },
     return strm;
   };
 
-  String.prototype.announce = announceString;
-
   var stringAnnounce = {
     alertMsgs: [],
     clear: function() {
@@ -4673,6 +4728,11 @@ onRemove: function(mutationRecordObject, dc){ },
     loaded: false,
     liveRendered: false,
     alertRendered: false
+  };
+
+  String.prototype.announce = announceString;
+  String.prototype.alert = function(noRep) {
+    return $A.alert(this, noRep);
   };
 
   $A.on(document, {

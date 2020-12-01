@@ -1,12 +1,9 @@
 $A.import(["Animate", "Accordion"], { defer: true }, function() {
-  $A.setAccordion({
-    triggers: ".aria-accordion-trigger",
-
-    // Preload HTML markup to speed rendering
+  $A.setAccordion(".aria-accordion-trigger", {
+    isToggle: false,
+    allowMultiple: false,
     preload: true,
-    // Preload images to speed rendering
     preloadImages: true,
-    // Preload CSS stylesheets to speed rendering
     preloadCSS: true,
 
     toggleClass: "open",
@@ -27,9 +24,6 @@ $A.import(["Animate", "Accordion"], { defer: true }, function() {
           }
         });
       }
-    },
-
-    isToggle: false,
-    allowMultiple: false
+    }
   });
 });

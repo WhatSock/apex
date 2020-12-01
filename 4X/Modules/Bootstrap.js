@@ -16,16 +16,20 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
         (function() {
           // ARIA Accordions
-          // Search and recognise accordion triggering elements with the class "aria-accordion-trigger"
+          // Search and recognise accordion triggering elements with the class "aria-accordion-trigger" plus a valid data-name attribute for shared control groups.
           var groups = {};
-          $A.query(".aria-accordion-trigger", context, function(i, o) {
-            var groupName = $A.getAttr(o, "data-group");
-            if (!groups[groupName]) groups[groupName] = [];
-            if (!$A.data(o, "_isBoundAccordion")) {
-              $A.data(o, "_isBoundAccordion", true);
-              groups[groupName].push(o);
+          $A.query(
+            "button[data-controls][data-name].aria-accordion-trigger",
+            context,
+            function(i, o) {
+              var groupName = $A.getAttr(o, "data-name");
+              if (!groups[groupName]) groups[groupName] = [];
+              if (!$A.data(o, "_isBoundAccordion")) {
+                $A.data(o, "_isBoundAccordion", true);
+                groups[groupName].push(o);
+              }
             }
-          });
+          );
           for (var n in groups) {
             $A.import(["Animate", "Accordion"], {
               name: "BootstrapAccordion",
@@ -34,8 +38,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 accordionGroup: groups[n]
               }),
               call: function(props) {
-                $A.setAccordion({
-                  triggers: props.accordionGroup,
+                $A.setAccordion(props.accordionGroup, {
+                  isToggle: false,
+                  allowMultiple: false,
                   preload: true,
                   preloadImages: true,
                   preloadCSS: true,
@@ -84,33 +89,37 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 tabList: groups
               }),
               call: function(props) {
-                $A.setTabList({
-                  tabList: props.tabList,
-                  preload: true,
-                  preloadImages: true,
-                  preloadCSS: true,
+                $A.loop(
+                  props.tabList,
+                  function(i, list) {
+                    $A.setTabList(list.querySelectorAll('*[role="tab"]'), {
+                      preload: true,
+                      preloadImages: true,
+                      preloadCSS: true,
 
-                  style: { display: "none" },
-                  animate: {
-                    onRender: function(dc, outerNode, complete) {
-                      Velocity(outerNode, "transition.slideUpIn", {
-                        complete: function() {
-                          complete();
+                      style: { display: "none" },
+                      animate: {
+                        onRender: function(dc, outerNode, complete) {
+                          Velocity(outerNode, "transition.slideUpIn", {
+                            complete: function() {
+                              complete();
+                            }
+                          });
+                        },
+                        onRemove: function(dc, outerNode, complete) {
+                          Velocity(outerNode, "transition.slideUpOut", {
+                            complete: function() {
+                              complete();
+                            }
+                          });
                         }
-                      });
-                    },
-                    onRemove: function(dc, outerNode, complete) {
-                      Velocity(outerNode, "transition.slideUpOut", {
-                        complete: function() {
-                          complete();
-                        }
-                      });
-                    }
+                      },
+                      isToggle: false,
+                      toggleClass: "active"
+                    });
                   },
-                  isToggle: false,
-                  toggleClass: "active",
-                  callback: function(dc) {}
-                });
+                  "array"
+                );
               }
             });
         })();

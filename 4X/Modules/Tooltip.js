@@ -18,6 +18,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           isManualOpen: false,
           isManualClose: true,
           isAlert: false,
+          announce: false,
           exposeBounds: true,
           preload: true,
           preloadImages: true,
@@ -73,7 +74,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           )
         )
           $A.setAttr(dc.target, "aria-describedby", container.id);
-        else if (dc.isAlert) $A.announce(container, false, true);
+        else if (dc.isAlert) dc.announce = true;
         else if (dc.isIE) $A.announce(container);
       },
       onRemove: function(dc, container) {
@@ -182,13 +183,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               target: o,
               trigger: o
             };
-            if ($A.isPath(dt))
-              tooltip.fetch = {
-                url: dt,
-                data: {
-                  selector: $A.getSelectorFromURI(dt)
-                }
-              };
+            if ($A.isPath(dt)) tooltip.fetch = $A.toFetch(dt);
             else tooltip.source = $A.morph(dt);
           }
 
@@ -199,13 +194,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               trigger: o,
               isError: true
             };
-            if ($A.isPath(de))
-              error.fetch = {
-                url: de,
-                data: {
-                  selector: $A.getSelectorFromURI(de)
-                }
-              };
+            if ($A.isPath(de)) error.fetch = $A.toFetch(de);
             else error.source = $A.morph(de);
           }
 

@@ -74,7 +74,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         var that = this;
         that.track.push(dc);
         $A.hideBackground(dc.outerNode);
-        if (dc.isAlert) $A.announce(container, true, true);
+        dc.announce = dc.isAlert === true;
       },
       onRemove: function(dc, container) {
         var that = this;
