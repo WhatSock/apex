@@ -350,7 +350,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     },
 
     isPath: function(p) {
-      return p && $A.isStr(p) && p.indexOf("/") !== -1 ? true : false;
+      return $A.isStr(p) &&
+        !$A.isMarkup(p) &&
+        !$A.isSelector(p) &&
+        p.indexOf("/") !== -1
+        ? true
+        : false;
     },
 
     map: function(config) {
@@ -376,6 +381,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       var ctrl = $A.isDOMNode(o) && $A.getAttr(o, "data-controls"),
         alone = false;
 
+      if (config.fetch && config.fetch.url) config.mode = 1;
+
       if (ctrl && $A.isPath(ctrl)) {
         config.fetch = $A.toFetch(ctrl);
         config.source = null;
@@ -399,10 +406,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         alone = true;
       }
 
-      if (!config.id) config.id = $A.genId();
-
-      var rendered = $A.isBool(config.rendered)
-        ? config.rendered
+      var rendered = $A.isBool(config.isRendered)
+        ? config.isRendered
         : alone && $A.isWithin(config.source) && !$A.isHidden(config.source);
 
       if (rendered && !config.root) {
@@ -419,7 +424,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         config.loaded = true;
       }
 
-      config.isRendered = rendered;
+      if (!config.isRendered) config.isRendered = rendered;
 
       config.widgetType =
         config.widgetType || $A.getAttr(o, "data-widget-type") || null;
@@ -428,6 +433,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         $A.extend(
           true,
           {
+            id: config.id || $A.genId(),
             fn: {
               isMorphedDC: true
             },
@@ -3941,104 +3947,102 @@ error: function(error, promise){}
       var a = 0,
         s = 0;
 
-      for (a = 0; a < DCObjects.length; a++) {
-        var dc = {
-            id: $A.genId(),
-            //            role: "",
-            //            loaded: false,
+      var dc = {
+        //            role: "",
+        //            loaded: false,
 
-            fn: {
-              isDCI: true
+        fn: {
+          isDCI: true
+        },
+        props: {},
+
+        setOffScreen: function() {
+          var dc = this;
+          $A.setOffScreen(dc.outerNode);
+          return dc;
+        },
+
+        clearOffScreen: function() {
+          var dc = this;
+          $A.clearOffScreen(dc.outerNode);
+          return dc;
+        },
+
+        hasDC: function() {
+          return true;
+        },
+
+        getDC: function() {
+          return this;
+        },
+
+        offset: function(forceAbsolute, forceRelative, returnTopLeftOnly) {
+          var dc = this;
+          return $A.offset(
+            dc.outerNode,
+            forceAbsolute,
+            forceRelative,
+            returnTopLeftOnly
+          );
+        },
+
+        updateDisabled: function(oDC) {
+          var dcs = oDC || this.siblings;
+          $A.loop(
+            dcs,
+            function(i, o) {
+              $A.query(o.triggerObj || o.trigger, function(x, e) {
+                o.isDisabled =
+                  ($A.isNatActEl(e) && e.disabled) ||
+                  $A.getAttr(e, "aria-disabled") === "true";
+              });
             },
-            props: {},
+            "array"
+          );
+          return dc;
+        },
 
-            setOffScreen: function() {
-              var dc = this;
-              $A.setOffScreen(dc.outerNode);
-              return dc;
-            },
+        //            trigger: "",
+        setTrigger: function(dc) {
+          var dc = dc || this;
+          if (!dc.trigger || !dc.on) {
+            return dc;
+          }
+          return setTrigger(dc);
+        },
+        unsetTrigger: function(dc) {
+          var dc = dc || this;
+          if (!dc.trigger || !dc.on) return dc;
+          return unsetTrigger(dc);
+        },
+        //            targetObj: null,
 
-            clearOffScreen: function() {
-              var dc = this;
-              $A.clearOffScreen(dc.outerNode);
-              return dc;
-            },
+        hiddenCloseName: "Close",
+        //            exposeHiddenClose: false,
+        displayHiddenClose: true,
+        //            exposeBounds: false,
 
-            hasDC: function() {
-              return true;
-            },
+        query: function(sel, con, call) {
+          var dc = this;
+          call = con;
+          con = dc.container;
+          return $A.query(sel, con, call);
+        },
 
-            getDC: function() {
-              return this;
-            },
+        //            source: "",
+        sourceOnly: true,
 
-            offset: function(forceAbsolute, forceRelative, returnTopLeftOnly) {
-              var dc = this;
-              return $A.offset(
-                dc.outerNode,
-                forceAbsolute,
-                forceRelative,
-                returnTopLeftOnly
-              );
-            },
+        //            on: "",
+        //            displayInline: false,
 
-            updateDisabled: function(oDC) {
-              var dcs = oDC || this.siblings;
-              $A.loop(
-                dcs,
-                function(i, o) {
-                  $A.query(o.triggerObj || o.trigger, function(x, e) {
-                    o.isDisabled =
-                      ($A.isNatActEl(e) && e.disabled) ||
-                      $A.getAttr(e, "aria-disabled") === "true";
-                  });
-                },
-                "array"
-              );
-              return dc;
-            },
+        //            widgetType: "",
+        //            autoCloseWidget: false,
+        //            autoCloseSameWidget: false,
 
-            //            trigger: "",
-            setTrigger: function(dc) {
-              var dc = dc || this;
-              if (!dc.trigger || !dc.on) {
-                return dc;
-              }
-              return setTrigger(dc);
-            },
-            unsetTrigger: function(dc) {
-              var dc = dc || this;
-              if (!dc.trigger || !dc.on) return dc;
-              return unsetTrigger(dc);
-            },
-            //            targetObj: null,
+        allowCascade: true,
+        // reverseJSOrder: false,
 
-            hiddenCloseName: "Close",
-            //            exposeHiddenClose: false,
-            displayHiddenClose: true,
-            //            exposeBounds: false,
-
-            query: function(sel, con, call) {
-              var dc = this;
-              call = con;
-              con = dc.container;
-              return $A.query(sel, con, call);
-            },
-
-            //            source: "",
-            sourceOnly: true,
-
-            //            on: "",
-            //            displayInline: false,
-
-            //            widgetType: "",
-            //            autoCloseWidget: false,
-            //            autoCloseSameWidget: false,
-
-            allowCascade: true,
-            // reverseJSOrder: false,
-
-            /*
+        /*
             runJSOnceBefore: [],
             runOnceBefore: function(dc) {},
             runJSBefore: [],
@@ -4062,292 +4066,292 @@ error: function(error, promise){}
             runBeforeDestroy: function(dc) {},
 */
 
-            destroy: function(p) {
-              var dc = this;
-              setTimeout(function() {
-                $A.destroy(dc, p);
-              }, 1);
-              return true;
+        destroy: function(p) {
+          var dc = this;
+          setTimeout(function() {
+            $A.destroy(dc, p);
+          }, 1);
+          return true;
+        },
+
+        getAttr: function(n) {
+          var dc = this;
+          return $A.getAttr(dc.outerNode, n);
+        },
+        hasAttr: function(n) {
+          var dc = this;
+          return $A.hasAttr(dc.outerNode, n);
+        },
+        remAttr: function(n) {
+          var dc = this;
+          $A.remAttr(dc.outerNode, n);
+          return dc;
+        },
+        setAttr: function(n, v) {
+          var dc = this;
+          $A.setAttr(dc.outerNode, n, v);
+          return dc;
+        },
+
+        hasClass: function(cn) {
+          var dc = this;
+          return $A.hasClass(dc.outerNode, cn);
+        },
+
+        addClass: function(cn) {
+          var dc = this;
+          $A.addClass(dc.outerNode, cn);
+          return dc;
+        },
+
+        remClass: function(cn) {
+          var dc = this;
+          $A.remClass(dc.outerNode, cn);
+          return dc;
+        },
+
+        toggleClass: function(cn, isTrue, fn) {
+          var dc = this;
+          $A.toggleClass(dc.outerNode, cn, isTrue, fn);
+          return dc;
+        },
+
+        allowMultiple: false,
+        //            allowReopen: false,
+        //            isToggle: false,
+        //            toggleClassName: "",
+
+        activeElements: [],
+        // isFocusable: false,
+        //            forceFocus: false,
+        forceFocusWithin: true,
+        // returnFocus: false,
+        focus: function(dc) {
+          var dc = dc || this;
+          if (!dc.loaded) return dc;
+          $A.focus(
+            !dc.forceFocusWithin ||
+              !dc.activeElements.length ||
+              !$A.isDOMNode(dc.first)
+              ? dc.container
+              : dc.first
+          );
+          return dc;
+        },
+
+        //            root: "",
+        //            before: false,
+        //            prepend: false,
+        //            append: false,
+        //            after: false,
+
+        //            isTab: false,
+        //            autoRender: false,
+        //            lock: false,
+        //            mode: 0,
+
+        //            announce: false,
+        // noRepeat: false,
+        // isAlert: false,
+
+        speak: function(noRep) {
+          var dc = this;
+          $A.announce(dc.container, noRep);
+          return dc;
+        },
+        alert: function(noRep) {
+          var dc = this;
+          $A.alert(dc.container, noRep);
+          return dc;
+        },
+
+        load: function(url, data, sCb) {
+          var dc = this;
+          if ($A.isFn(data)) {
+            sCb = data;
+            data = null;
+          }
+          dc.isLoading = true;
+          $A.load(
+            url,
+            dc.container,
+            data,
+            function(c) {
+              dc.isLoading = false;
+              if ($A.isFn(sCb)) sCb(c);
             },
+            function(e) {
+              dc.isLoading = false;
+              $A.parseDebug(e);
+            }
+          );
+          return dc;
+        },
 
-            getAttr: function(n) {
-              var dc = this;
-              return $A.getAttr(dc.outerNode, n);
+        fetch: {
+          url: "",
+          data: {
+            returnType: "html"
+          },
+          success: function(content, promise, dc) {
+            dc.source = content;
+            return dc;
+          },
+          error: function(errorMsg, promise, dc) {
+            dc.error = errorMsg;
+            return dc;
+          }
+        },
+
+        isFocusWithin: function(dc) {
+          var dc = dc || this;
+          return $A.isFocusWithin(dc.container);
+        },
+
+        render: function(dc) {
+          var dc = dc || this;
+          if (dc.isDisabled) return dc;
+          if ($A.isNum(dc.delay) && dc.delay > 0) {
+            if (dc.fn.Delay) clearTimeout(dc.fn.Delay);
+            dc.fn.Delay = setTimeout(function() {
+              DCR1(dc);
+            }, dc.delay);
+          } else DCR1(dc);
+          return dc;
+        },
+
+        setProps: function(conf) {
+          var dc = this;
+          $A.extend(true, dc.props, conf || {});
+          dc.props.DC = dc;
+          return dc;
+        },
+
+        insert: function(node) {
+          var dc = this;
+          $A.insert(node, dc.container);
+          return dc;
+        },
+
+        prependWithin: function(node) {
+          var dc = this;
+          $A.prepend(node, dc.container);
+          return dc;
+        },
+
+        appendWithin: function(node) {
+          var dc = this;
+          $A.append(node, dc.container);
+          return dc;
+        },
+
+        openWithin: function(node, conf) {
+          var dc = this;
+          dc.before = dc.prepend = dc.append = dc.after = false;
+          $A.extend(
+            dc,
+            {
+              root: node
             },
-            hasAttr: function(n) {
-              var dc = this;
-              return $A.hasAttr(dc.outerNode, n);
+            conf || {}
+          );
+          dc.reopen();
+          return dc;
+        },
+
+        insertBefore: function(node, conf) {
+          var dc = this;
+          dc.before = dc.prepend = dc.append = dc.after = false;
+          $A.extend(
+            dc,
+            {
+              root: node,
+              before: true
             },
-            remAttr: function(n) {
-              var dc = this;
-              $A.remAttr(dc.outerNode, n);
-              return dc;
+            conf || {}
+          );
+          dc.reopen();
+          return dc;
+        },
+
+        prependTo: function(node, conf) {
+          var dc = this;
+          dc.before = dc.prepend = dc.append = dc.after = false;
+          $A.extend(
+            dc,
+            {
+              root: node,
+              prepend: true
             },
-            setAttr: function(n, v) {
-              var dc = this;
-              $A.setAttr(dc.outerNode, n, v);
-              return dc;
+            conf || {}
+          );
+          dc.reopen();
+          return dc;
+        },
+
+        appendTo: function(node, conf) {
+          var dc = this;
+          dc.before = dc.prepend = dc.append = dc.after = false;
+          $A.extend(
+            dc,
+            {
+              root: node,
+              append: true
             },
+            conf || {}
+          );
+          dc.reopen();
+          return dc;
+        },
 
-            hasClass: function(cn) {
-              var dc = this;
-              return $A.hasClass(dc.outerNode, cn);
+        insertAfter: function(node, conf) {
+          var dc = this;
+          dc.before = dc.prepend = dc.append = dc.after = false;
+          $A.extend(
+            dc,
+            {
+              root: node,
+              after: true
             },
+            conf || {}
+          );
+          dc.reopen();
+          return dc;
+        },
 
-            addClass: function(cn) {
-              var dc = this;
-              $A.addClass(dc.outerNode, cn);
-              return dc;
-            },
+        reopen: function(dc) {
+          var dc = dc || this;
+          dc.remove().render();
+          return dc;
+        },
 
-            remClass: function(cn) {
-              var dc = this;
-              $A.remClass(dc.outerNode, cn);
-              return dc;
-            },
+        remove: function(dc) {
+          var dc = dc || this;
+          return closeDC(dc);
+        },
 
-            toggleClass: function(cn, isTrue, fn) {
-              var dc = this;
-              $A.toggleClass(dc.outerNode, cn, isTrue, fn);
-              return dc;
-            },
+        events: [
+          "mouseOver",
+          "mouseOut",
+          "resize",
+          "scroll",
+          "click",
+          "dblClick",
+          "mouseDown",
+          "mouseUp",
+          "mouseMove",
+          "mouseEnter",
+          "mouseLeave",
+          "keyDown",
+          "keyPress",
+          "keyUp",
+          "error",
+          "focusIn",
+          "focusOut",
+          "onRemove"
+        ],
 
-            allowMultiple: false,
-            //            allowReopen: false,
-            //            isToggle: false,
-            //            toggleClassName: "",
-
-            activeElements: [],
-            // isFocusable: false,
-            //            forceFocus: false,
-            forceFocusWithin: true,
-            // returnFocus: false,
-            focus: function(dc) {
-              var dc = dc || this;
-              if (!dc.loaded) return dc;
-              $A.focus(
-                !dc.forceFocusWithin ||
-                  !dc.activeElements.length ||
-                  !$A.isDOMNode(dc.first)
-                  ? dc.container
-                  : dc.first
-              );
-              return dc;
-            },
-
-            //            root: "",
-            //            before: false,
-            //            prepend: false,
-            //            append: false,
-            //            after: false,
-
-            //            isTab: false,
-            //            autoRender: false,
-            //            lock: false,
-            //            mode: 0,
-
-            //            announce: false,
-            // noRepeat: false,
-            // isAlert: false,
-
-            speak: function(noRep) {
-              var dc = this;
-              $A.announce(dc.container, noRep);
-              return dc;
-            },
-            alert: function(noRep) {
-              var dc = this;
-              $A.alert(dc.container, noRep);
-              return dc;
-            },
-
-            load: function(url, data, sCb) {
-              var dc = this;
-              if ($A.isFn(data)) {
-                sCb = data;
-                data = null;
-              }
-              dc.isLoading = true;
-              $A.load(
-                url,
-                dc.container,
-                data,
-                function(c) {
-                  dc.isLoading = false;
-                  if ($A.isFn(sCb)) sCb(c);
-                },
-                function(e) {
-                  dc.isLoading = false;
-                  $A.parseDebug(e);
-                }
-              );
-              return dc;
-            },
-
-            fetch: {
-              url: "",
-              data: {
-                returnType: "html"
-              },
-              success: function(content, promise, dc) {
-                dc.source = content;
-                return dc;
-              },
-              error: function(errorMsg, promise, dc) {
-                dc.error = errorMsg;
-                return dc;
-              }
-            },
-
-            isFocusWithin: function(dc) {
-              var dc = dc || this;
-              return $A.isFocusWithin(dc.container);
-            },
-
-            render: function(dc) {
-              var dc = dc || this;
-              if (dc.isDisabled) return dc;
-              if ($A.isNum(dc.delay) && dc.delay > 0) {
-                if (dc.fn.Delay) clearTimeout(dc.fn.Delay);
-                dc.fn.Delay = setTimeout(function() {
-                  DCR1(dc);
-                }, dc.delay);
-              } else DCR1(dc);
-              return dc;
-            },
-
-            setProps: function(conf) {
-              var dc = this;
-              $A.extend(true, dc.props, conf || {});
-              dc.props.DC = dc;
-              return dc;
-            },
-
-            insert: function(node) {
-              var dc = this;
-              $A.insert(node, dc.container);
-              return dc;
-            },
-
-            prependWithin: function(node) {
-              var dc = this;
-              $A.prepend(node, dc.container);
-              return dc;
-            },
-
-            appendWithin: function(node) {
-              var dc = this;
-              $A.append(node, dc.container);
-              return dc;
-            },
-
-            openWithin: function(node, conf) {
-              var dc = this;
-              dc.before = dc.prepend = dc.append = dc.after = false;
-              $A.extend(
-                dc,
-                {
-                  root: node
-                },
-                conf || {}
-              );
-              dc.reopen();
-              return dc;
-            },
-
-            insertBefore: function(node, conf) {
-              var dc = this;
-              dc.before = dc.prepend = dc.append = dc.after = false;
-              $A.extend(
-                dc,
-                {
-                  root: node,
-                  before: true
-                },
-                conf || {}
-              );
-              dc.reopen();
-              return dc;
-            },
-
-            prependTo: function(node, conf) {
-              var dc = this;
-              dc.before = dc.prepend = dc.append = dc.after = false;
-              $A.extend(
-                dc,
-                {
-                  root: node,
-                  prepend: true
-                },
-                conf || {}
-              );
-              dc.reopen();
-              return dc;
-            },
-
-            appendTo: function(node, conf) {
-              var dc = this;
-              dc.before = dc.prepend = dc.append = dc.after = false;
-              $A.extend(
-                dc,
-                {
-                  root: node,
-                  append: true
-                },
-                conf || {}
-              );
-              dc.reopen();
-              return dc;
-            },
-
-            insertAfter: function(node, conf) {
-              var dc = this;
-              dc.before = dc.prepend = dc.append = dc.after = false;
-              $A.extend(
-                dc,
-                {
-                  root: node,
-                  after: true
-                },
-                conf || {}
-              );
-              dc.reopen();
-              return dc;
-            },
-
-            reopen: function(dc) {
-              var dc = dc || this;
-              dc.remove().render();
-              return dc;
-            },
-
-            remove: function(dc) {
-              var dc = dc || this;
-              return closeDC(dc);
-            },
-
-            events: [
-              "mouseOver",
-              "mouseOut",
-              "resize",
-              "scroll",
-              "click",
-              "dblClick",
-              "mouseDown",
-              "mouseUp",
-              "mouseMove",
-              "mouseEnter",
-              "mouseLeave",
-              "keyDown",
-              "keyPress",
-              "keyUp",
-              "error",
-              "focusIn",
-              "focusOut",
-              "onRemove"
-            ],
-
-            /*
+        /*
 // Index of events plus returned arguments when set withinDC objects
 mouseOver: function(ev, dc){ },
 mouseOut: function(ev, dc){ },
@@ -4369,159 +4373,162 @@ focusOut: function(ev, dc){ },
 onRemove: function(mutationRecordObject, dc){ },
 */
 
-            //            tabOut: function(ev, dc) {},
-            //            delayTimeout: 0,
-            timeout: function(dc) {
-              dc.remove();
-              return dc;
-            },
+        //            tabOut: function(ev, dc) {},
+        //            delayTimeout: 0,
+        timeout: function(dc) {
+          dc.remove();
+          return dc;
+        },
 
-            // escToClose: false,
-            //            className: "",
-            closeClassName: "CloseDC",
-            style: {},
-            //            importCSS: "",
-            css: function(prop, val, mergeCSS) {
-              var dc = this;
-              if ($A.isBool(val)) {
-                mergeCSS = val;
-                val = null;
+        // escToClose: false,
+        //            className: "",
+        closeClassName: "CloseDC",
+        style: {},
+        //            importCSS: "",
+        css: function(prop, val, mergeCSS) {
+          var dc = this;
+          if ($A.isBool(val)) {
+            mergeCSS = val;
+            val = null;
+          }
+          if ($A.isStr(prop) && !$A.isStr(val) && !$A.isNum(val)) {
+            return $A.css(dc.outerNode, prop);
+          } else if (prop && $A.isStr(prop) && mergeCSS) {
+            dc.style[prop] = val;
+          } else if (prop && typeof prop === "object" && mergeCSS) {
+            $A.extend(dc.style, prop);
+          }
+          $A.css(dc.outerNode, prop, val);
+          return dc;
+        },
+
+        map: function(o, extend) {
+          var dc = this;
+          if (!o) o = {};
+
+          var inList = function(DC, dcA) {
+            for (var i = 0; i < dcA.length; i++) {
+              if (dcA[i].id === DC.id) {
+                return true;
               }
-              if ($A.isStr(prop) && !$A.isStr(val) && !$A.isNum(val)) {
-                return $A.css(dc.outerNode, prop);
-              } else if (prop && $A.isStr(prop) && mergeCSS) {
-                dc.style[prop] = val;
-              } else if (prop && typeof prop === "object" && mergeCSS) {
-                $A.extend(dc.style, prop);
-              }
-              $A.css(dc.outerNode, prop, val);
-              return dc;
-            },
-
-            map: function(o, extend) {
-              var dc = this;
-              if (!o) o = {};
-
-              var inList = function(DC, dcA) {
-                for (var i = 0; i < dcA.length; i++) {
-                  if (dcA[i].id === DC.id) {
-                    return true;
-                  }
-                }
-                return false;
-              };
-
-              if ($A.isDC(o.parent)) {
-                dc.parent = o.parent;
-              }
-
-              if ($A.isArray(o.children)) {
-                if (!extend) dc.children = [];
-                for (var i = 0; i < o.children.length; i++) {
-                  if ($A.isDC(o.children[i])) {
-                    o.children[i].parent = dc;
-                    if (!inList(o.children[i], dc.children))
-                      dc.children.push(o.children[i]);
-                  }
-                }
-              }
-
-              if ($A.isArray(o.siblings)) {
-                if (!extend) dc.siblings = [dc];
-                for (var i = 0; i < o.siblings.length; i++) {
-                  if ($A.isDC(o.siblings[i])) {
-                    if (!inList(o.siblings[i], dc.siblings))
-                      dc.siblings.push(o.siblings[i]);
-                  }
-                }
-              }
-
-              dc.top = dc;
-              var p = dc.parent;
-              while (
-                $A.isDC(p) &&
-                (!dc.widgetType || dc.widgetType === p.widgetType)
-              ) {
-                dc.top = p;
-                p = p.parent;
-              }
-
-              if (dc.parent && !extend) dc.parent.children = [];
-              for (var x = 0; x < dc.siblings.length; x++) {
-                var DCX = dc.siblings[x];
-                if ($A.isDC(DCX)) {
-                  DCX.parent = dc.parent;
-                  DCX.siblings = dc.siblings;
-                  if (dc.parent && !inList(DCX, dc.parent.children))
-                    dc.parent.children.push(DCX);
-                }
-              }
-
-              var setTop = function(a) {
-                for (var i = 0; i < a.length; i++) {
-                  if ($A.isDC(a[i]) && a[i].children.length) {
-                    for (var x = 0; x < a[i].children.length; x++) {
-                      var DCX = a[i].children[x];
-                      if ($A.isDC(DCX)) {
-                        setTop(DCX.siblings);
-                      }
-                    }
-                  }
-                  if ($A.isDC(a[i])) a[i].top = dc.top;
-                }
-              };
-              setTop(dc.siblings);
-
-              return dc;
-            },
-
-            children: [],
-            siblings: [],
-            //            parent: null,
-            //            top: null,
-
-            //            autoPosition: 0,
-            //            offsetTop: 0,
-            //            offsetLeft: 0,
-            //            posAnchor: null,
-
-            setPosition: function(obj, posVal, save) {
-              var dc = this;
-              if ($A.isNum(obj)) {
-                save = posVal;
-                posVal = obj;
-                obj = null;
-              }
-              if (save) {
-                dc.posAnchor = obj || dc.posAnchor;
-                dc.autoPosition = posVal || dc.autoPosition;
-              }
-              $A._calcPosition(dc, obj, posVal);
-              return dc;
-            },
-
-            setFix: function(posVal, save) {
-              var dc = this;
-              if (save) {
-                dc.autoFix = posVal || dc.autoFix;
-              }
-              setAutoFix(dc);
-              if (posVal > 0) sizeAutoFix(dc);
-              return dc;
             }
-          },
-          aO = DCObjects[a],
-          gImport = gImport || {},
+            return false;
+          };
+
+          if ($A.isDC(o.parent)) {
+            dc.parent = o.parent;
+          }
+
+          if ($A.isArray(o.children)) {
+            if (!extend) dc.children = [];
+            for (var i = 0; i < o.children.length; i++) {
+              if ($A.isDC(o.children[i])) {
+                o.children[i].parent = dc;
+                if (!inList(o.children[i], dc.children))
+                  dc.children.push(o.children[i]);
+              }
+            }
+          }
+
+          if ($A.isArray(o.siblings)) {
+            if (!extend) dc.siblings = [dc];
+            for (var i = 0; i < o.siblings.length; i++) {
+              if ($A.isDC(o.siblings[i])) {
+                if (!inList(o.siblings[i], dc.siblings))
+                  dc.siblings.push(o.siblings[i]);
+              }
+            }
+          }
+
+          dc.top = dc;
+          var p = dc.parent;
+          while (
+            $A.isDC(p) &&
+            (!dc.widgetType || dc.widgetType === p.widgetType)
+          ) {
+            dc.top = p;
+            p = p.parent;
+          }
+
+          if (dc.parent && !extend) dc.parent.children = [];
+          for (var x = 0; x < dc.siblings.length; x++) {
+            var DCX = dc.siblings[x];
+            if ($A.isDC(DCX)) {
+              DCX.parent = dc.parent;
+              DCX.siblings = dc.siblings;
+              if (dc.parent && !inList(DCX, dc.parent.children))
+                dc.parent.children.push(DCX);
+            }
+          }
+
+          var setTop = function(a) {
+            for (var i = 0; i < a.length; i++) {
+              if ($A.isDC(a[i]) && a[i].children.length) {
+                for (var x = 0; x < a[i].children.length; x++) {
+                  var DCX = a[i].children[x];
+                  if ($A.isDC(DCX)) {
+                    setTop(DCX.siblings);
+                  }
+                }
+              }
+              if ($A.isDC(a[i])) a[i].top = dc.top;
+            }
+          };
+          setTop(dc.siblings);
+
+          return dc;
+        },
+
+        children: [],
+        siblings: [],
+        //            parent: null,
+        //            top: null,
+
+        //            autoPosition: 0,
+        //            offsetTop: 0,
+        //            offsetLeft: 0,
+        //            posAnchor: null,
+
+        setPosition: function(obj, posVal, save) {
+          var dc = this;
+          if ($A.isNum(obj)) {
+            save = posVal;
+            posVal = obj;
+            obj = null;
+          }
+          if (save) {
+            dc.posAnchor = obj || dc.posAnchor;
+            dc.autoPosition = posVal || dc.autoPosition;
+          }
+          $A._calcPosition(dc, obj, posVal);
+          return dc;
+        },
+
+        setFix: function(posVal, save) {
+          var dc = this;
+          if (save) {
+            dc.autoFix = posVal || dc.autoFix;
+          }
+          setAutoFix(dc);
+          if (posVal > 0) sizeAutoFix(dc);
+          return dc;
+        }
+      };
+
+      $A.extend(dc, {
+        getAttribute: dc["getAttr"],
+        hasAttribute: dc["hasAttr"],
+        removeAttribute: dc["remAttr"],
+        setAttribute: dc["setAttr"],
+        removeClass: dc["remClass"]
+      });
+
+      if (!gImport) gImport = {};
+
+      for (a = 0; a < DCObjects.length; a++) {
+        var aO = DCObjects[a],
           gO = {},
           iO = {};
-
-        $A.extend(dc, {
-          getAttribute: dc["getAttr"],
-          hasAttribute: dc["hasAttr"],
-          removeAttribute: dc["remAttr"],
-          setAttribute: dc["setAttr"],
-          removeClass: dc["remClass"]
-        });
 
         if (!$A.isBool(aO.allowCascade)) {
           if ($A.isBool(gImport.allowCascade))
@@ -4557,35 +4564,35 @@ onRemove: function(mutationRecordObject, dc){ },
           dc.fn.proto = iO;
         }
 
-        if (dc.id) {
-          dc.indexVal = wheel.length;
-          wheel[dc.indexVal] = DCInit(dc);
-          var DC = wheel[dc.indexVal];
-          if ($A.isDC(DC)) {
-            setBindings(DC);
-            if (DC.autoRender) render.push(DC);
+        if (!dc.id) dc.id = $A.genId();
 
-            if ($A.isDC(parentDC)) {
-              var chk = -1,
-                p = parentDC,
-                c = DC;
-              for (var i = 0; i < p.children.length; i++) {
-                if (c.id === p.children[i].id) chk = i;
-              }
-              if (chk >= 0) p.children.slice(chk, 1, c);
-              else p.children.push(c);
-              c.parent = p;
-              var t = c;
-              while (t.parent) t = t.parent;
-              c.top = t;
-            } else DC.top = DC;
+        dc.indexVal = wheel.length;
+        wheel[dc.indexVal] = DCInit(dc);
+        var DC = wheel[dc.indexVal];
+        if ($A.isDC(DC)) {
+          setBindings(DC);
+          if (DC.autoRender) render.push(DC);
 
-            if (DC.onCreate && $A.isFn(DC.onCreate)) {
-              DC.onCreate.apply(DC, [DC]);
+          if ($A.isDC(parentDC)) {
+            var chk = -1,
+              p = parentDC,
+              c = DC;
+            for (var i = 0; i < p.children.length; i++) {
+              if (c.id === p.children[i].id) chk = i;
             }
+            if (chk >= 0) p.children.slice(chk, 1, c);
+            else p.children.push(c);
+            c.parent = p;
+            var t = c;
+            while (t.parent) t = t.parent;
+            c.top = t;
+          } else DC.top = DC;
 
-            DC.updateDisabled(DC);
+          if (DC.onCreate && $A.isFn(DC.onCreate)) {
+            DC.onCreate.apply(DC, [DC]);
           }
+
+          DC.updateDisabled(DC);
         }
       }
 

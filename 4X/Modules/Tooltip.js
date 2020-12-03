@@ -203,13 +203,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           if (tooltip) {
             dcArray.push($A.toDC($A.extend(baseDC(), tooltip)));
             if (
+              tooltip.source &&
               !config.isFocusOnly &&
               !config.isResponsive &&
               !config.isManualOpen &&
               !config.isAlert &&
               !config.isIE
             )
-              $A.setAttr(o, "aria-description", $A.getText(tooltip));
+              $A.setAttr(o, "aria-description", $A.getText(tooltip.source));
           }
 
           if (!error && !tooltip) {
@@ -222,6 +223,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               )
             );
             if (
+              config.source &&
               !config.isFocusOnly &&
               !config.isResponsive &&
               !config.isManualOpen &&
