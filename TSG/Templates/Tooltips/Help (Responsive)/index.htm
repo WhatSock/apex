@@ -52,18 +52,16 @@
                         <h2>Pop Quiz</h2>
                         <form id="questionForm" action="#">
                             <p><label for="questionId">What is the Latin name for our planet?<span class="clrRed">*</span></label>
-                                <input type="text" name="question" id="questionId" required /></p>
+                                <input type="text" name="question" id="questionId" required class="has-help-tooltip" /></p>
 
-                            <p class="buttons-bar"><input type="submit" value="Submit" /></p>
+                            <p class="buttons-bar"><input type="submit" value="Submit" disabled /></p>
                         </form>
 
                     </div>
                     <div class="keyboard flex-item">
                         <h2>The tooltip is optimized for screen reader and keyboard only users:</h2>
                         <ul>
-                            <li>Set focus on one of the Focus fields,
-                                then press <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> to navigate between them.</li>
-                            <li>Tabbing away from an active element with a tooltip, or pressing <kbd>Escape</kbd>, will close the tooltip.</li>
+                            <li>Type text into the edit field and the tooltip will update accordingly using validation logic. (The answer is "Terra".)</li>
                         </ul>
                     </div>
                 </div>

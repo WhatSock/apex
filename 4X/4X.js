@@ -4227,9 +4227,19 @@ error: function(error, promise){}
           return dc;
         },
 
+        text: function() {
+          var dc = this;
+          return $A.getText(dc.container);
+        },
+
         insert: function(node) {
           var dc = this;
-          $A.insert(node, dc.container);
+          if (dc.loaded) $A.insert(node, dc.container);
+          else {
+            dc.source = node;
+            dc.mode = 0;
+            dc.render();
+          }
           return dc;
         },
 

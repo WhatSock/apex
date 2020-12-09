@@ -1,6 +1,6 @@
 /* Specific styles for Accessible Tooltip */
 
-div.helpTooltip {
+div.help-tooltip {
   position: absolute;
   width: auto;
   color: #fff;

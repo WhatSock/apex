@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Dynamic Error Tooltip - 4X Technical Style Guide</title>
+    <title>External Error Tooltip - 4X Technical Style Guide</title>
     <meta name="description" content="Scalable ARIA Components">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
@@ -47,9 +47,15 @@
             <main id="main" class="main" tabindex="-1">
                 <div class="demo-block flex-container">
                     <div class="component flex-item">
-                        <h1 class="pageTitle">Error Tooltip <small>Dynamic</small></h1>
+                        <h1 class="pageTitle">Error Tooltip <small>External</small></h1>
 
-
+                        <form id="contactForm" action="#">
+                            <p><label class="required" for="your_name">Your name:</label>
+                                <input data-error="files/errors.htm#name-err" class="has-error-tooltip" type="text" name="name" id="your_name" /></p>
+                            <p><label class="required" for="your_email">Your email:</label>
+                                <input data-error="files/errors.htm#email-err" class="has-error-tooltip" type="text" name="email" id="your_email" /></p>
+                            <p class="buttons-bar"><input type="submit" value="Submit" disabled /></p>
+                        </form>
 
                     </div>
                     <div class="keyboard flex-item">
@@ -57,7 +63,6 @@
                         <ul>
                             <li>Set focus on one of the Focus fields,
                                 then press <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> to navigate between them.</li>
-                            <li>Tabbing away from an active element with a tooltip, or pressing <kbd>Escape</kbd>, will close the tooltip.</li>
                         </ul>
                     </div>
                 </div>

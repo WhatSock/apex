@@ -63,19 +63,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           );
       },
       onRender: function(dc, container) {
-        if (
-          !(
-            !dc.isError &&
-            !dc.isFocusOnly &&
-            !dc.isResponsive &&
-            !dc.isManualOpen &&
-            !dc.isAlert &&
-            !dc.isIE
-          )
-        )
-          $A.setAttr(dc.target, "aria-describedby", container.id);
-        else if (dc.isAlert) dc.announce = true;
-        else if (dc.isIE) $A.announce(container);
+        if (dc.isError || dc.isResponsive || dc.isIE) {
+          dc.isAlert = dc.isResponsive ? false : true;
+          dc.speak();
+        } else $A.setAttr(dc.target, "aria-describedby", container.id);
       },
       onRemove: function(dc, container) {
         $A.remAttr(dc.target, "aria-describedby");
@@ -101,70 +92,89 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             return $A.extend(
               {
                 widgetType: "Tooltip",
-                validate: function(target) {
-                  if (!target.value) return "Field is required.";
-                },
-                validateCondition: function() {
+                speak: function(v) {
                   var dc = this;
-                  if (!dc.isError) return dc;
-                  var v = dc.validate(dc.target);
-                  if ($A.isStr(v) && v.length) {
-                    if (dc.loaded) dc.insert(v);
-                    else {
-                      dc.source = v;
-                      dc.render();
-                    }
+                  v = v || dc.text();
+                  if (dc.isResponsive && !dc.isIE && !$A.isTouch)
+                    $A.setAttr(dc.triggerObj, "aria-description", v);
+                  else $A.announce(v, true, dc.isAlert);
+                  return dc;
+                },
+                validate: function(dc, target) {
+                  if (!target.value) return dc.source;
+                  return false;
+                },
+                validateCondition: function(dc) {
+                  if (!dc.isError && !dc.isResponsive) return dc;
+                  var v = dc.validate(dc, dc.target);
+                  if (v) {
+                    if (dc.loaded) dc.speak(v);
+                    dc.insert(v);
                   }
+                  if ($A.isFn(dc.onValid)) dc.onValid(dc, dc.isValid);
                 },
                 on: {
-                  rendertooltip: function(ev, dc) {
-                    dc.render();
-                  },
                   focus: function(ev, dc) {
-                    if (!dc.isError && !dc.isManualOpen)
-                      $A.trigger(this, "rendertooltip");
+                    if (dc.isResponsive) {
+                      dc.target = this;
+                      dc.validateCondition(dc);
+                    } else if (!dc.isError && !dc.isManualOpen) dc.render();
                     else if (dc.isError && !dc.isResponsive) dc.remove();
                   },
                   blur: function(ev, dc) {
                     if (!dc.isError) dc.remove();
-                    else if (dc.isError && !dc.isResponsive)
-                      $A.trigger(this, "checkvalidate");
+                    else if (dc.isError && !dc.isResponsive) {
+                      dc.target = this;
+                      dc.validateCondition(dc);
+                    }
                   },
                   touchstart: function(ev, dc) {
-                    if (!dc.isError && !dc.isManualOpen)
-                      $A.trigger(this, "rendertooltip");
+                    if (dc.isResponsive) {
+                      dc.target = this;
+                      dc.validateCondition(dc);
+                    } else if (!dc.isError && !dc.isManualOpen) dc.render();
                     else if (dc.isError && !dc.isResponsive) dc.remove();
                   },
                   click: function(ev, dc) {
-                    if (!dc.isError && dc.isManualOpen) {
-                      $A.trigger(this, "rendertooltip");
+                    if (!dc.isError && dc.isManualOpen && !dc.loaded) {
+                      dc.render();
                       ev.stopPropagation();
                       ev.preventDefault();
-                    } else if (!dc.isError && dc.isManualOpen) {
+                    } else if (!dc.isError && dc.isManualOpen && dc.loaded) {
                       dc.remove();
                       ev.stopPropagation();
                       ev.preventDefault();
                     }
                   },
                   mouseenter: function(ev, dc) {
-                    if (!dc.isError && !dc.isManualOpen && !dc.isFocusOnly)
-                      $A.trigger(this, "rendertooltip");
+                    if (
+                      !dc.isError &&
+                      !dc.isManualOpen &&
+                      !dc.isFocusOnly &&
+                      !dc.isResponsive
+                    )
+                      dc.render();
                   },
                   mouseleave: function(ev, dc) {
-                    if (!dc.isError && !dc.isManualClose && !dc.isFocusOnly)
+                    if (
+                      !dc.isError &&
+                      !dc.isManualClose &&
+                      !dc.isFocusOnly &&
+                      !dc.isResponsive
+                    )
                       dc.remove();
                   },
-                  checkvalidate: function(ev, dc) {
-                    dc.target = this;
-                    dc.validateCondition();
-                  },
-                  keydown: function(ev, dc) {
-                    if (dc.isError && dc.isResponsive)
-                      $A.trigger(this, "checkvalidate");
+                  keyup: function(ev, dc) {
+                    if (dc.isResponsive) {
+                      dc.target = this;
+                      dc.validateCondition(dc);
+                    }
                   },
                   change: function(ev, dc) {
-                    if (dc.isError && dc.isResponsive)
-                      $A.trigger(this, "checkvalidate");
+                    if (dc.isResponsive) {
+                      dc.target = this;
+                      dc.validateCondition(dc);
+                    }
                   }
                 }
               },
@@ -176,6 +186,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         $A.query(o, function(i, o) {
           var tooltip = null,
             error = null;
+          if (!config.isError && config.isResponsive) config.isError = true;
 
           if ($A.hasAttr(o, "data-tooltip")) {
             var dt = $A.getAttr(o, "data-tooltip");
