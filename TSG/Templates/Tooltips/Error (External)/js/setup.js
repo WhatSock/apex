@@ -1,5 +1,13 @@
 $A.import(["Animate", "Tooltip"], { defer: true }, function() {
-  $A.setTooltip("input.has-error-tooltip", {
+  var inputs = document.querySelectorAll("input.has-error-tooltip");
+  $A.setTooltip(inputs, {
+    onValid: function(dc) {
+      var isValid = true;
+      $A.loop(inputs, function(i, o) {
+        if (!o.value) isValid = false;
+      });
+      document.querySelector('input[type="submit"]').disabled = !isValid;
+    },
     className: "error-tooltip",
     delay: 0,
     delayTimeout: 0,

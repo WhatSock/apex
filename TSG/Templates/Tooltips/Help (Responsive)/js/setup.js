@@ -9,8 +9,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
         matches = val === ans;
       dc.isValid = val === dc.answer.toLowerCase();
 
-      if (!i) return 'Would you like a hint? It rhymes with "Sarah".';
-      else if (i === 1 && !matches)
+      if (i === 1 && !matches)
         return "Hmmm, it doesn't look like you're off to a good start.";
       else if (i >= 3 && i <= dc.answer.length && !matches)
         return "Well, you can keep going if you want, but it won't help much.";
@@ -24,11 +23,9 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
       else if (i === 4 && matches) return "Excellent! You are almost there.";
       else if (i > dc.answer.length) return "Wo, hold on there cowboy!";
       else if (dc.isValid) return "That's correct, you've got it!";
-
-      return false;
     },
-    onValid: function(dc, isValid) {
-      document.querySelector('input[type="submit"]').disabled = !isValid;
+    onValid: function(dc) {
+      document.querySelector('input[type="submit"]').disabled = !dc.isValid;
     },
     className: "help-tooltip",
     delay: 1000,

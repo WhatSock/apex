@@ -4234,8 +4234,15 @@ error: function(error, promise){}
 
         insert: function(node) {
           var dc = this;
-          if (dc.loaded) $A.insert(node, dc.container);
-          else {
+          if (dc.loaded) {
+            $A.insert(node, dc.container);
+            if ($A.isNum(dc.delayTimeout) && dc.delayTimeout > 0) {
+              if (dc.fn.timer) clearTimeout(dc.fn.timer);
+              dc.fn.timer = setTimeout(function() {
+                dc.timeout(dc);
+              }, dc.delayTimeout);
+            }
+          } else {
             dc.source = node;
             dc.mode = 0;
             dc.render();
@@ -4747,6 +4754,7 @@ onRemove: function(mutationRecordObject, dc){ },
     alertRendered: false
   };
 
+  $A.announce.clear = announceString.clear = stringAnnounce.clear;
   String.prototype.announce = announceString;
   String.prototype.alert = function(noRep) {
     return $A.alert(this, noRep);

@@ -50,23 +50,26 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       },
       onFetch: function(dc, container) {
         if (
+          !dc.isError &&
           !dc.isFocusOnly &&
           !dc.isResponsive &&
           !dc.isManualOpen &&
           !dc.isAlert &&
           !dc.isIE
-        )
+        ) {
+          dc.noRepeat = true;
           $A.setAttr(
-            dc.trigger,
+            dc.target,
             "aria-description",
             $A.getText($A.morph(container))
           );
+        }
       },
       onRender: function(dc, container) {
         if (dc.isError || dc.isResponsive || dc.isIE) {
-          dc.isAlert = dc.isResponsive ? false : true;
           dc.speak();
-        } else $A.setAttr(dc.target, "aria-describedby", container.id);
+        } else if (!dc.noRepeat)
+          $A.setAttr(dc.target, "aria-describedby", container.id);
       },
       onRemove: function(dc, container) {
         $A.remAttr(dc.target, "aria-describedby");
@@ -95,45 +98,52 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 speak: function(v) {
                   var dc = this;
                   v = v || dc.text();
-                  if (dc.isResponsive && !dc.isIE && !$A.isTouch)
-                    $A.setAttr(dc.triggerObj, "aria-description", v);
-                  else $A.announce(v, true, dc.isAlert);
+                  if (!dc.noRepeat) {
+                    $A.announce.clear();
+                    $A.announce(v, dc.suppressRepeat, dc.isAlert);
+                  }
                   return dc;
                 },
                 validate: function(dc, target) {
-                  if (!target.value) return dc.source;
-                  return false;
+                  if (!target.value) {
+                    dc.isValid = false;
+                    return dc.source;
+                  }
+                  dc.isValid = true;
                 },
                 validateCondition: function(dc) {
                   if (!dc.isError && !dc.isResponsive) return dc;
-                  var v = dc.validate(dc, dc.target);
-                  if (v) {
+                  var v = dc.validate(dc, dc.target) || false;
+                  if (v && !$A.isBool(v)) {
                     if (dc.loaded) dc.speak(v);
                     dc.insert(v);
                   }
-                  if ($A.isFn(dc.onValid)) dc.onValid(dc, dc.isValid);
+                  if ($A.isFn(dc.onValid)) dc.onValid(dc);
                 },
                 on: {
                   focus: function(ev, dc) {
-                    if (dc.isResponsive) {
-                      dc.target = this;
-                      dc.validateCondition(dc);
-                    } else if (!dc.isError && !dc.isManualOpen) dc.render();
-                    else if (dc.isError && !dc.isResponsive) dc.remove();
+                    if (!dc.isError && !dc.isResponsive && !dc.isManualOpen)
+                      dc.render();
+                    else if (dc.isError || dc.isResponsive) {
+                      if (dc.isError) dc.remove();
+                      dc.validate(dc, dc.target);
+                      if ($A.isFn(dc.onValid)) dc.onValid(dc);
+                    }
                   },
                   blur: function(ev, dc) {
                     if (!dc.isError) dc.remove();
-                    else if (dc.isError && !dc.isResponsive) {
-                      dc.target = this;
+                    else {
                       dc.validateCondition(dc);
                     }
                   },
                   touchstart: function(ev, dc) {
-                    if (dc.isResponsive) {
-                      dc.target = this;
-                      dc.validateCondition(dc);
-                    } else if (!dc.isError && !dc.isManualOpen) dc.render();
-                    else if (dc.isError && !dc.isResponsive) dc.remove();
+                    if (!dc.isError && !dc.isResponsive && !dc.isManualOpen)
+                      dc.render();
+                    else if (dc.isError || dc.isResponsive) {
+                      if (dc.isError) dc.remove();
+                      dc.validate(dc, dc.target);
+                      if ($A.isFn(dc.onValid)) dc.onValid(dc);
+                    }
                   },
                   click: function(ev, dc) {
                     if (!dc.isError && dc.isManualOpen && !dc.loaded) {
@@ -165,15 +175,21 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       dc.remove();
                   },
                   keyup: function(ev, dc) {
-                    if (dc.isResponsive) {
-                      dc.target = this;
+                    if (dc.isResponsive && dc.target.value !== dc.value) {
+                      dc.value = dc.target.value;
                       dc.validateCondition(dc);
+                    } else if (dc.isError || dc.isResponsive) {
+                      dc.validate(dc, dc.target);
+                      if ($A.isFn(dc.onValid)) dc.onValid(dc);
                     }
                   },
                   change: function(ev, dc) {
-                    if (dc.isResponsive) {
-                      dc.target = this;
+                    if (dc.isResponsive && dc.target.value !== dc.value) {
+                      dc.value = dc.target.value;
                       dc.validateCondition(dc);
+                    } else if (dc.isError || dc.isResponsive) {
+                      dc.validate(dc, dc.target);
+                      if ($A.isFn(dc.onValid)) dc.onValid(dc);
                     }
                   }
                 }
@@ -216,6 +232,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             if (
               tooltip.source &&
               !config.isFocusOnly &&
+              !config.isError &&
               !config.isResponsive &&
               !config.isManualOpen &&
               !config.isAlert &&
@@ -236,6 +253,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             if (
               config.source &&
               !config.isFocusOnly &&
+              !config.isError &&
               !config.isResponsive &&
               !config.isManualOpen &&
               !config.isAlert &&

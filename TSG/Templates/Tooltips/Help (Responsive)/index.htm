@@ -53,11 +53,11 @@
                         <h1 class="pageTitle">Help Tooltip <small>Responsive</small></h1>
 
                         <h2>Pop Quiz</h2>
-                        <form id="questionForm" action="#">
+                        <form id="questionForm" action="#" onsubmit="if (!this.submit.disabled) alert('Do something...'); return false;">
                             <p><label for="questionId">What is the Latin name for our planet?<span class="clrRed">*</span></label>
-                                <input type="text" name="question" id="questionId" required class="has-help-tooltip" /></p>
+                                <input required type="text" name="question" id="questionId" required class="has-help-tooltip" /></p>
 
-                            <p class="buttons-bar"><input type="submit" value="Submit" disabled /></p>
+                            <p class="buttons-bar"><input type="submit" name="submit" value="Submit" disabled /></p>
                         </form>
 
                     </div>
