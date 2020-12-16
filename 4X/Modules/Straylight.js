@@ -1,5 +1,5 @@
 /*!
-4X Bootstrap 2.0 for Apex 4X
+4X Straylight 2.0 for Apex 4X
 Copyright 2020 Bryan Garaventa (WhatSock.com)
 https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
@@ -9,9 +9,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 */
 
 (function() {
-  if (!("bootstrap" in $A))
+  if (!("straylight" in $A))
     $A.extend({
-      bootstrap: function(context) {
+      straylight: function(context) {
         context = $A.isDOMNode(context) ? context : document;
 
         (function() {
@@ -32,7 +32,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           );
           for (var n in groups) {
             $A.import(["Animate", "Accordion"], {
-              name: "BootstrapAccordion",
+              name: "StraylightAccordion",
               defer: true,
               props: $A.extend(props, {
                 accordionGroup: groups[n]
@@ -83,7 +83,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           });
           if (groups.length)
             $A.import(["Animate", "TabList"], {
-              name: "BootstrapTabList",
+              name: "StraylightTabList",
               defer: true,
               props: $A.extend(props, {
                 tabList: groups
@@ -147,7 +147,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 else $A.data(o, "_isBoundDatePicker", true);
                 if (!isBound)
                   $A.import(["Animate", "DatePicker"], {
-                    name: "BootstrapDatePicker",
+                    name: "StraylightDatePicker",
                     defer: true,
                     props: $A.extend(props, {
                       id: id,
@@ -199,7 +199,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
           if (triggers.length)
             $A.import(["Animate", "Dialog"], {
-              name: "BootstrapDialog",
+              name: "StraylightDialog",
               defer: true,
               props: $A.extend(props, {
                 triggers: triggers
@@ -250,7 +250,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           var fnSelector = 'span.aria-footnote > a[href^="#"]';
           if (document.querySelectorAll(fnSelector).length)
             $A.import("Footnote", {
-              name: "BootstrapFootnote",
+              name: "StraylightFootnote",
               defer: true,
               props: props,
               call: function(props) {
@@ -274,7 +274,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
           if (triggers.length)
             $A.import(["Animate", "Popup"], {
-              name: "BootstrapPopup",
+              name: "StraylightPopup",
               defer: true,
               props: $A.extend(props, {
                 triggers: triggers
@@ -328,7 +328,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
           if (triggers.length)
             $A.import(["Animate", "Tooltip"], {
-              name: "BootstrapTooltip",
+              name: "StraylightTooltip",
               defer: true,
               props: $A.extend(props, {
                 triggers: triggers
@@ -375,6 +375,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     });
 
   $A.on("load", function() {
-    $A.bootstrap(document);
+    $A.straylight(document);
   });
 })();

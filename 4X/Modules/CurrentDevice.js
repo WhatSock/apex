@@ -10,7 +10,7 @@
   else root["device"] = factory();
 })(window, function() {
   return /******/ (function(modules) {
-    // webpackBootstrap
+    // webpackStraylight
     /******/ // The module cache
     /******/ var installedModules = {}; // The require function
     /******/

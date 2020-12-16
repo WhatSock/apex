@@ -126,14 +126,14 @@ DC.remove();
 // All other 4X API properties and methods can be applied here as well.
 // To view available options, reference the help docs located at: "4X/Help/DC API/DC Object Properties and Methods"
 
-Bootstrapping
+Straylightping
 
-Bootstrapping is designed to handle common control types that span multiple pages with similar setup configurations.
+Straylightping is designed to handle common control types that span multiple pages with similar setup configurations.
 
-When the Bootstrap module is loaded, it parses the newly loaded document, recognizes the class "aria-popup" on the link or button triggering element, then configures the popup using these HTML5 attributes.
+When the Straylight module is loaded, it parses the newly loaded document, recognizes the class "aria-popup" on the link or button triggering element, then configures the popup using these HTML5 attributes.
 
 Available attributes for the triggering element:
 
 • data-controls : The resource path and pointer to the ID attribute of the popup container element.
 
-Additional attributes can be added to enhance functionality by editing the file "4X/Modules/Bootstrap".
+Additional attributes can be added to enhance functionality by editing the file "4X/Modules/Straylight".

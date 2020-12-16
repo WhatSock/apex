@@ -83,19 +83,19 @@ DC.remove();
 
 // All other 4X API properties and methods can be applied here as well.
 
-Bootstrapping
+Straylightping
 
-Bootstrapping is designed to handle common control types that span multiple pages with similar setup configurations.
+Straylightping is designed to handle common control types that span multiple pages with similar setup configurations.
 
-When the Bootstrap module is loaded, it parses the newly loaded document, recognizes the class "aria-dialog" on the link or button triggering element, then configures the dialog using these HTML5 attributes.
+When the Straylight module is loaded, it parses the newly loaded document, recognizes the class "aria-dialog" on the link or button triggering element, then configures the dialog using these HTML5 attributes.
 
 Available HTML5 attributes for the triggering element:
 
 • data-controls : The resource path and pointer to the ID attribute of the dialog container element.
 
-Additional HTML5 attributes can be added to enhance functionality by editing the file "4X/Modules/Bootstrap".
+Additional HTML5 attributes can be added to enhance functionality by editing the file "4X/Modules/Straylight".
 
 Required attributes for the triggering element:
 
-• class="aria-dialog" : The bootstrap class name that specifies an accessible dialog.
+• class="aria-dialog" : The class name that specifies an accessible dialog.
 • id : The unique ID of the element. This value is also registered as the ID of the dialog DC object, making it possible to invoke the object programmatically.

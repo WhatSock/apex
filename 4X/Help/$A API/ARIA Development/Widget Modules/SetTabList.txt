@@ -108,11 +108,11 @@ dc.remove();
 
 // All other 4X API properties and methods can be applied here as well.
 
-Bootstrapping
+Straylightping
 
-Bootstrapping is designed to handle common control types that span multiple pages with similar setup configurations.
+Straylightping is designed to handle common control types that span multiple pages with similar setup configurations.
 
-When the Bootstrap module is executed, it parses the newly loaded DOM, recognizes the class "aria-tablist", then configures the same module declaration as previously described using these HTML5 attributes.
+When the Straylight module is executed, it parses the newly loaded DOM, recognizes the class "aria-tablist", then configures the same module declaration as previously described using these HTML5 attributes.
 
 Available HTML5 attributes for the triggering element:
 
@@ -120,4 +120,4 @@ Available HTML5 attributes for the triggering element:
 • data-active="true" : Specifies that the referenced tab will open automatically. Only one tab per group should include this attribute.
 • data-insert : The ID attribute of the container element where tab panel content will be inserted.
 
-Additional HTML5 attributes can be added to enhance functionality by editing the file "/4X/Modules/Bootstrap".
+Additional HTML5 attributes can be added to enhance functionality by editing the file "/4X/Modules/Straylight".

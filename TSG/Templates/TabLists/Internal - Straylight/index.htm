@@ -3,12 +3,12 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>ARIA Tabs (Bootstrap External Content) - Apex 4X Technical Style Guide</title>
+    <title>ARIA Tabs (Straylight Internal Content) - Apex 4X Technical Style Guide</title>
     <meta name="description" content="Scalable ARIA Components">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
     <link rel="stylesheet" type="text/css" href="css/customize.css">
-    <script async src="/4X/4X.js#Bootstrap"></script>
+    <script async src="/4X/4X.js#Straylight"></script>
 </head>
 
 <body>
@@ -39,9 +39,9 @@
                             <ul>
                                 <li><a href="../../index.htm">Components</a></li>
                                 <li><a href="../External/index.htm">External</a></li>
-                                <li><a href="index.htm" aria-current="page">External - Bootstrap</a></li>
+                                <li><a href="../External - Straylight/index.htm">External - Straylight</a></li>
                                 <li><a href="../Internal/index.htm">Internal</a></li>
-                                <li><a href="../Internal - Bootstrap/index.htm">Internal - Bootstrap</a></li>
+                                <li><a href="index.htm" aria-current="page">Internal - Straylight</a></li>
                             </ul>
                         </nav>
                     </ul>
@@ -50,7 +50,7 @@
             <main id="main" class="main" tabindex="-1">
                 <div class="demo-block flex-container">
                     <div class="component flex-item">
-                        <h1 class="pageTitle">Tabs <small>(Bootstrap External Content)</small></h1>
+                        <h1 class="pageTitle">Tabs <small>(Straylight Internal Content)</small></h1>
                         <!-- The tab list container element must include the attribute role="tablist", and all tab item nodes must include the attribute role="tab" to ensure accessibility for screen reader users.
                 Additionally, both the tab list container element and all tab item nodes must include unique ID values.
                 Attributes explained:
@@ -64,20 +64,37 @@
                 E.G $A(uniqueID).render();
                 -->
                         <div class="aria-tablist" role="tablist">
-                            <button role="tab" id="xTab1id" class="accTab tab1" data-controls="files/tabs.html#tab1content" data-insert="tabInsertId" data-active="true">
+                            <button role="tab" id="xTab1id" class="accTab tab1" data-controls="tab1content" data-insert="tabInsertId" data-active="true">
                                 Name 1
                             </button>
-                            <button role="tab" id="xTab2id" class="accTab tab2" data-controls="files/tabs.html#tab2content" data-insert="tabInsertId">
+                            <button role="tab" id="xTab2id" class="accTab tab2" data-controls="tab2content" data-insert="tabInsertId">
                                 Name 2
                             </button>
-                            <button role="tab" id="xTab3id" class="accTab tab3" data-controls="files/tabs.html#tab3content" data-insert="tabInsertId">
+                            <button role="tab" id="xTab3id" class="accTab tab3" data-controls="tab3content" data-insert="tabInsertId">
                                 Name 3
                             </button>
-                            <button role="tab" id="xTab4id" class="accTab tab4" data-controls="files/tabs.html#tab4content" data-insert="tabInsertId">
+                            <button role="tab" id="xTab4id" class="accTab tab4" data-controls="tab4content" data-insert="tabInsertId">
                                 Name 4
                             </button>
                         </div>
                         <div class="content" id="tabInsertId">
+
+                            <div hidden class="content" id="tab1content">
+                                <p>Tab Panel One Content
+                            </div>
+
+                            <div hidden class="content" id="tab2content">
+                                <p>Tab Panel Two Content
+                            </div>
+
+                            <div hidden class="content" id="tab3content">
+                                <p>Tab Panel Three Content
+                            </div>
+
+                            <div hidden class="content" id="tab4content">
+                                <p>Tab Panel Four Content
+                            </div>
+
                         </div>
                     </div>
                     <div class="keyboard flex-item">

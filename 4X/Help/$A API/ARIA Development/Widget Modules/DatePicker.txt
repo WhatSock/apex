@@ -319,23 +319,23 @@ There are some additional methods which allow altering the Date Picker state aft
 
 * dc.presetDate(dc, initialDateObj, minDateObj, maxDateObj)
 
-Bootstrapping
+Straylightping
 
-Bootstrapping is designed to handle common control types that span multiple pages with similar setup configurations.
+Straylightping is designed to handle common control types that span multiple pages with similar setup configurations.
 
-The calendars within the Bootstrap folders are configured using HTML5 "data-" attributes within the markup.
+The calendars within the Straylight folders are configured using HTML5 "data-" attributes within the markup.
 
-When the Bootstrap module is loaded, it parses the newly loaded document, recognizes the class "aria-date-picker" on the link or button triggering element, then configures the date picker using these HTML5 attributes.
+When the Straylight module is loaded, it parses the newly loaded document, recognizes the class "aria-date-picker" on the link or button triggering element, then configures the date picker using these HTML5 attributes.
 
 Available HTML5 attributes for the triggering element:
 
 * data-controls : The id reference for the date picker triggering element to map the corresponding id of the associated input element. The data-controls attribute must be on the link or button triggering element, and its value must match the id value for the associated input element.
 
-Additional HTML5 attributes can be added to enhance functionality by editing the file "/4X/Modules/Bootstrap".
+Additional HTML5 attributes can be added to enhance functionality by editing the file "/4X/Modules/Straylight".
 
 Required attributes:
 
-* class="aria-date-picker" : The bootstrap class name that specifies an accessible 4X date picker widget. (Must be on the link or button triggering element.)
+* class="aria-date-picker" : The class name that specifies an accessible 4X date picker widget. (Must be on the link or button triggering element.)
 
 Implementation Notes
 

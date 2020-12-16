@@ -107,11 +107,11 @@ Triggering Element Requirements
 
 Regarding the triggering element for expand/collapse links, a native active element should always be used to ensure accessibility for both screen reader and keyboard only users.
 
-Bootstrapping
+Straylightping
 
-Bootstrapping is designed to handle common control types that span multiple pages with similar setup configurations.
+Straylightping is designed to handle common control types that span multiple pages with similar setup configurations.
 
-The accordions within the Bootstrap folders are configured using HTML5 "data-" attributes within the HTML markup.
+The accordions within the Straylight folders are configured using HTML5 "data-" attributes within the HTML markup.
 
 Available HTML5 attributes for the triggering element:
 
@@ -120,11 +120,9 @@ Available HTML5 attributes for the triggering element:
 • data-insert : The ID attribute of the container element where accordion node content will be inserted. The referenced container element must not be included within the accordion link node.
 • data-name : The shared group name for all related nodes within an accordion. This is used to differentiate separate accordion groups within the same document.
 
-Additional HTML5 attributes can be added to enhance functionality by editing the file "4X_bootstrap.js".
-
 Required attributes for the triggering element:
 
-• class="aria-accordion" : The bootstrap class name that specifies an accessible accordion node.
+• class="aria-accordion-trigger" : The class name that specifies an accessible accordion node.
 • id : The unique ID of the element. This value is also registered as the ID of the individual accordion node DC object, making it possible to invoke the object programmatically.
 E.G $A(uniqueID).open();
 // All other 4X API properties and methods are similarly available.

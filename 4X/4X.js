@@ -1749,7 +1749,7 @@ error: function(error, promise){}
       $A.empty(root);
       root.appendChild(obj);
       if (fn && $A.isFn(fn)) fn.apply(obj, [obj]);
-      if ($A.bootstrap && !skip) $A.bootstrap(root);
+      if ($A.straylight && !skip) $A.straylight(root);
       if (this._4X) {
         this._X = obj;
         return this;
@@ -3685,7 +3685,7 @@ error: function(error, promise){}
               if (dc.forceFocus) dc.focus(dc);
               if (dc.announce)
                 $A.announce(dc.container, dc.noRepeat, dc.isAlert);
-              if ($A.bootstrap) $A.bootstrap(dc.container);
+              if ($A.straylight) $A.straylight(dc.container);
               if ($A.isNum(dc.delayTimeout) && dc.delayTimeout > 0) {
                 if (dc.fn.timer) clearTimeout(dc.fn.timer);
                 dc.fn.timer = setTimeout(function() {
