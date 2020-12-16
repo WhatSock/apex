@@ -25,18 +25,44 @@ toggle: $A.getEl("dateIcon"),
 // Native or simulated active element
 input: $A.getEl("dateId"),
 
-animate: {
-// Requires the "Animate" module.
-onRender: function(dc, outerNode, complete) {
-// Optionally add an animation effect when the calendar is rendered.
-// To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-complete();
+// Set initial inline styling properties for the dynamically rendered calendar.
+style: {
+position: 'absolute',
+zIndex: 1,
+display: "none" // Set the initial state to hidden in prep for animation if applicable.
 },
-onRemove: function(dc, outerNode, complete) {
-// Optionally add an animation effect when the calendar is removed.
-// To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-complete();
+
+// Optionally specify a render and remove animation effect for the calendar.
+// Requires the "Animate" module import to function, which is powered by Velocity.js.
+// To ignore animation effects, delete the animate object declaration entirely from the setup script.
+// View implementations within "TSG/WidgetTemplates/DatePickers" for practical animation usage examples.
+
+animate: {
+
+onRender: function(dc, outerNode, complete) {
+
+// Specify the render animation effect, including the callback function statement to execute when the animation effect completes.
+Velocity(outerNode, "transition.TYPE", {
+// Velocity options here, plus the callback declaration after the animation completes.
+complete: function() {
+complete(); // REQUIRED: complete() must be executed so control is passed back to 4X for rendering.
 }
+});
+
+},
+
+onRemove: function(dc, outerNode, complete) {
+
+// Specify the removal animation effect, including the callback function statement to execute when the animation effect completes.
+Velocity(outerNode, "transition.TYPE", {
+// Velocity options here, plus the callback declaration after the animation completes.
+complete: function() {
+complete(); // REQUIRED: complete() must be executed so control is passed back to 4X for removal.
+}
+});
+
+}
+
 },
 
 onDateActivate: function(event, DC) {
@@ -207,12 +233,6 @@ offsetLeft: 0,
 
 // Set class for the calendar container
 className: 'calendar',
-
-// Set custom CSS styling for the calendar container when rendered
-style: {
-position: 'absolute',
-zIndex: 1
-},
 
 // Choose a different insertion point in the DOM; must be a DOM node; defaults to the triggering element if not specified.
 targetObj: null,

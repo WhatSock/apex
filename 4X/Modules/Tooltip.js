@@ -94,6 +94,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         var baseDC = function() {
             return $A.extend(
               {
+                id: $A.genId(),
                 widgetType: "Tooltip",
                 speak: function(v) {
                   var dc = this;
@@ -115,7 +116,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   if (!dc.isError && !dc.isResponsive) return dc;
                   var v = dc.validate(dc, dc.target) || false;
                   if (v && !$A.isBool(v)) {
-                    if (dc.loaded) dc.speak(v);
+                    if (!!dc.loaded) dc.speak(v);
                     dc.insert(v);
                   }
                   if ($A.isFn(dc.onValid)) dc.onValid(dc);
@@ -132,7 +133,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   },
                   blur: function(ev, dc) {
                     if (!dc.isError) dc.remove();
-                    else {
+                    else if (!dc.isResponsive) {
                       dc.validateCondition(dc);
                     }
                   },

@@ -388,7 +388,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         config.source = null;
         config.trigger = o;
         config.mode = 1;
-        if ($A.isDOMNode(o) && o.id) config.id = o.id;
+        if (!config.id && $A.isDOMNode(o) && o.id) config.id = o.id;
       } else if (
         ctrl &&
         $A.isSelector("#" + ctrl) &&
@@ -396,13 +396,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       ) {
         config.source = document.querySelector("#" + ctrl);
         config.trigger = o;
-        if ($A.isDOMNode(o) && o.id) config.id = o.id;
+        if (!config.id && $A.isDOMNode(o) && o.id) config.id = o.id;
       } else if ($A.isDOMNode(o) && (config.source || config.fetch)) {
         config.trigger = o;
-        if (o.id) config.id = o.id;
+        if (!config.id && o.id) config.id = o.id;
       } else if ($A.isDOMNode(o)) {
         config.source = o;
-        if (o.id) config.id = o.id;
+        if (!config.id && o.id) config.id = o.id;
         alone = true;
       }
 
@@ -1321,7 +1321,10 @@ error: function(error, promise){}
         m[e] = new MutationObserver(function(MTS) {
           MTS.forEach(function(M) {
             var MT = M.target,
-              BO = $A.boundTo(MT) || $A.data(MT, "DC"),
+              BO =
+                $A.boundTo(MT) ||
+                $A.getDC($A.data(MT, "SavedEventParameters")) ||
+                $A.data(MT, "DC"),
               SP = $A.data(MT, "SavedEventParameters");
             if (M.type === "childList") {
               if (
@@ -1476,7 +1479,9 @@ error: function(error, promise){}
                   $A.loop(
                     j,
                     function(k, q) {
-                      var dc = $A.data(o, "DC");
+                      var dc =
+                        $A.getDC($A.data(o, "SavedEventParameters")) ||
+                        $A.data(o, "DC");
                       if ($A.isDC(dc) && $A.data(o, "DC-ON") === true)
                         dc.triggerObj = o;
                       if (isLoaded(q)) {
@@ -1492,7 +1497,9 @@ error: function(error, promise){}
                     "array"
                   );
                 } else if ($A.isStr(p) && $A.isFn(fn)) {
-                  var dc = $A.data(o, "DC");
+                  var dc =
+                    $A.getDC($A.data(o, "SavedEventParameters")) ||
+                    $A.data(o, "DC");
                   if ($A.isDC(dc) && $A.data(o, "DC-ON") === true)
                     dc.triggerObj = o;
                   if (isLoaded(p)) {
@@ -3652,7 +3659,7 @@ error: function(error, promise){}
               },
               "array"
             );
-            $A.on(dc.outerNode, toBind);
+            $A.on(dc.outerNode, toBind, dc.id);
             dc.loading = false;
             dc.loaded = true;
             if (dc.isTab || dc.isToggle) changeTabs(dc);
@@ -3880,13 +3887,13 @@ error: function(error, promise){}
               $A.data(o, "DC-ON", true);
               if (dc.on) {
                 if ($A.isStr(dc.on)) {
-                  $A.on(o, dc.on, function(ev, DC) {
-                    DC.render();
+                  $A.on(o, dc.on, function(ev) {
+                    dc.render();
                     ev.preventDefault();
                   });
                   if (dc.on === "click") $A.setKBA11Y(o, "button");
                 } else if ($A.isPlainObject(dc.on)) {
-                  $A.on(o, dc.on);
+                  $A.on(o, dc.on, dc.id);
                 }
               }
               if (dc.escToClose)
@@ -3900,7 +3907,7 @@ error: function(error, promise){}
             });
           return dc;
         },
-        DCInit = function(dc) {
+        DCInst = function(dc) {
           if ($A.reg.has(dc.id)) {
             $A.destroy(dc.id);
           }
@@ -3909,16 +3916,20 @@ error: function(error, promise){}
           var nDC = new f();
           nDC.props.DC = nDC.DC = nDC;
           $A.lastCreated.push(nDC);
-          if (nDC.widgetType && nDC.autoCloseWidget) {
-            $A._widgetTypes.push(nDC.id);
-          }
-          if (nDC.widgetType && nDC.autoCloseSameWidget) {
-            if (!$A._regWidgets.has(nDC.widgetType))
-              $A._regWidgets.set(nDC.widgetType, []);
-            $A._regWidgets.get(nDC.widgetType).push(nDC.id);
-          }
           $A.reg.set(nDC.id, nDC);
           return nDC;
+        },
+        DCInit = function(dc) {
+          var dc = wheel[DC.indexVal];
+          if (dc.widgetType && dc.autoCloseWidget) {
+            $A._widgetTypes.push(dc.id);
+          }
+          if (dc.widgetType && dc.autoCloseSameWidget) {
+            if (!$A._regWidgets.has(dc.widgetType))
+              $A._regWidgets.set(dc.widgetType, []);
+            $A._regWidgets.get(dc.widgetType).push(dc.id);
+          }
+          return dc;
         },
         render = [],
         svs = [
@@ -4234,7 +4245,7 @@ error: function(error, promise){}
 
         insert: function(node) {
           var dc = this;
-          if (dc.loaded) {
+          if (!!dc.loaded && $A.isDOMNode(dc.container)) {
             $A.insert(node, dc.container);
             if ($A.isNum(dc.delayTimeout) && dc.delayTimeout > 0) {
               if (dc.fn.timer) clearTimeout(dc.fn.timer);
@@ -4562,30 +4573,30 @@ onRemove: function(mutationRecordObject, dc){ },
           }
         }
 
+        dc.indexVal = wheel.length;
+        wheel[dc.indexVal] = DCInst(dc);
+        var DC = wheel[dc.indexVal];
+
         if (
           $A.module[aO.widgetType] &&
           $A.isFn($A.module[aO.widgetType].configure)
         )
-          $A.extend(true, dc, $A.module[aO.widgetType].configure(aO) || {});
+          $A.extend(true, DC, $A.module[aO.widgetType].configure(DC) || {});
 
-        $A.extend(true, dc, $A.fn.globalDC);
+        $A.extend(true, DC, $A.fn.globalDC);
 
-        $A.extend(true, dc, gImport);
+        $A.extend(true, DC, gImport);
 
-        $A.extend(true, dc, aO);
+        $A.extend(true, DC, aO);
 
-        if (dc.allowCascade) {
+        if (DC.allowCascade) {
           for (s = 0; s < svs.length; s++) {
             $A.fn.globalDC[svs[s]] = gO[svs[s]];
           }
-          dc.fn.proto = iO;
+          DC.fn.proto = iO;
         }
 
-        if (!dc.id) dc.id = $A.genId();
-
-        dc.indexVal = wheel.length;
-        wheel[dc.indexVal] = DCInit(dc);
-        var DC = wheel[dc.indexVal];
+        DCInit(DC);
         if ($A.isDC(DC)) {
           setBindings(DC);
           if (DC.autoRender) render.push(DC);

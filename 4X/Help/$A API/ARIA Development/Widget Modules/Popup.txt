@@ -1,0 +1,139 @@
+
+ARIA Popups
+
+Expected behaviors: Move focus into the popup when it is rendered, ensure that the beginning and ending boundaries are conveyed to screen reader users, make sure the popup can be closed from the keyboard, ensure that circular tabbing confines keyboard focus within the popup content, and move focus back to the triggering element after the popup is removed.
+
+The 4X ARIA Popup module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 specification.
+
+The following attributes are handled automatically by the Popup module:
+
+• role=region
+• aria-label
+• aria-expanded
+
+JavaScript syntax:
+
+$A.setPopup( DOM-Node-or-CSS-Selector-forTriggering-Element , {
+// Configure functionality key / value mappings
+});
+
+Configuration
+
+{
+
+// Optionally set a unique ID for the popup DC object, which can be referenced through $A('uniqueId')
+// If not specified, the id of the triggering element will be used instead.
+id: 'uniqueId',
+
+// Optionally specify the content to be rendered when referencing internal content.
+// May be a DOM node or CSS selector.
+// Not necessary if data-controls is set on the triggering element.
+source: "#uniqueId",
+
+// Optionally specify the content to be rendered when referencing external content.
+// Not necessary if data-controls is set on the triggering element.
+fetch: {
+url: "path/file.htm",
+data: {
+selector: "#uniqueId"
+}
+},
+
+// Set the class name for the top level container element
+className: 'popup',
+
+// Set the class name for the screen reader accessible close link
+// This must match the class name for any close links or buttons within the popup content, which will cause close event binding to automatically occur when the content is rendered.
+closeClassName: "CloseDC",
+
+// Optionally specify if the popup is an alert message.
+// If true, a system alert will be fired when the popup is rendered.
+isAlert: false,
+
+// Optionally run a script after the popup finishes rendering.
+runAfter: function(DC) {
+// DC.container is the rendered popup content.
+},
+
+// Optionally run a script after the popup is removed.
+runAfterClose: function(DC) {
+// Do something.
+},
+
+// Optionally specify a delay in milliseconds to wait before rendering the popup.
+delay: 0,
+
+// Optionally specify a timeout length in milliseconds, after which the popup will automatically close.
+delayTimeout: 0,
+
+// Optionally override the timeout function that occurs after the delayTimeout length is reached.
+timeout: function(dc) {
+dc.remove();
+return dc;
+},
+
+// Optionally specify a render and remove animation effect for the popup.
+// Requires the "Animate" module import to function, which is powered by Velocity.js.
+// To ignore animation effects, delete the animate object declaration entirely from the setup script.
+// View implementations within "TSG/WidgetTemplates/Popups" for practical animation usage examples.
+
+style: { display: "none" }, // Set the initial state to hidden in prep for animation.
+
+animate: {
+
+onRender: function(dc, outerNode, complete) {
+
+// Specify the render animation effect, including the callback function statement to execute when the animation effect completes.
+Velocity(outerNode, "transition.TYPE", {
+// Velocity options here, plus the callback declaration after the animation completes.
+complete: function() {
+complete(); // REQUIRED: complete() must be executed so control is passed back to 4X for rendering.
+}
+});
+
+},
+
+onRemove: function(dc, outerNode, complete) {
+
+// Specify the removal animation effect, including the callback function statement to execute when the animation effect completes.
+Velocity(outerNode, "transition.TYPE", {
+// Velocity options here, plus the callback declaration after the animation completes.
+complete: function() {
+complete(); // REQUIRED: complete() must be executed so control is passed back to 4X for removal.
+}
+});
+
+}
+
+}
+
+// (Other 4X API properties and methods can be declared here also to customize functionality and behavior)
+// To view available options, reference the help docs located at: "4X/Help/DC API/DC Object Configuration"
+
+}
+
+Programmatic Control
+
+// Get the DC object for the popup using its id.
+var DC = $A("popupId");
+
+// Open the popup manually.
+DC.render();
+
+// Close the popup manually.
+DC.remove();
+
+// All other 4X API properties and methods can be applied here as well.
+// To view available options, reference the help docs located at: "4X/Help/DC API/DC Object Properties and Methods"
+
+Bootstrapping
+
+Bootstrapping is designed to handle common control types that span multiple pages with similar setup configurations.
+
+When the Bootstrap module is loaded, it parses the newly loaded document, recognizes the class "aria-popup" on the link or button triggering element, then configures the popup using these HTML5 attributes.
+
+Available attributes for the triggering element:
+
+• data-controls : The resource path and pointer to the ID attribute of the popup container element.
+
+Additional attributes can be added to enhance functionality by editing the file "4X/Modules/Bootstrap".
