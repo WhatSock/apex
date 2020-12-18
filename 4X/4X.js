@@ -1446,7 +1446,7 @@ error: function(error, promise){}
         save = fn;
         fn = e;
         e = ta;
-        ta = document;
+        ta = window;
       }
       if ($A.isStr(fn) && fn[0] === ".") {
         ns = fn;
@@ -1482,17 +1482,17 @@ error: function(error, promise){}
                       var dc =
                         $A.getDC($A.data(o, "SavedEventParameters")) ||
                         $A.data(o, "DC");
-                      if ($A.isDC(dc) && $A.data(o, "DC-ON") === true)
+                      if ($A.isDC(dc) && $A.isArray($A.data(o, "DC-ON")))
                         dc.triggerObj = o;
                       if (isLoaded(q)) {
                         p.call(o, null, dc, $A.data(o, "SavedEventParameters"));
                       } else if (
-                        !$A.isFn($A.observer) ||
                         !$A.observer(o, q, p, attributeFilter, override)
-                      )
+                      ) {
                         $A.event.on(o, q + ns, function(ev) {
                           p.call(o, ev, dc, $A.data(o, "SavedEventParameters"));
                         });
+                      }
                     },
                     "array"
                   );
@@ -1500,17 +1500,17 @@ error: function(error, promise){}
                   var dc =
                     $A.getDC($A.data(o, "SavedEventParameters")) ||
                     $A.data(o, "DC");
-                  if ($A.isDC(dc) && $A.data(o, "DC-ON") === true)
+                  if ($A.isDC(dc) && $A.isArray($A.data(o, "DC-ON")))
                     dc.triggerObj = o;
                   if (isLoaded(p)) {
                     fn.call(o, null, dc, $A.data(o, "SavedEventParameters"));
                   } else if (
-                    !$A.isFn($A.observer) ||
                     !$A.observer(o, p, fn, attributeFilter, override)
-                  )
+                  ) {
                     $A.event.on(o, p + ns, function(ev) {
                       fn.call(o, ev, dc, $A.data(o, "SavedEventParameters"));
                     });
+                  }
                 }
               },
               $A.isArray(e) ? "array" : "object"
@@ -2047,10 +2047,18 @@ error: function(error, promise){}
 
     _clean: function(obj, sD) {
       var dc = $A.data(obj, "DC");
-      if ($A.isDC(dc) && dc.loaded && !dc.closing && !dc.loading) {
-        dc.fn.bypass = true;
-        dc.remove();
-        dc.fn.bypass = false;
+      if ($A.isDC(dc)) {
+        var close = function(DC) {
+            if (DC.loaded && !DC.closing && !DC.loading) {
+              DC.fn.bypass = true;
+              DC.remove();
+              DC.fn.bypass = false;
+            }
+          },
+          a = $A.data(obj, "DC-ON");
+        if ($A.isArray(a) && a.length > 1) {
+          for (var i = a.length; i > 0; i--) close(a[i]);
+        } else close(dc);
       }
       $A.detachObserver(obj);
       $A.removeData(obj);
@@ -3879,12 +3887,12 @@ error: function(error, promise){}
         },
         setBindings = function(dc) {
           var dc = wheel[DC.indexVal];
-          $A.data(dc.id, "DC-ON", true);
           if (dc.trigger)
             $A.query(dc.trigger, function(i, o) {
               if (!dc.triggerObj) dc.triggerObj = o;
+              if ($A.isArray($A.data(o, "DC-ON"))) $A.data(o, "DC-ON").push(dc);
+              else $A.data(o, "DC-ON", [dc]);
               $A.data(o, "DC", dc);
-              $A.data(o, "DC-ON", true);
               if (dc.on) {
                 if ($A.isStr(dc.on)) {
                   $A.on(o, dc.on, function(ev) {

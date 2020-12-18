@@ -374,7 +374,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       }
     });
 
-  $A.on("load", function() {
-    $A.straylight(document);
-  });
+  $A.on(
+    "load",
+    function() {
+      $A.straylight(document);
+    },
+    ".straylight"
+  );
 })();
