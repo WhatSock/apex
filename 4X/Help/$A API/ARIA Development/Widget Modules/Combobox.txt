@@ -163,7 +163,7 @@ myCombobox.onSelect(function(optionName, optionValue, comboboxControl, selectEle
 // comboboxControl = the Combobox control element
 // selectElement = the hidden Select element
 // Save the new value accordingly
-// then return the saved string to prevent auto reopening of the Combobox listbox
+// then return the saved string to prevent auto rerendering of the Combobox listbox
 return 'saved string';
 });
 

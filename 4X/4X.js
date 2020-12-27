@@ -3325,14 +3325,14 @@ error: function(error, promise){}
         DCR1 = function(DC) {
           var dc = WL[DC.indexVal];
           if (
-            (dc.loaded && !dc.allowReopen && !dc.isToggle) ||
+            (dc.loaded && !dc.allowRerender && !dc.isToggle) ||
             dc.fn.override ||
             dc.lock ||
             dc.loading ||
             dc.closing
           ) {
             return dc;
-          } else if (dc.loaded && (dc.allowReopen || dc.isToggle)) {
+          } else if (dc.loaded && (dc.allowRerender || dc.isToggle)) {
             dc.fn.bypass = true;
             closeDC(dc);
             dc.fn.bypass = false;
@@ -4154,7 +4154,7 @@ error: function(error, promise){}
         },
 
         allowMultiple: false,
-        //            allowReopen: false,
+        //            allowRerender: false,
         //            isToggle: false,
         //            toggleClassName: "",
 
@@ -4310,7 +4310,7 @@ error: function(error, promise){}
             },
             conf || {}
           );
-          dc.reopen();
+          dc.rerender();
           return dc;
         },
 
@@ -4325,7 +4325,7 @@ error: function(error, promise){}
             },
             conf || {}
           );
-          dc.reopen();
+          dc.rerender();
           return dc;
         },
 
@@ -4340,7 +4340,7 @@ error: function(error, promise){}
             },
             conf || {}
           );
-          dc.reopen();
+          dc.rerender();
           return dc;
         },
 
@@ -4355,7 +4355,7 @@ error: function(error, promise){}
             },
             conf || {}
           );
-          dc.reopen();
+          dc.rerender();
           return dc;
         },
 
@@ -4370,14 +4370,14 @@ error: function(error, promise){}
             },
             conf || {}
           );
-          dc.reopen();
+          dc.rerender();
           return dc;
         },
 
-        reopen: function(dc) {
-          var dc = dc || this;
+        rerender: function(fn) {
+          var dc = this;
           dc.remove(function() {
-            dc.render();
+            dc.render(fn);
           });
           return dc;
         },

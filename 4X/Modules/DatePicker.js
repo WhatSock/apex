@@ -12,7 +12,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       configure: function(dc) {
         return {
           returnFocus: false,
-          allowReopen: true,
+          allowRerender: true,
           exposeBounds: true,
           exposeHiddenClose: false
         };

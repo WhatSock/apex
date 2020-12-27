@@ -24,7 +24,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           preloadImages: true,
           preloadCSS: true,
           className: "tooltip",
-          allowReopen: false,
+          allowRerender: false,
           escToClose: true,
           returnFocus: false,
           mouseLeave: function(ev, dc) {

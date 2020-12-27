@@ -81,9 +81,9 @@ Note: The displayed value for each property represents its default value when om
   // Specify that the collection of sibling DC objects will function as independant objects, where multiple DC objects may be open at the same time.
   allowMultiple: true
 
-  // Specify that the currently open DC object can be reopened, which will cause all related lifecycle methods to exicute as though DC.remove() and DC.render() were separatly invoked.
-  // If not enabled, nothing will happen when attempting to reopen a DC object that is already open.
-  allowReopen: false
+  // Specify that the currently open DC object can be rerendered, which will cause all related lifecycle methods to exicute as though DC.remove() and DC.render() were separatly invoked.
+  // If not enabled, nothing will happen when attempting to rerender a DC object that is already open.
+  allowRerender: false
 
   // Automatically make the DC object focusable when rendered.
   isFocusable: false
