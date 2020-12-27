@@ -161,16 +161,16 @@ drawFullCalendar: true,
 
 // Run custom functions at the end of the code within the following component functions.
 // Receives a single parameter "dc", which provides access to the Datepicker object.
-runBefore: function (dc) {
-console.log('runBefore');
+beforeRender: function (dc) {
+console.log('beforeRender');
 console.log(dc);
 },
-runAfter: function (dc) {
-console.log('runAfter');
+afterRender: function (dc) {
+console.log('afterRender');
 console.log(dc);
 },
-runAfterClose: function (dc) {
-console.log('runAfterClose');
+afterRemove: function (dc) {
+console.log('afterRemove');
 console.log(dc);
 },
 
@@ -319,9 +319,9 @@ There are some additional methods which allow altering the Date Picker state aft
 
 * dc.presetDate(dc, initialDateObj, minDateObj, maxDateObj)
 
-Straylightping
+Straylight mapping
 
-Straylightping is designed to handle common control types that span multiple pages with similar setup configurations.
+Straylight mapping is designed to handle common control types that span multiple pages with similar setup configurations.
 
 The calendars within the Straylight folders are configured using HTML5 "data-" attributes within the markup.
 

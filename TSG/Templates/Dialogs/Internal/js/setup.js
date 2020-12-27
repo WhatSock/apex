@@ -22,7 +22,7 @@ $A.import(["Animate", "Dialog"], { defer: true }, function() {
         });
       }
     },
-    runAfter: function(dc) {
+    afterRender: function(dc) {
       var frm = $A.getElement("lbForm");
       $A(frm).on("submit", function(ev) {
         if (!frm.uname.value) {

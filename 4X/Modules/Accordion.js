@@ -1,6 +1,6 @@
 /*!
 ARIA Accordion Module 3.0 for Apex 4X
-Copyright 2020 Bryan Garaventa (WhatSock.com)
+Copyright 2021 Bryan Garaventa (WhatSock.com)
 https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
@@ -12,7 +12,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       props: props,
       once: true,
       call: function(props) {
-        $A.addWidgetTypeProfile("Accordion", {
+        $A.addWidgetProfile("Accordion", {
           configure: function(dc) {
             return {
               exposeBounds: true,
@@ -23,9 +23,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               allowMultiple: false,
               escToClose: true,
               returnFocus: false,
-              runDuring: function(dc) {
-                $A.setAttr(dc.triggerObj, "aria-expanded", "true");
-              },
               click: function(ev, dc) {
                 ev.stopPropagation();
               },
@@ -39,8 +36,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               role: "region"
             };
           },
-          onRender: function(dc, container) {},
-          onRemove: function(dc, container) {
+          duringRender: function(dc, container) {
+            $A.setAttr(dc.triggerObj, "aria-expanded", "true");
+          },
+          beforeRemove: function(dc, container) {
             $A.setAttr(dc.triggerObj, "aria-expanded", "false");
           }
         });

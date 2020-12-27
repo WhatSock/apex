@@ -1,13 +1,13 @@
 /*!
 ARIA Popup Module 2.0 for Apex 4X
-Copyright 2020 Bryan Garaventa (WhatSock.com)
+Copyright 2021 Bryan Garaventa (WhatSock.com)
 https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
 
 (function() {
   if (!("setPopup" in $A)) {
-    $A.addWidgetTypeProfile("Popup", {
+    $A.addWidgetProfile("Popup", {
       configure: function(dc) {
         return {
           announce: true,
@@ -39,10 +39,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           "aria-label": dc.role
         };
       },
-      onRender: function(dc, container) {
+      afterRender: function(dc, container) {
         $A.setAttr(dc.triggerObj, "aria-expanded", "true");
       },
-      onRemove: function(dc, container) {
+      afterRemove: function(dc, container) {
         $A.setAttr(dc.triggerObj, "aria-expanded", "false");
       }
     });

@@ -206,7 +206,7 @@ grid.select(['rowId1', 'rowId2']);
 grid.setDelete({
 enable: true,
 // Set a function to execute prior to deletion
-runBefore: function(selectedRowIDs_array){
+beforeRender: function(selectedRowIDs_array){
 // Return false to cancel deletion
 },
 // Set a callback to execute on every row that is deleted
@@ -216,7 +216,7 @@ callback: function(rowObject, gridInstance){
 // return false to cancel deletion from the grid
 },
 // Set a function to execute after deletion is completed
-runAfter: function(deletedRowIDs_array){
+afterRender: function(deletedRowIDs_array){
 // Do something
 }
 });

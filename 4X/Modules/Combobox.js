@@ -1,6 +1,6 @@
 /*!
 ARIA Combobox Module R3.0 for Apex 4X
-Copyright 2020 Bryan Garaventa (WhatSock.com)
+Copyright 2021 Bryan Garaventa (WhatSock.com)
 https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
@@ -45,7 +45,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               returnFocus: false,
               exposeBounds: true,
               exposeHiddenClose: true,
-              delay: config.delay,
+              delay: config.delay || 1000,
               style: config.style,
               animate: config.animate,
               hiddenCloseName: "Close Popup",
@@ -62,12 +62,21 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               cb: {
                 selected: [],
                 select: function(dc, o, select) {
-                  if (!$A.isDOMNode(o) || !o.id) return;
+                  if (!$A.isDOMNode(o) || !o.id) {
+                    $A.remAttr(dc.triggerObj, [
+                      "aria-activedescendant",
+                      "aria-controls"
+                    ]);
+                    dc.cb.activeDescendant = false;
+                    return;
+                  }
+
                   $A.remAttr(dc.cb.selected, "aria-selected");
                   $A.remClass(dc.cb.selected, dc.activeClass);
                   dc.cb.selected = [];
                   if (select) {
                     $A.setAttr(dc.triggerObj, "aria-activedescendant", o.id);
+                    dc.cb.activeDescendant = true;
                     $A.setAttr(o, "aria-selected", "true");
                     $A.addClass(o, dc.activeClass);
                     dc.cb.selected.push(o);
@@ -77,8 +86,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       "aria-activedescendant",
                       "aria-controls"
                     ]);
+                    dc.cb.activeDescendant = false;
                   }
-                  dc.cb.activeDescendant = select === true;
                 },
                 key: "",
                 charMin: 0,
@@ -229,7 +238,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     if (!scroll) {
                       dc.cb.sIndex = dc.cb.sel.selectedIndex;
                       dc.cb.matches = [];
-                      that.close();
+                      that.close(function() {
+                        that.open(true);
+                      });
                     }
 
                     if (scroll && dc.cb.key) {
@@ -371,7 +382,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         dc.cb.altClicked = true;
 
                         if (!dc.loaded) {
-                          dc.cb.activeDescendant = true;
                           that.open();
                         } else {
                           if (dc.cb.multiple && dc.cb.mClicked) {
@@ -524,7 +534,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       handleClick = function(ev) {
                         if (!dc.cb.altTrigger) {
                           if (!dc.loaded) {
-                            dc.cb.activeDescendant = true;
                             that.open();
                           } else if (dc.loaded) that.close();
                         }
@@ -575,7 +584,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             !dc.cb.activeDescendant &&
                             !dc.loaded
                           ) {
-                            dc.cb.activeDescendant = true;
                             that.open();
                             ev.preventDefault();
                           } else if (
@@ -666,7 +674,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                                 ? dc.cb.sel.selectedIndex
                                 : 0;
                             if (!$A.isNum(dc.cb.sIndex)) dc.cb.sIndex = 0;
-                            dc.cb.activeDescendant = true;
                             that.open();
                             ev.preventDefault();
                           } else if (
@@ -681,7 +688,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                                 ? dc.cb.sel.selectedIndex
                                 : 0;
                             if (!$A.isNum(dc.cb.sIndex)) dc.cb.sIndex = 0;
-                            dc.cb.activeDescendant = true;
                             that.open();
                             ev.preventDefault();
                           } else if (
@@ -870,8 +876,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   }
                 }
               },
-              runBefore: function(dc) {
+              click: function(ev, dc) {
+                ev.stopPropagation();
+              },
+              beforeRender: function(dc) {
                 if (!dc.cb.matches.length) return (dc.cancel = true);
+                dc.fn.matches = dc.cb.matches;
                 dc.cb.baseInc++;
                 dc.source = that.listboxNode = $A.createEl(
                   dc.cb.parentTag,
@@ -891,13 +901,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   dc.source.appendChild(dc.cb.options[dc.cb.matches[i]].o);
                 }
               },
-              runDuring: function(dc) {
+              duringRender: function(dc) {
                 $A.addClass(dc.container, dc.middleClass);
               },
-              click: function(ev, dc) {
-                ev.stopPropagation();
-              },
-              runAfter: function(dc) {
+              afterRender: function(dc) {
+                if (dc.cb.matches !== dc.fn.matches) {
+                  dc.beforeRender(dc);
+                  dc.insert(dc.source);
+                }
                 $A.query(dc.cb.matches, function(i, v) {
                   $A.off(dc.cb.options[v].o, "click");
 
@@ -964,14 +975,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 if (dc.cb.fn.onOpen && $A.isFn(dc.cb.fn.onOpen))
                   dc.cb.fn.onOpen.apply(dc.triggerObj, [dc]);
               },
-              runBeforeClose: function(dc) {
+              beforeRemove: function(dc) {
                 if (dc.loaded) {
                   if (dc.cb.multiple && dc.cb.mClicked) {
                     dc.cb.fn.setValue(false, false, true);
                   }
                 }
               },
-              runAfterClose: function(dc) {
+              afterRemove: function(dc) {
                 dc.cb.mClicked = false;
                 dc.cb.select(dc);
                 $A.setAttr(dc.triggerObj, {
@@ -1064,9 +1075,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               dc.cb.autoComplete = v ? true : false;
             };
 
-            that.close = function() {
-              dc.cb.select(dc);
-              dc.remove();
+            that.close = function(f) {
+              dc.remove(f);
             };
 
             that.open = function(passive) {
@@ -1074,9 +1084,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
               if (start) {
                 dc.cb.fn.render();
-                dc.render();
 
-                if (dc.loaded) {
+                dc.render(function() {
                   if (!passive) {
                     dc.cb.select(
                       dc,
@@ -1084,7 +1093,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       true
                     );
                   }
-                }
+                });
               }
             };
 
@@ -1160,7 +1169,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 document.activeElement === combobox &&
                 (dc.cb.readonly || dc.cb.value)
               ) {
-                dc.cb.activeDescendant = true;
                 that.open();
               }
             };

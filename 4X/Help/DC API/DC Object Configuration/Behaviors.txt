@@ -63,7 +63,7 @@ Note: The displayed value for each property represents its default value when om
 
   // Set a control type name for an interactive widget.
   // This is used when creating widget type profiles to establish common properties for similare widget templates.
-  // View help for the 4X API $A.addWidgetTypeProfile() function for more details.
+  // View help for the 4X API $A.addWidgetProfile() function for more details.
   widgetType: ""
 
   // Automatically close the widget DC object when another widget of a different widget type is opened.

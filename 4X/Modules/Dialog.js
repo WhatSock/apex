@@ -1,13 +1,13 @@
 /*!
 ARIA Dialog Module 2.0 for Apex 4X
-Copyright 2020 Bryan Garaventa (WhatSock.com)
+Copyright 2021 Bryan Garaventa (WhatSock.com)
 https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
 
 (function() {
   if (!("setDialog" in $A)) {
-    $A.addWidgetTypeProfile("Dialog", {
+    $A.addWidgetProfile("Dialog", {
       track: [],
       configure: function(dc) {
         var that = this,
@@ -35,30 +35,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           append: true,
           escToClose: true,
           on: "click",
-          runDuring: function(dc) {
-            if (dc.isModal) {
-              dc.backdrop = $A(that.backdrop)
-                .on({
-                  click: function(ev) {
-                    dc.remove();
-                    ev.stopPropagation();
-                  }
-                })
-                .css(
-                  $A.isNum(dc.style["z-index"]) && dc.style["z-index"] > 1
-                    ? {
-                        zIndex: dc.style["z-index"] - 1
-                      }
-                    : {}
-                )
-                .appendTo("body")
-                .return();
-            }
-          },
-          runAfterClose: function(dc) {
-            if (dc.isModal && $A.isDOMNode(dc.backdrop, null, null, 11))
-              $A.remove(dc.backdrop);
-          },
           click: function(ev, dc) {
             ev.stopPropagation();
           }
@@ -70,13 +46,33 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         r["aria-modal"] = dc.isModal ? "true" : "false";
         return r;
       },
-      onRender: function(dc, container) {
+      beforeRender: function(dc, container) {
+        if (dc.isModal) {
+          dc.backdrop = $A(that.backdrop)
+            .on({
+              click: function(ev) {
+                dc.remove();
+                ev.stopPropagation();
+              }
+            })
+            .css(
+              $A.isNum(dc.style["z-index"]) && dc.style["z-index"] > 1
+                ? {
+                    zIndex: dc.style["z-index"] - 1
+                  }
+                : {}
+            )
+            .appendTo("body")
+            .return();
+        }
+      },
+      afterRender: function(dc, container) {
         var that = this;
         that.track.push(dc);
         $A.hideBackground(dc.outerNode);
         dc.announce = dc.isAlert === true;
       },
-      onRemove: function(dc, container) {
+      afterRemove: function(dc, container) {
         var that = this;
         that.track.splice(that.track.length - 1, 1);
         if (that.track.length) {
@@ -86,6 +82,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         } else {
           if (dc.isModal) $A.showBackground();
         }
+        if (dc.isModal && $A.isDOMNode(dc.backdrop, null, null, 11))
+          $A.remove(dc.backdrop);
       },
       backdrop: '<div class="modalBackdrop"></div>'
     });

@@ -1,13 +1,13 @@
 /*!
 ARIA Tooltip Module 2.0 for Apex 4X
-Copyright 2020 Bryan Garaventa (WhatSock.com)
+Copyright 2021 Bryan Garaventa (WhatSock.com)
 https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
 
 (function() {
   if (!("setTooltip" in $A)) {
-    $A.addWidgetTypeProfile("Tooltip", {
+    $A.addWidgetProfile("Tooltip", {
       configure: function(dc) {
         return {
           delay: 0,
@@ -65,13 +65,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           );
         }
       },
-      onRender: function(dc, container) {
+      afterRender: function(dc, container) {
         if (dc.isError || dc.isResponsive || dc.isIE) {
           dc.speak();
         } else if (!dc.noRepeat)
           $A.setAttr(dc.target, "aria-describedby", container.id);
       },
-      onRemove: function(dc, container) {
+      afterRemove: function(dc, container) {
         $A.remAttr(dc.target, "aria-describedby");
       }
     });
@@ -94,7 +94,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         var baseDC = function() {
             return $A.extend(
               {
-                id: $A.genId(),
                 widgetType: "Tooltip",
                 speak: function(v) {
                   var dc = this;
@@ -202,12 +201,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
         $A.query(o, function(i, o) {
           var tooltip = null,
-            error = null;
+            error = null,
+            id = config.id || o.id || $A.genId();
+
           if (!config.isError && config.isResponsive) config.isError = true;
 
           if ($A.hasAttr(o, "data-tooltip")) {
             var dt = $A.getAttr(o, "data-tooltip");
             tooltip = {
+              id: $A.hasDC(id) ? $A.genId() : id,
               target: o,
               trigger: o
             };
@@ -218,6 +220,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           if ($A.hasAttr(o, "data-error")) {
             var de = $A.getAttr(o, "data-error");
             error = {
+              id: $A.hasDC(id) ? $A.genId() : id,
               target: o,
               trigger: o,
               isError: true
@@ -246,6 +249,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             dcArray.push(
               $A.toDC(
                 $A.extend(baseDC(), {
+                  id: $A.hasDC(id) ? $A.genId() : id,
                   target: o,
                   trigger: o
                 })

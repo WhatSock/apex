@@ -1,6 +1,6 @@
 /*!
 ARIA Grid Module 2.0 for Apex 4X
-Copyright 2020 Bryan Garaventa (WhatSock.com)
+Copyright 2021 Bryan Garaventa (WhatSock.com)
 https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
@@ -733,10 +733,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   enabled: false,
                   callback: function(ids) {
                     var rt =
-                      config.page.row.deleteRow.callback.runBefore &&
-                      typeof config.page.row.deleteRow.callback.runBefore ===
+                      config.page.row.deleteRow.callback.beforeRender &&
+                      typeof config.page.row.deleteRow.callback.beforeRender ===
                         "function"
-                        ? config.page.row.deleteRow.callback.runBefore.apply(
+                        ? config.page.row.deleteRow.callback.beforeRender.apply(
                             that,
                             [ids && ids.length ? ids : config.page.row.selected]
                           )
@@ -815,11 +815,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       config.page.open(config.page.current);
 
                       if (
-                        config.page.row.deleteRow.callback.runAfter &&
-                        typeof config.page.row.deleteRow.callback.runAfter ===
-                          "function"
+                        config.page.row.deleteRow.callback.afterRender &&
+                        typeof config.page.row.deleteRow.callback
+                          .afterRender === "function"
                       )
-                        config.page.row.deleteRow.callback.runAfter.apply(
+                        config.page.row.deleteRow.callback.afterRender.apply(
                           that,
                           [deleted]
                         );
@@ -1012,21 +1012,17 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 if (isNaN(n) || n < 1) n = 1;
 
                 if (reOpen && config.dc.loaded) config.page.close();
-                var isLoaded = config.dc.loaded;
 
-                if (!isLoaded) config.dc.render();
-                config.page.render(config.page.sync(n));
-
-                if (
-                  !isLoaded &&
-                  config.page.on.open &&
-                  $A.isFn(config.page.on.open)
-                )
-                  config.page.on.open.apply(container, [
-                    container,
-                    config.dc,
-                    that
-                  ]);
+                if (!config.dc.loaded)
+                  config.dc.render(function() {
+                    config.page.render(config.page.sync(n));
+                    if (config.page.on && $A.isFn(config.page.on.open))
+                      config.page.on.open.apply(container, [
+                        container,
+                        config.dc,
+                        that
+                      ]);
+                  });
               },
               close: function() {
                 if (config.page.row.editFieldActive) clearEdit(true, true);
@@ -1487,7 +1483,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             exposeBounds: false,
             sourceOnly: false,
             root: container,
-            runAfter: function(dc) {
+            afterRender: function(dc) {
               gridInc++;
               dc.tableId = baseId + "t" + gridInc;
               dc.theadId = baseId + "tth" + gridInc;
@@ -1584,7 +1580,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
               dc.container.appendChild(dc.table);
             },
-            runBeforeClose: function(dc) {
+            beforeRemove: function(dc) {
               if (dc.table) $A(dc.table).remove();
               dc.table = dc.thead = dc.tbody = dc.tr = null;
             }
@@ -1768,14 +1764,18 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               ? o.callback
               : null;
 
-          if ("runBefore" in o)
-            config.page.row.deleteRow.callback.runBefore = $A.isFn(o.runBefore)
-              ? o.runBefore
+          if ("beforeRender" in o)
+            config.page.row.deleteRow.callback.beforeRender = $A.isFn(
+              o.beforeRender
+            )
+              ? o.beforeRender
               : null;
 
-          if ("runAfter" in o)
-            config.page.row.deleteRow.callback.runAfter = $A.isFn(o.runAfter)
-              ? o.runAfter
+          if ("afterRender" in o)
+            config.page.row.deleteRow.callback.afterRender = $A.isFn(
+              o.afterRender
+            )
+              ? o.afterRender
               : null;
         };
 

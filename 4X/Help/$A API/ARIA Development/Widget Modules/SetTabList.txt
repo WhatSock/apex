@@ -108,9 +108,9 @@ dc.remove();
 
 // All other 4X API properties and methods can be applied here as well.
 
-Straylightping
+Straylight mapping
 
-Straylightping is designed to handle common control types that span multiple pages with similar setup configurations.
+Straylight mapping is designed to handle common control types that span multiple pages with similar setup configurations.
 
 When the Straylight module is executed, it parses the newly loaded DOM, recognizes the class "aria-tablist", then configures the same module declaration as previously described using these HTML5 attributes.
 

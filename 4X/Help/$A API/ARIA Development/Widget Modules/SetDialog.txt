@@ -57,12 +57,12 @@ isModal: true,
 isAlert: false,
 
 // Run script after the dialog finishes rendering.
-runAfter: function(DC) {
+afterRender: function(DC) {
 // DC.container is the rendered dialog content.
 },
 
 // Run script after the dialog is removed.
-runAfterClose: function(DC) {
+afterRemove: function(DC) {
 // Do something.
 }
 
@@ -83,9 +83,9 @@ DC.remove();
 
 // All other 4X API properties and methods can be applied here as well.
 
-Straylightping
+Straylight mapping
 
-Straylightping is designed to handle common control types that span multiple pages with similar setup configurations.
+Straylight mapping is designed to handle common control types that span multiple pages with similar setup configurations.
 
 When the Straylight module is loaded, it parses the newly loaded document, recognizes the class "aria-dialog" on the link or button triggering element, then configures the dialog using these HTML5 attributes.
 

@@ -29,7 +29,7 @@ $A.import(["Animate", "Popup"], { defer: true }, function() {
         });
       }
     },
-    runAfter: function(dc) {
+    afterRender: function(dc) {
       // Do something after the popup is rendered.
     }
   });

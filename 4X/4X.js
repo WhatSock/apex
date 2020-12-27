@@ -1,13 +1,13 @@
 /*!
-Apex 4X: The Comprehensive ARIA Development Suite (2020.1)
-Copyright 2020 Bryan Garaventa (WhatSock.com)
+Apex 4X: The Comprehensive ARIA Development Suite (2021.1)
+Copyright 2021 Bryan Garaventa (WhatSock.com)
 https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
 
 (function() {
   var moduleFolder = "/4X/Modules/",
-    Version = "2020.1",
+    Version = "2021.1",
     $A = function(dc, dcA, dcI, onReady, disableAsync) {
       if (!arguments.length && this === $A) {
         return $A;
@@ -1672,7 +1672,7 @@ error: function(error, promise){}
       } else return activeElements;
     },
 
-    addWidgetTypeProfile: function(widgetType, config) {
+    addWidgetProfile: function(widgetType, config) {
       if (!$A.module[widgetType]) $A.module[widgetType] = {};
       $A.extend($A.module[widgetType], config);
     },
@@ -2112,7 +2112,8 @@ error: function(error, promise){}
         r.remove();
         r.fn.bypass = false;
       }
-      if ($A.isFn(r.runBeforeDestroy)) r.runBeforeDestroy(r);
+      var aD = r.afterDestroy;
+      if ($A.isFn(r.beforeDestroy)) r.beforeDestroy(r);
       $A.removeData(r.id);
       r.id = r.outerNode = r.container = a = c = null;
       if (r.widgetType && r.autoCloseWidget) {
@@ -2146,6 +2147,7 @@ error: function(error, promise){}
         if (pc >= 0) r.parent.children.splice(pc, 1);
       }
       $A.reg.delete(id);
+      if ($A.isFn(aD)) aD();
       return true;
     },
 
@@ -3231,9 +3233,9 @@ error: function(error, promise){}
     },
 
     _GenDC: function(DCObjects, gImport, parentDC) {
-      var wheel = [],
+      var WL = [],
         changeTabs = function(DC, isClose) {
-          var dc = wheel[DC.indexVal];
+          var dc = WL[DC.indexVal];
           if ((dc.isTab || dc.isToggle) && dc.toggleClassName) {
             if (isClose && (dc.trigger || dc.triggerObj)) {
               $A.query(dc.trigger || dc.triggerObj, function(i, o) {
@@ -3252,12 +3254,12 @@ error: function(error, promise){}
           return dc;
         },
         parseScripts = function(DC, type, next) {
-          var dc = wheel[DC.indexVal],
+          var dc = WL[DC.indexVal],
             toGet = [],
             toRun = [],
             rn = function(typ, isOnce, DC) {
-              var ran = "ran" + typ,
-                run = "run" + typ;
+              var ran = typ + "Ran",
+                run = typ;
               if (
                 !$A.isFn(DC[run]) &&
                 !$A.isStr(DC[run]) &&
@@ -3272,14 +3274,19 @@ error: function(error, promise){}
                   Array.prototype.push.apply(toGet, DC[run]);
               }
             },
-            fns = ["JSOnce" + type, "Once" + type, "JS" + type, type];
+            fns = [
+              "jsOnce" + type,
+              "once" + type,
+              "js" + type,
+              type[0].toLowerCase() + type.slice(1)
+            ];
           if (dc.reverseJSOrder) fns = fns.reverse();
 
           var lp = function(mDC) {
             $A.loop(
               fns,
               function(i, f) {
-                rn(f, f.indexOf("Once") !== -1, mDC);
+                rn(f, f.toLowerCase().indexOf("once") !== -1, mDC);
               },
               "array"
             );
@@ -3296,7 +3303,7 @@ error: function(error, promise){}
             $A.loop(
               toRun,
               function(i, r) {
-                r(dc);
+                r(dc, dc.container);
               },
               "array"
             );
@@ -3316,7 +3323,7 @@ error: function(error, promise){}
           return dc;
         },
         DCR1 = function(DC) {
-          var dc = wheel[DC.indexVal];
+          var dc = WL[DC.indexVal];
           if (
             (dc.loaded && !dc.allowReopen && !dc.isToggle) ||
             dc.fn.override ||
@@ -3370,12 +3377,13 @@ error: function(error, promise){}
           dc.outerNodeId = dc.fn.baseId + "ON";
           dc.containerId = dc.fn.baseId + "IN";
 
-          parseScripts(dc, "Before", DCR2);
+          $A.getModule(dc, "beforeRender", dc.container);
+          parseScripts(dc, "BeforeRender", DCR2);
 
           return dc;
         },
         DCR2 = function(DC) {
-          var dc = wheel[DC.indexVal];
+          var dc = WL[DC.indexVal];
 
           if (dc.cancel) {
             dc.cancel = dc.loading = false;
@@ -3433,7 +3441,7 @@ error: function(error, promise){}
           return dc;
         },
         DCR3 = function(DC) {
-          var dc = wheel[DC.indexVal];
+          var dc = WL[DC.indexVal];
 
           if (dc.cancel) {
             dc.cancel = dc.loading = false;
@@ -3475,8 +3483,8 @@ error: function(error, promise){}
               scripts,
               function(i, s) {
                 if (s.src) {
-                  if (!$A.isArray(dc.runJSAfter)) dc.runJSAfter = [];
-                  dc.runJSAfter.push(s.src);
+                  if (!$A.isArray(dc.jsAfter)) dc.jsAfter = [];
+                  dc.jsAfter.push(s.src);
                 } else {
                   if (!$A.isArray(dc.embeddedJS)) dc.embeddedJS = [];
                   dc.embeddedJS.push(
@@ -3520,12 +3528,13 @@ error: function(error, promise){}
             $A.setAttr(dc.triggerObj, "aria-controls", dc.outerNodeId);
           }
 
-          parseScripts(dc, "During", DCR4);
+          $A.getModule(dc, "duringRender", dc.container);
+          parseScripts(dc, "DuringRender", DCR4);
 
           return dc;
         },
         DCR4 = function(DC) {
-          var dc = wheel[DC.indexVal];
+          var dc = WL[DC.indexVal];
 
           if (dc.cancel) {
             dc.cancel = dc.loading = false;
@@ -3647,7 +3656,6 @@ error: function(error, promise){}
                   ev.stopPropagation();
                 }
               });
-            $A.getModule(dc, "onRender", dc.container);
             dc.activeElements = $A.getActEl(dc.container, true);
             if (dc.activeElements.length) {
               dc.first = dc.activeElements[0];
@@ -3680,7 +3688,8 @@ error: function(error, promise){}
                 "array"
               );
             }
-            parseScripts(dc, "After", function() {
+            $A.getModule(dc, "afterRender", dc.container);
+            parseScripts(dc, "AfterRender", function() {
               if (dc.scrollIntoView) {
                 if ($A.isFn(dc.scrollIntoView))
                   dc.scrollIntoView.call(dc.container, dc, dc.container);
@@ -3691,6 +3700,10 @@ error: function(error, promise){}
               }
               $A.lastLoaded = dc;
               if (dc.forceFocus) dc.focus(dc);
+              if ($A.isFn(dc.fn.renderCallback)) {
+                dc.fn.renderCallback(dc);
+                dc.fn.renderCallback = null;
+              }
               if (dc.announce)
                 $A.announce(dc.container, dc.noRepeat, dc.isAlert);
               if ($A.straylight) $A.straylight(dc.container);
@@ -3710,12 +3723,13 @@ error: function(error, promise){}
           return dc;
         },
         closeDC = function(DC) {
-          var dc = wheel[DC.indexVal];
+          var dc = WL[DC.indexVal];
           if (!dc.loaded || dc.lock || dc.closing) return dc;
           dc.closing = true;
           dc.cancel = false;
 
-          parseScripts(dc, "BeforeClose", function() {
+          $A.getModule(dc, "beforeRemove", dc.container);
+          parseScripts(dc, "BeforeRemove", function() {
             if (!dc.loaded || dc.lock || dc.cancel) {
               dc.closing = dc.cancel = false;
               return dc;
@@ -3723,7 +3737,6 @@ error: function(error, promise){}
             dc.loaded = false;
 
             var complete = function() {
-              $A.getModule(dc, "onRemove", dc.container);
               $A._cleanAll(dc.container, true);
               if (dc.fn.style) $A.remove(dc.fn.style);
               if (dc.fn.closeLink) $A.remove(dc.fn.closeLink);
@@ -3737,7 +3750,8 @@ error: function(error, promise){}
               if (dc.ariaControls) $A.remAttr(dc.triggerObj, "aria-controls");
               if (dc.isTab || dc.isToggle) changeTabs(dc, true);
               dc.closing = false;
-              parseScripts(dc, "AfterClose", function() {
+              $A.getModule(dc, "afterRemove", dc.container);
+              parseScripts(dc, "AfterRemove", function() {
                 if (
                   dc.returnFocus &&
                   dc.triggerObj &&
@@ -3748,6 +3762,10 @@ error: function(error, promise){}
                 } else if (dc.rerouteFocus) {
                   $A.focus(dc.rerouteFocus);
                   dc.rerouteFocus = null;
+                }
+                if ($A.isFn(dc.fn.removeCallback)) {
+                  dc.fn.removeCallback(dc);
+                  dc.fn.removeCallback = null;
                 }
               });
             };
@@ -3765,7 +3783,7 @@ error: function(error, promise){}
           return dc;
         },
         unsetTrigger = function(DC) {
-          var dc = wheel[DC.indexVal];
+          var dc = WL[DC.indexVal];
           if (!dc.trigger || !dc.on) return dc;
           var events = [];
           if ($A.isPlainObject(dc.on)) {
@@ -3785,13 +3803,13 @@ error: function(error, promise){}
           return dc;
         },
         setTrigger = function(DC) {
-          var dc = wheel[DC.indexVal];
+          var dc = WL[DC.indexVal];
           unsetTrigger(dc);
           setBindings(dc);
           return dc;
         },
         setAutoFix = function(DC) {
-          var dc = wheel[DC.indexVal];
+          var dc = WL[DC.indexVal];
           if (!dc.loading && !dc.loaded) return dc;
           var cs = {
             position: "fixed",
@@ -3844,7 +3862,7 @@ error: function(error, promise){}
           return dc;
         },
         sizeAutoFix = function(DC) {
-          var dc = wheel[DC.indexVal];
+          var dc = WL[DC.indexVal];
           if (!dc.loading && !dc.loaded) return dc;
           var win = $A.getWindow();
           var bodyW = win.width,
@@ -3886,7 +3904,7 @@ error: function(error, promise){}
           return dc;
         },
         setBindings = function(dc) {
-          var dc = wheel[DC.indexVal];
+          var dc = WL[DC.indexVal];
           if (dc.trigger)
             $A.query(dc.trigger, function(i, o) {
               if (!dc.triggerObj) dc.triggerObj = o;
@@ -3899,7 +3917,6 @@ error: function(error, promise){}
                     dc.render();
                     ev.preventDefault();
                   });
-                  if (dc.on === "click") $A.setKBA11Y(o, "button");
                 } else if ($A.isPlainObject(dc.on)) {
                   $A.on(o, dc.on, dc.id);
                 }
@@ -3928,7 +3945,7 @@ error: function(error, promise){}
           return nDC;
         },
         DCInit = function(dc) {
-          var dc = wheel[DC.indexVal];
+          var dc = WL[DC.indexVal];
           if (dc.widgetType && dc.autoCloseWidget) {
             $A._widgetTypes.push(dc.id);
           }
@@ -3941,26 +3958,26 @@ error: function(error, promise){}
         },
         render = [],
         svs = [
-          "runJSOnceBefore",
-          "runOnceBefore",
-          "runJSBefore",
-          "runBefore",
-          "runJSOnceDuring",
-          "runOnceDuring",
-          "runJSDuring",
-          "runDuring",
-          "runJSOnceAfter",
-          "runOnceAfter",
-          "runJSAfter",
-          "runAfter",
-          "runJSOnceBeforeClose",
-          "runOnceBeforeClose",
-          "runJSBeforeClose",
-          "runBeforeClose",
-          "runJSOnceAfterClose",
-          "runOnceAfterClose",
-          "runJSAfterClose",
-          "runAfterClose"
+          "jsOnceBeforeRender",
+          "onceBeforeRender",
+          "jsBeforeRender",
+          "beforeRender",
+          "jsOnceDuringRender",
+          "onceDuringRender",
+          "jsDuringRender",
+          "duringRender",
+          "jsOnceAfterRender",
+          "onceAfterRender",
+          "jsAfterRender",
+          "afterRender",
+          "jsOnceBeforeRemove",
+          "onceBeforeRemove",
+          "jsBeforeRemove",
+          "beforeRemove",
+          "jsOnceAfterRemove",
+          "onceAfterRemove",
+          "jsAfterRemove",
+          "afterRemove"
         ];
 
       var a = 0,
@@ -4062,27 +4079,28 @@ error: function(error, promise){}
         // reverseJSOrder: false,
 
         /*
-            runJSOnceBefore: [],
-            runOnceBefore: function(dc) {},
-            runJSBefore: [],
-            runBefore: function(dc) {},
-            runJSOnceDuring: [],
-            runOnceDuring: function(dc) {},
-            runJSDuring: [],
-            runDuring: function(dc) {},
-            runJSOnceAfter: [],
-            runOnceAfter: function(dc) {},
-            runJSAfter: [],
-            runAfter: function(dc) {},
-            runJSOnceBeforeClose: [],
-            runOnceBeforeClose: function(dc) {},
-            runJSBeforeClose: [],
-            runBeforeClose: function(dc) {},
-            runJSOnceAfterClose: [],
-            runOnceAfterClose: function(dc) {},
-            runJSAfterClose: [],
-            runAfterClose: function(dc) {},
-            runBeforeDestroy: function(dc) {},
+            jsOnceBeforeRender: [],
+            onceBeforeRender: function(dc) {},
+            jsBeforeRender: [],
+            beforeRender: function(dc) {},
+            jsOnceDuringRender: [],
+            onceDuringRender: function(dc) {},
+            jsDuringRender: [],
+            duringRender: function(dc) {},
+            jsOnceAfterRender: [],
+            onceAfterRender: function(dc) {},
+            jsAfterRender: [],
+            afterRender: function(dc) {},
+            jsOnceBeforeRemove: [],
+            onceBeforeRemove: function(dc) {},
+            jsBeforeRemove: [],
+            beforeRemove: function(dc) {},
+            jsOnceAfterRemove: [],
+            onceAfterRemove: function(dc) {},
+            jsAfterRemove: [],
+            afterRemove: function(dc) {},
+            beforeDestroy: function(dc) {},
+            afterDestroy: function(dc) {},
 */
 
         destroy: function(p) {
@@ -4227,9 +4245,10 @@ error: function(error, promise){}
           return $A.isFocusWithin(dc.container);
         },
 
-        render: function(dc) {
-          var dc = dc || this;
+        render: function(fn) {
+          var dc = this;
           if (dc.isDisabled) return dc;
+          dc.fn.renderCallback = fn;
           if ($A.isNum(dc.delay) && dc.delay > 0) {
             if (dc.fn.Delay) clearTimeout(dc.fn.Delay);
             dc.fn.Delay = setTimeout(function() {
@@ -4361,8 +4380,9 @@ error: function(error, promise){}
           return dc;
         },
 
-        remove: function(dc) {
-          var dc = dc || this;
+        remove: function(fn) {
+          var dc = this;
+          dc.fn.removeCallback = fn;
           return closeDC(dc);
         },
 
@@ -4581,9 +4601,9 @@ onRemove: function(mutationRecordObject, dc){ },
           }
         }
 
-        dc.indexVal = wheel.length;
-        wheel[dc.indexVal] = DCInst(dc);
-        var DC = wheel[dc.indexVal];
+        dc.indexVal = WL.length;
+        WL[dc.indexVal] = DCInst(dc);
+        var DC = WL[dc.indexVal];
 
         if (
           $A.module[aO.widgetType] &&
@@ -4632,7 +4652,7 @@ onRemove: function(mutationRecordObject, dc){ },
         }
       }
 
-      for (a = 0; a < wheel.length; a++) wheel[a].siblings = wheel;
+      for (a = 0; a < WL.length; a++) WL[a].siblings = WL;
 
       if (render.length) {
         for (s = 0; s < render.length; s++) {
@@ -4641,7 +4661,7 @@ onRemove: function(mutationRecordObject, dc){ },
         }
       }
 
-      return wheel;
+      return WL;
     }
   });
 
@@ -5790,7 +5810,7 @@ onRemove: function(mutationRecordObject, dc){ },
           // be treated as a custom event
           standardNativeEvents =
             "click dblclick mouseup mousedown contextmenu " + // mouse buttons
-            "mousewheel mousemultiwheel DOMMouseScroll " + // mouse wheel
+            "mouseWL mousemultiWL DOMMouseScroll " + // mouse WL
             "mouseover mouseout mousemove selectstart selectend " + // mouse movement
             "keydown keypress keyup " + // keyboard
             "orientationchange " + // mobile
@@ -5863,10 +5883,10 @@ onRemove: function(mutationRecordObject, dc){ },
             return {
               mouseenter: { base: "mouseover", condition: check },
               mouseleave: { base: "mouseout", condition: check },
-              mousewheel: {
+              mouseWL: {
                 base: /Firefox/.test(navigator.userAgent)
                   ? "DOMMouseScroll"
-                  : "mousewheel"
+                  : "mouseWL"
               }
             };
           })(),
@@ -5886,9 +5906,7 @@ onRemove: function(mutationRecordObject, dc){ },
                 )
               ),
               mouseWheelProps = mouseProps.concat(
-                str2arr(
-                  "wheelDelta wheelDeltaX wheelDeltaY wheelDeltaZ " + "axis"
-                )
+                str2arr("WLDelta WLDeltaX WLDeltaY WLDeltaZ " + "axis")
               ), // 'axis' is FF specific
               keyProps = commonProps.concat(
                 str2arr(
@@ -5915,7 +5933,7 @@ onRemove: function(mutationRecordObject, dc){ },
                 },
                 {
                   // mouse events
-                  reg: /click|mouse(?!(.*wheel|scroll))|menu|drag|drop/i,
+                  reg: /click|mouse(?!(.*WL|scroll))|menu|drag|drop/i,
                   fix: function(event, newEvent, type) {
                     newEvent.rightClick =
                       event.which === 3 || event.button === 2;
@@ -5940,8 +5958,8 @@ onRemove: function(mutationRecordObject, dc){ },
                   }
                 },
                 {
-                  // mouse wheel events
-                  reg: /mouse.*(wheel|scroll)/i,
+                  // mouse WL events
+                  reg: /mouse.*(WL|scroll)/i,
                   fix: function() {
                     return mouseWheelProps;
                   }

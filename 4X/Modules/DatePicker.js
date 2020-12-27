@@ -1,6 +1,6 @@
 /*!
 ARIA Date Picker Module 4.0 for Apex 4X
-Copyright 2020 Bryan Garaventa (WhatSock.com)
+Copyright 2021 Bryan Garaventa (WhatSock.com)
 Refactoring Contributions Copyright 2018 Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
@@ -8,7 +8,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
 (function() {
   if (!("setDatePicker" in $A)) {
-    $A.addWidgetTypeProfile("DatePicker", {
+    $A.addWidgetProfile("DatePicker", {
       configure: function(dc) {
         return {
           returnFocus: false,
@@ -883,7 +883,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 $A.setAttr([targ, trigger], "disabled", dc.disabled);
                 if (!dc.disabled) $A.remAttr([targ, trigger], "disabled");
               },
-              runOnceBefore: function(dc) {
+              onceBeforeRender: function(dc) {
                 if (!(dc.date instanceof Date)) {
                   dc.setDateComparisons(dc);
                   dc.setDate(dc);
@@ -891,20 +891,20 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               },
               rerenderTable: function(dc) {
                 dc.rerendering = true;
-                dc.runAfterClose(dc);
-                dc.runBefore(dc);
-                dc.runDuring(dc);
-                dc.runAfter(dc);
+                dc.afterRemove(dc);
+                dc.beforeRender(dc);
+                dc.duringRender(dc);
+                dc.afterRender(dc);
                 dc.rerendering = false;
               },
-              runBefore: function(dc) {
+              beforeRender: function(dc) {
                 if (!dc.rerendering && targ.value) {
                   dc.presetDate(dc, new Date(targ.value));
                 }
 
                 // Run custom specified function?
-                if ($A.isFn(config.runBefore)) {
-                  config.runBefore(dc);
+                if ($A.isFn(config.beforeRender)) {
+                  config.beforeRender(dc);
                 }
 
                 // based on config option, disable weekdays?
@@ -1303,7 +1303,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   $A.data(o, "_HasComment", true);
                 });
               },
-              runDuring: function(dc) {
+              duringRender: function(dc) {
                 if (dc.rerendering) {
                   dc.container.innerHTML = dc.source;
                 } else {
@@ -1318,7 +1318,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   dc.container.appendChild(dc.messageContainer);
                 }
               },
-              runAfter: function(dc) {
+              afterRender: function(dc) {
                 if (dc.showEscBtn) {
                   dc.escBtn = dc.container.querySelector("button.esc-button");
                 }
@@ -2355,7 +2355,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               },
               helpTextShort: helpTextShort,
               helpText: helpText,
-              runAfterClose: function(dc) {
+              afterRemove: function(dc) {
                 if (!dc.rerendering) {
                   if (config.resetCurrent) {
                     dc.date = new Date();
@@ -2377,8 +2377,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   dc.lock = dc.configureLoading = false;
 
                 // Run custom specified function?
-                if ($A.isFn(config.runAfterClose)) {
-                  config.runAfterClose(dc);
+                if ($A.isFn(config.afterRemove)) {
+                  config.afterRemove(dc);
                 }
               }
             }
@@ -2406,10 +2406,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             className:
               (config.comments && config.comments.className) ||
               "commentTooltip",
-            runBefore: function(dc) {
+            beforeRender: function(dc) {
               dc.targetObj = dc.parent.outerNode;
             },
-            runAfter: function(dc) {}
+            afterRender: function(dc) {}
           }
         ])[0];
         // Comment object declaration end
@@ -2442,13 +2442,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               '" class="commentBtn">' +
               ((config.editor && config.editor.role) || "Edit") +
               "</button>",
-            runBefore: function(dc) {
+            beforeRender: function(dc) {
               dc.targetObj = dc.parent.outerNode;
             },
             click: function(ev, dc) {
               ev.stopPropagation();
             },
-            runDuring: function(dc) {
+            duringRender: function(dc) {
               $A.setAttr(dc.outerNode, {
                 role: "dialog",
                 "aria-label": dc.role
@@ -2613,7 +2613,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 }
               }
             },
-            runAfter: function(dc) {
+            afterRender: function(dc) {
               dc.textarea = dc.container.querySelector("textarea");
               dc.commentBtn = dc.container.querySelector("button");
 
@@ -2709,7 +2709,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 "." + baseId
               );
             },
-            runBeforeClose: function(dc) {
+            beforeRemove: function(dc) {
               dc.openEditor = false;
               dc.textarea = null;
               dc.parent.setFocus.firstOpen = true;

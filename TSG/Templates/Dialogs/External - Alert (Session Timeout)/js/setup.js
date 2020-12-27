@@ -26,13 +26,6 @@ $A.import(["Animate", "Dialog"], { defer: true }, function() {
           }
         });
       }
-    },
-    runAfter: function(dc) {
-      $A("#xForm").on("submit", function(ev) {
-        alert("Do something.");
-        dc.remove();
-        ev.preventDefault();
-      });
     }
   });
 

@@ -353,7 +353,7 @@ $A.import("Grid", { defer: true }, function() {
       grid.setDelete({
         enable: nV,
         // Set a function to execute prior to deletion
-        runBefore: function(selectedRowIDs_array) {
+        beforeRender: function(selectedRowIDs_array) {
           // Return false to cancel deletion
           var i = selectedRowIDs_array.length,
             s = i === 1 ? "" : "s";
@@ -375,7 +375,7 @@ $A.import("Grid", { defer: true }, function() {
           // return false to cancel deletion from the grid
         },
         // Set a function to execute after deletion is completed
-        runAfter: function(deletedRowIDs_array) {
+        afterRender: function(deletedRowIDs_array) {
           var i = deletedRowIDs_array.length,
             s = i === 1 ? "" : "s";
           alert(i + " row" + s + " deleted");

@@ -22,7 +22,11 @@
                 // The DC object is automatically declared when an embedded script is included within an external content resource to be imported.
                 // DC provides access to the originating DC object instance.
                 // E.G. DC.container is the container element where this content is rendered within.
-                alert(DC.id);
+                $A("#xForm").on("submit", function(ev) {
+                    alert("Do something.");
+                    DC.remove();
+                    ev.preventDefault();
+                });
             })();
         </script>
     </div>

@@ -1,6 +1,6 @@
 /*!
 ARIA TabList Module 2.0 for Apex 4X
-Copyright 2020 Bryan Garaventa (WhatSock.com)
+Copyright 2021 Bryan Garaventa (WhatSock.com)
 https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
@@ -12,7 +12,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       props: props,
       once: true,
       call: function(props) {
-        $A.addWidgetTypeProfile("TabList", {
+        $A.addWidgetProfile("TabList", {
           configure: function(dc) {
             return {
               exposeBounds: true,
@@ -24,12 +24,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               isFocusable: true,
               returnFocus: false,
               on: "activatetab",
-              runDuring: function(dc) {
-                $A.setAttr(dc.triggerObj, {
-                  "aria-expanded": "true",
-                  "aria-selected": "true"
-                });
-              },
               click: function(ev, dc) {
                 ev.stopPropagation();
               }
@@ -40,17 +34,23 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               role: "tabpanel"
             };
           },
-          onRender: function(dc, container) {
+          duringRender: function(dc, container) {
+            $A.setAttr(dc.triggerObj, {
+              "aria-expanded": "true",
+              "aria-selected": "true"
+            });
+          },
+          afterRender: function(dc, container) {
             $A.setAttr(dc.triggerObj, {
               "aria-describedby": dc.containerId
             });
           },
-          onRemove: function(dc, container) {
+          afterRemove: function(dc, container) {
             $A.setAttr(dc.triggerObj, {
               "aria-expanded": "false",
-              "aria-selected": "false",
-              "aria-describedby": ""
+              "aria-selected": "false"
             });
+            $A.remAttr(dc.triggerObj, "aria-describedby");
           }
         });
 

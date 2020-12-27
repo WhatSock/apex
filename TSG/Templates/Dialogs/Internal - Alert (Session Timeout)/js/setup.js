@@ -22,8 +22,8 @@ $A.import(["Animate", "Dialog"], { defer: true }, function() {
         });
       }
     },
-    runAfter: function(dc) {
-      $A("#xForm").on("submit", function(ev) {
+    afterRender: function(dc) {
+      $A('#xForm button[type="submit"]').on("click", function(ev) {
         alert("Do something.");
         dc.remove();
         ev.preventDefault();

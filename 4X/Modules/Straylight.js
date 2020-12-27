@@ -1,6 +1,6 @@
 /*!
 4X Straylight 2.0 for Apex 4X
-Copyright 2020 Bryan Garaventa (WhatSock.com)
+Copyright 2021 Bryan Garaventa (WhatSock.com)
 https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 
@@ -309,7 +309,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             });
                           }
                         },
-                        runAfter: function(dc) {
+                        afterRender: function(dc) {
                           // Do something after the popup is rendered.
                         }
                       });

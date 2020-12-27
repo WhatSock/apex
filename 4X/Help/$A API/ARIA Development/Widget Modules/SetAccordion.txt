@@ -107,9 +107,9 @@ Triggering Element Requirements
 
 Regarding the triggering element for expand/collapse links, a native active element should always be used to ensure accessibility for both screen reader and keyboard only users.
 
-Straylightping
+Straylight mapping
 
-Straylightping is designed to handle common control types that span multiple pages with similar setup configurations.
+Straylight mapping is designed to handle common control types that span multiple pages with similar setup configurations.
 
 The accordions within the Straylight folders are configured using HTML5 "data-" attributes within the HTML markup.
 

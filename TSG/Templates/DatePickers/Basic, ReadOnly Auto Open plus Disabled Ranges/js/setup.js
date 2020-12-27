@@ -70,11 +70,11 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
 
     allowCascade: true,
 
-    runAfter: function(dc) {
+    afterRender: function(dc) {
       $A.remAttr($A.getEl("keyboardHint"), "hidden");
     },
 
-    runAfterClose: function(dc) {
+    afterRemove: function(dc) {
       $A.setAttr($A.getEl("keyboardHint"), "hidden", true);
     }
   });

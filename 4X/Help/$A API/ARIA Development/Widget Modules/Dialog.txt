@@ -1,19 +1,19 @@
 
-ARIA Popups
+ARIA Dialogs
 
-Expected behaviors: Move focus into the popup when it is rendered, ensure that the beginning and ending boundaries are conveyed to screen reader users, make sure the popup can be closed from the keyboard, ensure that circular tabbing confines keyboard focus within the popup content, and move focus back to the triggering element after the popup is removed.
+Expected behaviors: Move focus into the dialog when it is rendered, ensure that the background content is hidden from screen reader users, ensure that the beginning and ending boundaries are conveyed to screen reader users, make sure the dialog can be closed from the keyboard, ensure that circular tabbing confines keyboard focus within the dialog content, and move focus back to the triggering element after the dialog is removed.
 
-The 4X ARIA Popup module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 specification.
+The 4X ARIA Dialog module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 specification.
 
-The following attributes are handled automatically by the Popup module:
+The following attributes are handled automatically by the Dialog module:
 
-• role=region
+• role=dialog/alertdialog
 • aria-label
-• aria-expanded
+• aria-hidden
 
 JavaScript syntax:
 
-$A.setPopup( DOM-Node-or-CSS-Selector-forTriggering-Element , {
+$A.setDialog( DOM-Node-or-CSS-Selector-forTriggering-Element , {
 // Configure functionality key / value mappings
 });
 
@@ -21,13 +21,13 @@ Parameters
 
 1: A DOM element or CSS selector to specify the triggering element.
 
-2: A configuration map to customize behaviors and options.
+2: A configuration map to customize behaviors and options. (If there is no triggering element, the configuration map can be passed as the first parameter.)
 
 Configuration
 
 {
 
-// Optionally set a unique ID for the popup DC object, which can be referenced through $A('uniqueId')
+// Optionally set a unique ID for the dialog DC object, which can be referenced through $A('uniqueId')
 // If not specified, the id of the triggering element will be used instead.
 id: 'uniqueId',
 
@@ -46,30 +46,30 @@ selector: "#uniqueId"
 },
 
 // Set the class name for the top level container element
-className: 'popup',
+className: 'dialog',
 
 // Set the class name for the screen reader accessible close link
-// This must match the class name for any close links or buttons within the popup content, which will cause close event binding to automatically occur when the content is rendered.
+// This must match the class name for any close links or buttons within the dialog content, which will cause close event binding to automatically occur when the content is rendered.
 closeClassName: "CloseDC",
 
-// Optionally specify if the popup is an alert message.
-// If true, a system alert will be fired when the popup is rendered.
+// Optionally specify if the dialog is an alert message.
+// If true, a system alert will be fired when the dialog is rendered.
 isAlert: false,
 
-// Optionally run a script after the popup finishes rendering.
+// Optionally run a script after the dialog finishes rendering.
 afterRender: function(DC) {
-// DC.container is the rendered popup content.
+// DC.container is the rendered dialog content.
 },
 
-// Optionally run a script after the popup is removed.
+// Optionally run a script after the dialog is removed.
 afterRemove: function(DC) {
 // Do something.
 },
 
-// Optionally specify a delay in milliseconds to wait before rendering the popup.
+// Optionally specify a delay in milliseconds to wait before rendering the dialog.
 delay: 0,
 
-// Optionally specify a timeout length in milliseconds, after which the popup will automatically close.
+// Optionally specify a timeout length in milliseconds, after which the dialog will automatically close.
 delayTimeout: 0,
 
 // Optionally override the timeout function that occurs after the delayTimeout length is reached.
@@ -78,10 +78,10 @@ dc.remove();
 return dc;
 },
 
-// Optionally specify a render and remove animation effect for the popup.
+// Optionally specify a render and remove animation effect for the dialog.
 // Requires the "Animate" module import to function, which is powered by Velocity.js.
 // To ignore animation effects, delete the animate object declaration entirely from the setup script.
-// View implementations within "TSG/WidgetTemplates/Popups" for practical animation usage examples.
+// View implementations within "TSG/WidgetTemplates/Dialogs" for practical animation usage examples.
 
 style: { display: "none" }, // Set the initial state to hidden in prep for animation.
 
@@ -120,13 +120,13 @@ complete(); // REQUIRED: complete() must be executed so control is passed back t
 
 Programmatic Control
 
-// Get the DC object for the popup using its id.
-var DC = $A("popupId");
+// Get the DC object for the dialog using its id.
+var DC = $A("dialogId");
 
-// Open the popup manually.
+// Open the dialog manually.
 DC.render();
 
-// Close the popup manually.
+// Close the dialog manually.
 DC.remove();
 
 // All other 4X API properties and methods can be applied here as well.
@@ -136,10 +136,10 @@ Straylight
 
 Straylight mapping is designed to handle common control types that span multiple pages with similar setup configurations.
 
-When the Straylight module is loaded, it parses the newly loaded document, recognizes the class "aria-popup" on the link or button triggering element, then configures the popup using these HTML5 attributes.
+When the Straylight module is loaded, it parses the newly loaded document, recognizes the class "aria-dialog" on the link or button triggering element, then configures the dialog using these HTML5 attributes.
 
 Available attributes for the triggering element:
 
-• data-controls : The resource path and pointer to the ID attribute of the popup container element.
+• data-controls : The resource path and pointer to the ID attribute of the dialog container element.
 
 Additional attributes can be added to enhance functionality by editing the file "4X/Modules/Straylight".
