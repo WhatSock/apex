@@ -4376,7 +4376,9 @@ error: function(error, promise){}
 
         reopen: function(dc) {
           var dc = dc || this;
-          dc.remove().render();
+          dc.remove(function() {
+            dc.render();
+          });
           return dc;
         },
 
