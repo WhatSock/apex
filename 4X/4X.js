@@ -742,11 +742,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         inStack = searchFor;
         searchFor = this._X;
       }
-      if (!searchFor || !inStack) return -1;
-      if (inStack.indexOf) {
-        var r = inStack.indexOf(searchFor);
-        return r;
-      }
+      if (!$A.isArray(inStack) && inStack.length) return -1;
+      if (inStack.indexOf) return inStack.indexOf(searchFor);
       for (var i = 0; i < inStack.length; i++) {
         if (inStack[i] === searchFor) {
           return i;
@@ -2051,8 +2048,9 @@ error: function(error, promise){}
         var close = function(DC) {
             if (DC.loaded && !DC.closing && !DC.loading) {
               DC.fn.bypass = true;
-              DC.remove();
-              DC.fn.bypass = false;
+              DC.remove(function() {
+                DC.fn.bypass = false;
+              });
             }
           },
           a = $A.data(obj, "DC-ON");
@@ -2107,47 +2105,46 @@ error: function(error, promise){}
           c = null;
         } else $A.before($A.extractNodes(c), a);
       }
-      if (r.loaded) {
-        r.fn.bypass = true;
-        r.remove();
+      r.fn.bypass = true;
+      r.remove(function() {
         r.fn.bypass = false;
-      }
-      var aD = r.afterDestroy;
-      if ($A.isFn(r.beforeDestroy)) r.beforeDestroy(r);
-      $A.removeData(r.id);
-      r.id = r.outerNode = r.container = a = c = null;
-      if (r.widgetType && r.autoCloseWidget) {
-        var wtI = $A._widgetTypes.indexOf(r.id);
-        if (wtI !== -1) {
-          $A._widgetTypes.splice(wtI, 1);
+        var aD = r.afterDestroy;
+        if ($A.isFn(r.beforeDestroy)) r.beforeDestroy(r);
+        $A.removeData(r.id);
+        r.id = r.outerNode = r.container = a = c = null;
+        if (r.widgetType && r.autoCloseWidget) {
+          var wtI = $A._widgetTypes.indexOf(r.id);
+          if (wtI !== -1) {
+            $A._widgetTypes.splice(wtI, 1);
+          }
         }
-      }
-      if (r.widgetType && r.autoCloseSameWidget) {
-        var wtA = $A._regWidgets.get(r.widgetType),
-          wtI = wtA.indexOf(r.id);
-        if (wtI !== -1) {
-          wtA.splice(wtI, 1);
-          $A._regWidgets.set(r.widgetType, wtA);
+        if (r.widgetType && r.autoCloseSameWidget) {
+          var wtA = $A._regWidgets.get(r.widgetType),
+            wtI = wtA.indexOf(r.id);
+          if (wtI !== -1) {
+            wtA.splice(wtI, 1);
+            $A._regWidgets.set(r.widgetType, wtA);
+          }
         }
-      }
-      var iv = r.indexVal,
-        wh = r.siblings;
-      wh.splice(iv, 1);
-      for (var i = 0; i < wh.length; i++) {
-        wh[i].indexVal = i;
-        wh[i].siblings = wh;
-      }
+        var iv = r.indexVal,
+          wh = r.siblings;
+        wh.splice(iv, 1);
+        for (var i = 0; i < wh.length; i++) {
+          wh[i].indexVal = i;
+          wh[i].siblings = wh;
+        }
 
-      if (r.parent && r.parent.children && r.parent.children.length) {
-        var pc = -1,
-          cn = r.parent.children;
-        for (var i = 0; i < cn.length; i++) {
-          if (cn[i].id === id) pc = i;
+        if (r.parent && r.parent.children && r.parent.children.length) {
+          var pc = -1,
+            cn = r.parent.children;
+          for (var i = 0; i < cn.length; i++) {
+            if (cn[i].id === id) pc = i;
+          }
+          if (pc >= 0) r.parent.children.splice(pc, 1);
         }
-        if (pc >= 0) r.parent.children.splice(pc, 1);
-      }
-      $A.reg.delete(id);
-      if ($A.isFn(aD)) aD();
+        $A.reg.delete(id);
+        if ($A.isFn(aD)) aD();
+      });
       return true;
     },
 
@@ -3331,12 +3328,19 @@ error: function(error, promise){}
             dc.loading ||
             dc.closing
           ) {
+            if (dc.loaded && $A.isFn(dc.fn.renderCallback)) {
+              dc.fn.renderCallback(dc);
+              dc.fn.renderCallback = null;
+            }
             return dc;
           } else if (dc.loaded && (dc.allowRerender || dc.isToggle)) {
             dc.fn.bypass = true;
-            closeDC(dc);
-            dc.fn.bypass = false;
-            if (dc.isToggle) return dc;
+            dc.remove(function() {
+              dc.fn.bypass = false;
+              if (dc.isToggle) return dc;
+              dc.render();
+            });
+            return dc;
           }
           var w = 0,
             wt = null,
@@ -3351,8 +3355,9 @@ error: function(error, promise){}
                 wt.widgetType !== dc.widgetType
               ) {
                 wt.fn.bypass = true;
-                wt.remove();
-                wt.fn.bypass = false;
+                wt.remove(function() {
+                  wt.fn.bypass = false;
+                });
               }
             }
           }
@@ -3366,8 +3371,9 @@ error: function(error, promise){}
               wt = $A.reg.get(wtA[w]);
               if (wt && wt.loaded) {
                 wt.fn.bypass = true;
-                wt.remove();
-                wt.fn.bypass = false;
+                wt.remove(function() {
+                  wt.fn.bypass = false;
+                });
               }
             }
           }
@@ -3545,8 +3551,9 @@ error: function(error, promise){}
             var sb = dc.siblings[w];
             if (sb.loaded && !sb.allowMultiple) {
               sb.fn.bypass = true;
-              sb.remove();
-              sb.fn.bypass = false;
+              sb.remove(function() {
+                sb.fn.bypass = false;
+              });
             }
           }
 
@@ -3724,7 +3731,13 @@ error: function(error, promise){}
         },
         closeDC = function(DC) {
           var dc = WL[DC.indexVal];
-          if (!dc.loaded || dc.lock || dc.closing) return dc;
+          if (!dc.loaded || dc.lock || dc.closing) {
+            if (!dc.loaded && !dc.closing && $A.isFn(dc.fn.removeCallback)) {
+              dc.fn.removeCallback(dc);
+              dc.fn.removeCallback = null;
+            }
+            return dc;
+          }
           dc.closing = true;
           dc.cancel = false;
 
@@ -4593,7 +4606,7 @@ onRemove: function(mutationRecordObject, dc){ },
             aO.allowCascade = gImport.allowCascade;
           else if ($A.isBool($A.fn.globalDC.allowCascade))
             aO.allowCascade = $A.fn.globalDC.allowCascade;
-          else aO.allowCascade = false;
+          else aO.allowCascade = dc.allowCascade;
         }
 
         if (aO.allowCascade) {

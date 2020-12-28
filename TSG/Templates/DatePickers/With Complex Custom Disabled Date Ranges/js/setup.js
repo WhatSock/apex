@@ -28,23 +28,6 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
       }
     },
 
-    // Enable comment dialog
-    enableComments: false,
-
-    // Using a token system, set a specific date string format to be used when setting the selected value into the calendar input box
-    // 'YYYY': 4 digit year, 2019
-    // 'MMMM': Full name of month, January, etc.
-    // 'dddd': Full name of weekday, Monday, etc.
-    // 'MM': 2 digit month, 01, etc.
-    // 'DD': 2 digit day, 01, etc.
-    // 'Do': getDateOrdinalSuffix, 1st, 2nd, 3rd.
-    // 'M': 1 or 2 digit month, 1 through 12
-    // 'D': 1 or 2 digit day, 1 through 31.
-    inputDateFormat: "MM/DD/YYYY",
-
-    // Optional override to choose a different process for handling date selection
-    // onDateActivate: function(ev, dc, target) {},
-
     // Configure complex disabled date ranges using the configure method.
     configure: function(dc) {
       // Run before the datepicker renders
@@ -57,11 +40,11 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
         var cur = new Date();
 
         /*
-														// (Optional) Set a custom date to start the calendar on, such as 03/01/2017
-														cur.setDate(1);
-														cur.setMonth(2);
-														cur.setFullYear(2017);
-							*/
+                            // (Optional) Set a custom date to start the calendar on, such as 03/01/2017
+                            cur.setDate(1);
+                            cur.setMonth(2);
+                            cur.setFullYear(2017);
+              */
 
         // Now configure a 'current' object that uses the date syntax within the datepicker JS instance
         // This will be used to merge into the datepicker before it opens
@@ -79,10 +62,8 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
         dc.range.current.wDay = current.weekDay;
         dc.range.current.year = current.year;
 
-        /*
-														// (Optional) Adjust the start date accordingly using an offset for the disabled date range if desired
-														cur.setDate(cur.getDate() - 1);
-							*/
+        // (Optional) Adjust the start date accordingly using an offset for the disabled date range if desired
+        cur.setDate(cur.getDate() + 1);
 
         // Now set a custom variable to store the disabled date range starting point
         dc.startDate = {
@@ -97,6 +78,9 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
       var current = dc.startDate;
 
       // Disable all dates prior to the current day
+      dc.presetDate(dc, cur, cur);
+
+      /*
       if (
         current.year > dc.range.current.year ||
         (current.year === dc.range.current.year &&
@@ -136,6 +120,7 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
           31
         ];
       }
+*/
 
       if (
         current.year === dc.range.current.year &&
@@ -178,85 +163,14 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
 
       // Prevent configure from running again.
       dc.stopConfigure = true;
+
+      return true;
     },
-
-    // If not included, all of the below values are set by default
-
-    // Set role name text for screen reader users
-    role: "Calendar",
-
-    // Set tooltip text
-    tooltipTxt: "Press Escape to cancel",
-    disabledTxt: "Disabled",
-    commentedTxt: "Has Comment",
-    prevTxt: "Previous",
-    nextTxt: "Next",
-    monthTxt: "Month",
-    yearTxt: "Year",
-
-    // Set month names
-    months: [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
-    ],
-
-    // Set short and long weekday names
-    days: [
-      {
-        s: "S",
-        l: "Sunday"
-      },
-      {
-        s: "M",
-        l: "Monday"
-      },
-      {
-        s: "T",
-        l: "Tuesday"
-      },
-      {
-        s: "W",
-        l: "Wednesday"
-      },
-      {
-        s: "T",
-        l: "Thursday"
-      },
-      {
-        s: "F",
-        l: "Friday"
-      },
-      {
-        s: "S",
-        l: "Saturday"
-      }
-    ],
-
-    // Set positive or negative offset for differing column arrangements, or 0 for none
-    wdOffset: 0,
 
     // Set CSS positioning calculation for the calendar
     autoPosition: 3,
     // Customize with positive or negative offsets
     offsetTop: 0,
-    offsetLeft: 5,
-    // Set class for the calendar container
-    className: "calendar",
-
-    // Choose a different insertion point in the DOM; must be a DOM node; defaults to the triggering element if not specified.
-    targetObj: null,
-
-    // Choose a different focus element in the DOM for CSS autoPositioning; may be a DOM node or CSS Selector; defaults to the triggering element if not specified.
-    posAnchor: ""
+    offsetLeft: 5
   });
 });

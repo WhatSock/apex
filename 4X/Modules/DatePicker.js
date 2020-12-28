@@ -104,13 +104,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               drawFullCalendar: config.drawFullCalendar === true,
               highlightToday: config.highlightToday === true,
               pageUpDownNatural: true,
-              autoPosition: isNaN(config.autoPosition)
-                ? 0
-                : config.autoPosition,
-              offsetTop: isNaN(config.offsetTop) ? 0 : config.offsetTop,
-              offsetLeft: isNaN(config.offsetLeft) ? 0 : config.offsetLeft,
-              posAnchor: config.posAnchor,
-              targetObj: config.targetObj,
               // inputDateFormat: config.inputDateFormat || "dddd MMMM D, YYYY",
               inputDateFormat: config.inputDateFormat || "MM/DD/YYYY",
               audibleDateFormat: config.audibleDateFormat || "dddd D MMMM YYYY",
@@ -146,7 +139,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 config.disableWeekends !== undefined
                   ? config.disableWeekends
                   : false,
-              style: config.style || {},
               className: config.className || "calendar",
               range: {
                 disabledWDays: [],
@@ -902,11 +894,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   dc.presetDate(dc, new Date(targ.value));
                 }
 
-                // Run custom specified function?
-                if ($A.isFn(config.beforeRender)) {
-                  config.beforeRender(dc);
-                }
-
                 // based on config option, disable weekdays?
                 if (dc.disableWeekdays) {
                   dc.setWeekdaysDisabled(dc, dc.date, true);
@@ -922,10 +909,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   !dc.stopConfigure &&
                   !dc.configureLoading
                 ) {
-                  dc.configureLoading = true;
+                  dc.configureLoading = dc.cancel = true;
                   dc.fn.navBtn = dc.navBtn;
-                  config.configure.apply(dc, [dc]);
-                  dc.configureLoading = false;
+                  if (config.configure.apply(dc, [dc]) === true) {
+                    setTimeout(function() {
+                      dc.render();
+                    }, 1);
+                  }
                 }
 
                 if (dc.range.current.month === 1)
@@ -1508,16 +1498,16 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                         if (comm) {
                           commentDC.source = comm;
-                          commentDC.render();
+                          commentDC.rerender(function() {
+                            if (formDC.openEditor) {
+                              formDC.openEditor = false;
+
+                              if (formDC.loaded) formDC.reset();
+                            }
+                          });
                         }
                       } else if (commentDC.loaded) {
                         commentDC.remove();
-                      }
-
-                      if (formDC.openEditor) {
-                        formDC.openEditor = false;
-
-                        if (formDC.loaded) formDC.reset();
                       }
                     },
                     click: function(ev) {
@@ -2375,11 +2365,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                 if ($A.isFn(config.configure))
                   dc.lock = dc.configureLoading = false;
-
-                // Run custom specified function?
-                if ($A.isFn(config.afterRemove)) {
-                  config.afterRemove(dc);
-                }
               }
             }
           ],
@@ -2388,255 +2373,292 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         // Calendar object declaration end
 
         // Comment object declaration start
-        var commentDC = $A(mainDC, [
-          {
-            id: pId + "commentTooltip",
-            role: (config.comments && config.comments.role) || "Comment",
-            widgetType: "DatePicker",
-            returnFocus: false,
-            autoPosition: isNaN(config.comments && config.comments.autoPosition)
-              ? 1
-              : config.comments.autoPosition,
-            offsetTop: isNaN(config.comments && config.comments.offsetTop)
-              ? 0
-              : config.comments.offsetTop,
-            offsetLeft: isNaN(config.comments && config.comments.offsetLeft)
-              ? 0
-              : config.comments.offsetLeft,
-            className:
-              (config.comments && config.comments.className) ||
-              "commentTooltip",
-            beforeRender: function(dc) {
-              dc.targetObj = dc.parent.outerNode;
-            },
-            afterRender: function(dc) {}
-          }
-        ])[0];
+        var commentDC = $A(
+          mainDC,
+          [
+            {
+              id: pId + "commentTooltip",
+              role: (config.comments && config.comments.role) || "Comment",
+              widgetType: "DatePicker",
+              returnFocus: false,
+              className:
+                (config.comments && config.comments.className) ||
+                "commentTooltip",
+              beforeRender: function(dc) {
+                dc.targetObj = dc.parent.outerNode;
+              }
+            }
+          ],
+          (config.comments && config.comments.config) || {}
+        )[0];
         // Comment object declaration end
 
         // Form object declaration start
-        var formDC = $A(mainDC, [
-          {
-            id: pId + "commentAdd",
-            role: (config.editor && config.editor.role) || "Edit",
-            widgetType: "DatePicker",
-            autoPosition: isNaN(config.editor && config.editor.autoPosition)
-              ? 6
-              : config.editor.autoPosition,
-            offsetTop: isNaN(config.editor && config.editor.offsetTop)
-              ? 0
-              : config.editor.offsetTop,
-            offsetLeft: isNaN(config.editor && config.editor.offsetLeft)
-              ? 0
-              : config.editor.offsetLeft,
-            className:
-              (config.editor && config.editor.className) || "commentAdd",
-            openEditor: false,
-            source:
-              '<textarea style="visibility: hidden; display: none;" class="commentTa" title="' +
-              commentDC.role +
-              '"></textarea><button title="' +
-              ((config.editor && config.editor.role) || "Edit") +
-              " " +
-              commentDC.role +
-              '" class="commentBtn">' +
-              ((config.editor && config.editor.role) || "Edit") +
-              "</button>",
-            beforeRender: function(dc) {
-              dc.targetObj = dc.parent.outerNode;
-            },
-            click: function(ev, dc) {
-              ev.stopPropagation();
-            },
-            duringRender: function(dc) {
-              $A.setAttr(dc.outerNode, {
-                role: "dialog",
-                "aria-label": dc.role
-              });
+        var formDC = $A(
+          mainDC,
+          [
+            {
+              id: pId + "commentAdd",
+              role: (config.editor && config.editor.role) || "Edit",
+              widgetType: "DatePicker",
+              className:
+                (config.editor && config.editor.className) || "commentAdd",
+              openEditor: false,
+              source:
+                '<textarea style="visibility: hidden; display: none;" class="commentTa" title="' +
+                commentDC.role +
+                '"></textarea><button title="' +
+                ((config.editor && config.editor.role) || "Edit") +
+                " " +
+                commentDC.role +
+                '" class="commentBtn">' +
+                ((config.editor && config.editor.role) || "Edit") +
+                "</button>",
+              beforeRender: function(dc) {
+                dc.targetObj = dc.parent.outerNode;
+              },
+              click: function(ev, dc) {
+                ev.stopPropagation();
+              },
+              duringRender: function(dc) {
+                $A.setAttr(dc.outerNode, {
+                  role: "dialog",
+                  "aria-label": dc.role
+                });
 
-              $A.setAttr(dc.container, "role", "application");
-            },
-            add: function(dc) {
-              var comm = $A.trim(dc.textarea.value.replace(/<|>|\n/g, " "));
+                $A.setAttr(dc.container, "role", "application");
+              },
+              add: function(dc) {
+                var comm = $A.trim(dc.textarea.value.replace(/<|>|\n/g, " "));
 
-              if (!dc.comments[dc.parent.range.current.year])
-                dc.comments[dc.parent.range.current.year] = {};
-              dc.comments[dc.parent.range.current.year][
-                dc.parent.range.current.mDay
-              ] = comm;
-              var lbl =
-                  dc.parent.range.current.mDay +
-                  ", " +
-                  dc.parent.range.wDays[dc.parent.range.current.wDay].lng +
-                  " " +
-                  dc.parent.range[dc.parent.range.current.month].name +
-                  " " +
-                  dc.parent.range.current.year,
-                pre = "";
+                if (!dc.comments[dc.parent.range.current.year])
+                  dc.comments[dc.parent.range.current.year] = {};
+                dc.comments[dc.parent.range.current.year][
+                  dc.parent.range.current.mDay
+                ] = comm;
+                var lbl =
+                    dc.parent.range.current.mDay +
+                    ", " +
+                    dc.parent.range.wDays[dc.parent.range.current.wDay].lng +
+                    " " +
+                    dc.parent.range[dc.parent.range.current.month].name +
+                    " " +
+                    dc.parent.range.current.year,
+                  pre = "";
 
-              if (
-                (dc.parent.range[dc.parent.range.current.month].disabled[
-                  dc.parent.range.current.year
-                ] &&
-                  $A.inArray(
-                    dc.parent.range.current.mDay,
-                    dc.parent.range[dc.parent.range.current.month].disabled[
-                      dc.parent.range.current.year
-                    ]
-                  ) !== -1) ||
-                (dc.parent.range[dc.parent.range.current.month].disabled["*"] &&
-                  $A.inArray(
-                    dc.parent.range.current.mDay,
-                    dc.parent.range[dc.parent.range.current.month].disabled["*"]
-                  ) !== -1)
-              )
-                pre += dc.parent.disabledTxt.replace(/<|>|\"/g, "") + " ";
+                if (
+                  (dc.parent.range[dc.parent.range.current.month].disabled[
+                    dc.parent.range.current.year
+                  ] &&
+                    $A.inArray(
+                      dc.parent.range.current.mDay,
+                      dc.parent.range[dc.parent.range.current.month].disabled[
+                        dc.parent.range.current.year
+                      ]
+                    ) !== -1) ||
+                  (dc.parent.range[dc.parent.range.current.month].disabled[
+                    "*"
+                  ] &&
+                    $A.inArray(
+                      dc.parent.range.current.mDay,
+                      dc.parent.range[dc.parent.range.current.month].disabled[
+                        "*"
+                      ]
+                    ) !== -1)
+                )
+                  pre += dc.parent.disabledTxt.replace(/<|>|\"/g, "") + " ";
 
-              if (!comm) {
-                $A.remClass(dc.parent.current, "comment");
-                $A.data(dc.parent.current, "_HasComment", false);
-              } else {
-                $A.addClass(dc.parent.current, "comment");
-                $A.data(dc.parent.current, "_HasComment", true);
-                pre += dc.parent.commentedTxt.replace(/<|>|\"/g, "") + " ";
-              }
-              lbl = pre + lbl;
-              $A.setAttr(dc.parent.current, {
-                title: $A.trim(pre),
-                "aria-label": lbl + " " + comm.replace(/\"/g, '"')
-              });
-            },
-            reset: function() {
-              var dc = this;
+                if (!comm) {
+                  $A.remClass(dc.parent.current, "comment");
+                  $A.data(dc.parent.current, "_HasComment", false);
+                } else {
+                  $A.addClass(dc.parent.current, "comment");
+                  $A.data(dc.parent.current, "_HasComment", true);
+                  pre += dc.parent.commentedTxt.replace(/<|>|\"/g, "") + " ";
+                }
+                lbl = pre + lbl;
+                $A.setAttr(dc.parent.current, {
+                  title: $A.trim(pre),
+                  "aria-label": lbl + " " + comm.replace(/\"/g, '"')
+                });
+              },
+              reset: function() {
+                var dc = this;
 
-              if (dc.loaded) {
-                if (dc.openEditor) {
-                  dc.comments =
-                    dc.parent.range[dc.parent.range.current.month].comments;
+                if (dc.loaded) {
+                  if (dc.openEditor) {
+                    if (!dc.textarea)
+                      dc.textarea = dc.query("textarea", function() {
+                        $A.css(this, {
+                          visibility: "",
+                          display: ""
+                        });
 
-                  if (!dc.textarea)
-                    dc.textarea = dc.query("textarea", function() {
-                      $A.css(this, {
+                        dc.css("left", dc.parent.outerNode.offsetLeft);
+                        $A.on(
+                          this,
+                          {
+                            focus: function(ev) {
+                              if (commentDC.loaded) commentDC.remove();
+                            },
+                            keydown: function(ev) {
+                              var k = $A.keyEvent(ev);
+
+                              if (this.value.length > 800)
+                                this.value = this.value.substring(0, 799);
+
+                              if (k === 13) {
+                                dc.parent.isAdd = true;
+                                dc.add.apply(this, [dc]);
+                                dc.parent.current.focus();
+                                dc.openEditor = false;
+                                dc.reset();
+                                ev.preventDefault();
+                              } else if (k === 27) {
+                                dc.parent.current.focus();
+                                dc.openEditor = false;
+                                dc.reset();
+                                ev.preventDefault();
+                              }
+                            }
+                          },
+                          "." + baseId
+                        );
+                      })[0];
+                    else {
+                      $A.css(dc.textarea, {
                         visibility: "",
                         display: ""
                       });
 
                       dc.css("left", dc.parent.outerNode.offsetLeft);
-                      $A.on(
-                        this,
-                        {
-                          focus: function(ev) {
-                            if (commentDC.loaded) commentDC.remove();
-                          },
-                          keydown: function(ev) {
-                            var k = $A.keyEvent(ev);
-
-                            if (this.value.length > 800)
-                              this.value = this.value.substring(0, 799);
-
-                            if (k === 13) {
-                              dc.parent.isAdd = true;
-                              dc.add.apply(this, [dc]);
-                              dc.parent.current.focus();
-                              dc.openEditor = false;
-                              dc.reset();
-                              ev.preventDefault();
-                            } else if (k === 27) {
-                              dc.parent.current.focus();
-                              dc.openEditor = false;
-                              dc.reset();
-                              ev.preventDefault();
-                            }
-                          }
-                        },
-                        "." + baseId
-                      );
-                    })[0];
-                  else {
-                    $A.css(dc.textarea, {
-                      visibility: "",
-                      display: ""
-                    });
-
-                    dc.css("left", dc.parent.outerNode.offsetLeft);
-                  }
-                  $A.setAttr(dc.textarea, {
-                    title:
-                      dc.parent.range.current.mDay +
-                      ", " +
-                      dc.parent.range.wDays[dc.parent.range.current.wDay].lng +
-                      " " +
-                      dc.parent.range[dc.parent.range.current.month].name +
-                      " " +
-                      dc.parent.range.current.year
-                  }).focus();
-
-                  if (
-                    dc.comments[dc.parent.range.current.year] &&
-                    dc.comments[dc.parent.range.current.year][
-                      dc.parent.range.current.mDay
-                    ]
-                  )
-                    dc.textarea.value =
-                      dc.comments[dc.parent.range.current.year][
-                        dc.parent.range.current.mDay
-                      ];
-                  $A.setAttr(dc.commentBtn, {
-                    title:
-                      ((config.editor && config.editor.action1) || "Save") +
-                      " " +
-                      commentDC.role
-                  }).innerHTML =
-                    (config.editor && config.editor.action1) || "Save";
-                } else {
-                  if (dc.textarea) {
-                    dc.textarea.value = "";
-                    $A.css(dc.textarea, {
-                      visibility: "hidden",
-                      display: "none"
-                    });
-                  }
-
-                  dc.css(
-                    "left",
-                    dc.parent.outerNode.offsetLeft +
-                      dc.parent.outerNode.offsetWidth -
-                      dc.outerNode.offsetWidth
-                  );
-                  $A.setAttr(dc.commentBtn, {
-                    title:
-                      ((config.editor && config.editor.role) || "Edit") +
-                      " " +
-                      commentDC.role
-                  }).innerHTML =
-                    (config.editor && config.editor.role) || "Edit";
-                }
-              }
-            },
-            afterRender: function(dc) {
-              dc.textarea = dc.container.querySelector("textarea");
-              dc.commentBtn = dc.container.querySelector("button");
-
-              $A.on(
-                dc.commentBtn,
-                {
-                  focus: function(ev) {
-                    if (commentDC.loaded) commentDC.remove();
-                  },
-                  click: function(ev) {
-                    if (dc.openEditor) {
-                      dc.parent.isAdd = true;
-                      dc.add.apply(dc.commentBtn, [dc]);
-                      dc.parent.current.focus();
-                      dc.openEditor = false;
-                      dc.reset();
-                    } else {
-                      dc.openEditor = true;
-                      dc.reset();
                     }
-                    ev.preventDefault();
+                    $A.setAttr(dc.textarea, {
+                      title:
+                        dc.parent.range.current.mDay +
+                        ", " +
+                        dc.parent.range.wDays[dc.parent.range.current.wDay]
+                          .lng +
+                        " " +
+                        dc.parent.range[dc.parent.range.current.month].name +
+                        " " +
+                        dc.parent.range.current.year
+                    }).focus();
+
+                    dc.comments =
+                      dc.parent.range[dc.parent.range.current.month].comments;
+                    var cmt =
+                      (dc.comments[dc.parent.range.current.year] &&
+                        dc.comments[dc.parent.range.current.year][
+                          dc.parent.range.current.mDay
+                        ]) ||
+                      (dc.comments["*"] &&
+                        dc.comments["*"][dc.parent.range.current.mDay]) ||
+                      "";
+
+                    if (cmt) dc.textarea.value = cmt;
+                    $A.setAttr(dc.commentBtn, {
+                      title:
+                        ((config.editor && config.editor.action1) || "Save") +
+                        " " +
+                        commentDC.role
+                    }).innerHTML =
+                      (config.editor && config.editor.action1) || "Save";
+                  } else {
+                    if (dc.textarea) {
+                      dc.textarea.value = "";
+                      $A.css(dc.textarea, {
+                        visibility: "hidden",
+                        display: "none"
+                      });
+                    }
+
+                    dc.css(
+                      "left",
+                      dc.parent.outerNode.offsetLeft +
+                        dc.parent.outerNode.offsetWidth -
+                        dc.outerNode.offsetWidth
+                    );
+                    $A.setAttr(dc.commentBtn, {
+                      title:
+                        ((config.editor && config.editor.role) || "Edit") +
+                        " " +
+                        commentDC.role
+                    }).innerHTML =
+                      (config.editor && config.editor.role) || "Edit";
+                  }
+                }
+              },
+              afterRender: function(dc) {
+                dc.textarea = dc.container.querySelector("textarea");
+                dc.commentBtn = dc.container.querySelector("button");
+
+                $A.on(
+                  dc.commentBtn,
+                  {
+                    focus: function(ev) {
+                      if (commentDC.loaded) commentDC.remove();
+                    },
+                    click: function(ev) {
+                      if (dc.openEditor) {
+                        dc.parent.isAdd = true;
+                        dc.add.apply(dc.commentBtn, [dc]);
+                        dc.parent.current.focus();
+                        dc.openEditor = false;
+                        dc.reset();
+                      } else {
+                        dc.openEditor = true;
+                        dc.reset();
+                      }
+                      ev.preventDefault();
+                    },
+                    keydown: function(ev) {
+                      var k = $A.keyEvent(ev);
+
+                      if (k === 27) {
+                        if (dc.openEditor) {
+                          dc.parent.current.focus();
+                          dc.openEditor = false;
+                          dc.reset();
+                        }
+
+                        ev.preventDefault();
+                      } else if (
+                        k === 9 &&
+                        !ev.altKey &&
+                        !ev.shiftKey &&
+                        !ev.ctrlKey
+                      ) {
+                        if (dc.parent.showEscBtn) {
+                          dc.escBtn.focus();
+                        } else if (
+                          !config.condenseYear &&
+                          !$A.data(dc.parent.buttons.pY, "disabled")
+                        )
+                          dc.parent.buttons.pY.focus();
+                        else if (
+                          !config.condenseYear &&
+                          !$A.data(dc.parent.buttons.nY, "disabled")
+                        )
+                          dc.parent.buttons.nY.focus();
+                        else if (!$A.data(dc.parent.buttons.pM, "disabled"))
+                          dc.parent.buttons.pM.focus();
+                        else if (!$A.data(dc.parent.buttons.nM, "disabled"))
+                          dc.parent.buttons.nM.focus();
+                        ev.preventDefault();
+                      }
+                    }
                   },
-                  keydown: function(ev) {
+                  "." + baseId
+                );
+
+                dc.reset();
+                dc.lock = true;
+
+                $A.on(
+                  dc.textarea,
+                  "keydown",
+                  function(ev) {
                     var k = $A.keyEvent(ev);
 
                     if (k === 27) {
@@ -2650,76 +2672,32 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     } else if (
                       k === 9 &&
                       !ev.altKey &&
-                      !ev.shiftKey &&
-                      !ev.ctrlKey
+                      !ev.ctrlKey &&
+                      ev.shiftKey
                     ) {
-                      if (dc.parent.showEscBtn) {
-                        dc.escBtn.focus();
-                      } else if (
-                        !config.condenseYear &&
-                        !$A.data(dc.parent.buttons.pY, "disabled")
-                      )
-                        dc.parent.buttons.pY.focus();
-                      else if (
-                        !config.condenseYear &&
-                        !$A.data(dc.parent.buttons.nY, "disabled")
-                      )
-                        dc.parent.buttons.nY.focus();
-                      else if (!$A.data(dc.parent.buttons.pM, "disabled"))
-                        dc.parent.buttons.pM.focus();
-                      else if (!$A.data(dc.parent.buttons.nM, "disabled"))
-                        dc.parent.buttons.nM.focus();
+                      mainDC.current.focus();
+                      ev.preventDefault();
+                    } else if (k === 13) {
+                      dc.commentBtn.click();
                       ev.preventDefault();
                     }
-                  }
-                },
-                "." + baseId
-              );
-
-              dc.reset();
-              dc.lock = true;
-
-              $A.on(
-                dc.textarea,
-                "keydown",
-                function(ev) {
-                  var k = $A.keyEvent(ev);
-
-                  if (k === 27) {
-                    if (dc.openEditor) {
-                      dc.parent.current.focus();
-                      dc.openEditor = false;
-                      dc.reset();
-                    }
-
-                    ev.preventDefault();
-                  } else if (
-                    k === 9 &&
-                    !ev.altKey &&
-                    !ev.ctrlKey &&
-                    ev.shiftKey
-                  ) {
-                    mainDC.current.focus();
-                    ev.preventDefault();
-                  } else if (k === 13) {
-                    dc.commentBtn.click();
-                    ev.preventDefault();
-                  }
-                },
-                "." + baseId
-              );
-            },
-            beforeRemove: function(dc) {
-              dc.openEditor = false;
-              dc.textarea = null;
-              dc.parent.setFocus.firstOpen = true;
-            },
-            lock:
-              commentsEnabled && config.editor && config.editor.show
-                ? false
-                : true
-          }
-        ])[0];
+                  },
+                  "." + baseId
+                );
+              },
+              beforeRemove: function(dc) {
+                dc.openEditor = false;
+                dc.textarea = null;
+                dc.parent.setFocus.firstOpen = true;
+              },
+              lock:
+                commentsEnabled && config.editor && config.editor.show
+                  ? false
+                  : true
+            }
+          ],
+          (config.editor && config.editor.config) || {}
+        )[0];
         // Form object declaration end
 
         $A.on(
