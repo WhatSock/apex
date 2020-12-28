@@ -10,12 +10,6 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
     // Native or simulated input element
     input: $A.getEl("date"),
 
-    // Set CSS positioning calculation for the calendar
-    autoPosition: 3,
-    // Customize with positive or negative offsets
-    offsetTop: 0,
-    offsetLeft: 5,
-
     style: { position: "absolute", zIndex: 1, display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {

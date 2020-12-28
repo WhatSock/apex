@@ -10,7 +10,7 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
     // Native or simulated input element
     input: $A.getEl("date"),
 
-    style: { display: "none" },
+    style: { position: "absolute", zIndex: 1, display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeIn", {
@@ -34,12 +34,6 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
     // Configure relative disabled date ranges (5 days before today, and 30 days after today)
     minDate: -5,
     maxDate: 30,
-
-    // Set CSS positioning calculation for the calendar
-    autoPosition: 3,
-    // Customize with positive or negative offsets
-    offsetTop: 0,
-    offsetLeft: 5,
 
     // Set class for the calendar container
     className: "calendar"

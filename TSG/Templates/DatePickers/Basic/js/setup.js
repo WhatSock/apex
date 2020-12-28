@@ -10,7 +10,7 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
     // Native or simulated input element
     input: $A.getEl("dateId"),
 
-    style: { display: "none" },
+    style: { position: "absolute", zIndex: 1, display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeIn", {

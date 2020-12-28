@@ -165,7 +165,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         // Native or simulated input element
                         input: props.input,
 
-                        style: { display: "none" },
+                        style: {
+                          position: "absolute",
+                          zIndex: 1,
+                          display: "none"
+                        },
                         animate: {
                           onRender: function(dc, outerNode, complete) {
                             Velocity(outerNode, "transition.fadeIn", {

@@ -32,12 +32,6 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
       }
     },
 
-    // Set CSS positioning calculation for the calendar
-    autoPosition: 3,
-    // Customize with positive or negative offsets
-    offsetTop: 0,
-    offsetLeft: 5,
-
     // Set class for the calendar container
     className: "calendar",
 

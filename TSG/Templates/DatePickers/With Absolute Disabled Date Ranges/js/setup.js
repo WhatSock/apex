@@ -10,7 +10,7 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
     // Native or simulated input element
     input: $A.getEl("date"),
 
-    style: { display: "none" },
+    style: { position: "absolute", zIndex: 1, display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeIn", {
@@ -31,12 +31,6 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
     // Configure absolute and relative disabled date ranges (no earlier than 1st January 2020, and no later than 3 days after today)
     minDate: new Date(2020, 0, 1), // remember that javascript dates have months starting from zero
     maxDate: 3,
-
-    // Set CSS positioning calculation for the calendar
-    autoPosition: 3,
-    // Customize with positive or negative offsets
-    offsetTop: 0,
-    offsetLeft: 5,
 
     // Set class for the calendar container
     className: "calendar"
