@@ -742,7 +742,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         inStack = searchFor;
         searchFor = this._X;
       }
-      if (!$A.isArray(inStack) && inStack.length) return -1;
       if (inStack.indexOf) return inStack.indexOf(searchFor);
       for (var i = 0; i < inStack.length; i++) {
         if (inStack[i] === searchFor) {
@@ -2045,18 +2044,10 @@ error: function(error, promise){}
     _clean: function(obj, sD) {
       var dc = $A.data(obj, "DC");
       if ($A.isDC(dc)) {
-        var close = function(DC) {
-            if (DC.loaded && !DC.closing && !DC.loading) {
-              DC.fn.bypass = true;
-              DC.remove(function() {
-                DC.fn.bypass = false;
-              });
-            }
-          },
-          a = $A.data(obj, "DC-ON");
+        a = $A.data(obj, "DC-ON");
         if ($A.isArray(a) && a.length > 1) {
-          for (var i = a.length; i > 0; i--) close(a[i]);
-        } else close(dc);
+          for (var i = a.length; i > 0; i--) a[i].bypass();
+        } else dc.bypass();
       }
       $A.detachObserver(obj);
       $A.removeData(obj);
@@ -2105,9 +2096,7 @@ error: function(error, promise){}
           c = null;
         } else $A.before($A.extractNodes(c), a);
       }
-      r.fn.bypass = true;
-      r.remove(function() {
-        r.fn.bypass = false;
+      r.bypass(function() {
         var aD = r.afterDestroy;
         if ($A.isFn(r.beforeDestroy)) r.beforeDestroy(r);
         $A.removeData(r.id);
@@ -3319,30 +3308,9 @@ error: function(error, promise){}
 
           return dc;
         },
-        DCR1 = function(DC) {
-          var dc = WL[DC.indexVal];
-          if (
-            (dc.loaded && !dc.allowRerender && !dc.isToggle) ||
-            dc.fn.override ||
-            dc.lock ||
-            dc.loading ||
-            dc.closing
-          ) {
-            if (dc.loaded && $A.isFn(dc.fn.renderCallback)) {
-              dc.fn.renderCallback(dc);
-              dc.fn.renderCallback = null;
-            }
-            return dc;
-          } else if (dc.loaded && (dc.allowRerender || dc.isToggle)) {
-            dc.fn.bypass = true;
-            dc.remove(function() {
-              dc.fn.bypass = false;
-              if (dc.isToggle) return dc;
-              dc.render();
-            });
-            return dc;
-          }
-          var w = 0,
+        checkWT = function(dc) {
+          var dc = WL[DC.indexVal],
+            w = 0,
             wt = null,
             wtA = [];
           if (dc.widgetType && $A._widgetTypes.length) {
@@ -3354,31 +3322,49 @@ error: function(error, promise){}
                 wt.loaded &&
                 wt.widgetType !== dc.widgetType
               ) {
-                wt.fn.bypass = true;
-                wt.remove(function() {
-                  wt.fn.bypass = false;
-                });
+                wt.bypass();
+              }
+            }
+            if (dc.autoCloseSameWidget && $A._regWidgets.has(dc.widgetType)) {
+              wtA = $A._regWidgets.get(dc.widgetType);
+              for (w = 0; w < wtA.length; w++) {
+                wt = $A.reg.get(wtA[w]);
+                if (wt && wt.loaded) {
+                  wt.bypass();
+                }
               }
             }
           }
+          return dc;
+        },
+        DCR1 = function(DC) {
+          var dc = WL[DC.indexVal];
           if (
-            dc.widgetType &&
-            dc.autoCloseSameWidget &&
-            $A._regWidgets.has(dc.widgetType)
+            dc.loading ||
+            dc.loaded ||
+            dc.allowRerender ||
+            dc.isToggle ||
+            dc.lock ||
+            dc.closing
           ) {
-            wtA = $A._regWidgets.get(dc.widgetType);
-            for (w = 0; w < wtA.length; w++) {
-              wt = $A.reg.get(wtA[w]);
-              if (wt && wt.loaded) {
-                wt.fn.bypass = true;
-                wt.remove(function() {
-                  wt.fn.bypass = false;
-                });
-              }
-            }
+            if (dc.loaded && dc.isToggle) closeDC(dc);
+            else if (dc.loaded && dc.allowRerender)
+              dc.bypass(function() {
+                DCR1(dc);
+              });
+            if (
+              !(
+                dc.allowRerender &&
+                !dc.loading &&
+                !dc.loaded &&
+                !dc.lock &&
+                !dc.closing
+              )
+            )
+              return dc;
           }
+          checkWT(dc);
           dc.cancel = false;
-
           dc.fn.baseId = $A.genId();
           dc.outerNodeId = dc.fn.baseId + "ON";
           dc.containerId = dc.fn.baseId + "IN";
@@ -3518,12 +3504,15 @@ error: function(error, promise){}
             $A.module[dc.widgetType] &&
             $A.isFn($A.module[dc.widgetType].role)
           )
-            dc.setAttr($A.module[dc.widgetType].role(dc));
+            dc.setAttr($A.module[dc.widgetType].role.call(dc, dc));
           if (
             $A.module[dc.widgetType] &&
             $A.isFn($A.module[dc.widgetType].innerRole)
           )
-            $A.setAttr(dc.container, $A.module[dc.widgetType].innerRole(dc));
+            $A.setAttr(
+              dc.container,
+              $A.module[dc.widgetType].innerRole.call(dc, dc)
+            );
 
           if (dc.ariaLabelledby && dc.triggerObj) {
             if (!dc.triggerObj.id) dc.triggerObj.id = $A.genId();
@@ -3549,12 +3538,7 @@ error: function(error, promise){}
 
           for (var w = 0; w < dc.siblings.length; w++) {
             var sb = dc.siblings[w];
-            if (sb.loaded && !sb.allowMultiple) {
-              sb.fn.bypass = true;
-              sb.remove(function() {
-                sb.fn.bypass = false;
-              });
-            }
+            if (sb.loaded && !sb.allowMultiple) sb.bypass();
           }
 
           if (!dc.isRendered) {
@@ -3708,7 +3692,7 @@ error: function(error, promise){}
               $A.lastLoaded = dc;
               if (dc.forceFocus) dc.focus(dc);
               if ($A.isFn(dc.fn.renderCallback)) {
-                dc.fn.renderCallback(dc);
+                dc.fn.renderCallback.call(dc, dc);
                 dc.fn.renderCallback = null;
               }
               if (dc.announce)
@@ -3731,13 +3715,7 @@ error: function(error, promise){}
         },
         closeDC = function(DC) {
           var dc = WL[DC.indexVal];
-          if (!dc.loaded || dc.lock || dc.closing) {
-            if (!dc.loaded && !dc.closing && $A.isFn(dc.fn.removeCallback)) {
-              dc.fn.removeCallback(dc);
-              dc.fn.removeCallback = null;
-            }
-            return dc;
-          }
+          if (!dc.loaded || dc.lock || dc.closing) return dc;
           dc.closing = true;
           dc.cancel = false;
 
@@ -3759,25 +3737,22 @@ error: function(error, promise){}
               } else dc.source = $A.extractNodes(dc.container);
               $A.empty(dc.outerNode, true);
               dc.isRendered = false;
-              dc.loaded = dc.fn.override = false;
+              dc.loaded = false;
               if (dc.ariaControls) $A.remAttr(dc.triggerObj, "aria-controls");
               if (dc.isTab || dc.isToggle) changeTabs(dc, true);
               dc.closing = false;
               $A.getModule(dc, "afterRemove", dc.container);
               parseScripts(dc, "AfterRemove", function() {
-                if (
-                  dc.returnFocus &&
-                  dc.triggerObj &&
-                  !dc.fn.bypass &&
-                  !dc.rerouteFocus
-                ) {
-                  $A.focus(dc.triggerObj);
-                } else if (dc.rerouteFocus) {
-                  $A.focus(dc.rerouteFocus);
-                  dc.rerouteFocus = null;
+                if (!dc.fn.bypass) {
+                  if (dc.returnFocus && dc.triggerObj && !dc.rerouteFocus) {
+                    $A.focus(dc.triggerObj);
+                  } else if (dc.rerouteFocus) {
+                    $A.focus(dc.rerouteFocus);
+                    dc.rerouteFocus = null;
+                  }
                 }
                 if ($A.isFn(dc.fn.removeCallback)) {
-                  dc.fn.removeCallback(dc);
+                  dc.fn.removeCallback.call(dc, dc);
                   dc.fn.removeCallback = null;
                 }
               });
@@ -3926,10 +3901,15 @@ error: function(error, promise){}
               $A.data(o, "DC", dc);
               if (dc.on) {
                 if ($A.isStr(dc.on)) {
-                  $A.on(o, dc.on, function(ev) {
-                    dc.render();
-                    ev.preventDefault();
-                  });
+                  $A.on(
+                    o,
+                    dc.on,
+                    function(ev) {
+                      DCR1(dc);
+                      ev.preventDefault();
+                    },
+                    dc.id
+                  );
                 } else if ($A.isPlainObject(dc.on)) {
                   $A.on(o, dc.on, dc.id);
                 }
@@ -4091,31 +4071,6 @@ error: function(error, promise){}
         allowCascade: true,
         // reverseJSOrder: false,
 
-        /*
-            jsOnceBeforeRender: [],
-            onceBeforeRender: function(dc) {},
-            jsBeforeRender: [],
-            beforeRender: function(dc) {},
-            jsOnceDuringRender: [],
-            onceDuringRender: function(dc) {},
-            jsDuringRender: [],
-            duringRender: function(dc) {},
-            jsOnceAfterRender: [],
-            onceAfterRender: function(dc) {},
-            jsAfterRender: [],
-            afterRender: function(dc) {},
-            jsOnceBeforeRemove: [],
-            onceBeforeRemove: function(dc) {},
-            jsBeforeRemove: [],
-            beforeRemove: function(dc) {},
-            jsOnceAfterRemove: [],
-            onceAfterRemove: function(dc) {},
-            jsAfterRemove: [],
-            afterRemove: function(dc) {},
-            beforeDestroy: function(dc) {},
-            afterDestroy: function(dc) {},
-*/
-
         destroy: function(p) {
           var dc = this;
           setTimeout(function() {
@@ -4166,7 +4121,7 @@ error: function(error, promise){}
           return dc;
         },
 
-        allowMultiple: false,
+        // allowMultiple: false,
         //            allowRerender: false,
         //            isToggle: false,
         //            toggleClassName: "",
@@ -4228,7 +4183,7 @@ error: function(error, promise){}
             data,
             function(c) {
               dc.isLoading = false;
-              if ($A.isFn(sCb)) sCb(c);
+              if ($A.isFn(sCb)) sCb.call(this, c);
             },
             function(e) {
               dc.isLoading = false;
@@ -4258,19 +4213,6 @@ error: function(error, promise){}
           return $A.isFocusWithin(dc.container);
         },
 
-        render: function(fn) {
-          var dc = this;
-          if (dc.isDisabled) return dc;
-          dc.fn.renderCallback = fn;
-          if ($A.isNum(dc.delay) && dc.delay > 0) {
-            if (dc.fn.Delay) clearTimeout(dc.fn.Delay);
-            dc.fn.Delay = setTimeout(function() {
-              DCR1(dc);
-            }, dc.delay);
-          } else DCR1(dc);
-          return dc;
-        },
-
         setProps: function(conf) {
           var dc = this;
           $A.extend(true, dc.props, conf || {});
@@ -4285,7 +4227,7 @@ error: function(error, promise){}
 
         insert: function(node) {
           var dc = this;
-          if (!!dc.loaded && $A.isDOMNode(dc.container)) {
+          if (dc.loaded && $A.isDOMNode(dc.container)) {
             $A.insert(node, dc.container);
             if ($A.isNum(dc.delayTimeout) && dc.delayTimeout > 0) {
               if (dc.fn.timer) clearTimeout(dc.fn.timer);
@@ -4296,7 +4238,7 @@ error: function(error, promise){}
           } else {
             dc.source = node;
             dc.mode = 0;
-            dc.render();
+            DCR1(dc);
           }
           return dc;
         },
@@ -4313,7 +4255,7 @@ error: function(error, promise){}
           return dc;
         },
 
-        openWithin: function(node, conf) {
+        renderWithin: function(node, conf) {
           var dc = this;
           dc.before = dc.prepend = dc.append = dc.after = false;
           $A.extend(
@@ -4323,8 +4265,9 @@ error: function(error, promise){}
             },
             conf || {}
           );
-          dc.rerender();
-          return dc;
+          return dc.bypass(function() {
+            DCR1(dc);
+          });
         },
 
         insertBefore: function(node, conf) {
@@ -4338,8 +4281,9 @@ error: function(error, promise){}
             },
             conf || {}
           );
-          dc.rerender();
-          return dc;
+          return dc.bypass(function() {
+            DCR1(dc);
+          });
         },
 
         prependTo: function(node, conf) {
@@ -4353,8 +4297,9 @@ error: function(error, promise){}
             },
             conf || {}
           );
-          dc.rerender();
-          return dc;
+          return dc.bypass(function() {
+            DCR1(dc);
+          });
         },
 
         appendTo: function(node, conf) {
@@ -4368,8 +4313,9 @@ error: function(error, promise){}
             },
             conf || {}
           );
-          dc.rerender();
-          return dc;
+          return dc.bypass(function() {
+            DCR1(dc);
+          });
         },
 
         insertAfter: function(node, conf) {
@@ -4383,22 +4329,72 @@ error: function(error, promise){}
             },
             conf || {}
           );
-          dc.rerender();
+          return dc.bypass(function() {
+            DCR1(dc);
+          });
+        },
+
+        bypass: function(fn) {
+          var dc = this;
+          if (dc.loaded) {
+            dc.fn.removeCallback = function() {
+              dc.fn.bypass = false;
+              if ($A.isFn(fn)) fn.call(dc, dc);
+            };
+            dc.fn.bypass = true;
+            closeDC(dc);
+          } else {
+            if ($A.isFn(fn)) fn.call(dc, dc);
+          }
+          return dc;
+        },
+
+        render: function(fn) {
+          var dc = this;
+          if (dc.isDisabled) return dc;
+          var rn = function() {
+            if (!dc.loaded) {
+              dc.fn.renderCallback = fn;
+              DCR1(dc);
+            } else {
+              if ($A.isFn(fn)) fn.call(dc, dc);
+            }
+          };
+          if ($A.isNum(dc.delay) && dc.delay > 0) {
+            if (dc.fn.Delay) clearTimeout(dc.fn.Delay);
+            dc.fn.Delay = setTimeout(function() {
+              rn();
+            }, dc.delay);
+          } else {
+            rn();
+          }
           return dc;
         },
 
         rerender: function(fn) {
           var dc = this;
-          dc.remove(function() {
-            dc.render(fn);
-          });
+          if (dc.isDisabled) return dc;
+          if (dc.loaded) {
+            dc.bypass(function() {
+              dc.fn.renderCallback = fn;
+              DCR1(dc);
+            });
+          } else {
+            if ($A.isFn(fn)) fn.call(dc, dc);
+          }
           return dc;
         },
 
         remove: function(fn) {
           var dc = this;
-          dc.fn.removeCallback = fn;
-          return closeDC(dc);
+          if (dc.isDisabled) return dc;
+          if (dc.loaded) {
+            dc.fn.removeCallback = fn;
+            closeDC(dc);
+          } else {
+            if ($A.isFn(fn)) fn.call(dc, dc);
+          }
+          return dc;
         },
 
         events: [
@@ -4421,28 +4417,6 @@ error: function(error, promise){}
           "focusOut",
           "onRemove"
         ],
-
-        /*
-// Index of events plus returned arguments when set withinDC objects
-mouseOver: function(ev, dc){ },
-mouseOut: function(ev, dc){ },
-resize: function(ev, dc){ },
-scroll: function(ev, dc){ },
-click: function(ev, dc){ },
-dblClick: function(ev, dc){ },
-mouseDown: function(ev, dc){ },
-mouseUp: function(ev, dc){ },
-mouseMove: function(ev, dc){ },
-mouseEnter: function(ev, dc){ },
-mouseLeave: function(ev, dc){ },
-keyDown: function(ev, dc){ },
-keyPress: function(ev, dc){ },
-keyUp: function(ev, dc){ },
-error: function(ev, dc){ },
-focusIn: function(ev, dc){ },
-focusOut: function(ev, dc){ },
-onRemove: function(mutationRecordObject, dc){ },
-*/
 
         //            tabOut: function(ev, dc) {},
         //            delayTimeout: 0,
@@ -4624,7 +4598,11 @@ onRemove: function(mutationRecordObject, dc){ },
           $A.module[aO.widgetType] &&
           $A.isFn($A.module[aO.widgetType].configure)
         )
-          $A.extend(true, DC, $A.module[aO.widgetType].configure(DC) || {});
+          $A.extend(
+            true,
+            DC,
+            $A.module[aO.widgetType].configure.call(DC, DC) || {}
+          );
 
         $A.extend(true, DC, $A.fn.globalDC);
 
@@ -4670,10 +4648,7 @@ onRemove: function(mutationRecordObject, dc){ },
       for (a = 0; a < WL.length; a++) WL[a].siblings = WL;
 
       if (render.length) {
-        for (s = 0; s < render.length; s++) {
-          var dc = render[s];
-          dc.render();
-        }
+        for (s = 0; s < render.length; s++) DCR1(render[s]);
       }
 
       return WL;

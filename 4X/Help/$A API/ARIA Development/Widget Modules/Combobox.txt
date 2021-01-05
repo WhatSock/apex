@@ -171,7 +171,7 @@ return 'saved string';
 // Automatically becomes available when the multiple attribute is set on the hidden select element.
 myCombobox.setMultipleDivider(function(values){
 // 'values' is an array of string names for the selected option nodes.
-return values.join('	');
+return values.join('  ');
 });
 
 // Clear all selected options when multiple is set on the hidden select element.

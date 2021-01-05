@@ -3,7 +3,7 @@ ARIA Listbox Module 3.0 for Apex 4X
 Copyright 2021 Bryan Garaventa (WhatSock.com)
 https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
-	*/
+  */
 
 (function() {
   if (!("Listbox" in $A)) {

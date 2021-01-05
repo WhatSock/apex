@@ -2,7 +2,7 @@
 Module name and version.
 Signature and copyright statement.
 License statement.
-	*/
+  */
 
 (function() {
   $A.import(["ModuleDependancies"], {

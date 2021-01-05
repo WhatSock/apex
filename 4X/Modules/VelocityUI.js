@@ -20,8 +20,8 @@
   "use strict";
   return (function(global, window, document, undefined) {
     /*************
-		 Checks
-		 *************/
+     Checks
+     *************/
     var Velocity = global.Velocity;
 
     if (!Velocity || !Velocity.Utilities) {
@@ -68,8 +68,8 @@
     }
 
     /************************
-		 Effect Registration
-		 ************************/
+     Effect Registration
+     ************************/
 
     /* Note: RegisterUI is a legacy name. */
     Velocity.RegisterEffect = Velocity.RegisterUI = function(
@@ -214,7 +214,7 @@
                 var direction = effectName.match(/(In|Out)$/);
 
                 /* Make "in" transitioning elements invisible immediately so that there's no FOUC between now
-								 and the first RAF tick. */
+                 and the first RAF tick. */
                 if (
                   direction &&
                   direction[0] === "In" &&
@@ -309,7 +309,7 @@
                   var resetValue = properties.reset[resetProperty];
 
                   /* Format each non-array value in the reset property map to [ value, value ] so that changes apply
-									 immediately and DOM querying is avoided (via forcefeeding). */
+                   immediately and DOM querying is avoided (via forcefeeding). */
                   /* Note: Don't forcefeed hooks, otherwise their hook roots will be defaulted to their null values. */
                   if (
                     Velocity.CSS.Hooks.registered[resetProperty] ===
@@ -353,8 +353,8 @@
     };
 
     /*********************
-		 Packaged Effects
-		 *********************/
+     Packaged Effects
+     *********************/
 
     /* Externalize the packagedEffects data so that they can optionally be modified and re-registered. */
     /* Support: <=IE8: Callouts will have no effect, and transitions will simply fade in/out. IE9/Android 2.3: Most effects are fully supported, the rest fade in/out. All other browsers: full support. */
@@ -1053,8 +1053,8 @@
     }
 
     /*********************
-		 Sequence Running
-		 **********************/
+     Sequence Running
+     **********************/
 
     /* Note: Sequence calls must use Velocity's single-object arguments syntax. */
     Velocity.RunSequence = function(originalSequence) {
@@ -1066,8 +1066,8 @@
 
           if (nextCall) {
             /* Parallel sequence calls (indicated via sequenceQueue:false) are triggered
-						 in the previous call's begin callback. Otherwise, chained calls are normally triggered
-						 in the previous call's complete callback. */
+             in the previous call's begin callback. Otherwise, chained calls are normally triggered
+             in the previous call's complete callback. */
             var currentCallOptions = currentCall.o || currentCall.options,
               nextCallOptions = nextCall.o || nextCall.options;
 

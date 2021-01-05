@@ -2726,6 +2726,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               // Toggles for openOnFocus support.
               onFocusInit = false;
               onFocusTraverse = true;
+
               $A.trigger(this, "opendatepicker");
               setTimeout(odcDelFn, 1000);
             } else if (!odcDel && odc.loaded) {
