@@ -40,7 +40,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       role: function(dc) {
         return {
           role: "region",
-          "aria-label": "Tooltip"
+          "aria-label": dc.isError ? "Error" : "Tooltip"
         };
       },
       innerRole: function(dc) {
