@@ -1,0 +1,123 @@
+
+ARIA Tabs
+
+Expected behaviors: The group of triggering elements should have only one tab stop, the arrow keys should move focus between each Tab in the group, pressing Enter or Space should expand the desired Tab panel, the expanded state should be toggled appropriately on the triggering element, and the expanded Tab panel should be rendered directly after the group of triggering elements in the tab order.
+
+Though similar in both concept and execution to tab controls, Tabs are not the same. A Tab control has a series of grouped triggering elements that expand and collapse, the rendered content of which is inserted directly after the triggering element group when opened. The container element insertion point for all Tab control triggering elements is shared between them. Also, the group of triggering elements in a Tab control has only one tab stop. The arrow keys are then used to switch focus between each Tab, and the Enter or Space key is used to expand the desired Tab content panel.
+
+In contrast, an Tab has a series of triggering elements that expand and collapse, the rendered content of which is inserted directly after the triggering element when opened. The container element insertion points for Tabs are not shared. Also, all Tab links appear in the tab order. The reason why ARIA attributes such as role="tablist" and role="tab" are not included within tabs, is because the insertion of inline content would place dynamic content sections within the same Tablist container, making it impossible to determine the order of nested Tab controls when present within the inserted content. The chosen implementation should always match the UI that it's being applied to, to prevent confusion.
+
+The 4X ARIA TabList module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 Tab design pattern.
+
+Available attributes for the triggering element:
+
+• data-controls : The resource path and pointer to the ID attribute of the tab container element.
+• data-root : The ID attribute of the container element where the tab content will be inserted when rendered. (This must not be inside the triggering element)
+• data-active="true" : Specifies that the referenced tab node will open automatically. Only one tab node per group should include this attribute.
+
+Note: All focusable triggering elements must include the attribute role="tab", and contained within an element that includes role="tablist" in conformance with the ARIA specification.
+
+JavaScript syntax:
+
+$A.setTabList( DOM-Node-or-CSS-Selector-forTriggering-Elements , {
+// Configure functionality key / value mappings
+});
+
+Parameters
+
+1: A DOM element or CSS selector to specify the group of triggering elements.
+
+2: A configuration map to customize behaviors and options.
+
+Configuration
+
+{
+
+// Set the class name for the top level container element
+className: 'tabpanel',
+
+// Auto configure orientation using dynamic switching based on the visual layout of focusable elements.
+// "off"=Inactive, "semi"=Switches between vertical and horizontal only, "full"= Switches between vertical, horizontal, and both when line-wrapping is detected.
+autoSwitch: "full",
+
+// Optionally extend the RTI instance with custom event handlers.
+// For available options, view the RovingTabIndex help doc at "4X/Help/$A API/ARIA Development/Action Modules/RovingTabIndex".
+extendRTI: {
+// Optional event handlers.
+},
+
+// Preload markup in the background when using the Fetch API to load external content.
+// For examples, view files within "TSG/Templates/TabLists".
+preload: false,
+
+// Preload images in the background when using the Fetch API to load external content.
+// For examples, view files within "TSG/Templates/TabLists".
+preloadImages: false,
+
+// Optionally run a script after the tab panel finishes rendering.
+afterRender: function(DC) {
+// DC.container is the rendered tab content.
+},
+
+// Optionally run a script after the tab panel is removed.
+afterRemove: function(DC) {
+// Do something.
+},
+
+// Optionally specify a render and remove animation effect for the tab.
+// Requires the "Animate" module import to function, which is powered by Velocity.js.
+// To ignore animation effects, delete the animate object declaration entirely from the setup script.
+// View implementations within "TSG/WidgetTemplates/TabLists" for practical animation usage examples.
+
+style: { display: "none" }, // Set the initial state to hidden in prep for animation.
+
+animate: {
+
+onRender: function(dc, outerNode, complete) {
+
+// Specify the render animation effect, including the callback function statement to execute when the animation effect completes.
+Velocity(outerNode, "transition.TYPE", {
+// Velocity options here, plus the callback declaration after the animation completes.
+complete: function() {
+complete(); // REQUIRED: complete() must be executed so control is passed back to 4X for rendering.
+}
+});
+
+},
+
+onRemove: function(dc, outerNode, complete) {
+
+// Specify the removal animation effect, including the callback function statement to execute when the animation effect completes.
+Velocity(outerNode, "transition.TYPE", {
+// Velocity options here, plus the callback declaration after the animation completes.
+complete: function() {
+complete(); // REQUIRED: complete() must be executed so control is passed back to 4X for removal.
+}
+});
+
+}
+
+}
+
+// (Other 4X API properties and methods can be declared here also to customize functionality and behavior)
+// To view available options, reference the help docs located at: "4X/Help/DC API/DC Object Configuration"
+
+}
+
+Programmatic Control
+
+// Get the DC object for the tab using its id.
+var DC = $A("tabId");
+
+// Open the tab manually.
+DC.render(function() {
+// Optionally do something after rendering completes.
+});
+
+// Close the tab manually.
+DC.remove(function() {
+// Optionally do something after removal completes.
+});
+
+// All other 4X API properties and methods can be applied here as well.
+// To view available options, reference the help docs located at: "4X/Help/DC API/DC Object Properties and Methods"

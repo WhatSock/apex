@@ -319,11 +319,7 @@ There are some additional methods which allow altering the Date Picker state aft
 
 * dc.presetDate(dc, initialDateObj, minDateObj, maxDateObj)
 
-Straylight mapping
-
-Straylight mapping is designed to handle common control types that span multiple pages with similar setup configurations.
-
-The calendars within the Straylight folders are configured using HTML5 "data-" attributes within the markup.
+Straylight
 
 When the Straylight module is loaded, it parses the newly loaded document, recognizes the class "aria-date-picker" on the link or button triggering element, then configures the date picker using these HTML5 attributes.
 

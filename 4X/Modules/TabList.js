@@ -71,6 +71,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
             var dcArray = [],
               active = null,
+              startIndex = 0,
               triggers = $A.query(o, function(i, o) {
                 var tree = [];
                 if (!$A.isDOMNode(container))
@@ -85,7 +86,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   "aria-selected": "false"
                 });
                 if ($A.getAttr(o, "role") !== "tab") flag = true;
-                var panelContainer = $A.getEl($A.getAttr(o, "data-insert")),
+                var panelContainer = $A.getEl($A.getAttr(o, "data-root")),
                   dc = $A(o).toDC(
                     $A.extend(
                       {
@@ -97,7 +98,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     )
                   );
                 dcArray.push(dc);
-                if ($A.getAttr(o, "data-active") === "true") active = dc;
+                if ($A.getAttr(o, "data-active") === "true") {
+                  active = dc;
+                  startIndex = i;
+                }
               });
 
             if (flag && $A.isDOMNode(container)) {
@@ -113,6 +117,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               $A.extend(
                 {
                   nodes: triggers,
+                  startIndex: startIndex,
                   orientation: 1,
                   autoSwitch: config.autoSwitch || "full",
                   autoLoop: true,

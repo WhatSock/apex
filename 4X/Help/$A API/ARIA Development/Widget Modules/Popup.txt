@@ -38,6 +38,7 @@ source: "#uniqueId",
 
 // Optionally specify the content to be rendered when referencing external content.
 // Not necessary if data-controls is set on the triggering element.
+// If set, the source property will be auto-populated with the returned content.
 fetch: {
 url: "path/file.htm",
 data: {
@@ -66,16 +67,15 @@ afterRemove: function(DC) {
 // Do something.
 },
 
-// Optionally specify a delay in milliseconds to wait before rendering the popup.
+// Optionally specify a delay in milliseconds to wait before rendering the popup after the triggering element is activated.
 delay: 0,
 
 // Optionally specify a timeout length in milliseconds, after which the popup will automatically close.
 delayTimeout: 0,
 
-// Optionally override the timeout function that occurs after the delayTimeout length is reached.
+// Optionally override the default timeout function that occurs after the delayTimeout length is reached.
 timeout: function(dc) {
 dc.remove();
-return dc;
 },
 
 // Optionally specify a render and remove animation effect for the popup.
@@ -124,17 +124,19 @@ Programmatic Control
 var DC = $A("popupId");
 
 // Open the popup manually.
-DC.render();
+DC.render(function() {
+// Optionally do something after rendering completes.
+});
 
 // Close the popup manually.
-DC.remove();
+DC.remove(function() {
+// Optionally do something after removal completes.
+});
 
 // All other 4X API properties and methods can be applied here as well.
 // To view available options, reference the help docs located at: "4X/Help/DC API/DC Object Properties and Methods"
 
 Straylight
-
-Straylight mapping is designed to handle common control types that span multiple pages with similar setup configurations.
 
 When the Straylight module is loaded, it parses the newly loaded document, recognizes the class "aria-popup" on the link or button triggering element, then configures the popup using these HTML5 attributes.
 

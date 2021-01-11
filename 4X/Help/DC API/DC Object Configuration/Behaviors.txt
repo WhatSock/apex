@@ -104,7 +104,6 @@ Note: The displayed value for each property represents its default value when om
 
   // Specify that the collection of sibling DC objects will function like toggles, where the currently open DC object can be closed.
   // No ARIA attributes are added as part of this functionality; these must be added separately if desired.
-  // View the Toggle module for creating client-side toggle widgets with proper ARIA markup.
   isToggle: false
 
   // Set a lock on the DC object to maintain its current state.

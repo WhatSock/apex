@@ -59,8 +59,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
             var dcArray = [],
               active = null,
+              startIndex = 0,
               triggers = $A.query(o, function(i, o) {
-                var panelContainer = $A.getEl($A.getAttr(o, "data-insert")),
+                var panelContainer = $A.getEl($A.getAttr(o, "data-root")),
                   dc = $A(o).toDC(
                     $A.extend(
                       {
@@ -71,7 +72,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     )
                   );
                 dcArray.push(dc);
-                if ($A.getAttr(o, "data-active") === "true") active = dc;
+                if ($A.getAttr(o, "data-active") === "true") {
+                  active = dc;
+                  startIndex = i;
+                }
               });
 
             $A.map({
@@ -83,6 +87,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 $A.extend(
                   {
                     nodes: triggers,
+                    startIndex: startIndex,
                     orientation: 2,
                     autoSwitch: config.autoSwitch || "full",
                     autoLoop: true,

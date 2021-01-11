@@ -38,6 +38,12 @@ Note: The displayed value for each property represents its default value when om
 // When mode=1 or 2, DC.source must be populated from the success callback after a Fetch API call is made using DC.fetch.url.
   source: ""
 
+// Preload markup in the background when using the Fetch API to load external content.
+  preload: false,
+
+// Preload images in the background when using the Fetch API to load external content.
+  preloadImages: false,
+
 // Fetch API configuration within the DC object.
   fetch: {
     // Resource URL.
