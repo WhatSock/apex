@@ -258,10 +258,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               defer: true,
               props: props,
               call: function(props) {
-                $A.setFootnotes({
-                  footnotes: fnSelector,
+                $A.setFootnotes(fnSelector, {
                   override: {
-                    duration: 550,
+                    duration: 700,
                     easing: "ease-in"
                   }
                 });

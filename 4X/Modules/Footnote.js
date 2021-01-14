@@ -13,9 +13,21 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       once: true,
       call: function(props) {
         $A.extend({
-          setFootnotes: function(config) {
-            if (!$A.isPlainObject(config) || !config.footnotes) return null;
-            return $A.setSkipLink(config.footnotes, config);
+          setFootnotes: function(o, config) {
+            if (this._4X) {
+              config = o;
+              o = this._X;
+            }
+            if ($A.isPlainObject(o)) {
+              config = o;
+              o = config.footnotes || null;
+            }
+            if (!o) return null;
+            o = $A.setSkipLink(o, config);
+            if (this._4X) {
+              this._X = o;
+              return this;
+            } else return o;
           }
         });
       }

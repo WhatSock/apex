@@ -1,8 +1,7 @@
 $A.import("Footnote", { defer: true }, function() {
-  $A.setFootnotes({
-    footnotes: 'span.aria-footnote > a[href^="#"]',
+  $A.setFootnotes('span.aria-footnote > a[href^="#"]', {
     override: {
-      duration: 550,
+      duration: 700,
       easing: "ease-in"
     }
   });

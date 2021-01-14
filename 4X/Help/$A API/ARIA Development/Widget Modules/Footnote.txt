@@ -23,7 +23,7 @@ Example:
 
 JavaScript syntax:
 
-$A.setFootnotes({
+$A.setFootnotes( DOM-Node-or-CSS-Selector-forTriggering-Element , {
 // Configuration key / value map
 });
 

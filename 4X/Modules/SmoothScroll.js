@@ -70,7 +70,34 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               return this;
             } else return o;
           },
-          setSkipLink: function(l, config, c, skipBinding) {
+          skipTo: function(o, targ, config, fn) {
+            if (this._4X) {
+              fn = config;
+              config = targ;
+              targ = o;
+              o = this._X;
+            }
+            o = $A.morph(o);
+            targ = $A.morph(targ);
+            if ($A.isDOMNode(o) && $A.isDOMNode(targ)) {
+              o = $A.setSkipLink(
+                o,
+                $A.extend(
+                  {
+                    target: targ,
+                    skipReturn: true,
+                    callback: fn
+                  },
+                  config || {}
+                )
+              );
+            }
+            if (this._4X) {
+              this._X = o;
+              return this;
+            } else return o;
+          },
+          setSkipLink: function(l, config, c, skipReturn) {
             if (this._4X) {
               c = config;
               config = l;
@@ -81,10 +108,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               offscreen = config.isOffScreen || false,
               styleObj = config.style || {},
               c = config.context || c,
-              skip = skipBinding || config.skipBinding ? true : false;
+              skip = skipReturn || config.skipReturn ? true : false;
             if (!$A.isDOMNode(c, null, document)) c = document;
             $A.query(l, c, function(i, o) {
-              var t = c.querySelector($A.getAttr(o, "href"));
+              var t = config.target || $A.getAttr(o, "href");
+              if ($A.isSelector(t)) t = c.querySelector(t);
               if ($A.isDOMNode(t) && !$A.data(o, "_isBoundFn")) {
                 $A.data(o, "_isBoundFn", true);
                 $A.bindObjects(o, t);
