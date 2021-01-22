@@ -20,11 +20,11 @@ DC Object Properties
 
 Note: The displayed value for each property represents its default value when omitted.
 
-  // Prevent the DC object from rendering.
-  isDisabled: false
+  // Prevent the DC object from rendering when true.
+  disabled: false
 
   // Automatically invoke DC.render() when the DC object is instantiated.
-  // Will not render if isDisabled is set to true.
+  // Will not render if disabled is set to true.
   autoRender: false
 
   // Convey beginning and ending boundary information to screen reader users.

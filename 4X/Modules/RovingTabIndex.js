@@ -37,10 +37,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 ? options.parent
                 : false;
             that.children = new Map();
-            that.triggeringElement =
-              options.triggeringElement &&
-              options.triggeringElement.nodeType === 1
-                ? options.triggeringElement
+            that.trigger =
+              options.trigger && options.trigger.nodeType === 1
+                ? options.trigger
                 : false;
             that.autoLoop = options.autoLoop || false;
 
@@ -52,9 +51,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               "object"
             );
 
-            if (that.parent && that.triggeringElement)
-              that.parent.children.set(that.triggeringElement, that);
-            that.dc = options.dc || false;
+            if (that.parent && that.trigger)
+              that.parent.children.set(that.trigger, that);
+            that.dc = that.DC = options.dc || options.DC || false;
             if (
               options.breakPoint &&
               (options.breakPoint.horizontal > 1 ||

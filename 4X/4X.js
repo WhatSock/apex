@@ -628,16 +628,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     morph: function(o, retArray, context) {
       if ($A.isArray(o)) {
         return o;
+      } else if ($A.isDOMNode(o, null, null, 11)) {
+        return retArray && !$A.isArray(o) ? [o] : o;
       } else if ($A.isStr(o)) {
-        if ($A.isMarkup(o)) {
-          return $A.toNode(o, false, retArray);
-        } else {
-          if (!$A.isSelector(o)) return $A.toText(o);
-          if (!$A.isDOMNode(context, null, document, 11)) context = document;
-          var r = context.querySelectorAll(o);
-          if (!retArray && r.length === 1) r = r[0];
-          else if (!retArray && !r.length) r = null;
-          return r;
+        if ($A.isMarkup(o)) return $A.toNode(o, false, retArray);
+        else {
+          if ($A.isSelector(o)) {
+            if (!$A.isDOMNode(context, null, document, 11)) context = document;
+            var r = context.querySelectorAll(o);
+            if (!retArray && r.length === 1) r = r[0];
+            else if (!retArray && !r.length) r = null;
+            return r;
+          } else if ($A.getEl(o)) return $A.getEl(o);
+          else return $A.toText(o);
         }
       } else if ($A.isNum(o)) {
         o = $A.toText(o.toString());
@@ -2001,6 +2004,7 @@ error: function(error, promise){}
           }
         }
       }
+      if (r.nodeType === 11 && r.childNodes.length === 1) r = r.childNodes[0];
       r = $A._store(r);
       if (this._4X) {
         this._X = r;
@@ -3195,6 +3199,43 @@ error: function(error, promise){}
       } else return node;
     },
 
+    isDisabled: function(o) {
+      var t = o;
+      if (!$A.isDC(o) && $A.hasDC(o)) o = $A.getDC(o);
+      if ($A.isDC(o)) t = o.triggerObj || $A.query(o.trigger)[0];
+      if (
+        ($A.isDC(o) && o.disabled) ||
+        $A.data(t, "disabled") ||
+        ($A.isDOMNode(t) && $A.getAttr(t, "aria-disabled") === "true")
+      )
+        return true;
+      return false;
+    },
+
+    updateDisabled: function(o) {
+      var a = o;
+      if ($A.isDC(o)) a = o.siblings;
+      $A.loop(
+        a,
+        function(i, o) {
+          var t = o;
+          if (!$A.isDC(o) && $A.hasDC(o)) o = $A.getDC(o);
+          if ($A.isDC(o)) t = o.triggerObj || o.trigger;
+          $A.query(t, function(x, e) {
+            var isD =
+              ($A.isNatActEl(e) && e.disabled) ||
+              $A.getAttr(e, "aria-disabled") === "true"
+                ? true
+                : false;
+            if ($A.isDC(o)) o.disabled = isD;
+            else if ($A.isDOMNode(o)) $A.data(o, "disabled", isD);
+          });
+        },
+        "array"
+      );
+      return o;
+    },
+
     isFocusable: function(node, usingFocus) {
       if (this._4X) {
         usingFocus = node;
@@ -3583,8 +3624,10 @@ error: function(error, promise){}
             dc.isRendered = true;
           }
 
-          if (dc.sourceOnly) dc.source = dc.container.cloneNode(true);
-          else dc.source = $A.cloneNodes(dc.container);
+          if (!dc.storeData) {
+            if (dc.sourceOnly) dc.source = dc.container.cloneNode(true);
+            else dc.source = $A.cloneNodes(dc.container);
+          }
 
           var complete = function() {
             if (dc.isFocusable)
@@ -3728,7 +3771,7 @@ error: function(error, promise){}
             dc.loaded = false;
 
             var complete = function() {
-              $A._cleanAll(dc.container, true);
+              if (!dc.storeData) $A._cleanAll(dc.container, true);
               if (dc.fn.style) $A.remove(dc.fn.style);
               if (dc.fn.closeLink) $A.remove(dc.fn.closeLink);
               if (dc.sourceOnly) {
@@ -4013,22 +4056,6 @@ error: function(error, promise){}
             forceRelative,
             returnTopLeftOnly
           );
-        },
-
-        updateDisabled: function(oDC) {
-          var dcs = oDC || this.siblings;
-          $A.loop(
-            dcs,
-            function(i, o) {
-              $A.query(o.triggerObj || o.trigger, function(x, e) {
-                o.isDisabled =
-                  ($A.isNatActEl(e) && e.disabled) ||
-                  $A.getAttr(e, "aria-disabled") === "true";
-              });
-            },
-            "array"
-          );
-          return dc;
         },
 
         //            trigger: "",
@@ -4349,9 +4376,20 @@ error: function(error, promise){}
           return dc;
         },
 
+        isDisabled: function(dc) {
+          var dc = dc || this;
+          return $A.isDisabled(dc);
+        },
+
+        updateDisabled: function(dc) {
+          var dc = dc || this;
+          $A.updateDisabled(dc);
+          return dc;
+        },
+
         render: function(fn) {
           var dc = this;
-          if (dc.isDisabled) return dc;
+          if (dc.isDisabled()) return dc;
           var rn = function() {
             if (!dc.loaded) {
               dc.fn.renderCallback = fn;
@@ -4373,7 +4411,7 @@ error: function(error, promise){}
 
         rerender: function(fn) {
           var dc = this;
-          if (dc.isDisabled) return dc;
+          if (dc.isDisabled()) return dc;
           if (dc.loaded) {
             dc.bypass(function() {
               dc.fn.renderCallback = fn;
@@ -4387,7 +4425,7 @@ error: function(error, promise){}
 
         remove: function(fn) {
           var dc = this;
-          if (dc.isDisabled) return dc;
+          if (dc.isDisabled()) return dc;
           if (dc.loaded) {
             dc.fn.removeCallback = fn;
             closeDC(dc);
@@ -4641,7 +4679,7 @@ error: function(error, promise){}
             DC.onCreate.apply(DC, [DC]);
           }
 
-          DC.updateDisabled(DC);
+          $A.updateDisabled(DC);
         }
       }
 
