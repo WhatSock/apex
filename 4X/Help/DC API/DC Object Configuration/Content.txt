@@ -21,6 +21,9 @@ DC Object Properties
 
 Note: The displayed value for each property represents its default value when omitted.
 
+  // Specifies that the referenced content for rendering should not be dynamically inserted into the DOM, but will instead toggle the hidden attribute.
+  toggleHide: false
+
 // Suppress the automatic addition of extra div elements around the source when rendered.
 // Extra divs are added to create accessibility support for widgets and complex interactive structures.
 // For simple structures that don't require these however, these can be suppressed so that only the source is rendered.

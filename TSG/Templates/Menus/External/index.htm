@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Menu (External Content) - 4X Technical Style Guide</title>
+    <meta name="description" content="Scalable ARIA Components">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
+    <link rel="stylesheet" type="text/css" href="css/customize.css">
+    <script src="/4X/4X.js"></script>
+    <script src="js/setup.js"></script>
+</head>
+
+<body>
+    <div class="bypass">
+        <ul class="list-unstyled">
+            <li>
+                <a class="skip--link" href="javascript:void(0);" onclick="document.getElementById('main').focus();">
+                    Skip to Main Content
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="outer-wrapper">
+        <header class="header flex-container">
+            <div class="logo flex-item">
+                <a href="http://whatsock.com">
+                    <img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg"></a>
+            </div>
+            <div class="site-name flex-item">
+                <strong>Apex 4X</strong> Technical Style Guide
+            </div>
+        </header>
+        <div class="wrapper">
+            <div class="left-aside">
+                <nav>
+                    <ul>
+                        <li><a href="../../index.htm">Components</a></li>
+                        <li><a href="../External/index.htm" aria-current="page">External</a></li>
+                        <li><a href="../External - Straylight/index.htm">External - Straylight</a></li>
+                        <li><a href="../Internal/index.htm">Internal</a></li>
+                        <li><a href="../Internal - Straylight/index.htm">Internal - Straylight</a></li>
+                        <li><a href="../Simulated Textbox (Right-Click)/index.htm">Simulated Textbox (Right-Click)</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <main id="main" class="main" tabindex="-1">
+                <div class="demo-block flex-container">
+                    <div class="component flex-item">
+                        <h1 class="pageTitle">Menu <small>External Content</small></h1>
+                        <p>
+
+                            <button class="aria-menu">Settings</button>
+
+                        </p>
+                    </div>
+                    <div class="keyboard flex-item">
+                        <h2>The menu is optimized for screen reader and keyboard only users:</h2>
+                        <ul>
+                            <li>Activate the triggering element using the keyboard.</li>
+                            <li>Press the <kbd class="up">Up</kbd> and <kbd class="down">Down</kbd> Arrow keys to move focus between the menu options.</li>
+                            <li>Press the <kbd class="left">Left</kbd> and <kbd class="right">Right</kbd> Arrow keys to open or close submenus.</li>
+                            <li>Press any letter or number to jump to a menu item starting with that character or digit.</li>
+                            <li>Press <kbd>Enter</kbd> to activate a menu option.</li>
+                            <li>Press <kbd>Escape</kbd> to close the currently open menu.</li>
+                            <li>Press <kbd>Tab</kbd> or set focus back on the triggering element to close the menu and all submenus.</li>
+                            <li>Mouse users can click the desired menu option as usual.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+        <footer class="footer">
+            <p class="copyright">&copy;<script type="text/javascript">
+                    document.write(new Date().getFullYear());
+                </script> WhatSock. All rights reserved.</p>
+            <p>Visual design by <a href="http://gericci.me/">Angela Ricci</a>. Styling updated by Laurence Lewis October 2020</p>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -53,7 +53,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
             if (that.parent && that.trigger)
               that.parent.children.set(that.trigger, that);
-            that.dc = that.DC = options.dc || options.DC || false;
+            that.dc = that.DC = options.dc || options.DC || null;
             if (
               options.breakPoint &&
               (options.breakPoint.horizontal > 1 ||
@@ -170,8 +170,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   $A.on(
                     o,
                     {
-                      click: function(ev, dc) {
-                        that.boundDC = dc;
+                      click: function(ev) {
                         var keys = [],
                           child = that.children.get(o);
                         that.index = i;
@@ -182,14 +181,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           keys,
                           function(i, k) {
                             if ($A.isFn(that["on" + k]))
-                              that["on" + k].call(o, ev, o, that, dc, pressed);
+                              that["on" + k].call(
+                                o,
+                                ev,
+                                o,
+                                that,
+                                child && child.DC,
+                                0
+                              );
                           },
                           "array"
                         );
-                        ev.stopPropagation();
-                        ev.preventDefault();
                       },
-                      keydown: function(ev, dc) {
+                      keydown: function(ev) {
                         changePressed(ev);
 
                         if (
@@ -207,8 +211,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         }
 
                         var k = $A.keyEvent(ev),
+                          arrowKey = 0,
                           oMap = map.get(o),
-                          child = null,
+                          child = that.children.get(o),
                           breakPointBack = function() {
                             if (
                               that.breakPoint.horizontal &&
@@ -270,10 +275,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             }
                           },
                           keys = [];
-                        that.boundDC = dc;
 
                         // 37 left, 38 up, 39 right, 40 down, 35 end, 36 home
                         if (k >= 35 && k <= 40) {
+                          arrowKey = k >= 37 && k <= 40 ? k : 0;
                           var x = that.index,
                             pass = false;
 
@@ -284,7 +289,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             ((k === 39 && that.orientation === 2) ||
                               (k === 40 && that.orientation === 1))
                           ) {
-                            child = that.children.get(o);
                             keys.push("Open");
                             pass = true;
                           } else if (
@@ -443,6 +447,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                           ev.stopPropagation();
                           ev.preventDefault();
+                        } else if (k === 9 && !pressed.alt && !pressed.ctrl) {
+                          if (pressed.shift) keys.push("ShiftTab");
+                          else keys.push("Tab");
                         } else if (
                           k === 27 &&
                           !pressed.alt &&
@@ -451,8 +458,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         ) {
                           keys.push("Esc");
                           keys.push("Close");
-                          ev.stopPropagation();
-                          ev.preventDefault();
                         } else if (k === 46) {
                           if (!pressed.alt && !pressed.ctrl && !pressed.shift)
                             keys.push("Delete");
@@ -474,9 +479,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             pressed.shift
                           )
                             keys.push("CtrlShiftDelete");
-
-                          ev.stopPropagation();
-                          ev.preventDefault();
                         } else if (k === 33 || k === 34) {
                           if (!pressed.alt && !pressed.ctrl && !pressed.shift)
                             keys.push(k === 33 ? "PageUp" : "PageDown");
@@ -510,8 +512,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             );
                         } else if (k === 13 || k === 32) {
                           if (k === 13) {
-                            child = that.children.get(o);
-
                             if (!pressed.alt && !pressed.ctrl && !pressed.shift)
                               keys.push("Enter");
                             else if (
@@ -555,9 +555,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             )
                               keys.push("CtrlShiftSpace");
                           }
-
-                          ev.stopPropagation();
-                          ev.preventDefault();
                         } else if (
                           ((k >= 48 && k <= 57) || (k >= 65 && k <= 90)) &&
                           !pressed.alt &&
@@ -616,14 +613,24 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           keys,
                           function(i, k) {
                             if ($A.isFn(that["on" + k]))
-                              that["on" + k].call(o, ev, o, that, dc, pressed);
+                              that["on" + k].call(
+                                o,
+                                ev,
+                                o,
+                                that,
+                                child && child.DC,
+                                arrowKey
+                              );
                           },
                           "array"
                         );
                       },
-                      keyup: function(ev, dc) {
+                      keyup: function(ev) {
                         changePressed(ev);
-                        var keys = [];
+                        var keys = [],
+                          child = that.children.get(o),
+                          k = $A.keyEvent(ev),
+                          arrowKey = k >= 37 && k <= 40 ? k : 0;
                         if (
                           ev.key === "a" &&
                           !pressed.alt &&
@@ -657,20 +664,34 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           keys,
                           function(i, k) {
                             if ($A.isFn(that["on" + k]))
-                              that["on" + k].call(o, ev, o, that, dc, pressed);
+                              that["on" + k].call(
+                                o,
+                                ev,
+                                o,
+                                that,
+                                child && child.DC,
+                                arrowKey
+                              );
                           },
                           "array"
                         );
                       },
-                      focus: function(ev, dc) {
-                        that.boundDC = dc;
-                        var keys = [];
+                      focus: function(ev) {
+                        var keys = [],
+                          child = that.children.get(o);
                         keys.push("Focus");
                         $A.loop(
                           keys,
                           function(i, k) {
                             if ($A.isFn(that["on" + k]))
-                              that["on" + k].call(o, ev, o, that, dc, pressed);
+                              that["on" + k].call(
+                                o,
+                                ev,
+                                o,
+                                that,
+                                child && child.DC,
+                                0
+                              );
                           },
                           "array"
                         );

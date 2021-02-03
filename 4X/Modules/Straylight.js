@@ -39,6 +39,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               }),
               call: function(props) {
                 $A.setAccordion(props.accordionGroup, {
+                  toggleClass: "open",
+                  toggleHide: true,
                   isToggle: false,
                   allowMultiple: false,
                   preload: true,
@@ -62,9 +64,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       });
                     }
                   },
-                  toggleClass: "open",
-                  context: context,
-                  callback: function(dc) {}
+                  context: context
                 });
               }
             });
@@ -115,7 +115,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         }
                       },
                       isToggle: false,
-                      toggleClass: "active"
+                      toggleClass: "active",
+                      toggleHide: true
                     });
                   },
                   "array"
@@ -360,6 +361,59 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           },
                           onRemove: function(dc, outerNode, complete) {
                             Velocity(outerNode, "transition.fadeOut", {
+                              complete: function() {
+                                complete();
+                              }
+                            });
+                          }
+                        }
+                      });
+                    }
+                  },
+                  "array"
+                );
+              }
+            });
+        })();
+
+        (function() {
+          // ARIA Menus
+          // Search and recognise menu triggering elements with the class "aria-menu"
+          var triggers = context.querySelectorAll("*[data-menu].aria-menu");
+
+          if (triggers.length)
+            $A.import(["Animate", "Menu"], {
+              name: "StraylightMenu",
+              defer: true,
+              props: $A.extend(props, {
+                triggers: triggers
+              }),
+              call: function(props) {
+                $A.loop(
+                  props.triggers,
+                  function(i, t) {
+                    if (!$A.data(t, "_BoundMenu")) {
+                      $A.data(t, "_BoundMenu", true);
+                      $A.setMenu(t, {
+                        onActivate: function(ev, triggerNode, RTI) {
+                          if (
+                            triggerNode.href &&
+                            triggerNode.href.indexOf("https://") !== -1
+                          )
+                            location.href = triggerNode.href;
+                          else alert(triggerNode.id);
+                        },
+                        style: { display: "none" },
+                        animate: {
+                          onRender: function(dc, outerNode, complete) {
+                            Velocity(outerNode, "transition.slideUpIn", {
+                              complete: function() {
+                                complete();
+                              }
+                            });
+                          },
+                          onRemove: function(dc, outerNode, complete) {
+                            Velocity(outerNode, "transition.slideUpOut", {
                               complete: function() {
                                 complete();
                               }

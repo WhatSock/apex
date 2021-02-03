@@ -954,10 +954,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                 dc.cb.fn.setSize();
 
-                $A.announce(
-                  dc.cb.options[dc.cb.matches[dc.cb.sIndex]].no,
-                  true
-                );
+                setTimeout(function() {
+                  $A.announce(
+                    dc.cb.options[dc.cb.matches[dc.cb.sIndex]].no,
+                    true
+                  );
+                }, 1);
 
                 $A.setAttr(dc.triggerObj, "aria-expanded", "true");
 

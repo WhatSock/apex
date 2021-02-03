@@ -158,18 +158,20 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     startIndex: x
                   },
                   {
-                    onShiftUp: function(event, option, RTI, DC, pressed) {
+                    onShiftUp: function(ev, option, RTI, DC) {
                       if (that.multiple) {
                         that.toggleSelect(option, true);
                       }
+                      ev.preventDefault();
                     },
-                    onShiftDown: function(event, option, RTI, DC, pressed) {
+                    onShiftDown: function(ev, option, RTI, DC) {
                       if (that.multiple) {
                         that.toggleSelect(option, true);
                       }
+                      ev.preventDefault();
                     },
 
-                    onCtrlShiftUp: function(event, option, RTI, DC, pressed) {
+                    onCtrlShiftUp: function(ev, option, RTI, DC) {
                       that.RTI["onShiftUp"].call(
                         this,
                         event,
@@ -178,8 +180,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         DC,
                         pressed
                       );
+                      ev.preventDefault();
                     },
-                    onCtrlShiftDown: function(event, option, RTI, DC, pressed) {
+                    onCtrlShiftDown: function(ev, option, RTI, DC) {
                       that.RTI["onShiftDown"].call(
                         this,
                         event,
@@ -188,9 +191,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         DC,
                         pressed
                       );
+                      ev.preventDefault();
                     },
 
-                    onShiftEnd: function(event, option, RTI, DC, pressed) {
+                    onShiftEnd: function(ev, option, RTI, DC) {
                       if (that.multiple) {
                         var s = that.options.slice($A.data(option, "_Index"));
                         $A.loop(
@@ -201,8 +205,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           "array"
                         );
                       }
+                      ev.preventDefault();
                     },
-                    onShiftHome: function(event, option, RTI, DC, pressed) {
+                    onShiftHome: function(ev, option, RTI, DC) {
                       if (that.multiple) {
                         var s = that.options.slice(
                           0,
@@ -216,9 +221,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           "array"
                         );
                       }
+                      ev.preventDefault();
                     },
 
-                    onCtrlShiftEnd: function(event, option, RTI, DC, pressed) {
+                    onCtrlShiftEnd: function(ev, option, RTI, DC) {
                       that.RTI["onShiftEnd"].call(
                         this,
                         event,
@@ -227,8 +233,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         DC,
                         pressed
                       );
+                      ev.preventDefault();
                     },
-                    onCtrlShiftHome: function(event, option, RTI, DC, pressed) {
+                    onCtrlShiftHome: function(ev, option, RTI, DC) {
                       that.RTI["onShiftHome"].call(
                         this,
                         event,
@@ -237,24 +244,27 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         DC,
                         pressed
                       );
+                      ev.preventDefault();
                     },
 
-                    onPageUp: function(event, option, RTI, DC, pressed) {
+                    onPageUp: function(ev, option, RTI, DC) {
                       var d = Math.round(that.options.length * 0.1);
                       if (!d) d = 1;
                       var i = that.index - d;
                       if (i < 0) i = 0;
                       that.RTI.focus(i);
+                      ev.preventDefault();
                     },
-                    onPageDown: function(event, option, RTI, DC, pressed) {
+                    onPageDown: function(ev, option, RTI, DC) {
                       var d = Math.round(that.options.length * 0.1);
                       if (!d) d = 1;
                       var i = that.index + d;
                       if (i >= that.options.length) i = that.options.length - 1;
                       that.RTI.focus(i);
+                      ev.preventDefault();
                     },
 
-                    onSpace: function(event, option, RTI, DC, pressed) {
+                    onSpace: function(ev, option, RTI, DC) {
                       that.RTI.onClick.call(
                         this,
                         event,
@@ -264,14 +274,20 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         pressed
                       );
                       if ($A.isIE()) {
-                        $A.announce($A.getAttr(option, "aria-description"));
+                        setTimeout(function() {
+                          $A.announce($A.getAttr(option, "aria-description"));
+                        }, 1);
                       }
+                      ev.preventDefault();
                     },
-                    onCtrlSpace: function(event, option, RTI, DC, pressed) {
+                    onCtrlSpace: function(ev, option, RTI, DC) {
                       that.toggleSelect(option);
                       if ($A.isIE()) {
-                        $A.announce($A.getAttr(option, "aria-description"));
+                        setTimeout(function() {
+                          $A.announce($A.getAttr(option, "aria-description"));
+                        }, 1);
                       }
+                      ev.preventDefault();
                     },
                     onCtrlShiftSpace: function(
                       event,
@@ -293,8 +309,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         that.setGrab();
                       }
                       if ($A.isIE()) {
-                        $A.announce($A.getAttr(option, "aria-description"));
+                        setTimeout(function() {
+                          $A.announce($A.getAttr(option, "aria-description"));
+                        }, 1);
                       }
+                      ev.preventDefault();
                     },
 
                     onEsc: function(event, option, RTI, DC) {
@@ -303,24 +322,30 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         that.setGrab();
                       }
                       if ($A.isIE()) {
-                        $A.announce($A.getAttr(option, "aria-description"));
+                        setTimeout(function() {
+                          $A.announce($A.getAttr(option, "aria-description"));
+                        }, 1);
                       }
+                      ev.preventDefault();
                     },
 
                     onFocus: function(event, option, RTI, DC) {
                       that.index = $A.data(option, "_Index");
                       if (!that.multiple) that.toggleSelect(option, true);
                       if ($A.isIE()) {
-                        $A.announce($A.getAttr(option, "aria-description"));
+                        setTimeout(function() {
+                          $A.announce($A.getAttr(option, "aria-description"));
+                        }, 1);
                       }
                     },
 
-                    onClick: function(event, option, RTI, DC, pressed) {
+                    onClick: function(ev, option, RTI, DC) {
                       if (that.multiple) that.toggleSelect(option);
                       else if (that.sortable) that.toggleGrab(option);
+                      ev.preventDefault();
                     },
 
-                    onSelectAll: function(event, option, RTI, DC, pressed) {
+                    onSelectAll: function(ev, option, RTI, DC) {
                       if (that.multiple) {
                         $A.loop(
                           that.options,
@@ -330,6 +355,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           "array"
                         );
                       }
+                      ev.preventDefault();
                     }
                   },
                   config.handlers || {}

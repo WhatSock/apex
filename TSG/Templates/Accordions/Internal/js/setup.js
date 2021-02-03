@@ -1,6 +1,9 @@
 $A.import(["Animate", "Accordion"], { defer: true }, function() {
   $A.setAccordion(".aria-accordion-trigger", {
     toggleClass: "open",
+    toggleHide: true,
+    isToggle: false,
+    allowMultiple: false,
 
     style: { display: "none" },
     animate: {
@@ -18,11 +21,6 @@ $A.import(["Animate", "Accordion"], { defer: true }, function() {
           }
         });
       }
-    },
-
-    isToggle: false,
-    allowMultiple: false,
-    preload: true,
-    preloadImages: true
+    }
   });
 });

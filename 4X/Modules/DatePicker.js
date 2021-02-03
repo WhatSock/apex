@@ -455,27 +455,43 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 if (!s) {
                   if (dc.navBtn === "PM") {
                     dc.buttons.pM.focus();
-                    $A.announce(
-                      dc.range[dc.range.current.month].name,
-                      false,
-                      true
-                    );
+                    setTimeout(function() {
+                      $A.announce(
+                        dc.range[dc.range.current.month].name,
+                        false,
+                        true
+                      );
+                    }, 1);
                     dc.navBtnS = true;
                   } else if (dc.navBtn === "NM") {
                     dc.buttons.nM.focus();
-                    $A.announce(
-                      dc.range[dc.range.current.month].name,
-                      false,
-                      true
-                    );
+                    setTimeout(function() {
+                      $A.announce(
+                        dc.range[dc.range.current.month].name,
+                        false,
+                        true
+                      );
+                    }, 1);
                     dc.navBtnS = true;
                   } else if (dc.navBtn === "PY") {
                     dc.buttons.pY.focus();
-                    $A.announce(dc.range.current.year.toString(), false, true);
+                    setTimeout(function() {
+                      $A.announce(
+                        dc.range.current.year.toString(),
+                        false,
+                        true
+                      );
+                    }, 1);
                     dc.navBtnS = true;
                   } else if (dc.navBtn === "NY") {
                     dc.buttons.nY.focus();
-                    $A.announce(dc.range.current.year.toString(), false, true);
+                    setTimeout(function() {
+                      $A.announce(
+                        dc.range.current.year.toString(),
+                        false,
+                        true
+                      );
+                    }, 1);
                     dc.navBtnS = true;
                   } else {
                     // Toggles for openOnFocus support.
@@ -2803,7 +2819,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 ) {
                   odcDel = true;
                   $A.trigger(trigger, "opendatepicker");
-                  if (!triggeredByTouch) $A.announce(odc.openOnFocusHelpText);
+                  if (!triggeredByTouch)
+                    setTimeout(function() {
+                      $A.announce(odc.openOnFocusHelpText);
+                    }, 1);
                   setTimeout(odcDelFn, 1000);
                 }
                 onFocusInit = true;
@@ -2881,7 +2900,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   onFocusInit = false;
                   onFocusTraverse = true;
                   odc.setFocus(odc.range.index[odc.range.current.mDay - 1]);
-                  $A.announce(odc.helpTextShort);
+                  setTimeout(function() {
+                    $A.announce(odc.helpTextShort);
+                  }, 1);
                   ev.preventDefault();
                   ev.stopPropagation();
                 }

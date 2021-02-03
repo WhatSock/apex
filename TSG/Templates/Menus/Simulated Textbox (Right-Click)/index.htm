@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Simulated Textbox Menu (Right-Click) - 4X Technical Style Guide</title>
+    <meta name="description" content="Scalable ARIA Components">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
+    <link rel="stylesheet" type="text/css" href="css/customize.css">
+    <script src="/4X/4X.js"></script>
+    <script src="js/setup.js"></script>
+</head>
+
+<body>
+    <div class="bypass">
+        <ul class="list-unstyled">
+            <li>
+                <a class="skip--link" href="javascript:void(0);" onclick="document.getElementById('main').focus();">
+                    Skip to Main Content
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="outer-wrapper">
+        <header class="header flex-container">
+            <div class="logo flex-item">
+                <a href="http://whatsock.com">
+                    <img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg"></a>
+            </div>
+            <div class="site-name flex-item">
+                <strong>Apex 4X</strong> Technical Style Guide
+            </div>
+        </header>
+        <div class="wrapper">
+            <div class="left-aside">
+                <nav>
+                    <ul>
+                        <li><a href="../../index.htm">Components</a></li>
+                        <li><a href="../External/index.htm">External</a></li>
+                        <li><a href="../External - Straylight/index.htm">External - Straylight</a></li>
+                        <li><a href="../Internal/index.htm">Internal</a></li>
+                        <li><a href="../Internal - Straylight/index.htm">Internal - Straylight</a></li>
+                        <li><a href="../Simulated Textbox (Right-Click)/index.htm" aria-current="page">Simulated Textbox (Right-Click)</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <main id="main" class="main" tabindex="-1">
+                <div class="demo-block flex-container">
+                    <div class="component flex-item">
+                        <h1 class="pageTitle">Simulated Textbox Menu <small>Right-Click</small></h1>
+                        <h2 id="titleId">Blackboard</h2>
+                        <p class="root">
+
+                            <div data-menu="settings-menu" class="blackboard" id="blackboardId" tabindex="0" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="titleId"></div>
+
+                            <ul hidden class="top menu" id="settings-menu">
+                                <li><a href="#" class="has-submenu">Profile</a>
+                                    <ul hidden class="menu">
+                                        <li><a href="#" class="has-submenu">Personal</a>
+                                            <ul hidden class="menu">
+                                                <li><a href="#" class="link" id="personal-name">Name</a></li>
+                                                <li><a href="#" class="link" id="personal-interests">Interests</a></li>
+                                                <li><a href="#" class="link" id="personal-education">Education</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#" class="has-submenu">Business</a>
+                                            <ul hidden class="menu">
+                                                <li><a href="#" class="link" id="business-name">Name</a></li>
+                                                <li><a href="#" class="link" id="business-contact">Contact</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="#" class="has-submenu">Settings</a>
+                                    <ul hidden class="menu">
+                                        <li><a href="#" class="link" id="settings-search">Search</a></li>
+                                        <li><a href="#" class="link" id="settings-cookies">Cookies</a></li>
+                                        <li><a href="#" class="link" id="settings-layout">Layout</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#" class="has-submenu">Account</a>
+                                    <ul hidden class="menu">
+                                        <li><a href="#" class="link" id="account-username">Username</a></li>
+                                        <li><a href="#" class="link" id="account-password">Password</a></li>
+                                        <li><a href="#" class="link" id="account-email">Email</a></li>
+                                    </ul>
+                                </li>
+                                <li><a aria-disabled="true" title="Disabled" href="#" class="has-submenu">Services</a>
+                                    <ul hidden class="menu">
+                                        <li><a href="#" class="link" id="services-campaigns">Campaigns</a></li>
+                                        <li><a href="#" class="link" id="services-payments">Payments</a></li>
+                                        <li><a href="#" class="link" id="services-billing">Billing</a></li>
+                                    </ul>
+                                </li>
+                                <li><a aria-disabled="true" href="#" class="link" id="properties">Properties...</a></li>
+                                <li><a href="https://google.com/" class="link" id="help">Help...</a></li>
+                            </ul>
+
+                        </p>
+                    </div>
+                    <div class="keyboard flex-item">
+                        <h2>The menu is optimized for screen reader and keyboard only users:</h2>
+                        <ul>
+                            <li>Set focus to the edit field.</li>
+                            <li>Activate the menu using the keyboard by pressing Shift+F10 or the Applications key.</li>
+                            <li>Press the <kbd class="up">Up</kbd> and <kbd class="down">Down</kbd> Arrow keys to move focus between the menu options.</li>
+                            <li>Press the <kbd class="left">Left</kbd> and <kbd class="right">Right</kbd> Arrow keys to open or close submenus.</li>
+                            <li>Press any letter or number to jump to a menu item starting with that character or digit.</li>
+                            <li>Press <kbd>Enter</kbd> to activate a menu option.</li>
+                            <li>Press <kbd>Escape</kbd> to close the currently open menu.</li>
+                            <li>Press <kbd>Tab</kbd> or set focus back on the triggering element to close the menu and all submenus.</li>
+                            <li>Mouse users can right-click the edit field and click the desired menu option as usual.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+        <footer class="footer">
+            <p class="copyright">&copy;<script type="text/javascript">
+                    document.write(new Date().getFullYear());
+                </script> WhatSock. All rights reserved.</p>
+            <p>Visual design by <a href="http://gericci.me/">Angela Ricci</a>. Styling updated by Laurence Lewis October 2020</p>
+        </footer>
+    </div>
+</body>
+
+</html>

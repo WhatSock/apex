@@ -1,5 +1,16 @@
-$A.import(["Animate", "TabList"], { defer: true }, function() {
-  $A.setTabList('*[role="tablist"] *[role="tab"]', {
+$A.import(["Animate", "Menu"], { defer: true }, function() {
+  $A.setMenu("button.aria-menu", {
+    fetch: {
+      url: "files/menus.htm",
+      data: {
+        selector: "#settings-menu"
+      }
+    },
+    onActivate: function(ev, triggerNode, RTI) {
+      if (triggerNode.href && triggerNode.href.indexOf("https://") !== -1)
+        location.href = triggerNode.href;
+      else alert(triggerNode.id);
+    },
     style: { display: "none" },
     animate: {
       onRender: function(dc, outerNode, complete) {
@@ -16,10 +27,6 @@ $A.import(["Animate", "TabList"], { defer: true }, function() {
           }
         });
       }
-    },
-
-    isToggle: false,
-    toggleClass: "active",
-    toggleHide: true
+    }
   });
 });

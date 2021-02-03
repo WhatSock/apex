@@ -122,14 +122,17 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   orientation: 1,
                   autoSwitch: config.autoSwitch || "full",
                   autoLoop: true,
-                  onClick: function(ev, tabNode, RTI, DC, pressed) {
+                  onClick: function(ev, tabNode, RTI, DC) {
                     DC.render();
+                    ev.preventDefault();
                   },
-                  onSpace: function(ev, tabNode, RTI, DC, pressed) {
+                  onSpace: function(ev, tabNode, RTI, DC) {
                     DC.render();
+                    ev.preventDefault();
                   },
-                  onEnter: function(ev, tabNode, RTI, DC, pressed) {
+                  onEnter: function(ev, tabNode, RTI, DC) {
                     DC.render();
+                    ev.preventDefault();
                   }
                 },
                 config.extendRTI || {}

@@ -226,7 +226,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           config.page.row.select(cellObject);
 
                         if (!config.page.row.ariaSelect)
-                          $A.announce(cellObject.cellNode);
+                          setTimeout(function() {
+                            $A.announce(cellObject.cellNode);
+                          }, 1);
                       }
                     },
                     nav = function(k, ev) {
@@ -458,7 +460,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                                   cellObject.rowObject.cells[o.id].cellNode
                                 ) + ", ";
                             }
-                            $A.announce(str);
+                            setTimeout(function() {
+                              $A.announce(str);
+                            }, 1);
                           } else trigger();
                         } else if (k >= 33 && k <= 40) nav(k, ev);
                         else if (
@@ -473,7 +477,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           config.page.row.selectEnabled
                         ) {
                           config.page.row.selectAll();
-                          $A.announce(config.page.row.selectState);
+                          setTimeout(function() {
+                            $A.announce(config.page.row.selectState);
+                          }, 1);
                         }
                         ev.stopPropagation();
                         ev.preventDefault();
@@ -899,7 +905,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         "<span>" + formatStr(val) + "</span>";
                     }
 
-                    if (!silent) $A.announce(cellObject.cellNodeA);
+                    if (!silent)
+                      setTimeout(function() {
+                        $A.announce(cellObject.cellNodeA);
+                      }, 1);
                   }
                 },
                 focusedCell: null,
@@ -1351,7 +1360,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     cellId: cellObject.id
                   });
 
-                  $A.announce(config.page.pageRole + " " + config.page.current);
+                  setTimeout(function() {
+                    $A.announce(
+                      config.page.pageRole + " " + config.page.current
+                    );
+                  }, 1);
 
                   if (config.page.on.change && $A.isFn(config.page.on.change))
                     config.page.on.change.apply(container, [
@@ -1369,7 +1382,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     cellId: cellObject.id
                   });
 
-                  $A.announce(config.page.pageRole + " " + config.page.current);
+                  setTimeout(function() {
+                    $A.announce(
+                      config.page.pageRole + " " + config.page.current
+                    );
+                  }, 1);
 
                   if (config.page.on.change && $A.isFn(config.page.on.change))
                     config.page.on.change.apply(container, [
@@ -1387,7 +1404,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     cellId: cellObject.id
                   });
 
-                  $A.announce(config.page.pageRole + " " + config.page.current);
+                  setTimeout(function() {
+                    $A.announce(
+                      config.page.pageRole + " " + config.page.current
+                    );
+                  }, 1);
 
                   if (config.page.on.change && $A.isFn(config.page.on.change))
                     config.page.on.change.apply(container, [
@@ -1407,7 +1428,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     cellId: cellObject.id
                   });
 
-                  $A.announce(config.page.pageRole + " " + config.page.current);
+                  setTimeout(function() {
+                    $A.announce(
+                      config.page.pageRole + " " + config.page.current
+                    );
+                  }, 1);
 
                   if (config.page.on.change && $A.isFn(config.page.on.change))
                     config.page.on.change.apply(container, [

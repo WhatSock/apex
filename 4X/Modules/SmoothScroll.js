@@ -43,10 +43,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 )
               );
             }
-            if (this._4X) {
-              this._X = o;
-              return this;
-            } else return o;
+            return $A._XR.call(this, o);
           },
           moveTo: function(o, config, fn) {
             if (this._4X) {
@@ -65,10 +62,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   }
               );
             }
-            if (this._4X) {
-              this._X = o;
-              return this;
-            } else return o;
+            return $A._XR.call(this, o);
           },
           skipTo: function(o, targ, config, fn) {
             if (this._4X) {
@@ -92,10 +86,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 )
               );
             }
-            if (this._4X) {
-              this._X = o;
-              return this;
-            } else return o;
+            return $A._XR.call(this, o);
           },
           setSkipLink: function(l, config, c, skipReturn) {
             if (this._4X) {
@@ -146,10 +137,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               }
             });
 
-            if (this._4X) {
-              this._X = l;
-              return this;
-            } else return l;
+            return $A._XR.call(this, l);
           }
         });
       }
