@@ -1,0 +1,145 @@
+
+ARIA Menus
+
+Expected behaviors: Move focus into the menu when it is rendered, ensure that each menu has only one tab stop and that available menu items can be navigated using the arrow keys, make sure the menu can be closed from the keyboard, and move focus back to the triggering element after the menu is removed.
+
+The 4X ARIA Menu module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 specification.
+
+The following attributes are handled automatically by the Menu module:
+
+• role=menu
+• role=menuitem
+• role=menuitemcheckbox
+• role=menuitemradio
+• aria-checked
+• aria-haspopup
+• aria-orientation
+
+JavaScript syntax:
+
+$A.setMenu( DOM-Node-or-CSS-Selector-forTriggering-Element , {
+// Configure functionality key / value mappings
+});
+
+Parameters
+
+1: A DOM element or CSS selector to specify the triggering element.
+
+2: A configuration map to customize behaviors and options.
+
+Configuration
+
+{
+
+// Optionally set a unique ID for the menu DC object, which can be referenced through $A('uniqueId')
+// If not specified, the id of the triggering element will be used instead.
+id: 'uniqueId',
+
+// Optionally specify the content to be rendered when referencing internal content.
+// May be a DOM node or CSS selector.
+// Not necessary if data-menu is set on the triggering element.
+source: "#uniqueId",
+
+// Specifies that the referenced content for rendering should not be dynamically inserted into the DOM, but will instead toggle the hidden attribute.
+toggleHide: true,
+
+// Optionally specify the content to be rendered when referencing external content.
+// Not necessary if data-menu is set on the triggering element.
+// If set, the source property will be auto-populated with the returned content.
+fetch: {
+url: "path/file.htm",
+data: {
+selector: "#uniqueId"
+}
+},
+
+// Set the class name for the top level container element
+className: 'menu',
+
+// Set the class name for the screen reader accessible close link
+// This must match the class name for any close links or buttons within the menu content, which will cause close event binding to automatically occur when the content is rendered.
+closeClassName: "CloseDC",
+
+// Optionally run a script after the menu finishes rendering.
+afterRender: function(DC) {
+// DC.container is the rendered menu content.
+},
+
+// Optionally run a script after the menu is removed.
+afterRemove: function(DC) {
+// Do something.
+},
+
+// Optionally specify a render and remove animation effect for the menu.
+// Requires the "Animate" module import to function, which is powered by Velocity.js.
+// To ignore animation effects, delete the animate object declaration entirely from the setup script.
+// View implementations within "TSG/WidgetTemplates/Menus" for practical animation usage examples.
+
+style: { display: "none" }, // Set the initial state to hidden in prep for animation.
+
+animate: {
+
+onRender: function(dc, outerNode, complete) {
+
+// Specify the render animation effect, including the callback function statement to execute when the animation effect completes.
+Velocity(outerNode, "transition.TYPE", {
+// Velocity options here, plus the callback declaration after the animation completes.
+complete: function() {
+complete(); // REQUIRED: complete() must be executed so control is passed back to 4X for rendering.
+}
+});
+
+},
+
+onRemove: function(dc, outerNode, complete) {
+
+// Specify the removal animation effect, including the callback function statement to execute when the animation effect completes.
+Velocity(outerNode, "transition.TYPE", {
+// Velocity options here, plus the callback declaration after the animation completes.
+complete: function() {
+complete(); // REQUIRED: complete() must be executed so control is passed back to 4X for removal.
+}
+});
+
+}
+
+}
+
+// (Other 4X API properties and methods can be declared here also to customize functionality and behavior)
+// To view available options, reference the help docs located at: "4X/Help/DC API/DC Object Configuration"
+
+}
+
+Programmatic Control
+
+// Get the DC object for the menu using its id.
+var DC = $A("menuId");
+
+// Open the menu manually.
+DC.render(function() {
+// Optionally do something after rendering completes.
+});
+
+// Close the menu manually.
+DC.remove(function() {
+// Optionally do something after removal completes.
+});
+
+// All other 4X API properties and methods can be applied here as well.
+// To view available options, reference the help docs located at: "4X/Help/DC API/DC Object Properties and Methods"
+
+Straylight
+
+When the Straylight module is loaded, it parses the newly loaded document, recognizes the class "aria-menu" on the link or button triggering element, then configures the menu using these HTML5 attributes.
+
+Available attributes for the triggering element:
+
+• data-menu : The resource path and pointer to the ID attribute of the menu container element.
+
+Available attributes for menu item links:
+
+• data-menu : The resource path and pointer to the ID attribute of the submenu container element.
+• data-role : May be set to either "checkbox" or "radio" to create checkable menu items when rendered.
+• data-checked : May be set to "false", "true", or "mixed" to set the current state of a checkable menu item element when rendered.
+
+Additional attributes can be added to enhance functionality by editing the file "4X/Modules/Straylight".
