@@ -18,7 +18,7 @@ DC Object Properties
 
 // Set one or more triggering elements for a DC object.
 // The 'trigger' property may reference a DOM element, or reference one or more elements using a CSS selector.
-// When a DC object is rendered after a triggering element is activated, the triggering element DOM node can be accessed using the DC.triggerObj property.
+// When a DC object is rendered after a triggering element is activated, the triggering element DOM node can be accessed using the DC.triggerNode property.
   trigger: ""
 
 // Manually set a different DOM element to insert a DC object after when rendered.

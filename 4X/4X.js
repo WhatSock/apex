@@ -76,11 +76,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
           if (dc.preload && !dc.loading && !dc.loaded) {
             if (dc.mode === 1 && dc.fetch.url) {
-              dc.source = $A.toNode();
+              dc.content = $A.toNode();
               dc.isLoading = true;
               $A.load(
                 dc.fetch.url,
-                dc.source,
+                dc.content,
                 dc.fetch.data,
                 function(content) {
                   dc.isLoading = false;
@@ -97,8 +97,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 }
               );
               dc.mode = 0;
-            } else if (dc.preloadImages && !dc.mode && dc.source)
-              $A.preloadImg(dc.source);
+            } else if (dc.preloadImages && !dc.mode && dc.content)
+              $A.preloadImg(dc.content);
           }
           if (dc.preloadCSS && dc.importCSS && !dc.loading && !dc.loaded) {
             dc.fn.style = $A.toNode();
@@ -386,7 +386,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
       if (ctrl && $A.isPath(ctrl)) {
         config.fetch = $A.toFetch(ctrl);
-        config.source = null;
+        config.content = null;
         config.trigger = o;
         config.mode = 1;
         if (!config.id && $A.isDOMNode(o) && o.id) config.id = o.id;
@@ -395,31 +395,31 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         $A.isSelector("#" + ctrl) &&
         document.querySelector("#" + ctrl)
       ) {
-        config.source = document.querySelector("#" + ctrl);
+        config.content = document.querySelector("#" + ctrl);
         config.trigger = o;
         if (!config.id && $A.isDOMNode(o) && o.id) config.id = o.id;
-      } else if ($A.isDOMNode(o) && (config.source || config.fetch)) {
+      } else if ($A.isDOMNode(o) && (config.content || config.fetch)) {
         config.trigger = o;
         if (!config.id && o.id) config.id = o.id;
       } else if ($A.isDOMNode(o)) {
-        config.source = o;
+        config.content = o;
         if (!config.id && o.id) config.id = o.id;
         alone = true;
       }
 
       var rendered = $A.isBool(config.isRendered)
         ? config.isRendered
-        : alone && $A.isWithin(config.source) && !$A.isHidden(config.source);
+        : alone && $A.isWithin(config.content) && !$A.isHidden(config.content);
 
       if (rendered && !config.root) {
-        if ($A.isDOMNode($A.next(config.source))) {
-          config.root = $A.next(config.source);
+        if ($A.isDOMNode($A.next(config.content))) {
+          config.root = $A.next(config.content);
           config.before = true;
-        } else if ($A.isDOMNode($A.previous(config.source))) {
-          config.root = $A.previous(config.source);
+        } else if ($A.isDOMNode($A.previous(config.content))) {
+          config.root = $A.previous(config.content);
           config.after = true;
-        } else if ($A.isDOMNode(config.source.parentNode)) {
-          config.root = config.source.parentNode;
+        } else if ($A.isDOMNode(config.content.parentNode)) {
+          config.root = config.content.parentNode;
           config.append = true;
         }
         config.loaded = true;
@@ -628,7 +628,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       } else if ($A.isStr(o)) {
         if ($A.isMarkup(o)) return $A.toNode(o, false, retArray);
         else {
-          if ($A.getEl(o)) return $A.getEl(o);
+          if (window.document.getElementById(o))
+            return window.document.getElementById(o);
           else if ($A.isSelector(o)) {
             if (!$A.isDOMNode(context, null, document, 11)) context = document;
             var r = context.querySelectorAll(o);
@@ -1459,7 +1460,7 @@ error: function(error, promise){}
                         $A.getDC($A.data(o, "SavedEventParameters")) ||
                         $A.data(o, "DC");
                       if ($A.isDC(dc) && $A.isArray($A.data(o, "DC-ON")))
-                        dc.triggerObj = o;
+                        dc.triggerNode = o;
                       if (isLoaded(q)) {
                         p.call(o, null, dc, $A.data(o, "SavedEventParameters"));
                       } else if (
@@ -1477,7 +1478,7 @@ error: function(error, promise){}
                     $A.getDC($A.data(o, "SavedEventParameters")) ||
                     $A.data(o, "DC");
                   if ($A.isDC(dc) && $A.isArray($A.data(o, "DC-ON")))
-                    dc.triggerObj = o;
+                    dc.triggerNode = o;
                   if (isLoaded(p)) {
                     fn.call(o, null, dc, $A.data(o, "SavedEventParameters"));
                   } else if (
@@ -2003,7 +2004,7 @@ error: function(error, promise){}
       var a = r.outerNode,
         c = r.container;
       if (p && r.loaded) {
-        if (r.sourceOnly) {
+        if (r.contentOnly) {
           $A.before(c, a);
           c = null;
         } else $A.before($A.extractNodes(c), a);
@@ -2451,7 +2452,7 @@ error: function(error, promise){}
     _calcPosition: function(dc, objArg, posVal) {
       var obj = objArg || dc.posAnchor;
       if (obj && $A.isStr(obj)) obj = $A.query(obj)[0];
-      else if (!obj) obj = dc.triggerObj;
+      else if (!obj) obj = dc.triggerNode;
       if (!obj) return;
       var autoPosition = posVal || dc.autoPosition,
         pos = {},
@@ -3047,7 +3048,7 @@ error: function(error, promise){}
         isDC = false;
       if (!$A.isDC(o) && $A.hasDC(o)) o = $A.getDC(o);
       if ($A.isDC(o)) {
-        t = o.triggerObj || o.trigger;
+        t = o.triggerNode || o.trigger;
         isDC = true;
       }
       $A.query(t, function(i, o) {
@@ -3076,7 +3077,7 @@ error: function(error, promise){}
       }
       var t = o;
       if (!$A.isDC(o) && $A.hasDC(o)) o = $A.getDC(o);
-      if ($A.isDC(o)) t = o.triggerObj || $A.query(o.trigger)[0];
+      if ($A.isDC(o)) t = o.triggerNode || $A.query(o.trigger)[0];
       if (
         ($A.isDC(o) && o.disabled) ||
         $A.data(t, "disabled") ||
@@ -3097,7 +3098,7 @@ error: function(error, promise){}
         function(i, o) {
           var t = o;
           if (!$A.isDC(o) && $A.hasDC(o)) o = $A.getDC(o);
-          if ($A.isDC(o)) t = o.triggerObj || o.trigger;
+          if ($A.isDC(o)) t = o.triggerNode || o.trigger;
           $A.query(t, function(x, e) {
             var isD =
               ($A.isNatActEl(e) && e.disabled) ||
@@ -3141,16 +3142,16 @@ error: function(error, promise){}
         changeTabs = function(DC, isClose) {
           var dc = WL[DC.indexVal];
           if ((dc.isTab || dc.isToggle) && dc.toggleClassName) {
-            if (isClose && (dc.trigger || dc.triggerObj)) {
-              $A.query(dc.trigger || dc.triggerObj, function(i, o) {
+            if (isClose && (dc.trigger || dc.triggerNode)) {
+              $A.query(dc.trigger || dc.triggerNode, function(i, o) {
                 $A.toggleClass(o, dc.toggleClassName, false);
               });
-            } else if (dc.trigger || dc.triggerObj) {
-              $A.query(dc.trigger || dc.triggerObj, function(i, o) {
+            } else if (dc.trigger || dc.triggerNode) {
+              $A.query(dc.trigger || dc.triggerNode, function(i, o) {
                 $A.toggleClass(
                   o,
                   dc.toggleClassName,
-                  o === dc.triggerObj ? true : false
+                  o === dc.triggerNode ? true : false
                 );
               });
             }
@@ -3312,11 +3313,11 @@ error: function(error, promise){}
 
           switch (dc.mode) {
             case 1:
-              dc.source = $A.toNode();
+              dc.content = $A.toNode();
               dc.isLoading = true;
               $A.load(
                 dc.fetch.url,
-                dc.source,
+                dc.content,
                 dc.fetch.data,
                 function(content, promise) {
                   dc.isLoading = false;
@@ -3333,7 +3334,7 @@ error: function(error, promise){}
               );
               break;
             case 2:
-              dc.source = $A.toNode();
+              dc.content = $A.toNode();
               dc.isLoading = true;
               $A.get({
                 url: dc.fetch.url,
@@ -3372,10 +3373,10 @@ error: function(error, promise){}
               $A.import(dc.importCSS, {}, dc.fn.style);
             }
 
-            if (dc.exposeBounds) dc.sourceOnly = false;
-          } else dc.sourceOnly = true;
+            if (dc.exposeBounds) dc.contentOnly = false;
+          } else dc.contentOnly = true;
 
-          if (!dc.sourceOnly) {
+          if (!dc.contentOnly) {
             dc.outerNode = $A.createEl("div", {
               id: dc.outerNodeId
             });
@@ -3383,18 +3384,18 @@ error: function(error, promise){}
               id: dc.containerId
             });
             dc.outerNode.appendChild(dc.container);
-            if ($A.isStr(dc.source) && $A.isMarkup(dc.source))
-              $A.insertMarkup(dc.source, dc.container);
-            else $A.insert(dc.source, dc.container, null, true);
+            if ($A.isStr(dc.content) && $A.isMarkup(dc.content))
+              $A.insertMarkup(dc.content, dc.container);
+            else $A.insert(dc.content, dc.container, null, true);
             var fC = $A.firstChild(dc.container);
             if (fC && fC.hidden) fC.hidden = false;
           } else {
-            dc.source = $A.morph(dc.source);
-            if (!dc.toggleHide) dc.source = $A._check(dc.source, true);
-            dc.outerNode = dc.container = dc.source;
-            if (!dc.source.id) dc.source.id = dc.fn.baseId;
-            dc.outerNodeId = dc.containerId = dc.source.id;
-            if (!dc.toggleHide && dc.source.hidden) dc.source.hidden = false;
+            dc.content = $A.morph(dc.content);
+            if (!dc.toggleHide) dc.content = $A._check(dc.content, true);
+            dc.outerNode = dc.container = dc.content;
+            if (!dc.content.id) dc.content.id = dc.fn.baseId;
+            dc.outerNodeId = dc.containerId = dc.content.id;
+            if (!dc.toggleHide && dc.content.hidden) dc.content.hidden = false;
           }
 
           if (!dc.toggleHide) {
@@ -3445,13 +3446,13 @@ error: function(error, promise){}
               $A.module[dc.widgetType].innerRole.call(dc, dc)
             );
 
-          if (dc.ariaLabelledby && dc.triggerObj) {
-            if (!dc.triggerObj.id) dc.triggerObj.id = $A.genId();
-            $A.addIdRef(dc.outerNode, "aria-labelledby", dc.triggerObj.id);
+          if (dc.ariaLabelledby && dc.triggerNode) {
+            if (!dc.triggerNode.id) dc.triggerNode.id = $A.genId();
+            $A.addIdRef(dc.outerNode, "aria-labelledby", dc.triggerNode.id);
           } else if (dc.role) dc.setAttr("aria-label", dc.role);
 
-          if (dc.ariaControls && dc.triggerObj) {
-            $A.setAttr(dc.triggerObj, "aria-controls", dc.outerNodeId);
+          if (dc.ariaControls && dc.triggerNode) {
+            $A.setAttr(dc.triggerNode, "aria-controls", dc.outerNodeId);
           }
 
           $A.getModule(dc, "duringRender", dc.container);
@@ -3510,8 +3511,8 @@ error: function(error, promise){}
                 }
               } else if (dc.targetObj)
                 $A._insertAfter(dc.outerNode, dc.targetObj);
-              else if (dc.triggerObj)
-                $A._insertAfter(dc.outerNode, dc.triggerObj);
+              else if (dc.triggerNode)
+                $A._insertAfter(dc.outerNode, dc.triggerNode);
             }
           } else {
             dc.container.hidden = false;
@@ -3520,8 +3521,8 @@ error: function(error, promise){}
 
           dc.isRendered = true;
           if (!dc.storeData) {
-            if (dc.sourceOnly) dc.source = dc.container.cloneNode(true);
-            else dc.source = $A.cloneNodes(dc.container);
+            if (dc.contentOnly) dc.content = dc.container.cloneNode(true);
+            else dc.content = $A.cloneNodes(dc.container);
           }
 
           var complete = function() {
@@ -3674,29 +3675,29 @@ error: function(error, promise){}
               if (dc.fn.style) $A.remove(dc.fn.style);
               if (dc.fn.closeLink) $A.remove(dc.fn.closeLink);
               if (!dc.toggleHide) {
-                if (dc.sourceOnly) {
+                if (dc.contentOnly) {
                   if (dc.container.parentNode)
-                    dc.source = dc.container.parentNode.removeChild(
+                    dc.content = dc.container.parentNode.removeChild(
                       dc.container
                     );
                   dc.outerNode = dc.container = null;
-                } else dc.source = $A.extractNodes(dc.container);
+                } else dc.content = $A.extractNodes(dc.container);
                 if ($A.isDOMNode(dc.outerNode)) $A.empty(dc.outerNode, true);
               } else {
-                dc.source = dc.container;
-                dc.source.hidden = true;
+                dc.content = dc.container;
+                dc.content.hidden = true;
                 dc.outerNode = dc.container = null;
               }
               dc.isRendered = false;
               dc.loaded = false;
-              if (dc.ariaControls) $A.remAttr(dc.triggerObj, "aria-controls");
+              if (dc.ariaControls) $A.remAttr(dc.triggerNode, "aria-controls");
               if (dc.isTab || dc.isToggle) changeTabs(dc, true);
               dc.closing = false;
               $A.getModule(dc, "afterRemove", dc.container);
               parseScripts(dc, "AfterRemove", function() {
                 if (!dc.fn.bypass) {
-                  if (dc.returnFocus && dc.triggerObj && !dc.rerouteFocus) {
-                    $A.focus(dc.triggerObj);
+                  if (dc.returnFocus && dc.triggerNode && !dc.rerouteFocus) {
+                    $A.focus(dc.triggerNode);
                   } else if (dc.rerouteFocus) {
                     $A.focus(dc.rerouteFocus);
                     dc.rerouteFocus = null;
@@ -3848,7 +3849,7 @@ error: function(error, promise){}
           if (dc.trigger)
             $A.query(dc.trigger, function(i, o) {
               if (dc.toggleHide) $A.off(o, "." + dc.fn.internalEventsId);
-              if (!dc.triggerObj) dc.triggerObj = o;
+              if (!dc.triggerNode) dc.triggerNode = o;
               if ($A.isArray($A.data(o, "DC-ON"))) $A.data(o, "DC-ON").push(dc);
               else $A.data(o, "DC-ON", [dc]);
               $A.data(o, "DC", dc);
@@ -4001,7 +4002,7 @@ error: function(error, promise){}
           return $A.query(sel, con, call);
         },
 
-        // source: "",
+        // content: "",
         sourceOnly: true,
         // storeData: false,
         // toggleHide: false,
@@ -4144,7 +4145,7 @@ error: function(error, promise){}
             returnType: "html"
           },
           success: function(content, promise, dc) {
-            dc.source = content;
+            dc.content = content;
             return dc;
           },
           error: function(errorMsg, promise, dc) {
@@ -4181,7 +4182,7 @@ error: function(error, promise){}
               }, dc.delayTimeout);
             }
           } else {
-            dc.source = node;
+            dc.content = node;
             dc.mode = 0;
             DCR1(dc);
           }

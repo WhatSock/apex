@@ -85,7 +85,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
         if ($A.isPlainObject(o)) {
           config = o;
-          o = config.trigger || config.source || null;
+          o = config.trigger || config.content || null;
         }
         if (!o) return null;
         if (!config) config = {};
@@ -109,7 +109,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 validate: function(dc, target) {
                   if (!target.value) {
                     dc.isValid = false;
-                    return dc.source;
+                    return dc.content;
                   }
                   dc.isValid = true;
                 },
@@ -217,7 +217,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               trigger: o
             };
             if ($A.isPath(dt)) tooltip.fetch = $A.toFetch(dt);
-            else tooltip.source = $A.morph(dt);
+            else tooltip.content = $A.morph(dt);
           }
 
           if ($A.hasAttr(o, "data-error")) {
@@ -229,7 +229,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               isError: true
             };
             if ($A.isPath(de)) error.fetch = $A.toFetch(de);
-            else error.source = $A.morph(de);
+            else error.content = $A.morph(de);
           }
 
           if (error) dcArray.push($A.toDC($A.extend(baseDC(), error)));
@@ -237,7 +237,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           if (tooltip) {
             dcArray.push($A.toDC($A.extend(baseDC(), tooltip)));
             if (
-              tooltip.source &&
+              tooltip.content &&
               !config.isFocusOnly &&
               !config.isError &&
               !config.isResponsive &&
@@ -245,7 +245,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               !config.isAlert &&
               !config.isIE
             )
-              $A.setAttr(o, "aria-description", $A.getText(tooltip.source));
+              $A.setAttr(o, "aria-description", $A.getText(tooltip.content));
           }
 
           if (!error && !tooltip) {
@@ -259,7 +259,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               )
             );
             if (
-              config.source &&
+              config.content &&
               !config.isFocusOnly &&
               !config.isError &&
               !config.isResponsive &&
@@ -270,7 +270,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               $A.setAttr(
                 o,
                 "aria-description",
-                $A.getText($A.morph(config.source))
+                $A.getText($A.morph(config.content))
               );
           }
         });

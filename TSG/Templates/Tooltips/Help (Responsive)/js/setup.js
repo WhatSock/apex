@@ -53,9 +53,10 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
   var errorTooltip = $A.setTooltip("input.has-help-tooltip", {
     isError: true,
     role: "Error",
-    source: "A correct answer to this question is required to proceed.",
+    content: "A correct answer to this question is required to proceed.",
     validate: function(dc, target) {
-      if (target.value.toLowerCase() !== answer.toLowerCase()) return dc.source;
+      if (target.value.toLowerCase() !== answer.toLowerCase())
+        return dc.content;
     },
     className: "error-tooltip",
     delay: 0,

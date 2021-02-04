@@ -38,7 +38,7 @@ id: 'uniqueId',
 // Optionally specify the content to be rendered when referencing internal content.
 // May be a DOM node or CSS selector.
 // Not necessary if data-menu is set on the triggering element.
-source: "#uniqueId",
+content: "#uniqueId",
 
 // Specifies that the referenced content for rendering should not be dynamically inserted into the DOM, but will instead toggle the hidden attribute.
 toggleHide: true,
@@ -53,12 +53,36 @@ selector: "#uniqueId"
 }
 },
 
+// Choose the type of mouse interaction for the triggering element.
+// When rightClick is true, pressing Shift+F10 or the Applications key will perform the same action as right clicking.
+leftClick: true,
+rightClick: false,
+
+// Specify the tag names for the parent a child elements that will be matched against when building the menu structure.
+tag: {
+parent: "ul", // Will become the container with role="menu"
+child: "a" // Will become the focusable active element with role="menuitem", "menuitemcheckbox", or "menuitemradio"
+},
+
+// Set a custom event handler to process every time a menu item is activated.
+onActivate: function(event, triggerNode, RTI, DC, arrowKeyCode) {
+// Do something.
+},
+
 // Set the class name for the top level container element
 className: 'menu',
 
 // Set the class name for the screen reader accessible close link
 // This must match the class name for any close links or buttons within the menu content, which will cause close event binding to automatically occur when the content is rendered.
 closeClassName: "CloseDC",
+
+// Preload markup in the background when using the Fetch API to load external content.
+// For examples, view files within "TSG/Templates/Menus".
+preload: false,
+
+// Preload images in the background when using the Fetch API to load external content.
+// For examples, view files within "TSG/Templates/Menus".
+preloadImages: false,
 
 // Optionally run a script after the menu finishes rendering.
 afterRender: function(DC) {
@@ -103,6 +127,12 @@ complete(); // REQUIRED: complete() must be executed so control is passed back t
 
 }
 
+},
+
+// Optionally extend the RTI instance with custom event handlers.
+// For available options, view the RovingTabIndex help doc at "4X/Help/$A API/ARIA Development/Action Modules/RovingTabIndex".
+extendRTI: {
+// Optional event handlers.
 }
 
 // (Other 4X API properties and methods can be declared here also to customize functionality and behavior)

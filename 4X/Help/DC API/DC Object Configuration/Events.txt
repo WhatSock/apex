@@ -2,9 +2,9 @@ Description: Event properties can be set to handle standard interactions.
 
 Note: When set, events are bound to the DOM element associated with DC.outerNode. Each property may be set declaratively when creating new DC objects, or directly by modifying individual properties on instantiated DC objects.
 
-When DC.sourceOnly is true, bound events will be added to the outer-most container element for the DC object as specified using DC.source.
+When DC.contentOnly is true, bound events will be added to the outer-most container element for the DC object as specified using DC.content.
 
-All events that provide an associated DC object provide access to all properties and methods associated with that DC instance. For example, DC.triggerObj will always reference the triggering element that triggered the currently rendered DC object.
+All events that provide an associated DC object provide access to all properties and methods associated with that DC instance. For example, DC.triggerNode will always reference the triggering element that triggered the currently rendered DC object.
 
 Declarative Syntax
 

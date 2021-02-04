@@ -501,7 +501,7 @@ var Prism = (function(_self) {
         if (greedy && !pattern.pattern.global) {
           // Without the global flag, lastIndex won't work
           var flags = pattern.pattern.toString().match(/[imsuy]*$/)[0];
-          pattern.pattern = RegExp(pattern.pattern.source, flags + "g");
+          pattern.pattern = RegExp(pattern.pattern.content, flags + "g");
         }
 
         pattern = pattern.pattern || pattern;
@@ -903,7 +903,7 @@ Object.defineProperty(Prism.languages.markup.tag, "addInlined", {
     var def = {};
     def[tagName] = {
       pattern: RegExp(
-        /(<__[\s\S]*?>)(?:<!\[CDATA\[(?:[^\]]|\](?!\]>))*\]\]>|(?!<!\[CDATA\[)[\s\S])*?(?=<\/__>)/.source.replace(
+        /(<__[\s\S]*?>)(?:<!\[CDATA\[(?:[^\]]|\](?!\]>))*\]\]>|(?!<!\[CDATA\[)[\s\S])*?(?=<\/__>)/.content.replace(
           /__/g,
           function() {
             return tagName;
@@ -951,7 +951,7 @@ Prism.languages.rss = Prism.languages.xml;
       }
     },
     url: {
-      pattern: RegExp("url\\((?:" + string.source + "|[^\n\r()]*)\\)", "i"),
+      pattern: RegExp("url\\((?:" + string.content + "|[^\n\r()]*)\\)", "i"),
       greedy: true,
       inside: {
         function: /^url/i,
@@ -959,7 +959,7 @@ Prism.languages.rss = Prism.languages.xml;
       }
     },
     selector: RegExp(
-      "[^{}\\s](?:[^{};\"']|" + string.source + ")*?(?=\\s*\\{)"
+      "[^{}\\s](?:[^{};\"']|" + string.content + ")*?(?=\\s*\\{)"
     ),
     string: {
       pattern: string,

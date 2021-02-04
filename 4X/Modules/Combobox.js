@@ -56,14 +56,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               optionClass: "option clearfix",
               activeClass: "active",
               toggleClass: "pressed",
-              triggerObj: combobox,
+              triggerNode: combobox,
               widgetType: "Combobox",
               autoCloseSameWidget: true,
               cb: {
                 selected: [],
                 select: function(dc, o, select) {
                   if (!$A.isDOMNode(o) || !o.id) {
-                    $A.remAttr(dc.triggerObj, [
+                    $A.remAttr(dc.triggerNode, [
                       "aria-activedescendant",
                       "aria-controls"
                     ]);
@@ -75,14 +75,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   $A.remClass(dc.cb.selected, dc.activeClass);
                   dc.cb.selected = [];
                   if (select) {
-                    $A.setAttr(dc.triggerObj, "aria-activedescendant", o.id);
+                    $A.setAttr(dc.triggerNode, "aria-activedescendant", o.id);
                     dc.cb.activeDescendant = true;
                     $A.setAttr(o, "aria-selected", "true");
                     $A.addClass(o, dc.activeClass);
                     dc.cb.selected.push(o);
                     that.scrollIntoView(o, dc.scrollCallback, dc);
                   } else {
-                    $A.remAttr(dc.triggerObj, [
+                    $A.remAttr(dc.triggerNode, [
                       "aria-activedescendant",
                       "aria-controls"
                     ]);
@@ -138,7 +138,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       ? combobox.required
                         ? true
                         : false
-                      : $A.getAttr(dc.triggerObj, "aria-required") === "true"
+                      : $A.getAttr(dc.triggerNode, "aria-required") === "true"
                       ? true
                       : false;
                     dc.cb.multiple = $A.getAttr(dc.cb.sel, "multiple")
@@ -176,7 +176,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         ">";
 
                       dc.cb.options[dc.cb.optionNodes[i].value] = {
-                        source: o,
+                        content: o,
                         id: oId,
                         so: dc.cb.optionNodes[i],
                         checked: dc.cb.optionNodes[i].selected,
@@ -207,7 +207,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     }
 
                     if (dc.cb.required && dc.cb.isInput)
-                      $A.setAttr(dc.triggerObj, {
+                      $A.setAttr(dc.triggerNode, {
                         "aria-required": "true"
                       });
                   },
@@ -373,7 +373,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                     if ($A.isFn($A.getAccName) && !$A.getAccName(o).name)
                       $A.setAttr(o, {
-                        "aria-label": $A.getAccName(dc.triggerObj).name
+                        "aria-label": $A.getAccName(dc.triggerNode).name
                       });
 
                     dc.cb.altClicked = false;
@@ -393,7 +393,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           }
                           that.close();
                         }
-                        dc.triggerObj.focus();
+                        dc.triggerNode.focus();
                         setTimeout(function() {
                           dc.cb.altClicked = false;
                         }, 300);
@@ -417,17 +417,17 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         dc.cb.fn.onSelect &&
                         $A.isFn(dc.cb.fn.onSelect)
                       ) {
-                        var nv = dc.cb.fn.onSelect.apply(dc.triggerObj, [
+                        var nv = dc.cb.fn.onSelect.apply(dc.triggerNode, [
                           option.no,
                           option.v,
-                          dc.triggerObj,
+                          dc.triggerNode,
                           dc.cb.sel
                         ]);
 
                         if (nv || $A.isStr(nv)) dc.cb.value = nv;
                       } else if (dc.cb.isInput) {
                         if (manual || dc.cb.setDefault)
-                          dc.triggerObj.value = dc.cb.value;
+                          dc.triggerNode.value = dc.cb.value;
                       } else {
                         if (manual || dc.cb.setDefault) {
                           dc.cb.child.innerHTML = dc.cb.value;
@@ -475,17 +475,17 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         dc.cb.fn.onSelect &&
                         $A.isFn(dc.cb.fn.onSelect)
                       ) {
-                        var nv = dc.cb.fn.onSelect.apply(dc.triggerObj, [
+                        var nv = dc.cb.fn.onSelect.apply(dc.triggerNode, [
                           dc.cb.value,
                           soNodes,
-                          dc.triggerObj,
+                          dc.triggerNode,
                           dc.cb.sel
                         ]);
 
                         if (nv || $A.isStr(nv)) dc.cb.value = nv;
                       } else if (dc.cb.isInput) {
                         if (manual || dc.cb.setDefault)
-                          dc.triggerObj.value = dc.cb.value;
+                          dc.triggerNode.value = dc.cb.value;
                       } else {
                         if (manual || dc.cb.setDefault) {
                           dc.cb.child.innerHTML = dc.cb.value;
@@ -521,7 +521,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     dc.cb.currentOption = null;
 
                     if (dc.cb.isInput) {
-                      dc.cb.value = dc.triggerObj.value;
+                      dc.cb.value = dc.triggerNode.value;
                     } else {
                       dc.cb.value = $A.getText(dc.cb.child);
                     }
@@ -531,7 +531,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                     if (dc.cb.bound) return;
 
-                    $A.off(dc.triggerObj, ".4XCombobox");
+                    $A.off(dc.triggerNode, ".4XCombobox");
                     var touched = false,
                       touchDelay = null,
                       handleClick = function(ev) {
@@ -543,7 +543,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       };
 
                     $A.on(
-                      dc.triggerObj,
+                      dc.triggerNode,
                       {
                         touchstart: function(ev) {
                           touched = true;
@@ -836,7 +836,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   set: function() {
                     var dc = this.dc;
                     dc.cb.select(dc);
-                    $A.setAttr(dc.triggerObj, {
+                    $A.setAttr(dc.triggerNode, {
                       "aria-expanded": "false"
                     });
 
@@ -850,7 +850,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         });
 
                       $A.addIdRef(
-                        dc.triggerObj,
+                        dc.triggerNode,
                         "aria-labelledby",
                         dc.cb.child.id
                       );
@@ -873,9 +873,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       parseInt($A.css(o, "margin-bottom"), 10);
                     h =
                       s * h +
-                      (parseInt($A.css(dc.source, "padding-top"), 10) +
-                        parseInt($A.css(dc.source, "padding-bottom"), 10));
-                    $A.css(dc.source, "height", h);
+                      (parseInt($A.css(dc.content, "padding-top"), 10) +
+                        parseInt($A.css(dc.content, "padding-bottom"), 10));
+                    $A.css(dc.content, "height", h);
                   }
                 }
               },
@@ -886,7 +886,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 if (!dc.cb.matches.length) return (dc.cancel = true);
                 dc.fn.matches = dc.cb.matches;
                 dc.cb.baseInc++;
-                dc.source = that.listboxNode = $A.createEl(
+                dc.content = that.listboxNode = $A.createEl(
                   dc.cb.parentTag,
                   {
                     role: "listbox",
@@ -898,10 +898,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                 for (var i = 0; i < dc.cb.matches.length; i++) {
                   dc.cb.options[dc.cb.matches[i]].o = $A.toNode(
-                    dc.cb.options[dc.cb.matches[i]].source,
+                    dc.cb.options[dc.cb.matches[i]].content,
                     true
                   );
-                  dc.source.appendChild(dc.cb.options[dc.cb.matches[i]].o);
+                  dc.content.appendChild(dc.cb.options[dc.cb.matches[i]].o);
                 }
               },
               duringRender: function(dc) {
@@ -910,7 +910,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               afterRender: function(dc) {
                 if (dc.cb.matches !== dc.fn.matches) {
                   dc.beforeRender(dc);
-                  dc.insert(dc.source);
+                  dc.insert(dc.content);
                 }
                 $A.query(dc.cb.matches, function(i, v) {
                   $A.off(dc.cb.options[v].o, "click");
@@ -961,7 +961,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   );
                 }, 1);
 
-                $A.setAttr(dc.triggerObj, "aria-expanded", "true");
+                $A.setAttr(dc.triggerNode, "aria-expanded", "true");
 
                 if (dc.cb.altTrigger && dc.cb.altTrigger.nodeType === 1) {
                   $A.addClass(dc.cb.altTrigger, dc.toggleClass);
@@ -978,7 +978,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 }
 
                 if (dc.cb.fn.onOpen && $A.isFn(dc.cb.fn.onOpen))
-                  dc.cb.fn.onOpen.apply(dc.triggerObj, [dc]);
+                  dc.cb.fn.onOpen.apply(dc.triggerNode, [dc]);
               },
               beforeRemove: function(dc) {
                 if (dc.loaded) {
@@ -990,7 +990,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               afterRemove: function(dc) {
                 dc.cb.mClicked = false;
                 dc.cb.select(dc);
-                $A.setAttr(dc.triggerObj, {
+                $A.setAttr(dc.triggerNode, {
                   "aria-expanded": "false"
                 });
 
@@ -1012,10 +1012,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 }
 
                 if (dc.cb.fn.onClose && $A.isFn(dc.cb.fn.onClose))
-                  dc.cb.fn.onClose.apply(dc.triggerObj, [dc]);
+                  dc.cb.fn.onClose.apply(dc.triggerNode, [dc]);
               },
               onCreate: function(dc) {
-                that.combobox = dc.triggerObj;
+                that.combobox = dc.triggerNode;
                 that.select = dc.cb.sel;
               },
               scrollConfig: config.scrollConfig || {}
@@ -1154,7 +1154,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 $A.setAttr(option.o, "aria-checked", "false");
               } // End for loop
 
-              if (dc.cb.isInput) dc.triggerObj.value = "";
+              if (dc.cb.isInput) dc.triggerNode.value = "";
               else if (dc.cb.child) {
                 if (!dc.cb.multiple) $A.empty(dc.cb.child);
                 else dc.cb.fn.setValue(false, true);
@@ -1253,8 +1253,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               $A.off(window, "." + baseId);
             });
 
-            if (!dc.cb.isInput && !$A.getAttr(dc.triggerObj, "tabindex"))
-              $A.setAttr(dc.triggerObj, "tabindex", "0");
+            if (!dc.cb.isInput && !$A.getAttr(dc.triggerNode, "tabindex"))
+              $A.setAttr(dc.triggerNode, "tabindex", "0");
 
             dc.cb.fn.set();
 

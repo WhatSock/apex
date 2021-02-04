@@ -11,5 +11,5 @@ Example:
 
 $A.loop(DC.siblings, function(index, sibDC) {
   // Remove the 'active' class on the triggering elements on all siblings except for the one that is currently rendered, which will be added.
-  $A(sibDC.triggerObj).toggleClass("active", sibDC.loaded);
+  $A(sibDC.triggerNode).toggleClass("active", sibDC.loaded);
 }, "array");

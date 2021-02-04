@@ -1,7 +1,7 @@
 $A.import(["Animate", "Dialog"], { defer: true }, function() {
   var timeoutDialogDC = $A.setDialog({
     role: "Session Timeout",
-    source: "#dialog-timeout",
+    content: "#dialog-timeout",
     className: "modal",
     isModal: true,
     isAlert: true,

@@ -35,7 +35,7 @@ id: 'uniqueId',
 // Optionally specify the content to be rendered when referencing internal content.
 // May be a DOM node or CSS selector.
 // Not necessary if data-controls is set on the triggering element.
-source: "#uniqueId",
+content: "#uniqueId",
 
 // Optionally specify the content to be rendered when referencing external content.
 // Not necessary if data-controls is set on the triggering element.

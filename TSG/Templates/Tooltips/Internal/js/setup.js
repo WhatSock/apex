@@ -46,7 +46,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
   });
 
   var hoverTooltipDC = $A.setTooltip("button.action-btn", {
-    source: '<div id="hover-tooltip"><p>Wow, look at that!</p></div>',
+    content: '<div id="hover-tooltip"><p>Wow, look at that!</p></div>',
     className: "tooltip on-hover",
     delay: 600,
     delayTimeout: 3000,

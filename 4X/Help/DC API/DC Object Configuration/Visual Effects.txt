@@ -32,7 +32,7 @@ Note: The displayed value for each property represents its default value when om
 // Set a toggle class name for the triggering element.
 // Multiple classes can be added by separating each with a space.
 // A toggle class will be added when the DC object is opened, and removed when closed.
-// Requires that DC.trigger or DC.triggerObj is set to assign a triggering element.
+// Requires that DC.trigger or DC.triggerNode is set to assign a triggering element.
   toggleClassName: ""
 
 // Assign inline styles for DC.outerNode that will be applied when the DC object is rendered.
@@ -61,7 +61,7 @@ preloadCSS: false
 
 // Automatically set style="display:inline;" upon the DC.outerNode and DC.container elements when rendered.
 // Otherwise, default block level styling for div elements will be inherited.
-// This property is ignored when DC.sourceOnly is true.
+// This property is ignored when DC.contentOnly is true.
   displayInline: false
 
 // Set an auto-position value to visually position a floating DC object relative to its triggering element or a specified target.

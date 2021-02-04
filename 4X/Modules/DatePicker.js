@@ -1090,11 +1090,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   dc.rightButtonMonthText +
                   "</span></td></tr>";
 
-                dc.source = "";
+                dc.content = "";
 
                 // Start constructing the Datepicker table element
                 // Reconfigured for Esc btn processing
-                dc.source +=
+                dc.content +=
                   '<table role="presentation" class="calendar">' +
                   yearSelector +
                   monthSelector +
@@ -1111,14 +1111,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     dc.iter = dc.iterE = di + 6 > 6 ? -1 + di : di + 6;
                     dc.iterS = di;
                   }
-                  dc.source +=
+                  dc.content +=
                     '<th scope="col" class="week" title="' +
                     d.lng +
                     '" role="presentation"><span>' +
                     d.shrt +
                     "</span></th>";
                 }
-                dc.source += '</tr><tr role="presentation">';
+                dc.content += '</tr><tr role="presentation">';
 
                 // Start drawing day cells
                 var m = new Date();
@@ -1153,7 +1153,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                   if (dc.drawFullCalendar === true) {
                     prevMonth.setDate(counter);
-                    dc.source += dc.createDayCell(
+                    dc.content += dc.createDayCell(
                       counter,
                       prevMonth,
                       "dayInPrevMonth",
@@ -1161,7 +1161,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     );
                     ++counter;
                   } else {
-                    dc.source +=
+                    dc.content +=
                       '<td class="empty" role="presentation"><span>&nbsp;</span></td>';
                   }
                 }
@@ -1185,7 +1185,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     dc.range.current.year === dc.fn.current.year;
 
                   // Draw calendar day cell
-                  dc.source += dc.createDayCell(
+                  dc.content += dc.createDayCell(
                     i,
                     m,
                     "dayInMonth",
@@ -1196,7 +1196,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   var w = m.getDay();
 
                   if (w === dc.iter && i < dc.range[dc.range.current.month].max)
-                    dc.source += '</tr><tr role="presentation">';
+                    dc.content += '</tr><tr role="presentation">';
                 }
 
                 if (dc.drawFullCalendar === true) {
@@ -1208,7 +1208,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                   if (dc.drawFullCalendar === true) {
                     nextMonth.setDate(counter);
-                    dc.source += dc.createDayCell(
+                    dc.content += dc.createDayCell(
                       counter,
                       nextMonth,
                       "dayInNextMonth",
@@ -1216,11 +1216,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     );
                     ++counter;
                   } else {
-                    dc.source +=
+                    dc.content +=
                       '<td class="empty" role="presentation"><span>&nbsp;</span></td>';
                   }
                 }
-                dc.source += "</tr></table>";
+                dc.content += "</tr></table>";
 
                 if (!$A.isDOMNode(dc.messageContainer)) {
                   dc.messageContainerId = $A.genId();
@@ -1260,7 +1260,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                 // Reconfigured for Esc btn processing
                 if (dc.showEscBtn) {
-                  dc.source +=
+                  dc.content +=
                     '<button id="' +
                     dc.baseId +
                     'esc" aria-label="' +
@@ -1311,7 +1311,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               },
               duringRender: function(dc) {
                 if (dc.rerendering) {
-                  dc.container.innerHTML = dc.source;
+                  dc.container.innerHTML = dc.content;
                 } else {
                   dc.datepickerLoaded = false;
 
@@ -1513,7 +1513,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         comm = $A.trim(comm.replace(/<|>/g, ""));
 
                         if (comm) {
-                          commentDC.source = comm;
+                          commentDC.content = comm;
                           commentDC.rerender(function() {
                             if (formDC.openEditor) {
                               formDC.openEditor = false;
@@ -2353,7 +2353,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     formDC.render();
 
                   if (dc.openOnFocus) $A.setAttr(targ, "aria-expanded", "true");
-                  $A.setAttr(dc.triggerObj, "aria-expanded", "true");
+                  $A.setAttr(dc.triggerNode, "aria-expanded", "true");
                   setTimeout(function() {
                     dc.datepickerLoaded = true;
                   }, 750);
@@ -2376,7 +2376,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     formDC.remove();
                   }
 
-                  $A.setAttr(dc.triggerObj, "aria-expanded", "false");
+                  $A.setAttr(dc.triggerNode, "aria-expanded", "false");
                 }
 
                 if ($A.isFn(config.configure))
@@ -2420,7 +2420,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               className:
                 (config.editor && config.editor.className) || "commentAdd",
               openEditor: false,
-              source:
+              content:
                 '<textarea style="visibility: hidden; display: none;" class="commentTa" title="' +
                 commentDC.role +
                 '"></textarea><button title="' +

@@ -323,7 +323,7 @@
 
                 return {
                   item: item,
-                  source: source
+                  content: source
                 };
               }
 
@@ -339,12 +339,12 @@
               }
 
               function start(context) {
-                if (isCopy(context.item, context.source)) {
+                if (isCopy(context.item, context.content)) {
                   _copy = context.item.cloneNode(true);
                   drake.emit("cloned", _copy, context.item, "copy");
                 }
 
-                _source = context.source;
+                _source = context.content;
                 _item = context.item;
                 _initialSibling = _currentSibling = nextEl(context.item);
 
