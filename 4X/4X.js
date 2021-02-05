@@ -4360,6 +4360,13 @@ error: function(error, promise){}
           return dc;
         },
 
+        toggle: function(fn) {
+          var dc = this;
+          if (dc.loaded) dc.remove(fn);
+          else dc.render(fn);
+          return dc;
+        },
+
         events: [
           "mouseOver",
           "mouseOut",
