@@ -1,5 +1,5 @@
-$A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
-  var search = function(s) {
+$A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
+  var search = function (s) {
     if (!s) return;
 
     s = "https://www.google.com/search?q=" + encodeURIComponent(s);
@@ -13,21 +13,21 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
     delay: 200,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, outerNode, complete) {
+      onRender: function (dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeIn", {
-          complete: function() {
+          complete: function () {
             complete();
-          }
+          },
         });
       },
-      onRemove: function(dc, outerNode, complete) {
+      onRemove: function (dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeOut", {
-          complete: function() {
+          complete: function () {
             complete();
-          }
+          },
         });
-      }
-    }
+      },
+    },
   });
 
   // Disable auto population of default value
@@ -37,7 +37,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   myHardwareCombobox.setWordMatch(true);
 
   // Process every time a new value is saved
-  myHardwareCombobox.onSelect(function(
+  myHardwareCombobox.onSelect(function (
     optionText,
     optionValue,
     comboboxElement,
@@ -59,7 +59,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
 
   // Dynamically toggle help text for desktops that support dual touch and keyboard interaction.
   if (window.device.type === "desktop") {
-    $A.on("toggletouch", function(ev) {
+    $A.on("toggletouch", function (ev) {
       myHardwareCombobox.setPromptText(
         $A.isTouch
           ? ""
@@ -87,7 +87,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   // Now fire up the newly instantiated ARIA Combobox
   myHardwareCombobox.start();
 
-  $A.on("#hardwareBtn", "click", function(ev) {
+  $A.on("#hardwareBtn", "click", function (ev) {
     search(myHardwareCombobox.combobox.value);
     ev.preventDefault();
   });

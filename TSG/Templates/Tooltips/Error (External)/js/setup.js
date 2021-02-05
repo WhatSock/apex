@@ -1,9 +1,9 @@
-$A.import(["Animate", "Tooltip"], { defer: true }, function() {
+$A.import(["Animate", "Tooltip"], { defer: true }, function () {
   var inputs = document.querySelectorAll("input.has-error-tooltip");
   $A.setTooltip(inputs, {
-    onValid: function(dc) {
+    onValid: function (dc) {
       var isValid = true;
-      $A.loop(inputs, function(i, o) {
+      $A.loop(inputs, function (i, o) {
         if (!o.value) isValid = false;
       });
       document.querySelector('input[type="submit"]').disabled = !isValid;
@@ -13,20 +13,20 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
     delayTimeout: 0,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, outerNode, complete) {
+      onRender: function (dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeIn", {
-          complete: function() {
+          complete: function () {
             complete();
-          }
+          },
         });
       },
-      onRemove: function(dc, outerNode, complete) {
+      onRemove: function (dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeOut", {
-          complete: function() {
+          complete: function () {
             complete();
-          }
+          },
         });
-      }
-    }
+      },
+    },
   });
 });

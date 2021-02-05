@@ -5,15 +5,15 @@ https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
 
-(function() {
+(function () {
   if (!("setTabList" in $A)) {
     $A.import("RovingTabIndex", {
       name: "TabListModule",
       props: props,
       once: true,
-      call: function(props) {
+      call: function (props) {
         $A.addWidgetProfile("TabList", {
-          configure: function(dc) {
+          configure: function (dc) {
             return {
               exposeBounds: true,
               isTab: true,
@@ -24,38 +24,38 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               isFocusable: true,
               returnFocus: false,
               on: "activatetab",
-              click: function(ev, dc) {
+              click: function (ev, dc) {
                 ev.stopPropagation();
-              }
+              },
             };
           },
-          role: function(dc) {
+          role: function (dc) {
             return {
-              role: "tabpanel"
+              role: "tabpanel",
             };
           },
-          duringRender: function(dc, container) {
+          duringRender: function (dc, container) {
             $A.setAttr(dc.triggerNode, {
               "aria-expanded": "true",
-              "aria-selected": "true"
+              "aria-selected": "true",
             });
           },
-          afterRender: function(dc, container) {
+          afterRender: function (dc, container) {
             $A.setAttr(dc.triggerNode, {
-              "aria-describedby": dc.containerId
+              "aria-describedby": dc.containerId,
             });
           },
-          afterRemove: function(dc, container) {
+          afterRemove: function (dc, container) {
             $A.setAttr(dc.triggerNode, {
               "aria-expanded": "false",
-              "aria-selected": "false"
+              "aria-selected": "false",
             });
             $A.remAttr(dc.triggerNode, "aria-describedby");
-          }
+          },
         });
 
         $A.extend({
-          setTabList: function(o, config) {
+          setTabList: function (o, config) {
             if (this._4X) {
               config = o;
               o = this._X;
@@ -72,10 +72,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             var dcArray = [],
               active = null,
               startIndex = 0,
-              triggers = $A.query(o, function(i, o) {
+              triggers = $A.query(o, function (i, o) {
                 var tree = [];
                 if (!$A.isDOMNode(container))
-                  container = $A.closest(o, function(n) {
+                  container = $A.closest(o, function (n) {
                     if ($A.getAttr(n, "role") === "tablist") return true;
                     tree.push(n);
                   });
@@ -83,7 +83,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   $A.setAttr(tree, "role", "presentation");
                 $A.setAttr(o, {
                   "aria-expanded": "false",
-                  "aria-selected": "false"
+                  "aria-selected": "false",
                 });
                 if ($A.getAttr(o, "role") !== "tab") flag = true;
                 var panelContainer = $A.getEl($A.getAttr(o, "data-root")),
@@ -92,7 +92,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       {
                         widgetType: "TabList",
                         root: panelContainer,
-                        append: true
+                        append: true,
                       },
                       config || {}
                     )
@@ -110,7 +110,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             }
 
             $A.map({
-              siblings: dcArray
+              siblings: dcArray,
             });
             $A.updateDisabled(dcArray);
 
@@ -122,18 +122,18 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   orientation: 1,
                   autoSwitch: config.autoSwitch || "full",
                   autoLoop: true,
-                  onClick: function(ev, tabNode, RTI, DC) {
+                  onClick: function (ev, tabNode, RTI, DC) {
                     DC.render();
                     ev.preventDefault();
                   },
-                  onSpace: function(ev, tabNode, RTI, DC) {
+                  onSpace: function (ev, tabNode, RTI, DC) {
                     DC.render();
                     ev.preventDefault();
                   },
-                  onEnter: function(ev, tabNode, RTI, DC) {
+                  onEnter: function (ev, tabNode, RTI, DC) {
                     DC.render();
                     ev.preventDefault();
-                  }
+                  },
                 },
                 config.extendRTI || {}
               )
@@ -142,9 +142,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             if ($A.isDC(active)) active.render();
 
             return dcArray.length === 1 ? dcArray[0] : dcArray;
-          }
+          },
         });
-      }
+      },
     });
   }
 })();

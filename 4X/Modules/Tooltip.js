@@ -5,10 +5,10 @@ https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
 
-(function() {
+(function () {
   if (!("setTooltip" in $A)) {
     $A.addWidgetProfile("Tooltip", {
-      configure: function(dc) {
+      configure: function (dc) {
         return {
           delay: 0,
           delayTimeout: 0,
@@ -27,28 +27,28 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           allowRerender: false,
           escToClose: true,
           returnFocus: false,
-          mouseLeave: function(ev, dc) {
+          mouseLeave: function (ev, dc) {
             dc.remove();
           },
-          click: function(ev, dc) {
+          click: function (ev, dc) {
             dc.remove();
             ev.stopPropagation();
             ev.preventDefault();
-          }
+          },
         };
       },
-      role: function(dc) {
+      role: function (dc) {
         return {
           role: "region",
-          "aria-label": dc.isError ? "Error" : "Tooltip"
+          "aria-label": dc.isError ? "Error" : "Tooltip",
         };
       },
-      innerRole: function(dc) {
+      innerRole: function (dc) {
         return {
-          role: "tooltip"
+          role: "tooltip",
         };
       },
-      onFetch: function(dc, container) {
+      onFetch: function (dc, container) {
         if (
           !dc.isError &&
           !dc.isFocusOnly &&
@@ -65,19 +65,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           );
         }
       },
-      afterRender: function(dc, container) {
+      afterRender: function (dc, container) {
         if (dc.isError || dc.isResponsive || dc.isIE) {
           dc.speak();
         } else if (!dc.noRepeat)
           $A.setAttr(dc.target, "aria-describedby", container.id);
       },
-      afterRemove: function(dc, container) {
+      afterRemove: function (dc, container) {
         $A.remAttr(dc.target, "aria-describedby");
-      }
+      },
     });
 
     $A.extend({
-      setTooltip: function(o, config) {
+      setTooltip: function (o, config) {
         if (this._4X) {
           config = o;
           o = this._X;
@@ -91,29 +91,29 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         if (!config) config = {};
         config.isIE = $A.isIE();
 
-        var baseDC = function() {
+        var baseDC = function () {
             return $A.extend(
               {
                 widgetType: "Tooltip",
-                speak: function(v) {
+                speak: function (v) {
                   var dc = this;
                   v = v || dc.text();
                   if (!dc.noRepeat) {
                     $A.announce.clear();
-                    setTimeout(function() {
+                    setTimeout(function () {
                       $A.announce(v, dc.suppressRepeat, dc.isAlert);
                     }, 1);
                   }
                   return dc;
                 },
-                validate: function(dc, target) {
+                validate: function (dc, target) {
                   if (!target.value) {
                     dc.isValid = false;
                     return dc.content;
                   }
                   dc.isValid = true;
                 },
-                validateCondition: function(dc) {
+                validateCondition: function (dc) {
                   if (!dc.isError && !dc.isResponsive) return dc;
                   var v = dc.validate(dc, dc.target) || false;
                   if (v && !$A.isBool(v)) {
@@ -123,7 +123,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   if ($A.isFn(dc.onValid)) dc.onValid(dc);
                 },
                 on: {
-                  focus: function(ev, dc) {
+                  focus: function (ev, dc) {
                     if (!dc.isError && !dc.isResponsive && !dc.isManualOpen)
                       dc.render();
                     else if (dc.isError || dc.isResponsive) {
@@ -132,14 +132,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       if ($A.isFn(dc.onValid)) dc.onValid(dc);
                     }
                   },
-                  blur: function(ev, dc) {
+                  blur: function (ev, dc) {
                     if (!dc.isError) {
                       if (!$A.isTouch) dc.remove();
                     } else if (!dc.isResponsive) {
                       dc.validateCondition(dc);
                     }
                   },
-                  touchstart: function(ev, dc) {
+                  touchstart: function (ev, dc) {
                     if (!dc.isError && !dc.isResponsive && !dc.isManualOpen)
                       dc.render();
                     else if (dc.isError || dc.isResponsive) {
@@ -148,7 +148,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       if ($A.isFn(dc.onValid)) dc.onValid(dc);
                     }
                   },
-                  click: function(ev, dc) {
+                  click: function (ev, dc) {
                     if (!dc.isError && dc.isManualOpen && !dc.loaded) {
                       dc.render();
                       ev.stopPropagation();
@@ -159,7 +159,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       ev.preventDefault();
                     }
                   },
-                  mouseenter: function(ev, dc) {
+                  mouseenter: function (ev, dc) {
                     if (
                       !dc.isError &&
                       !dc.isManualOpen &&
@@ -168,7 +168,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     )
                       dc.render();
                   },
-                  mouseleave: function(ev, dc) {
+                  mouseleave: function (ev, dc) {
                     if (
                       !dc.isError &&
                       !dc.isManualClose &&
@@ -177,7 +177,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     )
                       dc.remove();
                   },
-                  keyup: function(ev, dc) {
+                  keyup: function (ev, dc) {
                     if (dc.isResponsive && dc.target.value !== dc.value) {
                       dc.value = dc.target.value;
                       dc.validateCondition(dc);
@@ -186,7 +186,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       if ($A.isFn(dc.onValid)) dc.onValid(dc);
                     }
                   },
-                  change: function(ev, dc) {
+                  change: function (ev, dc) {
                     if (dc.isResponsive && dc.target.value !== dc.value) {
                       dc.value = dc.target.value;
                       dc.validateCondition(dc);
@@ -194,15 +194,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       dc.validate(dc, dc.target);
                       if ($A.isFn(dc.onValid)) dc.onValid(dc);
                     }
-                  }
-                }
+                  },
+                },
               },
               config || {}
             );
           },
           dcArray = [];
 
-        $A.query(o, function(i, o) {
+        $A.query(o, function (i, o) {
           var tooltip = null,
             error = null,
             id = config.id || o.id || $A.genId();
@@ -214,7 +214,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             tooltip = {
               id: $A.hasDC(id) ? $A.genId() : id,
               target: o,
-              trigger: o
+              trigger: o,
             };
             if ($A.isPath(dt)) tooltip.fetch = $A.toFetch(dt);
             else tooltip.content = $A.morph(dt);
@@ -226,7 +226,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               id: $A.hasDC(id) ? $A.genId() : id,
               target: o,
               trigger: o,
-              isError: true
+              isError: true,
             };
             if ($A.isPath(de)) error.fetch = $A.toFetch(de);
             else error.content = $A.morph(de);
@@ -254,7 +254,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 $A.extend(baseDC(), {
                   id: $A.hasDC(id) ? $A.genId() : id,
                   target: o,
-                  trigger: o
+                  trigger: o,
                 })
               )
             );
@@ -276,7 +276,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         });
 
         return dcArray.length === 1 ? dcArray[0] : dcArray;
-      }
+      },
     });
   }
 })();

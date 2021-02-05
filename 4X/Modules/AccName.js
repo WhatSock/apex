@@ -8,7 +8,7 @@ https://github.com/whatsock/w3c-alternative-text-computation
 Distributed under the terms of the Open Source Initiative OSI - MIT License
 */
 
-(function() {
+(function () {
   var nameSpace = window.AccNamePrototypeNameSpace || window;
   if (nameSpace && typeof nameSpace === "string" && nameSpace.length) {
     window[nameSpace] = {};
@@ -16,7 +16,7 @@ Distributed under the terms of the Open Source Initiative OSI - MIT License
   }
   nameSpace.getAccNameVersion = "2.51";
   // AccName Computation Prototype
-  nameSpace.getAccName = nameSpace.calcNames = function(
+  nameSpace.getAccName = nameSpace.calcNames = function (
     node,
     fnc,
     preventVisualARIASelfCSSRef,
@@ -39,7 +39,7 @@ Distributed under the terms of the Open Source Initiative OSI - MIT License
       var owns = [];
 
       // Recursively process a DOM node to compute an accessible name in accordance with the spec
-      var walk = function(
+      var walk = function (
         refNode,
         stop,
         skip,
@@ -54,7 +54,7 @@ Distributed under the terms of the Open Source Initiative OSI - MIT License
         skipTo.go = skipTo.go || false;
         var fullResult = {
           name: "",
-          title: ""
+          title: "",
         };
         var hasLabel = false;
 
@@ -64,7 +64,7 @@ Distributed under the terms of the Open Source Initiative OSI - MIT License
   https://lists.w3.org/Archives/Public/public-aria/2017Jun/0057.html
 Plus roles extended for the Role Parity project.
   */
-        var isException = function(node, refNode) {
+        var isException = function (node, refNode) {
           if (
             !refNode ||
             !node ||
@@ -74,7 +74,7 @@ Plus roles extended for the Role Parity project.
             return false;
           }
 
-          var inList = function(node, list) {
+          var inList = function (node, list) {
             var role = getRole(node);
             var tag = node.nodeName.toLowerCase();
             return (
@@ -108,7 +108,7 @@ Plus roles extended for the Role Parity project.
             );
         };
 
-        var inParent = function(node, parent) {
+        var inParent = function (node, parent) {
           var trackNodes = [];
           while (node) {
             if (
@@ -134,7 +134,7 @@ Plus roles extended for the Role Parity project.
         // Placeholder for storing CSS before and after pseudo element text values for the top level node
         var cssOP = {
           before: "",
-          after: ""
+          after: "",
         };
 
         if (!skipTo.tag && !skipTo.role && nodes.indexOf(refNode) === -1) {
@@ -160,10 +160,10 @@ Plus roles extended for the Role Parity project.
         }
 
         // Recursively apply the same naming computation to all nodes within the referenced structure
-        var walkDOM = function(node, fn, refNode) {
+        var walkDOM = function (node, fn, refNode) {
           var res = {
             name: "",
-            title: ""
+            title: "",
           };
           if (!node) {
             return res;
@@ -232,7 +232,7 @@ Plus roles extended for the Role Parity project.
 
         fullResult = walkDOM(
           refNode,
-          function(node) {
+          function (node) {
             var i = 0;
             var element = null;
             var ids = [];
@@ -241,7 +241,7 @@ Plus roles extended for the Role Parity project.
               name: "",
               title: "",
               owns: "",
-              skip: false
+              skip: false,
             };
             var isEmbeddedNode = !!(
               node &&
@@ -277,7 +277,7 @@ Plus roles extended for the Role Parity project.
             // Placeholder for storing CSS before and after pseudo element text values for the current node container element
             var cssO = {
               before: "",
-              after: ""
+              after: "",
             };
 
             var parent = refNode === node ? node : node.parentNode;
@@ -380,7 +380,7 @@ Plus roles extended for the Role Parity project.
                     parts.push(
                       walk(element, true, false, [node], false, {
                         ref: ownedBy,
-                        top: element
+                        top: element,
                       }).name
                     );
                   }
@@ -405,7 +405,7 @@ Plus roles extended for the Role Parity project.
                   parts.push(
                     walk(element, true, skip, [node], element === refNode, {
                       ref: ownedBy,
-                      top: element
+                      top: element,
                     }).name
                   );
                 }
@@ -480,7 +480,7 @@ Plus roles extended for the Role Parity project.
                       lblName += addSpacing(
                         walk(labels[i], true, skip, [node], false, {
                           ref: ownedBy,
-                          top: labels[i]
+                          top: labels[i],
                         }).name
                       );
                     }
@@ -638,7 +638,7 @@ Plus roles extended for the Role Parity project.
                     name = trim(
                       walk(fChild, stop, false, [], false, {
                         ref: ownedBy,
-                        top: fChild
+                        top: fChild,
                       }).name
                     );
                   }
@@ -663,7 +663,7 @@ Plus roles extended for the Role Parity project.
                     name = trim(
                       walk(fChild, stop, false, [], false, {
                         ref: ownedBy,
-                        top: fChild
+                        top: fChild,
                       }).name
                     );
                   }
@@ -691,7 +691,7 @@ Plus roles extended for the Role Parity project.
                     name = trim(
                       walk(fChild, stop, false, [], false, {
                         ref: ownedBy,
-                        top: fChild
+                        top: fChild,
                       }).name
                     );
                   }
@@ -710,7 +710,7 @@ Plus roles extended for the Role Parity project.
                     name = trim(
                       walk(svgT, true, false, [], false, {
                         ref: ownedBy,
-                        top: svgT
+                        top: svgT,
                       }).name
                     );
                   }
@@ -718,7 +718,7 @@ Plus roles extended for the Role Parity project.
                     var dE = trim(
                       walk(svgD, true, false, [], false, {
                         ref: ownedBy,
-                        top: svgD
+                        top: svgD,
                       }).name
                     );
                     if (trim(dE)) {
@@ -820,7 +820,7 @@ Plus roles extended for the Role Parity project.
                           "tel",
                           "text",
                           "url",
-                          "email"
+                          "email",
                         ].indexOf(nType) !== -1)))) &&
                 trim(
                   node.getAttribute("placeholder") ||
@@ -840,7 +840,7 @@ Plus roles extended for the Role Parity project.
                 name = trim(
                   walk(node, stop, false, [], false, {
                     ref: ownedBy,
-                    top: node
+                    top: node,
                   }).name
                 );
                 if (trim(name)) {
@@ -866,7 +866,7 @@ Plus roles extended for the Role Parity project.
                     oBy[ids[i]] = {
                       refNode: refNode,
                       node: node,
-                      target: element
+                      target: element,
                     };
                     if (!isParentHidden(element, docO.body, true)) {
                       parts.push(
@@ -913,7 +913,7 @@ Plus roles extended for the Role Parity project.
         return fullResult;
       };
 
-      var firstChild = function(e, t, r, s) {
+      var firstChild = function (e, t, r, s) {
         e = e ? e.firstChild : null;
         while (e) {
           var tr = getRole(e) || false;
@@ -932,7 +932,7 @@ Plus roles extended for the Role Parity project.
         return e;
       };
 
-      var lastChild = function(e, t, r, s) {
+      var lastChild = function (e, t, r, s) {
         e = e ? e.lastChild : null;
         while (e) {
           var tr = getRole(e) || false;
@@ -951,7 +951,7 @@ Plus roles extended for the Role Parity project.
         return e;
       };
 
-      var getRole = function(node) {
+      var getRole = function (node) {
         var role =
           node && node.getAttribute
             ? (node.getAttribute("role") || "").toLowerCase()
@@ -959,7 +959,7 @@ Plus roles extended for the Role Parity project.
         if (!trim(role)) {
           return "";
         }
-        var inList = function(list) {
+        var inList = function (list) {
           return trim(role).length > 0 && list.roles.indexOf(role) >= 0;
         };
         var roles = role.split(/\s+/);
@@ -978,7 +978,7 @@ Plus roles extended for the Role Parity project.
         return "";
       };
 
-      var isFocusable = function(node) {
+      var isFocusable = function (node) {
         var nodeName = node.nodeName.toLowerCase();
         if (node.getAttribute("tabindex")) {
           return true;
@@ -1018,7 +1018,7 @@ Plus roles extended for the Role Parity project.
           "columnheader",
           "rowheader",
           "tooltip",
-          "heading"
+          "heading",
         ],
         tags: [
           "a",
@@ -1035,8 +1035,8 @@ Plus roles extended for the Role Parity project.
           "option",
           "tr",
           "td",
-          "th"
-        ]
+          "th",
+        ],
       };
       // Never include name from content when current node matches list2
       // The rowgroup role was added to prevent 'name from content' in accordance with relevant ARIA 1.1 spec changes.
@@ -1080,7 +1080,7 @@ Plus roles extended for the Role Parity project.
           "treegrid",
           "separator",
           "rowgroup",
-          "group"
+          "group",
         ],
         tags: [
           "article",
@@ -1107,8 +1107,8 @@ Plus roles extended for the Role Parity project.
           "thead",
           "tbody",
           "tfoot",
-          "fieldset"
-        ]
+          "fieldset",
+        ],
       };
       // As an override of list2, conditionally include name from content if current node is focusable, or if the current node matches list3 while the referenced parent node (root node) matches list1.
       var list3 = {
@@ -1120,15 +1120,15 @@ Plus roles extended for the Role Parity project.
           "note",
           "status",
           "table",
-          "contentinfo"
+          "contentinfo",
         ],
-        tags: ["dl", "ul", "ol", "dd", "details", "output", "table"]
+        tags: ["dl", "ul", "ol", "dd", "details", "output", "table"],
       };
       // Subsequent roles added as part of the Role Parity project for ARIA 1.2.
       // Tracks roles that don't specifically belong within the prior process lists.
       var list4 = {
         roles: ["legend", "caption"],
-        tags: ["legend", "caption", "figcaption"]
+        tags: ["legend", "caption", "figcaption"],
       };
 
       var nativeFormFields = ["button", "input", "select", "textarea"];
@@ -1139,7 +1139,7 @@ Plus roles extended for the Role Parity project.
         "listbox",
         "tablist",
         "tree",
-        "treegrid"
+        "treegrid",
       ];
       var otherWidgetRoles = [
         "button",
@@ -1155,11 +1155,11 @@ Plus roles extended for the Role Parity project.
         "radio",
         "tab",
         "treeitem",
-        "gridcell"
+        "gridcell",
       ];
       var presentationRoles = ["presentation", "none"];
 
-      var hasGlobalAttr = function(node) {
+      var hasGlobalAttr = function (node) {
         var globalPropsAndStates = [
           "labelledby",
           "label",
@@ -1178,7 +1178,7 @@ Plus roles extended for the Role Parity project.
           "keyshortcuts",
           "live",
           "owns",
-          "roledescription"
+          "roledescription",
         ];
         for (var i = 0; i < globalPropsAndStates.length; i++) {
           var a = trim(node.getAttribute("aria-" + globalPropsAndStates[i]));
@@ -1191,8 +1191,8 @@ Plus roles extended for the Role Parity project.
 
       var isHidden =
         overrides.isHidden ||
-        function(node, refNode) {
-          var hidden = function(node) {
+        function (node, refNode) {
+          var hidden = function (node) {
             if (!node || node.nodeType !== 1 || node === refNode) {
               return false;
             }
@@ -1210,7 +1210,7 @@ Plus roles extended for the Role Parity project.
           return hidden(node);
         };
 
-      var isParentHidden = function(node, refNode, skipOwned, skipCurrent) {
+      var isParentHidden = function (node, refNode, skipOwned, skipCurrent) {
         while (node && node !== refNode) {
           if (!skipCurrent && node.nodeType === 1 && isHidden(node, refNode)) {
             return true;
@@ -1222,7 +1222,7 @@ Plus roles extended for the Role Parity project.
 
       var getStyleObject =
         overrides.getStyleObject ||
-        function(node) {
+        function (node) {
           var style = {};
           if (docO.defaultView && docO.defaultView.getComputedStyle) {
             style = docO.defaultView.getComputedStyle(node, "");
@@ -1232,7 +1232,7 @@ Plus roles extended for the Role Parity project.
           return style;
         };
 
-      var cleanCSSText = function(node, text) {
+      var cleanCSSText = function (node, text) {
         var s = text;
         if (s.indexOf("attr(") !== -1) {
           var m = s.match(/attr\((.|\n|\r\n)*?\)/g);
@@ -1249,7 +1249,7 @@ Plus roles extended for the Role Parity project.
         return s;
       };
 
-      var isBlockLevelElement = function(node, cssObj) {
+      var isBlockLevelElement = function (node, cssObj) {
         var styleObject = cssObj || getStyleObject(node);
         for (var prop in blockStyles) {
           var values = blockStyles[prop];
@@ -1289,7 +1289,7 @@ Plus roles extended for the Role Parity project.
         "column-count": ["!auto"],
         "column-width": ["!auto"],
         "column-span": ["all"],
-        contain: ["layout", "content", "strict"]
+        contain: ["layout", "content", "strict"],
       };
 
       // HTML5 Block Elements indexed from:
@@ -1338,10 +1338,10 @@ Plus roles extended for the Role Parity project.
         "th",
         "tr",
         "ul",
-        "video"
+        "video",
       ];
 
-      var getObjectValue = function(
+      var getObjectValue = function (
         role,
         node,
         isRange,
@@ -1397,11 +1397,11 @@ Plus roles extended for the Role Parity project.
         return val;
       };
 
-      var addSpacing = function(s) {
+      var addSpacing = function (s) {
         return trim(s).length ? " " + s + " " : " ";
       };
 
-      var joinSelectedParts = function(node, nOA, isNative, childRoles) {
+      var joinSelectedParts = function (node, nOA, isNative, childRoles) {
         if (!nOA || !nOA.length) {
           return "";
         }
@@ -1422,7 +1422,7 @@ Plus roles extended for the Role Parity project.
 
       var getPseudoElStyleObj =
         overrides.getPseudoElStyleObj ||
-        function(node, position) {
+        function (node, position) {
           var styleObj = {};
           for (var prop in blockStyles) {
             styleObj[prop] = docO.defaultView
@@ -1436,7 +1436,7 @@ Plus roles extended for the Role Parity project.
           return styleObj;
         };
 
-      var getText = function(node, position) {
+      var getText = function (node, position) {
         if (!position && node.nodeType === 1) {
           return node.innerText || node.textContent || "";
         }
@@ -1457,7 +1457,7 @@ Plus roles extended for the Role Parity project.
 
       var getCSSText =
         overrides.getCSSText ||
-        function(node, refNode) {
+        function (node, refNode) {
           if (
             (node && node.nodeType !== 1) ||
             node === refNode ||
@@ -1467,18 +1467,18 @@ Plus roles extended for the Role Parity project.
               "textarea",
               "img",
               "iframe",
-              "optgroup"
+              "optgroup",
             ].indexOf(node.nodeName.toLowerCase()) !== -1
           ) {
             return { before: "", after: "" };
           }
           return {
             before: cleanCSSText(node, getText(node, ":before")),
-            after: cleanCSSText(node, getText(node, ":after"))
+            after: cleanCSSText(node, getText(node, ":after")),
           };
         };
 
-      var getParent = function(node, nTag, nRole, noRole) {
+      var getParent = function (node, nTag, nRole, noRole) {
         noRole = !!noRole;
         while (node) {
           node = node.parentNode;
@@ -1496,7 +1496,7 @@ Plus roles extended for the Role Parity project.
         return {};
       };
 
-      var hasParentLabelOrHidden = function(
+      var hasParentLabelOrHidden = function (
         node,
         refNode,
         ownedBy,
@@ -1571,7 +1571,7 @@ Plus roles extended for the Role Parity project.
     }
   };
 
-  var trim = function(str) {
+  var trim = function (str) {
     if (typeof str !== "string") {
       return "";
     }
@@ -1580,7 +1580,7 @@ Plus roles extended for the Role Parity project.
 
   // Customize returned string for testable statements
 
-  nameSpace.getAccNameMsg = nameSpace.getNames = function(node, overrides) {
+  nameSpace.getAccNameMsg = nameSpace.getNames = function (node, overrides) {
     var props = nameSpace.getAccName(node, null, false, overrides);
     if (props.error) {
       return (
@@ -1606,7 +1606,7 @@ Plus roles extended for the Role Parity project.
   if (typeof module === "object" && module.exports) {
     module.exports = {
       getNames: nameSpace.getNames,
-      calcNames: nameSpace.calcNames
+      calcNames: nameSpace.calcNames,
     };
   }
 })();

@@ -5,15 +5,15 @@ https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
 
-(function() {
+(function () {
   if (!("setFootnotes" in $A)) {
     $A.import("SmoothScroll", {
       name: "FootnoteModule",
       props: props,
       once: true,
-      call: function(props) {
+      call: function (props) {
         $A.extend({
-          setFootnotes: function(o, config) {
+          setFootnotes: function (o, config) {
             if (this._4X) {
               config = o;
               o = this._X;
@@ -25,9 +25,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             if (!o) return null;
             o = $A.setSkipLink(o, config);
             return $A._XR.call(this, o);
-          }
+          },
         });
-      }
+      },
     });
   }
 })();

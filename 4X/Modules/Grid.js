@@ -5,10 +5,10 @@ https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
 
-(function() {
+(function () {
   if (!("Grid" in $A)) {
     $A.extend({
-      Grid: function(container) {
+      Grid: function (container) {
         var that = this,
           container = $A.isStr(container) ? $A.getEl(container) : container,
           config = {
@@ -27,11 +27,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             editFieldClass: "data-grid-cell-link-edit",
             edit: false,
             colHeaders: {
-              map: []
+              map: [],
             },
             rowHeaders: {
               enabled: false,
-              id: null
+              id: null,
             },
             page: {
               row: {
@@ -42,7 +42,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 toggleButtonState: "Pressed",
                 disabledText: "Disabled",
                 editLinkAction: "Editable",
-                build: function(rowObject) {
+                build: function (rowObject) {
                   gridInc++;
                   var bid = baseId + "tr" + gridInc;
                   rowObject.rowNodeId = bid;
@@ -50,7 +50,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     "tr",
                     {
                       role: "row",
-                      id: bid
+                      id: bid,
                     },
                     null,
                     config.gridRowClass
@@ -65,7 +65,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     rowObject.cells[id].cellNode = $A.createEl(
                       "td",
                       {
-                        id: cid
+                        id: cid,
                       },
                       null,
                       config.gridCellClass
@@ -80,7 +80,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     rowObject.cells[id].cellNodeA = $A.createEl(
                       "strong",
                       {
-                        id: cid + "a"
+                        id: cid + "a",
                       },
                       null,
                       rowObject.cells[id].type === "toggle"
@@ -116,20 +116,20 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       rowId: rowObject.id,
                       rowNodeId: rowObject.rowNodeId,
                       cellId: id,
-                      cellNodeId: rowObject.cells[id].cellNodeId
+                      cellNodeId: rowObject.cells[id].cellNodeId,
                     });
                   }
 
                   $A.data(rowObject.rowNode, "rowdata", {
                     rowId: rowObject.id,
-                    rowNodeId: rowObject.rowNodeId
+                    rowNodeId: rowObject.rowNodeId,
                   });
                 },
                 trackPos: {
                   row: 0,
-                  col: 0
+                  col: 0,
                 },
-                resetPos: function(cellNode) {
+                resetPos: function (cellNode) {
                   var d = $A.data(cellNode, "celldata");
                   config.page.row.trackPos.row =
                     $A.inArray(d.rowId, config.page.rendered) || 0;
@@ -144,17 +144,17 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 },
                 dblClickTitle: "Click to activate",
                 editFieldTitle: "Press Enter to save, or Escape to cancel.",
-                cellOffset: function(cellObject) {
+                cellOffset: function (cellObject) {
                   var o = $A.offset(cellObject.cellNodeA);
                   return {
                     top: o.top,
                     left: o.left,
                     width: o.width,
-                    height: o.height
+                    height: o.height,
                   };
                 },
-                bindCell: function(cellObject, cellNode, rowObject, rowNode) {
-                  var trigger = function() {
+                bindCell: function (cellObject, cellNode, rowObject, rowNode) {
+                  var trigger = function () {
                       cellNode = cellObject.cellNode;
                       rowObject = cellObject.rowObject;
                       rowNode = cellObject.rowObject.rowNode;
@@ -170,7 +170,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           if (config.page.row.editFieldActive) clearEdit();
                           config.page.row.editFieldActive = cellObject;
                           $A.on(config.page.row.editField, {
-                            "keydown.gridcontrol": function(ev) {
+                            "keydown.gridcontrol": function (ev) {
                               var k = $A.keyEvent(ev);
 
                               if (k === 13 || k === 27 || k === 9) {
@@ -186,16 +186,16 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                                 clearEdit(true);
                               }
                             },
-                            "blur.gridcontrol": function(ev) {
+                            "blur.gridcontrol": function (ev) {
                               ev.preventDefault();
-                            }
+                            },
                           });
                           config.page.row.editField.value = cellObject.value;
                           $A.setAttr(config.page.row.editField, {
-                            title: config.page.row.editFieldTitle
+                            title: config.page.row.editFieldTitle,
                           });
 
-                          $A.query("body > *", function(i, o) {
+                          $A.query("body > *", function (i, o) {
                             $A.setAttr(o, "aria-hidden", "true");
                           });
                           document.body.appendChild(
@@ -226,12 +226,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           config.page.row.select(cellObject);
 
                         if (!config.page.row.ariaSelect)
-                          setTimeout(function() {
+                          setTimeout(function () {
                             $A.announce(cellObject.cellNode);
                           }, 1);
                       }
                     },
-                    nav = function(k, ev) {
+                    nav = function (k, ev) {
                       cellNode = cellObject.cellNode;
                       rowObject = cellObject.rowObject;
                       rowNode = cellObject.rowObject.rowNode;
@@ -358,7 +358,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             cellId:
                               config.colHeaders.map[
                                 config.page.row.trackPos.col
-                              ].id
+                              ].id,
                           });
                         }
                       }
@@ -366,11 +366,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                   var pressed = {
                     ctrl: false,
-                    alt: false
+                    alt: false,
                   };
 
                   $A.on(cellNode, {
-                    "click.gridcontrol": function(ev) {
+                    "click.gridcontrol": function (ev) {
                       var t = ev.srcElement || ev.target;
 
                       if (t !== this || this !== config.page.row.focusedCell)
@@ -386,7 +386,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       }
                       ev.preventDefault();
                     },
-                    "dblclick.gridcontrol": function(ev) {
+                    "dblclick.gridcontrol": function (ev) {
                       if (useDblClick) {
                         if (this !== config.page.row.focusedCell)
                           config.page.row.move(config.page.row.resetPos(this));
@@ -405,7 +405,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         ev.preventDefault();
                       }
                     },
-                    "mouseup.gridcontrol": function(ev) {
+                    "mouseup.gridcontrol": function (ev) {
                       if (!useDblClick) {
                         if (!ev.which && ev.button && ev.button & 1)
                           ev.which = 1;
@@ -431,7 +431,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         }
                       }
                     },
-                    "keydown.gridcontrol": function(ev) {
+                    "keydown.gridcontrol": function (ev) {
                       var k = $A.keyEvent(ev);
                       pressed.ctrl = ev.ctrlKey;
                       pressed.alt = ev.altKey;
@@ -460,7 +460,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                                   cellObject.rowObject.cells[o.id].cellNode
                                 ) + ", ";
                             }
-                            setTimeout(function() {
+                            setTimeout(function () {
                               $A.announce(str);
                             }, 1);
                           } else trigger();
@@ -477,7 +477,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           config.page.row.selectEnabled
                         ) {
                           config.page.row.selectAll();
-                          setTimeout(function() {
+                          setTimeout(function () {
                             $A.announce(config.page.row.selectState);
                           }, 1);
                         }
@@ -485,11 +485,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         ev.preventDefault();
                       }
                     },
-                    "keyup.gridcontrol": function(ev) {
+                    "keyup.gridcontrol": function (ev) {
                       pressed.ctrl = false;
                       pressed.alt = false;
                     },
-                    "focus.gridcontrol": function(ev) {
+                    "focus.gridcontrol": function (ev) {
                       cellObject = getCellObject(this);
                       $A.addClass(this, config.gridCellFocusedClass);
                       $A.addClass(
@@ -503,14 +503,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           true
                         );
                     },
-                    "blur.gridcontrol": function(ev) {
+                    "blur.gridcontrol": function (ev) {
                       $A.query(
                         "tr." +
                           config.gridRowFocusedClass +
                           ", td." +
                           config.gridCellFocusedClass,
                         config.dc.container,
-                        function(i, o) {
+                        function (i, o) {
                           $A.remClass(
                             o,
                             config.gridRowFocusedClass +
@@ -519,15 +519,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           );
                         }
                       );
-                    }
+                    },
                   });
                 },
-                clean: function(rowObject, keepData) {
+                clean: function (rowObject, keepData) {
                   $A.remAttr(rowObject.rowNode, [
                     "title",
                     "aria-selected",
                     "aria-rowindex",
-                    "aria-owns"
+                    "aria-owns",
                   ]);
 
                   $A.remClass(
@@ -547,7 +547,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       "tabindex",
                       "aria-colindex",
                       "aria-selected",
-                      "aria-readonly"
+                      "aria-readonly",
                     ]);
 
                     $A.remClass(
@@ -564,7 +564,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       "title",
                       "role",
                       "aria-pressed",
-                      "aria-disabled"
+                      "aria-disabled",
                     ]);
 
                     rowObject.cells[n].cellNodeS1.innerHTML = "";
@@ -575,7 +575,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       $A.removeData(rowObject.cells[n].cellNode, "celldata");
                   }
                 },
-                changed: function(cellNode, cellObject, val) {
+                changed: function (cellNode, cellObject, val) {
                   var ret =
                     config.page.row.changed.cb &&
                     $A.isFn(config.page.row.changed.cb)
@@ -583,7 +583,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           cellObject,
                           val,
                           cellObject.rowObject,
-                          that
+                          that,
                         ])
                       : true;
 
@@ -604,7 +604,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 preserveSelect: false,
                 ariaSelect: false,
                 selected: [],
-                select: function(cellObject, sv) {
+                select: function (cellObject, sv) {
                   var newVal =
                       sv || (cellObject.rowObject.selected ? false : true),
                     ret =
@@ -616,7 +616,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                               cellObject.rowObject,
                               newVal,
                               config.page.row.selected,
-                              that
+                              that,
                             ]
                           )
                         : true;
@@ -702,7 +702,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     }
                   }
                 },
-                unselectAll: function() {
+                unselectAll: function () {
                   for (
                     var i = config.page.row.selected.length - 1;
                     i >= 0;
@@ -718,7 +718,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     config.page.row.selected.splice(i, 1);
                   }
                 },
-                selectAll: function() {
+                selectAll: function () {
                   if (
                     config.page.row.selectEnabled &&
                     config.page.row.multiSelect
@@ -737,7 +737,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 },
                 deleteRow: {
                   enabled: false,
-                  callback: function(ids) {
+                  callback: function (ids) {
                     var rt =
                       config.page.row.deleteRow.callback.beforeRender &&
                       typeof config.page.row.deleteRow.callback.beforeRender ===
@@ -832,9 +832,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       return true;
                     }
                     return false;
-                  }
+                  },
                 },
-                update: function(rowId, cellId, val, silent) {
+                update: function (rowId, cellId, val, silent) {
                   if (
                     !config.page.row.collection[rowId] ||
                     !config.page.row.collection[rowId].cells[cellId]
@@ -859,7 +859,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             "aria-describedby"
                           ),
                           role: "button",
-                          "aria-pressed": "true"
+                          "aria-pressed": "true",
                         });
 
                         $A.addClass(
@@ -877,7 +877,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             "aria-describedby"
                           ),
                           role: "button",
-                          "aria-pressed": "false"
+                          "aria-pressed": "false",
                         });
 
                         $A.remClass(
@@ -906,15 +906,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     }
 
                     if (!silent)
-                      setTimeout(function() {
+                      setTimeout(function () {
                         $A.announce(cellObject.cellNodeA);
                       }, 1);
                   }
                 },
                 focusedCell: null,
-                move: function(o, s) {
+                move: function (o, s) {
                   if (!o && config.page.row.focusedCell) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                       config.page.row.focusedCell.focus();
                     }, 1);
                     return;
@@ -940,14 +940,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       newCell,
                       oldCell,
                       config.dc,
-                      that
+                      that,
                     ]);
-                }
+                },
               },
               pageRole: "Page",
               current: 1,
               total: 1,
-              sync: function(n) {
+              sync: function (n) {
                 var prevC = config.page.current,
                   prevT = config.page.total;
 
@@ -1002,7 +1002,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     config.page.indexChanged.apply(that, [
                       config.page.current,
                       config.page.total,
-                      that
+                      that,
                     ]);
                 }
 
@@ -1013,9 +1013,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 close: null,
                 change: null,
                 add: null,
-                rem: null
+                rem: null,
               },
-              open: function(n, reOpen) {
+              open: function (n, reOpen) {
                 if (config.page.row.editFieldActive) clearEdit(true, true);
 
                 if (isNaN(n) || n < 1) n = 1;
@@ -1023,24 +1023,24 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 if (reOpen && config.dc.loaded) config.page.close();
 
                 if (!config.dc.loaded)
-                  config.dc.render(function() {
+                  config.dc.render(function () {
                     config.page.render(config.page.sync(n));
                     if (config.page.on && $A.isFn(config.page.on.open))
                       config.page.on.open.apply(container, [
                         container,
                         config.dc,
-                        that
+                        that,
                       ]);
                   });
               },
-              close: function() {
+              close: function () {
                 if (config.page.row.editFieldActive) clearEdit(true, true);
 
                 if (config.page.on.close && $A.isFn(config.page.on.close))
                   config.page.on.close.apply(container, [
                     container,
                     config.dc,
-                    that
+                    that,
                   ]);
 
                 config.page.row.unselectAll();
@@ -1048,7 +1048,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 config.dc.remove();
               },
               rendered: [],
-              removeRendered: function() {
+              removeRendered: function () {
                 if (!config.page.row.preserveSelect)
                   config.page.row.unselectAll();
 
@@ -1061,7 +1061,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     config.page.on.rem.apply(rowObject.rowNode, [
                       rowObject,
                       config.dc,
-                      that
+                      that,
                     ]);
 
                   for (var n in rowObject.cells) {
@@ -1074,7 +1074,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 }
                 config.page.rendered = [];
               },
-              render: function(ids) {
+              render: function (ids) {
                 if (config.page.row.editFieldActive) clearEdit(true, true);
 
                 if (config.page.row.selectEnabled && config.edit)
@@ -1100,12 +1100,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                   if (config.page.row.selectEnabled) {
                     $A.setAttr(tr, {
-                      title: altTxt + config.page.row.dblClickTitle
+                      title: altTxt + config.page.row.dblClickTitle,
                     });
 
                     if (config.page.row.ariaSelect)
                       $A.setAttr(tr, {
-                        "aria-selected": selected ? "true" : "false"
+                        "aria-selected": selected ? "true" : "false",
                       });
 
                     if (selected) {
@@ -1148,7 +1148,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             " " +
                             o.thId
                           : o.thId,
-                      tabindex: "-1"
+                      tabindex: "-1",
                     });
 
                     if (
@@ -1156,7 +1156,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       (config.edit && !cellObject.readonly)
                     )
                       $A.setAttr(cellObject.cellNode, {
-                        "aria-activedescendant": cellObject.cellNodeId + "a"
+                        "aria-activedescendant": cellObject.cellNodeId + "a",
                       });
 
                     if (
@@ -1166,7 +1166,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     )
                       $A.setAttr(cellObject.cellNode, {
                         role: "rowheader",
-                        scope: "row"
+                        scope: "row",
                       });
 
                     if (config.page.row.selectEnabled) {
@@ -1236,7 +1236,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     )
                       initPos = {
                         rowId: ids[h],
-                        cellId: o.id
+                        cellId: o.id,
                       };
 
                     if (cellObject.readonly || config.page.row.selectEnabled) {
@@ -1261,7 +1261,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             "aria-describedby"
                           ),
                           role: "button",
-                          "aria-pressed": "true"
+                          "aria-pressed": "true",
                         });
 
                         $A.addClass(
@@ -1279,7 +1279,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             "aria-describedby"
                           ),
                           role: "button",
-                          "aria-pressed": "false"
+                          "aria-pressed": "false",
                         });
 
                         $A.remClass(
@@ -1312,7 +1312,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             cellObject.cellNode,
                             "aria-describedby"
                           ),
-                          role: "button"
+                          role: "button",
                         });
 
                         var accText =
@@ -1340,7 +1340,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     config.page.on.add.apply(tr, [
                       config.page.row.collection[ids[h]],
                       config.dc,
-                      that
+                      that,
                     ]);
                 }
 
@@ -1349,7 +1349,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 if ("rowId" in initPos && "cellId" in initPos)
                   config.page.row.move(initPos, true);
               },
-              prev: function(cellObject, rowObject, byArrow) {
+              prev: function (cellObject, rowObject, byArrow) {
                 if (config.page.current > 1) {
                   config.page.render(config.page.sync(config.page.current - 1));
                   config.page.row.move({
@@ -1357,10 +1357,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       config.page.rendered[
                         byArrow ? config.page.rendered.length - 1 : 0
                       ],
-                    cellId: cellObject.id
+                    cellId: cellObject.id,
                   });
 
-                  setTimeout(function() {
+                  setTimeout(function () {
                     $A.announce(
                       config.page.pageRole + " " + config.page.current
                     );
@@ -1370,19 +1370,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     config.page.on.change.apply(container, [
                       config.page.current,
                       config.page.total,
-                      that
+                      that,
                     ]);
                 }
               },
-              next: function(cellObject, rowObject) {
+              next: function (cellObject, rowObject) {
                 if (config.page.current < config.page.total) {
                   config.page.render(config.page.sync(config.page.current + 1));
                   config.page.row.move({
                     rowId: config.page.rendered[0],
-                    cellId: cellObject.id
+                    cellId: cellObject.id,
                   });
 
-                  setTimeout(function() {
+                  setTimeout(function () {
                     $A.announce(
                       config.page.pageRole + " " + config.page.current
                     );
@@ -1392,19 +1392,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     config.page.on.change.apply(container, [
                       config.page.current,
                       config.page.total,
-                      that
+                      that,
                     ]);
                 }
               },
-              first: function(cellObject, rowObject) {
+              first: function (cellObject, rowObject) {
                 if (config.page.current > 1) {
                   config.page.render(config.page.sync(1));
                   config.page.row.move({
                     rowId: config.page.rendered[0],
-                    cellId: cellObject.id
+                    cellId: cellObject.id,
                   });
 
-                  setTimeout(function() {
+                  setTimeout(function () {
                     $A.announce(
                       config.page.pageRole + " " + config.page.current
                     );
@@ -1414,21 +1414,21 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     config.page.on.change.apply(container, [
                       config.page.current,
                       config.page.total,
-                      that
+                      that,
                     ]);
                 }
               },
-              last: function(cellObject, rowObject, lr) {
+              last: function (cellObject, rowObject, lr) {
                 if (config.page.current < config.page.total) {
                   config.page.render(config.page.sync(config.page.total));
                   config.page.row.move({
                     rowId: lr
                       ? config.page.rendered[config.page.rendered.length - 1]
                       : config.page.rendered[0],
-                    cellId: cellObject.id
+                    cellId: cellObject.id,
                   });
 
-                  setTimeout(function() {
+                  setTimeout(function () {
                     $A.announce(
                       config.page.pageRole + " " + config.page.current
                     );
@@ -1438,16 +1438,16 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     config.page.on.change.apply(container, [
                       config.page.current,
                       config.page.total,
-                      that
+                      that,
                     ]);
                 }
-              }
-            }
+              },
+            },
           };
 
         gridInc++;
         var uId = baseId + "u" + gridInc,
-          getCellObject = function(cellNode) {
+          getCellObject = function (cellNode) {
             var o = $A.data(
               cellNode || config.page.row.focusedCell,
               "celldata"
@@ -1459,7 +1459,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         config.page.row.editFieldDiv = $A.createEl(
           "div",
           {
-            role: "application"
+            role: "application",
           },
           null,
           config.editFieldClass
@@ -1469,14 +1469,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           "input",
           {
             type: "text",
-            maxlength: config.page.row.editMaxLength
+            maxlength: config.page.row.editMaxLength,
           },
           null,
           config.editFieldClass
         );
 
         config.page.row.editFieldDiv.appendChild(config.page.row.editField);
-        $A.on(window, "resize." + uId, function() {
+        $A.on(window, "resize." + uId, function () {
           if (config.page.row.editFieldActive) {
             $A.css(
               config.page.row.editFieldDiv,
@@ -1485,14 +1485,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           }
         });
 
-        var clearEdit = function(ret, sk) {
+        var clearEdit = function (ret, sk) {
           config.page.row.editField.value = "";
           $A.off(config.page.row.editField, ".gridcontrol");
           $A(config.page.row.editFieldDiv).remove();
 
           if (ret) {
             config.page.row.editFieldActive = null;
-            $A.query("body > *", function(i, o) {
+            $A.query("body > *", function (i, o) {
               $A.setAttr(o, "aria-hidden", "false");
               $A.remAttr(o, "aria-hidden");
             });
@@ -1508,7 +1508,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             exposeBounds: false,
             sourceOnly: false,
             root: container,
-            afterRender: function(dc) {
+            afterRender: function (dc) {
               gridInc++;
               dc.tableId = baseId + "t" + gridInc;
               dc.theadId = baseId + "tth" + gridInc;
@@ -1520,7 +1520,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 {
                   role: "grid",
                   id: dc.tableId,
-                  "aria-owns": dc.theadId + " " + dc.tbodyId
+                  "aria-owns": dc.theadId + " " + dc.tbodyId,
                 },
                 null,
                 config.gridClass
@@ -1540,19 +1540,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               dc.thead = $A.createEl("thead", {
                 role: "rowgroup",
                 id: dc.theadId,
-                "aria-owns": dc.trId
+                "aria-owns": dc.trId,
               });
 
               dc.tbody = $A.createEl("tbody", {
                 role: "rowgroup",
-                id: dc.tbodyId
+                id: dc.tbodyId,
               });
 
               dc.tr = $A.createEl(
                 "tr",
                 {
                   role: "row",
-                  id: dc.trId
+                  id: dc.trId,
                 },
                 null,
                 config.gridRowClass
@@ -1574,7 +1574,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       id: baseId + "th" + gridInc,
                       scope: "col",
                       "aria-labelledby": baseId + "th" + gridInc + "s",
-                      tabindex: "-1"
+                      tabindex: "-1",
                     },
                     null,
                     config.gridCellClass
@@ -1586,7 +1586,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                 if (o.colClass) $A.addClass(th, o.colClass);
 
-                $A.on(th, "click", function(ev) {
+                $A.on(th, "click", function (ev) {
                   config.page.row.move();
                 });
                 th.innerHTML =
@@ -1605,24 +1605,24 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
               dc.container.appendChild(dc.table);
             },
-            beforeRemove: function(dc) {
+            beforeRemove: function (dc) {
               if (dc.table) $A(dc.table).remove();
               dc.table = dc.thead = dc.tbody = dc.tr = null;
-            }
-          }
+            },
+          },
         ]);
 
         config.dc = $A.getDC(uId);
 
         that.id = uId;
 
-        that.getDC = function() {
+        that.getDC = function () {
           return config.dc;
         };
 
         that.container = container;
 
-        that.mapColumnNames = function(o) {
+        that.mapColumnNames = function (o) {
           if (!o || (typeof o !== "object" && !o.length)) return;
 
           config.colHeaders.map = [];
@@ -1631,12 +1631,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             config.colHeaders.map.push({
               id: o[n].id,
               name: o[n].lbl,
-              colClass: o[n].colClass || ""
+              colClass: o[n].colClass || "",
             });
           }
         };
 
-        that.changeColumnOrder = function(oldVal, newVal) {
+        that.changeColumnOrder = function (oldVal, newVal) {
           if (
             isNaN(oldVal) ||
             isNaN(newVal) ||
@@ -1650,22 +1650,22 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           [].splice.apply(config.colHeaders.map, o);
         };
 
-        that.enableRowHeaders = function(bool, colId) {
+        that.enableRowHeaders = function (bool, colId) {
           config.rowHeaders = {
             enabled: bool ? true : false,
-            id: colId
+            id: colId,
           };
         };
 
-        that.setRowMax = function(n) {
+        that.setRowMax = function (n) {
           config.page.row.max = isNaN(n) ? 0 : n;
         };
 
-        that.editable = function(bool) {
+        that.editable = function (bool) {
           config.edit = bool ? true : false;
         };
 
-        that.add = function(rows) {
+        that.add = function (rows) {
           if (!$A.isArray(rows)) rows = [rows];
 
           for (var ri = 0; ri < rows.length; ri++) {
@@ -1691,36 +1691,36 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           }
         };
 
-        that.setChangeListener = function(fn) {
+        that.setChangeListener = function (fn) {
           if (!$A.isFn(fn)) return;
 
           config.page.row.changed.cb = fn;
         };
 
-        that.setPageChangeListener = function(fn) {
+        that.setPageChangeListener = function (fn) {
           if (!$A.isFn(fn)) return;
 
           config.page.on.change = fn;
         };
 
-        that.setEditMaxLength = function(n) {
+        that.setEditMaxLength = function (n) {
           if (isNaN(n)) n = 0;
           config.page.row.editMaxLength = n;
         };
 
-        that.setEditLoadListener = function(fn) {
+        that.setEditLoadListener = function (fn) {
           if (!$A.isFn(fn)) return;
 
           config.page.row.editLoad = fn;
         };
 
-        that.setPageIndexChangeListener = function(fn) {
+        that.setPageIndexChangeListener = function (fn) {
           if (!$A.isFn(fn)) return;
 
           config.page.indexChanged = fn;
         };
 
-        that.setSelect = function(o, undefined) {
+        that.setSelect = function (o, undefined) {
           if (!o || typeof o !== "object") return;
 
           if ("enable" in o)
@@ -1742,15 +1742,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             config.page.row.select.cb = $A.isFn(o.callback) ? o.callback : null;
         };
 
-        that.unselectAll = function() {
+        that.unselectAll = function () {
           config.page.row.unselectAll();
         };
 
-        that.selectAll = function() {
+        that.selectAll = function () {
           config.page.row.selectAll();
         };
 
-        that.getSelected = function() {
+        that.getSelected = function () {
           var ret = [];
 
           for (var i = 0; i < config.page.row.selected.length; i++)
@@ -1758,7 +1758,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           return ret;
         };
 
-        that.select = function(ids) {
+        that.select = function (ids) {
           if (!$A.isArray(ids)) ids = [ids];
 
           for (var i = 0; i < ids.length; i++) {
@@ -1778,7 +1778,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           }
         };
 
-        that.setDelete = function(o) {
+        that.setDelete = function (o) {
           if (!o || typeof o !== "object") return;
 
           if ("enable" in o)
@@ -1804,7 +1804,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               : null;
         };
 
-        that.deleteRows = function(ids) {
+        that.deleteRows = function (ids) {
           if (config.page.row.deleteRow.enabled) {
             if (ids && ids.length)
               return config.page.row.deleteRow.callback(ids);
@@ -1814,7 +1814,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           return false;
         };
 
-        that.deleteAllRows = function() {
+        that.deleteAllRows = function () {
           if (config.page.row.deleteRow.enabled) {
             return config.page.row.deleteRow.callback(
               config.page.row.collectionMap
@@ -1823,7 +1823,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           return false;
         };
 
-        that.setAccessibleText = function(o) {
+        that.setAccessibleText = function (o) {
           if (!o || typeof o !== "object") return;
 
           if ("toggleButtonRole" in o)
@@ -1849,7 +1849,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           if ("selectState" in o) config.page.row.selectState = o.selectState;
         };
 
-        that.setStaticClasses = function(o) {
+        that.setStaticClasses = function (o) {
           if (!o || typeof o !== "object") return;
 
           if ("gridClass" in o) config.gridClass = o.gridClass;
@@ -1888,73 +1888,73 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           if ("editFieldClass" in o) config.editFieldClass = o.editFieldClass;
         };
 
-        that.currentPage = function() {
+        that.currentPage = function () {
           return config.page.current;
         };
 
-        that.totalPages = function() {
+        that.totalPages = function () {
           return config.page.total;
         };
 
-        that.totalRows = function() {
+        that.totalRows = function () {
           return config.page.row.collectionMap.length;
         };
 
-        that.openPage = function(n, reOpen) {
+        that.openPage = function (n, reOpen) {
           if (isNaN(n) || n < 1) return;
 
           config.page.open(n, reOpen);
         };
 
-        that.prevPage = function() {
+        that.prevPage = function () {
           if (!config.dc.loaded) return;
 
           var cellObject = getCellObject();
           config.page.prev(cellObject, cellObject.rowObject);
         };
 
-        that.nextPage = function() {
+        that.nextPage = function () {
           if (!config.dc.loaded) return;
 
           var cellObject = getCellObject();
           config.page.next(cellObject, cellObject.rowObject);
         };
 
-        that.firstPage = function() {
+        that.firstPage = function () {
           if (!config.dc.loaded) return;
 
           var cellObject = getCellObject();
           config.page.first(cellObject, cellObject.rowObject);
         };
 
-        that.lastPage = function() {
+        that.lastPage = function () {
           if (!config.dc.loaded) return;
 
           var cellObject = getCellObject();
           config.page.last(cellObject, cellObject.rowObject);
         };
 
-        that.setOpenListener = function(f) {
+        that.setOpenListener = function (f) {
           if (f && $A.isFn(f)) config.page.on.open = f;
         };
 
-        that.setCloseListener = function(f) {
+        that.setCloseListener = function (f) {
           if (f && $A.isFn(f)) config.page.on.close = f;
         };
 
-        that.setAddListener = function(f) {
+        that.setAddListener = function (f) {
           if (f && $A.isFn(f)) config.page.on.add = f;
         };
 
-        that.setRemoveListener = function(f) {
+        that.setRemoveListener = function (f) {
           if (f && $A.isFn(f)) config.page.on.rem = f;
         };
 
-        that.setMoveListener = function(f) {
+        that.setMoveListener = function (f) {
           if (f && $A.isFn(f)) config.page.row.move.cb = f;
         };
 
-        that.getData = function(rowId, cellId, keyName) {
+        that.getData = function (rowId, cellId, keyName) {
           if (
             !rowId ||
             !cellId ||
@@ -1967,7 +1967,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           return config.page.row.collection[rowId].cells[cellId].data[keyName];
         };
 
-        that.setData = function(rowId, cellId, keyName, data) {
+        that.setData = function (rowId, cellId, keyName, data) {
           if (
             !rowId ||
             !cellId ||
@@ -1980,7 +1980,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           config.page.row.collection[rowId].cells[cellId].data[keyName] = data;
         };
 
-        that.getValue = function(rowId, cellId) {
+        that.getValue = function (rowId, cellId) {
           if (
             !rowId ||
             !cellId ||
@@ -1992,38 +1992,38 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           return config.page.row.collection[rowId].cells[cellId].value;
         };
 
-        that.setValue = function(rowId, cellId, value) {
+        that.setValue = function (rowId, cellId, value) {
           config.page.row.update(rowId, cellId, value, true);
         };
 
-        that.setEditOffset = function(f) {
+        that.setEditOffset = function (f) {
           if (f && $A.isFn(f)) config.page.row.cellOffset = f;
         };
 
-        that.open = function(n) {
+        that.open = function (n) {
           config.page.open(n, true);
         };
 
-        that.close = function() {
+        that.close = function () {
           config.page.close();
         };
 
-        that.focus = function() {
+        that.focus = function () {
           config.page.row.move();
         };
 
         var useDblClick = false;
 
-        that.useDblClick = function(b) {
+        that.useDblClick = function (b) {
           useDblClick = b ? true : false;
         };
 
         return that;
-      }
+      },
     });
     var baseId = $A.genId(),
       gridInc = 1,
-      formatStr = function(s, q) {
+      formatStr = function (s, q) {
         var str = "";
 
         if ($A.isNum(s)) str = s.toString();

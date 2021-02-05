@@ -1,4 +1,4 @@
-$A.import(["Animate", "DatePicker"], { defer: true }, function() {
+$A.import(["Animate", "DatePicker"], { defer: true }, function () {
   $A.setDatePicker({
     // Unique ID for the date picker instance
     // After instantiation, can be referenced using: var DC = $A("UniqueCalendarId");
@@ -12,24 +12,24 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
 
     style: { position: "absolute", zIndex: 1, display: "none" },
     animate: {
-      onRender: function(dc, outerNode, complete) {
+      onRender: function (dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeIn", {
-          complete: function() {
+          complete: function () {
             complete();
-          }
+          },
         });
       },
-      onRemove: function(dc, outerNode, complete) {
+      onRemove: function (dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeOut", {
-          complete: function() {
+          complete: function () {
             complete();
-          }
+          },
         });
-      }
+      },
     },
 
     // Configure complex disabled date ranges using the configure method.
-    configure: function(dc) {
+    configure: function (dc) {
       // Run before the datepicker renders
 
       if (!dc.firstResetDate) {
@@ -52,7 +52,7 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
           day: cur.getDate(),
           month: cur.getMonth(),
           year: cur.getFullYear(),
-          weekDay: cur.getDay()
+          weekDay: cur.getDay(),
         };
 
         // Now adjust the default date that the date picker first opens with using the previously set date object
@@ -70,7 +70,7 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
           day: cur.getDate(),
           month: cur.getMonth(),
           year: cur.getFullYear(),
-          weekDay: cur.getDay()
+          weekDay: cur.getDay(),
         };
       }
 
@@ -157,7 +157,7 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
           dc.range.current.year
         ] = dc.range[dc.range.current.month].disabled[
           dc.range.current.year
-        ].filter(function(o, i, a) {
+        ].filter(function (o, i, a) {
           return a.indexOf(o) === i;
         });
 
@@ -165,6 +165,6 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
       dc.stopConfigure = true;
 
       return true;
-    }
+    },
   });
 });

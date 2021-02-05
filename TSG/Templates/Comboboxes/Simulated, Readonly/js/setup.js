@@ -1,4 +1,4 @@
-$A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
+$A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
   // Create a new ARIA Combobox instance
   var myLangCB = new $A.Combobox({
     select: $A.getEl("languagesId"),
@@ -7,21 +7,21 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
     delay: 200,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, outerNode, complete) {
+      onRender: function (dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeIn", {
-          complete: function() {
+          complete: function () {
             complete();
-          }
+          },
         });
       },
-      onRemove: function(dc, outerNode, complete) {
+      onRemove: function (dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeOut", {
-          complete: function() {
+          complete: function () {
             complete();
-          }
+          },
         });
-      }
-    }
+      },
+    },
   });
 
   // Set CSS autopositioning relative to the triggering element.
@@ -31,7 +31,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   // Set a positive or negative top/left offset to be applied to the autoPosition property calculation
   myLangCB.setOffset({
     top: 5,
-    left: 10
+    left: 10,
   });
 
   // Logic to distinguish between touch screen devices
@@ -42,7 +42,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
 
   // Dynamically toggle help text for desktops that support dual touch and keyboard interaction.
   if (window.device.type === "desktop") {
-    $A.on("toggletouch", function(ev) {
+    $A.on("toggletouch", function (ev) {
       myLangCB.setPromptText(
         $A.isTouch ? "" : "Press the down arrow to browse available options"
       );
@@ -62,13 +62,13 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   myLangCB.setCloseText("Close Language Selector");
 
   // Process after the suggestion window is opened
-  myLangCB.onOpen(function() {
+  myLangCB.onOpen(function () {
     $A.addClass(myLangCB.combobox, "pressed");
     // $A.getEl('arrowSymbolId').innerHTML = '&#8593;';
   });
 
   // Process after the suggestion window is closed
-  myLangCB.onClose(function() {
+  myLangCB.onClose(function () {
     $A.remClass(myLangCB.combobox, "pressed");
     // $A.getEl('arrowSymbolId').innerHTML = '&#8595;';
   });
@@ -76,7 +76,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   // Now fire up the newly instantiated ARIA Combobox
   myLangCB.start();
 
-  $A.on("#frm", "submit", function(ev) {
+  $A.on("#frm", "submit", function (ev) {
     alert(myLangCB.getValue());
     ev.preventDefault();
   });

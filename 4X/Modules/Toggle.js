@@ -5,10 +5,10 @@ https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
 
-(function() {
+(function () {
   if (!("Toggle" in $A))
     $A.extend({
-      Toggle: function(trigger, config) {
+      Toggle: function (trigger, config) {
         var config = config || {},
           t = $A.isStr(trigger) ? $A.getEl(trigger) : trigger,
           that = this,
@@ -26,7 +26,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           t.appendChild(sraText);
         }
 
-        var toggle = function(state) {
+        var toggle = function (state) {
           var cr = true;
 
           if (config.callback && $A.isFn(config.callback))
@@ -64,7 +64,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         $A.off(t, "click keydown");
 
         $A.on(t, {
-          keydown: function(ev) {
+          keydown: function (ev) {
             var k = $A.keyEvent(ev);
 
             if (k === 13 || k === 32) {
@@ -81,12 +81,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 $A.trigger(t, "click");
             }
           },
-          click: function(ev) {
+          click: function (ev) {
             toggle.apply(t, [that.state ? false : true]) ? true : false;
             ev.preventDefault();
-          }
+          },
         });
-        that.set = function(state) {
+        that.set = function (state) {
           toggle.apply(t, [state]);
         };
 
@@ -95,6 +95,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         return config.fn && $A.isFn(config.fn)
           ? config.fn.call(that, that)
           : that;
-      }
+      },
     });
 })();

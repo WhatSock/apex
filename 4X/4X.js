@@ -5,10 +5,10 @@ https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
 
-(function() {
+(function () {
   var moduleFolder = "/4X/Modules/",
     Version = "2021.1",
-    $A = function(dc, dcA, dcI, onReady, disableAsync) {
+    $A = function (dc, dcA, dcI, onReady, disableAsync) {
       if (!arguments.length && this === $A) {
         return $A;
       } else if ($A.isChain(dc) && arguments.length === 1) {
@@ -17,7 +17,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         if ($A.isDocLoaded) {
           dc();
         } else {
-          $A.on("load", function() {
+          $A.on("load", function () {
             dc();
           });
         }
@@ -64,7 +64,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
       $A.lastCreated = [];
 
-      var fn = function(dcA, dcI, dc) {
+      var fn = function (dcA, dcI, dc) {
         var w = $A._GenDC(dcA, dcI, dc);
         if ($A._lastCreatedCallback && $A.isFn($A._lastCreatedCallback))
           $A._lastCreatedCallback.call($A, w);
@@ -82,7 +82,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 dc.fetch.url,
                 dc.content,
                 dc.fetch.data,
-                function(content) {
+                function (content) {
                   dc.isLoading = false;
                   if (dc.preloadImages) $A.preloadImg(content);
                   $A.getModule(dc, "onFetch", content);
@@ -91,7 +91,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     dc.fn.afterLoaded = null;
                   }
                 },
-                function(e) {
+                function (e) {
                   dc.isLoading = false;
                   $A.parseDebug(e);
                 }
@@ -109,29 +109,29 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       };
 
       if (onReady && !$A.isDocLoaded) {
-        $A.on("load", function() {
+        $A.on("load", function () {
           fn.call(window, dcA, dcI, dc);
         });
       } else fn.call(window, dcA, dcI, dc);
       return $A.lastCreated;
     },
     nowI = 0,
-    now = function() {
+    now = function () {
       return new Date().getTime() + nowI++;
     };
 
-  $A.isArray = function(v) {
+  $A.isArray = function (v) {
     return (
       [
         "[object Array]",
         "[object NodeList]",
-        "[object HTMLCollection]"
+        "[object HTMLCollection]",
       ].indexOf(Object.prototype.toString.call(v)) !== -1 &&
       !(v instanceof Element || v instanceof HTMLDocument)
     );
   };
   // extend derived from jQuery core for cross platform compatibility
-  $A.extend = function() {
+  $A.extend = function () {
     var options,
       name,
       src,
@@ -183,7 +183,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     return target;
   };
   // isPlainObject derived from jQuery core for cross platform compatibility
-  $A.isPlainObject = function(obj) {
+  $A.isPlainObject = function (obj) {
     var hasOwn = Object.prototype.hasOwnProperty;
     if (
       !obj ||
@@ -204,28 +204,28 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
   $A.extend({
     debug: true,
-    parseDebug: function(e) {
+    parseDebug: function (e) {
       if ($A.debug) {
         throw e;
       }
     },
 
-    _XR: function(o) {
+    _XR: function (o) {
       if (this._4X) {
         this._X = o;
         return this;
       } else return o;
     },
 
-    setGlobal: function(o, retroactive) {
+    setGlobal: function (o, retroactive) {
       if (o && typeof o === "object") {
         $A.extend(true, {}, $A.fn.globalDC, o);
         if (retroactive) $A.mergeGlobal();
       }
     },
 
-    mergeGlobal: function() {
-      $A.queryDC(function(dc) {
+    mergeGlobal: function () {
+      $A.queryDC(function (dc) {
         $A.extend(true, {}, $A.fn.globalDC, dc);
       });
     },
@@ -233,14 +233,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     reg: new Map(),
 
     fn: {
-      globalDC: {}
+      globalDC: {},
     },
 
     _version: Version,
 
     lastCreated: [],
     _lastCreatedCallback: false,
-    lastCreatedCallback: function(fn) {
+    lastCreatedCallback: function (fn) {
       if ($A.isFn(fn)) $A._lastCreatedCallback = fn;
     },
     props: {},
@@ -250,7 +250,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     _boundRefO: new Map(),
     _boundObjectIds: new Map(),
 
-    setIdFor: function(o) {
+    setIdFor: function (o) {
       if (this._4X) {
         o = this._X;
       }
@@ -263,7 +263,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return id;
     },
 
-    remIdFor: function(o) {
+    remIdFor: function (o) {
       if (this._4X) {
         o = this._X;
       }
@@ -276,21 +276,21 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return false;
     },
 
-    getIdFor: function(o) {
+    getIdFor: function (o) {
       if (this._4X) {
         o = this._X;
       }
       return $A._boundObjectIds.has(o) ? $A._boundObjectIds.get(o) : null;
     },
 
-    hasIdFor: function(o) {
+    hasIdFor: function (o) {
       if (this._4X) {
         o = this._X;
       }
       return $A._boundObjectIds.has(o);
     },
 
-    getFromId: function(id) {
+    getFromId: function (id) {
       if (this._4X) {
         id = this._X;
       }
@@ -299,7 +299,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
     _boundObjects: new Map(),
 
-    bindObjects: function(o, dc) {
+    bindObjects: function (o, dc) {
       if (this._4X) {
         dc = o;
         o = this._X;
@@ -309,7 +309,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return $A._XR.call(this, o);
     },
 
-    unbindObjects: function(o) {
+    unbindObjects: function (o) {
       if (this._4X) {
         o = this._X;
       }
@@ -318,7 +318,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return $A._XR.call(this, o);
     },
 
-    boundTo: function(o) {
+    boundTo: function (o) {
       if (this._4X) {
         o = this._X;
       }
@@ -326,7 +326,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return r;
     },
 
-    hasBound: function(o) {
+    hasBound: function (o) {
       if (this._4X) {
         o = this._X;
       }
@@ -334,23 +334,23 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return r;
     },
 
-    toFetch: function(u) {
+    toFetch: function (u) {
       var x = u.indexOf("#");
       if (!$A.isPath(u) || x === -1) return { data: {} };
       return {
         url: $A.trim(u.slice(0, x)),
         data: {
-          selector: $A.trim(u.slice(x))
-        }
+          selector: $A.trim(u.slice(x)),
+        },
       };
     },
 
-    getSelectorFromURI: function(u) {
+    getSelectorFromURI: function (u) {
       if (!$A.isStr(u)) return "";
       return $A.toFetch(u).data.selector;
     },
 
-    isPath: function(p) {
+    isPath: function (p) {
       return $A.isStr(p) &&
         !$A.isMarkup(p) &&
         !$A.isSelector(p) &&
@@ -359,7 +359,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         : false;
     },
 
-    map: function(config) {
+    map: function (config) {
       if (
         config &&
         (($A.isArray(config.siblings) && $A.isDC(config.siblings[0])) ||
@@ -368,7 +368,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         config.siblings[0].map(config);
     },
 
-    toDC: function(o, config) {
+    toDC: function (o, config) {
       if (this._4X) {
         config = o;
         o = this._X;
@@ -436,16 +436,16 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           {
             id: config.id || $A.genId(),
             fn: {
-              isMorphedDC: true
+              isMorphedDC: true,
             },
-            on: "click"
+            on: "click",
           },
           config
-        )
+        ),
       ])[0];
     },
 
-    _store: function(f, arrayOnly) {
+    _store: function (f, arrayOnly) {
       if (f && f.nodeType === 11) {
         var nl = [];
         for (var i = 0; i < f.childNodes.length; i++) {
@@ -459,7 +459,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return f;
     },
 
-    _check: function(f, rNode) {
+    _check: function (f, rNode) {
       var isA = $A.isArray(f);
       if ($A.isChain(f)) return $A._check(f.return(), rNode);
       else if (isA)
@@ -474,7 +474,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return f;
     },
 
-    toNode: function(s, elementOnly, arrayOnly) {
+    toNode: function (s, elementOnly, arrayOnly) {
       if (this._4X) {
         elementOnly = s;
         s = this._X;
@@ -494,12 +494,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         }
       } else if (elementOnly && $A.isArray(s)) {
         var f = document.createDocumentFragment();
-        var loop = function(o) {
+        var loop = function (o) {
           var s = o;
           if (s && s.nodeType === 11) s = $A._store(s, true);
           $A.loop(
             s,
-            function(i, n) {
+            function (i, n) {
               if (n && n.nodeType === 11) loop(n);
               else if ($A.isDOMNode(n)) f.appendChild(n);
             },
@@ -522,9 +522,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return $A._XR.call(this, s);
     },
 
-    _clone: function(o) {
+    _clone: function (o) {
       if ($A.isChain(o)) return o;
-      var f = function(o) {
+      var f = function (o) {
         this._4X = true;
         this._X = o;
       };
@@ -532,21 +532,21 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return new f(o);
     },
 
-    return: function(o) {
+    return: function (o) {
       if (this._4X) {
         o = this._X;
       }
       return o;
     },
 
-    getNode: function(o) {
+    getNode: function (o) {
       if (this._4X) {
         o = this._X;
       }
       return o;
     },
 
-    getDC: function(o, includeFromBound) {
+    getDC: function (o, includeFromBound) {
       if (this._4X) {
         includeFromBound = o;
         o = this._X;
@@ -561,15 +561,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return null;
     },
 
-    isChain: function(o) {
+    isChain: function (o) {
       return o && typeof o === "object" && o._4X ? true : false;
     },
 
-    isDC: function(o) {
+    isDC: function (o) {
       return o && typeof o === "object" && o.fn && o.fn.isDCI ? true : false;
     },
 
-    hasDC: function(o, includeFromBound) {
+    hasDC: function (o, includeFromBound) {
       if (this._4X) {
         includeFromBound = o;
         o = this._X;
@@ -579,16 +579,16 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       );
     },
 
-    preloadImg: function(a) {
+    preloadImg: function (a) {
       if (this._4X) {
         a = this._X;
       }
       var c = $A.morph(a);
       if ($A.isDOMNode(c)) {
-        $A.on("load", function() {
+        $A.on("load", function () {
           if (!$A._imageMap) $A._imageMap = {};
           var images = [];
-          $A.query("img[src]", c, function(i, o) {
+          $A.query("img[src]", c, function (i, o) {
             if (!($A._imageMap[o.src] && $A._imageMap[o.src].parentNode))
               images.push(o.src);
           });
@@ -597,9 +597,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               .import(images, {
                 tag: "img",
                 callOnAll: true,
-                call: function(g) {
+                call: function (g) {
                   $A._imageMap[g.src] = g;
-                }
+                },
               })
               .appendTo(document.body);
         });
@@ -607,7 +607,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return $A._XR.call(this, a);
     },
 
-    isMarkup: function(s) {
+    isMarkup: function (s) {
       if (this._4X) {
         s = this._X;
       }
@@ -620,7 +620,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         : false;
     },
 
-    morph: function(o, retArray, context) {
+    morph: function (o, retArray, context) {
       if ($A.isArray(o)) {
         return o;
       } else if ($A.isDOMNode(o, null, null, 11)) {
@@ -645,7 +645,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return retArray && !$A.isArray(o) ? [o] : o;
     },
 
-    isMap: function(o) {
+    isMap: function (o) {
       try {
         Map.prototype.has.call(o);
         return true;
@@ -654,7 +654,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       }
     },
 
-    loop: function(o, fn, type) {
+    loop: function (o, fn, type) {
       if (this._4X) {
         type = fn;
         fn = o;
@@ -665,7 +665,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       }
       if (!$A.isArray(o) && type === "array") o = [o];
       if ((!type || type === "map") && $A.isMap(o) && $A.isFn(o.forEach)) {
-        o.forEach(function(v, k) {
+        o.forEach(function (v, k) {
           fn.call(v, k, v);
         });
       } else if ((!type || type === "array") && $A.isArray(o)) {
@@ -686,7 +686,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return $A._XR.call(this, o);
     },
 
-    isSelector: function(s) {
+    isSelector: function (s) {
       if (s && $A.isStr(s)) {
         try {
           return document.querySelectorAll(s) ? true : false;
@@ -697,8 +697,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return false;
     },
 
-    isDOMNode: function(n, win, doc) {
-      var isType = function(args) {
+    isDOMNode: function (n, win, doc) {
+      var isType = function (args) {
         var i = 3;
         while (args[i]) {
           if (n.nodeType === args[i]) return true;
@@ -716,7 +716,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         : false;
     },
 
-    isArray: function(v) {
+    isArray: function (v) {
       if (this._4X) {
         v = this._X;
       }
@@ -724,13 +724,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         [
           "[object Array]",
           "[object NodeList]",
-          "[object HTMLCollection]"
+          "[object HTMLCollection]",
         ].indexOf(Object.prototype.toString.call(v)) !== -1 &&
         !(v instanceof Element || v instanceof HTMLDocument)
       );
     },
 
-    inArray: function(searchFor, inStack) {
+    inArray: function (searchFor, inStack) {
       if (this._4X) {
         inStack = searchFor;
         searchFor = this._X;
@@ -744,29 +744,29 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return -1;
     },
 
-    isFn: function(o) {
+    isFn: function (o) {
       return typeof o === "function";
     },
 
-    isStr: function(o) {
+    isStr: function (o) {
       return typeof o === "string";
     },
 
-    isNum: function(o) {
+    isNum: function (o) {
       return typeof o === "number";
     },
 
-    isBool: function(o) {
+    isBool: function (o) {
       return typeof o === "boolean";
     },
 
     isTouch: false,
 
-    isIE: function() {
+    isIE: function () {
       return !window.ActiveXObject && "ActiveXObject" in window ? true : false;
     },
 
-    trim: function(s) {
+    trim: function (s) {
       if (this._4X) {
         s = this._X;
       }
@@ -774,7 +774,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return s;
     },
 
-    query: function(sel, con, call) {
+    query: function (sel, con, call) {
       if (this._4X) {
         call = con;
         con = this._X;
@@ -824,7 +824,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return $A._XR.call(this, q);
     },
 
-    getText: function(n) {
+    getText: function (n) {
       if (this._4X) {
         n = this._X;
       }
@@ -834,7 +834,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return "";
     },
 
-    queryDC: function(ids, fn) {
+    queryDC: function (ids, fn) {
       if ($A.isFn(ids)) {
         fn = ids;
         ids = null;
@@ -844,7 +844,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       if (ids)
         $A.loop(
           ids,
-          function(i, id) {
+          function (i, id) {
             if ($A.hasDC(id)) {
               var dc = $A.getDC(id);
               if (fn.call(dc, dc) !== false) dcs.push(dc);
@@ -855,7 +855,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       else
         $A.loop(
           $A.reg,
-          function(id, dc) {
+          function (id, dc) {
             if ($A.isDC(dc)) {
               if (!fn.call(dc, dc)) dcs.push(dc);
             }
@@ -865,7 +865,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return dcs;
     },
 
-    get: function(o) {
+    get: function (o) {
       /* Syntax of array, may include multiple fetch objects to chain them in succession
 [
 {
@@ -889,7 +889,7 @@ error: function(error, promise){}
           cache: $A.noCache ? "no-cache" : "default", // The cache mode you want to use for the request: default, no-store, reload, no-cache, force-cache, or only-if-cached.
           redirect: "follow", // The redirect mode to use: follow (automatically follow redirects), error (abort with an error if a redirect occurs), or manual (handle redirects manually). In Chrome the default is follow (before Chrome 47 it defaulted to manual).
           keepalive: false, // The keepalive option can be used to allow the request to outlive the page. Fetch with the keepalive flag is a replacement for the Navigator.sendBeacon() API.
-          mode: "cors" // The mode you want to use for the request, e.g., cors, no-cors, or same-origin.
+          mode: "cors", // The mode you want to use for the request, e.g., cors, no-cors, or same-origin.
           // credentials: 'omit', // The request credentials you want to use for the request: omit, same-origin, or include. To automatically send cookies for the current domain, this option must be provided. Starting with Chrome 50, this property also takes a FederatedCredential instance or a PasswordCredential instance.
           // referrer: 'client', // A USVString specifying no-referrer, client, or a URL. The default is client.
           // referrerPolicy: 'no-referrer', // Specifies the value of the referer HTTP header. May be one of no-referrer, no-referrer-when-downgrade, origin, origin-when-cross-origin, unsafe-url.
@@ -897,12 +897,12 @@ error: function(error, promise){}
           // integrity: null, // Contains the subresource integrity value of the request (e.g., sha256-BpfBw7ivV8q2jLiT13fxDYAe2tJllusRSZ273h2nFSE=).
         },
         i = 0,
-        load = function(url, data, success, error) {
+        load = function (url, data, success, error) {
           var options = $A.extend({}, config, data || {});
 
           window
             .fetch(url, options)
-            .then(function(response) {
+            .then(function (response) {
               if (response.status >= 200 && response.status < 300) {
                 // text or html or xml
                 if (
@@ -910,7 +910,7 @@ error: function(error, promise){}
                     options.returnType.toLowerCase()
                   ) >= 0
                 )
-                  response.text().then(function(content) {
+                  response.text().then(function (content) {
                     if (
                       $A.isStr(content) &&
                       options.returnType.toLowerCase() === "xml"
@@ -933,7 +933,7 @@ error: function(error, promise){}
                   });
                 // json
                 else if (options.returnType.toLowerCase() === "json")
-                  response.json().then(function(json) {
+                  response.json().then(function (json) {
                     if ($A.isFn(success)) success.call(this, json, response);
                     i++;
                     if (o[i])
@@ -943,7 +943,7 @@ error: function(error, promise){}
                 error.call(this, response.statusText, response);
               }
             })
-            .catch(function(errorMsg) {
+            .catch(function (errorMsg) {
               if ($A.isFn(error)) error.call(this, errorMsg, this);
             });
         };
@@ -953,7 +953,7 @@ error: function(error, promise){}
       load(o[i].url, o[i].data, o[i].success, o[i].error);
     },
 
-    toXML: function(data) {
+    toXML: function (data) {
       if (!data) data = "";
       var doc;
       if (window.DOMParser) {
@@ -976,13 +976,13 @@ error: function(error, promise){}
     _jsCache: {},
     _cacheName: {},
 
-    clearCache: function() {
+    clearCache: function () {
       $A._cssCache = {};
       $A._jsCache = {};
       $A._cacheName = {};
     },
 
-    import: function(source, config, context) {
+    import: function (source, config, context) {
       if (this._4X) {
         context = this._X;
       }
@@ -1006,10 +1006,10 @@ error: function(error, promise){}
       if (config.defer) config.props._Defer = true;
       var impId = config.props._ImpId ? config.props._ImpId : $A.genId();
       config.props._ImpId = impId;
-      if (!$A.isFn(config.call)) config.call = function() {};
+      if (!$A.isFn(config.call)) config.call = function () {};
       var refs = [],
         m = !$A.isArray(source) ? 0 : source.length - 1,
-        cb = function(iA, i, rs) {
+        cb = function (iA, i, rs) {
           if (iA.length) {
             iA[iA.length - 1].call(window, iA[iA.length - 1]["_props"], rs);
             if (i === m) iA.splice(iA.length - 1, 1);
@@ -1022,7 +1022,7 @@ error: function(error, promise){}
       ) {
         if ($A.isFn($A._cacheName[config.name])) {
           if (!pDeferred && config.defer && !$A.isDocLoaded)
-            $A.on("load", function() {
+            $A.on("load", function () {
               $A._cacheName[config.name].call(window, config.props);
             });
           else $A._cacheName[config.name].call(window, config.props);
@@ -1033,10 +1033,10 @@ error: function(error, promise){}
       ) {
         $A.loop(
           source,
-          function(i, s) {
+          function (i, s) {
             var r = $A.createEl("img", {
               src: s,
-              alt: ""
+              alt: "",
             });
             context.appendChild(r);
             if ((config.callOnAll || i === m) && $A.isFn(config.call))
@@ -1051,7 +1051,7 @@ error: function(error, promise){}
         }
         $A.loop(
           source,
-          function(i, s) {
+          function (i, s) {
             var isCSS = s.slice(-4).toLowerCase() === ".css",
               u =
                 (!$A.isPath(s) ? $A.moduleFolder : "") +
@@ -1092,7 +1092,7 @@ error: function(error, promise){}
 
               if ((config.callOnAll || i === m) && $A.isFn(config.call)) {
                 if (!pDeferred && config.defer && !$A.isDocLoaded)
-                  $A.on("load", function() {
+                  $A.on("load", function () {
                     cb($A._ICBD, i, rs);
                   });
                 else cb($A[config.defer ? "_ICBD" : "_ICB"], i, rs);
@@ -1104,15 +1104,15 @@ error: function(error, promise){}
                   {
                     url: u,
                     data: {
-                      returnType: "text"
+                      returnType: "text",
                     },
-                    success: function(content, promise) {
+                    success: function (content, promise) {
                       var rs = false;
                       if (content) {
                         if (isCSS) {
                           rs = $A.createEl("style", {
                             type: "text/css",
-                            id: $A.genId()
+                            id: $A.genId(),
                           });
                           rs.innerHTML = content;
                           if (!nC) $A._cssCache[u] = rs;
@@ -1155,12 +1155,12 @@ error: function(error, promise){}
                         $A.isFn(config.call)
                       ) {
                         if (!pDeferred && config.defer && !$A.isDocLoaded)
-                          $A.on("load", function() {
+                          $A.on("load", function () {
                             cb($A._ICBD, i, rs);
                           });
                         else cb($A[config.defer ? "_ICBD" : "_ICB"], i, rs);
                       }
-                    }
+                    },
                   },
                   config.override || {}
                 )
@@ -1173,22 +1173,22 @@ error: function(error, promise){}
       return $A._XR.call(this, context);
     },
 
-    getScript: function(source, config, context) {
+    getScript: function (source, config, context) {
       if ($A.isFn(config)) config = { callback: config };
       config = config || {};
       var max = $A.isArray(source) ? 0 : source.length - 1;
       $A.loop(
         source,
-        function(i, s) {
+        function (i, s) {
           var t = $A.createEl("script", {
             src:
               (!$A.isPath(s) ? $A.moduleFolder : "") +
               (s.slice(-3).toLowerCase() === ".js" ? s : s + ".js"),
             async: config.disableAsync ? false : true,
-            defer: config.defer ? true : false
+            defer: config.defer ? true : false,
           });
           if ((config.callbackOnAll || i === max) && $A.isFn(config.callback))
-            t.addEventListener("load", function(ev) {
+            t.addEventListener("load", function (ev) {
               config.callback.call(window, config.props || ev);
             });
           (context || document.head || document.body).appendChild(t);
@@ -1197,15 +1197,15 @@ error: function(error, promise){}
       );
     },
 
-    _parseURLWithSelector: function(u) {
+    _parseURLWithSelector: function (u) {
       var ss = u.split(/\s+/);
       return {
         url: ss[0],
-        selector: u.substring(ss[0].length)
+        selector: u.substring(ss[0].length),
       };
     },
 
-    load: function(target, context, data, cb, errorCB) {
+    load: function (target, context, data, cb, errorCB) {
       if (this._4X) {
         errorCB = cb;
         cb = data;
@@ -1218,25 +1218,25 @@ error: function(error, promise){}
         data = null;
       }
       var config = {
-        returnType: "html"
+        returnType: "html",
       };
       $A.extend(config, data || {});
 
       $A.get({
         url: target,
         data: config,
-        success: function(node, promise) {
+        success: function (node, promise) {
           $A.insert(node, context);
           if ($A.isFn(cb)) cb.call(this, node, promise);
         },
-        error: function(errorMsg, promise) {
+        error: function (errorMsg, promise) {
           if ($A.isFn(errorCB)) errorCB.call(this, errorMsg, promise);
-        }
+        },
       });
       return $A._XR.call(this, context);
     },
 
-    detachObserver: function(o, e) {
+    detachObserver: function (o, e) {
       var m = $A.data(o, "_MutationObserver") || false;
       if (!m || !(e && m[e])) return false;
       if (e && m[e]) m[e].disconnect();
@@ -1244,7 +1244,7 @@ error: function(error, promise){}
       return true;
     },
 
-    isObserverConfig: function(o) {
+    isObserverConfig: function (o) {
       return $A.isPlainObject(o) &&
         (o.context ||
           o.subtree ||
@@ -1258,7 +1258,7 @@ error: function(error, promise){}
         : false;
     },
 
-    observer: function(o, e, fn, attributeFilter, override) {
+    observer: function (o, e, fn, attributeFilter, override) {
       e = e.toLowerCase();
       if (
         ",remove,add,attributechange,subtreechange,contentchange,".indexOf(
@@ -1285,7 +1285,7 @@ error: function(error, promise){}
           characterData: true,
           childList: true,
           subtree: true,
-          characterDataOldValue: true
+          characterDataOldValue: true,
         };
         $A.data(o, "_CurrentText", $A.getText(o));
       } else {
@@ -1295,8 +1295,8 @@ error: function(error, promise){}
       if (!$A.data(o, "_MutationObserver")) $A.data(o, "_MutationObserver", {});
       var m = $A.data(o, "_MutationObserver");
       if (!m[e])
-        m[e] = new MutationObserver(function(MTS) {
-          MTS.forEach(function(M) {
+        m[e] = new MutationObserver(function (MTS) {
+          MTS.forEach(function (M) {
             var MT = M.target,
               BO =
                 $A.boundTo(MT) ||
@@ -1374,7 +1374,7 @@ error: function(error, promise){}
       return true;
     },
 
-    keyEvent: function(e) {
+    keyEvent: function (e) {
       return e.which || e.keyCode;
     },
 
@@ -1385,11 +1385,11 @@ error: function(error, promise){}
       off: window.bean.off,
       remove: window.bean.off,
       fire: window.bean.fire,
-      Event: window.bean.Event
+      Event: window.bean.Event,
     },
 
-    on: function(ta, e, fn, save, ns, attributeFilter, override) {
-      var isLoaded = function(e) {
+    on: function (ta, e, fn, save, ns, attributeFilter, override) {
+      var isLoaded = function (e) {
         return (
           ($A.isDOMContentLoaded && e === "DOMContentLoaded") ||
           ($A.isDocLoaded && e === "load")
@@ -1445,17 +1445,17 @@ error: function(error, promise){}
       if (!$A.isStr(ns)) ns = "";
       $A.loop(
         obj,
-        function(i, o) {
+        function (i, o) {
           if ($A.isDOMNode(o, window, document, 11)) {
             if (save) $A.data(o, "SavedEventParameters", save);
             $A.loop(
               e,
-              function(j, p) {
+              function (j, p) {
                 if ($A.isStr(j) && $A.isFn(p)) {
                   j = j.split(/\s+/);
                   $A.loop(
                     j,
-                    function(k, q) {
+                    function (k, q) {
                       var dc =
                         $A.getDC($A.data(o, "SavedEventParameters")) ||
                         $A.data(o, "DC");
@@ -1466,7 +1466,7 @@ error: function(error, promise){}
                       } else if (
                         !$A.observer(o, q, p, attributeFilter, override)
                       ) {
-                        $A.event.on(o, q + ns, function(ev) {
+                        $A.event.on(o, q + ns, function (ev) {
                           p.call(o, ev, dc, $A.data(o, "SavedEventParameters"));
                         });
                       }
@@ -1484,7 +1484,7 @@ error: function(error, promise){}
                   } else if (
                     !$A.observer(o, p, fn, attributeFilter, override)
                   ) {
-                    $A.event.on(o, p + ns, function(ev) {
+                    $A.event.on(o, p + ns, function (ev) {
                       fn.call(o, ev, dc, $A.data(o, "SavedEventParameters"));
                     });
                   }
@@ -1499,7 +1499,7 @@ error: function(error, promise){}
       return $A._XR.call(this, ta);
     },
 
-    off: function(ta, e) {
+    off: function (ta, e) {
       if (this._4X) {
         e = ta;
         ta = this._X;
@@ -1513,7 +1513,7 @@ error: function(error, promise){}
       if ($A.isStr(events)) events = events.split(/\s+/);
       $A.loop(
         obj,
-        function(i, o) {
+        function (i, o) {
           if ($A.isDOMNode(o, window, document, 11)) {
             $A.removeData(o, "SavedEventParameters");
             if (!e) {
@@ -1522,7 +1522,7 @@ error: function(error, promise){}
             } else {
               $A.loop(
                 events,
-                function(j, p) {
+                function (j, p) {
                   if ($A.isStr(p)) {
                     $A.detachObserver(o, p);
                     $A.event.off(o, p);
@@ -1538,7 +1538,7 @@ error: function(error, promise){}
       return $A._XR.call(this, ta);
     },
 
-    trigger: function(ta, e) {
+    trigger: function (ta, e) {
       if (this._4X) {
         e = ta;
         ta = this._X;
@@ -1551,11 +1551,11 @@ error: function(error, promise){}
       if ($A.isStr(events)) events = events.split(/\s+/);
       $A.loop(
         obj,
-        function(i, o) {
+        function (i, o) {
           if ($A.isDOMNode(o, window, document)) {
             $A.loop(
               events,
-              function(j, p) {
+              function (j, p) {
                 if ($A.isStr(p)) $A.event.fire(o, p);
               },
               "array"
@@ -1567,7 +1567,7 @@ error: function(error, promise){}
       return $A._XR.call(this, ta);
     },
 
-    isNatActEl: function(node) {
+    isNatActEl: function (node) {
       if (this._4X) {
         node = this._X;
       }
@@ -1582,18 +1582,18 @@ error: function(error, promise){}
         : false;
     },
 
-    getActEl: function(c, onlyFocusable) {
+    getActEl: function (c, onlyFocusable) {
       var c = $A.isDOMNode(c) ? c : document;
       return $A.query(
         "a[href], button, input, textarea, select, details, *[tabindex]",
         c,
-        function(i, o) {
+        function (i, o) {
           if (onlyFocusable) return $A.isFocusable(o);
         }
       );
     },
 
-    setCircTab: function(c, activeElements) {
+    setCircTab: function (c, activeElements) {
       if (this._4X) {
         activeElements = c;
         c = this._X;
@@ -1612,7 +1612,7 @@ error: function(error, promise){}
         $A.on(
           f,
           "keydown",
-          function(ev) {
+          function (ev) {
             var k = $A.keyEvent(ev);
             if (k === 9 && ev.shiftKey && !ev.altKey && !ev.ctrlKey) {
               $A.focus(l);
@@ -1624,7 +1624,7 @@ error: function(error, promise){}
         $A.on(
           l,
           "keydown",
-          function(ev) {
+          function (ev) {
             var k = $A.keyEvent(ev);
             if (k === 9 && !ev.shiftKey && !ev.altKey && !ev.ctrlKey) {
               $A.focus(f);
@@ -1637,14 +1637,14 @@ error: function(error, promise){}
       return $A._XR.call(this, activeElements);
     },
 
-    addWidgetProfile: function(widgetType, config) {
+    addWidgetProfile: function (widgetType, config) {
       if (!$A.module[widgetType]) $A.module[widgetType] = {};
       $A.extend($A.module[widgetType], config);
     },
 
     module: {},
 
-    getModule: function(dc, action, content) {
+    getModule: function (dc, action, content) {
       if ($A.module[dc.widgetType] && $A.isFn($A.module[dc.widgetType][action]))
         return $A.module[dc.widgetType][action](dc, content);
     },
@@ -1653,7 +1653,7 @@ error: function(error, promise){}
     _regWidgets: new Map(),
     _dataMap: new Map(),
 
-    data: function(obj, key, val) {
+    data: function (obj, key, val) {
       if (this._4X) {
         val = key;
         key = obj;
@@ -1673,7 +1673,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    removeData: function(obj, key) {
+    removeData: function (obj, key) {
       if (this._4X) {
         key = obj;
         obj = this._X;
@@ -1687,7 +1687,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    insert: function(obj, root, fn, skip) {
+    insert: function (obj, root, fn, skip) {
       if (this._4X) {
         fn = root;
         root = this._X;
@@ -1706,7 +1706,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    insertWithin: function(root, obj, fn) {
+    insertWithin: function (root, obj, fn) {
       if (this._4X) {
         fn = obj;
         obj = this._X;
@@ -1715,7 +1715,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    before: function(obj, existingNode, fn) {
+    before: function (obj, existingNode, fn) {
       if (this._4X) {
         fn = existingNode;
         existingNode = obj;
@@ -1725,7 +1725,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    _insertBefore: function(obj, existingNode, fn) {
+    _insertBefore: function (obj, existingNode, fn) {
       if (this._4X) {
         fn = existingNode;
         existingNode = obj;
@@ -1740,7 +1740,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    replace: function(obj, existingNode, fn) {
+    replace: function (obj, existingNode, fn) {
       if (this._4X) {
         fn = existingNode;
         existingNode = obj;
@@ -1750,7 +1750,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    _replaceChild: function(obj, existingNode, fn) {
+    _replaceChild: function (obj, existingNode, fn) {
       obj = $A.morph(obj);
       existingNode = $A.morph(existingNode);
       if (!$A.isDOMNode(existingNode) || !$A.isDOMNode(obj, null, null, 11))
@@ -1760,7 +1760,7 @@ error: function(error, promise){}
       return obj;
     },
 
-    after: function(obj, existingNode, fn) {
+    after: function (obj, existingNode, fn) {
       if (this._4X) {
         fn = existingNode;
         existingNode = obj;
@@ -1770,7 +1770,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    _insertAfter: function(obj, existingNode, fn) {
+    _insertAfter: function (obj, existingNode, fn) {
       obj = $A.morph(obj);
       existingNode = $A.morph(existingNode);
       if (!$A.isDOMNode(existingNode) || !$A.isDOMNode(obj, null, null, 11))
@@ -1782,7 +1782,7 @@ error: function(error, promise){}
       return obj;
     },
 
-    prepend: function(obj, root, fn) {
+    prepend: function (obj, root, fn) {
       if (this._4X) {
         fn = root;
         root = this._X;
@@ -1801,7 +1801,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    prependTo: function(root, obj, fn) {
+    prependTo: function (root, obj, fn) {
       if (this._4X) {
         fn = obj;
         obj = this._X;
@@ -1810,7 +1810,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    append: function(obj, root, fn) {
+    append: function (obj, root, fn) {
       if (this._4X) {
         fn = root;
         root = this._X;
@@ -1828,7 +1828,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    appendTo: function(root, obj, fn) {
+    appendTo: function (root, obj, fn) {
       if (this._4X) {
         fn = obj;
         obj = this._X;
@@ -1837,7 +1837,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    insertMarkup: function(obj, root, pos, fn) {
+    insertMarkup: function (obj, root, pos, fn) {
       if (this._4X) {
         fn = pos;
         pos = root;
@@ -1855,7 +1855,7 @@ error: function(error, promise){}
             prepend: "afterbegin",
             append: "beforeend",
             before: "beforebegin",
-            after: "afterend"
+            after: "afterend",
           };
           if (locale[pos]) root.insertAdjacentHTML(locale[pos], obj);
           else {
@@ -1868,7 +1868,7 @@ error: function(error, promise){}
       return $A._XR.call(this, root);
     },
 
-    _deleteNode: function(o) {
+    _deleteNode: function (o) {
       try {
         var range = document.createRange();
         range.selectNode(o);
@@ -1878,7 +1878,7 @@ error: function(error, promise){}
       }
     },
 
-    cloneNodes: function(o, noFrag) {
+    cloneNodes: function (o, noFrag) {
       if (this._4X) {
         noFrag = o;
         o = this._X;
@@ -1902,7 +1902,7 @@ error: function(error, promise){}
       return $A._XR.call(this, r);
     },
 
-    extractNodes: function(o, noFrag) {
+    extractNodes: function (o, noFrag) {
       if (this._4X) {
         noFrag = o;
         o = this._X;
@@ -1927,7 +1927,7 @@ error: function(error, promise){}
       return $A._XR.call(this, r);
     },
 
-    empty: function(obj, removeParent) {
+    empty: function (obj, removeParent) {
       if (this._4X) {
         removeParent = obj;
         obj = this._X;
@@ -1947,7 +1947,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    _cleanAll: function(obj, includeParent, skipDel) {
+    _cleanAll: function (obj, includeParent, skipDel) {
       if (obj && obj.getElementsByTagName) {
         var items = obj.getElementsByTagName("*");
         for (var i = items.length; i--; ) {
@@ -1957,7 +1957,7 @@ error: function(error, promise){}
       }
     },
 
-    _clean: function(obj, sD) {
+    _clean: function (obj, sD) {
       var dc = $A.data(obj, "DC");
       if ($A.isDC(dc)) {
         a = $A.data(obj, "DC-ON");
@@ -1970,7 +1970,7 @@ error: function(error, promise){}
       $A.event.off(obj);
     },
 
-    remove: function(obj, skipDelete) {
+    remove: function (obj, skipDelete) {
       if (this._4X) {
         skipDelete = obj;
         obj = this._X;
@@ -1996,7 +1996,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    destroy: function(id, p) {
+    destroy: function (id, p) {
       var r = null;
       if ($A.isDC(id)) r = id;
       else r = $A.reg.get(id);
@@ -2009,7 +2009,7 @@ error: function(error, promise){}
           c = null;
         } else $A.before($A.extractNodes(c), a);
       }
-      r.bypass(function() {
+      r.bypass(function () {
         var aD = r.afterDestroy;
         if ($A.isFn(r.beforeDestroy)) r.beforeDestroy(r);
         $A.removeData(r.id);
@@ -2050,7 +2050,7 @@ error: function(error, promise){}
       return true;
     },
 
-    getEl: function(e, con, fn) {
+    getEl: function (e, con, fn) {
       if (this._4X) {
         fn = con;
         con = this._X;
@@ -2071,7 +2071,7 @@ error: function(error, promise){}
       return $A._XR.call(this, r);
     },
 
-    createEl: function(t) {
+    createEl: function (t) {
       var o = document.createElement(t);
       if (arguments.length === 1 || !$A.isDOMNode(o)) return o;
       if (arguments[1]) $A.setAttr(o, arguments[1]);
@@ -2081,13 +2081,13 @@ error: function(error, promise){}
       return o;
     },
 
-    toText: function(s) {
+    toText: function (s) {
       if ($A.isDOMNode(s, null, null, 3)) return s;
       else if (!$A.isStr(s)) s = "";
       return document.createTextNode(s);
     },
 
-    getAttr: function(e, n) {
+    getAttr: function (e, n) {
       if (this._4X) {
         n = e;
         e = this._X;
@@ -2098,7 +2098,7 @@ error: function(error, promise){}
       return E.getAttribute(n);
     },
 
-    hasAttr: function(e, n) {
+    hasAttr: function (e, n) {
       if (this._4X) {
         n = e;
         e = this._X;
@@ -2109,7 +2109,7 @@ error: function(error, promise){}
       return E.hasAttribute(n);
     },
 
-    remAttr: function(e, n) {
+    remAttr: function (e, n) {
       if (this._4X) {
         n = e;
         e = this._X;
@@ -2129,7 +2129,7 @@ error: function(error, promise){}
       return $A._XR.call(this, e);
     },
 
-    setAttr: function(e, name, value) {
+    setAttr: function (e, name, value) {
       if (this._4X) {
         value = name;
         name = e;
@@ -2155,7 +2155,7 @@ error: function(error, promise){}
       return $A._XR.call(this, e);
     },
 
-    prevSibling: function(e, t) {
+    prevSibling: function (e, t) {
       if (this._4X) {
         t = e;
         e = this._X;
@@ -2172,7 +2172,7 @@ error: function(error, promise){}
       return $A._XR.call(this, e);
     },
 
-    nextSibling: function(e, t) {
+    nextSibling: function (e, t) {
       if (this._4X) {
         t = e;
         e = this._X;
@@ -2189,7 +2189,7 @@ error: function(error, promise){}
       return $A._XR.call(this, e);
     },
 
-    firstChild: function(e, t) {
+    firstChild: function (e, t) {
       if (this._4X) {
         t = e;
         e = this._X;
@@ -2206,7 +2206,7 @@ error: function(error, promise){}
       return $A._XR.call(this, e);
     },
 
-    lastChild: function(e, t) {
+    lastChild: function (e, t) {
       if (this._4X) {
         t = e;
         e = this._X;
@@ -2223,7 +2223,7 @@ error: function(error, promise){}
       return $A._XR.call(this, e);
     },
 
-    closest: function(node, fn) {
+    closest: function (node, fn) {
       if (this._4X) {
         fn = node;
         node = this._X;
@@ -2236,7 +2236,7 @@ error: function(error, promise){}
       return $A._XR.call(this, node);
     },
 
-    _getStyleObject: function(node) {
+    _getStyleObject: function (node) {
       var style = {};
       if (document.defaultView && document.defaultView.getComputedStyle) {
         style = document.defaultView.getComputedStyle(node, "");
@@ -2246,7 +2246,7 @@ error: function(error, promise){}
       return style;
     },
 
-    css: function(ob, p, v) {
+    css: function (ob, p, v) {
       if (this._4X) {
         v = p;
         p = ob;
@@ -2266,7 +2266,7 @@ error: function(error, promise){}
       ) {
         return $A._getStyleObject(obj[0])[p];
       }
-      var isNumProp = function(n) {
+      var isNumProp = function (n) {
         if (!n) return false;
         var list = ["top", "left", "bottom", "right", "width", "height"];
         for (var l = 0; l < list.length; l++) {
@@ -2274,7 +2274,7 @@ error: function(error, promise){}
         }
         return false;
       };
-      var setProp = function(o, prop, val) {
+      var setProp = function (o, prop, val) {
         val = isNumProp(prop) && $A.isNum(val) ? val + "px" : val;
         try {
           if (!(val || $A.isNum(val)) && o.style.removeProperty) {
@@ -2299,7 +2299,7 @@ error: function(error, promise){}
       return $A._XR.call(this, ob);
     },
 
-    hasClass: function(O, cn) {
+    hasClass: function (O, cn) {
       if (this._4X) {
         cn = O;
         O = this._X;
@@ -2325,7 +2325,7 @@ error: function(error, promise){}
       return i === names.length;
     },
 
-    addClass: function(obj, cn) {
+    addClass: function (obj, cn) {
       if (this._4X) {
         cn = obj;
         obj = this._X;
@@ -2354,7 +2354,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    remClass: function(obj, cn) {
+    remClass: function (obj, cn) {
       if (this._4X) {
         cn = obj;
         obj = this._X;
@@ -2385,7 +2385,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    toggleClass: function(obj, cn, isTrue, fn) {
+    toggleClass: function (obj, cn, isTrue, fn) {
       if (this._4X) {
         fn = isTrue;
         isTrue = cn;
@@ -2409,7 +2409,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    setOffScreen: function(obj) {
+    setOffScreen: function (obj) {
       if (this._4X) {
         obj = this._X;
       }
@@ -2417,7 +2417,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    clearOffScreen: function(obj) {
+    clearOffScreen: function (obj) {
       if (this._4X) {
         obj = this._X;
       }
@@ -2435,7 +2435,7 @@ error: function(error, promise){}
       height: "1px",
       width: "1px",
       overflow: "hidden",
-      whiteSpace: "nowrap"
+      whiteSpace: "nowrap",
     },
 
     sraCSSClear: {
@@ -2446,10 +2446,10 @@ error: function(error, promise){}
       height: "",
       width: "",
       overflow: "",
-      whiteSpace: "normal"
+      whiteSpace: "normal",
     },
 
-    _calcPosition: function(dc, objArg, posVal) {
+    _calcPosition: function (dc, objArg, posVal) {
       var obj = objArg || dc.posAnchor;
       if (obj && $A.isStr(obj)) obj = $A.query(obj)[0];
       else if (!obj) obj = dc.triggerNode;
@@ -2458,7 +2458,7 @@ error: function(error, promise){}
         pos = {},
         aPos = {
           height: $A.elementHeight(dc.outerNode),
-          width: $A.elementWidth(dc.outerNode)
+          width: $A.elementWidth(dc.outerNode),
         },
         oPos = $A.offset(obj),
         position = $A.css(dc.outerNode, "position");
@@ -2508,18 +2508,18 @@ error: function(error, promise){}
       $A.css(dc.outerNode, pos);
     },
 
-    getWindow: function(w) {
+    getWindow: function (w) {
       var w = $A.isDOMNode(w, window) ? w : window;
       return {
         width:
           w.document.documentElement.clientWidth || w.document.body.clientWidth,
         height:
           w.document.documentElement.clientHeight ||
-          w.document.body.clientHeight
+          w.document.body.clientHeight,
       };
     },
 
-    _getAbsolutePos: function(obj) {
+    _getAbsolutePos: function (obj) {
       if (!obj) return obj;
       var curleft = 0;
       var curtop = 0;
@@ -2529,11 +2529,11 @@ error: function(error, promise){}
       } while ((obj = obj.offsetParent));
       return {
         left: curleft,
-        top: curtop
+        top: curtop,
       };
     },
 
-    offset: function(c, forceAbsolute, forceRelative, returnTopLeftOnly) {
+    offset: function (c, forceAbsolute, forceRelative, returnTopLeftOnly) {
       if (this._4X) {
         returnTopLeftOnly = forceRelative;
         forceRelative = forceAbsolute;
@@ -2559,20 +2559,20 @@ error: function(error, promise){}
           right: br.right,
           bottom: br.bottom,
           height: br.height,
-          width: br.width
+          width: br.width,
         };
       }
       if (returnTopLeftOnly) {
         // Ensure only top and left properties are returned if returnTopLeftOnly = true
         r = {
           top: r.top,
-          left: r.left
+          left: r.left,
         };
       }
       return r;
     },
 
-    _camelize: function(cssPropStr) {
+    _camelize: function (cssPropStr) {
       if (!$A.isStr(cssPropStr)) cssPropStr = "";
       var i, c, a, s;
       a = cssPropStr.split("-");
@@ -2584,7 +2584,7 @@ error: function(error, promise){}
       return s;
     },
 
-    _getComputedStyle: function(e, p, i) {
+    _getComputedStyle: function (e, p, i) {
       if (!e) return e;
       var s,
         v = "undefined",
@@ -2598,28 +2598,28 @@ error: function(error, promise){}
       return i ? parseInt(v, 10) || 0 : v;
     },
 
-    _num: function() {
+    _num: function () {
       for (var i = 0; i < arguments.length; i++) {
         if (isNaN(arguments[i]) || !$A.isNum(arguments[i])) return false;
       }
       return true;
     },
 
-    _def: function() {
+    _def: function () {
       for (var i = 0; i < arguments.length; i++) {
         if (typeof arguments[i] === "undefined") return false;
       }
       return true;
     },
 
-    _str: function() {
+    _str: function () {
       for (var i = 0; i < arguments.length; i++) {
         if (!$A.isStr(arguments[i])) return false;
       }
       return true;
     },
 
-    elementHeight: function(e, h) {
+    elementHeight: function (e, h) {
       var css,
         pt = 0,
         pb = 0,
@@ -2656,7 +2656,7 @@ error: function(error, promise){}
       return h;
     },
 
-    elementWidth: function(e, w) {
+    elementWidth: function (e, w) {
       var css,
         pl = 0,
         pr = 0,
@@ -2693,7 +2693,7 @@ error: function(error, promise){}
       return w;
     },
 
-    _top: function(e, iY) {
+    _top: function (e, iY) {
       var css = $A._def(e.style);
       if (css && $A._str(e.style.top)) {
         if ($A._num(iY)) e.style.top = iY + "px";
@@ -2709,7 +2709,7 @@ error: function(error, promise){}
       return iY;
     },
 
-    _left: function(e, iX) {
+    _left: function (e, iX) {
       var css = $A._def(e.style);
       if (css && $A._str(e.style.left)) {
         if ($A._num(iX)) e.style.left = iX + "px";
@@ -2725,7 +2725,7 @@ error: function(error, promise){}
       return iX;
     },
 
-    isPointerWithin: function(n) {
+    isPointerWithin: function (n) {
       if (
         $A.isDOMNode(n) &&
         $A.event.pointer &&
@@ -2736,7 +2736,7 @@ error: function(error, promise){}
       return false;
     },
 
-    addIdRef: function(obj, attr, ids) {
+    addIdRef: function (obj, attr, ids) {
       if (this._4X) {
         ids = attr;
         attr = obj;
@@ -2747,7 +2747,7 @@ error: function(error, promise){}
         ni = (ids || "").split(/\s+/);
       $A.loop(
         t,
-        function(i, o) {
+        function (i, o) {
           var ds = ($A.getAttr(o, attr) || "").split(/\s+/);
           for (var z = 0; z < ni.length; z++) {
             var d = ni[z];
@@ -2760,7 +2760,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    remIdRef: function(obj, attr, ids) {
+    remIdRef: function (obj, attr, ids) {
       if (this._4X) {
         ids = attr;
         attr = obj;
@@ -2771,7 +2771,7 @@ error: function(error, promise){}
         ni = (ids || "").split(/\s+/);
       $A.loop(
         t,
-        function(i, o) {
+        function (i, o) {
           var n = [],
             ds = ($A.getAttr(o, attr) || "").split(/\s+/);
           for (var z = 0; z < ds.length; z++) {
@@ -2785,7 +2785,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    genId: function(obj) {
+    genId: function (obj) {
       if (this._4X) {
         obj = this._X;
       }
@@ -2801,7 +2801,7 @@ error: function(error, promise){}
       return id;
     },
 
-    announce: function(str, noRepeat, aggr) {
+    announce: function (str, noRepeat, aggr) {
       if (this._4X) {
         aggr = noRepeat;
         noRepeat = str;
@@ -2811,7 +2811,7 @@ error: function(error, promise){}
       return $A._XR.call(this, str);
     },
 
-    alert: function(str, noRepeat) {
+    alert: function (str, noRepeat) {
       if (this._4X) {
         noRepeat = str;
         str = this._X;
@@ -2822,10 +2822,10 @@ error: function(error, promise){}
 
     // Derived from isOutOfViewport.js by Chris Ferdinandi
     // https://vanillajstoolkit.com/helpers/isoutofviewport/
-    isOutOfView: function(elem) {
+    isOutOfView: function (elem) {
       var bounding = elem.getBoundingClientRect();
       var out = {
-        bounding: bounding
+        bounding: bounding,
       };
       out.top = bounding.top < 0;
       out.left = bounding.left < 0;
@@ -2840,7 +2840,7 @@ error: function(error, promise){}
       return out;
     },
 
-    getOrientation: function(nodes) {
+    getOrientation: function (nodes) {
       if (this._4X) {
         nodes = this._X;
       }
@@ -2862,7 +2862,7 @@ error: function(error, promise){}
         ln;
       $A.loop(
         nodes,
-        function(i, n) {
+        function (i, n) {
           var o = $A.offset(n);
           if (i === 0) fn = o;
           else if (i === nodes.length - 1) ln = o;
@@ -2871,10 +2871,10 @@ error: function(error, promise){}
         },
         "array"
       );
-      var max = function(a, b) {
+      var max = function (a, b) {
           return Math.max(a, b);
         },
-        min = function(a, b) {
+        min = function (a, b) {
           return Math.min(a, b);
         },
         maxT = nt.reduce(max),
@@ -2891,7 +2891,7 @@ error: function(error, promise){}
       return r;
     },
 
-    focus: function(obj, f) {
+    focus: function (obj, f) {
       if (this._4X) {
         f = obj;
         obj = this._X;
@@ -2907,7 +2907,7 @@ error: function(error, promise){}
       return $A._XR.call(this, obj);
     },
 
-    isFocusWithin: function(o) {
+    isFocusWithin: function (o) {
       if (this._4X) {
         o = this._X;
       }
@@ -2917,11 +2917,11 @@ error: function(error, promise){}
       return false;
     },
 
-    isHidden: function(node) {
+    isHidden: function (node) {
       if (this._4X) {
         node = this._X;
       }
-      var hidden = function(node) {
+      var hidden = function (node) {
         if (!$A.isDOMNode(node)) return false;
         else if (node.hidden || node.getAttribute("hidden")) return true;
         else {
@@ -2939,7 +2939,7 @@ error: function(error, promise){}
       return false;
     },
 
-    isWithin: function(node, container) {
+    isWithin: function (node, container) {
       if (this._4X) {
         container = node;
         node = this._X;
@@ -2953,7 +2953,7 @@ error: function(error, promise){}
       return false;
     },
 
-    hideBackground: function(eN) {
+    hideBackground: function (eN) {
       if (this._4X) {
         eN = this._X;
       }
@@ -2972,7 +2972,7 @@ error: function(error, promise){}
           document.body.appendChild(n);
         $A.loop(
           document.body.children,
-          function(i, o) {
+          function (i, o) {
             if ($A.isDOMNode(o)) {
               var m = o === n;
               o.inert = m ? false : true;
@@ -2986,7 +2986,7 @@ error: function(error, promise){}
       return $A._XR.call(this, n);
     },
 
-    showBackground: function(eN) {
+    showBackground: function (eN) {
       if (this._4X) {
         eN = this._X;
       }
@@ -2996,7 +2996,7 @@ error: function(error, promise){}
       } else {
         $A.loop(
           document.body.children,
-          function(i, o) {
+          function (i, o) {
             if ($A.isDOMNode(o)) {
               o.inert = false;
               $A.remAttr(o, "aria-hidden");
@@ -3008,26 +3008,26 @@ error: function(error, promise){}
       return $A._XR.call(this, n);
     },
 
-    setKBA11Y: function(node, role, name, noSpacebar) {
+    setKBA11Y: function (node, role, name, noSpacebar) {
       if (this._4X) {
         noSpacebar = name;
         name = role;
         role = node;
         node = this._X;
       }
-      var nodes = $A.query(node, function(i, node) {
+      var nodes = $A.query(node, function (i, node) {
         if ($A.isDOMNode(node) && !$A.isNatActEl(node)) {
           $A.setAttr(node, "tabindex", "0");
           if (role) $A.setAttr(node, "role", role);
           if (name) $A.setAttr(node, "aria-label", name);
           $A.on(node, {
-            keydown: function(ev) {
+            keydown: function (ev) {
               var k = $A.keyEvent(ev);
               if (k === 13 || (!noSpacebar && k === 32)) {
                 $A.trigger(node, "click");
                 ev.preventDefault();
               }
-            }
+            },
           });
           return true;
         }
@@ -3039,7 +3039,7 @@ error: function(error, promise){}
       return $A._XR.call(this, node);
     },
 
-    setDisabled: function(o, disable) {
+    setDisabled: function (o, disable) {
       if (this._4X) {
         disable = o;
         o = this._X;
@@ -3051,7 +3051,7 @@ error: function(error, promise){}
         t = o.triggerNode || o.trigger;
         isDC = true;
       }
-      $A.query(t, function(i, o) {
+      $A.query(t, function (i, o) {
         var isNat = $A.isNatActEl(o),
           isLink = isNat && o.nodeName.toLowerCase() === "a";
         if (isNat && !isLink) o.disabled = disable ? true : false;
@@ -3059,7 +3059,7 @@ error: function(error, promise){}
           $A.setAttr(o, "aria-disabled", disable ? "true" : "false");
           if (isLink) {
             if (disable)
-              $A.on(o, "click.disable", function(ev) {
+              $A.on(o, "click.disable", function (ev) {
                 ev.preventDefault();
               });
             else $A.off(o, "click.disable");
@@ -3071,7 +3071,7 @@ error: function(error, promise){}
       return $A._XR.call(this, o);
     },
 
-    isDisabled: function(o) {
+    isDisabled: function (o) {
       if (this._4X) {
         o = this._X;
       }
@@ -3087,7 +3087,7 @@ error: function(error, promise){}
       return false;
     },
 
-    updateDisabled: function(o) {
+    updateDisabled: function (o) {
       if (this._4X) {
         o = this._X;
       }
@@ -3095,11 +3095,11 @@ error: function(error, promise){}
       if ($A.isDC(o)) a = o.siblings;
       $A.loop(
         a,
-        function(i, o) {
+        function (i, o) {
           var t = o;
           if (!$A.isDC(o) && $A.hasDC(o)) o = $A.getDC(o);
           if ($A.isDC(o)) t = o.triggerNode || o.trigger;
-          $A.query(t, function(x, e) {
+          $A.query(t, function (x, e) {
             var isD =
               ($A.isNatActEl(e) && e.disabled) ||
               $A.getAttr(e, "aria-disabled") === "true"
@@ -3114,7 +3114,7 @@ error: function(error, promise){}
       return $A._XR.call(this, o);
     },
 
-    isFocusable: function(node, usingFocus) {
+    isFocusable: function (node, usingFocus) {
       if (this._4X) {
         usingFocus = node;
         node = this._X;
@@ -3129,7 +3129,7 @@ error: function(error, promise){}
         : false;
     },
 
-    _setFocus: function(o) {
+    _setFocus: function (o) {
       if ($A.isDOMNode(o)) {
         if (!$A.isFocusable(o)) $A.setAttr(o, "tabindex", -1);
         o.focus();
@@ -3137,17 +3137,17 @@ error: function(error, promise){}
       return o;
     },
 
-    _GenDC: function(DCObjects, gImport, parentDC) {
+    _GenDC: function (DCObjects, gImport, parentDC) {
       var WL = [],
-        changeTabs = function(DC, isClose) {
+        changeTabs = function (DC, isClose) {
           var dc = WL[DC.indexVal];
           if ((dc.isTab || dc.isToggle) && dc.toggleClassName) {
             if (isClose && (dc.trigger || dc.triggerNode)) {
-              $A.query(dc.trigger || dc.triggerNode, function(i, o) {
+              $A.query(dc.trigger || dc.triggerNode, function (i, o) {
                 $A.toggleClass(o, dc.toggleClassName, false);
               });
             } else if (dc.trigger || dc.triggerNode) {
-              $A.query(dc.trigger || dc.triggerNode, function(i, o) {
+              $A.query(dc.trigger || dc.triggerNode, function (i, o) {
                 $A.toggleClass(
                   o,
                   dc.toggleClassName,
@@ -3158,11 +3158,11 @@ error: function(error, promise){}
           }
           return dc;
         },
-        parseScripts = function(DC, type, next) {
+        parseScripts = function (DC, type, next) {
           var dc = WL[DC.indexVal],
             toGet = [],
             toRun = [],
-            rn = function(typ, isOnce, DC) {
+            rn = function (typ, isOnce, DC) {
               var ran = typ + "Ran",
                 run = typ;
               if (
@@ -3183,14 +3183,14 @@ error: function(error, promise){}
               "jsOnce" + type,
               "once" + type,
               "js" + type,
-              type[0].toLowerCase() + type.slice(1)
+              type[0].toLowerCase() + type.slice(1),
             ];
           if (dc.reverseJSOrder) fns = fns.reverse();
 
-          var lp = function(mDC) {
+          var lp = function (mDC) {
             $A.loop(
               fns,
-              function(i, f) {
+              function (i, f) {
                 rn(f, f.toLowerCase().indexOf("once") !== -1, mDC);
               },
               "array"
@@ -3204,10 +3204,10 @@ error: function(error, promise){}
           }
           if ($A.isFn(next)) toRun.push(next);
 
-          var cont = function() {
+          var cont = function () {
             $A.loop(
               toRun,
-              function(i, r) {
+              function (i, r) {
                 r(dc, dc.container);
               },
               "array"
@@ -3217,17 +3217,17 @@ error: function(error, promise){}
           if (toGet.length)
             $A.import(toGet, {
               props: {
-                DC: dc
+                DC: dc,
               },
-              call: function() {
+              call: function () {
                 cont();
-              }
+              },
             });
           else cont();
 
           return dc;
         },
-        checkWT = function(dc) {
+        checkWT = function (dc) {
           var dc = WL[DC.indexVal],
             w = 0,
             wt = null,
@@ -3256,7 +3256,7 @@ error: function(error, promise){}
           }
           return dc;
         },
-        DCR1 = function(DC) {
+        DCR1 = function (DC) {
           var dc = WL[DC.indexVal];
           if (
             dc.loading ||
@@ -3268,7 +3268,7 @@ error: function(error, promise){}
           ) {
             if (dc.loaded && dc.isToggle) closeDC(dc);
             else if (dc.loaded && dc.allowRerender)
-              dc.bypass(function() {
+              dc.bypass(function () {
                 DCR1(dc);
               });
             if (
@@ -3293,7 +3293,7 @@ error: function(error, promise){}
 
           return dc;
         },
-        DCR2 = function(DC) {
+        DCR2 = function (DC) {
           var dc = WL[DC.indexVal];
 
           if (dc.cancel) {
@@ -3319,14 +3319,14 @@ error: function(error, promise){}
                 dc.fetch.url,
                 dc.content,
                 dc.fetch.data,
-                function(content, promise) {
+                function (content, promise) {
                   dc.isLoading = false;
                   if (dc.preloadImages) $A.preloadImg(content);
                   $A.getModule(dc, "onFetch", content);
                   dc.fetch.success(content, promise, dc);
                   DCR3(dc);
                 },
-                function(errorMsg, promise) {
+                function (errorMsg, promise) {
                   dc.isLoading = false;
                   dc.fetch.error(errorMsg, promise, dc);
                   $A.parseDebug(errorMsg);
@@ -3339,17 +3339,17 @@ error: function(error, promise){}
               $A.get({
                 url: dc.fetch.url,
                 data: dc.fetch.data,
-                success: function(content, promise) {
+                success: function (content, promise) {
                   dc.isLoading = true;
                   if (dc.preloadImages) $A.preloadImg(content);
                   $A.getModule(dc, "onFetch", content);
                   dc.fetch.success(content, promise, dc);
                   DCR3(dc);
                 },
-                error: function(errorMsg, promise) {
+                error: function (errorMsg, promise) {
                   dc.isLoading = false;
                   dc.fetch.error(errorMsg, promise, dc);
-                }
+                },
               });
               break;
             default:
@@ -3359,7 +3359,7 @@ error: function(error, promise){}
 
           return dc;
         },
-        DCR3 = function(DC) {
+        DCR3 = function (DC) {
           var dc = WL[DC.indexVal];
 
           if (dc.cancel) {
@@ -3378,10 +3378,10 @@ error: function(error, promise){}
 
           if (!dc.contentOnly) {
             dc.outerNode = $A.createEl("div", {
-              id: dc.outerNodeId
+              id: dc.outerNodeId,
             });
             dc.container = $A.createEl("div", {
-              id: dc.containerId
+              id: dc.containerId,
             });
             dc.outerNode.appendChild(dc.container);
             if ($A.isStr(dc.content) && $A.isMarkup(dc.content))
@@ -3403,7 +3403,7 @@ error: function(error, promise){}
             if (scripts.length) {
               $A.loop(
                 scripts,
-                function(i, s) {
+                function (i, s) {
                   if (s.src) {
                     if (!$A.isArray(dc.jsAfter)) dc.jsAfter = [];
                     dc.jsAfter.push(s.src);
@@ -3460,7 +3460,7 @@ error: function(error, promise){}
 
           return dc;
         },
-        DCR4 = function(DC) {
+        DCR4 = function (DC) {
           var dc = WL[DC.indexVal];
 
           if (dc.cancel) {
@@ -3525,11 +3525,11 @@ error: function(error, promise){}
             else dc.content = $A.cloneNodes(dc.container);
           }
 
-          var complete = function() {
+          var complete = function () {
             if (dc.isFocusable)
               dc.setAttr({
                 tabindex: "0",
-                "aria-describedby": dc.containerId
+                "aria-describedby": dc.containerId,
               });
             if (dc.autoPosition > 0 && !dc.root && !dc.autoFix)
               $A._calcPosition(dc);
@@ -3543,7 +3543,7 @@ error: function(error, promise){}
                 "a",
                 {
                   id: dc.closeId,
-                  href: "#close"
+                  href: "#close",
                 },
                 $A.sraCSS,
                 dc.closeClassName
@@ -3551,29 +3551,29 @@ error: function(error, promise){}
               dc.fn.closeLink.innerHTML = dc.hiddenCloseName;
               $A.append(dc.fn.closeLink, dc.outerNode);
               $A.on(dc.fn.closeLink, {
-                click: function(ev) {
+                click: function (ev) {
                   dc.remove();
                   ev.preventDefault();
-                }
+                },
               });
               if (dc.displayHiddenClose)
                 $A.on(dc.fn.closeLink, {
-                  focus: function(ev) {
+                  focus: function (ev) {
                     var disableC =
                       $A.isFn(dc.tabOut) && dc.tabOut(ev, dc) ? true : false;
                     if (!disableC) {
                       $A.clearOffScreen(this);
                     }
                   },
-                  blur: function(ev) {
+                  blur: function (ev) {
                     $A.setOffScreen(this);
-                  }
+                  },
                 });
               else $A.setAttr(dc.fn.closeLink, "tabindex", "-1");
             }
-            $A.query("." + dc.closeClassName, dc.container, function(i, c) {
+            $A.query("." + dc.closeClassName, dc.container, function (i, c) {
               if (dc.toggleHide) $A.off(c, "click.closeDC");
-              $A.on(c, "click.closeDC", function(ev) {
+              $A.on(c, "click.closeDC", function (ev) {
                 dc.remove();
                 ev.preventDefault();
               });
@@ -3581,7 +3581,7 @@ error: function(error, promise){}
             $A.data(dc.outerNode, "DC-O", dc);
             if (dc.escToClose) {
               if (dc.toggleHide) $A.off(dc.outerNode, "keydown.esctoclose");
-              $A.on(dc.outerNode, "keydown.esctoclose", function(ev) {
+              $A.on(dc.outerNode, "keydown.esctoclose", function (ev) {
                 var k = $A.keyEvent(ev);
                 if (k === 27) {
                   dc.remove();
@@ -3599,9 +3599,9 @@ error: function(error, promise){}
             $A.data(dc.id, "DC", dc);
             $A.loop(
               dc.events,
-              function(i, e) {
+              function (i, e) {
                 if ($A.isFn(dc[e])) {
-                  toBind[e.toLowerCase().replace(/^on/, "")] = function(ev) {
+                  toBind[e.toLowerCase().replace(/^on/, "")] = function (ev) {
                     dc[e].apply(dc.outerNode, [ev, dc]);
                   };
                 }
@@ -3616,20 +3616,20 @@ error: function(error, promise){}
             if ($A.isArray(dc.embeddedJS) && dc.embeddedJS.length) {
               $A.loop(
                 dc.embeddedJS,
-                function(i, f) {
+                function (i, f) {
                   f.call(dc.container, window, document, $A, dc, dc);
                 },
                 "array"
               );
             }
             $A.getModule(dc, "afterRender", dc.container);
-            parseScripts(dc, "AfterRender", function() {
+            parseScripts(dc, "AfterRender", function () {
               if (dc.scrollIntoView) {
                 if ($A.isFn(dc.scrollIntoView))
                   dc.scrollIntoView.call(dc.container, dc, dc.container);
                 else
                   dc.container.scrollIntoView({
-                    behavior: "smooth"
+                    behavior: "smooth",
                   });
               }
               $A.lastLoaded = dc;
@@ -3643,7 +3643,7 @@ error: function(error, promise){}
               if ($A.straylight) $A.straylight(dc.container);
               if ($A.isNum(dc.delayTimeout) && dc.delayTimeout > 0) {
                 if (dc.fn.timer) clearTimeout(dc.fn.timer);
-                dc.fn.timer = setTimeout(function() {
+                dc.fn.timer = setTimeout(function () {
                   dc.timeout(dc);
                 }, dc.delayTimeout);
               }
@@ -3656,21 +3656,21 @@ error: function(error, promise){}
 
           return dc;
         },
-        closeDC = function(DC) {
+        closeDC = function (DC) {
           var dc = WL[DC.indexVal];
           if (!dc.loaded || dc.lock || dc.closing) return dc;
           dc.closing = true;
           dc.cancel = false;
 
           $A.getModule(dc, "beforeRemove", dc.container);
-          parseScripts(dc, "BeforeRemove", function() {
+          parseScripts(dc, "BeforeRemove", function () {
             if (!dc.loaded || dc.lock || dc.cancel) {
               dc.closing = dc.cancel = false;
               return dc;
             }
             dc.loaded = false;
 
-            var complete = function() {
+            var complete = function () {
               if (!dc.storeData) $A._cleanAll(dc.container, true);
               if (dc.fn.style) $A.remove(dc.fn.style);
               if (dc.fn.closeLink) $A.remove(dc.fn.closeLink);
@@ -3694,7 +3694,7 @@ error: function(error, promise){}
               if (dc.isTab || dc.isToggle) changeTabs(dc, true);
               dc.closing = false;
               $A.getModule(dc, "afterRemove", dc.container);
-              parseScripts(dc, "AfterRemove", function() {
+              parseScripts(dc, "AfterRemove", function () {
                 if (!dc.fn.bypass) {
                   if (dc.returnFocus && dc.triggerNode && !dc.rerouteFocus) {
                     $A.focus(dc.triggerNode);
@@ -3722,14 +3722,14 @@ error: function(error, promise){}
 
           return dc;
         },
-        unsetTrigger = function(DC) {
+        unsetTrigger = function (DC) {
           var dc = WL[DC.indexVal];
           if (!dc.trigger || !dc.on) return dc;
           var events = [];
           if ($A.isPlainObject(dc.on)) {
             $A.loop(
               dc.on,
-              function(e, f) {
+              function (e, f) {
                 events.push(e);
               },
               "object"
@@ -3737,18 +3737,18 @@ error: function(error, promise){}
           } else if ($A.isStr(dc.on)) {
             events = dc.on.split(/\s+/);
           }
-          $A.query(dc.trigger, function(i, o) {
+          $A.query(dc.trigger, function (i, o) {
             $A.off(o, events);
           });
           return dc;
         },
-        setTrigger = function(DC) {
+        setTrigger = function (DC) {
           var dc = WL[DC.indexVal];
           unsetTrigger(dc);
           setBindings(dc);
           return dc;
         },
-        setAutoFix = function(DC) {
+        setAutoFix = function (DC) {
           var dc = WL[DC.indexVal];
           if (!dc.loading && !dc.loaded) return dc;
           var cs = {
@@ -3756,7 +3756,7 @@ error: function(error, promise){}
             right: "",
             bottom: "",
             top: "",
-            left: ""
+            left: "",
           };
           switch (dc.autoFix) {
             case 1:
@@ -3801,7 +3801,7 @@ error: function(error, promise){}
           $A.css(dc.outerNode, cs);
           return dc;
         },
-        sizeAutoFix = function(DC) {
+        sizeAutoFix = function (DC) {
           var dc = WL[DC.indexVal];
           if (!dc.loading && !dc.loaded) return dc;
           var win = $A.getWindow();
@@ -3825,7 +3825,7 @@ error: function(error, promise){}
             case 9:
               $A.css(dc.outerNode, {
                 left: 50 - npw + "%",
-                top: 50 - nph + "%"
+                top: 50 - nph + "%",
               });
               break;
             default:
@@ -3843,11 +3843,11 @@ error: function(error, promise){}
           }
           return dc;
         },
-        setBindings = function(dc) {
+        setBindings = function (dc) {
           var dc = WL[DC.indexVal];
           dc.fn.internalEventsId = $A.getIdFor(dc.id) || $A.setIdFor(dc.id);
           if (dc.trigger)
-            $A.query(dc.trigger, function(i, o) {
+            $A.query(dc.trigger, function (i, o) {
               if (dc.toggleHide) $A.off(o, "." + dc.fn.internalEventsId);
               if (!dc.triggerNode) dc.triggerNode = o;
               if ($A.isArray($A.data(o, "DC-ON"))) $A.data(o, "DC-ON").push(dc);
@@ -3858,7 +3858,7 @@ error: function(error, promise){}
                   $A.on(
                     o,
                     dc.on,
-                    function(ev) {
+                    function (ev) {
                       DCR1(dc);
                       ev.preventDefault();
                     },
@@ -3873,7 +3873,7 @@ error: function(error, promise){}
                 $A.on(
                   o,
                   "keydown",
-                  function(ev) {
+                  function (ev) {
                     var k = $A.keyEvent(ev);
                     if (k === 27) {
                       dc.remove();
@@ -3885,11 +3885,11 @@ error: function(error, promise){}
             });
           return dc;
         },
-        DCInst = function(dc) {
+        DCInst = function (dc) {
           if ($A.reg.has(dc.id)) {
             $A.destroy(dc.id);
           }
-          var f = function() {};
+          var f = function () {};
           f.prototype = dc;
           var nDC = new f();
           nDC.props.DC = nDC.DC = nDC;
@@ -3897,7 +3897,7 @@ error: function(error, promise){}
           $A.reg.set(nDC.id, nDC);
           return nDC;
         },
-        DCInit = function(dc) {
+        DCInit = function (dc) {
           var dc = WL[DC.indexVal];
           if (dc.widgetType && dc.autoCloseWidget) {
             $A._widgetTypes.push(dc.id);
@@ -3930,7 +3930,7 @@ error: function(error, promise){}
           "jsOnceAfterRemove",
           "onceAfterRemove",
           "jsAfterRemove",
-          "afterRemove"
+          "afterRemove",
         ];
 
       var a = 0,
@@ -3941,31 +3941,31 @@ error: function(error, promise){}
         // loaded: false,
 
         fn: {
-          isDCI: true
+          isDCI: true,
         },
         props: {},
 
-        setOffScreen: function() {
+        setOffScreen: function () {
           var dc = this;
           $A.setOffScreen(dc.outerNode);
           return dc;
         },
 
-        clearOffScreen: function() {
+        clearOffScreen: function () {
           var dc = this;
           $A.clearOffScreen(dc.outerNode);
           return dc;
         },
 
-        hasDC: function() {
+        hasDC: function () {
           return true;
         },
 
-        getDC: function() {
+        getDC: function () {
           return this;
         },
 
-        offset: function(forceAbsolute, forceRelative, returnTopLeftOnly) {
+        offset: function (forceAbsolute, forceRelative, returnTopLeftOnly) {
           var dc = this;
           return $A.offset(
             dc.outerNode,
@@ -3976,14 +3976,14 @@ error: function(error, promise){}
         },
 
         // trigger: "",
-        setTrigger: function(dc) {
+        setTrigger: function (dc) {
           var dc = dc || this;
           if (!dc.trigger || !dc.on) {
             return dc;
           }
           return setTrigger(dc);
         },
-        unsetTrigger: function(dc) {
+        unsetTrigger: function (dc) {
           var dc = dc || this;
           if (!dc.trigger || !dc.on) return dc;
           return unsetTrigger(dc);
@@ -3995,7 +3995,7 @@ error: function(error, promise){}
         displayHiddenClose: true,
         // exposeBounds: false,
 
-        query: function(sel, con, call) {
+        query: function (sel, con, call) {
           var dc = this;
           call = con;
           con = dc.container;
@@ -4017,51 +4017,51 @@ error: function(error, promise){}
         allowCascade: true,
         // reverseJSOrder: false,
 
-        destroy: function(p) {
+        destroy: function (p) {
           var dc = this;
-          setTimeout(function() {
+          setTimeout(function () {
             $A.destroy(dc, p);
           }, 1);
           return true;
         },
 
-        getAttr: function(n) {
+        getAttr: function (n) {
           var dc = this;
           return $A.getAttr(dc.outerNode, n);
         },
-        hasAttr: function(n) {
+        hasAttr: function (n) {
           var dc = this;
           return $A.hasAttr(dc.outerNode, n);
         },
-        remAttr: function(n) {
+        remAttr: function (n) {
           var dc = this;
           $A.remAttr(dc.outerNode, n);
           return dc;
         },
-        setAttr: function(n, v) {
+        setAttr: function (n, v) {
           var dc = this;
           $A.setAttr(dc.outerNode, n, v);
           return dc;
         },
 
-        hasClass: function(cn) {
+        hasClass: function (cn) {
           var dc = this;
           return $A.hasClass(dc.outerNode, cn);
         },
 
-        addClass: function(cn) {
+        addClass: function (cn) {
           var dc = this;
           $A.addClass(dc.outerNode, cn);
           return dc;
         },
 
-        remClass: function(cn) {
+        remClass: function (cn) {
           var dc = this;
           $A.remClass(dc.outerNode, cn);
           return dc;
         },
 
-        toggleClass: function(cn, isTrue, fn) {
+        toggleClass: function (cn, isTrue, fn) {
           var dc = this;
           $A.toggleClass(dc.outerNode, cn, isTrue, fn);
           return dc;
@@ -4077,7 +4077,7 @@ error: function(error, promise){}
         // forceFocus: false,
         forceFocusWithin: true,
         // returnFocus: false,
-        focus: function(dc) {
+        focus: function (dc) {
           var dc = dc || this;
           if (!dc.loaded) return dc;
           $A.focus(
@@ -4105,18 +4105,18 @@ error: function(error, promise){}
         // noRepeat: false,
         // isAlert: false,
 
-        speak: function(noRep) {
+        speak: function (noRep) {
           var dc = this;
           $A.announce(dc.container, noRep);
           return dc;
         },
-        alert: function(noRep) {
+        alert: function (noRep) {
           var dc = this;
           $A.alert(dc.container, noRep);
           return dc;
         },
 
-        load: function(url, data, sCb) {
+        load: function (url, data, sCb) {
           var dc = this;
           if ($A.isFn(data)) {
             sCb = data;
@@ -4127,11 +4127,11 @@ error: function(error, promise){}
             url,
             dc.container,
             data,
-            function(c) {
+            function (c) {
               dc.isLoading = false;
               if ($A.isFn(sCb)) sCb.call(this, c);
             },
-            function(e) {
+            function (e) {
               dc.isLoading = false;
               $A.parseDebug(e);
             }
@@ -4142,42 +4142,42 @@ error: function(error, promise){}
         fetch: {
           url: "",
           data: {
-            returnType: "html"
+            returnType: "html",
           },
-          success: function(content, promise, dc) {
+          success: function (content, promise, dc) {
             dc.content = content;
             return dc;
           },
-          error: function(errorMsg, promise, dc) {
+          error: function (errorMsg, promise, dc) {
             dc.error = errorMsg;
             return dc;
-          }
+          },
         },
 
-        isFocusWithin: function(dc) {
+        isFocusWithin: function (dc) {
           var dc = dc || this;
           return $A.isFocusWithin(dc.container);
         },
 
-        setProps: function(conf) {
+        setProps: function (conf) {
           var dc = this;
           $A.extend(true, dc.props, conf || {});
           dc.props.DC = dc;
           return dc;
         },
 
-        text: function() {
+        text: function () {
           var dc = this;
           return $A.getText(dc.container);
         },
 
-        insert: function(node) {
+        insert: function (node) {
           var dc = this;
           if (dc.loaded && $A.isDOMNode(dc.container)) {
             $A.insert(node, dc.container);
             if ($A.isNum(dc.delayTimeout) && dc.delayTimeout > 0) {
               if (dc.fn.timer) clearTimeout(dc.fn.timer);
-              dc.fn.timer = setTimeout(function() {
+              dc.fn.timer = setTimeout(function () {
                 dc.timeout(dc);
               }, dc.delayTimeout);
             }
@@ -4189,101 +4189,101 @@ error: function(error, promise){}
           return dc;
         },
 
-        prependWithin: function(node) {
+        prependWithin: function (node) {
           var dc = this;
           $A.prepend(node, dc.container);
           return dc;
         },
 
-        appendWithin: function(node) {
+        appendWithin: function (node) {
           var dc = this;
           $A.append(node, dc.container);
           return dc;
         },
 
-        renderWithin: function(node, conf) {
-          var dc = this;
-          dc.before = dc.prepend = dc.append = dc.after = false;
-          $A.extend(
-            dc,
-            {
-              root: node
-            },
-            conf || {}
-          );
-          return dc.bypass(function() {
-            DCR1(dc);
-          });
-        },
-
-        insertBefore: function(node, conf) {
+        renderWithin: function (node, conf) {
           var dc = this;
           dc.before = dc.prepend = dc.append = dc.after = false;
           $A.extend(
             dc,
             {
               root: node,
-              before: true
             },
             conf || {}
           );
-          return dc.bypass(function() {
+          return dc.bypass(function () {
             DCR1(dc);
           });
         },
 
-        prependTo: function(node, conf) {
+        insertBefore: function (node, conf) {
           var dc = this;
           dc.before = dc.prepend = dc.append = dc.after = false;
           $A.extend(
             dc,
             {
               root: node,
-              prepend: true
+              before: true,
             },
             conf || {}
           );
-          return dc.bypass(function() {
+          return dc.bypass(function () {
             DCR1(dc);
           });
         },
 
-        appendTo: function(node, conf) {
+        prependTo: function (node, conf) {
           var dc = this;
           dc.before = dc.prepend = dc.append = dc.after = false;
           $A.extend(
             dc,
             {
               root: node,
-              append: true
+              prepend: true,
             },
             conf || {}
           );
-          return dc.bypass(function() {
+          return dc.bypass(function () {
             DCR1(dc);
           });
         },
 
-        insertAfter: function(node, conf) {
+        appendTo: function (node, conf) {
           var dc = this;
           dc.before = dc.prepend = dc.append = dc.after = false;
           $A.extend(
             dc,
             {
               root: node,
-              after: true
+              append: true,
             },
             conf || {}
           );
-          return dc.bypass(function() {
+          return dc.bypass(function () {
             DCR1(dc);
           });
         },
 
-        bypass: function(fn) {
+        insertAfter: function (node, conf) {
+          var dc = this;
+          dc.before = dc.prepend = dc.append = dc.after = false;
+          $A.extend(
+            dc,
+            {
+              root: node,
+              after: true,
+            },
+            conf || {}
+          );
+          return dc.bypass(function () {
+            DCR1(dc);
+          });
+        },
+
+        bypass: function (fn) {
           var dc = this;
           if (dc.loaded) {
-            dc.fn.removeCallback = function() {
+            dc.fn.removeCallback = function () {
               dc.fn.bypass = false;
               if ($A.isFn(fn)) fn.call(dc, dc);
             };
@@ -4295,27 +4295,27 @@ error: function(error, promise){}
           return dc;
         },
 
-        setDisabled: function(bool) {
+        setDisabled: function (bool) {
           var dc = this;
           $A.setDisabled(dc, bool);
           return dc;
         },
 
-        isDisabled: function(dc) {
+        isDisabled: function (dc) {
           var dc = dc || this;
           return $A.isDisabled(dc);
         },
 
-        updateDisabled: function(dc) {
+        updateDisabled: function (dc) {
           var dc = dc || this;
           $A.updateDisabled(dc);
           return dc;
         },
 
-        render: function(fn) {
+        render: function (fn) {
           var dc = this;
           if (dc.isDisabled()) return dc;
-          var rn = function() {
+          var rn = function () {
             if (!dc.loaded) {
               dc.fn.renderCallback = fn;
               DCR1(dc);
@@ -4325,7 +4325,7 @@ error: function(error, promise){}
           };
           if ($A.isNum(dc.delay) && dc.delay > 0) {
             if (dc.fn.Delay) clearTimeout(dc.fn.Delay);
-            dc.fn.Delay = setTimeout(function() {
+            dc.fn.Delay = setTimeout(function () {
               rn();
             }, dc.delay);
           } else {
@@ -4334,11 +4334,11 @@ error: function(error, promise){}
           return dc;
         },
 
-        rerender: function(fn) {
+        rerender: function (fn) {
           var dc = this;
           if (dc.isDisabled()) return dc;
           if (dc.loaded) {
-            dc.bypass(function() {
+            dc.bypass(function () {
               dc.fn.renderCallback = fn;
               DCR1(dc);
             });
@@ -4348,7 +4348,7 @@ error: function(error, promise){}
           return dc;
         },
 
-        remove: function(fn) {
+        remove: function (fn) {
           var dc = this;
           if (dc.isDisabled()) return dc;
           if (dc.loaded) {
@@ -4360,7 +4360,7 @@ error: function(error, promise){}
           return dc;
         },
 
-        toggle: function(fn) {
+        toggle: function (fn) {
           var dc = this;
           if (dc.loaded) dc.remove(fn);
           else dc.render(fn);
@@ -4385,12 +4385,12 @@ error: function(error, promise){}
           "error",
           "focusIn",
           "focusOut",
-          "onRemove"
+          "onRemove",
         ],
 
         // tabOut: function(ev, dc) {},
         // delayTimeout: 0,
-        timeout: function(dc) {
+        timeout: function (dc) {
           dc.remove();
           return dc;
         },
@@ -4400,7 +4400,7 @@ error: function(error, promise){}
         closeClassName: "CloseDC",
         style: {},
         // importCSS: "",
-        css: function(prop, val, mergeCSS) {
+        css: function (prop, val, mergeCSS) {
           var dc = this;
           if ($A.isBool(val)) {
             mergeCSS = val;
@@ -4417,11 +4417,11 @@ error: function(error, promise){}
           return dc;
         },
 
-        map: function(o, extend) {
+        map: function (o, extend) {
           var dc = this;
           if (!o) o = {};
 
-          var inList = function(DC, dcA) {
+          var inList = function (DC, dcA) {
             for (var i = 0; i < dcA.length; i++) {
               if (dcA[i].id === DC.id) {
                 return true;
@@ -4476,7 +4476,7 @@ error: function(error, promise){}
             }
           }
 
-          var setTop = function(a) {
+          var setTop = function (a) {
             for (var i = 0; i < a.length; i++) {
               if ($A.isDC(a[i]) && a[i].children.length) {
                 for (var x = 0; x < a[i].children.length; x++) {
@@ -4504,7 +4504,7 @@ error: function(error, promise){}
         // offsetLeft: 0,
         // posAnchor: null,
 
-        setPosition: function(obj, posVal, save) {
+        setPosition: function (obj, posVal, save) {
           var dc = this;
           if ($A.isNum(obj)) {
             save = posVal;
@@ -4519,7 +4519,7 @@ error: function(error, promise){}
           return dc;
         },
 
-        setFix: function(posVal, save) {
+        setFix: function (posVal, save) {
           var dc = this;
           if (save) {
             dc.autoFix = posVal || dc.autoFix;
@@ -4527,7 +4527,7 @@ error: function(error, promise){}
           setAutoFix(dc);
           if (posVal > 0) sizeAutoFix(dc);
           return dc;
-        }
+        },
       };
 
       $A.extend(dc, {
@@ -4535,7 +4535,7 @@ error: function(error, promise){}
         hasAttribute: dc["hasAttr"],
         removeAttribute: dc["remAttr"],
         setAttribute: dc["setAttr"],
-        removeClass: dc["remClass"]
+        removeClass: dc["remClass"],
       });
 
       if (!gImport) gImport = {};
@@ -4622,7 +4622,7 @@ error: function(error, promise){}
       }
 
       return WL;
-    }
+    },
   });
 
   $A.extend({
@@ -4652,10 +4652,10 @@ error: function(error, promise){}
     getActiveElements: $A["getActEl"],
     setKeyboardA11Y: $A["setKBA11Y"],
     generateId: $A["genId"],
-    toTextNode: $A["toText"]
+    toTextNode: $A["toText"],
   });
 
-  var announceString = function(strm, noRep, aggr, loop) {
+  var announceString = function (strm, noRep, aggr, loop) {
     var str = strm;
     if (!arguments.length || $A.isBool(str)) {
       loop = aggr;
@@ -4670,7 +4670,7 @@ error: function(error, promise){}
       str = $A.getText(str);
     }
     if (str && $A.isStr(str)) {
-      var uA = function() {
+      var uA = function () {
         if (stringAnnounce.loaded) {
           if (
             !stringAnnounce.liveRendered &&
@@ -4714,7 +4714,7 @@ error: function(error, promise){}
                 stringAnnounce.placeHolder
               );
           }
-          stringAnnounce.alertTO = setTimeout(function() {
+          stringAnnounce.alertTO = setTimeout(function () {
             $A.insertMarkup("", stringAnnounce.placeHolder);
             $A.insertMarkup("", stringAnnounce.placeHolder2);
             stringAnnounce.alertMsgs.shift();
@@ -4724,7 +4724,7 @@ error: function(error, promise){}
         }
       };
       if (!$A.isDocLoaded)
-        $A.on("load", function() {
+        $A.on("load", function () {
           uA();
         });
       else uA();
@@ -4734,80 +4734,80 @@ error: function(error, promise){}
 
   var stringAnnounce = {
     alertMsgs: [],
-    clear: function() {
+    clear: function () {
       if (this.alertTO) clearTimeout(this.alertTO);
       this.alertMsgs = [];
     },
     baseDelay: 500,
     charMultiplier: 1,
     lastMsg: "",
-    iterate: function(str, regExp) {
+    iterate: function (str, regExp) {
       var iCount = 0;
-      str.replace(regExp, function() {
+      str.replace(regExp, function () {
         iCount++;
       });
       return iCount;
     },
     loaded: false,
     liveRendered: false,
-    alertRendered: false
+    alertRendered: false,
   };
 
   $A.announce.clear = announceString.clear = stringAnnounce.clear;
   String.prototype.announce = announceString;
-  String.prototype.alert = function(noRep) {
+  String.prototype.alert = function (noRep) {
     return $A.alert(this, noRep);
   };
 
   $A.on(document, {
-    touchstart: function() {
+    touchstart: function () {
       if (!$A.isTouch) {
         $A.isTouch = true;
         $A.event.fire(document, "touchchange");
       }
     },
-    keyup: function() {
+    keyup: function () {
       if ($A.isTouch) {
         $A.isTouch = false;
         $A.event.fire(document, "touchchange");
       }
-    }
+    },
   });
   $A.on(window, {
-    DOMContentLoaded: function() {
+    DOMContentLoaded: function () {
       $A.isDOMContentLoaded = true;
     },
-    load: function() {
+    load: function () {
       $A.isDocLoaded = true;
       if (!stringAnnounce.placeHolder) {
         stringAnnounce.placeHolder = $A.createEl(
           "div",
           {
-            "aria-live": "polite"
+            "aria-live": "polite",
           },
           $A.sraCSS
         );
         stringAnnounce.placeHolder2 = $A.createEl(
           "div",
           {
-            role: "alert"
+            role: "alert",
           },
           $A.sraCSS
         );
       }
       stringAnnounce.loaded = true;
 
-      $A.on(document.body, "mouseover.MouseCoordTracker", function(e) {
+      $A.on(document.body, "mouseover.MouseCoordTracker", function (e) {
         $A.event.pointer = e;
       });
-    }
+    },
   });
 
   if ("Import4X" in window && window.Import4X.length) {
     $A.import(window.Import4X);
   }
 
-  (function() {
+  (function () {
     var scripts = document.querySelectorAll("script[src]"),
       path = scripts[scripts.length - 1].src.replace(/\/|\\|<|>/g, "") || "",
       x = path.indexOf("#"),
@@ -4818,18 +4818,18 @@ error: function(error, promise){}
 
   window[window.Namespace4X ? window.Namespace4X : "$A"] = $A;
 })(
-  (function() {
+  (function () {
     /*@! Dependencies */
 
-    (function() {
+    (function () {
       /*@! Promise */
-      (function(global, factory) {
+      (function (global, factory) {
         typeof exports === "object" && typeof module !== "undefined"
           ? factory()
           : typeof define === "function" && define.amd
           ? define(factory)
           : factory();
-      })(this, function() {
+      })(this, function () {
         "use strict";
 
         /**
@@ -4838,15 +4838,15 @@ error: function(error, promise){}
         function finallyConstructor(callback) {
           var constructor = this.constructor;
           return this.then(
-            function(value) {
+            function (value) {
               // @ts-ignore
-              return constructor.resolve(callback()).then(function() {
+              return constructor.resolve(callback()).then(function () {
                 return value;
               });
             },
-            function(reason) {
+            function (reason) {
               // @ts-ignore
-              return constructor.resolve(callback()).then(function() {
+              return constructor.resolve(callback()).then(function () {
                 // @ts-ignore
                 return constructor.reject(reason);
               });
@@ -4866,7 +4866,7 @@ error: function(error, promise){}
 
         // Polyfill for Function.prototype.bind
         function bind(fn, thisArg) {
-          return function() {
+          return function () {
             fn.apply(thisArg, arguments);
           };
         }
@@ -4900,7 +4900,7 @@ error: function(error, promise){}
             return;
           }
           self._handled = true;
-          Promise._immediateFn(function() {
+          Promise._immediateFn(function () {
             var cb =
               self._state === 1 ? deferred.onFulfilled : deferred.onRejected;
             if (cb === null) {
@@ -4957,7 +4957,7 @@ error: function(error, promise){}
 
         function finale(self) {
           if (self._state === 2 && self._deferreds.length === 0) {
-            Promise._immediateFn(function() {
+            Promise._immediateFn(function () {
               if (!self._handled) {
                 Promise._unhandledRejectionFn(self._value);
               }
@@ -4991,12 +4991,12 @@ error: function(error, promise){}
           var done = false;
           try {
             fn(
-              function(value) {
+              function (value) {
                 if (done) return;
                 done = true;
                 resolve(self, value);
               },
-              function(reason) {
+              function (reason) {
                 if (done) return;
                 done = true;
                 reject(self, reason);
@@ -5009,11 +5009,11 @@ error: function(error, promise){}
           }
         }
 
-        Promise.prototype["catch"] = function(onRejected) {
+        Promise.prototype["catch"] = function (onRejected) {
           return this.then(null, onRejected);
         };
 
-        Promise.prototype.then = function(onFulfilled, onRejected) {
+        Promise.prototype.then = function (onFulfilled, onRejected) {
           // @ts-ignore
           var prom = new this.constructor(noop);
 
@@ -5023,8 +5023,8 @@ error: function(error, promise){}
 
         Promise.prototype["finally"] = finallyConstructor;
 
-        Promise.all = function(arr) {
-          return new Promise(function(resolve, reject) {
+        Promise.all = function (arr) {
+          return new Promise(function (resolve, reject) {
             if (!isArray(arr)) {
               return reject(new TypeError("Promise.all accepts an array"));
             }
@@ -5043,7 +5043,7 @@ error: function(error, promise){}
                   if (typeof then === "function") {
                     then.call(
                       val,
-                      function(val) {
+                      function (val) {
                         res(i, val);
                       },
                       reject
@@ -5066,7 +5066,7 @@ error: function(error, promise){}
           });
         };
 
-        Promise.resolve = function(value) {
+        Promise.resolve = function (value) {
           if (
             value &&
             typeof value === "object" &&
@@ -5075,19 +5075,19 @@ error: function(error, promise){}
             return value;
           }
 
-          return new Promise(function(resolve) {
+          return new Promise(function (resolve) {
             resolve(value);
           });
         };
 
-        Promise.reject = function(value) {
-          return new Promise(function(resolve, reject) {
+        Promise.reject = function (value) {
+          return new Promise(function (resolve, reject) {
             reject(value);
           });
         };
 
-        Promise.race = function(arr) {
-          return new Promise(function(resolve, reject) {
+        Promise.race = function (arr) {
+          return new Promise(function (resolve, reject) {
             if (!isArray(arr)) {
               return reject(new TypeError("Promise.race accepts an array"));
             }
@@ -5102,11 +5102,11 @@ error: function(error, promise){}
         Promise._immediateFn =
           // @ts-ignore
           (typeof setImmediate === "function" &&
-            function(fn) {
+            function (fn) {
               // @ts-ignore
               setImmediate(fn);
             }) ||
-          function(fn) {
+          function (fn) {
             setTimeoutFunc(fn, 0);
           };
 
@@ -5117,7 +5117,7 @@ error: function(error, promise){}
         };
 
         /** @suppress {undefinedVars} */
-        var globalNS = (function() {
+        var globalNS = (function () {
           // the only reliable means to get the global object is
           // `Function('return this')()`
           // However, this causes CSP violations in Chrome apps.
@@ -5141,7 +5141,7 @@ error: function(error, promise){}
       });
     })();
 
-    (function() {
+    (function () {
       /*@! Fetch */
       var support = {
         searchParams: "URLSearchParams" in self,
@@ -5149,7 +5149,7 @@ error: function(error, promise){}
         blob:
           "FileReader" in self &&
           "Blob" in self &&
-          (function() {
+          (function () {
             try {
               new Blob();
               return true;
@@ -5158,7 +5158,7 @@ error: function(error, promise){}
             }
           })(),
         formData: "FormData" in self,
-        arrayBuffer: "ArrayBuffer" in self
+        arrayBuffer: "ArrayBuffer" in self,
       };
 
       function isDataView(obj) {
@@ -5175,12 +5175,12 @@ error: function(error, promise){}
           "[object Int32Array]",
           "[object Uint32Array]",
           "[object Float32Array]",
-          "[object Float64Array]"
+          "[object Float64Array]",
         ];
 
         var isArrayBufferView =
           ArrayBuffer.isView ||
-          function(obj) {
+          function (obj) {
             return (
               obj &&
               viewClasses.indexOf(Object.prototype.toString.call(obj)) > -1
@@ -5208,14 +5208,14 @@ error: function(error, promise){}
       // Build a destructive iterator for the value list
       function iteratorFor(items) {
         var iterator = {
-          next: function() {
+          next: function () {
             var value = items.shift();
             return { done: value === undefined, value: value };
-          }
+          },
         };
 
         if (support.iterable) {
-          iterator[Symbol.iterator] = function() {
+          iterator[Symbol.iterator] = function () {
             return iterator;
           };
         }
@@ -5227,45 +5227,45 @@ error: function(error, promise){}
         this.map = {};
 
         if (headers instanceof Headers) {
-          headers.forEach(function(value, name) {
+          headers.forEach(function (value, name) {
             this.append(name, value);
           }, this);
         } else if (Array.isArray(headers)) {
-          headers.forEach(function(header) {
+          headers.forEach(function (header) {
             this.append(header[0], header[1]);
           }, this);
         } else if (headers) {
-          Object.getOwnPropertyNames(headers).forEach(function(name) {
+          Object.getOwnPropertyNames(headers).forEach(function (name) {
             this.append(name, headers[name]);
           }, this);
         }
       }
 
-      Headers.prototype.append = function(name, value) {
+      Headers.prototype.append = function (name, value) {
         name = normalizeName(name);
         value = normalizeValue(value);
         var oldValue = this.map[name];
         this.map[name] = oldValue ? oldValue + ", " + value : value;
       };
 
-      Headers.prototype["delete"] = function(name) {
+      Headers.prototype["delete"] = function (name) {
         delete this.map[normalizeName(name)];
       };
 
-      Headers.prototype.get = function(name) {
+      Headers.prototype.get = function (name) {
         name = normalizeName(name);
         return this.has(name) ? this.map[name] : null;
       };
 
-      Headers.prototype.has = function(name) {
+      Headers.prototype.has = function (name) {
         return this.map.hasOwnProperty(normalizeName(name));
       };
 
-      Headers.prototype.set = function(name, value) {
+      Headers.prototype.set = function (name, value) {
         this.map[normalizeName(name)] = normalizeValue(value);
       };
 
-      Headers.prototype.forEach = function(callback, thisArg) {
+      Headers.prototype.forEach = function (callback, thisArg) {
         for (var name in this.map) {
           if (this.map.hasOwnProperty(name)) {
             callback.call(thisArg, this.map[name], name, this);
@@ -5273,25 +5273,25 @@ error: function(error, promise){}
         }
       };
 
-      Headers.prototype.keys = function() {
+      Headers.prototype.keys = function () {
         var items = [];
-        this.forEach(function(value, name) {
+        this.forEach(function (value, name) {
           items.push(name);
         });
         return iteratorFor(items);
       };
 
-      Headers.prototype.values = function() {
+      Headers.prototype.values = function () {
         var items = [];
-        this.forEach(function(value) {
+        this.forEach(function (value) {
           items.push(value);
         });
         return iteratorFor(items);
       };
 
-      Headers.prototype.entries = function() {
+      Headers.prototype.entries = function () {
         var items = [];
-        this.forEach(function(value, name) {
+        this.forEach(function (value, name) {
           items.push([name, value]);
         });
         return iteratorFor(items);
@@ -5309,11 +5309,11 @@ error: function(error, promise){}
       }
 
       function fileReaderReady(reader) {
-        return new Promise(function(resolve, reject) {
-          reader.onload = function() {
+        return new Promise(function (resolve, reject) {
+          reader.onload = function () {
             resolve(reader.result);
           };
-          reader.onerror = function() {
+          reader.onerror = function () {
             reject(reader.error);
           };
         });
@@ -5356,7 +5356,7 @@ error: function(error, promise){}
       function Body() {
         this.bodyUsed = false;
 
-        this._initBody = function(body) {
+        this._initBody = function (body) {
           /*
       fetch-mock wraps the Response object in an ES6 Proxy to
       provide useful test harness features such as flush. However, on
@@ -5417,7 +5417,7 @@ error: function(error, promise){}
         };
 
         if (support.blob) {
-          this.blob = function() {
+          this.blob = function () {
             var rejected = consumed(this);
             if (rejected) {
               return rejected;
@@ -5434,7 +5434,7 @@ error: function(error, promise){}
             }
           };
 
-          this.arrayBuffer = function() {
+          this.arrayBuffer = function () {
             if (this._bodyArrayBuffer) {
               return consumed(this) || Promise.resolve(this._bodyArrayBuffer);
             } else {
@@ -5443,7 +5443,7 @@ error: function(error, promise){}
           };
         }
 
-        this.text = function() {
+        this.text = function () {
           var rejected = consumed(this);
           if (rejected) {
             return rejected;
@@ -5463,12 +5463,12 @@ error: function(error, promise){}
         };
 
         if (support.formData) {
-          this.formData = function() {
+          this.formData = function () {
             return this.text().then(decode);
           };
         }
 
-        this.json = function() {
+        this.json = function () {
           return this.text().then(JSON.parse);
         };
 
@@ -5523,7 +5523,7 @@ error: function(error, promise){}
         this._initBody(body);
       }
 
-      Request.prototype.clone = function() {
+      Request.prototype.clone = function () {
         return new Request(this, { body: this._bodyInit });
       };
 
@@ -5532,7 +5532,7 @@ error: function(error, promise){}
         body
           .trim()
           .split("&")
-          .forEach(function(bytes) {
+          .forEach(function (bytes) {
             if (bytes) {
               var split = bytes.split("=");
               var name = split.shift().replace(/\+/g, " ");
@@ -5548,7 +5548,7 @@ error: function(error, promise){}
         // Replace instances of \r\n and \n followed by at least one space or horizontal tab with a space
         // https://tools.ietf.org/html/rfc7230#section-3.2
         var preProcessedHeaders = rawHeaders.replace(/\r?\n[\t ]+/g, " ");
-        preProcessedHeaders.split(/\r?\n/).forEach(function(line) {
+        preProcessedHeaders.split(/\r?\n/).forEach(function (line) {
           var parts = line.split(":");
           var key = parts.shift().trim();
           if (key) {
@@ -5577,16 +5577,16 @@ error: function(error, promise){}
 
       Body.call(Response.prototype);
 
-      Response.prototype.clone = function() {
+      Response.prototype.clone = function () {
         return new Response(this._bodyInit, {
           status: this.status,
           statusText: this.statusText,
           headers: new Headers(this.headers),
-          url: this.url
+          url: this.url,
         });
       };
 
-      Response.error = function() {
+      Response.error = function () {
         var response = new Response(null, { status: 0, statusText: "" });
         response.type = "error";
         return response;
@@ -5594,14 +5594,14 @@ error: function(error, promise){}
 
       var redirectStatuses = [301, 302, 303, 307, 308];
 
-      Response.redirect = function(url, status) {
+      Response.redirect = function (url, status) {
         if (redirectStatuses.indexOf(status) === -1) {
           throw new RangeError("Invalid status code");
         }
 
         return new Response(null, {
           status: status,
-          headers: { location: url }
+          headers: { location: url },
         });
       };
 
@@ -5609,7 +5609,7 @@ error: function(error, promise){}
       try {
         new DOMException();
       } catch (err) {
-        DOMException = function(message, name) {
+        DOMException = function (message, name) {
           this.message = message;
           this.name = name;
           var error = Error(message);
@@ -5620,7 +5620,7 @@ error: function(error, promise){}
       }
 
       function fetch(input, init) {
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
           var request = new Request(input, init);
 
           if (request.signal && request.signal.aborted) {
@@ -5633,36 +5633,36 @@ error: function(error, promise){}
             xhr.abort();
           }
 
-          xhr.onload = function() {
+          xhr.onload = function () {
             var options = {
               status: xhr.status,
               statusText: xhr.statusText,
-              headers: parseHeaders(xhr.getAllResponseHeaders() || "")
+              headers: parseHeaders(xhr.getAllResponseHeaders() || ""),
             };
             options.url =
               "responseURL" in xhr
                 ? xhr.responseURL
                 : options.headers.get("X-Request-URL");
             var body = "response" in xhr ? xhr.response : xhr.responseText;
-            setTimeout(function() {
+            setTimeout(function () {
               resolve(new Response(body, options));
             }, 0);
           };
 
-          xhr.onerror = function() {
-            setTimeout(function() {
+          xhr.onerror = function () {
+            setTimeout(function () {
               reject(new TypeError("Network request failed"));
             }, 0);
           };
 
-          xhr.ontimeout = function() {
-            setTimeout(function() {
+          xhr.ontimeout = function () {
+            setTimeout(function () {
               reject(new TypeError("Network request failed"));
             }, 0);
           };
 
-          xhr.onabort = function() {
-            setTimeout(function() {
+          xhr.onabort = function () {
+            setTimeout(function () {
               reject(new DOMException("Aborted", "AbortError"));
             }, 0);
           };
@@ -5698,14 +5698,14 @@ error: function(error, promise){}
             }
           }
 
-          request.headers.forEach(function(value, name) {
+          request.headers.forEach(function (value, name) {
             xhr.setRequestHeader(name, value);
           });
 
           if (request.signal) {
             request.signal.addEventListener("abort", abortXhr);
 
-            xhr.onreadystatechange = function() {
+            xhr.onreadystatechange = function () {
               // DONE (success or failure)
               if (xhr.readyState === 4) {
                 request.signal.removeEventListener("abort", abortXhr);
@@ -5729,19 +5729,19 @@ error: function(error, promise){}
       }
     })();
 
-    (function() {
+    (function () {
       /*@! Bean */
       /*
        * Bean - copyright (c) Jacob Thornton 2011-2012
        * https://github.com/fat/bean
        * MIT license
        */
-      (function(name, context, definition) {
+      (function (name, context, definition) {
         if (typeof module !== "undefined" && module.exports)
           module.exports = definition();
         else if (typeof define === "function" && define.amd) define(definition);
         else context[name] = definition();
-      })("bean", window, function(name, context) {
+      })("bean", window, function (name, context) {
         name = name || "listener";
         context = context || window;
 
@@ -5757,13 +5757,13 @@ error: function(error, promise){}
           eventSupport = W3C_MODEL ? addEvent : "attachEvent",
           ONE = {}, // singleton for quick matching making add() do one()
           slice = Array.prototype.slice,
-          str2arr = function(s, d) {
+          str2arr = function (s, d) {
             return s.split(d || " ");
           },
-          isString = function(o) {
+          isString = function (o) {
             return typeof o === "string";
           },
-          isFunction = function(o) {
+          isFunction = function (o) {
             return typeof o === "function";
           },
           // events that we consider to be 'native', anything not in this list will
@@ -5796,7 +5796,7 @@ error: function(error, promise){}
             "volumechange cuechange " + // media
             "checking noupdate downloading cached updateready obsolete ", // appcache
           // convert to a hash for quick lookups
-          nativeEvents = (function(hash, events, i) {
+          nativeEvents = (function (hash, events, i) {
             for (i = 0; i < events.length; i++)
               events[i] && (hash[events[i]] = 1);
             return hash;
@@ -5806,17 +5806,17 @@ error: function(error, promise){}
           ),
           // custom events are events that we *fake*, they are not provided natively but
           // we can use native events to generate them
-          customEvents = (function() {
+          customEvents = (function () {
             var isAncestor =
                 "compareDocumentPosition" in root
-                  ? function(element, container) {
+                  ? function (element, container) {
                       return (
                         container.compareDocumentPosition &&
                         (container.compareDocumentPosition(element) & 16) === 16
                       );
                     }
                   : "contains" in root
-                  ? function(element, container) {
+                  ? function (element, container) {
                       container =
                         container.nodeType === 9 || container === window
                           ? root
@@ -5825,12 +5825,12 @@ error: function(error, promise){}
                         container !== element && container.contains(element)
                       );
                     }
-                  : function(element, container) {
+                  : function (element, container) {
                       while ((element = element.parentNode))
                         if (element === container) return 1;
                       return 0;
                     },
-              check = function(event) {
+              check = function (event) {
                 var related = event.relatedTarget;
                 return !related
                   ? related === null
@@ -5846,13 +5846,13 @@ error: function(error, promise){}
               mouseWL: {
                 base: /Firefox/.test(navigator.userAgent)
                   ? "DOMMouseScroll"
-                  : "mouseWL"
-              }
+                  : "mouseWL",
+              },
             };
           })(),
           // we provide a consistent Event object across browsers by taking the actual DOM
           // event object and generating a new one from its properties.
-          Event = (function() {
+          Event = (function () {
             // a whitelist of properties (for different event types) tells us what to check for and copy
             var commonProps = str2arr(
                 "altKey attrChange attrName bubbles cancelable ctrlKey currentTarget " +
@@ -5886,15 +5886,15 @@ error: function(error, promise){}
                 {
                   // key events
                   reg: /key/i,
-                  fix: function(event, newEvent) {
+                  fix: function (event, newEvent) {
                     newEvent.keyCode = event.keyCode || event.which;
                     return keyProps;
-                  }
+                  },
                 },
                 {
                   // mouse events
                   reg: /click|mouse(?!(.*WL|scroll))|menu|drag|drop/i,
-                  fix: function(event, newEvent, type) {
+                  fix: function (event, newEvent, type) {
                     newEvent.rightClick =
                       event.which === 3 || event.button === 2;
                     newEvent.pos = { x: 0, y: 0 };
@@ -5915,53 +5915,53 @@ error: function(error, promise){}
                         ];
                     }
                     return mouseProps;
-                  }
+                  },
                 },
                 {
                   // mouse WL events
                   reg: /mouse.*(WL|scroll)/i,
-                  fix: function() {
+                  fix: function () {
                     return mouseWheelProps;
-                  }
+                  },
                 },
                 {
                   // TextEvent
                   reg: /^text/i,
-                  fix: function() {
+                  fix: function () {
                     return textProps;
-                  }
+                  },
                 },
                 {
                   // touch and gesture events
                   reg: /^touch|^gesture/i,
-                  fix: function() {
+                  fix: function () {
                     return touchProps;
-                  }
+                  },
                 },
                 {
                   // message events
                   reg: /^message$/i,
-                  fix: function() {
+                  fix: function () {
                     return messageProps;
-                  }
+                  },
                 },
                 {
                   // popstate events
                   reg: /^popstate$/i,
-                  fix: function() {
+                  fix: function () {
                     return stateProps;
-                  }
+                  },
                 },
                 {
                   // everything else
                   reg: /.*/,
-                  fix: function() {
+                  fix: function () {
                     return commonProps;
-                  }
-                }
+                  },
+                },
               ],
               typeFixerMap = {}, // used to map event types to fixer functions (above), a basic cache mechanism
-              Event = function(event, element, isNative) {
+              Event = function (event, element, isNative) {
                 if (!arguments.length) return;
                 event =
                   event ||
@@ -6010,17 +6010,17 @@ error: function(error, promise){}
 
             // preventDefault() and stopPropagation() are a consistent interface to those functions
             // on the DOM, stop() is an alias for both of them together
-            Event.prototype.preventDefault = function() {
+            Event.prototype.preventDefault = function () {
               if (this.originalEvent.preventDefault)
                 this.originalEvent.preventDefault();
               else this.originalEvent.returnValue = false;
             };
-            Event.prototype.stopPropagation = function() {
+            Event.prototype.stopPropagation = function () {
               if (this.originalEvent.stopPropagation)
                 this.originalEvent.stopPropagation();
               else this.originalEvent.cancelBubble = true;
             };
-            Event.prototype.stop = function() {
+            Event.prototype.stop = function () {
               this.preventDefault();
               this.stopPropagation();
               this.stopped = true;
@@ -6028,20 +6028,20 @@ error: function(error, promise){}
             // stopImmediatePropagation() has to be handled internally because we manage the event list for
             // each element
             // note that originalElement may be a Bean#Event object in some situations
-            Event.prototype.stopImmediatePropagation = function() {
+            Event.prototype.stopImmediatePropagation = function () {
               if (this.originalEvent.stopImmediatePropagation)
                 this.originalEvent.stopImmediatePropagation();
-              this.isImmediatePropagationStopped = function() {
+              this.isImmediatePropagationStopped = function () {
                 return true;
               };
             };
-            Event.prototype.isImmediatePropagationStopped = function() {
+            Event.prototype.isImmediatePropagationStopped = function () {
               return (
                 this.originalEvent.isImmediatePropagationStopped &&
                 this.originalEvent.isImmediatePropagationStopped()
               );
             };
-            Event.prototype.clone = function(currentTarget) {
+            Event.prototype.clone = function (currentTarget) {
               //TODO: this is ripe for optimisation, new events are *expensive*
               // improving this will speed up delegated events
               var ne = new Event(this, this.element, this.isNative);
@@ -6052,7 +6052,7 @@ error: function(error, promise){}
             return Event;
           })(),
           // if we're in old IE we can't do onpropertychange on doc or win so we use doc.documentElement for both
-          targetElement = function(element, isNative) {
+          targetElement = function (element, isNative) {
             return !W3C_MODEL &&
               !isNative &&
               (element === doc || element === win)
@@ -6064,10 +6064,10 @@ error: function(error, promise){}
            * or functions to identify them, instead we store everything in the registry.
            * Each event listener has a RegEntry object, we have one 'registry' for the whole instance.
            */
-          RegEntry = (function() {
+          RegEntry = (function () {
             // each handler is wrapped so we can handle delegation and custom events
-            var wrappedHandler = function(element, fn, condition, args) {
-                var call = function(event, eargs) {
+            var wrappedHandler = function (element, fn, condition, args) {
+                var call = function (event, eargs) {
                     return fn.apply(
                       element,
                       args
@@ -6075,20 +6075,20 @@ error: function(error, promise){}
                         : eargs
                     );
                   },
-                  findTarget = function(event, eventElement) {
+                  findTarget = function (event, eventElement) {
                     return fn.__beanDel
                       ? fn.__beanDel.ft(event.target, element)
                       : eventElement;
                   },
                   handler = condition
-                    ? function(event) {
+                    ? function (event) {
                         var target = findTarget(event, this); // deleated event
                         if (condition.apply(target, arguments)) {
                           if (event) event.currentTarget = target;
                           return call(event, arguments);
                         }
                       }
-                    : function(event) {
+                    : function (event) {
                         if (fn.__beanDel)
                           event = event.clone(findTarget(event)); // delegated event, fix the fix
                         return call(event, arguments);
@@ -6096,7 +6096,7 @@ error: function(error, promise){}
                 handler.__beanDel = fn.__beanDel;
                 return handler;
               },
-              RegEntry = function(
+              RegEntry = function (
                 element,
                 type,
                 handler,
@@ -6147,7 +6147,7 @@ error: function(error, promise){}
               };
 
             // given a list of namespaces, is our entry in any of them?
-            RegEntry.prototype.inNamespaces = function(checkNamespaces) {
+            RegEntry.prototype.inNamespaces = function (checkNamespaces) {
               var i,
                 j,
                 c = 0;
@@ -6162,7 +6162,7 @@ error: function(error, promise){}
             };
 
             // match by element, original fn (opt), handler fn (opt)
-            RegEntry.prototype.matches = function(
+            RegEntry.prototype.matches = function (
               checkElement,
               checkOriginal,
               checkHandler
@@ -6176,7 +6176,7 @@ error: function(error, promise){}
 
             return RegEntry;
           })(),
-          registry = (function() {
+          registry = (function () {
             // our map stores arrays by event type, just because it's better than storing
             // everything in a single array.
             // uses '$' as a prefix for the keys for safety and 'r' as a special prefix for
@@ -6184,7 +6184,7 @@ error: function(error, promise){}
             var map = {},
               // generic functional search of our registry for matching listeners,
               // `fn` returns false to break out of the loop
-              forAll = function(element, type, original, handler, root, fn) {
+              forAll = function (element, type, original, handler, root, fn) {
                 var pfx = root ? "r" : "$";
                 if (!type || type === "*") {
                   // search the whole registry
@@ -6208,7 +6208,7 @@ error: function(error, promise){}
                   }
                 }
               },
-              has = function(element, type, original, root) {
+              has = function (element, type, original, root) {
                 // we're not using forAll here simply because it's a bit slower and this
                 // needs to be fast
                 var i,
@@ -6224,14 +6224,14 @@ error: function(error, promise){}
                 }
                 return false;
               },
-              get = function(element, type, original, root) {
+              get = function (element, type, original, root) {
                 var entries = [];
-                forAll(element, type, original, null, root, function(entry) {
+                forAll(element, type, original, null, root, function (entry) {
                   return entries.push(entry);
                 });
                 return entries;
               },
-              put = function(entry) {
+              put = function (entry) {
                 var has =
                     !entry.root &&
                     !this.has(entry.element, entry.type, null, false),
@@ -6239,14 +6239,14 @@ error: function(error, promise){}
                 (map[key] || (map[key] = [])).push(entry);
                 return has;
               },
-              del = function(entry) {
+              del = function (entry) {
                 forAll(
                   entry.element,
                   entry.type,
                   null,
                   entry.handler,
                   entry.root,
-                  function(entry, list, i) {
+                  function (entry, list, i) {
                     list.splice(i, 1);
                     entry.removed = true;
                     if (list.length === 0)
@@ -6256,7 +6256,7 @@ error: function(error, promise){}
                 );
               },
               // dump all entries, used for onunload
-              entries = function() {
+              entries = function () {
                 var t,
                   entries = [];
                 for (t in map) {
@@ -6270,13 +6270,13 @@ error: function(error, promise){}
           // we need a selector engine for delegated events, use querySelectorAll if it exists
           // but for older browsers we need Qwery, Sizzle or similar
           selectorEngine,
-          setSelectorEngine = function(e) {
+          setSelectorEngine = function (e) {
             if (!arguments.length) {
               selectorEngine = doc.querySelectorAll
-                ? function(s, r) {
+                ? function (s, r) {
                     return r.querySelectorAll(s);
                   }
-                : function() {
+                : function () {
                     throw new Error("Bean: No selector engine installed"); // eeek
                   };
             } else {
@@ -6285,7 +6285,7 @@ error: function(error, promise){}
           },
           // we attach this listener to each DOM event that we need to listen to, only once
           // per event type per DOM element
-          rootListener = function(event, type) {
+          rootListener = function (event, type) {
             if (
               !W3C_MODEL &&
               type &&
@@ -6309,7 +6309,7 @@ error: function(error, promise){}
           },
           // add and remove listeners to DOM elements
           listener = W3C_MODEL
-            ? function(element, type, add) {
+            ? function (element, type, add) {
                 // new browsers
                 element[add ? addEvent : removeEvent](
                   type,
@@ -6317,7 +6317,7 @@ error: function(error, promise){}
                   false
                 );
               }
-            : function(element, type, add, custom) {
+            : function (element, type, add, custom) {
                 // IE8 and below, use attachEvent/detachEvent and we have to piggy-back propertychange events
                 // to simulate event bubbling etc.
                 var entry;
@@ -6326,7 +6326,7 @@ error: function(error, promise){}
                     (entry = new RegEntry(
                       element,
                       custom || type,
-                      function(event) {
+                      function (event) {
                         // handler
                         rootListener.call(element, event, custom);
                       },
@@ -6358,14 +6358,14 @@ error: function(error, promise){}
                   }
                 }
               },
-          once = function(rm, element, type, fn, originalFn) {
+          once = function (rm, element, type, fn, originalFn) {
             // wrap the handler in a handler that does a remove as well
-            return function() {
+            return function () {
               fn.apply(this, arguments);
               rm(element, type, originalFn);
             };
           },
-          removeListener = function(element, orgType, handler, namespaces) {
+          removeListener = function (element, orgType, handler, namespaces) {
             var type = orgType && orgType.replace(nameRegex, ""),
               handlers = registry.get(element, type, null, false),
               removed = {},
@@ -6389,7 +6389,7 @@ error: function(error, promise){}
                 )
                   removed[handlers[i].eventType] = {
                     t: handlers[i].eventType,
-                    c: handlers[i].type
+                    c: handlers[i].type,
                   };
               }
             }
@@ -6402,10 +6402,10 @@ error: function(error, promise){}
             }
           },
           // set up a delegate helper using the given selector, wrap the handler function
-          delegate = function(selector, fn) {
+          delegate = function (selector, fn) {
             //TODO: findTarget (therefore $) is called twice, once for match and once for
             // setting e.currentTarget, fix this so it's only needed once
-            var findTarget = function(target, root) {
+            var findTarget = function (target, root) {
                 var i,
                   array = isString(selector)
                     ? selectorEngine(selector, root)
@@ -6416,7 +6416,7 @@ error: function(error, promise){}
                   }
                 }
               },
-              handler = function(e) {
+              handler = function (e) {
                 var match = findTarget(e.target, this);
                 if (match) fn.apply(match, arguments);
               };
@@ -6424,12 +6424,12 @@ error: function(error, promise){}
             // __beanDel isn't pleasant but it's a private function, not exposed outside of Bean
             handler.__beanDel = {
               ft: findTarget, // attach it here for customEvents to use too
-              selector: selector
+              selector: selector,
             };
             return handler;
           },
           fireListener = W3C_MODEL
-            ? function(isNative, type, element) {
+            ? function (isNative, type, element) {
                 // modern browsers, do a proper dispatchEvent()
                 var evt = doc.createEvent(isNative ? "HTMLEvents" : "UIEvents");
                 evt[isNative ? "initEvent" : "initUIEvent"](
@@ -6441,7 +6441,7 @@ error: function(error, promise){}
                 );
                 element.dispatchEvent(evt);
               }
-            : function(isNative, type, element) {
+            : function (isNative, type, element) {
                 // old browser use onpropertychange, just increment a custom property to trigger the event
                 element = targetElement(element, isNative);
                 isNative
@@ -6455,7 +6455,7 @@ error: function(error, promise){}
           /**
            * off(element[, eventType(s)[, handler ]])
            */
-          off = function(element, typeSpec, fn) {
+          off = function (element, typeSpec, fn) {
             var isTypeStr = isString(typeSpec),
               k,
               type,
@@ -6494,7 +6494,7 @@ error: function(error, promise){}
           /**
            * on(element, eventType(s)[, selector], handler[, args ])
            */
-          on = function(element, events, selector, fn) {
+          on = function (element, events, selector, fn) {
             var originalFn, type, types, i, args, entry, first;
 
             //TODO: the undefined check means you can't pass an 'args' argument, fix this perhaps?
@@ -6551,7 +6551,7 @@ error: function(error, promise){}
            *
            * Deprecated: kept (for now) for backward-compatibility
            */
-          add = function(element, events, fn, delfn) {
+          add = function (element, events, fn, delfn) {
             return on.apply(
               null,
               !isString(fn)
@@ -6564,7 +6564,7 @@ error: function(error, promise){}
           /**
            * one(element, eventType(s)[, selector], handler[, args ])
            */
-          one = function() {
+          one = function () {
             return on.apply(ONE, arguments);
           },
           /**
@@ -6573,7 +6573,7 @@ error: function(error, promise){}
            * The optional 'args' argument must be an array, if no 'args' argument is provided
            * then we can use the browser's DOM event system, otherwise we trigger handlers manually
            */
-          fire = function(element, type, args) {
+          fire = function (element, type, args) {
             var types = str2arr(type),
               i,
               j,
@@ -6606,7 +6606,7 @@ error: function(error, promise){}
            *
            * TODO: perhaps for consistency we should allow the same flexibility in type specifiers?
            */
-          clone = function(element, from, type) {
+          clone = function (element, from, type) {
             var handlers = registry.get(from, type, null, false),
               l = handlers.length,
               i = 0,
@@ -6634,15 +6634,15 @@ error: function(error, promise){}
             fire: fire,
             Event: Event,
             setSelectorEngine: setSelectorEngine,
-            noConflict: function() {
+            noConflict: function () {
               context[name] = old;
               return this;
-            }
+            },
           };
 
         // for IE, clean up on unload to avoid leaks
         if (win.attachEvent) {
-          var cleanup = function() {
+          var cleanup = function () {
             var i,
               entries = registry.entries();
             for (i in entries) {

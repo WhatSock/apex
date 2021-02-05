@@ -5,11 +5,11 @@ https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
 
-(function() {
+(function () {
   if (!("setDialog" in $A)) {
     $A.addWidgetProfile("Dialog", {
       track: [],
-      configure: function(dc) {
+      configure: function (dc) {
         var that = this,
           pos = {};
         if (dc.isModal && that.track.length) {
@@ -35,30 +35,30 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           append: true,
           escToClose: true,
           on: "click",
-          click: function(ev, dc) {
+          click: function (ev, dc) {
             ev.stopPropagation();
-          }
+          },
         };
       },
-      role: function(dc) {
+      role: function (dc) {
         var r = {};
         r.role = dc.isAlert ? "alertdialog" : "dialog";
         r["aria-modal"] = dc.isModal ? "true" : "false";
         return r;
       },
-      beforeRender: function(dc, container) {
+      beforeRender: function (dc, container) {
         if (dc.isModal) {
           dc.backdrop = $A(that.backdrop)
             .on({
-              click: function(ev) {
+              click: function (ev) {
                 dc.remove();
                 ev.stopPropagation();
-              }
+              },
             })
             .css(
               $A.isNum(dc.style["z-index"]) && dc.style["z-index"] > 1
                 ? {
-                    zIndex: dc.style["z-index"] - 1
+                    zIndex: dc.style["z-index"] - 1,
                   }
                 : {}
             )
@@ -66,13 +66,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             .return();
         }
       },
-      afterRender: function(dc, container) {
+      afterRender: function (dc, container) {
         var that = this;
         that.track.push(dc);
         $A.hideBackground(dc.outerNode);
         dc.announce = dc.isAlert === true;
       },
-      afterRemove: function(dc, container) {
+      afterRemove: function (dc, container) {
         var that = this;
         that.track.splice(that.track.length - 1, 1);
         if (that.track.length) {
@@ -85,11 +85,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         if (dc.isModal && $A.isDOMNode(dc.backdrop, null, null, 11))
           $A.remove(dc.backdrop);
       },
-      backdrop: '<div class="modalBackdrop"></div>'
+      backdrop: '<div class="modalBackdrop"></div>',
     });
 
     $A.extend({
-      setDialog: function(o, config) {
+      setDialog: function (o, config) {
         if (this._4X) {
           config = o;
           o = this._X;
@@ -101,13 +101,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         }
 
         var dcArray = [],
-          toDC = function(o) {
+          toDC = function (o) {
             dcArray.push(
               $A.toDC(
                 o,
                 $A.extend(
                   {
-                    widgetType: "Dialog"
+                    widgetType: "Dialog",
                   },
                   config || {}
                 )
@@ -116,13 +116,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           };
 
         if (o)
-          $A.query(o, function(i, o) {
+          $A.query(o, function (i, o) {
             toDC(o);
           });
         else toDC();
 
         return dcArray.length === 1 ? dcArray[0] : dcArray;
-      }
+      },
     });
   }
 })();
