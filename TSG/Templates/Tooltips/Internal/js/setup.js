@@ -1,25 +1,25 @@
-$A.import(["Animate", "Tooltip"], { defer: true }, function () {
+$A.import(["Animate", "Tooltip"], { defer: true }, function() {
   var helpTooltipDC = $A.setTooltip("a.aria-tooltip.helpIcon", {
     isManualOpen: true,
     className: "tooltip manual-click",
     delay: 0,
     style: { display: "none" },
     animate: {
-      onRender: function (dc, outerNode, complete) {
+      onRender: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeIn", {
-          complete: function () {
+          complete: function() {
             complete();
-          },
+          }
         });
       },
-      onRemove: function (dc, outerNode, complete) {
+      onRemove: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeOut", {
-          complete: function () {
+          complete: function() {
             complete();
-          },
+          }
         });
-      },
-    },
+      }
+    }
   });
 
   var constraintTooltipDC = $A.setTooltip('input[type="password"]', {
@@ -28,21 +28,21 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function () {
     delay: 1000,
     style: { display: "none" },
     animate: {
-      onRender: function (dc, outerNode, complete) {
+      onRender: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.swoopIn", {
-          complete: function () {
+          complete: function() {
             complete();
-          },
+          }
         });
       },
-      onRemove: function (dc, outerNode, complete) {
+      onRemove: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.swoopOut", {
-          complete: function () {
+          complete: function() {
             complete();
-          },
+          }
         });
-      },
-    },
+      }
+    }
   });
 
   var hoverTooltipDC = $A.setTooltip("button.action-btn", {
@@ -52,20 +52,20 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function () {
     delayTimeout: 3000,
     style: { display: "none" },
     animate: {
-      onRender: function (dc, outerNode, complete) {
+      onRender: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.bounceLeftIn", {
-          complete: function () {
+          complete: function() {
             complete();
-          },
+          }
         });
       },
-      onRemove: function (dc, outerNode, complete) {
+      onRemove: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.bounceRightOut", {
-          complete: function () {
+          complete: function() {
             complete();
-          },
+          }
         });
-      },
-    },
+      }
+    }
   });
 });

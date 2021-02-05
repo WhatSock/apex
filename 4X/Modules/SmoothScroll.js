@@ -5,16 +5,16 @@ https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
 
-(function () {
+(function() {
   if (!("scrollTo" in $A)) {
     $A.import("Animate", {
       name: "SmoothScrollModule",
       props: props,
       once: true,
-      call: function (props) {
+      call: function(props) {
         $A.extend({
           isScrolling: false,
-          scrollTo: function (o, config, fn) {
+          scrollTo: function(o, config, fn) {
             if (this._4X) {
               fn = config;
               config = o;
@@ -34,10 +34,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   {
                     duration: 700,
                     easing: "ease-in",
-                    complete: function () {
+                    complete: function() {
                       $A.isScrolling = false;
                       if ($A.isFn(fn)) fn.call(o, o, fn.target);
-                    },
+                    }
                   },
                   config || {}
                 )
@@ -45,7 +45,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             }
             return $A._XR.call(this, o);
           },
-          moveTo: function (o, config, fn) {
+          moveTo: function(o, config, fn) {
             if (this._4X) {
               fn = config;
               config = o;
@@ -57,14 +57,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 o,
                 config,
                 fn ||
-                  function (o) {
+                  function(o) {
                     $A.focus(o);
                   }
               );
             }
             return $A._XR.call(this, o);
           },
-          skipTo: function (o, targ, config, fn) {
+          skipTo: function(o, targ, config, fn) {
             if (this._4X) {
               fn = config;
               config = targ;
@@ -80,7 +80,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   {
                     target: targ,
                     skipReturn: true,
-                    callback: fn,
+                    callback: fn
                   },
                   config || {}
                 )
@@ -88,7 +88,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             }
             return $A._XR.call(this, o);
           },
-          setSkipLink: function (l, config, c, skipReturn) {
+          setSkipLink: function(l, config, c, skipReturn) {
             if (this._4X) {
               c = config;
               config = l;
@@ -101,46 +101,46 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               c = config.context || c,
               skip = skipReturn || config.skipReturn ? true : false;
             if (!$A.isDOMNode(c, null, document)) c = document;
-            $A.query(l, c, function (i, o) {
+            $A.query(l, c, function(i, o) {
               var t = config.target || $A.getAttr(o, "href");
               if ($A.isSelector(t)) t = c.querySelector(t);
               if ($A.isDOMNode(t) && !$A.data(o, "_isBoundFn")) {
                 $A.data(o, "_isBoundFn", true);
                 $A.bindObjects(o, t);
                 $A.on(o, {
-                  click: function (ev) {
+                  click: function(ev) {
                     $A.bindObjects(o, t);
                     if ($A.isFn(fn)) fn.target = t;
                     $A.moveTo(t, config.override || {}, fn);
                     ev.preventDefault();
-                  },
+                  }
                 });
                 if (offscreen) {
                   $A.setOffScreen(o);
                   $A.on(o, {
-                    focus: function (ev) {
+                    focus: function(ev) {
                       $A.css(o, $A.extend({}, $A.sraCSSClear, styleObj || {}));
                     },
-                    blur: function (ev) {
+                    blur: function(ev) {
                       $A.setOffScreen(o);
-                    },
+                    }
                   });
                 }
                 if (!skip && $A.isFocusable(t))
                   $A.on(t, {
-                    click: function (ev) {
+                    click: function(ev) {
                       if ($A.isFn(fn)) fn.target = $A.boundTo(t);
                       $A.moveTo($A.boundTo(t), config.override || {}, fn);
                       ev.preventDefault();
-                    },
+                    }
                   });
               }
             });
 
             return $A._XR.call(this, l);
-          },
+          }
         });
-      },
+      }
     });
   }
 })();

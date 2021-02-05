@@ -1,4 +1,4 @@
-(function (f) {
+(function(f) {
   if (typeof exports === "object" && typeof module !== "undefined") {
     module.exports = f();
   } else if ($A.isFn(define) && define.amd) {
@@ -16,7 +16,7 @@
     }
     g.dragula = f();
   }
-})(function () {
+})(function() {
   var define, module, exports;
   return (function e(t, n, r) {
     function s(o, u) {
@@ -31,7 +31,7 @@
         var l = (n[o] = { exports: {} });
         t[o][0].call(
           l.exports,
-          function (e) {
+          function(e) {
             var n = t[o][1][e];
             return s(n ? n : e);
           },
@@ -51,7 +51,7 @@
   })(
     {
       1: [
-        function (require, module, exports) {
+        function(require, module, exports) {
           "use strict";
 
           var cache = {};
@@ -88,14 +88,14 @@
 
           module.exports = {
             add: addClass,
-            rm: rmClass,
+            rm: rmClass
           };
         },
-        {},
+        {}
       ],
       2: [
-        function (require, module, exports) {
-          (function (global) {
+        function(require, module, exports) {
+          (function(global) {
             "use strict";
 
             var emitter = require("contra/emitter");
@@ -170,7 +170,7 @@
                 remove: remove,
                 destroy: destroy,
                 canMove: canMove,
-                dragging: false,
+                dragging: false
               });
 
               if (o.removeOnSpill === true) {
@@ -323,7 +323,7 @@
 
                 return {
                   item: item,
-                  source: source,
+                  source: source
                 };
               }
 
@@ -696,17 +696,17 @@
               var touch = {
                 mouseup: "touchend",
                 mousedown: "touchstart",
-                mousemove: "touchmove",
+                mousemove: "touchmove"
               };
               var pointers = {
                 mouseup: "pointerup",
                 mousedown: "pointerdown",
-                mousemove: "pointermove",
+                mousemove: "pointermove"
               };
               var microsoft = {
                 mouseup: "MSPointerUp",
                 mousedown: "MSPointerDown",
-                mousemove: "MSPointerMove",
+                mousemove: "MSPointerMove"
               };
               if (global.navigator.pointerEnabled) {
                 crossvent[op](el, pointers[type], fn);
@@ -739,7 +739,7 @@
               var rect = el.getBoundingClientRect();
               return {
                 left: rect.left + getScroll("scrollLeft", "pageXOffset"),
-                top: rect.top + getScroll("scrollTop", "pageYOffset"),
+                top: rect.top + getScroll("scrollTop", "pageYOffset")
               };
             }
 
@@ -827,7 +827,7 @@
               var host = getEventHost(e);
               var missMap = {
                 pageX: "clientX", // IE8
-                pageY: "clientY", // IE8
+                pageY: "clientY" // IE8
               };
               if (
                 coord in missMap &&
@@ -851,18 +851,18 @@
               : {}
           ));
         },
-        { "./classes": 1, "contra/emitter": 5, crossvent: 6 },
+        { "./classes": 1, "contra/emitter": 5, crossvent: 6 }
       ],
       3: [
-        function (require, module, exports) {
+        function(require, module, exports) {
           module.exports = function atoa(a, n) {
             return Array.prototype.slice.call(a, n);
           };
         },
-        {},
+        {}
       ],
       4: [
-        function (require, module, exports) {
+        function(require, module, exports) {
           "use strict";
 
           var ticky = require("ticky");
@@ -876,10 +876,10 @@
             });
           };
         },
-        { ticky: 9 },
+        { ticky: 9 }
       ],
       5: [
-        function (require, module, exports) {
+        function(require, module, exports) {
           "use strict";
 
           var atoa = require("atoa");
@@ -891,7 +891,7 @@
             if (thing === undefined) {
               thing = {};
             }
-            thing.on = function (type, fn) {
+            thing.on = function(type, fn) {
               if (!evt[type]) {
                 evt[type] = [fn];
               } else {
@@ -899,12 +899,12 @@
               }
               return thing;
             };
-            thing.once = function (type, fn) {
+            thing.once = function(type, fn) {
               fn._once = true; // thing.off(fn) still works!
               thing.on(type, fn);
               return thing;
             };
-            thing.off = function (type, fn) {
+            thing.off = function(type, fn) {
               var c = arguments.length;
               if (c === 1) {
                 delete evt[type];
@@ -919,13 +919,13 @@
               }
               return thing;
             };
-            thing.emit = function () {
+            thing.emit = function() {
               var args = atoa(arguments);
               return thing.emitterSnapshot(args.shift()).apply(this, args);
             };
-            thing.emitterSnapshot = function (type) {
+            thing.emitterSnapshot = function(type) {
               var et = (evt[type] || []).slice(0);
-              return function () {
+              return function() {
                 var args = atoa(arguments);
                 var ctx = this || thing;
                 if (type === "error" && opts.throws !== false && !et.length) {
@@ -947,11 +947,11 @@
             return thing;
           };
         },
-        { "./debounce": 4, atoa: 3 },
+        { "./debounce": 4, atoa: 3 }
       ],
       6: [
-        function (require, module, exports) {
-          (function (global) {
+        function(require, module, exports) {
+          (function(global) {
             "use strict";
 
             var customEvent = require("custom-event");
@@ -969,7 +969,7 @@
             module.exports = {
               add: addEvent,
               remove: removeEvent,
-              fabricate: fabricateEvent,
+              fabricate: fabricateEvent
             };
 
             function addEventEasy(el, type, fn, capturing) {
@@ -1042,7 +1042,7 @@
                 wrapper: wrapper,
                 element: el,
                 type: type,
-                fn: fn,
+                fn: fn
               });
               return wrapper;
             }
@@ -1080,11 +1080,11 @@
               : {}
           ));
         },
-        { "./eventmap": 7, "custom-event": 8 },
+        { "./eventmap": 7, "custom-event": 8 }
       ],
       7: [
-        function (require, module, exports) {
-          (function (global) {
+        function(require, module, exports) {
+          (function(global) {
             "use strict";
 
             var eventmap = [];
@@ -1109,17 +1109,17 @@
               : {}
           ));
         },
-        {},
+        {}
       ],
       8: [
-        function (require, module, exports) {
-          (function (global) {
+        function(require, module, exports) {
+          (function(global) {
             var NativeCustomEvent = global.CustomEvent;
 
             function useNative() {
               try {
                 var p = new NativeCustomEvent("cat", {
-                  detail: { foo: "bar" },
+                  detail: { foo: "bar" }
                 });
                 return "cat" === p.type && "bar" === p.detail.foo;
               } catch (e) {}
@@ -1178,26 +1178,26 @@
               : {}
           ));
         },
-        {},
+        {}
       ],
       9: [
-        function (require, module, exports) {
+        function(require, module, exports) {
           var si = $A.isFn(setImmediate),
             tick;
           if (si) {
-            tick = function (fn) {
+            tick = function(fn) {
               setImmediate(fn);
             };
           } else {
-            tick = function (fn) {
+            tick = function(fn) {
               setTimeout(fn, 0);
             };
           }
 
           module.exports = tick;
         },
-        {},
-      ],
+        {}
+      ]
     },
     {},
     [2]

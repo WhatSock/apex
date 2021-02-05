@@ -6,14 +6,14 @@ However, when creating modules that reference additional module imports, it is i
 For a detailed explanation of $A.import() statement features, view the help file at: "4X/Help/$A API/Import and Fetch APIs/Import"
 */
 
-(function () {
+(function() {
   $A.import(["ModuleDependency1", "ModuleDependency2", "Etc."], {
     name: "UniqueNameForImportInstance",
     // defer: true, // If needed
     // once: true, // If needed
     props: props, // Required
-    call: function (props) {
+    call: function(props) {
       // Module code here.
-    },
+    }
   });
 })();

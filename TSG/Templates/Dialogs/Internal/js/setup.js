@@ -1,4 +1,4 @@
-$A.import(["Animate", "Dialog"], { defer: true }, function () {
+$A.import(["Animate", "Dialog"], { defer: true }, function() {
   var myDialogDC = $A.setDialog("#dialog-login", {
     role: "Login",
     trigger: "#triggerId",
@@ -7,24 +7,24 @@ $A.import(["Animate", "Dialog"], { defer: true }, function () {
     isAlert: false,
     style: { display: "none" },
     animate: {
-      onRender: function (dc, outerNode, complete) {
+      onRender: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.slideDownIn", {
-          complete: function () {
+          complete: function() {
             complete();
-          },
+          }
         });
       },
-      onRemove: function (dc, outerNode, complete) {
+      onRemove: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.slideDownOut", {
-          complete: function () {
+          complete: function() {
             complete();
-          },
+          }
         });
-      },
+      }
     },
-    afterRender: function (dc) {
+    afterRender: function(dc) {
       var frm = $A.getElement("lbForm");
-      $A(frm).on("submit", function (ev) {
+      $A(frm).on("submit", function(ev) {
         if (!frm.uname.value) {
           alert("Woops! You forgot your username...");
           frm.uname.focus();
@@ -37,6 +37,6 @@ $A.import(["Animate", "Dialog"], { defer: true }, function () {
         }
         ev.preventDefault();
       });
-    },
+    }
   });
 });

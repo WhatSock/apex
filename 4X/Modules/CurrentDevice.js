@@ -8,8 +8,8 @@
   else if (typeof define === "function" && define.amd) define([], factory);
   else if (typeof exports === "object") exports["device"] = factory();
   else root["device"] = factory();
-})(window, function () {
-  return /******/ (function (modules) {
+})(window, function() {
+  return /******/ (function(modules) {
     // webpackStraylight
     /******/ // The module cache
     /******/ var installedModules = {}; // The require function
@@ -24,7 +24,7 @@
       /******/ /******/ var module = (installedModules[moduleId] = {
         /******/ i: moduleId,
         /******/ l: false,
-        /******/ exports: {},
+        /******/ exports: {}
         /******/
       }); // Execute the module function
       /******/
@@ -46,21 +46,21 @@
     /******/
     /******/ /******/ __webpack_require__.c = installedModules; // define getter function for harmony exports
     /******/
-    /******/ /******/ __webpack_require__.d = function (exports, name, getter) {
+    /******/ /******/ __webpack_require__.d = function(exports, name, getter) {
       /******/ if (!__webpack_require__.o(exports, name)) {
         /******/ Object.defineProperty(exports, name, {
           enumerable: true,
-          get: getter,
+          get: getter
         });
         /******/
       }
       /******/
     }; // define __esModule on exports
     /******/
-    /******/ /******/ __webpack_require__.r = function (exports) {
+    /******/ /******/ __webpack_require__.r = function(exports) {
       /******/ if (typeof Symbol !== "undefined" && Symbol.toStringTag) {
         /******/ Object.defineProperty(exports, Symbol.toStringTag, {
-          value: "Module",
+          value: "Module"
         });
         /******/
       }
@@ -68,7 +68,7 @@
       /******/
     }; // create a fake namespace object // mode & 1: value is a module id, require it // mode & 2: merge all properties of value into the ns // mode & 4: return value when already ns object // mode & 8|1: behave like require
     /******/
-    /******/ /******/ /******/ /******/ /******/ /******/ __webpack_require__.t = function (
+    /******/ /******/ /******/ /******/ /******/ /******/ __webpack_require__.t = function(
       value,
       mode
     ) {
@@ -85,14 +85,14 @@
       /******/ __webpack_require__.r(ns);
       /******/ Object.defineProperty(ns, "default", {
         enumerable: true,
-        value: value,
+        value: value
       });
       /******/ if (mode & 2 && typeof value !== "string")
         for (var key in value)
           __webpack_require__.d(
             ns,
             key,
-            function (key) {
+            function(key) {
               return value[key];
             }.bind(null, key)
           );
@@ -100,7 +100,7 @@
       /******/
     }; // getDefaultExport function for compatibility with non-harmony modules
     /******/
-    /******/ /******/ __webpack_require__.n = function (module) {
+    /******/ /******/ __webpack_require__.n = function(module) {
       /******/ var getter =
         module && module.__esModule
           ? /******/ function getDefault() {
@@ -114,7 +114,7 @@
       /******/
     }; // Object.prototype.hasOwnProperty.call
     /******/
-    /******/ /******/ __webpack_require__.o = function (object, property) {
+    /******/ /******/ __webpack_require__.o = function(object, property) {
       return Object.prototype.hasOwnProperty.call(object, property);
     }; // __webpack_public_path__
     /******/
@@ -127,21 +127,21 @@
     /************************************************************************/
     /******/ [
       /* 0 */
-      /***/ function (module, exports, __webpack_require__) {
+      /***/ function(module, exports, __webpack_require__) {
         module.exports = __webpack_require__(1);
 
         /***/
       },
       /* 1 */
-      /***/ function (module, __webpack_exports__, __webpack_require__) {
+      /***/ function(module, __webpack_exports__, __webpack_require__) {
         "use strict";
         __webpack_require__.r(__webpack_exports__);
         var _typeof =
           typeof Symbol === "function" && typeof Symbol.iterator === "symbol"
-            ? function (obj) {
+            ? function(obj) {
                 return typeof obj;
               }
-            : function (obj) {
+            : function(obj) {
                 return obj &&
                   typeof Symbol === "function" &&
                   obj.constructor === Symbol &&
@@ -182,95 +182,95 @@
           "dlnadoc",
           "pov_tv",
           "hbbtv",
-          "ce-html",
+          "ce-html"
         ];
 
         // Main functions
         // --------------
 
-        device.macos = function () {
+        device.macos = function() {
           return find("mac");
         };
 
-        device.ios = function () {
+        device.ios = function() {
           return device.iphone() || device.ipod() || device.ipad();
         };
 
-        device.iphone = function () {
+        device.iphone = function() {
           return !device.windows() && find("iphone");
         };
 
-        device.ipod = function () {
+        device.ipod = function() {
           return find("ipod");
         };
 
-        device.ipad = function () {
+        device.ipad = function() {
           var iPadOS13Up =
             navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
           return find("ipad") || iPadOS13Up;
         };
 
-        device.android = function () {
+        device.android = function() {
           return !device.windows() && find("android");
         };
 
-        device.androidPhone = function () {
+        device.androidPhone = function() {
           return device.android() && find("mobile");
         };
 
-        device.androidTablet = function () {
+        device.androidTablet = function() {
           return device.android() && !find("mobile");
         };
 
-        device.blackberry = function () {
+        device.blackberry = function() {
           return find("blackberry") || find("bb10");
         };
 
-        device.blackberryPhone = function () {
+        device.blackberryPhone = function() {
           return device.blackberry() && !find("tablet");
         };
 
-        device.blackberryTablet = function () {
+        device.blackberryTablet = function() {
           return device.blackberry() && find("tablet");
         };
 
-        device.windows = function () {
+        device.windows = function() {
           return find("windows");
         };
 
-        device.windowsPhone = function () {
+        device.windowsPhone = function() {
           return device.windows() && find("phone");
         };
 
-        device.windowsTablet = function () {
+        device.windowsTablet = function() {
           return device.windows() && find("touch") && !device.windowsPhone();
         };
 
-        device.fxos = function () {
+        device.fxos = function() {
           return (find("(mobile") || find("(tablet")) && find(" rv:");
         };
 
-        device.fxosPhone = function () {
+        device.fxosPhone = function() {
           return device.fxos() && find("mobile");
         };
 
-        device.fxosTablet = function () {
+        device.fxosTablet = function() {
           return device.fxos() && find("tablet");
         };
 
-        device.meego = function () {
+        device.meego = function() {
           return find("meego");
         };
 
-        device.cordova = function () {
+        device.cordova = function() {
           return window.cordova && location.protocol === "file:";
         };
 
-        device.nodeWebkit = function () {
+        device.nodeWebkit = function() {
           return _typeof(window.process) === "object";
         };
 
-        device.mobile = function () {
+        device.mobile = function() {
           return (
             device.androidPhone() ||
             device.iphone() ||
@@ -282,7 +282,7 @@
           );
         };
 
-        device.tablet = function () {
+        device.tablet = function() {
           return (
             device.ipad() ||
             device.androidTablet() ||
@@ -292,11 +292,11 @@
           );
         };
 
-        device.desktop = function () {
+        device.desktop = function() {
           return !device.tablet() && !device.mobile();
         };
 
-        device.television = function () {
+        device.television = function() {
           var i = 0;
           while (i < television.length) {
             if (find(television[i])) {
@@ -307,7 +307,7 @@
           return false;
         };
 
-        device.portrait = function () {
+        device.portrait = function() {
           if (
             screen.orientation &&
             Object.prototype.hasOwnProperty.call(window, "onorientationchange")
@@ -323,7 +323,7 @@
           return window.innerHeight / window.innerWidth > 1;
         };
 
-        device.landscape = function () {
+        device.landscape = function() {
           if (
             screen.orientation &&
             Object.prototype.hasOwnProperty.call(window, "onorientationchange")
@@ -344,7 +344,7 @@
 
         // Run device.js in noConflict mode,
         // returning the device variable to its previous owner.
-        device.noConflict = function () {
+        device.noConflict = function() {
           window.device = previousDevice;
           return this;
         };
@@ -467,7 +467,7 @@
           }
         }
 
-        device.onChangeOrientation = function (cb) {
+        device.onChangeOrientation = function(cb) {
           if (typeof cb === "function") {
             changeOrientationList.push(cb);
           }
@@ -517,7 +517,7 @@
           "windows",
           "fxos",
           "meego",
-          "television",
+          "television"
         ]);
 
         function setOrientationCache() {
@@ -529,7 +529,7 @@
         /* harmony default export */ __webpack_exports__["default"] = device;
 
         /***/
-      },
+      }
       /******/
     ]
   )["default"];

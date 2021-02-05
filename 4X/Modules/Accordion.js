@@ -5,15 +5,15 @@ https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
 
-(function () {
+(function() {
   if (!("setAccordion" in $A)) {
     $A.import("RovingTabIndex", {
       name: "AccordionModule",
       props: props,
       once: true,
-      call: function (props) {
+      call: function(props) {
         $A.addWidgetProfile("Accordion", {
-          configure: function (dc) {
+          configure: function(dc) {
             return {
               exposeBounds: true,
               exposeHiddenClose: false,
@@ -23,29 +23,29 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               allowMultiple: false,
               escToClose: true,
               returnFocus: false,
-              click: function (ev, dc) {
+              click: function(ev, dc) {
                 ev.stopPropagation();
               },
-              onCreate: function (dc) {
+              onCreate: function(dc) {
                 $A.setAttr(dc.trigger, "aria-expanded", "false");
-              },
+              }
             };
           },
-          role: function (dc) {
+          role: function(dc) {
             return {
-              role: "region",
+              role: "region"
             };
           },
-          duringRender: function (dc, container) {
+          duringRender: function(dc, container) {
             $A.setAttr(dc.triggerNode, "aria-expanded", "true");
           },
-          beforeRemove: function (dc, container) {
+          beforeRemove: function(dc, container) {
             $A.setAttr(dc.triggerNode, "aria-expanded", "false");
-          },
+          }
         });
 
         $A.extend({
-          setAccordion: function (o, config) {
+          setAccordion: function(o, config) {
             if (this._4X) {
               config = o;
               o = this._X;
@@ -60,13 +60,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             var dcArray = [],
               active = null,
               startIndex = 0,
-              triggers = $A.query(o, function (i, o) {
+              triggers = $A.query(o, function(i, o) {
                 var panelContainer = $A.getEl($A.getAttr(o, "data-root")),
                   dc = $A(o).toDC(
                     $A.extend(
                       {
                         widgetType: "Accordion",
-                        root: panelContainer,
+                        root: panelContainer
                       },
                       config || {}
                     )
@@ -79,7 +79,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               });
 
             $A.map({
-              siblings: dcArray,
+              siblings: dcArray
             });
             $A.updateDisabled(dcArray);
 
@@ -92,18 +92,18 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     orientation: 2,
                     autoSwitch: config.autoSwitch || "full",
                     autoLoop: true,
-                    onClick: function (ev, triggerNode, RTI, DC) {
+                    onClick: function(ev, triggerNode, RTI, DC) {
                       DC.render();
                       ev.preventDefault();
                     },
-                    onSpace: function (ev, triggerNode, RTI, DC) {
+                    onSpace: function(ev, triggerNode, RTI, DC) {
                       DC.render();
                       ev.preventDefault();
                     },
-                    onEnter: function (ev, triggerNode, RTI, DC) {
+                    onEnter: function(ev, triggerNode, RTI, DC) {
                       DC.render();
                       ev.preventDefault();
-                    },
+                    }
                   },
                   config.extendRTI || {}
                 )
@@ -112,9 +112,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             if ($A.isDC(active)) active.render();
 
             return dcArray.length === 1 ? dcArray[0] : dcArray;
-          },
+          }
         });
-      },
+      }
     });
   }
 })();

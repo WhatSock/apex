@@ -1,9 +1,9 @@
-$A.import(["Animate", "Tooltip"], { defer: true }, function () {
+$A.import(["Animate", "Tooltip"], { defer: true }, function() {
   var answer = "Terra";
 
   var helpDC = $A.setTooltip("input.has-help-tooltip", {
     isResponsive: true,
-    validate: function (dc, target) {
+    validate: function(dc, target) {
       var val = (target.value || "").toLowerCase(),
         i = val.length,
         ans = answer.toLowerCase().slice(0, i),
@@ -25,7 +25,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function () {
       else if (i > answer.length) return "Wo, hold on there cowboy!";
       else if (dc.isValid) return "That's correct, you've got it!";
     },
-    onValid: function (dc) {
+    onValid: function(dc) {
       document.querySelector('input[type="submit"]').disabled = !dc.isValid;
     },
     className: "help-tooltip",
@@ -33,28 +33,28 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function () {
     delayTimeout: 3000,
     style: { display: "none" },
     animate: {
-      onRender: function (dc, outerNode, complete) {
+      onRender: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeIn", {
-          complete: function () {
+          complete: function() {
             complete();
-          },
+          }
         });
       },
-      onRemove: function (dc, outerNode, complete) {
+      onRemove: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeOut", {
-          complete: function () {
+          complete: function() {
             complete();
-          },
+          }
         });
-      },
-    },
+      }
+    }
   });
 
   var errorTooltip = $A.setTooltip("input.has-help-tooltip", {
     isError: true,
     role: "Error",
     content: "A correct answer to this question is required to proceed.",
-    validate: function (dc, target) {
+    validate: function(dc, target) {
       if (target.value.toLowerCase() !== answer.toLowerCase())
         return dc.content;
     },
@@ -63,20 +63,20 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function () {
     delayTimeout: 0,
     style: { display: "none" },
     animate: {
-      onRender: function (dc, outerNode, complete) {
+      onRender: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeIn", {
-          complete: function () {
+          complete: function() {
             complete();
-          },
+          }
         });
       },
-      onRemove: function (dc, outerNode, complete) {
+      onRemove: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeOut", {
-          complete: function () {
+          complete: function() {
             complete();
-          },
+          }
         });
-      },
-    },
+      }
+    }
   });
 });

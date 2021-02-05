@@ -1,4 +1,4 @@
-$A.import(["Animate", "DatePicker"], { defer: true }, function () {
+$A.import(["Animate", "DatePicker"], { defer: true }, function() {
   $A.setDatePicker({
     // Unique ID for the date picker instance
     // After instantiation, can be referenced using: var DC = $A("UniqueCalendarId");
@@ -12,20 +12,20 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function () {
 
     style: { position: "absolute", zIndex: 1, display: "none" },
     animate: {
-      onRender: function (dc, outerNode, complete) {
+      onRender: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeIn", {
-          complete: function () {
+          complete: function() {
             complete();
-          },
+          }
         });
       },
-      onRemove: function (dc, outerNode, complete) {
+      onRemove: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.fadeOut", {
-          complete: function () {
+          complete: function() {
             complete();
-          },
+          }
         });
-      },
+      }
     },
 
     // Condense the year display by removing the year nav buttons
@@ -36,6 +36,6 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function () {
     maxDate: 30,
 
     // Set class for the calendar container
-    className: "calendar",
+    className: "calendar"
   });
 });

@@ -4,14 +4,14 @@ Signature and copyright statement.
 License statement.
   */
 
-(function () {
+(function() {
   $A.import(["ModuleDependancies"], {
     name: "UniqueNameForModuleImports",
     // defer: true, // If needed
     // once: true, // If needed
     props: props, // Required
-    call: function (props) {
+    call: function(props) {
       // Module code here.
-    },
+    }
   });
 })();

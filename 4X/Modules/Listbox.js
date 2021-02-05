@@ -5,15 +5,15 @@ https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
   */
 
-(function () {
+(function() {
   if (!("Listbox" in $A)) {
     $A.import("RovingTabIndex", {
       name: "ListBoxModule",
       props: props,
       once: true,
-      call: function (props) {
+      call: function(props) {
         $A.extend({
-          Listbox: function (config) {
+          Listbox: function(config) {
             var config = config || {},
               that = this;
 
@@ -33,7 +33,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               config.activeElementSelector || "a[href]";
             that.toggleClass = config.toggleClass || "selected";
 
-            that.update = function () {
+            that.update = function() {
               that.optionNodes = that.select.nodeType
                 ? that.select.querySelectorAll("option")
                 : [];
@@ -42,7 +42,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 $A.empty(that.listbox);
                 $A.loop(
                   that.optionNodes,
-                  function (i, o) {
+                  function(i, o) {
                     var name = $A.getText(o),
                       c = that.childTag.replace("{OPTION-TEXT}", name);
                     c = $A.toNode(c, true);
@@ -60,7 +60,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 );
                 $A.loop(
                   that.options,
-                  function (i, o) {
+                  function(i, o) {
                     $A.data(o, "_Index", i);
                   },
                   "array"
@@ -73,7 +73,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               that.setSelected();
             };
 
-            that.setRoles = function () {
+            that.setRoles = function() {
               $A.remAttr(
                 that.listbox.querySelectorAll(
                   '*[role="listbox"], *[role="option"]'
@@ -86,7 +86,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               that.setGrab();
             };
 
-            that.setFlags = function () {
+            that.setFlags = function() {
               var select = that.select.nodeType ? that.select : config;
               that.multiple = select.multiple ? true : false;
               that.required = select.required ? true : false;
@@ -97,7 +97,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               if (that.checkable) that.multiple = false;
             };
 
-            that.setListbox = function () {
+            that.setListbox = function() {
               if (that.multiple)
                 $A.setAttr(that.listbox, "aria-multiselectable", "true");
               if (that.required)
@@ -116,11 +116,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               );
             };
 
-            that.setSelected = function () {
+            that.setSelected = function() {
               if (that.select.nodeType) {
                 $A.loop(
                   that.optionNodes,
-                  function (i, o) {
+                  function(i, o) {
                     that.toggleSelect(
                       $A.boundTo(o),
                       o.selected ? true : false,
@@ -134,7 +134,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               }
             };
 
-            that.setEvents = function () {
+            that.setEvents = function() {
               if (that.RTI) that.RTI.off();
               if (that.disabled) return;
               var x = 0,
@@ -155,23 +155,23 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         ? config.autoSwitch
                         : "off",
                     autoLoop: false,
-                    startIndex: x,
+                    startIndex: x
                   },
                   {
-                    onShiftUp: function (ev, option, RTI, DC) {
+                    onShiftUp: function(ev, option, RTI, DC) {
                       if (that.multiple) {
                         that.toggleSelect(option, true);
                       }
                       ev.preventDefault();
                     },
-                    onShiftDown: function (ev, option, RTI, DC) {
+                    onShiftDown: function(ev, option, RTI, DC) {
                       if (that.multiple) {
                         that.toggleSelect(option, true);
                       }
                       ev.preventDefault();
                     },
 
-                    onCtrlShiftUp: function (ev, option, RTI, DC) {
+                    onCtrlShiftUp: function(ev, option, RTI, DC) {
                       that.RTI["onShiftUp"].call(
                         this,
                         event,
@@ -182,7 +182,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       );
                       ev.preventDefault();
                     },
-                    onCtrlShiftDown: function (ev, option, RTI, DC) {
+                    onCtrlShiftDown: function(ev, option, RTI, DC) {
                       that.RTI["onShiftDown"].call(
                         this,
                         event,
@@ -194,12 +194,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       ev.preventDefault();
                     },
 
-                    onShiftEnd: function (ev, option, RTI, DC) {
+                    onShiftEnd: function(ev, option, RTI, DC) {
                       if (that.multiple) {
                         var s = that.options.slice($A.data(option, "_Index"));
                         $A.loop(
                           s,
-                          function (i, o) {
+                          function(i, o) {
                             that.toggleSelect(o, true);
                           },
                           "array"
@@ -207,7 +207,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       }
                       ev.preventDefault();
                     },
-                    onShiftHome: function (ev, option, RTI, DC) {
+                    onShiftHome: function(ev, option, RTI, DC) {
                       if (that.multiple) {
                         var s = that.options.slice(
                           0,
@@ -215,7 +215,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         );
                         $A.loop(
                           s,
-                          function (i, o) {
+                          function(i, o) {
                             that.toggleSelect(o, true);
                           },
                           "array"
@@ -224,7 +224,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       ev.preventDefault();
                     },
 
-                    onCtrlShiftEnd: function (ev, option, RTI, DC) {
+                    onCtrlShiftEnd: function(ev, option, RTI, DC) {
                       that.RTI["onShiftEnd"].call(
                         this,
                         event,
@@ -235,7 +235,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       );
                       ev.preventDefault();
                     },
-                    onCtrlShiftHome: function (ev, option, RTI, DC) {
+                    onCtrlShiftHome: function(ev, option, RTI, DC) {
                       that.RTI["onShiftHome"].call(
                         this,
                         event,
@@ -247,7 +247,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       ev.preventDefault();
                     },
 
-                    onPageUp: function (ev, option, RTI, DC) {
+                    onPageUp: function(ev, option, RTI, DC) {
                       var d = Math.round(that.options.length * 0.1);
                       if (!d) d = 1;
                       var i = that.index - d;
@@ -255,7 +255,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       that.RTI.focus(i);
                       ev.preventDefault();
                     },
-                    onPageDown: function (ev, option, RTI, DC) {
+                    onPageDown: function(ev, option, RTI, DC) {
                       var d = Math.round(that.options.length * 0.1);
                       if (!d) d = 1;
                       var i = that.index + d;
@@ -264,7 +264,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       ev.preventDefault();
                     },
 
-                    onSpace: function (ev, option, RTI, DC) {
+                    onSpace: function(ev, option, RTI, DC) {
                       that.RTI.onClick.call(
                         this,
                         event,
@@ -274,22 +274,22 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         pressed
                       );
                       if ($A.isIE()) {
-                        setTimeout(function () {
+                        setTimeout(function() {
                           $A.announce($A.getAttr(option, "aria-description"));
                         }, 1);
                       }
                       ev.preventDefault();
                     },
-                    onCtrlSpace: function (ev, option, RTI, DC) {
+                    onCtrlSpace: function(ev, option, RTI, DC) {
                       that.toggleSelect(option);
                       if ($A.isIE()) {
-                        setTimeout(function () {
+                        setTimeout(function() {
                           $A.announce($A.getAttr(option, "aria-description"));
                         }, 1);
                       }
                       ev.preventDefault();
                     },
-                    onCtrlShiftSpace: function (
+                    onCtrlShiftSpace: function(
                       event,
                       option,
                       RTI,
@@ -298,7 +298,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     ) {
                       $A.loop(
                         that.options,
-                        function (i, o) {
+                        function(i, o) {
                           that.toggleSelect(o, false);
                         },
                         "array"
@@ -309,61 +309,61 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         that.setGrab();
                       }
                       if ($A.isIE()) {
-                        setTimeout(function () {
+                        setTimeout(function() {
                           $A.announce($A.getAttr(option, "aria-description"));
                         }, 1);
                       }
                       ev.preventDefault();
                     },
 
-                    onEsc: function (event, option, RTI, DC) {
+                    onEsc: function(event, option, RTI, DC) {
                       if (that.sortable) {
                         that.toggleGrab.grabbed = undefined;
                         that.setGrab();
                       }
                       if ($A.isIE()) {
-                        setTimeout(function () {
+                        setTimeout(function() {
                           $A.announce($A.getAttr(option, "aria-description"));
                         }, 1);
                       }
                       ev.preventDefault();
                     },
 
-                    onFocus: function (event, option, RTI, DC) {
+                    onFocus: function(event, option, RTI, DC) {
                       that.index = $A.data(option, "_Index");
                       if (!that.multiple) that.toggleSelect(option, true);
                       if ($A.isIE()) {
-                        setTimeout(function () {
+                        setTimeout(function() {
                           $A.announce($A.getAttr(option, "aria-description"));
                         }, 1);
                       }
                     },
 
-                    onClick: function (ev, option, RTI, DC) {
+                    onClick: function(ev, option, RTI, DC) {
                       if (that.multiple) that.toggleSelect(option);
                       else if (that.sortable) that.toggleGrab(option);
                       ev.preventDefault();
                     },
 
-                    onSelectAll: function (ev, option, RTI, DC) {
+                    onSelectAll: function(ev, option, RTI, DC) {
                       if (that.multiple) {
                         $A.loop(
                           that.options,
-                          function (i, o) {
+                          function(i, o) {
                             that.toggleSelect(o, true);
                           },
                           "array"
                         );
                       }
                       ev.preventDefault();
-                    },
+                    }
                   },
                   config.handlers || {}
                 )
               );
               $A(that.listbox)
                 .setAttr("tabindex", "0")
-                .on("focus click", function (ev) {
+                .on("focus click", function(ev) {
                   if (that.options.length) {
                     that.RTI.focus();
                     $A.setAttr(that.listbox, "tabindex", "-1");
@@ -371,13 +371,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 });
             };
 
-            that.toggleSelect = function (o, state, skip, recur, fromOption) {
+            that.toggleSelect = function(o, state, skip, recur, fromOption) {
               if (!recur && !that.multiple) {
                 $A.loop(
                   that.listbox.querySelectorAll(
                     '*[role="option"][aria-selected="true"]'
                   ),
-                  function (i, O) {
+                  function(i, O) {
                     if (O !== o) that.toggleSelect(O, false, false, true);
                   },
                   "array"
@@ -397,36 +397,36 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     "aria-description",
                     state ? that.selectText : that.unselectText
                   );
-                $A.toggleClass(o, that.toggleClass, state, function (state) {
+                $A.toggleClass(o, that.toggleClass, state, function(state) {
                   if (!skip && $A.isFn(config.callback))
                     config.callback.call(o, state, o);
                 });
               }
             };
 
-            that.setGrab = function (skip) {
+            that.setGrab = function(skip) {
               if (that.sortable) {
                 $A.remAttr(that.options, [
                   "aria-grabbed",
                   "aria-dropeffect",
-                  "aria-description",
+                  "aria-description"
                 ]);
                 if (!skip)
                   $A.setAttr(that.options, {
                     "aria-grabbed": "false",
-                    "aria-description": that.grabText,
+                    "aria-description": that.grabText
                   });
               }
             };
 
-            that.toggleGrab = function (o) {
+            that.toggleGrab = function(o) {
               if (that.sortable) {
                 that.setGrab(true);
                 if (!that.toggleGrab.grabbed) {
                   that.toggleGrab.grabbed = o;
                   $A.loop(
                     that.options,
-                    function (i, n) {
+                    function(i, n) {
                       var a = {};
                       if (n === o) {
                         a["aria-grabbed"] = "true";
@@ -454,7 +454,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               }
             };
 
-            that.check = function (o, v) {
+            that.check = function(o, v) {
               if (that.checkable) {
                 if ($A.isArray(o)) {
                   for (var i = 0; i < o.length; i++) that.check(o[i], v);
@@ -468,7 +468,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               }
             };
 
-            that.checkValue = function (o) {
+            that.checkValue = function(o) {
               if (o && that.checkable) {
                 return $A.data(o, "_Checked");
               } else if (that.select.nodeType) {
@@ -477,7 +477,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   var s = [];
                   $A.loop(
                     that.optionNodes,
-                    function (i, n) {
+                    function(i, n) {
                       if (n.selected) s.push(n);
                     },
                     "array"
@@ -502,7 +502,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             if (that.select.nodeType) {
               $A(that.listbox).on(
                 "attributechange",
-                function (
+                function(
                   mutation,
                   targetNode,
                   attributeName,
@@ -521,15 +521,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 },
                 {
                   subtree: true,
-                  attributeFilter: ["aria-selected"],
+                  attributeFilter: ["aria-selected"]
                 }
               );
 
-              $A.on(that.select, "change", function (ev) {
+              $A.on(that.select, "change", function(ev) {
                 var ix = -1;
                 $A.loop(
                   that.optionNodes,
-                  function (i, o) {
+                  function(i, o) {
                     that.toggleSelect(
                       $A.boundTo(o),
                       o.selected ? true : false,
@@ -566,9 +566,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             }
 
             return that;
-          },
+          }
         });
-      },
+      }
     });
   }
 })();

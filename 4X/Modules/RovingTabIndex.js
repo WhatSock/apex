@@ -5,15 +5,15 @@ https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
 
-(function () {
+(function() {
   if (!("RovingTabIndex" in $A)) {
     $A.import("AccName", {
       name: "RovingTabIndexModule",
       props: props,
       once: true,
-      call: function (props) {
+      call: function(props) {
         $A.extend({
-          RovingTabIndex: function (options) {
+          RovingTabIndex: function(options) {
             var that = this;
             that.typed = "";
             that.lastTyped = "";
@@ -45,7 +45,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
             $A.loop(
               options,
-              function (n, f) {
+              function(n, f) {
                 if (n.slice(0, 2) === "on" && $A.isFn(f)) that[n] = f;
               },
               "object"
@@ -71,11 +71,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 horizontalStop: options.breakPoint.horizontalStop
                   ? true
                   : false,
-                verticalStop: options.breakPoint.verticalStop ? true : false,
+                verticalStop: options.breakPoint.verticalStop ? true : false
               };
             } else that.breakPoint = false;
 
-            that.activate = function (o) {
+            that.activate = function(o) {
               var i = 0;
               if ($A.isNum(o)) i = that.nodes[o] ? o : 0;
               else i = $A.inArray(o, that.nodes) || 0;
@@ -83,9 +83,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 that.index = i;
                 $A.loop(
                   that.nodes,
-                  function (a, n) {
+                  function(a, n) {
                     $A.setAttr(n, {
-                      tabindex: i === a ? "0" : "-1",
+                      tabindex: i === a ? "0" : "-1"
                     });
                   },
                   "array"
@@ -94,7 +94,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               return that;
             };
 
-            that.setFocus = function (ev, instance, isClick) {
+            that.setFocus = function(ev, instance, isClick) {
               instance = instance || that;
               var l = this;
               instance.activate(l);
@@ -102,7 +102,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               return instance;
             };
 
-            that.focus = function (i) {
+            that.focus = function(i) {
               var inst = that;
               if (!$A.isNum(i)) {
                 i = $A.data(i, "RTI-Index") || 0;
@@ -115,12 +115,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               return inst;
             };
 
-            that.off = function () {
+            that.off = function() {
               $A.off(that.nodes, ".RovingTabIndex");
               return that;
             };
 
-            that.on = function () {
+            that.on = function() {
               var grid = [],
                 oI = 0,
                 gI = 0,
@@ -133,7 +133,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
               $A.loop(
                 that.nodes,
-                function (i, o) {
+                function(i, o) {
                   $A.data(o, "RTI", that);
                   $A.data(o, "RTI-Index", i);
                   $A.data(
@@ -151,7 +151,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     map.set(o, {
                       i: i,
                       x: oI,
-                      y: gI,
+                      y: gI
                     });
                     max = gI;
                     if (that.breakPoint.horizontal === oI) {
@@ -161,7 +161,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   }
 
                   var pressed = {},
-                    changePressed = function (ev) {
+                    changePressed = function(ev) {
                       pressed.alt = ev.altKey;
                       pressed.ctrl = ev.ctrlKey;
                       pressed.shift = ev.shiftKey;
@@ -170,7 +170,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   $A.on(
                     o,
                     {
-                      click: function (ev) {
+                      click: function(ev) {
                         var keys = [],
                           child = that.children.get(o);
                         that.index = i;
@@ -179,7 +179,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         keys.push("Open");
                         $A.loop(
                           keys,
-                          function (i, k) {
+                          function(i, k) {
                             if ($A.isFn(that["on" + k]))
                               that["on" + k].call(
                                 o,
@@ -193,7 +193,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           "array"
                         );
                       },
-                      keydown: function (ev) {
+                      keydown: function(ev) {
                         changePressed(ev);
 
                         if (
@@ -214,7 +214,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           arrowKey = 0,
                           oMap = map.get(o),
                           child = that.children.get(o),
-                          breakPointBack = function () {
+                          breakPointBack = function() {
                             if (
                               that.breakPoint.horizontal &&
                               k === 37 &&
@@ -244,7 +244,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                                 that.onBounds.apply(o, [ev, o, that, k]);
                             }
                           },
-                          breakPointForward = function () {
+                          breakPointForward = function() {
                             if (
                               that.breakPoint.horizontal &&
                               k === 39 &&
@@ -442,7 +442,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           if (!pass && that.index !== x)
                             that.setFocus.apply(that.nodes[that.index], [
                               ev,
-                              that,
+                              that
                             ]);
 
                           ev.stopPropagation();
@@ -562,11 +562,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           !pressed.shift
                         ) {
                           if (that.keyReset) clearTimeout(that.keyReset);
-                          that.keyReset = setTimeout(function () {
+                          that.keyReset = setTimeout(function() {
                             that.typed = "";
                           }, 1000);
 
-                          var move = function () {
+                          var move = function() {
                             if (that.lastTyped === k)
                               that.typed = String.fromCharCode(k);
                             else that.typed += String.fromCharCode(k);
@@ -611,7 +611,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                         $A.loop(
                           keys,
-                          function (i, k) {
+                          function(i, k) {
                             if ($A.isFn(that["on" + k]))
                               that["on" + k].call(
                                 o,
@@ -625,7 +625,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           "array"
                         );
                       },
-                      keyup: function (ev) {
+                      keyup: function(ev) {
                         changePressed(ev);
                         var keys = [],
                           child = that.children.get(o),
@@ -662,7 +662,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         }
                         $A.loop(
                           keys,
-                          function (i, k) {
+                          function(i, k) {
                             if ($A.isFn(that["on" + k]))
                               that["on" + k].call(
                                 o,
@@ -676,13 +676,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           "array"
                         );
                       },
-                      focus: function (ev) {
+                      focus: function(ev) {
                         var keys = [],
                           child = that.children.get(o);
                         keys.push("Focus");
                         $A.loop(
                           keys,
-                          function (i, k) {
+                          function(i, k) {
                             if ($A.isFn(that["on" + k]))
                               that["on" + k].call(
                                 o,
@@ -695,13 +695,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           },
                           "array"
                         );
-                      },
+                      }
                     },
                     ".RovingTabIndex"
                   );
 
                   $A.setAttr(o, {
-                    tabindex: i === that.index ? 0 : -1,
+                    tabindex: i === that.index ? 0 : -1
                   });
                 },
                 "array"
@@ -711,9 +711,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             that.on();
 
             return that;
-          },
+          }
         });
-      },
+      }
     });
   }
 })();

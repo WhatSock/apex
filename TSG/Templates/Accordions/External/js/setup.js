@@ -1,4 +1,4 @@
-$A.import(["Animate", "Accordion"], { defer: true }, function () {
+$A.import(["Animate", "Accordion"], { defer: true }, function() {
   $A.setAccordion(".aria-accordion-trigger", {
     isToggle: false,
     allowMultiple: false,
@@ -10,20 +10,20 @@ $A.import(["Animate", "Accordion"], { defer: true }, function () {
 
     style: { display: "none" },
     animate: {
-      onRender: function (dc, outerNode, complete) {
+      onRender: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.slideLeftIn", {
-          complete: function () {
+          complete: function() {
             complete();
-          },
+          }
         });
       },
-      onRemove: function (dc, outerNode, complete) {
+      onRemove: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.slideLeftOut", {
-          complete: function () {
+          complete: function() {
             complete();
-          },
+          }
         });
-      },
-    },
+      }
+    }
   });
 });

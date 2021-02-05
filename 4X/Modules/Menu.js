@@ -5,15 +5,15 @@ https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
   */
 
-(function () {
+(function() {
   if (!("setMenu" in $A)) {
     $A.import("RovingTabIndex", {
       name: "MenuModule",
       props: props,
       once: true,
-      call: function (props) {
+      call: function(props) {
         $A.addWidgetProfile("Menu", {
-          configure: function (dc) {
+          configure: function(dc) {
             return {
               horizontalHelpTip:
                 "To move through items, press left or right arrow.",
@@ -27,21 +27,21 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               preloadCSS: true,
               className: "menu",
               escToClose: true,
-              click: function (ev, dc) {
+              click: function(ev, dc) {
                 ev.stopPropagation();
               },
-              storeData: true,
+              storeData: true
             };
           },
-          role: function (dc) {
+          role: function(dc) {
             return {
               role: "menu",
-              "aria-orientation": $A.getOrientation(dc.RTI.nodes).orientation,
+              "aria-orientation": $A.getOrientation(dc.RTI.nodes).orientation
             };
           },
-          afterRender: function (dc) {
+          afterRender: function(dc) {
             if (!$A.isTouch) {
-              setTimeout(function () {
+              setTimeout(function() {
                 $A.announce(
                   dc[
                     dc.getAttr("aria-orientation") === "horizontal"
@@ -51,11 +51,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 );
               }, 1);
             }
-          },
+          }
         });
 
         $A.extend({
-          setMenu: function (o, config) {
+          setMenu: function(o, config) {
             if (this._4X) {
               config = o;
               o = this._X;
@@ -71,16 +71,16 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             var tag = $A.extend(
                 {
                   parent: "ul",
-                  child: "a",
+                  child: "a"
                 },
                 config.tag || {}
               ),
-              genMenu = function (o, p, list) {
+              genMenu = function(o, p, list) {
                 if (!$A.isDOMNode(o)) return;
                 var ref =
                   list ||
                   $A.getAttr(o, "data-menu") ||
-                  $A.next(o, function (e) {
+                  $A.next(o, function(e) {
                     if (e.nodeName.toLowerCase() === tag.parent) return true;
                   });
                 ref = $A.morph(ref);
@@ -89,8 +89,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 var mItems = [];
 
                 if ($A.isIE()) {
-                  $A.query(ref.children, function (i, o) {
-                    var c = $A.first(o, function (e) {
+                  $A.query(ref.children, function(i, o) {
+                    var c = $A.first(o, function(e) {
                       if (e.nodeName.toLowerCase() === tag.child) return true;
                     });
                     if ($A.isDOMNode(c)) mItems.push(c);
@@ -105,7 +105,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       content: ref,
                       on: "openmenu",
                       widgetType: "Menu",
-                      toggleHide: true,
+                      toggleHide: true
                     },
                     config
                   )
@@ -113,7 +113,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                 if (p)
                   DC.map({
-                    parent: p.DC,
+                    parent: p.DC
                   });
 
                 DC.RTI = new $A.RovingTabIndex(
@@ -127,7 +127,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       orientation: 2,
                       autoSwitch: config.autoSwitch || "semi",
                       autoLoop: true,
-                      onOpen: function (ev, triggerNode, RTI, DC, arrowKey) {
+                      onOpen: function(ev, triggerNode, RTI, DC, arrowKey) {
                         var that = this,
                           isDisabled = $A.isDisabled(that);
                         if (isDisabled && !arrowKey) {
@@ -142,29 +142,29 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         } else if ($A.isFn(config.onActivate)) {
                           var args = arguments;
                           if ($A.isDC(RTI.DC))
-                            RTI.DC.top.remove(function () {
+                            RTI.DC.top.remove(function() {
                               config.onActivate.apply(that, args);
                             });
                           else config.onActivate.apply(that, args);
                         } else {
                           if ($A.isDC(RTI.DC))
-                            RTI.DC.top.remove(function () {
+                            RTI.DC.top.remove(function() {
                               if (that.href) location.href = that.href;
                             });
                         }
                       },
-                      onSpace: function (ev, triggerNode, RTI, DC) {
+                      onSpace: function(ev, triggerNode, RTI, DC) {
                         if ($A.isDC(DC)) DC.render();
                         ev.preventDefault();
                       },
-                      onEnter: function (ev, triggerNode, RTI, DC) {
+                      onEnter: function(ev, triggerNode, RTI, DC) {
                         if ($A.isDC(DC)) DC.render();
                         ev.preventDefault();
                       },
-                      onClose: function (ev, triggerNode, RTI, DC, arrowKey) {
+                      onClose: function(ev, triggerNode, RTI, DC, arrowKey) {
                         if ($A.isDC(RTI.DC) && RTI.parent)
-                          RTI.DC.remove(function () {
-                            setTimeout(function () {
+                          RTI.DC.remove(function() {
+                            setTimeout(function() {
                               $A.announce(
                                 RTI.parent.DC[
                                   RTI.parent.DC.getAttr("aria-orientation") ===
@@ -177,18 +177,18 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           });
                         ev.preventDefault();
                       },
-                      onEsc: function (ev, triggerNode, RTI, DC) {
+                      onEsc: function(ev, triggerNode, RTI, DC) {
                         if ($A.isDC(RTI.DC)) RTI.DC.remove();
                         ev.preventDefault();
                       },
-                      onShiftTab: function (ev, triggerNode, RTI, DC) {
+                      onShiftTab: function(ev, triggerNode, RTI, DC) {
                         if ($A.isDC(RTI.DC)) RTI.DC.top.remove();
                         ev.preventDefault();
                       },
-                      onTab: function (ev, triggerNode, RTI, DC) {
+                      onTab: function(ev, triggerNode, RTI, DC) {
                         if ($A.isDC(RTI.DC)) RTI.DC.top.remove();
                         ev.preventDefault();
-                      },
+                      }
                     },
                     config.extendRTI || {}
                   )
@@ -196,7 +196,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                 $A.loop(
                   mItems,
-                  function (i, o) {
+                  function(i, o) {
                     genMenu(o, DC.RTI);
                     var role = (
                         $A.getAttr(o, "role") ||
@@ -211,12 +211,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     if (role.indexOf("radio") !== -1)
                       $A.setAttr(o, {
                         role: "menuitemradio",
-                        "aria-checked": checked,
+                        "aria-checked": checked
                       });
                     else if (role.indexOf("checkbox") !== -1)
                       $A.setAttr(o, {
                         role: "menuitemcheckbox",
-                        "aria-checked": checked,
+                        "aria-checked": checked
                       });
                     else $A.setAttr(o, "role", "menuitem");
                   },
@@ -228,17 +228,17 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 return DC;
               };
 
-            $A.query(o, function (i, o) {
-              var gen = function (m) {
+            $A.query(o, function(i, o) {
+              var gen = function(m) {
                 var DC = genMenu(o, null, m);
-                $A.on(window.document, "click.closemenus", function () {
+                $A.on(window.document, "click.closemenus", function() {
                   DC.remove();
                 });
                 if (!config.rightClick) config.leftClick = true;
                 var e;
                 if (config.leftClick) {
                   e = {
-                    keydown: function (ev, dc) {
+                    keydown: function(ev, dc) {
                       var k = $A.keyEvent(ev);
                       if (k === 40 || k === 13 || k === 32) {
                         dc.render();
@@ -246,19 +246,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         ev.preventDefault();
                       }
                     },
-                    click: function (ev, dc) {
+                    click: function(ev, dc) {
                       dc.render();
                       ev.stopPropagation();
                       ev.preventDefault();
-                    },
+                    }
                   };
                 }
                 if (config.rightClick) {
                   e = {
-                    contextmenu: function (ev, dc) {
+                    contextmenu: function(ev, dc) {
                       ev.preventDefault();
                     },
-                    mouseup: function (ev, dc) {
+                    mouseup: function(ev, dc) {
                       var btn = -1;
                       if (!$A.isNum(ev.which))
                         btn = ev.button < 2 ? 1 : ev.button === 4 ? 3 : 2;
@@ -268,13 +268,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         ev.preventDefault();
                       }
                     },
-                    keydown: function (ev, dc) {
+                    keydown: function(ev, dc) {
                       var k = $A.keyEvent(ev);
                       if (k === 93 || (ev.shiftKey && k === 121)) {
                         dc.render();
                         ev.preventDefault();
                       }
-                    },
+                    }
                   };
                 }
                 $A.on(o, e);
@@ -296,9 +296,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   p,
                   d,
                   {
-                    selector: s,
+                    selector: s
                   },
-                  function (c) {
+                  function(c) {
                     gen(c);
                   }
                 );
@@ -307,9 +307,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               }
             });
             return $A._XR.call(this, o);
-          },
+          }
         });
-      },
+      }
     });
   }
 })();

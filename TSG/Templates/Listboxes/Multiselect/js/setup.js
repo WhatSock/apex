@@ -1,4 +1,4 @@
-$A.import("Listbox", { defer: true }, function () {
+$A.import("Listbox", { defer: true }, function() {
   var myListbox = new $A.Listbox({
     label: "Select one or more of your favorite things",
     listbox: "#listboxId",
@@ -9,10 +9,10 @@ $A.import("Listbox", { defer: true }, function () {
     handlers: {
       // Interaction event Handlers to be added to each focusable role=option node.
       // See /4X/Help/$A API/ARIA Methods/RovingTabIndex for help.
-    },
+    }
   });
 
-  $A("form.addFrm").on("submit", function (ev) {
+  $A("form.addFrm").on("submit", function(ev) {
     var form = this;
     $A(
       '<option value="' +
