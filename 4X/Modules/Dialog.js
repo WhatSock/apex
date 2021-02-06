@@ -47,6 +47,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         return r;
       },
       beforeRender: function(dc, container) {
+        var that = this;
         if (dc.isModal) {
           dc.backdrop = $A(that.backdrop)
             .on({
