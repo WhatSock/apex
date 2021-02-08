@@ -91,7 +91,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         if (!config) config = {};
         config.isIE = $A.isIE();
 
-        var baseDC = function() {
+        var baseDC = function(trigger) {
             return $A.extend(
               {
                 widgetType: "Tooltip",
@@ -124,7 +124,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 },
                 on: {
                   focus: function(ev, dc) {
-                    if (!dc.isError && !dc.isResponsive && !dc.isManualOpen)
+                    if (
+                      !dc.isError &&
+                      !dc.isResponsive &&
+                      !dc.isManualOpen &&
+                      this === trigger
+                    )
                       dc.render();
                     else if (dc.isError || dc.isResponsive) {
                       if (dc.isError) dc.remove();
@@ -232,10 +237,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             else error.content = $A.morph(de);
           }
 
-          if (error) dcArray.push($A.toDC($A.extend(baseDC(), error)));
+          if (error) dcArray.push($A.toDC($A.extend(baseDC(o), error)));
 
           if (tooltip) {
-            dcArray.push($A.toDC($A.extend(baseDC(), tooltip)));
+            dcArray.push($A.toDC($A.extend(baseDC(o), tooltip)));
             if (
               tooltip.content &&
               !config.isFocusOnly &&
@@ -251,7 +256,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           if (!error && !tooltip) {
             dcArray.push(
               $A.toDC(
-                $A.extend(baseDC(), {
+                $A.extend(baseDC(o), {
                   id: $A.hasDC(id) ? $A.genId() : id,
                   target: o,
                   trigger: o
