@@ -8,38 +8,38 @@ section {
 div.tooltip {
   position: absolute;
   width: auto;
-  color: #fff;
-  background: #2e3135;
+  color: var(--globalWhite);
+  background: var(--whatsock-black);
   padding: 0.3em 0.5em;
-  -webkit-box-shadow: 0 1px 1px #afafaf, inset 0 1px 0 #868686;
-  -moz-box-shadow: 0 1px 1px #afafaf, inset 0 1px 0 #868686;
-  box-shadow: 0 1px 1px #afafaf, inset 0 1px 0 #868686;
+  -webkit-box-shadow: 0 1px 1px #afafaf, inset 0 1px 0 var(--tooltip-boxshadow);
+  -moz-box-shadow: 0 1px 1px #afafaf, inset 0 1px 0 var(--tooltip-boxshadow);
+  box-shadow: 0 1px 1px #afafaf, inset 0 1px 0 var(--tooltip-boxshadow);
   z-index: 100;
   margin-left: 5em;
 }
-
+[role="tooltip"] p:last-child {
+  margin-bottom: 0;
+}
 .aria-tooltip {
   font-size: 100%;
   text-align: center;
   background: transparent;
-  border: none;
 }
 
 .aria-tooltip img {
   display: block;
   vertical-align: middle;
-  margin: 0.5rem auto 0;
+  margin: 0.5em auto 0;
 }
 
 #helpIcon {
-  display: block;
   background-color: transparent;
-  margin: 1rem 0;
+  margin: 1em 0;
 }
 
 @media screen and (min-width: 750px) {
   .aria-tooltip img {
     display: inline;
-    margin: 0 0 0 0.5rem;
+    margin: 0 0 0 0.5em;
   }
 }

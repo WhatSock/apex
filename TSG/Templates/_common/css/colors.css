@@ -13,7 +13,7 @@ Lets modernise this and use css variables to define the colours so we only have 
 There are a lot of different colours used in the modules. We can review all the colours used and reduce the number by examining the root colours below.
 
 If root color is  --color-06: #c0294245;
-Call 'background-color:  var(--whatsock-red);
+Call 'background-color:  var(--globalWhite);
 ************/
 :root {
   /*common*/
@@ -37,7 +37,7 @@ Call 'background-color:  var(--whatsock-red);
   --navLinkBackground: #444a51;
 
   /*Forms*/
-  --inputBorder: #c0c0c0;
+  --inputBorder: #808080;
   --buttons-bar: #286278;
   --resetBackground: #555555;
   --mediumOrange: #ff6600;
@@ -69,4 +69,7 @@ Call 'background-color:  var(--whatsock-red);
   --datepicker-mmGrey: #c2c2c2;
   --datepicker-dGrey: #3d4043;
   --datepicker-codeBGrey: #e4e4e4;
+
+  /*Tooltips*/
+  --tooltip-boxshadow: #868686;
 }
