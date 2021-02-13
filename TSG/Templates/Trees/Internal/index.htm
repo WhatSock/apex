@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Tree (Internal Content) - 4X Technical Style Guide</title>
+    <meta name="description" content="Scalable ARIA Components">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
+    <link rel="stylesheet" type="text/css" href="css/customize.css">
+    <script src="/4X/4X.js"></script>
+    <script src="js/setup.js"></script>
+</head>
+
+<body>
+    <div class="bypass">
+        <ul class="list-unstyled">
+            <li>
+                <a class="skip--link" href="javascript:void(0);" onclick="document.getElementById('main').focus();">
+                    Skip to Main Content
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="outer-wrapper">
+        <header class="header flex-container">
+            <div class="logo flex-item">
+                <a href="http://whatsock.com">
+                    <img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg"></a>
+            </div>
+            <div class="site-name flex-item">
+                <strong>Apex 4X</strong> Technical Style Guide
+            </div>
+        </header>
+        <div class="wrapper">
+            <div class="left-aside">
+                <nav>
+                    <ul>
+                        <li><a href="../../index.htm">Components</a></li>
+                        <li><a href="../External/index.htm">External</a></li>
+                        <li><a href="../External - Straylight/index.htm">External - Straylight</a></li>
+                        <li><a href="../Internal/index.htm" aria-current="page">Internal</a></li>
+                        <li><a href="../Internal - Straylight/index.htm">Internal - Straylight</a></li>
+                        <li><a href="../Simulated Textbox (Right-Click)/index.htm">Simulated Textbox (Right-Click)</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <main id="main" class="main" tabindex="-1">
+                <div class="demo-block flex-container">
+                    <div class="component flex-item">
+                        <h1 class="pageTitle">Tree <small>Internal Content</small></h1>
+                        <section class="sample-block">
+
+                            <div class="viewport">
+
+                                <div id="container">
+                                    <div class="treeview" role="navigation" aria-label="Library">
+
+                                        <!-- Tree structure does not require ID attribute mapping, and may be nested to any level.
+The focusable A tags may include any type of markup for formatting purposes. -->
+
+                                        <ul aria-label="Digital Library Index" class="top tree">
+
+                                            <!-- First branch -->
+                                            <li><a href="#" class="branch"><span>Cyberpunk</span></a>
+                                                <ul hidden class="tree">
+                                                    <li><a href="#" class="branch"><span>Neal Stephenson</span></a>
+                                                        <ul hidden class="tree">
+                                                            <li><a data-author="Neal Stephenson" check href="#" class="leaf"><span>Snow Crash</span></a></li>
+                                                            <li><a data-author="Neal Stephenson" check href="#" class="leaf"><span>The Diamond Age</span></a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="#" class="branch"><span>Richard K. Morgan</span></a>
+                                                        <ul hidden class="tree">
+                                                            <li><a data-author="Richard K. Morgan" check href="#" class="leaf"><span>Altered Carbon</span></a></li>
+                                                            <li><a data-author="Richard K. Morgan" check href="#" class="leaf"><span>Broken Angels</span></a></li>
+                                                            <li><a data-author="Richard K. Morgan" check href="#" class="leaf"><span>Woken Furies</span></a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="#" class="branch"><span>William Gibson</span></a>
+                                                        <ul hidden class="tree">
+                                                            <li><a data-author="William Gibson" check href="#" class="leaf"><span>Neuromancer</span></a></li>
+                                                            <li><a data-author="William Gibson" check href="#" class="leaf"><span>Count Zero</span></a></li>
+                                                            <li><a data-author="William Gibson" check href="#" class="leaf"><span>Mona Lisa Overdrive</span></a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                            <!-- Third branch -->
+                                            <li><a href="#" class="branch"><span>Humor</span></a>
+                                                <ul hidden class="tree">
+                                                    <li><a href="#" class="branch"><span>Christopher Moore</span></a>
+                                                        <ul hidden class="tree">
+                                                            <li><a data-author="Christopher Moore" check href="#" class="leaf"><span>Bloodsucking Fiends</span></a></li>
+                                                            <li><a data-author="Christopher Moore" check href="#" class="leaf"><span>Fluke</span></a></li>
+                                                            <li><a data-author="Christopher Moore" check href="#" class="leaf"><span>Lamb, The Gospel According to Biff</span></a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="#" class="branch"><span>Tom Robbins</span></a>
+                                                        <ul hidden class="tree">
+                                                            <li><a data-author="Tom Robbins" check href="#" class="leaf"><span>Fierce Invalids Home from Hot Climates</span></a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+
+                                            <!-- Second branch -->
+                                            <li><a href="#" class="branch"><span>Fantasy</span></a>
+                                                <ul hidden class="tree">
+                                                    <li><a href="#" class="branch"><span>Jim Butcher</span></a>
+                                                        <ul hidden class="tree">
+                                                            <li><a data-author="Jim Butcher" check href="#" class="leaf"><span>Storm Front</span></a></li>
+                                                            <li><a data-author="Jim Butcher" check href="#" class="leaf"><span>Fool Moon</span></a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="#" class="branch"><span>Victor Gischler</span></a>
+                                                        <ul hidden class="tree">
+                                                            <li><a data-author="Victor Gischler" check href="#" class="leaf"><span>Ink Mage</span></a></li>
+                                                            <li><a data-author="Victor Gischler" check href="#" class="leaf"><span>The Tattooed Duchess</span></a></li>
+                                                            <li><a data-author="Victor Gischler" check href="#" class="leaf"><span>A Painted Goddess</span></a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                            <li><a aria-disabled="true" href="https://www.goodreads.com/" class="leaf"><span>Goodreads...</span></a></li>
+                                            <li><a href="https://google.com/" class="leaf"><span>Help...</span></a></li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+
+                                <div class="books" role="region" aria-labelledby="readingListHeadingId">
+                                    <h3 id="readingListHeadingId">Reading List</h3>
+                                    <div>
+                                        <ul id="readingList"></ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </section>
+                    </div>
+                    <div class="keyboard flex-item">
+                        <h2>The tree is optimized for screen reader and keyboard only users:</h2>
+                        <ul>
+                            <li>Activate the triggering element using the keyboard.</li>
+                            <li>Press the <kbd class="up">Up</kbd> and <kbd class="down">Down</kbd> Arrow keys to move focus between the tree options.</li>
+                            <li>Press the <kbd class="left">Left</kbd> and <kbd class="right">Right</kbd> Arrow keys to open or close subtrees.</li>
+                            <li>Press any letter or number to jump to a tree item starting with that character or digit.</li>
+                            <li>Press <kbd>Enter</kbd> to activate a tree option.</li>
+                            <li>Press <kbd>Escape</kbd> to close the currently open tree.</li>
+                            <li>Press <kbd>Tab</kbd> or set focus back on the triggering element to close the tree and all subtrees.</li>
+                            <li>Mouse users can click the desired tree option as usual.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+        <footer class="footer">
+            <p class="copyright">&copy;<script type="text/javascript">
+                    document.write(new Date().getFullYear());
+                </script> WhatSock. All rights reserved.</p>
+            <p>Visual design by <a href="http://gericci.me/">Angela Ricci</a>. Styling updated by Laurence Lewis October 2020</p>
+        </footer>
+    </div>
+</body>
+
+</html>

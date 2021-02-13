@@ -2807,7 +2807,7 @@ error: function(error, promise){}
         noRepeat = str;
         str = this._X;
       }
-      if (str) announceString.apply(str, [str, noRepeat, aggr]);
+      if (str) announceString(str, noRepeat, aggr);
       return $A._XR.call(this, str);
     },
 
@@ -2816,7 +2816,7 @@ error: function(error, promise){}
         noRepeat = str;
         str = this._X;
       }
-      if (str) announceString.apply(str, [str, noRepeat, true]);
+      if (str) announceString(str, noRepeat, true);
       return $A._XR.call(this, str);
     },
 
@@ -4754,7 +4754,9 @@ error: function(error, promise){}
   };
 
   $A.announce.clear = announceString.clear = stringAnnounce.clear;
-  String.prototype.announce = announceString;
+  String.prototype.announce = function(noRep) {
+    return $A.announce(this, noRep);
+  };
   String.prototype.alert = function(noRep) {
     return $A.alert(this, noRep);
   };

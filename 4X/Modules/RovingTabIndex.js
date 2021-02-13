@@ -36,6 +36,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               options.parent.nodes.length
                 ? options.parent
                 : false;
+            that.top = that;
+            while (that.top.parent) that.top = that.top.parent;
             that.children = new Map();
             that.trigger =
               options.trigger && options.trigger.nodeType === 1
@@ -85,7 +87,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   that.nodes,
                   function(a, n) {
                     $A.setAttr(n, {
-                      tabindex: i === a ? "0" : "-1"
+                      tabindex: i === a ? 0 : -1
                     });
                   },
                   "array"
@@ -167,31 +169,38 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       pressed.shift = ev.shiftKey;
                     };
 
+                  var fire = function(keys, ev, o, DC, arrowKey) {
+                    var stop = false;
+                    $A.loop(
+                      keys,
+                      function(i, k) {
+                        if ($A.isFn(that["on" + k]))
+                          var cancel =
+                            that["on" + k].call(
+                              o,
+                              ev,
+                              o,
+                              that,
+                              DC,
+                              arrowKey,
+                              that.index === 0,
+                              that.index === that.nodes.length - 1
+                            ) === false;
+                        if (cancel) stop = true;
+                      },
+                      "array"
+                    );
+                    return stop;
+                  };
+
                   $A.on(
                     o,
                     {
                       click: function(ev) {
-                        var keys = [],
-                          child = that.children.get(o);
+                        var child = that.children.get(o);
                         that.index = i;
                         that.setFocus.apply(that.nodes[that.index], [ev, that]);
-                        keys.push("Click");
-                        keys.push("Open");
-                        $A.loop(
-                          keys,
-                          function(i, k) {
-                            if ($A.isFn(that["on" + k]))
-                              that["on" + k].call(
-                                o,
-                                ev,
-                                o,
-                                that,
-                                child && child.DC,
-                                0
-                              );
-                          },
-                          "array"
-                        );
+                        fire(["Click", "Open"], ev, o, child && child.DC, 0);
                       },
                       keydown: function(ev) {
                         changePressed(ev);
@@ -274,7 +283,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                                 that.onBounds.apply(o, [ev, o, that, k]);
                             }
                           },
-                          keys = [];
+                          keys = [],
+                          cancel = false,
+                          stop = false;
 
                         // 37 left, 38 up, 39 right, 40 down, 35 end, 36 home
                         if (k >= 35 && k <= 40) {
@@ -282,6 +293,100 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           var x = that.index,
                             pass = false;
 
+                          if (k === 37) {
+                            if (!pressed.alt && !pressed.ctrl && !pressed.shift)
+                              keys.push("Left");
+                            else if (
+                              !pressed.alt &&
+                              pressed.ctrl &&
+                              !pressed.shift
+                            )
+                              keys.push("CtrlLeft");
+                            else if (
+                              !pressed.alt &&
+                              !pressed.ctrl &&
+                              pressed.shift
+                            )
+                              keys.push("ShiftLeft");
+                            else if (
+                              !pressed.alt &&
+                              pressed.ctrl &&
+                              pressed.shift
+                            )
+                              keys.push("CtrlShiftLeft");
+                          } else if (k === 38) {
+                            if (!pressed.alt && !pressed.ctrl && !pressed.shift)
+                              keys.push("Up");
+                            else if (
+                              !pressed.alt &&
+                              pressed.ctrl &&
+                              !pressed.shift
+                            )
+                              keys.push("CtrlUp");
+                            else if (
+                              !pressed.alt &&
+                              !pressed.ctrl &&
+                              pressed.shift
+                            )
+                              keys.push("ShiftUp");
+                            else if (
+                              !pressed.alt &&
+                              pressed.ctrl &&
+                              pressed.shift
+                            )
+                              keys.push("CtrlShiftUp");
+                          } else if (k === 39) {
+                            if (!pressed.alt && !pressed.ctrl && !pressed.shift)
+                              keys.push("Right");
+                            else if (
+                              !pressed.alt &&
+                              pressed.ctrl &&
+                              !pressed.shift
+                            )
+                              keys.push("CtrlRight");
+                            else if (
+                              !pressed.alt &&
+                              !pressed.ctrl &&
+                              pressed.shift
+                            )
+                              keys.push("ShiftRight");
+                            else if (
+                              !pressed.alt &&
+                              pressed.ctrl &&
+                              pressed.shift
+                            )
+                              keys.push("CtrlShiftRight");
+                          } else if (k === 40) {
+                            if (!pressed.alt && !pressed.ctrl && !pressed.shift)
+                              keys.push("Down");
+                            else if (
+                              !pressed.alt &&
+                              pressed.ctrl &&
+                              !pressed.shift
+                            )
+                              keys.push("CtrlDown");
+                            else if (
+                              !pressed.alt &&
+                              !pressed.ctrl &&
+                              pressed.shift
+                            )
+                              keys.push("ShiftDown");
+                            else if (
+                              !pressed.alt &&
+                              pressed.ctrl &&
+                              pressed.shift
+                            )
+                              keys.push("CtrlShiftDown");
+                          }
+                          cancel = fire(
+                            keys,
+                            ev,
+                            o,
+                            child && child.DC,
+                            arrowKey
+                          );
+                          keys = [];
+                          if (cancel) stop = true;
                           if (
                             !pressed.alt &&
                             !pressed.ctrl &&
@@ -308,36 +413,25 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                               (that.orientation === 0 ||
                                 that.orientation === 2))
                           ) {
+                            if (that.index === 0)
+                              cancel = fire(
+                                ["Top"],
+                                ev,
+                                o,
+                                child && child.DC,
+                                arrowKey
+                              );
+                            if (cancel) stop = true;
+
                             if (that.breakPoint) {
                               breakPointBack();
-                            } else
+                            } else if (!stop)
                               that.index =
                                 that.index === 0
                                   ? that.autoLoop
                                     ? that.nodes.length - 1
                                     : x
                                   : that.index - 1;
-
-                            if (!pressed.alt && !pressed.ctrl && !pressed.shift)
-                              keys.push("Up");
-                            else if (
-                              !pressed.alt &&
-                              pressed.ctrl &&
-                              !pressed.shift
-                            )
-                              keys.push("CtrlUp");
-                            else if (
-                              !pressed.alt &&
-                              !pressed.ctrl &&
-                              pressed.shift
-                            )
-                              keys.push("ShiftUp");
-                            else if (
-                              !pressed.alt &&
-                              pressed.ctrl &&
-                              pressed.shift
-                            )
-                              keys.push("CtrlShiftUp");
                           } else if (
                             (k === 39 &&
                               (that.orientation === 0 ||
@@ -346,46 +440,26 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                               (that.orientation === 0 ||
                                 that.orientation === 2))
                           ) {
+                            if (that.index === that.nodes.length - 1)
+                              cancel = fire(
+                                ["Bottom"],
+                                ev,
+                                o,
+                                child && child.DC,
+                                arrowKey
+                              );
+                            if (cancel) stop = true;
+
                             if (that.breakPoint) {
                               breakPointForward();
-                            } else
+                            } else if (!stop)
                               that.index =
                                 that.index === that.nodes.length - 1
                                   ? that.autoLoop
                                     ? 0
                                     : x
                                   : that.index + 1;
-
-                            if (!pressed.alt && !pressed.ctrl && !pressed.shift)
-                              keys.push("Down");
-                            else if (
-                              !pressed.alt &&
-                              pressed.ctrl &&
-                              !pressed.shift
-                            )
-                              keys.push("CtrlDown");
-                            else if (
-                              !pressed.alt &&
-                              !pressed.ctrl &&
-                              pressed.shift
-                            )
-                              keys.push("ShiftDown");
-                            else if (
-                              !pressed.alt &&
-                              pressed.ctrl &&
-                              pressed.shift
-                            )
-                              keys.push("CtrlShiftDown");
                           } else if (k === 35) {
-                            if (
-                              that.breakPoint &&
-                              that.breakPoint.horizontal > 0 &&
-                              oMap.x < that.breakPoint.horizontal
-                            )
-                              that.index =
-                                map[grid[oMap.y][that.breakPoint.horizontal]].i;
-                            else that.index = that.nodes.length - 1;
-
                             if (!pressed.alt && !pressed.ctrl && !pressed.shift)
                               keys.push("End");
                             else if (
@@ -407,15 +481,26 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                               pressed.shift
                             )
                               keys.push("CtrlShiftEnd");
-                          } else if (k === 36) {
+                            cancel = fire(
+                              keys,
+                              ev,
+                              o,
+                              child && child.DC,
+                              arrowKey
+                            );
+                            keys = [];
+                            if (cancel) stop = true;
+
                             if (
+                              !stop &&
                               that.breakPoint &&
                               that.breakPoint.horizontal > 0 &&
-                              oMap.x > 0
+                              oMap.x < that.breakPoint.horizontal
                             )
-                              that.index = map[grid[oMap.y][0]].i;
-                            else that.index = 0;
-
+                              that.index =
+                                map[grid[oMap.y][that.breakPoint.horizontal]].i;
+                            else if (!stop) that.index = that.nodes.length - 1;
+                          } else if (k === 36) {
                             if (!pressed.alt && !pressed.ctrl && !pressed.shift)
                               keys.push("Home");
                             else if (
@@ -437,9 +522,27 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                               pressed.shift
                             )
                               keys.push("CtrlShiftHome");
+                            cancel = fire(
+                              keys,
+                              ev,
+                              o,
+                              child && child.DC,
+                              arrowKey
+                            );
+                            keys = [];
+                            if (cancel) stop = true;
+
+                            if (
+                              !stop &&
+                              that.breakPoint &&
+                              that.breakPoint.horizontal > 0 &&
+                              oMap.x > 0
+                            )
+                              that.index = map[grid[oMap.y][0]].i;
+                            else if (!stop) that.index = 0;
                           }
 
-                          if (!pass && that.index !== x)
+                          if (!stop && !pass && that.index !== x)
                             that.setFocus.apply(that.nodes[that.index], [
                               ev,
                               that
@@ -609,21 +712,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           ev.preventDefault();
                         }
 
-                        $A.loop(
-                          keys,
-                          function(i, k) {
-                            if ($A.isFn(that["on" + k]))
-                              that["on" + k].call(
-                                o,
-                                ev,
-                                o,
-                                that,
-                                child && child.DC,
-                                arrowKey
-                              );
-                          },
-                          "array"
-                        );
+                        fire(keys, ev, o, child && child.DC, arrowKey);
                       },
                       keyup: function(ev) {
                         changePressed(ev);
@@ -660,41 +749,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         ) {
                           keys.push("Paste");
                         }
-                        $A.loop(
-                          keys,
-                          function(i, k) {
-                            if ($A.isFn(that["on" + k]))
-                              that["on" + k].call(
-                                o,
-                                ev,
-                                o,
-                                that,
-                                child && child.DC,
-                                arrowKey
-                              );
-                          },
-                          "array"
-                        );
+
+                        fire(keys, ev, o, child && child.DC, arrowKey);
                       },
                       focus: function(ev) {
-                        var keys = [],
-                          child = that.children.get(o);
-                        keys.push("Focus");
-                        $A.loop(
-                          keys,
-                          function(i, k) {
-                            if ($A.isFn(that["on" + k]))
-                              that["on" + k].call(
-                                o,
-                                ev,
-                                o,
-                                that,
-                                child && child.DC,
-                                0
-                              );
-                          },
-                          "array"
-                        );
+                        var child = that.children.get(o);
+                        fire(["Focus"], ev, o, child && child.DC, 0);
                       }
                     },
                     ".RovingTabIndex"
