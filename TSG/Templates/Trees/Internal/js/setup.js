@@ -13,6 +13,7 @@ $A.import(["Animate", "Tree"], { defer: true }, function() {
     animate: {
       onRender: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.slideLeftIn", {
+          container: document.querySelector("div.treeview"),
           complete: function() {
             complete();
           }
@@ -20,6 +21,7 @@ $A.import(["Animate", "Tree"], { defer: true }, function() {
       },
       onRemove: function(dc, outerNode, complete) {
         Velocity(outerNode, "transition.slideLeftOut", {
+          container: document.querySelector("div.treeview"),
           complete: function() {
             complete();
           }

@@ -13,87 +13,89 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       once: true,
       call: function(props) {
         $A.extend({
-          RovingTabIndex: function(options) {
+          RovingTabIndex: function(config) {
             var that = this;
             that.typed = "";
             that.lastTyped = "";
-            that.nodes = options.nodes;
-            that.container = options.container || false;
+            that.nodes = config.nodes;
+            that.container = config.container || false;
             that.orientation =
-              options.orientation &&
-              options.orientation >= 0 &&
-              options.orientation <= 2
-                ? options.orientation
+              config.orientation &&
+              config.orientation >= 0 &&
+              config.orientation <= 2
+                ? config.orientation
                 : 0;
-            that.autoSwitch = options.autoSwitch || "off";
+            that.autoSwitch = config.autoSwitch || "off";
             that.index =
-              options.startIndex && options.startIndex >= 0
-                ? options.startIndex
+              config.startIndex && config.startIndex >= 0
+                ? config.startIndex
                 : 0;
             that.parent =
-              options.parent &&
-              options.parent.nodes &&
-              options.parent.nodes.length
-                ? options.parent
+              config.parent && config.parent.nodes && config.parent.nodes.length
+                ? config.parent
                 : false;
             that.top = that;
             while (that.top.parent) that.top = that.top.parent;
             that.children = new Map();
             that.trigger =
-              options.trigger && options.trigger.nodeType === 1
-                ? options.trigger
+              config.trigger && config.trigger.nodeType === 1
+                ? config.trigger
                 : false;
-            that.autoLoop = options.autoLoop || false;
+            that.autoLoop = config.autoLoop || false;
 
             $A.loop(
-              options,
+              config,
               function(n, f) {
                 if (n.slice(0, 2) === "on" && $A.isFn(f)) that[n] = f;
               },
               "object"
             );
+            that.isTree = config.isTree === true;
 
             if (that.parent && that.trigger)
               that.parent.children.set(that.trigger, that);
-            that.dc = that.DC = options.dc || options.DC || null;
+            that.dc = that.DC = config.dc || config.DC || null;
             if (
-              options.breakPoint &&
-              (options.breakPoint.horizontal > 1 ||
-                options.breakPoint.vertical > 1)
+              config.breakPoint &&
+              (config.breakPoint.horizontal > 1 ||
+                config.breakPoint.vertical > 1)
             ) {
               that.breakPoint = {
                 horizontal:
-                  options.breakPoint.horizontal > 1
-                    ? options.breakPoint.horizontal
+                  config.breakPoint.horizontal > 1
+                    ? config.breakPoint.horizontal
                     : 0,
                 vertical:
-                  options.breakPoint.vertical > 1
-                    ? options.breakPoint.vertical
+                  config.breakPoint.vertical > 1
+                    ? config.breakPoint.vertical
                     : 0,
-                horizontalStop: options.breakPoint.horizontalStop
-                  ? true
-                  : false,
-                verticalStop: options.breakPoint.verticalStop ? true : false
+                horizontalStop: config.breakPoint.horizontalStop ? true : false,
+                verticalStop: config.breakPoint.verticalStop ? true : false
               };
             } else that.breakPoint = false;
 
-            that.activate = function(o) {
-              var i = 0;
-              if ($A.isNum(o)) i = that.nodes[o] ? o : 0;
-              else i = $A.inArray(o, that.nodes) || 0;
-              if (that.nodes[i]) {
-                that.index = i;
-                $A.loop(
-                  that.nodes,
-                  function(a, n) {
-                    $A.setAttr(n, {
-                      tabindex: i === a ? 0 : -1
-                    });
-                  },
-                  "array"
-                );
+            that.activate = function(i) {
+              var inst = that;
+              if ($A.isNum(i)) {
+                i = that.nodes[i] || null;
+                inst = $A.data(i, "RTI") || that;
               }
-              return that;
+              if (!i) i = inst.nodes[0] || null;
+              if ($A.isDOMNode(i) && $A.isNum($A.data(i, "RTI-Index")))
+                inst = $A.data(i, "RTI");
+              else return inst;
+              if ($A.isHidden(i)) return inst;
+              inst.index = $A.data(i, "RTI-Index");
+              $A.loop(
+                inst.nodes,
+                function(a, n) {
+                  $A.setAttr(n, {
+                    tabindex: i === n ? 0 : -1
+                  });
+                },
+                "array"
+              );
+              return inst;
             };
 
             that.setFocus = function(ev, instance, isClick) {
@@ -106,14 +108,17 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
             that.focus = function(i) {
               var inst = that;
-              if (!$A.isNum(i)) {
-                i = $A.data(i, "RTI-Index") || 0;
+              if ($A.isNum(i)) {
+                i = that.nodes[i] || null;
                 inst = $A.data(i, "RTI") || that;
-              } else i = i || 0;
-              if (inst.nodes.length && inst.nodes[i]) {
-                inst.activate(i);
-                inst.nodes[inst.index].focus();
               }
+              if (!i) i = inst.nodes[0] || null;
+              if ($A.isDOMNode(i) && $A.isNum($A.data(i, "RTI-Index")))
+                inst = $A.data(i, "RTI");
+              else return inst;
+              if ($A.isHidden(i)) return inst;
+              inst.activate(i);
+              i.focus();
               return inst;
             };
 
@@ -200,6 +205,18 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         var child = that.children.get(o);
                         that.index = i;
                         that.setFocus.apply(that.nodes[that.index], [ev, that]);
+
+                        if (
+                          (that.DC && (that.DC.loading || that.DC.closing)) ||
+                          (child &&
+                            child.DC &&
+                            (child.DC.loading || child.DC.closing))
+                        ) {
+                          ev.preventDefault();
+                          ev.stopPropagation();
+                          return false;
+                        }
+
                         fire(["Click", "Open"], ev, o, child && child.DC, 0);
                       },
                       keydown: function(ev) {
@@ -286,6 +303,17 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           keys = [],
                           cancel = false,
                           stop = false;
+
+                        if (
+                          (that.DC && (that.DC.loading || that.DC.closing)) ||
+                          (child &&
+                            child.DC &&
+                            (child.DC.loading || child.DC.closing))
+                        ) {
+                          ev.preventDefault();
+                          ev.stopPropagation();
+                          return false;
+                        }
 
                         // 37 left, 38 up, 39 right, 40 down, 35 end, 36 home
                         if (k >= 35 && k <= 40) {
@@ -674,31 +702,44 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                               that.typed = String.fromCharCode(k);
                             else that.typed += String.fromCharCode(k);
 
-                            var b = 0,
-                              i = (that.index += 1),
-                              e = that.nodes.length - 1,
-                              f = false;
+                            var nodes = that.isTree
+                                ? that.top.treeNodes
+                                : that.nodes,
+                              b = 0,
+                              bI = that.isTree
+                                ? $A.data(o, "RTI-TreeIndex")
+                                : that.index,
+                              i = bI + 1,
+                              e = nodes.length - 1,
+                              f = false,
+                              node,
+                              name,
+                              hidden;
 
                             for (i; i <= e; i++) {
-                              var name =
-                                $A.data(that.nodes[i], "AccName") || "";
+                              node = nodes[i];
+                              name = $A.data(node, "AccName") || "";
+                              hidden = $A.isHidden(node);
                               if (
+                                !hidden &&
                                 name.indexOf(that.typed.toLowerCase()) === 0
                               ) {
                                 f = true;
-                                that.focus(i);
+                                that.focus(node);
                                 break;
                               }
                             }
 
                             if (!f) {
-                              for (b; b < that.index; b++) {
-                                var name =
-                                  $A.data(that.nodes[b], "AccName") || "";
+                              for (b; b < bI; b++) {
+                                node = nodes[b];
+                                name = $A.data(node, "AccName") || "";
+                                hidden = $A.isHidden(node);
                                 if (
+                                  !hidden &&
                                   name.indexOf(that.typed.toLowerCase()) === 0
                                 ) {
-                                  that.focus(b);
+                                  that.focus(node);
                                   break;
                                 }
                               }
@@ -720,6 +761,18 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           child = that.children.get(o),
                           k = $A.keyEvent(ev),
                           arrowKey = k >= 37 && k <= 40 ? k : 0;
+
+                        if (
+                          (that.DC && (that.DC.loading || that.DC.closing)) ||
+                          (child &&
+                            child.DC &&
+                            (child.DC.loading || child.DC.closing))
+                        ) {
+                          ev.preventDefault();
+                          ev.stopPropagation();
+                          return false;
+                        }
+
                         if (
                           ev.key === "a" &&
                           !pressed.alt &&
@@ -754,6 +807,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       },
                       focus: function(ev) {
                         var child = that.children.get(o);
+                        that.index = i;
+                        that.setFocus.apply(that.nodes[that.index], [ev, that]);
                         fire(["Focus"], ev, o, child && child.DC, 0);
                       }
                     },
@@ -767,6 +822,29 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 "array"
               );
             };
+
+            if (that.isTree) {
+              that.top.treeNodes = [];
+              var get = function(nodes) {
+                if (nodes.length) {
+                  var RTI = $A.data(nodes[0], "RTI");
+                  if (RTI) {
+                    $A.loop(
+                      nodes,
+                      function(i, n) {
+                        var child = RTI.children.get(n),
+                          tI = RTI.top.treeNodes.length;
+                        $A.data(n, "RTI-TreeIndex", tI);
+                        RTI.top.treeNodes[tI] = n;
+                        if (child && $A.isArray(child.nodes)) get(child.nodes);
+                      },
+                      "array"
+                    );
+                  }
+                }
+              };
+              get(that.top.nodes);
+            }
 
             that.on();
 

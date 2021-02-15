@@ -4,13 +4,25 @@ div.viewport {
   margin: 2rem 0;
 }
 
-.books {
+div.treeview {
   overflow: auto;
-  width: 100%;
+  width: 40%;
   height: 350px;
   padding: 0.5rem;
   margin-top: 1rem;
   border: 1px solid #a0a0a0;
+  float: left;
+}
+
+div.books {
+  overflow: auto;
+  width: 40%;
+  height: 350px;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border: 1px solid #a0a0a0;
+  margin-left: 5%;
+  float: left;
 }
 
 div.treeview ul {
@@ -86,20 +98,19 @@ a[aria-checked="true"] {
 }
 
 @media screen and (min-width: 1600px) {
-  #container {
+  div.treeview {
     float: left;
     width: 40%;
     margin-top: 1rem;
-  }
-  .books {
-    float: right;
-    width: 55%;
     height: 450px;
-  }
-  .treeview {
     display: -webkit-flex;
     display: -ms-flex;
     display: flex;
+  }
+  div.books {
+    float: right;
+    width: 50%;
+    height: 450px;
   }
   .sample-block {
     padding: 1rem 0;

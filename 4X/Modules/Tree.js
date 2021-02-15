@@ -135,6 +135,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       orientation: 2,
                       autoSwitch: config.autoSwitch || "semi",
                       autoLoop: false,
+                      isTree: true,
                       onClick: function(ev, triggerNode, RTI, DC) {
                         var that = this,
                           isDisabled = $A.isDisabled(that),
@@ -271,6 +272,53 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         else if (RTI.parent) RTI.parent.focus(RTI.trigger);
                         ev.preventDefault();
                       },
+                      onCtrlLeft: function(
+                        ev,
+                        triggerNode,
+                        RTI,
+                        DC,
+                        arrowKey,
+                        isTop,
+                        isBottom
+                      ) {
+                        if (RTI.parent) {
+                          RTI.DC.remove();
+                          RTI.parent.focus(RTI.parent.index);
+                        } else {
+                          $A.loop(
+                            RTI.children,
+                            function(i, c) {
+                              if ($A.isDC(c.DC)) c.DC.remove();
+                            },
+                            "map"
+                          );
+                        }
+                        ev.preventDefault();
+                      },
+                      onCtrlRight: function(
+                        ev,
+                        triggerNode,
+                        RTI,
+                        DC,
+                        arrowKey,
+                        isTop,
+                        isBottom
+                      ) {
+                        var get = function(r) {
+                          $A.loop(
+                            r.children,
+                            function(i, c) {
+                              if ($A.isDC(c.DC))
+                                c.DC.render(function() {
+                                  get(c);
+                                });
+                            },
+                            "map"
+                          );
+                        };
+                        get(RTI);
+                        ev.preventDefault();
+                      },
                       onDown: function(
                         ev,
                         triggerNode,
@@ -308,6 +356,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         if (RTI.parent) {
                           RTI.DC.remove();
                           RTI.parent.focus(RTI.parent.index);
+                        } else {
+                          $A.loop(
+                            RTI.children,
+                            function(i, c) {
+                              if ($A.isDC(c.DC)) c.DC.remove();
+                            },
+                            "map"
+                          );
                         }
                         ev.preventDefault();
                       },
