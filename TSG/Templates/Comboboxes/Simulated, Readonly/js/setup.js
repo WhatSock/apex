@@ -1,9 +1,9 @@
 $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   // Create a new ARIA Combobox instance
   var myLangCB = new $A.Combobox({
-    select: $A.getEl("languagesId"),
-    input: $A.getEl("langBtnId"),
-    childNode: $A.getEl("langChild"),
+    select: $A.get("languagesId"),
+    input: $A.get("langBtnId"),
+    childNode: $A.get("langChild"),
     delay: 200,
     style: { display: "none" },
     animate: {
@@ -64,13 +64,13 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   // Process after the suggestion window is opened
   myLangCB.onOpen(function() {
     $A.addClass(myLangCB.combobox, "pressed");
-    // $A.getEl('arrowSymbolId').innerHTML = '&#8593;';
+    // $A.get('arrowSymbolId').innerHTML = '&#8593;';
   });
 
   // Process after the suggestion window is closed
   myLangCB.onClose(function() {
     $A.remClass(myLangCB.combobox, "pressed");
-    // $A.getEl('arrowSymbolId').innerHTML = '&#8595;';
+    // $A.get('arrowSymbolId').innerHTML = '&#8595;';
   });
 
   // Now fire up the newly instantiated ARIA Combobox

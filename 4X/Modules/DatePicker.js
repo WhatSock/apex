@@ -1224,7 +1224,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                 if (!$A.isDOMNode(dc.messageContainer)) {
                   dc.messageContainerId = $A.genId();
-                  dc.messageContainer = $A.createEl(
+                  dc.messageContainer = $A.create(
                     "div",
                     {
                       id: dc.messageContainerId
@@ -1330,10 +1330,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 }
 
                 dc.buttons = {
-                  pY: config.condenseYear ? null : $A.getEl(dc.prevBtnId + "Y"),
-                  nY: config.condenseYear ? null : $A.getEl(dc.nextBtnId + "Y"),
-                  pM: $A.getEl(dc.prevBtnId),
-                  nM: $A.getEl(dc.nextBtnId)
+                  pY: config.condenseYear ? null : $A.get(dc.prevBtnId + "Y"),
+                  nY: config.condenseYear ? null : $A.get(dc.nextBtnId + "Y"),
+                  pM: $A.get(dc.prevBtnId),
+                  nM: $A.get(dc.nextBtnId)
                 };
 
                 if (!config.condenseYear && dc.disableNavPrevYearBtn)
@@ -1839,7 +1839,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           if (wd !== dc.iterS && dc.range.current.mDay > 1) {
                             while (
                               dc.range.current.wDay !== dc.iterS &&
-                              $A.getEl(dc.baseId + (dc.range.current.mDay - 1))
+                              $A.get(dc.baseId + (dc.range.current.mDay - 1))
                             ) {
                               dc.range.current.wDay =
                                 dc.range.current.wDay - 1 < 0
@@ -1863,7 +1863,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           ) {
                             while (
                               dc.range.current.wDay !== dc.iterE &&
-                              $A.getEl(dc.baseId + (dc.range.current.mDay + 1))
+                              $A.get(dc.baseId + (dc.range.current.mDay + 1))
                             ) {
                               dc.range.current.wDay =
                                 dc.range.current.wDay + 1 > 6

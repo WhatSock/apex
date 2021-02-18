@@ -5,10 +5,10 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
     id: "UniqueCalendarId",
 
     // Icon triggering element
-    toggle: $A.getEl("dateIcon"),
+    toggle: $A.get("dateIcon"),
 
     // Native or simulated input element
-    input: $A.getEl("date"),
+    input: $A.get("date"),
 
     style: { position: "absolute", zIndex: 1, display: "none" },
     animate: {

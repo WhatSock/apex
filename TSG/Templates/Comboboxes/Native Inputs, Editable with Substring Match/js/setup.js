@@ -10,8 +10,8 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
 
   // Create a new ARIA Combobox instance
   var myAuthorCombobox = new $A.Combobox({
-    select: $A.getEl("authors"),
-    input: $A.getEl("authrEdit"),
+    select: $A.get("authors"),
+    input: $A.get("authrEdit"),
     delay: 200,
     style: { display: "none" },
     animate: {
@@ -93,7 +93,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   );
 
   // Get the Close icon triggering element for sighted mouse and touch device users
-  var mobileCloseIcon = $A.getEl("mobileCloseIcon");
+  var mobileCloseIcon = $A.get("mobileCloseIcon");
 
   // Process after the suggestion window is opened
   myAuthorCombobox.onOpen(function(dc) {

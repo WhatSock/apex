@@ -8,8 +8,8 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
 
   // Create a new ARIA Combobox instance
   var myHardwareCombobox = new $A.Combobox({
-    select: $A.getEl("devicesId"),
-    input: $A.getEl("hardwareEdit"),
+    select: $A.get("devicesId"),
+    input: $A.get("hardwareEdit"),
     delay: 200,
     style: { display: "none" },
     animate: {

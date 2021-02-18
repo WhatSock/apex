@@ -10,7 +10,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     $A.extend({
       Grid: function(container) {
         var that = this,
-          container = $A.isStr(container) ? $A.getEl(container) : container,
+          container = $A.isStr(container) ? $A.get(container) : container,
           config = {
             gridClass: "data-grid",
             gridReadOnlyClass: "data-grid-readonly",
@@ -46,7 +46,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   gridInc++;
                   var bid = baseId + "tr" + gridInc;
                   rowObject.rowNodeId = bid;
-                  rowObject.rowNode = $A.createEl(
+                  rowObject.rowNode = $A.create(
                     "tr",
                     {
                       role: "row",
@@ -62,7 +62,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     rowObject.cells[id].id = id;
                     rowObject.cells[id].cellNodeId = cid;
                     rowObject.cells[id].data = {};
-                    rowObject.cells[id].cellNode = $A.createEl(
+                    rowObject.cells[id].cellNode = $A.create(
                       "td",
                       {
                         id: cid
@@ -77,7 +77,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       rowObject,
                       rowObject.rowNode
                     );
-                    rowObject.cells[id].cellNodeA = $A.createEl(
+                    rowObject.cells[id].cellNodeA = $A.create(
                       "strong",
                       {
                         id: cid + "a"
@@ -88,13 +88,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         : config.gridCellLinkClass
                     );
 
-                    rowObject.cells[id].cellNodeS1 = $A.createEl("span");
-                    rowObject.cells[id].cellNodeS2 = $A.createEl(
+                    rowObject.cells[id].cellNodeS1 = $A.create("span");
+                    rowObject.cells[id].cellNodeS2 = $A.create(
                       "span",
                       null,
                       $A.sraCSS
                     );
-                    rowObject.cells[id].cellNodeS3 = $A.createEl(
+                    rowObject.cells[id].cellNodeS3 = $A.create(
                       "span",
                       null,
                       $A.sraCSS
@@ -1456,7 +1456,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           };
 
         config.page.row.editMaxLength = 255;
-        config.page.row.editFieldDiv = $A.createEl(
+        config.page.row.editFieldDiv = $A.create(
           "div",
           {
             role: "application"
@@ -1465,7 +1465,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           config.editFieldClass
         );
 
-        config.page.row.editField = $A.createEl(
+        config.page.row.editField = $A.create(
           "input",
           {
             type: "text",
@@ -1515,7 +1515,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               dc.trId = baseId + "tthtr" + gridInc;
               dc.tbodyId = baseId + "ttb" + gridInc;
 
-              dc.table = $A.createEl(
+              dc.table = $A.create(
                 "table",
                 {
                   role: "grid",
@@ -1537,18 +1537,18 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 $A.setAttr(dc.table, "aria-readonly", "true");
               }
 
-              dc.thead = $A.createEl("thead", {
+              dc.thead = $A.create("thead", {
                 role: "rowgroup",
                 id: dc.theadId,
                 "aria-owns": dc.trId
               });
 
-              dc.tbody = $A.createEl("tbody", {
+              dc.tbody = $A.create("tbody", {
                 role: "rowgroup",
                 id: dc.tbodyId
               });
 
-              dc.tr = $A.createEl(
+              dc.tr = $A.create(
                 "tr",
                 {
                   role: "row",
@@ -1567,7 +1567,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               for (var i = 0; i < config.colHeaders.map.length; i++) {
                 gridInc++;
                 var o = config.colHeaders.map[i],
-                  th = $A.createEl(
+                  th = $A.create(
                     "th",
                     {
                       role: "columnheader",

@@ -10,12 +10,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     $A.extend({
       Toggle: function(trigger, config) {
         var config = config || {},
-          t = $A.isStr(trigger) ? $A.getEl(trigger) : trigger,
+          t = $A.isStr(trigger) ? $A.get(trigger) : trigger,
           that = this,
           tRole = $A.getAttr(t, "role"),
           isCheckbox =
             tRole === "checkbox" || tRole === "switch" ? true : false,
-          sraText = $A.createEl("span", null, $A.sraCSS),
+          sraText = $A.create("span", null, $A.sraCSS),
           sAP = config.suppressARIAPressed ? true : false;
 
         if (!config.noToggle && config.noARIA) {

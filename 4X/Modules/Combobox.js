@@ -886,7 +886,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 if (!dc.cb.matches.length) return (dc.cancel = true);
                 dc.fn.matches = dc.cb.matches;
                 dc.cb.baseInc++;
-                dc.content = that.listboxNode = $A.createEl(
+                dc.content = that.listboxNode = $A.create(
                   dc.cb.parentTag,
                   {
                     role: "listbox",

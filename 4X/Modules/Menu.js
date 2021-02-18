@@ -129,7 +129,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       autoLoop: true,
                       onOpen: function(ev, triggerNode, RTI, DC, arrowKey) {
                         var that = this,
-                          isDisabled = $A.isDisabled(that);
+                          isDisabled = $A.isDisabled(that),
+                          check = $A.data(triggerNode, "check");
                         if (isDisabled && !arrowKey) {
                           if ($A.isDC(RTI.DC)) RTI.DC.top.remove();
                           return;
@@ -140,17 +141,41 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         } else if (arrowKey) {
                           return;
                         } else if ($A.isFn(config.onActivate)) {
-                          var args = arguments;
+                          var activate = function(attributeValue) {
+                            if ($A.isNum($A.data(triggerNode, "check"))) {
+                              var c = 0,
+                                v = "false";
+                              if (attributeValue === "true") {
+                                c = 1;
+                                v = "true";
+                              } else if (attributeValue === "mixed") {
+                                c = 2;
+                                v = "mixed";
+                              }
+                              $A.data(triggerNode, "check", c);
+                              $A.setAttr(triggerNode, "aria-checked", v);
+                            }
+                          };
                           if ($A.isDC(RTI.DC))
                             RTI.DC.top.remove(function() {
-                              config.onActivate.apply(that, args);
+                              config.onActivate.apply(that, [
+                                ev,
+                                triggerNode,
+                                RTI,
+                                DC,
+                                check,
+                                activate
+                              ]);
                             });
-                          else config.onActivate.apply(that, args);
-                        } else {
-                          if ($A.isDC(RTI.DC))
-                            RTI.DC.top.remove(function() {
-                              if (that.href) location.href = that.href;
-                            });
+                          else
+                            config.onActivate.apply(that, [
+                              ev,
+                              triggerNode,
+                              RTI,
+                              DC,
+                              check,
+                              activate
+                            ]);
                         }
                       },
                       onSpace: function(ev, triggerNode, RTI, DC) {
@@ -198,27 +223,54 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   mItems,
                   function(i, o) {
                     genMenu(o, DC.RTI);
-                    var role = (
-                        $A.getAttr(o, "role") ||
-                        $A.getAttr(o, "data-role") ||
-                        ""
-                      ).toLowerCase(),
-                      checked = (
-                        $A.getAttr(o, "aria-checked") ||
-                        $A.getAttr(o, "data-checked") ||
-                        "false"
-                      ).toLowerCase();
-                    if (role.indexOf("radio") !== -1)
+                    var radio = $A.getAttr(o, "radio") || false,
+                      check = $A.getAttr(o, "check") || false;
+                    if (radio !== false) {
+                      var c = 0;
+                      if (radio === "true") c = 1;
+                      radio = c ? "true" : "false";
+                      $A.data(o, "radio", c);
                       $A.setAttr(o, {
                         role: "menuitemradio",
-                        "aria-checked": checked
+                        "aria-checked": radio
                       });
-                    else if (role.indexOf("checkbox") !== -1)
+                    } else if (check !== false) {
+                      var c = 0;
+                      if (check === "true") c = 1;
+                      else if (check === "mixed") c = 2;
+                      else check = "false";
+                      $A.data(o, "check", c);
                       $A.setAttr(o, {
                         role: "menuitemcheckbox",
-                        "aria-checked": checked
+                        "aria-checked": check
                       });
-                    else $A.setAttr(o, "role", "menuitem");
+                    } else $A.setAttr(o, "role", "menuitem");
+                    if (radio !== false || check !== false) {
+                      $A(o).on(
+                        "attributeChange",
+                        function(
+                          MutationObject,
+                          targetElement,
+                          attributeName,
+                          attributeValue,
+                          attributePriorValue,
+                          BoundObjectOrDC,
+                          SavedData
+                        ) {
+                          var c = 0;
+                          if (attributeValue === "true") c = 1;
+                          else if (attributeValue === "mixed") c = 2;
+                          $A.data(o, "check", c);
+                        },
+                        {
+                          attributeFilter: ["aria-checked"]
+                        }
+                      );
+                    }
+                    $A.closest(o, function(o) {
+                      if (o === ref) return true;
+                      $A.setAttr(o, "role", "presentation");
+                    });
                   },
                   "array"
                 );

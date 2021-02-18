@@ -61,7 +61,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               active = null,
               startIndex = 0,
               triggers = $A.query(o, function(i, o) {
-                var panelContainer = $A.getEl($A.getAttr(o, "data-root")),
+                var panelContainer = $A.get($A.getAttr(o, "data-root")),
                   dc = $A(o).toDC(
                     $A.extend(
                       {

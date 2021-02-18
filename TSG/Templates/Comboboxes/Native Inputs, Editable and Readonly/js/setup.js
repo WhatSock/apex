@@ -1,8 +1,8 @@
 $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   // Create a new ARIA Combobox instance
   var myStateCombobox = new $A.Combobox({
-    select: $A.getEl("states"),
-    input: $A.getEl("stt"),
+    select: $A.get("states"),
+    input: $A.get("stt"),
     delay: 200,
     style: { display: "none" },
     animate: {
@@ -71,7 +71,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   );
 
   // Get the Close icon triggering element for sighted mouse and touch device users
-  var stateCloseIcon = $A.getEl("mobileCloseIcon");
+  var stateCloseIcon = $A.get("mobileCloseIcon");
 
   // Process after the suggestion window is opened
   myStateCombobox.onOpen(function(dc) {
@@ -92,8 +92,8 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   myStateCombobox.start();
 
   var myCountryCombobox = new $A.Combobox({
-    select: $A.getEl("countries"),
-    input: $A.getEl("ctry"),
+    select: $A.get("countries"),
+    input: $A.get("ctry"),
     delay: 200,
     style: { display: "none" },
     animate: {
@@ -122,7 +122,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   });
 
   // Specify a dedicated toggle element for the Country ARIA Combobox
-  myCountryCombobox.setAltTrigger($A.getEl("ctryIcon"));
+  myCountryCombobox.setAltTrigger($A.get("ctryIcon"));
 
   // Add logic to process each time the toggle element state changes
   myCountryCombobox.onTriggerChange(function(toggleObj, openState) {

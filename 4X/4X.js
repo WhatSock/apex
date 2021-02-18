@@ -84,7 +84,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 dc.fetch.data,
                 function(content) {
                   dc.isLoading = false;
-                  if (dc.preloadImages) $A.preloadImg(content);
+                  if (dc.preloadImages) $A.preload(content);
                   $A.getModule(dc, "onFetch", content);
                   if ($A.isFn(dc.fn.afterLoaded)) {
                     dc.fn.afterLoaded(dc);
@@ -98,7 +98,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               );
               dc.mode = 0;
             } else if (dc.preloadImages && !dc.mode && dc.content)
-              $A.preloadImg(dc.content);
+              $A.preload(dc.content);
           }
           if (dc.preloadCSS && dc.importCSS && !dc.loading && !dc.loaded) {
             dc.fn.style = $A.toNode();
@@ -579,7 +579,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       );
     },
 
-    preloadImg: function(a) {
+    preload: function(a) {
       if (this._4X) {
         a = this._X;
       }
@@ -865,7 +865,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return dcs;
     },
 
-    get: function(o) {
+    Get: function(o) {
       /* Syntax of array, may include multiple fetch objects to chain them in succession
 [
 {
@@ -1034,7 +1034,7 @@ error: function(error, promise){}
         $A.loop(
           source,
           function(i, s) {
-            var r = $A.createEl("img", {
+            var r = $A.create("img", {
               src: s,
               alt: ""
             });
@@ -1061,7 +1061,7 @@ error: function(error, promise){}
                   ? s
                   : s + ".js");
             if (!nC && isCSS && $A._cssCache[u]) {
-              if (!$A.getEl($A._cssCache[u].id))
+              if (!$A.get($A._cssCache[u].id))
                 (context || document.head || document.body).appendChild(
                   $A._cssCache[u].cloneNode(true)
                 );
@@ -1110,7 +1110,7 @@ error: function(error, promise){}
                       var rs = false;
                       if (content) {
                         if (isCSS) {
-                          rs = $A.createEl("style", {
+                          rs = $A.create("style", {
                             type: "text/css",
                             id: $A.genId()
                           });
@@ -1168,7 +1168,7 @@ error: function(error, promise){}
           },
           "array"
         );
-        $A.get(refs);
+        $A.Get(refs);
       }
       return $A._XR.call(this, context);
     },
@@ -1180,7 +1180,7 @@ error: function(error, promise){}
       $A.loop(
         source,
         function(i, s) {
-          var t = $A.createEl("script", {
+          var t = $A.create("script", {
             src:
               (!$A.isPath(s) ? $A.moduleFolder : "") +
               (s.slice(-3).toLowerCase() === ".js" ? s : s + ".js"),
@@ -1222,7 +1222,7 @@ error: function(error, promise){}
       };
       $A.extend(config, data || {});
 
-      $A.get({
+      $A.Get({
         url: target,
         data: config,
         success: function(node, promise) {
@@ -1567,7 +1567,7 @@ error: function(error, promise){}
       return $A._XR.call(this, ta);
     },
 
-    isNatActEl: function(node) {
+    isNative: function(node) {
       if (this._4X) {
         node = this._X;
       }
@@ -1582,7 +1582,7 @@ error: function(error, promise){}
         : false;
     },
 
-    getActEl: function(c, onlyFocusable) {
+    getActive: function(c, onlyFocusable) {
       var c = $A.isDOMNode(c) ? c : document;
       return $A.query(
         "a[href], button, input, textarea, select, details, *[tabindex]",
@@ -1593,7 +1593,7 @@ error: function(error, promise){}
       );
     },
 
-    setCircTab: function(c, activeElements) {
+    setCircular: function(c, activeElements) {
       if (this._4X) {
         activeElements = c;
         c = this._X;
@@ -1605,7 +1605,7 @@ error: function(error, promise){}
       if (!$A.isArray(activeElements) && !$A.isDOMNode(c, null, null, 11))
         return [];
       if (!$A.isArray(activeElements) && $A.isDOMNode(c, null, null, 11))
-        activeElements = $A.getActEl(c, true);
+        activeElements = $A.getActive(c, true);
       if (activeElements.length) {
         var f = activeElements[0],
           l = activeElements[activeElements.length - 1];
@@ -2050,7 +2050,7 @@ error: function(error, promise){}
       return true;
     },
 
-    getEl: function(e, con, fn) {
+    get: function(e, con, fn) {
       if (this._4X) {
         fn = con;
         con = this._X;
@@ -2061,18 +2061,17 @@ error: function(error, promise){}
       }
       con = $A.isDOMNode(con, null, document) ? con : document;
       if (!e || !$A.isStr(e)) return null;
-      if (e[0] !== "#") e = "#" + e;
 
-      // Get the first node matching the referenced selector.
-      // document.getElementById cannot be used because it doesn't always work correctly
-      var r = con.querySelector(e);
+      var r = null;
+      if (con.getElementById) r = con.getElementById(e);
+      if (!$A.isDOMNode(r) && con.querySelector) r = con.querySelector(e);
       if ($A.isDOMNode(r) && $A.isFn(fn)) fn.call(r, r);
 
       return $A._XR.call(this, r);
     },
 
-    createEl: function(t) {
-      var o = document.createElement(t);
+    create: function(t) {
+      var o = $A.isMarkup(t) ? $A.morph(t) : document.createElement(t);
       if (arguments.length === 1 || !$A.isDOMNode(o)) return o;
       if (arguments[1]) $A.setAttr(o, arguments[1]);
       if (arguments[2]) $A.css(o, arguments[2]);
@@ -3016,7 +3015,7 @@ error: function(error, promise){}
         node = this._X;
       }
       var nodes = $A.query(node, function(i, node) {
-        if ($A.isDOMNode(node) && !$A.isNatActEl(node)) {
+        if ($A.isDOMNode(node) && !$A.isNative(node)) {
           $A.setAttr(node, "tabindex", "0");
           if (role) $A.setAttr(node, "role", role);
           if (name) $A.setAttr(node, "aria-label", name);
@@ -3052,7 +3051,7 @@ error: function(error, promise){}
         isDC = true;
       }
       $A.query(t, function(i, o) {
-        var isNat = $A.isNatActEl(o),
+        var isNat = $A.isNative(o),
           isLink = isNat && o.nodeName.toLowerCase() === "a";
         if (isNat && !isLink) o.disabled = disable ? true : false;
         else {
@@ -3101,7 +3100,7 @@ error: function(error, promise){}
           if ($A.isDC(o)) t = o.triggerNode || o.trigger;
           $A.query(t, function(x, e) {
             var isD =
-              ($A.isNatActEl(e) && e.disabled) ||
+              ($A.isNative(e) && e.disabled) ||
               $A.getAttr(e, "aria-disabled") === "true"
                 ? true
                 : false;
@@ -3124,7 +3123,7 @@ error: function(error, promise){}
       var tabI = parseInt($A.getAttr(node, "tabindex"));
       return (usingFocus && $A.isNum(tabI)) ||
         (!usingFocus && $A.isNum(tabI) && tabI >= 0) ||
-        ($A.isNatActEl(node) && !node.disabled)
+        ($A.isNative(node) && !node.disabled)
         ? true
         : false;
     },
@@ -3321,7 +3320,7 @@ error: function(error, promise){}
                 dc.fetch.data,
                 function(content, promise) {
                   dc.isLoading = false;
-                  if (dc.preloadImages) $A.preloadImg(content);
+                  if (dc.preloadImages) $A.preload(content);
                   $A.getModule(dc, "onFetch", content);
                   dc.fetch.success(content, promise, dc);
                   DCR3(dc);
@@ -3336,12 +3335,12 @@ error: function(error, promise){}
             case 2:
               dc.content = $A.toNode();
               dc.isLoading = true;
-              $A.get({
+              $A.Get({
                 url: dc.fetch.url,
                 data: dc.fetch.data,
                 success: function(content, promise) {
                   dc.isLoading = true;
-                  if (dc.preloadImages) $A.preloadImg(content);
+                  if (dc.preloadImages) $A.preload(content);
                   $A.getModule(dc, "onFetch", content);
                   dc.fetch.success(content, promise, dc);
                   DCR3(dc);
@@ -3377,10 +3376,10 @@ error: function(error, promise){}
           } else dc.contentOnly = true;
 
           if (!dc.contentOnly) {
-            dc.outerNode = $A.createEl("div", {
+            dc.outerNode = $A.create("div", {
               id: dc.outerNodeId
             });
-            dc.container = $A.createEl("div", {
+            dc.container = $A.create("div", {
               id: dc.containerId
             });
             dc.outerNode.appendChild(dc.container);
@@ -3539,7 +3538,7 @@ error: function(error, promise){}
             }
             if (dc.exposeHiddenClose) {
               dc.closeId = dc.fn.baseId + "CL";
-              dc.fn.closeLink = $A.createEl(
+              dc.fn.closeLink = $A.create(
                 "a",
                 {
                   id: dc.closeId,
@@ -3589,11 +3588,11 @@ error: function(error, promise){}
                 }
               });
             }
-            dc.activeElements = $A.getActEl(dc.container, true);
+            dc.activeElements = $A.getActive(dc.container, true);
             if (dc.activeElements.length) {
               dc.first = dc.activeElements[0];
               dc.last = dc.activeElements[dc.activeElements.length - 1];
-              if (dc.circularTabbing) $A.setCircTab(dc.activeElements);
+              if (dc.circularTabbing) $A.setCircular(dc.activeElements);
             }
             var toBind = {};
             $A.data(dc.id, "DC", dc);
@@ -4631,8 +4630,8 @@ error: function(error, promise){}
     isString: $A["isStr"],
     isNumber: $A["isNum"],
     isBoolean: $A["isBool"],
-    getElement: $A["getEl"],
-    createElement: $A["createEl"],
+    getElement: $A["get"],
+    createElement: $A["create"],
     getAttribute: $A["getAttr"],
     hasAttribute: $A["hasAttr"],
     removeAttribute: $A["remAttr"],
@@ -4646,10 +4645,10 @@ error: function(error, promise){}
     removeClass: $A["remClass"],
     addIdReference: $A["addIdRef"],
     removeIdReference: $A["remIdRef"],
-    preloadImages: $A["preloadImg"],
-    setCircularTabbing: $A["setCircTab"],
-    isNativeActiveElement: $A["isNatActEl"],
-    getActiveElements: $A["getActEl"],
+    preloadImages: $A["preload"],
+    setCircularTabbing: $A["setCircular"],
+    isNativeActiveElement: $A["isNative"],
+    getActiveElements: $A["getActive"],
     setKeyboardA11Y: $A["setKBA11Y"],
     generateId: $A["genId"],
     toTextNode: $A["toText"]
@@ -4782,14 +4781,14 @@ error: function(error, promise){}
     load: function() {
       $A.isDocLoaded = true;
       if (!stringAnnounce.placeHolder) {
-        stringAnnounce.placeHolder = $A.createEl(
+        stringAnnounce.placeHolder = $A.create(
           "div",
           {
             "aria-live": "polite"
           },
           $A.sraCSS
         );
-        stringAnnounce.placeHolder2 = $A.createEl(
+        stringAnnounce.placeHolder2 = $A.create(
           "div",
           {
             role: "alert"

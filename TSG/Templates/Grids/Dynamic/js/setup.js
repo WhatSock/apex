@@ -7,9 +7,9 @@ $A.import("Grid", { defer: true }, function() {
     if (mode === this.id) return;
 
     mode = this.id;
-    var mro = $A.getEl("mro"),
-      msc = $A.getEl("msc"),
-      mmm = $A.getEl("mmm");
+    var mro = $A.get("mro"),
+      msc = $A.get("msc"),
+      mmm = $A.get("mmm");
 
     if (mode === "rr") {
       $A.addClass([msc, mmm], "hidden");
@@ -96,7 +96,7 @@ $A.import("Grid", { defer: true }, function() {
         '" with <br />value: "' +
         val +
         '"</span>',
-      popup = $A.getEl("popupId");
+      popup = $A.get("popupId");
     popup.innerHTML = str;
     $A.remClass(popup, "hidden");
     setTimeout(function() {
@@ -157,15 +157,15 @@ $A.import("Grid", { defer: true }, function() {
   grid.enableRowHeaders(true, "row-id");
   grid.setRowMax(10);
 
-  var pageHeaderSpan = $A.getEl("pTotal"),
-    pageEdit = $A.getEl("goTo"),
+  var pageHeaderSpan = $A.get("pTotal"),
+    pageEdit = $A.get("goTo"),
     pageCurrent = 0,
     pageTotal = 0,
-    firstBtn = $A.getEl("btnFirst"),
-    prevBtn = $A.getEl("btnPrev"),
-    nextBtn = $A.getEl("btnNext"),
-    lastBtn = $A.getEl("btnLast"),
-    pgn = $A.getEl("pgn");
+    firstBtn = $A.get("btnFirst"),
+    prevBtn = $A.get("btnPrev"),
+    nextBtn = $A.get("btnNext"),
+    lastBtn = $A.get("btnLast"),
+    pgn = $A.get("pgn");
 
   grid.setPageIndexChangeListener(function(
     currentPage,
@@ -382,8 +382,8 @@ $A.import("Grid", { defer: true }, function() {
         }
       });
 
-      $A.getEl("bd").disabled = nV ? false : true;
-      $A.getEl("bda").disabled = nV ? false : true;
+      $A.get("bd").disabled = nV ? false : true;
+      $A.get("bda").disabled = nV ? false : true;
       grid.open(grid.currentPage());
     }
   });

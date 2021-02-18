@@ -20,10 +20,10 @@ Configuration
 id: "UniqueCalendarId",
 
 // Clickable icon triggering element
-toggle: $A.getEl("dateIcon"),
+toggle: $A.get("dateIcon"),
 
 // Native or simulated active element
-input: $A.getEl("dateId"),
+input: $A.get("dateId"),
 
 // Set initial inline styling properties for the dynamically rendered calendar.
 style: {
