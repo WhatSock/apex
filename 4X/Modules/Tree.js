@@ -139,7 +139,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       onClick: function(ev, triggerNode, RTI, DC) {
                         var that = this,
                           isDisabled = $A.isDisabled(that),
-                          check = $A.data(triggerNode, "check");
+                          check = $A.data(triggerNode, "check") || false;
                         if (!$A.isNum(check) && multiselect)
                           check =
                             $A.getAttr(triggerNode, "aria-selected") === "true";

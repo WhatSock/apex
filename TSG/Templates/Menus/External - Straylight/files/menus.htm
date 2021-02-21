@@ -2,7 +2,6 @@
 
 <body>
 
-
     <ul hidden class="top menu" id="settings-menu">
         <li><a href="#" class="has-submenu">Profile</a>
             <ul hidden class="menu">
@@ -21,25 +20,23 @@
                 </li>
             </ul>
         </li>
-        <li><a href="#" class="has-submenu">Settings</a>
+        <li><a href="#" class="has-submenu">Checkable Options</a>
             <ul hidden class="menu">
-                <li><a href="#" class="link" id="settings-search">Search</a></li>
-                <li><a href="#" class="link" id="settings-cookies">Cookies</a></li>
-                <li><a href="#" class="link" id="settings-layout">Layout</a></li>
+                <li><a check href="#" class="link" id="settings-editor">Editor</a></li>
+                <li><a check="true" href="#" class="link" id="settings-cookies">Cookies</a></li>
+                <li><a check="mixed" href="#" class="link" id="settings-toolbar">Toolbar</a></li>
             </ul>
         </li>
-        <li><a href="#" class="has-submenu">Account</a>
+        <li><a href="#" class="has-submenu">Radio Options</a>
             <ul hidden class="menu">
-                <li><a href="#" class="link" id="account-username">Username</a></li>
-                <li><a href="#" class="link" id="account-password">Password</a></li>
-                <li><a href="#" class="link" id="account-email">Email</a></li>
+                <li><a radio href="#" class="link" id="account-username">Username</a></li>
+                <li><a radio="true" href="#" class="link" id="account-password">Password</a></li>
             </ul>
         </li>
         <li><a aria-disabled="true" title="Disabled" href="#" class="has-submenu">Services</a>
             <ul hidden class="menu">
                 <li><a href="#" class="link" id="services-campaigns">Campaigns</a></li>
                 <li><a href="#" class="link" id="services-payments">Payments</a></li>
-                <li><a href="#" class="link" id="services-billing">Billing</a></li>
             </ul>
         </li>
         <li><a aria-disabled="true" href="#" class="link" id="properties">Properties...</a></li>

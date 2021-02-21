@@ -71,3 +71,21 @@ a[aria-disabled="true"] {
   background: #bdbdbd;
   cursor: auto;
 }
+
+a[aria-checked="false"] {
+  background: url("../img/unchecked.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+a[aria-checked="mixed"] {
+  background: url("../img/indeterminate.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+a[aria-checked="true"] {
+  background: url("../img/checked.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}

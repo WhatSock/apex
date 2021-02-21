@@ -40,6 +40,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             };
           },
           afterRender: function(dc) {
+            $A.loop(
+              dc.RTI.nodes,
+              function(i, o) {
+                dc.getState(
+                  o,
+                  $A.getAttr(o, "aria-checked"),
+                  $A.hasAttr(o, "aria-checked"),
+                  false,
+                  dc.RTI.nodes
+                );
+              },
+              "array"
+            );
             if (!$A.isTouch) {
               setTimeout(function() {
                 $A.announce(
@@ -51,6 +64,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 );
               }, 1);
             }
+          },
+          beforeRemove: function(dc) {
+            $A.loop(
+              dc.RTI.children,
+              function(i, o) {
+                o.DC.remove();
+              },
+              "map"
+            );
           }
         });
 
@@ -75,6 +97,31 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 },
                 config.tag || {}
               ),
+              getState = function(
+                o,
+                attributeValue,
+                hasAttribute,
+                write,
+                nodes
+              ) {
+                if (hasAttribute) {
+                  var isRadio = $A.getAttr(o, "role") === "menuitemradio",
+                    c = 0;
+                  if (attributeValue === "true") c = 1;
+                  else if (!isRadio && attributeValue === "mixed") c = 2;
+                  else attributeValue = "false";
+                  $A.data(o, "check", c);
+                  if (write) {
+                    if (isRadio && $A.isArray(nodes))
+                      $A.setAttr(nodes, "aria-checked", "false");
+                    $A.setAttr(o, "aria-checked", attributeValue);
+                  }
+                  return c;
+                }
+                var s = $A.data(o, "check");
+                if (!$A.isNum(s)) return false;
+                return s;
+              },
               genMenu = function(o, p, list) {
                 if (!$A.isDOMNode(o)) return;
                 var ref =
@@ -105,7 +152,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       content: ref,
                       on: "openmenu",
                       widgetType: "Menu",
-                      toggleHide: true
+                      toggleHide: true,
+                      getState: getState
                     },
                     config
                   )
@@ -130,7 +178,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       onOpen: function(ev, triggerNode, RTI, DC, arrowKey) {
                         var that = this,
                           isDisabled = $A.isDisabled(that),
-                          check = $A.data(triggerNode, "check");
+                          check = getState(triggerNode);
                         if (isDisabled && !arrowKey) {
                           if ($A.isDC(RTI.DC)) RTI.DC.top.remove();
                           return;
@@ -141,41 +189,29 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         } else if (arrowKey) {
                           return;
                         } else if ($A.isFn(config.onActivate)) {
-                          var activate = function(attributeValue) {
-                            if ($A.isNum($A.data(triggerNode, "check"))) {
-                              var c = 0,
-                                v = "false";
-                              if (attributeValue === "true") {
-                                c = 1;
-                                v = "true";
-                              } else if (attributeValue === "mixed") {
-                                c = 2;
-                                v = "mixed";
-                              }
-                              $A.data(triggerNode, "check", c);
-                              $A.setAttr(triggerNode, "aria-checked", v);
-                            }
-                          };
-                          if ($A.isDC(RTI.DC))
-                            RTI.DC.top.remove(function() {
-                              config.onActivate.apply(that, [
-                                ev,
-                                triggerNode,
-                                RTI,
-                                DC,
-                                check,
-                                activate
-                              ]);
-                            });
-                          else
-                            config.onActivate.apply(that, [
-                              ev,
-                              triggerNode,
-                              RTI,
-                              DC,
-                              check,
-                              activate
-                            ]);
+                          config.onActivate.apply(that, [
+                            ev,
+                            triggerNode,
+                            RTI,
+                            DC,
+                            check,
+                            function(attributeValue) {
+                              var r = $A.getAttr(triggerNode, "role");
+                              if (
+                                ["menuitemcheckbox", "menuitemradio"].indexOf(
+                                  r
+                                ) !== -1
+                              )
+                                getState(
+                                  triggerNode,
+                                  attributeValue,
+                                  true,
+                                  true,
+                                  RTI.nodes
+                                );
+                            },
+                            $A.getAttr(triggerNode, "role") === "menuitemradio"
+                          ]);
                         }
                       },
                       onSpace: function(ev, triggerNode, RTI, DC) {
@@ -223,26 +259,28 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   mItems,
                   function(i, o) {
                     genMenu(o, DC.RTI);
-                    var radio = $A.getAttr(o, "radio") || false,
-                      check = $A.getAttr(o, "check") || false;
-                    if (radio !== false) {
-                      var c = 0;
-                      if (radio === "true") c = 1;
-                      radio = c ? "true" : "false";
-                      $A.data(o, "radio", c);
+                    var radio = getState(
+                        o,
+                        $A.getAttr(o, "radio"),
+                        $A.hasAttr(o, "radio")
+                      ),
+                      check = getState(
+                        o,
+                        $A.getAttr(o, "check"),
+                        $A.hasAttr(o, "check")
+                      );
+                    if ($A.isNum(radio)) {
                       $A.setAttr(o, {
                         role: "menuitemradio",
-                        "aria-checked": radio
+                        "aria-checked": radio ? "true" : "false"
                       });
-                    } else if (check !== false) {
-                      var c = 0;
-                      if (check === "true") c = 1;
-                      else if (check === "mixed") c = 2;
-                      else check = "false";
-                      $A.data(o, "check", c);
+                    } else if ($A.isNum(check)) {
+                      var c = "false";
+                      if (check === 1) c = "true";
+                      else if (check === 2) c = "mixed";
                       $A.setAttr(o, {
                         role: "menuitemcheckbox",
-                        "aria-checked": check
+                        "aria-checked": c
                       });
                     } else $A.setAttr(o, "role", "menuitem");
                     if (radio !== false || check !== false) {
@@ -250,17 +288,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         "attributeChange",
                         function(
                           MutationObject,
-                          targetElement,
+                          o,
                           attributeName,
                           attributeValue,
                           attributePriorValue,
-                          BoundObjectOrDC,
+                          DC,
                           SavedData
                         ) {
-                          var c = 0;
-                          if (attributeValue === "true") c = 1;
-                          else if (attributeValue === "mixed") c = 2;
-                          $A.data(o, "check", c);
+                          getState(o, attributeValue, true);
                         },
                         {
                           attributeFilter: ["aria-checked"]
