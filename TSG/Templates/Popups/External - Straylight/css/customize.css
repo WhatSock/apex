@@ -33,3 +33,14 @@ div.popup a.CloseDC:visited {
   z-index: 2;
   background: transparent;
 }
+button.CloseDC{
+  background: transparent;
+  border: none;
+  position: absolute;
+  right: 0.25em;
+  top: 0.5em;
+}
+.popup div:first-child[tabindex="-1"]:focus{
+  outline:none;
+  border:none;
+  }
