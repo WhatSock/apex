@@ -2401,7 +2401,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 (config.comments && config.comments.className) ||
                 "commentTooltip",
               beforeRender: function(dc) {
-                dc.targetObj = dc.parent.outerNode;
+                dc.targetObj = dc.parent.wrapper;
               }
             }
           ],
@@ -2431,13 +2431,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 ((config.editor && config.editor.role) || "Edit") +
                 "</button>",
               beforeRender: function(dc) {
-                dc.targetObj = dc.parent.outerNode;
+                dc.targetObj = dc.parent.wrapper;
               },
               click: function(ev, dc) {
                 ev.stopPropagation();
               },
               duringRender: function(dc) {
-                $A.setAttr(dc.outerNode, {
+                $A.setAttr(dc.wrapper, {
                   role: "dialog",
                   "aria-label": dc.role
                 });
@@ -2510,7 +2510,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           display: ""
                         });
 
-                        dc.css("left", dc.parent.outerNode.offsetLeft);
+                        dc.css("left", dc.parent.wrapper.offsetLeft);
                         $A.on(
                           this,
                           {
@@ -2547,7 +2547,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         display: ""
                       });
 
-                      dc.css("left", dc.parent.outerNode.offsetLeft);
+                      dc.css("left", dc.parent.wrapper.offsetLeft);
                     }
                     $A.setAttr(dc.textarea, {
                       title:
@@ -2591,9 +2591,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                     dc.css(
                       "left",
-                      dc.parent.outerNode.offsetLeft +
-                        dc.parent.outerNode.offsetWidth -
-                        dc.outerNode.offsetWidth
+                      dc.parent.wrapper.offsetLeft +
+                        dc.parent.wrapper.offsetWidth -
+                        dc.wrapper.offsetWidth
                     );
                     $A.setAttr(dc.commentBtn, {
                       title:

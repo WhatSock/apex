@@ -53,30 +53,36 @@
                     <div class="component flex-item">
                         <h1 class="pageTitle">ARIA Listboxes <small>(Standard With Checkable Options)</small></h1>
                         <div class="sample">
-                            <ul id="listboxId">
-                                <li role="none">
-                                    <button>
-                                        <span class="lbl">Option 1</span>
+
+                            <!--
+If the checkable property is not set to true within the setup script,
+use the check attribute to specify individual options that should be made checkable.
+-->
+
+                            <ul id="listboxId" class="aria-listbox">
+                                <li>
+                                    <button check="true">
+                                        <span class="lbl">One</span>
                                     </button>
                                 </li>
-                                <li role="none">
-                                    <button>
-                                        <span class="lbl">Option 2</span>
+                                <li>
+                                    <button check>
+                                        <span class="lbl">Two</span>
                                     </button>
                                 </li>
-                                <li role="none">
-                                    <button>
-                                        <span class="lbl">Option 3</span>
+                                <li>
+                                    <button check>
+                                        <span class="lbl">Three</span>
                                     </button>
                                 </li>
-                                <li role="none">
-                                    <button>
-                                        <span class="lbl">Option 4</span>
+                                <li>
+                                    <button check>
+                                        <span class="lbl">Four</span>
                                     </button>
                                 </li>
-                                <li role="none">
-                                    <button>
-                                        <span class="lbl">Option 5</span>
+                                <li>
+                                    <button check>
+                                        <span class="lbl">Five</span>
                                     </button>
                                 </li>
                             </ul>

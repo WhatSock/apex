@@ -1,6 +1,6 @@
 Description: Event properties can be set to handle standard interactions.
 
-Note: When set, events are bound to the DOM element associated with DC.outerNode. Each property may be set declaratively when creating new DC objects, or directly by modifying individual properties on instantiated DC objects.
+Note: When set, events are bound to the DOM element associated with DC.wrapper. Each property may be set declaratively when creating new DC objects, or directly by modifying individual properties on instantiated DC objects.
 
 When DC.contentOnly is true, bound events will be added to the outer-most container element for the DC object as specified using DC.content.
 
@@ -20,7 +20,7 @@ DC.EventName = function(event, DC) { //... };
 
 DC Object Properties
 
-Note: When omitted, no event is added to DC.outerNode. All event names when declared must be in camel case.
+Note: When omitted, no event is added to DC.wrapper. All event names when declared must be in camel case.
 
 click: function(event, DC) {   }
 

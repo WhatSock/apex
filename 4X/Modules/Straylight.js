@@ -49,15 +49,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                   style: { display: "none" },
                   animate: {
-                    onRender: function(dc, outerNode, complete) {
-                      Velocity(outerNode, "transition.slideLeftIn", {
+                    onRender: function(dc, wrapper, complete) {
+                      Velocity(wrapper, "transition.slideLeftIn", {
                         complete: function() {
                           complete();
                         }
                       });
                     },
-                    onRemove: function(dc, outerNode, complete) {
-                      Velocity(outerNode, "transition.slideLeftOut", {
+                    onRemove: function(dc, wrapper, complete) {
+                      Velocity(wrapper, "transition.slideLeftOut", {
                         complete: function() {
                           complete();
                         }
@@ -99,15 +99,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                       style: { display: "none" },
                       animate: {
-                        onRender: function(dc, outerNode, complete) {
-                          Velocity(outerNode, "transition.slideUpIn", {
+                        onRender: function(dc, wrapper, complete) {
+                          Velocity(wrapper, "transition.slideUpIn", {
                             complete: function() {
                               complete();
                             }
                           });
                         },
-                        onRemove: function(dc, outerNode, complete) {
-                          Velocity(outerNode, "transition.slideUpOut", {
+                        onRemove: function(dc, wrapper, complete) {
+                          Velocity(wrapper, "transition.slideUpOut", {
                             complete: function() {
                               complete();
                             }
@@ -172,15 +172,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           display: "none"
                         },
                         animate: {
-                          onRender: function(dc, outerNode, complete) {
-                            Velocity(outerNode, "transition.fadeIn", {
+                          onRender: function(dc, wrapper, complete) {
+                            Velocity(wrapper, "transition.fadeIn", {
                               complete: function() {
                                 complete();
                               }
                             });
                           },
-                          onRemove: function(dc, outerNode, complete) {
-                            Velocity(outerNode, "transition.fadeOut", {
+                          onRemove: function(dc, wrapper, complete) {
+                            Velocity(wrapper, "transition.fadeOut", {
                               complete: function() {
                                 complete();
                               }
@@ -224,15 +224,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                         style: { display: "none" },
                         animate: {
-                          onRender: function(dc, outerNode, complete) {
-                            Velocity(outerNode, "transition.slideDownIn", {
+                          onRender: function(dc, wrapper, complete) {
+                            Velocity(wrapper, "transition.slideDownIn", {
                               complete: function() {
                                 complete();
                               }
                             });
                           },
-                          onRemove: function(dc, outerNode, complete) {
-                            Velocity(outerNode, "transition.slideDownOut", {
+                          onRemove: function(dc, wrapper, complete) {
+                            Velocity(wrapper, "transition.slideDownOut", {
                               complete: function() {
                                 complete();
                               }
@@ -298,15 +298,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                         style: { display: "none" },
                         animate: {
-                          onRender: function(dc, outerNode, complete) {
-                            Velocity(outerNode, "transition.fadeIn", {
+                          onRender: function(dc, wrapper, complete) {
+                            Velocity(wrapper, "transition.fadeIn", {
                               complete: function() {
                                 complete();
                               }
                             });
                           },
-                          onRemove: function(dc, outerNode, complete) {
-                            Velocity(outerNode, "transition.fadeOut", {
+                          onRemove: function(dc, wrapper, complete) {
+                            Velocity(wrapper, "transition.fadeOut", {
                               complete: function() {
                                 complete();
                               }
@@ -352,15 +352,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           parseInt($A.getAttr(t, "data-timeout")) || 0,
                         style: { display: "none" },
                         animate: {
-                          onRender: function(dc, outerNode, complete) {
-                            Velocity(outerNode, "transition.fadeIn", {
+                          onRender: function(dc, wrapper, complete) {
+                            Velocity(wrapper, "transition.fadeIn", {
                               complete: function() {
                                 complete();
                               }
                             });
                           },
-                          onRemove: function(dc, outerNode, complete) {
-                            Velocity(outerNode, "transition.fadeOut", {
+                          onRemove: function(dc, wrapper, complete) {
+                            Velocity(wrapper, "transition.fadeOut", {
                               complete: function() {
                                 complete();
                               }
@@ -453,15 +453,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         },
                         style: { display: "none" },
                         animate: {
-                          onRender: function(dc, outerNode, complete) {
-                            Velocity(outerNode, "transition.slideUpIn", {
+                          onRender: function(dc, wrapper, complete) {
+                            Velocity(wrapper, "transition.slideUpIn", {
                               complete: function() {
                                 complete();
                               }
                             });
                           },
-                          onRemove: function(dc, outerNode, complete) {
-                            Velocity(outerNode, "transition.slideUpOut", {
+                          onRemove: function(dc, wrapper, complete) {
+                            Velocity(wrapper, "transition.slideUpOut", {
                               complete: function() {
                                 complete();
                               }

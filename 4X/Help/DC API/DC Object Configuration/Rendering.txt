@@ -60,8 +60,8 @@ Example 2: Render with custome functionality.
 {
   id: "UniqueID2",
   root: "body",
-  append: function(outerNode, rootNode) {
+  append: function(wrapper, rootNode) {
     var DC = this;
-    // Do something with outerNode
+    // Do something with wrapper
   }
 }

@@ -70,7 +70,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       afterRender: function(dc, container) {
         var that = this;
         that.track.push(dc);
-        $A.hideBackground(dc.outerNode);
+        $A.hideBackground(dc.wrapper);
         dc.announce = dc.isAlert === true;
       },
       afterRemove: function(dc, container) {
@@ -78,7 +78,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         that.track.splice(that.track.length - 1, 1);
         if (that.track.length) {
           if (dc.isModal)
-            $A.hideBackground(that.track[that.track.length - 1].outerNode);
+            $A.hideBackground(that.track[that.track.length - 1].wrapper);
           dc.rerouteFocus = that.track[that.track.length - 1];
         } else {
           if (dc.isModal) $A.showBackground();

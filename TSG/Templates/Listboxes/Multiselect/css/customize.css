@@ -23,7 +23,7 @@
   flex: 0 1 70%;
   margin-left: 5%;
 }
-#listboxId {
+.aria-listbox {
   list-style: none;
   display: -webkit-flex;
   display: -ms-flex;
@@ -38,12 +38,12 @@
   margin: 0;
 }
 
-#listboxId > li {
+.aria-listbox > li {
   position: relative;
   padding: 0.5rem;
 }
 
-#listboxId [role="option"] {
+.aria-listbox [role="option"] {
   cursor: pointer;
   display: inline-block;
   text-decoration: none;
@@ -54,7 +54,7 @@
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
 }
 
-#listboxId [role="option"]::before {
+.aria-listbox [role="option"]::before {
   display: block;
   position: absolute;
   width: 25px;
@@ -66,7 +66,7 @@
   border-radius: 25px;
 }
 
-#listboxId [role="option"]::after {
+.aria-listbox [role="option"]::after {
   display: block;
   position: absolute;
   width: 3px;
@@ -77,7 +77,7 @@
   background: var(--listbox-darkGrey);
 }
 
-#listboxId [role="option"] span::after {
+.aria-listbox [role="option"] span::after {
   display: block;
   position: absolute;
   width: 8px;
@@ -94,23 +94,9 @@
   transform: skewX(-15deg);
 }
 
-#listboxId [aria-selected="true"],
-#listboxId [role="option"]:hover,
-#listboxId [role="option"]:focus {
+.aria-listbox [aria-selected="true"],
+.aria-listbox [role="option"]:hover,
+.aria-listbox [role="option"]:focus {
   background: var(--listbox-limeBlue);
   box-shadow: none;
-}
-
-form.addFrm {
-  background: #e1e1e1;
-  padding: 0.3rem 0.5rem 0.5rem;
-  margin-top: 2rem;
-}
-
-form.addFrm p + p {
-  margin: 0.5rem 2rem 0 0;
-}
-
-form.addFrm p:last-child {
-  margin-bottom: 0.5rem;
 }

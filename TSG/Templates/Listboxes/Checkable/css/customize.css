@@ -1,22 +1,22 @@
 /* Specific styles for ARIA Listboxes */
 
-#listboxId {
+.aria-listbox {
   list-style-type: none;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin-left: 0;
 }
-#listboxId > li {
+.aria-listbox > li {
   margin-bottom: 0.25em;
   position: relative;
 }
-#listboxId > li > [role="option"] {
+.aria-listbox > li > [role="option"] {
   border: none;
   width: 3em;
   height: 3em;
 }
-#listboxId [role="option"] .lbl {
+.aria-listbox [role="option"] .lbl {
   position: absolute;
   left: 0;
   width: 100%;
@@ -24,25 +24,25 @@
   width: 10em;
 }
 
-#listboxId [role="option"][aria-selected="true"],
-#listboxId [role="option"]:hover,
-#listboxId [role="option"]:focus {
+.aria-listbox [role="option"][aria-selected="true"],
+.aria-listbox [role="option"]:hover,
+.aria-listbox [role="option"]:focus {
   background: #92dbf6;
 }
 
-#listboxId [role="option"][aria-checked="false"] {
+.aria-listbox [role="option"][aria-checked="false"] {
   background: url("../img/unchecked.svg");
   background-repeat: no-repeat;
   background-position: center;
 }
 
-#listboxId [role="option"][aria-checked="mixed"] {
+.aria-listbox [role="option"][aria-checked="mixed"] {
   background: url("../img/indeterminate.svg");
   background-repeat: no-repeat;
   background-position: center;
 }
 
-#listboxId [role="option"][aria-checked="true"] {
+.aria-listbox [role="option"][aria-checked="true"] {
   background: url("../img/checked.svg");
   background-repeat: no-repeat;
   background-position: center;

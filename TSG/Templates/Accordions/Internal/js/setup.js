@@ -7,15 +7,15 @@ $A.import(["Animate", "Accordion"], { defer: true }, function() {
 
     style: { display: "none" },
     animate: {
-      onRender: function(dc, outerNode, complete) {
-        Velocity(outerNode, "transition.slideLeftIn", {
+      onRender: function(dc, wrapper, complete) {
+        Velocity(wrapper, "transition.slideLeftIn", {
           complete: function() {
             complete();
           }
         });
       },
-      onRemove: function(dc, outerNode, complete) {
-        Velocity(outerNode, "transition.slideLeftOut", {
+      onRemove: function(dc, wrapper, complete) {
+        Velocity(wrapper, "transition.slideLeftOut", {
           complete: function() {
             complete();
           }

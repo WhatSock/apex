@@ -368,6 +368,71 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         config.siblings[0].map(config);
     },
 
+    _parseDCScripts: function(dc, type, next) {
+      var toGet = [],
+        toRun = [],
+        rn = function(typ, isOnce, DC) {
+          var ran = typ + "Ran",
+            run = typ;
+          if (!$A.isFn(DC[run]) && !$A.isStr(DC[run]) && !$A.isArray(DC[run]))
+            return;
+          if (!isOnce || (isOnce && !DC[ran])) {
+            if (isOnce && !DC[ran]) DC[ran] = true;
+            if ($A.isFn(DC[run])) toRun.push(DC[run]);
+            else if ($A.isStr(DC[run])) toGet.push(DC[run]);
+            else if ($A.isArray(DC[run]))
+              Array.prototype.push.apply(toGet, DC[run]);
+          }
+        },
+        fns = [
+          "jsOnce" + type,
+          "once" + type,
+          "js" + type,
+          type[0].toLowerCase() + type.slice(1)
+        ];
+      if (dc.reverseJSOrder) fns = fns.reverse();
+
+      var lp = function(mDC) {
+        $A.loop(
+          fns,
+          function(i, f) {
+            rn(f, f.toLowerCase().indexOf("once") !== -1, mDC);
+          },
+          "array"
+        );
+      };
+
+      lp(dc);
+      if (dc.allowCascade) {
+        lp(dc.fn.proto);
+        lp($A.fn.globalDC);
+      }
+      if ($A.isFn(next)) toRun.push(next);
+
+      var cont = function() {
+        $A.loop(
+          toRun,
+          function(i, r) {
+            r(dc, dc.container);
+          },
+          "array"
+        );
+      };
+
+      if (toGet.length)
+        $A.import(toGet, {
+          props: {
+            DC: dc
+          },
+          call: function() {
+            cont();
+          }
+        });
+      else cont();
+
+      return dc;
+    },
+
     toDC: function(o, config) {
       if (this._4X) {
         config = o;
@@ -379,8 +444,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       }
       if (!$A.isPlainObject(config)) config = {};
       if (o) o = $A.morph(o);
-      var ctrl = $A.isDOMNode(o) && $A.getAttr(o, "data-controls"),
-        alone = false;
+      var ctrl = $A.isDOMNode(o) && $A.getAttr(o, "data-controls");
 
       if (config.fetch && config.fetch.url) config.mode = 1;
 
@@ -402,14 +466,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         config.trigger = o;
         if (!config.id && o.id) config.id = o.id;
       } else if ($A.isDOMNode(o)) {
-        config.content = o;
         if (!config.id && o.id) config.id = o.id;
-        alone = true;
+        config.content = o;
       }
 
       var rendered = $A.isBool(config.isRendered)
         ? config.isRendered
-        : alone && $A.isWithin(config.content) && !$A.isHidden(config.content);
+        : !$A.isHidden(config.content);
 
       if (rendered && !config.root) {
         if ($A.isDOMNode($A.next(config.content))) {
@@ -425,12 +488,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         config.loaded = true;
       }
 
-      if (!config.isRendered) config.isRendered = rendered;
+      config.isRendered = rendered;
 
       config.widgetType =
         config.widgetType || $A.getAttr(o, "data-widget-type") || null;
 
-      return $A([
+      var DC = $A([
         $A.extend(
           true,
           {
@@ -443,6 +506,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           config
         )
       ])[0];
+
+      if (rendered && DC.loaded && $A.isDOMNode(DC.content)) {
+        if (!DC.content.id) DC.content.id = $A.genId();
+        DC.wrapper = DC.container = DC.content;
+        DC.wrapperId = DC.containerId = DC.content.id;
+      }
+
+      return DC;
     },
 
     _store: function(f, arrayOnly) {
@@ -2001,7 +2072,7 @@ error: function(error, promise){}
       if ($A.isDC(id)) r = id;
       else r = $A.reg.get(id);
       if (!$A.isDC(id)) return false;
-      var a = r.outerNode,
+      var a = r.wrapper,
         c = r.container;
       if (p && r.loaded) {
         if (r.contentOnly) {
@@ -2013,7 +2084,7 @@ error: function(error, promise){}
         var aD = r.afterDestroy;
         if ($A.isFn(r.beforeDestroy)) r.beforeDestroy(r);
         $A.removeData(r.id);
-        r.id = r.outerNode = r.container = a = c = null;
+        r.id = r.wrapper = r.container = a = c = null;
         if (r.widgetType && r.autoCloseWidget) {
           var wtI = $A._widgetTypes.indexOf(r.id);
           if (wtI !== -1) {
@@ -2456,11 +2527,11 @@ error: function(error, promise){}
       var autoPosition = posVal || dc.autoPosition,
         pos = {},
         aPos = {
-          height: $A.elementHeight(dc.outerNode),
-          width: $A.elementWidth(dc.outerNode)
+          height: $A.elementHeight(dc.wrapper),
+          width: $A.elementWidth(dc.wrapper)
         },
         oPos = $A.offset(obj),
-        position = $A.css(dc.outerNode, "position");
+        position = $A.css(dc.wrapper, "position");
       if (position === "absolute" && $A.css(obj, "position") !== "fixed")
         oPos = $A.offset(obj, true);
       if (autoPosition === 1) {
@@ -2504,7 +2575,7 @@ error: function(error, promise){}
         pos.top += dc.offsetTop;
       if ($A.isNum(dc.offsetLeft) && (dc.offsetLeft < 0 || dc.offsetLeft > 0))
         pos.left += dc.offsetLeft;
-      $A.css(dc.outerNode, pos);
+      $A.css(dc.wrapper, pos);
     },
 
     getWindow: function(w) {
@@ -2916,26 +2987,15 @@ error: function(error, promise){}
       return false;
     },
 
-    isHidden: function(node) {
+    isHidden: function(o) {
       if (this._4X) {
-        node = this._X;
+        o = this._X;
       }
-      var hidden = function(node) {
-        if (!$A.isDOMNode(node)) return false;
-        else if (node.hidden || node.getAttribute("hidden")) return true;
-        else {
-          var style = $A._getStyleObject(node);
-          return (
-            style["display"] === "none" || style["visibility"] === "hidden"
-          );
-        }
-      };
-      var n = node;
-      while ($A.isDOMNode(n)) {
-        if (hidden(n)) return true;
-        n = n.parentNode;
-      }
-      return false;
+      return $A.isDOMNode(o) &&
+        (!(o.offsetHeight + o.offsetWidth) ||
+          $A.css(o, "visibility") === "hidden")
+        ? true
+        : false;
     },
 
     isWithin: function(node, container) {
@@ -3157,75 +3217,6 @@ error: function(error, promise){}
           }
           return dc;
         },
-        parseScripts = function(DC, type, next) {
-          var dc = WL[DC.indexVal],
-            toGet = [],
-            toRun = [],
-            rn = function(typ, isOnce, DC) {
-              var ran = typ + "Ran",
-                run = typ;
-              if (
-                !$A.isFn(DC[run]) &&
-                !$A.isStr(DC[run]) &&
-                !$A.isArray(DC[run])
-              )
-                return;
-              if (!isOnce || (isOnce && !DC[ran])) {
-                if (isOnce && !DC[ran]) DC[ran] = true;
-                if ($A.isFn(DC[run])) toRun.push(DC[run]);
-                else if ($A.isStr(DC[run])) toGet.push(DC[run]);
-                else if ($A.isArray(DC[run]))
-                  Array.prototype.push.apply(toGet, DC[run]);
-              }
-            },
-            fns = [
-              "jsOnce" + type,
-              "once" + type,
-              "js" + type,
-              type[0].toLowerCase() + type.slice(1)
-            ];
-          if (dc.reverseJSOrder) fns = fns.reverse();
-
-          var lp = function(mDC) {
-            $A.loop(
-              fns,
-              function(i, f) {
-                rn(f, f.toLowerCase().indexOf("once") !== -1, mDC);
-              },
-              "array"
-            );
-          };
-
-          lp(dc);
-          if (dc.allowCascade) {
-            lp(dc.fn.proto);
-            lp($A.fn.globalDC);
-          }
-          if ($A.isFn(next)) toRun.push(next);
-
-          var cont = function() {
-            $A.loop(
-              toRun,
-              function(i, r) {
-                r(dc, dc.container);
-              },
-              "array"
-            );
-          };
-
-          if (toGet.length)
-            $A.import(toGet, {
-              props: {
-                DC: dc
-              },
-              call: function() {
-                cont();
-              }
-            });
-          else cont();
-
-          return dc;
-        },
         checkWT = function(dc) {
           var dc = WL[DC.indexVal],
             w = 0,
@@ -3284,11 +3275,11 @@ error: function(error, promise){}
           checkWT(dc);
           dc.cancel = false;
           dc.fn.baseId = $A.genId();
-          dc.outerNodeId = dc.fn.baseId + "ON";
+          dc.wrapperId = dc.fn.baseId + "ON";
           dc.containerId = dc.fn.baseId + "IN";
 
           $A.getModule(dc, "beforeRender", dc.container);
-          parseScripts(dc, "BeforeRender", DCR2);
+          $A._parseDCScripts(dc, "BeforeRender", DCR2);
 
           return dc;
         },
@@ -3376,13 +3367,13 @@ error: function(error, promise){}
           } else dc.contentOnly = true;
 
           if (!dc.contentOnly) {
-            dc.outerNode = $A.create("div", {
-              id: dc.outerNodeId
+            dc.wrapper = $A.create("div", {
+              id: dc.wrapperId
             });
             dc.container = $A.create("div", {
               id: dc.containerId
             });
-            dc.outerNode.appendChild(dc.container);
+            dc.wrapper.appendChild(dc.container);
             if ($A.isStr(dc.content) && $A.isMarkup(dc.content))
               $A.insertMarkup(dc.content, dc.container);
             else $A.insert(dc.content, dc.container, null, true);
@@ -3391,9 +3382,9 @@ error: function(error, promise){}
           } else {
             dc.content = $A.morph(dc.content);
             if (!dc.toggleHide) dc.content = $A._check(dc.content, true);
-            dc.outerNode = dc.container = dc.content;
+            dc.wrapper = dc.container = dc.content;
             if (!dc.content.id) dc.content.id = dc.fn.baseId;
-            dc.outerNodeId = dc.containerId = dc.content.id;
+            dc.wrapperId = dc.containerId = dc.content.id;
             if (!dc.toggleHide && dc.content.hidden) dc.content.hidden = false;
           }
 
@@ -3418,11 +3409,11 @@ error: function(error, promise){}
               );
             }
 
-            if (dc.fn.style) $A.prepend(dc.fn.style, dc.outerNode);
+            if (dc.fn.style) $A.prepend(dc.fn.style, dc.wrapper);
 
             if (dc.className) dc.addClass(dc.className);
             if (dc.displayInline)
-              $A.css([dc.outerNode, dc.container], "display", "inline");
+              $A.css([dc.wrapper, dc.container], "display", "inline");
           }
 
           if (dc.style) dc.css(dc.style);
@@ -3447,15 +3438,15 @@ error: function(error, promise){}
 
           if (dc.ariaLabelledby && dc.triggerNode) {
             if (!dc.triggerNode.id) dc.triggerNode.id = $A.genId();
-            $A.addIdRef(dc.outerNode, "aria-labelledby", dc.triggerNode.id);
+            $A.addIdRef(dc.wrapper, "aria-labelledby", dc.triggerNode.id);
           } else if (dc.role) dc.setAttr("aria-label", dc.role);
 
           if (dc.ariaControls && dc.triggerNode) {
-            $A.setAttr(dc.triggerNode, "aria-controls", dc.outerNodeId);
+            $A.setAttr(dc.triggerNode, "aria-controls", dc.wrapperId);
           }
 
           $A.getModule(dc, "duringRender", dc.container);
-          parseScripts(dc, "DuringRender", DCR4);
+          $A._parseDCScripts(dc, "DuringRender", DCR4);
 
           return dc;
         },
@@ -3479,46 +3470,48 @@ error: function(error, promise){}
 
                 if (dc.before) {
                   if ($A.isFn(dc.before))
-                    dc.before.apply(dc, [dc.outerNode, dc.root]);
-                  else $A.before(dc.outerNode, dc.root);
+                    dc.before.apply(dc, [dc.wrapper, dc.root]);
+                  else $A.before(dc.wrapper, dc.root);
                 } else if (dc.prepend) {
                   if ($A.isFn(dc.prepend))
-                    dc.prepend.apply(dc, [dc.outerNode, dc.root]);
+                    dc.prepend.apply(dc, [dc.wrapper, dc.root]);
                   else {
                     try {
-                      $A.prepend(dc.outerNode, dc.root);
+                      $A.prepend(dc.wrapper, dc.root);
                     } catch (e) {
-                      $A.before(dc.outerNode, dc.root);
+                      $A.before(dc.wrapper, dc.root);
                     }
                   }
                 } else if (dc.append) {
                   if ($A.isFn(dc.append))
-                    dc.append.apply(dc, [dc.outerNode, dc.root]);
+                    dc.append.apply(dc, [dc.wrapper, dc.root]);
                   else {
                     try {
-                      $A.append(dc.outerNode, dc.root);
+                      $A.append(dc.wrapper, dc.root);
                     } catch (e) {
-                      $A.after(dc.outerNode, dc.root);
+                      $A.after(dc.wrapper, dc.root);
                     }
                   }
                 } else if (dc.after) {
                   if ($A.isFn(dc.after))
-                    dc.after.apply(dc, [dc.outerNode, dc.root]);
-                  else $A.after(dc.outerNode, dc.root);
+                    dc.after.apply(dc, [dc.wrapper, dc.root]);
+                  else $A.after(dc.wrapper, dc.root);
                 } else {
-                  $A.insert(dc.outerNode, dc.root, null, true);
+                  $A.insert(dc.wrapper, dc.root, null, true);
                 }
               } else if (dc.targetObj)
-                $A._insertAfter(dc.outerNode, dc.targetObj);
+                $A._insertAfter(dc.wrapper, dc.targetObj);
               else if (dc.triggerNode)
-                $A._insertAfter(dc.outerNode, dc.triggerNode);
+                $A._insertAfter(dc.wrapper, dc.triggerNode);
             }
           } else {
             dc.container.hidden = false;
             dc.storeData = true;
           }
 
+          dc.fn.wasRendered = dc.isRendered;
           dc.isRendered = true;
+
           if (!dc.storeData) {
             if (dc.contentOnly) dc.content = dc.container.cloneNode(true);
             else dc.content = $A.cloneNodes(dc.container);
@@ -3548,7 +3541,7 @@ error: function(error, promise){}
                 dc.closeClassName
               );
               dc.fn.closeLink.innerHTML = dc.hiddenCloseName;
-              $A.append(dc.fn.closeLink, dc.outerNode);
+              $A.append(dc.fn.closeLink, dc.wrapper);
               $A.on(dc.fn.closeLink, {
                 click: function(ev) {
                   dc.remove();
@@ -3577,10 +3570,10 @@ error: function(error, promise){}
                 ev.preventDefault();
               });
             });
-            $A.data(dc.outerNode, "DC-O", dc);
+            $A.data(dc.wrapper, "DC-O", dc);
             if (dc.escToClose) {
-              if (dc.toggleHide) $A.off(dc.outerNode, "keydown.esctoclose");
-              $A.on(dc.outerNode, "keydown.esctoclose", function(ev) {
+              if (dc.toggleHide) $A.off(dc.wrapper, "keydown.esctoclose");
+              $A.on(dc.wrapper, "keydown.esctoclose", function(ev) {
                 var k = $A.keyEvent(ev);
                 if (k === 27) {
                   dc.remove();
@@ -3601,14 +3594,14 @@ error: function(error, promise){}
               function(i, e) {
                 if ($A.isFn(dc[e])) {
                   toBind[e.toLowerCase().replace(/^on/, "")] = function(ev) {
-                    dc[e].apply(dc.outerNode, [ev, dc]);
+                    dc[e].apply(dc.wrapper, [ev, dc]);
                   };
                 }
               },
               "array"
             );
-            if (dc.toggleHide) $A.off(dc.outerNode, ".extradchandlers4x");
-            $A.on(dc.outerNode, toBind, dc.id, ".extradchandlers4x");
+            if (dc.toggleHide) $A.off(dc.wrapper, ".extradchandlers4x");
+            $A.on(dc.wrapper, toBind, dc.id, ".extradchandlers4x");
             dc.loading = false;
             dc.loaded = true;
             if (dc.isTab || dc.isToggle) changeTabs(dc);
@@ -3622,7 +3615,7 @@ error: function(error, promise){}
               );
             }
             $A.getModule(dc, "afterRender", dc.container);
-            parseScripts(dc, "AfterRender", function() {
+            $A._parseDCScripts(dc, "AfterRender", function() {
               if (dc.scrollIntoView) {
                 if ($A.isFn(dc.scrollIntoView))
                   dc.scrollIntoView.call(dc.container, dc, dc.container);
@@ -3649,8 +3642,12 @@ error: function(error, promise){}
             });
           };
 
-          if (dc.animate && $A.isFn(dc.animate.onRender)) {
-            dc.animate.onRender.call(dc.outerNode, dc, dc.outerNode, complete);
+          if (
+            !dc.fn.wasRendered &&
+            dc.animate &&
+            $A.isFn(dc.animate.onRender)
+          ) {
+            dc.animate.onRender.call(dc.wrapper, dc, dc.wrapper, complete);
           } else complete();
 
           return dc;
@@ -3662,7 +3659,7 @@ error: function(error, promise){}
           dc.cancel = false;
 
           $A.getModule(dc, "beforeRemove", dc.container);
-          parseScripts(dc, "BeforeRemove", function() {
+          $A._parseDCScripts(dc, "BeforeRemove", function() {
             if (!dc.loaded || dc.lock || dc.cancel) {
               dc.closing = dc.cancel = false;
               return dc;
@@ -3679,13 +3676,13 @@ error: function(error, promise){}
                     dc.content = dc.container.parentNode.removeChild(
                       dc.container
                     );
-                  dc.outerNode = dc.container = null;
+                  dc.wrapper = dc.container = null;
                 } else dc.content = $A.extractNodes(dc.container);
-                if ($A.isDOMNode(dc.outerNode)) $A.empty(dc.outerNode, true);
+                if ($A.isDOMNode(dc.wrapper)) $A.empty(dc.wrapper, true);
               } else {
                 dc.content = dc.container;
                 dc.content.hidden = true;
-                dc.outerNode = dc.container = null;
+                dc.wrapper = dc.container = null;
               }
               dc.isRendered = false;
               dc.loaded = false;
@@ -3693,7 +3690,7 @@ error: function(error, promise){}
               if (dc.isTab || dc.isToggle) changeTabs(dc, true);
               dc.closing = false;
               $A.getModule(dc, "afterRemove", dc.container);
-              parseScripts(dc, "AfterRemove", function() {
+              $A._parseDCScripts(dc, "AfterRemove", function() {
                 if (!dc.fn.bypass) {
                   if (dc.returnFocus && dc.triggerNode && !dc.rerouteFocus) {
                     $A.focus(dc.triggerNode);
@@ -3710,12 +3707,7 @@ error: function(error, promise){}
             };
 
             if (dc.animate && $A.isFn(dc.animate.onRemove)) {
-              dc.animate.onRemove.call(
-                dc.outerNode,
-                dc,
-                dc.outerNode,
-                complete
-              );
+              dc.animate.onRemove.call(dc.wrapper, dc, dc.wrapper, complete);
             } else complete();
           });
 
@@ -3797,7 +3789,7 @@ error: function(error, promise){}
             default:
               cs = dc.style;
           }
-          $A.css(dc.outerNode, cs);
+          $A.css(dc.wrapper, cs);
           return dc;
         },
         sizeAutoFix = function(DC) {
@@ -3806,8 +3798,8 @@ error: function(error, promise){}
           var win = $A.getWindow();
           var bodyW = win.width,
             bodyH = win.height,
-            aW = $A.elementWidth(dc.outerNode),
-            aH = $A.elementHeight(dc.outerNode);
+            aW = $A.elementWidth(dc.wrapper),
+            aH = $A.elementHeight(dc.wrapper);
           var npw = 50;
           if (bodyW > aW) npw = parseInt(((aW / bodyW) * 100) / 2, 10);
           var nph = 50;
@@ -3815,14 +3807,14 @@ error: function(error, promise){}
           switch (dc.autoFix) {
             case 1:
             case 5:
-              $A.css(dc.outerNode, "left", 50 - npw + "%");
+              $A.css(dc.wrapper, "left", 50 - npw + "%");
               break;
             case 3:
             case 7:
-              $A.css(dc.outerNode, "top", 50 - nph + "%");
+              $A.css(dc.wrapper, "top", 50 - nph + "%");
               break;
             case 9:
-              $A.css(dc.outerNode, {
+              $A.css(dc.wrapper, {
                 left: 50 - npw + "%",
                 top: 50 - nph + "%"
               });
@@ -3835,10 +3827,10 @@ error: function(error, promise){}
             dc.offsetLeft < 0 ||
             dc.offsetLeft > 0
           ) {
-            var cs = $A.offset(dc.outerNode);
+            var cs = $A.offset(dc.wrapper);
             cs.top += dc.offsetTop;
             cs.left += dc.offsetLeft;
-            $A.css(dc.outerNode, cs);
+            $A.css(dc.wrapper, cs);
           }
           return dc;
         },
@@ -3946,13 +3938,13 @@ error: function(error, promise){}
 
         setOffScreen: function() {
           var dc = this;
-          $A.setOffScreen(dc.outerNode);
+          $A.setOffScreen(dc.wrapper);
           return dc;
         },
 
         clearOffScreen: function() {
           var dc = this;
-          $A.clearOffScreen(dc.outerNode);
+          $A.clearOffScreen(dc.wrapper);
           return dc;
         },
 
@@ -3967,7 +3959,7 @@ error: function(error, promise){}
         offset: function(forceAbsolute, forceRelative, returnTopLeftOnly) {
           var dc = this;
           return $A.offset(
-            dc.outerNode,
+            dc.wrapper,
             forceAbsolute,
             forceRelative,
             returnTopLeftOnly
@@ -4026,43 +4018,43 @@ error: function(error, promise){}
 
         getAttr: function(n) {
           var dc = this;
-          return $A.getAttr(dc.outerNode, n);
+          return $A.getAttr(dc.wrapper, n);
         },
         hasAttr: function(n) {
           var dc = this;
-          return $A.hasAttr(dc.outerNode, n);
+          return $A.hasAttr(dc.wrapper, n);
         },
         remAttr: function(n) {
           var dc = this;
-          $A.remAttr(dc.outerNode, n);
+          $A.remAttr(dc.wrapper, n);
           return dc;
         },
         setAttr: function(n, v) {
           var dc = this;
-          $A.setAttr(dc.outerNode, n, v);
+          $A.setAttr(dc.wrapper, n, v);
           return dc;
         },
 
         hasClass: function(cn) {
           var dc = this;
-          return $A.hasClass(dc.outerNode, cn);
+          return $A.hasClass(dc.wrapper, cn);
         },
 
         addClass: function(cn) {
           var dc = this;
-          $A.addClass(dc.outerNode, cn);
+          $A.addClass(dc.wrapper, cn);
           return dc;
         },
 
         remClass: function(cn) {
           var dc = this;
-          $A.remClass(dc.outerNode, cn);
+          $A.remClass(dc.wrapper, cn);
           return dc;
         },
 
         toggleClass: function(cn, isTrue, fn) {
           var dc = this;
-          $A.toggleClass(dc.outerNode, cn, isTrue, fn);
+          $A.toggleClass(dc.wrapper, cn, isTrue, fn);
           return dc;
         },
 
@@ -4406,13 +4398,13 @@ error: function(error, promise){}
             val = null;
           }
           if ($A.isStr(prop) && !$A.isStr(val) && !$A.isNum(val)) {
-            return $A.css(dc.outerNode, prop);
+            return $A.css(dc.wrapper, prop);
           } else if (prop && $A.isStr(prop) && mergeCSS) {
             dc.style[prop] = val;
           } else if (prop && typeof prop === "object" && mergeCSS) {
             $A.extend(dc.style, prop);
           }
-          $A.css(dc.outerNode, prop, val);
+          $A.css(dc.wrapper, prop, val);
           return dc;
         },
 

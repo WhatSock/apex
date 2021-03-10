@@ -6,566 +6,848 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
   */
 
 (function() {
-  if (!("Listbox" in $A)) {
+  if (!("setListbox" in $A)) {
     $A.import("RovingTabIndex", {
-      name: "ListBoxModule",
+      name: "ListboxModule",
       props: props,
       once: true,
       call: function(props) {
+        var isIE = $A.isIE();
+
+        $A.addWidgetProfile("Listbox", {
+          configure: function(dc) {
+            return {
+              preload: true,
+              preloadImages: true,
+              preloadCSS: true,
+              className: "aria-listbox",
+              storeData: true
+            };
+          },
+          afterRender: function(dc) {
+            dc.update();
+            $A.loop(
+              dc.RTI.nodes,
+              function(i, o) {
+                dc.getState(
+                  o,
+                  $A.getAttr(o, "aria-checked"),
+                  $A.hasAttr(o, "aria-checked"),
+                  false,
+                  dc.RTI.nodes
+                );
+              },
+              "array"
+            );
+          }
+        });
+
         $A.extend({
-          Listbox: function(config) {
-            var config = config || {},
-              that = this;
+          setListbox: function(o, config) {
+            if (this._4X) {
+              config = o;
+              o = this._X;
+            }
 
-            that.grabText = config.grabText || "Grabbable";
-            that.grabbedText = config.grabbedText || "Grabbed";
-            that.dropText = config.dropText || "Droppable";
+            if ($A.isPlainObject(o)) {
+              config = o;
+              o = config.select || config.listbox || null;
+            }
+            if (!o) return null;
+            config = config || {};
 
-            that.selectText = config.selectText || "Selected";
-            that.unselectText = config.unselectText || "Not Selected";
-
-            that.parentTag =
-              config.parentTag || '<ul class="aria-listbox"></ul>';
-            that.childTag =
-              config.childTag ||
-              '<li role="none"><a href="#"><span class="lbl">{OPTION-TEXT}</span></a></li>';
-            that.activeElementSelector =
-              config.activeElementSelector || "a[href]";
-            that.toggleClass = config.toggleClass || "selected";
-
-            that.update = function() {
-              that.optionNodes = that.select.nodeType
-                ? that.select.querySelectorAll("option")
-                : [];
-              that.options = [];
-              if (that.select.nodeType) {
-                $A.empty(that.listbox);
-                $A.loop(
-                  that.optionNodes,
-                  function(i, o) {
-                    var name = $A.getText(o),
-                      c = that.childTag.replace("{OPTION-TEXT}", name);
-                    c = $A.toNode(c, true);
-                    var a = c.querySelector(that.activeElementSelector);
-                    $A.data(a, "_Index", i);
-                    $A.bindObjects(a, o);
-                    that.options.push(a);
-                    $A.append(c, that.listbox);
+            var tag = $A.extend(
+                true,
+                {
+                  parent: "ul",
+                  child: "button",
+                  parse: function(ref) {
+                    return ref.querySelectorAll(tag.child);
                   },
-                  "array"
+                  build: {
+                    parent: '<ul class="aria-listbox"></ul>',
+                    child:
+                      '<li><button><span class="lbl">{OPTION-TEXT}</span></button></li>'
+                  }
+                },
+                config.tag || {}
+              ),
+              getState = function(
+                o,
+                attributeValue,
+                hasAttribute,
+                write,
+                nodes
+              ) {
+                var s = $A.data(o, "check");
+                if (!hasAttribute && !$A.isNum(s)) return false;
+                if (hasAttribute) {
+                  var c = 0;
+                  if (attributeValue === "true") c = 1;
+                  else if (attributeValue === "mixed") c = 2;
+                  else attributeValue = "false";
+                  $A.data(o, "check", c);
+                  if (write) {
+                    $A.setAttr(o, "aria-checked", attributeValue);
+                  }
+                  return c;
+                }
+                return s;
+              },
+              genListbox = function(ref) {
+                if (!$A.isDOMNode(ref)) return;
+                if (!ref.id) ref.id = $A.genId();
+
+                if (isIE)
+                  $A.query("svg", ref, function(i, o) {
+                    $A.setAttr(o, "focusable", "false");
+                  });
+
+                DC = $A.toDC(
+                  $A.extend(
+                    {
+                      content: ref,
+                      trigger: init.select,
+                      on: {},
+                      widgetType: "Listbox",
+                      toggleHide: true,
+                      getState: getState
+                    },
+                    config
+                  )
                 );
-              } else {
-                that.options = that.listbox.querySelectorAll(
-                  that.activeElementSelector
-                );
-                $A.loop(
-                  that.options,
-                  function(i, o) {
-                    $A.data(o, "_Index", i);
-                  },
-                  "array"
-                );
-              }
-              that.setFlags();
-              that.setListbox();
-              that.setRoles();
-              that.setEvents();
-              that.setSelected();
-            };
 
-            that.setRoles = function() {
-              $A.remAttr(
-                that.listbox.querySelectorAll(
-                  '*[role="listbox"], *[role="option"]'
-                ),
-                "role"
-              );
-              $A.setAttr(that.listbox, "role", "listbox");
-              $A.setAttr(that.options, "role", "option");
-              that.check(that.options);
-              that.setGrab();
-            };
-
-            that.setFlags = function() {
-              var select = that.select.nodeType ? that.select : config;
-              that.multiple = select.multiple ? true : false;
-              that.required = select.required ? true : false;
-              that.disabled = select.disabled ? true : false;
-              that.checkable = config.checkable ? true : false;
-              that.sortable = config.sortable ? true : false;
-              if (that.sortable) that.multiple = that.checkable = false;
-              if (that.checkable) that.multiple = false;
-            };
-
-            that.setListbox = function() {
-              if (that.multiple)
-                $A.setAttr(that.listbox, "aria-multiselectable", "true");
-              if (that.required)
-                $A.setAttr(that.listbox, "aria-required", "true");
-              if (that.disabled)
-                $A.setAttr(that.listbox, "aria-disabled", "true");
-              $A.setAttr(
-                that.listbox,
-                "aria-label",
-                config.label ||
-                  (that.select.nodeType
-                    ? $A.getAccName
-                      ? $A.getAccName(that.select).name
-                      : ""
-                    : "")
-              );
-            };
-
-            that.setSelected = function() {
-              if (that.select.nodeType) {
-                $A.loop(
-                  that.optionNodes,
-                  function(i, o) {
-                    that.toggleSelect(
-                      $A.boundTo(o),
-                      o.selected ? true : false,
-                      false,
-                      that.multiple,
-                      true
+                init.update();
+              },
+              DC = null,
+              init = {
+                update: function() {
+                  init.optionNodes = init.select.nodeType
+                    ? init.select.querySelectorAll("option")
+                    : [];
+                  init.options = [];
+                  if (init.select.nodeType) {
+                    $A.empty(init.listbox);
+                    $A.loop(
+                      init.optionNodes,
+                      function(i, o) {
+                        var name = $A.getText(o),
+                          c = tag.build.child.replace("{OPTION-TEXT}", name);
+                        c = $A.toNode(c, true);
+                        var a = c.querySelector(tag.child);
+                        if ($A.isDOMNode(a)) {
+                          $A.bindObjects(a, o);
+                          init.options.push(a);
+                          $A.append(c, init.listbox);
+                          $A(a).on(
+                            "attributeChange",
+                            function(
+                              MutationObject,
+                              o,
+                              attributeName,
+                              attributeValue,
+                              attributePriorValue,
+                              boundNode,
+                              SavedData
+                            ) {
+                              if (attributeName === "aria-checked") {
+                                getState(o, attributeValue, true);
+                              } else if (attributeName === "aria-selected") {
+                                $A.data(
+                                  o,
+                                  "_Selected",
+                                  attributeValue === "true"
+                                );
+                                if (
+                                  boundNode &&
+                                  $A.data(o, "_Selected") !==
+                                    (boundNode.selected ? true : false)
+                                ) {
+                                  boundNode.selected = $A.data(o, "_Selected");
+                                }
+                              }
+                            },
+                            {
+                              attributeFilter: ["aria-checked", "aria-selected"]
+                            }
+                          );
+                        }
+                      },
+                      "array"
                     );
-                  },
-                  "array"
-                );
-              }
-            };
-
-            that.setEvents = function() {
-              if (that.RTI) that.RTI.off();
-              if (that.disabled) return;
-              var x = 0,
-                n = that.listbox.querySelector(
-                  '*[role="option"][aria-selected="true"]'
-                );
-              if ($A.isDOMNode(n)) x = $A.data(n, "_Index");
-              that.RTI = new $A.RovingTabIndex(
-                $A.extend(
-                  {
-                    container: that.listbox,
-                    nodes: that.options,
-                    orientation: $A.isNum(config.orientation)
-                      ? config.orientation
-                      : 2,
-                    autoSwitch:
-                      [].indexOf(config.autoSwitch) !== -1
-                        ? config.autoSwitch
-                        : "off",
-                    autoLoop: false,
-                    startIndex: x
-                  },
-                  {
-                    onShiftUp: function(ev, option, RTI, DC) {
-                      if (that.multiple) {
-                        that.toggleSelect(option, true);
-                      }
-                      ev.preventDefault();
-                    },
-                    onShiftDown: function(ev, option, RTI, DC) {
-                      if (that.multiple) {
-                        that.toggleSelect(option, true);
-                      }
-                      ev.preventDefault();
-                    },
-
-                    onCtrlShiftUp: function(ev, option, RTI, DC) {
-                      that.RTI["onShiftUp"].call(
-                        this,
-                        event,
-                        option,
-                        RTI,
-                        DC,
-                        pressed
-                      );
-                      ev.preventDefault();
-                    },
-                    onCtrlShiftDown: function(ev, option, RTI, DC) {
-                      that.RTI["onShiftDown"].call(
-                        this,
-                        event,
-                        option,
-                        RTI,
-                        DC,
-                        pressed
-                      );
-                      ev.preventDefault();
-                    },
-
-                    onShiftEnd: function(ev, option, RTI, DC) {
-                      if (that.multiple) {
-                        var s = that.options.slice($A.data(option, "_Index"));
-                        $A.loop(
-                          s,
-                          function(i, o) {
-                            that.toggleSelect(o, true);
-                          },
-                          "array"
-                        );
-                      }
-                      ev.preventDefault();
-                    },
-                    onShiftHome: function(ev, option, RTI, DC) {
-                      if (that.multiple) {
-                        var s = that.options.slice(
-                          0,
-                          $A.data(option, "_Index") + 1
-                        );
-                        $A.loop(
-                          s,
-                          function(i, o) {
-                            that.toggleSelect(o, true);
-                          },
-                          "array"
-                        );
-                      }
-                      ev.preventDefault();
-                    },
-
-                    onCtrlShiftEnd: function(ev, option, RTI, DC) {
-                      that.RTI["onShiftEnd"].call(
-                        this,
-                        event,
-                        option,
-                        RTI,
-                        DC,
-                        pressed
-                      );
-                      ev.preventDefault();
-                    },
-                    onCtrlShiftHome: function(ev, option, RTI, DC) {
-                      that.RTI["onShiftHome"].call(
-                        this,
-                        event,
-                        option,
-                        RTI,
-                        DC,
-                        pressed
-                      );
-                      ev.preventDefault();
-                    },
-
-                    onPageUp: function(ev, option, RTI, DC) {
-                      var d = Math.round(that.options.length * 0.1);
-                      if (!d) d = 1;
-                      var i = that.index - d;
-                      if (i < 0) i = 0;
-                      that.RTI.focus(i);
-                      ev.preventDefault();
-                    },
-                    onPageDown: function(ev, option, RTI, DC) {
-                      var d = Math.round(that.options.length * 0.1);
-                      if (!d) d = 1;
-                      var i = that.index + d;
-                      if (i >= that.options.length) i = that.options.length - 1;
-                      that.RTI.focus(i);
-                      ev.preventDefault();
-                    },
-
-                    onSpace: function(ev, option, RTI, DC) {
-                      that.RTI.onClick.call(
-                        this,
-                        event,
-                        option,
-                        RTI,
-                        DC,
-                        pressed
-                      );
-                      if ($A.isIE()) {
-                        setTimeout(function() {
-                          $A.announce($A.getAttr(option, "aria-description"));
-                        }, 1);
-                      }
-                      ev.preventDefault();
-                    },
-                    onCtrlSpace: function(ev, option, RTI, DC) {
-                      that.toggleSelect(option);
-                      if ($A.isIE()) {
-                        setTimeout(function() {
-                          $A.announce($A.getAttr(option, "aria-description"));
-                        }, 1);
-                      }
-                      ev.preventDefault();
-                    },
-                    onCtrlShiftSpace: function(
-                      event,
-                      option,
-                      RTI,
-                      DC,
-                      pressed
-                    ) {
+                    $A.on(init.select, "change", function(ev) {
+                      var ix = -1;
                       $A.loop(
-                        that.options,
+                        init.optionNodes,
                         function(i, o) {
-                          that.toggleSelect(o, false);
+                          init.toggleSelect(
+                            $A.boundTo(o),
+                            o.selected ? true : false,
+                            false,
+                            init.multiple,
+                            true
+                          );
+                          if (ix < 0 && o.selected) ix = i;
                         },
                         "array"
                       );
-                      if (that.checkable) that.check(that.options, "false");
-                      if (that.sortable) {
-                        that.toggleGrab.grabbed = undefined;
-                        that.setGrab();
+                      DC.RTI.activate(ix >= 0 ? ix : 0);
+                    });
+                  } else init.options = tag.parse(init.listbox);
+                  $A.loop(
+                    init.options,
+                    function(i, o) {
+                      var check = getState(
+                        o,
+                        $A.getAttr(o, "check"),
+                        init.checkable || $A.hasAttr(o, "check")
+                      );
+                      if (check !== false) {
+                        var c = "false";
+                        if (check === 1) c = "true";
+                        else if (check === 2) c = "mixed";
+                        $A.setAttr(o, {
+                          "aria-checked": c
+                        });
                       }
-                      if ($A.isIE()) {
-                        setTimeout(function() {
-                          $A.announce($A.getAttr(option, "aria-description"));
-                        }, 1);
-                      }
-                      ev.preventDefault();
+                      var select =
+                        $A.hasAttr(o, "select") ||
+                        ($A.isDOMNode($A.boundTo(o)) && $A.boundTo(o).selected);
+                      $A.setAttr(o, "aria-selected", select ? "true" : "false");
+                      $A.data(o, "_Selected", select);
+                      $A.closest(o, function(o) {
+                        if (o === init.listbox) return true;
+                        $A.setAttr(o, "role", "presentation");
+                      });
                     },
-
-                    onEsc: function(event, option, RTI, DC) {
-                      if (that.sortable) {
-                        that.toggleGrab.grabbed = undefined;
-                        that.setGrab();
-                      }
-                      if ($A.isIE()) {
-                        setTimeout(function() {
-                          $A.announce($A.getAttr(option, "aria-description"));
-                        }, 1);
-                      }
-                      ev.preventDefault();
-                    },
-
-                    onFocus: function(event, option, RTI, DC) {
-                      that.index = $A.data(option, "_Index");
-                      if (!that.multiple) that.toggleSelect(option, true);
-                      if ($A.isIE()) {
-                        setTimeout(function() {
-                          $A.announce($A.getAttr(option, "aria-description"));
-                        }, 1);
-                      }
-                    },
-
-                    onClick: function(ev, option, RTI, DC) {
-                      if (that.multiple) that.toggleSelect(option);
-                      else if (that.sortable) that.toggleGrab(option);
-                      ev.preventDefault();
-                    },
-
-                    onSelectAll: function(ev, option, RTI, DC) {
-                      if (that.multiple) {
-                        $A.loop(
-                          that.options,
-                          function(i, o) {
-                            that.toggleSelect(o, true);
-                          },
-                          "array"
-                        );
-                      }
-                      ev.preventDefault();
-                    }
-                  },
-                  config.handlers || {}
-                )
-              );
-              $A(that.listbox)
-                .setAttr("tabindex", "0")
-                .on("focus click", function(ev) {
-                  if (that.options.length) {
-                    that.RTI.focus();
-                    $A.setAttr(that.listbox, "tabindex", "-1");
+                    "array"
+                  );
+                  $A.updateDisabled(init.options);
+                  init.setFlags();
+                  init.setListbox();
+                  init.setRoles();
+                  init.setEvents();
+                  init.setSelected();
+                },
+                setFlags: function() {
+                  var select = init.select.nodeType ? init.select : config;
+                  init.multiple = select.multiple
+                    ? true
+                    : !init.select.nodeType &&
+                      init.listbox &&
+                      (config.multiselect ||
+                        $A.getAttr(init.listbox, "aria-multiselectable") ===
+                          "true");
+                  init.required = select.required ? true : false;
+                  init.disabled = select.disabled ? true : false;
+                  init.checkable = config.checkable ? true : false;
+                  init.sortable = config.sortable ? true : false;
+                  if (init.sortable) init.multiple = init.checkable = false;
+                  if (init.checkable) init.multiple = false;
+                },
+                setListbox: function() {
+                  if (init.multiple)
+                    $A.setAttr(init.listbox, "aria-multiselectable", "true");
+                  if (init.required)
+                    $A.setAttr(init.listbox, "aria-required", "true");
+                  if (init.disabled)
+                    $A.setAttr(init.listbox, "aria-disabled", "true");
+                  var hiddenName = "";
+                  if (init.select.nodeType && $A.isHidden(init.select)) {
+                    var tmp = init.select.cloneNode();
+                    tmp.hidden = false;
+                    hiddenName = $A.getAccName(tmp).name;
                   }
-                });
-            };
-
-            that.toggleSelect = function(o, state, skip, recur, fromOption) {
-              if (!recur && !that.multiple) {
-                $A.loop(
-                  that.listbox.querySelectorAll(
-                    '*[role="option"][aria-selected="true"]'
-                  ),
-                  function(i, O) {
-                    if (O !== o) that.toggleSelect(O, false, false, true);
-                  },
-                  "array"
-                );
-              }
-              if ($A.data(o, "_Index") >= 0) {
-                if (typeof state !== "boolean")
-                  state = $A.data(o, "_Selected") ? false : true;
-                $A.data(o, "_Selected", state);
-                if (fromOption) {
-                  that.RTI.activate($A.data(o, "_Index"));
-                }
-                $A.setAttr(o, "aria-selected", state ? "true" : "false");
-                if (that.multiple)
                   $A.setAttr(
-                    o,
-                    "aria-description",
-                    state ? that.selectText : that.unselectText
+                    init.listbox,
+                    "aria-label",
+                    config.label ||
+                      hiddenName ||
+                      (init.select.nodeType
+                        ? $A.getAccName
+                          ? $A.getAccName(init.select).name
+                          : ""
+                        : "")
                   );
-                $A.toggleClass(o, that.toggleClass, state, function(state) {
-                  if (!skip && $A.isFn(config.callback))
-                    config.callback.call(o, state, o);
-                });
-              }
-            };
-
-            that.setGrab = function(skip) {
-              if (that.sortable) {
-                $A.remAttr(that.options, [
-                  "aria-grabbed",
-                  "aria-dropeffect",
-                  "aria-description"
-                ]);
-                if (!skip)
-                  $A.setAttr(that.options, {
-                    "aria-grabbed": "false",
-                    "aria-description": that.grabText
-                  });
-              }
-            };
-
-            that.toggleGrab = function(o) {
-              if (that.sortable) {
-                that.setGrab(true);
-                if (!that.toggleGrab.grabbed) {
-                  that.toggleGrab.grabbed = o;
-                  $A.loop(
-                    that.options,
-                    function(i, n) {
-                      var a = {};
-                      if (n === o) {
-                        a["aria-grabbed"] = "true";
-                        a["aria-description"] = that.grabbedText;
-                      } else {
-                        a["aria-dropeffect"] = "move";
-                        a["aria-description"] = that.dropText;
-                      }
-                      $A.setAttr(n, a);
-                    },
-                    "array"
+                },
+                setRoles: function() {
+                  $A.remAttr(
+                    init.listbox.querySelectorAll(
+                      '*[role="listbox"], *[role="option"]'
+                    ),
+                    "role"
                   );
-                } else {
-                  var x = $A.data(o, "_Index");
-                  if (that.select.nodeType)
-                    $A.before(
-                      $A.boundTo(that.toggleGrab.grabbed),
-                      $A.boundTo(o)
+                  $A.setAttr(init.listbox, "role", "listbox");
+                  $A.setAttr(init.options, "role", "option");
+                  init.setGrab();
+                },
+                setSelected: function() {
+                  if (init.select.nodeType) {
+                    $A.loop(
+                      init.optionNodes,
+                      function(i, o) {
+                        init.toggleSelect(
+                          $A.boundTo(o),
+                          o.selected ? true : false,
+                          false,
+                          init.multiple,
+                          true
+                        );
+                      },
+                      "array"
                     );
-                  else $A.before(that.toggleGrab.grabbed, o);
-                  that.update();
-                  that.RTI.focus(that.select.nodeType ? x : o);
-                  that.toggleGrab.grabbed = undefined;
-                }
-              }
-            };
-
-            that.check = function(o, v) {
-              if (that.checkable) {
-                if ($A.isArray(o)) {
-                  for (var i = 0; i < o.length; i++) that.check(o[i], v);
-                  return;
-                }
-                var val = "false";
-                if (v === true || v === "true") val = "true";
-                else if (v === "mixed") val = "mixed";
-                $A.data(o, "_Checked", val);
-                $A.setAttr(o, "aria-checked", val);
-              }
-            };
-
-            that.checkValue = function(o) {
-              if (o && that.checkable) {
-                return $A.data(o, "_Checked");
-              } else if (that.select.nodeType) {
-                if (o) return $A.getAttr($A.boundTo(o), "value");
-                else {
-                  var s = [];
-                  $A.loop(
-                    that.optionNodes,
-                    function(i, n) {
-                      if (n.selected) s.push(n);
-                    },
-                    "array"
-                  );
-                  return s;
-                }
-              }
-              return that.listbox.querySelectorAll(
-                '*[role="option"][aria-selected="true"]'
-              );
-            };
-
-            that.select = config.select
-              ? $A.morph(config.select)
-              : { nodeType: false };
-            that.listbox = $A.morph(
-              config.listbox ? config.listbox : that.parentTag
-            );
-
-            that.update();
-
-            if (that.select.nodeType) {
-              $A(that.listbox).on(
-                "attributechange",
-                function(
-                  mutation,
-                  targetNode,
-                  attributeName,
-                  attributeValue,
-                  oldValue,
-                  boundNode
-                ) {
-                  if (
-                    $A.getAttr(targetNode, "role") === "option" &&
-                    boundNode &&
-                    $A.data(targetNode, "_Selected") !==
-                      (boundNode.selected ? true : false)
-                  ) {
-                    boundNode.selected = $A.data(targetNode, "_Selected");
                   }
                 },
+                setEvents: function() {
+                  if (DC.RTI) DC.RTI.off();
+                  if (DC.disabled) return;
+                  var x = 0,
+                    n = init.listbox.querySelector(
+                      '*[role="option"][aria-selected="true"]'
+                    );
+                  if ($A.isDOMNode(n)) x = $A.inArray(n, init.options) || 0;
+                  DC.RTI = new $A.RovingTabIndex(
+                    $A.extend(
+                      {
+                        container: init.listbox,
+                        nodes: init.options,
+                        orientation: $A.isNum(config.orientation)
+                          ? config.orientation
+                          : 2,
+                        autoSwitch:
+                          [].indexOf(config.autoSwitch) !== -1
+                            ? config.autoSwitch
+                            : "off",
+                        autoLoop: false,
+                        startIndex: x,
+                        DC: DC,
+
+                        onShiftUp: function(
+                          ev,
+                          option,
+                          RTI,
+                          DC,
+                          arrowKeyCode,
+                          isTop,
+                          isBottom
+                        ) {
+                          if (init.multiple) {
+                            init.toggleSelect(option, true);
+                          }
+                          ev.preventDefault();
+                        },
+                        onShiftDown: function(
+                          ev,
+                          option,
+                          RTI,
+                          DC,
+                          arrowKeyCode,
+                          isTop,
+                          isBottom
+                        ) {
+                          if (init.multiple) {
+                            init.toggleSelect(option, true);
+                          }
+                          ev.preventDefault();
+                        },
+
+                        onCtrlShiftUp: function(
+                          ev,
+                          option,
+                          RTI,
+                          DC,
+                          arrowKeyCode,
+                          isTop,
+                          isBottom
+                        ) {
+                          RTI["onShiftUp"].call(
+                            this,
+                            ev,
+                            option,
+                            RTI,
+                            DC,
+                            arrowKeyCode,
+                            isTop,
+                            isBottom
+                          );
+                          ev.preventDefault();
+                        },
+                        onCtrlShiftDown: function(
+                          ev,
+                          option,
+                          RTI,
+                          DC,
+                          arrowKeyCode,
+                          isTop,
+                          isBottom
+                        ) {
+                          RTI["onShiftDown"].call(
+                            this,
+                            ev,
+                            option,
+                            RTI,
+                            DC,
+                            arrowKeyCode,
+                            isTop,
+                            isBottom
+                          );
+                          ev.preventDefault();
+                        },
+
+                        onShiftEnd: function(
+                          ev,
+                          option,
+                          RTI,
+                          DC,
+                          arrowKeyCode,
+                          isTop,
+                          isBottom
+                        ) {
+                          if (init.multiple) {
+                            var s = init.options.slice(RTI.index);
+                            $A.loop(
+                              s,
+                              function(i, o) {
+                                init.toggleSelect(o, true);
+                              },
+                              "array"
+                            );
+                          }
+                          ev.preventDefault();
+                        },
+                        onShiftHome: function(
+                          ev,
+                          option,
+                          RTI,
+                          DC,
+                          arrowKeyCode,
+                          isTop,
+                          isBottom
+                        ) {
+                          if (init.multiple) {
+                            var s = init.options.slice(0, RTI.index + 1);
+                            $A.loop(
+                              s,
+                              function(i, o) {
+                                init.toggleSelect(o, true);
+                              },
+                              "array"
+                            );
+                          }
+                          ev.preventDefault();
+                        },
+
+                        onCtrlShiftEnd: function(
+                          ev,
+                          option,
+                          RTI,
+                          DC,
+                          arrowKeyCode,
+                          isTop,
+                          isBottom
+                        ) {
+                          RTI["onShiftEnd"].call(
+                            this,
+                            ev,
+                            option,
+                            RTI,
+                            DC,
+                            arrowKeyCode,
+                            isTop,
+                            isBottom
+                          );
+                          ev.preventDefault();
+                        },
+                        onCtrlShiftHome: function(
+                          ev,
+                          option,
+                          RTI,
+                          DC,
+                          arrowKeyCode,
+                          isTop,
+                          isBottom
+                        ) {
+                          RTI["onShiftHome"].call(
+                            this,
+                            ev,
+                            option,
+                            RTI,
+                            DC,
+                            arrowKeyCode,
+                            isTop,
+                            isBottom
+                          );
+                          ev.preventDefault();
+                        },
+
+                        onPageUp: function(
+                          ev,
+                          option,
+                          RTI,
+                          DC,
+                          arrowKeyCode,
+                          isTop,
+                          isBottom
+                        ) {
+                          var d = Math.round(init.options.length * 0.1);
+                          if (!d) d = 1;
+                          var i = init.index - d;
+                          if (i < 0) i = 0;
+                          RTI.focus(i);
+                          ev.preventDefault();
+                        },
+                        onPageDown: function(
+                          ev,
+                          option,
+                          RTI,
+                          DC,
+                          arrowKeyCode,
+                          isTop,
+                          isBottom
+                        ) {
+                          var d = Math.round(init.options.length * 0.1);
+                          if (!d) d = 1;
+                          var i = init.index + d;
+                          if (i >= init.options.length)
+                            i = init.options.length - 1;
+                          RTI.focus(i);
+                          ev.preventDefault();
+                        },
+
+                        onSpace: function(
+                          ev,
+                          option,
+                          RTI,
+                          DC,
+                          arrowKeyCode,
+                          isTop,
+                          isBottom
+                        ) {
+                          if (init.sortable) init.toggleGrab(option);
+                          else RTI.onClick.apply(option, arguments);
+                          if (isIE) {
+                            setTimeout(function() {
+                              $A.announce(
+                                $A.getAttr(option, "aria-description")
+                              );
+                            }, 1);
+                          }
+                          ev.preventDefault();
+                        },
+                        onCtrlSpace: function(
+                          ev,
+                          option,
+                          RTI,
+                          DC,
+                          arrowKeyCode,
+                          isTop,
+                          isBottom
+                        ) {
+                          init.toggleSelect(option);
+                          if (isIE) {
+                            setTimeout(function() {
+                              $A.announce(
+                                $A.getAttr(option, "aria-description")
+                              );
+                            }, 1);
+                          }
+                          ev.preventDefault();
+                        },
+                        onCtrlShiftSpace: function(
+                          ev,
+                          option,
+                          RTI,
+                          DC,
+                          arrowKeyCode,
+                          isTop,
+                          isBottom
+                        ) {
+                          $A.loop(
+                            init.options,
+                            function(i, o) {
+                              init.toggleSelect(o, false);
+                            },
+                            "array"
+                          );
+                          if (init.checkable) init.check(init.options, "false");
+                          if (init.sortable) {
+                            init.toggleGrab.grabbed = undefined;
+                            init.setGrab();
+                          }
+                          if (isIE) {
+                            setTimeout(function() {
+                              $A.announce(
+                                $A.getAttr(option, "aria-description")
+                              );
+                            }, 1);
+                          }
+                          ev.preventDefault();
+                        },
+
+                        onEsc: function(ev, option, RTI, DC) {
+                          if (init.sortable) {
+                            init.toggleGrab.grabbed = undefined;
+                            init.setGrab();
+                          }
+                          if (isIE) {
+                            setTimeout(function() {
+                              $A.announce(
+                                $A.getAttr(option, "aria-description")
+                              );
+                            }, 1);
+                          }
+                          ev.preventDefault();
+                        },
+
+                        onFocus: function(ev, option, RTI, DC) {
+                          init.index = RTI.index;
+                          if (!init.multiple) init.toggleSelect(option, true);
+                          if (isIE) {
+                            setTimeout(function() {
+                              $A.announce(
+                                $A.getAttr(option, "aria-description")
+                              );
+                            }, 1);
+                          }
+                          ev.stopPropagation();
+                        },
+
+                        onClick: function(
+                          ev,
+                          option,
+                          RTI,
+                          DC,
+                          arrowKeyCode,
+                          isTop,
+                          isBottom
+                        ) {
+                          var that = this,
+                            isDisabled = $A.isDisabled(that),
+                            check = getState(option);
+                          if (!isDisabled && !$A.isNum(check) && init.multiple)
+                            init.toggleSelect(option);
+                          if (!$A.isNum(check) && init.multiple)
+                            check =
+                              $A.getAttr(option, "aria-selected") === "true";
+                          if (!isDisabled && init.sortable)
+                            init.toggleGrab(option);
+                          if (!isDisabled && $A.isFn(config.onActivate)) {
+                            config.onActivate.apply(that, [
+                              ev,
+                              option,
+                              RTI,
+                              DC,
+                              check,
+                              function(attributeValue) {
+                                if ($A.hasAttr(option, "aria-checked"))
+                                  getState(
+                                    option,
+                                    attributeValue,
+                                    true,
+                                    true,
+                                    RTI.nodes
+                                  );
+                                else if (attributeValue)
+                                  $A.setAttr(
+                                    option,
+                                    "aria-selected",
+                                    attributeValue === "true" ? "true" : "false"
+                                  );
+                              }
+                            ]);
+                          }
+                          ev.preventDefault();
+                        },
+
+                        onSelectAll: function(
+                          ev,
+                          option,
+                          RTI,
+                          DC,
+                          arrowKeyCode,
+                          isTop,
+                          isBottom
+                        ) {
+                          if (init.multiple) {
+                            $A.loop(
+                              init.options,
+                              function(i, o) {
+                                init.toggleSelect(o, true);
+                              },
+                              "array"
+                            );
+                          }
+                          ev.preventDefault();
+                        }
+                      },
+                      config.extendRTI || {}
+                    )
+                  );
+
+                  $A(init.listbox)
+                    .setAttr("tabindex", "0")
+                    .on("focus click", function(ev) {
+                      if (init.options.length) {
+                        DC.RTI.focus();
+                        $A.setAttr(init.listbox, "tabindex", "-1");
+                      }
+                    });
+                },
+                toggleClass: "selected",
+                selectText: "Selected",
+                unselectText: "Not Selected",
+                toggleSelect: function(o, state, skip, recur, fromOption) {
+                  if (!recur && !init.multiple) {
+                    $A.loop(
+                      init.listbox.querySelectorAll(
+                        '*[role="option"][aria-selected="true"]'
+                      ),
+                      function(i, O) {
+                        if (O !== o) init.toggleSelect(O, false, false, true);
+                      },
+                      "array"
+                    );
+                  }
+                  if (!$A.isBool(state))
+                    state = $A.data(o, "_Selected") ? false : true;
+                  $A.data(o, "_Selected", state);
+                  if (fromOption) {
+                    DC.RTI.activate(o);
+                  }
+                  $A.setAttr(o, "aria-selected", state ? "true" : "false");
+                  $A.toggleClass(o, init.toggleClass, state, function(
+                    state
+                  ) {});
+                },
+                grabText: "Grabbable",
+                grabbedText: "Grabbed",
+                dropText: "Droppable",
+                setGrab: function(skip) {
+                  if (init.sortable) {
+                    $A.remAttr(init.options, [
+                      "aria-grabbed",
+                      "aria-dropeffect",
+                      "aria-description"
+                    ]);
+                    if (!skip)
+                      $A.setAttr(init.options, {
+                        "aria-grabbed": "false"
+                      });
+                    if (isIE)
+                      $A.setAttr(init.options, {
+                        "aria-description": init.grabText
+                      });
+                  }
+                },
+                toggleGrab: function(o) {
+                  if (init.sortable) {
+                    init.setGrab(true);
+                    if (!init.toggleGrab.grabbed) {
+                      init.toggleGrab.grabbed = o;
+                      $A.loop(
+                        init.options,
+                        function(i, n) {
+                          var a = {};
+                          if (n === o) {
+                            a["aria-grabbed"] = "true";
+                            if (isIE) a["aria-description"] = init.grabbedText;
+                          } else {
+                            a["aria-dropeffect"] = "move";
+                            if (isIE) a["aria-description"] = init.dropText;
+                          }
+                          $A.setAttr(n, a);
+                        },
+                        "array"
+                      );
+                    } else {
+                      var x = $A.inArray(o, DC.RTI.nodes) || 0;
+                      if (init.select.nodeType)
+                        $A.before(
+                          $A.boundTo(init.toggleGrab.grabbed),
+                          $A.boundTo(o)
+                        );
+                      else $A.before(init.toggleGrab.grabbed, o);
+                      init.update();
+                      DC.RTI.focus(init.select.nodeType ? x : o);
+                      init.toggleGrab.grabbed = undefined;
+                    }
+                  }
+                },
+                check: function(o, v) {
+                  getState(o, v, true, true, DC.RTI.nodes);
+                },
+                value: function(o) {
+                  var checked = init.listbox.querySelectorAll(
+                    '*[role="option"][aria-checked="true"]'
+                  );
+                  if (checked && checked.length) return checked;
+                  else if (init.select.nodeType) {
+                    if ($A.isDOMNode(o))
+                      return $A.getAttr($A.boundTo(o), "value");
+                    else {
+                      var s = [];
+                      $A.loop(
+                        init.optionNodes,
+                        function(i, n) {
+                          if (n.selected) s.push(n);
+                        },
+                        "array"
+                      );
+                      return s;
+                    }
+                  } else
+                    return init.listbox.querySelectorAll(
+                      '*[role="option"][aria-selected="true"]'
+                    );
+                }
+              };
+            o = $A.morph(o);
+
+            var gen = function(o) {
+              if ($A.isNative(o)) init.select = o;
+              else if (config.select && $A.isNative($A.morph(config.select)))
+                init.select = $A.morph(config.select);
+              else init.select = { nodeType: false };
+              config.select = init.select;
+              var ref = $A.getAttr(init.select, "data-controls");
+              if (ref && $A.isDOMNode($A.morph(ref)))
+                init.listbox = $A.morph(ref);
+              else if (!$A.isNative(o)) init.listbox = o;
+              else if (config.listbox && $A.morph(config.listbox))
+                init.listbox = $A.morph(config.listbox);
+              else init.listbox = $A.morph(tag.build.parent);
+              config.listbox = init.listbox;
+              if ($A.isDOMNode(init.select) && !$A.isWithin(init.listbox))
+                $A(init.listbox).before(init.select);
+              init = $A.extend(init, config);
+              config = $A.extend(config, init);
+              genListbox(init.listbox);
+            };
+
+            var p = config.fetch && config.fetch.url,
+              s =
+                (config.fetch &&
+                  config.fetch.data &&
+                  config.fetch.data.selector) ||
+                $A.getSelectorFromURI(p),
+              isP = s && $A.isPath(p) ? true : false;
+            config.fetch = null;
+            if (isP) {
+              config.toggleHide = false;
+              var d = $A.toNode();
+              $A.load(
+                p,
+                d,
                 {
-                  subtree: true,
-                  attributeFilter: ["aria-selected"]
+                  selector: s
+                },
+                function(c) {
+                  gen(c);
                 }
               );
+            } else gen(o);
 
-              $A.on(that.select, "change", function(ev) {
-                var ix = -1;
-                $A.loop(
-                  that.optionNodes,
-                  function(i, o) {
-                    that.toggleSelect(
-                      $A.boundTo(o),
-                      o.selected ? true : false,
-                      false,
-                      that.multiple,
-                      true
-                    );
-                    if (ix < 0 && o.selected) ix = i;
-                  },
-                  "array"
-                );
-                that.RTI.activate(ix >= 0 ? ix : 0);
-              });
-
-              if (!config.preventInsert) {
-                if (
-                  !config.insertAction ||
-                  ["insert", "before", "after", "prepend", "append"].indexOf(
-                    config.insertAction
-                  ) === -1
-                )
-                  config.insertAction = "insert";
-                if (config.context) {
-                  $A[config.insertAction](
-                    that.listbox,
-                    $A.morph(config.context)
-                  );
-                } else if (that.select.nodeType) {
-                  $A.before(that.listbox, that.select);
-                }
-              }
-
-              if (!config.showSelect) that.select.hidden = true;
-            }
-
-            return that;
+            return $A._XR.call(this, DC);
           }
         });
       }

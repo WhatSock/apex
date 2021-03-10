@@ -7,15 +7,15 @@ $A.import(["Animate", "Dialog"], { defer: true }, function() {
     isAlert: true,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, outerNode, complete) {
-        Velocity(outerNode, "transition.slideDownIn", {
+      onRender: function(dc, wrapper, complete) {
+        Velocity(wrapper, "transition.slideDownIn", {
           complete: function() {
             complete();
           }
         });
       },
-      onRemove: function(dc, outerNode, complete) {
-        Velocity(outerNode, "transition.slideDownOut", {
+      onRemove: function(dc, wrapper, complete) {
+        Velocity(wrapper, "transition.slideDownOut", {
           complete: function() {
             complete();
           }

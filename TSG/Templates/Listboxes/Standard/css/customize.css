@@ -8,42 +8,23 @@
   text-align: center;
 }
 
-.selectLabel {
-  max-width: 200px;
-  -webkit-flex: 0 1 70%;
-  -ms-flex: 0 1 70%;
-  flex: 0 1 70%;
-  margin-left: 5%;
-}
-.selectLabel label {
-  padding-bottom: 0.8em;
-}
-#standardSelectId {
-  width: 100%;
-  min-height: 85%;
-  padding: 0.5em;
-}
-
-#listboxId {
+.aria-listbox {
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
-#listboxId > li {
+.aria-listbox > li {
   padding: 3px;
 }
 
-#listboxId > li > [role="option"] {
+.aria-listbox > li > *[role="option"] {
   display: block;
   text-decoration: none;
   padding: 0.3em 0.5em;
 }
 
-#listboxId > li > [role="option"].selected {
-}
-
-#listboxId > li > [role="option"] > span {
+.aria-listbox > li > *[role="option"] > span {
   display: block;
 }
 

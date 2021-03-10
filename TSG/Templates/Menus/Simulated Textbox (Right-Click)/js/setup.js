@@ -43,15 +43,15 @@ $A.import(["Animate", "Menu"], { defer: true }, function() {
     },
     style: { display: "none" },
     animate: {
-      onRender: function(dc, outerNode, complete) {
-        Velocity(outerNode, "transition.slideUpIn", {
+      onRender: function(dc, wrapper, complete) {
+        Velocity(wrapper, "transition.slideUpIn", {
           complete: function() {
             complete();
           }
         });
       },
-      onRemove: function(dc, outerNode, complete) {
-        Velocity(outerNode, "transition.slideUpOut", {
+      onRemove: function(dc, wrapper, complete) {
+        Velocity(wrapper, "transition.slideUpOut", {
           complete: function() {
             complete();
           }

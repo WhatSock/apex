@@ -7,6 +7,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
 (function() {
   if (!("RovingTabIndex" in $A)) {
+    window.AccNamePrototypeNameSpace = $A;
     $A.import("AccName", {
       name: "RovingTabIndexModule",
       props: props,

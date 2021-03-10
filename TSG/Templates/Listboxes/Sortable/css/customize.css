@@ -5,20 +5,20 @@
   padding: 1rem;
 }
 
-#listboxId {
+.aria-listbox {
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
-#listboxId > li {
+.aria-listbox > li {
   padding: 0.3em;
 }
 [role="option"] {
   display: block;
   width: 100%;
 }
-#listboxId > li > [role="option"] span {
+.aria-listbox > li > [role="option"] span {
   display: block;
   font-size: 1em;
   font-weight: bold;
@@ -29,48 +29,45 @@
   border-radius: 0.3em;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
 }
-#listboxId > li > [role="option"]:hover {
+.aria-listbox > li > [role="option"]:hover {
   text-decoration: none;
 }
 
-#listboxId > li > [role="option"]:hover span {
+.aria-listbox > li > [role="option"]:hover span {
   box-shadow: none;
 }
 
-#listboxId > li > [role="option"][aria-selected="true"] span {
-}
-
-#listboxId > li > [role="option"][aria-grabbed="true"] span {
+.aria-listbox > li > [role="option"][aria-grabbed="true"] span {
   opacity: 0.5;
 }
 
-#listboxId
+.aria-listbox
   > li
   > [role="option"][aria-grabbed="true"][aria-selected="true"]
   span {
   box-shadow: 0 2px 5px rgba(241, 249, 0, 0.7);
 }
 
-#listboxId #sortableOpt1 span {
+.aria-listbox .orange span {
   background: #f90;
 }
 
-#listboxId #sortableOpt2 span {
+.aria-listbox .purple span {
   color: #fff;
   background: #639;
 }
 
-#listboxId #sortableOpt3 span {
+.aria-listbox .green span {
   color: #fff;
   background: #00965a;
 }
 
-#listboxId #sortableOpt4 span {
+.aria-listbox .blue span {
   color: #fff;
   background: #015684;
 }
 
-#listboxId #sortableOpt5 span {
+.aria-listbox .black span {
   color: #fff;
   background: #000;
 }

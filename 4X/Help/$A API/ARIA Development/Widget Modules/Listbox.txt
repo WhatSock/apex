@@ -103,10 +103,10 @@ orientation: 2,
 // "off"=Inactive, "semi"=Switches between vertical and horizontal only, "full"= Switches between vertical, horizontal, and both when line-wrapping is detected.
 autoSwitch: "off",
 
-handlers: {
-// Interaction event Handlers to be added to each focusable role=option node.
-// To view all available handlers, read the help documentation at:
-//"4X/Help/$A API/ARIA Development/Action Modules/RovingTabIndex"
+// Optionally extend the RTI instance with custom event handlers.
+// For available options, view the RovingTabIndex help doc at "4X/Help/$A API/ARIA Development/Action Modules/RovingTabIndex".
+extendRTI: {
+// Optional event handlers.
 }
 
 }

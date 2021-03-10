@@ -5,15 +5,15 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
     delay: 0,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, outerNode, complete) {
-        Velocity(outerNode, "transition.fadeIn", {
+      onRender: function(dc, wrapper, complete) {
+        Velocity(wrapper, "transition.fadeIn", {
           complete: function() {
             complete();
           }
         });
       },
-      onRemove: function(dc, outerNode, complete) {
-        Velocity(outerNode, "transition.fadeOut", {
+      onRemove: function(dc, wrapper, complete) {
+        Velocity(wrapper, "transition.fadeOut", {
           complete: function() {
             complete();
           }
@@ -28,15 +28,15 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
     delay: 1000,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, outerNode, complete) {
-        Velocity(outerNode, "transition.swoopIn", {
+      onRender: function(dc, wrapper, complete) {
+        Velocity(wrapper, "transition.swoopIn", {
           complete: function() {
             complete();
           }
         });
       },
-      onRemove: function(dc, outerNode, complete) {
-        Velocity(outerNode, "transition.swoopOut", {
+      onRemove: function(dc, wrapper, complete) {
+        Velocity(wrapper, "transition.swoopOut", {
           complete: function() {
             complete();
           }
@@ -52,15 +52,15 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
     delayTimeout: 3000,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, outerNode, complete) {
-        Velocity(outerNode, "transition.bounceLeftIn", {
+      onRender: function(dc, wrapper, complete) {
+        Velocity(wrapper, "transition.bounceLeftIn", {
           complete: function() {
             complete();
           }
         });
       },
-      onRemove: function(dc, outerNode, complete) {
-        Velocity(outerNode, "transition.bounceRightOut", {
+      onRemove: function(dc, wrapper, complete) {
+        Velocity(wrapper, "transition.bounceRightOut", {
           complete: function() {
             complete();
           }

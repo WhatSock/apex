@@ -55,11 +55,7 @@
                         <h1 class="pageTitle">ARIA Listboxes <small>(Standard)</small></h1>
                         <div class="sample">
                             <div class="standardWrapper">
-                                <ul id="listboxId"></ul>
-                            </div>
-                            <div class="selectLabel">
-                                <label for="standardSelectId">Standard Select field</label>
-                                <select size="3" id="standardSelectId">
+                                <select hidden title="Choose one or the other" id="standardSelectId">
                                     <option value="standardOpt1">One</option>
                                     <option value="standardOpt2">Two</option>
                                     <option value="standardOpt3">Three</option>
@@ -75,7 +71,7 @@
                     <div class="keyboard flex-item">
                         <h2>The Listbox is keyboard accessible:</h2>
                         <ul>
-                            <li>Set focus on the Listbox or the Select field.</li>
+                            <li>Set focus on the Listbox.</li>
                             <li>Press the Arrow keys to change options, or press <kbd class="home">Home</kbd> or <kbd class="end">End</kbd> to jump to the beginning or end of the list.</li>
                             <li>Press <kbd>PageUp</kbd> or <kbd>PageDown</kbd> to jump backward or forward incrementally.</li>
                             <li>Press any letter or number to jump to an item starting with that character or digit.</li>

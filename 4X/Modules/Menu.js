@@ -76,6 +76,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           }
         });
 
+        var isIE = $A.isIE();
+
         $A.extend({
           setMenu: function(o, config) {
             if (this._4X) {
@@ -90,10 +92,26 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             if (!o) return null;
             config = config || {};
 
-            var tag = $A.extend(
+            var main = null,
+              tag = $A.extend(
+                true,
                 {
                   parent: "ul",
-                  child: "a"
+                  child: "a",
+                  parse: function(ref) {
+                    if (isIE) {
+                      var mItems = [];
+                      $A.query(ref.children, function(i, o) {
+                        var c = $A.first(o, function(e) {
+                          if (e.nodeName.toLowerCase() === tag.child)
+                            return true;
+                        });
+                        if ($A.isDOMNode(c)) mItems.push(c);
+                      });
+                      return mItems;
+                    } else
+                      return ref.querySelectorAll(":scope > * > " + tag.child);
+                  }
                 },
                 config.tag || {}
               ),
@@ -133,17 +151,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 ref = $A.morph(ref);
                 if (!$A.isDOMNode(ref)) return;
                 $A.setAttr(o, "aria-haspopup", "true");
-                var mItems = [];
+                var mItems = tag.parse(ref);
 
-                if ($A.isIE()) {
-                  $A.query(ref.children, function(i, o) {
-                    var c = $A.first(o, function(e) {
-                      if (e.nodeName.toLowerCase() === tag.child) return true;
-                    });
-                    if ($A.isDOMNode(c)) mItems.push(c);
+                if (isIE)
+                  $A.query("svg", ref, function(i, o) {
+                    $A.setAttr(o, "focusable", "false");
                   });
-                } else
-                  mItems = ref.querySelectorAll(":scope > * > " + tag.child);
 
                 var DC = $A.toDC(
                   $A.extend(
@@ -315,11 +328,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 return DC;
               };
 
+            var DC = null;
+
             $A.query(o, function(i, o) {
               var gen = function(m) {
-                var DC = genMenu(o, null, m);
+                DC = genMenu(o, null, m);
                 $A.on(window.document, "click.closemenus", function() {
-                  DC.remove();
+                  DC.top.remove();
                 });
                 if (!config.rightClick) config.leftClick = true;
                 var e;
@@ -386,14 +401,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     selector: s
                   },
                   function(c) {
-                    gen(c);
+                    main = c;
+                    gen(main);
                   }
                 );
               } else {
-                gen(config.content ? $A.morph(config.content) : null);
+                gen(main);
               }
             });
-            return $A._XR.call(this, o);
+            return $A._XR.call(this, DC);
           }
         });
       }

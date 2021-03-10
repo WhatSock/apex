@@ -7,6 +7,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
 (function() {
   if (!("Combobox" in $A)) {
+    window.AccNamePrototypeNameSpace = $A;
     $A.import(["SmoothScroll", "AccName"], {
       name: "ComboboxModule",
       props: props,

@@ -30,6 +30,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           afterRender: function(dc) {
             $A.setAttr(dc.triggerNode, "aria-expanded", "true");
             $A.data(dc.triggerNode, "expanded", true);
+            $A.loop(
+              dc.RTI.nodes,
+              function(i, o) {
+                dc.getState(
+                  o,
+                  $A.getAttr(o, "aria-checked"),
+                  $A.hasAttr(o, "aria-checked"),
+                  false,
+                  dc.RTI.nodes
+                );
+              },
+              "array"
+            );
           },
           beforeRemove: function(dc) {
             $A.loop(
@@ -45,6 +58,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             $A.data(dc.triggerNode, "expanded", false);
           }
         });
+
+        var isIE = $A.isIE();
 
         $A.extend({
           setTree: function(o, config) {
@@ -68,7 +83,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   parent: "ul",
                   child: "a",
                   parse: function(ref) {
-                    if ($A.isIE()) {
+                    if (isIE) {
                       var mItems = [];
                       $A.query(ref.children, function(i, o) {
                         var c = $A.first(o, function(e) {
@@ -84,6 +99,27 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 },
                 config.tag || {}
               ),
+              getState = function(
+                o,
+                attributeValue,
+                hasAttribute,
+                write,
+                nodes
+              ) {
+                if (hasAttribute) {
+                  var c = 0;
+                  if (attributeValue === "true") c = 1;
+                  else if (attributeValue === "mixed") c = 2;
+                  $A.data(o, "check", c);
+                  if (write) {
+                    $A.setAttr(o, "aria-checked", attributeValue);
+                  }
+                  return c;
+                }
+                var s = $A.data(o, "check");
+                if (!$A.isNum(s)) return false;
+                return s;
+              },
               genTree = function(o, p, list, top, level, triggerIndex) {
                 var ref =
                   list ||
@@ -104,6 +140,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 var mItems = tag.parse(ref);
                 $A.setAttr(ref, "role", top ? "tree" : "group");
 
+                if (isIE)
+                  $A.query("svg", ref, function(i, o) {
+                    $A.setAttr(o, "focusable", "false");
+                  });
+
                 var DC = $A.toDC(
                   $A.extend(
                     {
@@ -113,7 +154,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       isTop: top,
                       on: "opentree",
                       widgetType: "Tree",
-                      toggleHide: true
+                      toggleHide: true,
+                      getState: getState
                     },
                     config
                   )
@@ -139,7 +181,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       onClick: function(ev, triggerNode, RTI, DC) {
                         var that = this,
                           isDisabled = $A.isDisabled(that),
-                          check = $A.data(triggerNode, "check") || false;
+                          check = getState(triggerNode);
                         if (!$A.isNum(check) && multiselect)
                           check =
                             $A.getAttr(triggerNode, "aria-selected") === "true";
@@ -152,30 +194,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             DC,
                             check,
                             function(attributeValue) {
-                              if ($A.isNum($A.data(triggerNode, "check"))) {
-                                var c = 0,
-                                  v = "false";
-                                if (attributeValue === "true") {
-                                  c = 1;
-                                  v = "true";
-                                } else if (attributeValue === "mixed") {
-                                  c = 2;
-                                  v = "mixed";
-                                }
-                                $A.data(triggerNode, "check", c);
-                                $A.setAttr(triggerNode, "aria-checked", v);
-                              } else if (multiselect) {
-                                $A.setAttr(
-                                  triggerNode,
-                                  "aria-selected",
-                                  attributeValue === "true" ? "true" : "false"
-                                );
-                              }
+                              getState(
+                                triggerNode,
+                                attributeValue,
+                                true,
+                                true,
+                                RTI.nodes
+                              );
                             }
                           ]);
-                        } else {
-                          if (!isDisabled && that.href)
-                            location.href = that.href;
                         }
                         ev.preventDefault();
                       },
@@ -201,6 +228,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           });
                           $A.setAttr(triggerNode, "aria-selected", "true");
                         }
+                        ev.stopPropagation();
                       },
                       onRight: function(
                         ev,
@@ -427,39 +455,34 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   mItems,
                   function(i, o) {
                     genTree(o, DC.RTI, null, false, level + 1, i);
+                    var check = getState(
+                      o,
+                      $A.getAttr(o, "check"),
+                      $A.hasAttr(o, "check")
+                    );
                     $A.setAttr(o, {
                       role: "treeitem",
                       "aria-level": level
                     });
-                    if ($A.hasAttr(o, "check")) {
-                      var c = 0,
-                        attributeValue = $A.getAttr(o, "check");
-                      if (attributeValue === "true") c = 1;
-                      else if (attributeValue === "mixed") c = 2;
-                      $A.data(o, "check", c);
+                    if ($A.isNum(check)) {
+                      var c = "false";
+                      if (check === 1) c = "true";
+                      else if (check === 2) c = "mixed";
                       $A.setAttr(o, {
-                        "aria-checked":
-                          !c || (c >= 1 && c <= 2)
-                            ? "false"
-                            : c === 1
-                            ? "true"
-                            : "mixed"
+                        "aria-checked": c
                       });
                       $A(o).on(
                         "attributeChange",
                         function(
                           MutationObject,
-                          targetElement,
+                          o,
                           attributeName,
                           attributeValue,
                           attributePriorValue,
-                          BoundObjectOrDC,
+                          DC,
                           SavedData
                         ) {
-                          var c = 0;
-                          if (attributeValue === "true") c = 1;
-                          else if (attributeValue === "mixed") c = 2;
-                          $A.data(o, "check", c);
+                          getState(o, attributeValue, true);
                         },
                         {
                           attributeFilter: ["aria-checked"]
@@ -496,41 +519,49 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 return DC;
               };
 
-            var gen = function(l, i) {
-              genTree(null, null, l, true, 1, i);
-            };
-
+            var DC = null;
             o = $A.morph(o);
             main = o;
 
-            $A.query(o, function(i, o) {
-              var p = config.fetch && config.fetch.url,
-                s =
-                  (config.fetch &&
-                    config.fetch.data &&
-                    config.fetch.data.selector) ||
-                  $A.getSelectorFromURI(p),
-                isP = s && $A.isPath(p) ? true : false;
-              config.fetch = null;
-              if (isP) {
-                config.toggleHide = false;
-                var d = $A.toNode();
-                $A.load(
-                  p,
-                  d,
-                  {
-                    selector: s
-                  },
-                  function(c) {
-                    gen(c, i);
+            var gen = function(l, i) {
+              DC = genTree(null, null, l, true, 1, i);
+              $A(main)
+                .setAttr("tabindex", "0")
+                .on("focus click", function(ev) {
+                  if (DC.RTI.nodes.length) {
+                    DC.RTI.focus();
+                    $A.setAttr(main, "tabindex", "-1");
                   }
-                );
-              } else {
-                gen(o, i);
-              }
-            });
+                });
+            };
 
-            return $A._XR.call(this, o);
+            var p = config.fetch && config.fetch.url,
+              s =
+                (config.fetch &&
+                  config.fetch.data &&
+                  config.fetch.data.selector) ||
+                $A.getSelectorFromURI(p),
+              isP = s && $A.isPath(p) ? true : false;
+            config.fetch = null;
+            if (isP) {
+              config.toggleHide = false;
+              var d = $A.toNode();
+              $A.load(
+                p,
+                d,
+                {
+                  selector: s
+                },
+                function(c) {
+                  main = c;
+                  gen(main);
+                }
+              );
+            } else {
+              gen(main);
+            }
+
+            return $A._XR.call(this, DC);
           }
         });
       }

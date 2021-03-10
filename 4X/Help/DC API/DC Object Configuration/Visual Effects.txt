@@ -20,7 +20,7 @@ DC Object Properties
 
 Note: The displayed value for each property represents its default value when omitted.
 
-// Set a class name for the DC.outerNode container element.
+// Set a class name for the DC.wrapper container element.
 // Multiple classes can be added by separating each with a space.
   className: ""
 
@@ -35,7 +35,7 @@ Note: The displayed value for each property represents its default value when om
 // Requires that DC.trigger or DC.triggerNode is set to assign a triggering element.
   toggleClassName: ""
 
-// Assign inline styles for DC.outerNode that will be applied when the DC object is rendered.
+// Assign inline styles for DC.wrapper that will be applied when the DC object is rendered.
 // This can also be directly modified using the syntax: DC.style["PropertyName"] = "Value".
 // Property names including dashes must be added in camel case or within quotes.
 // E.G marginLeft, or "margin-left"
@@ -59,7 +59,7 @@ Or
 // Preload CSS stylesheets when imported using DC.importCSS.
 preloadCSS: false
 
-// Automatically set style="display:inline;" upon the DC.outerNode and DC.container elements when rendered.
+// Automatically set style="display:inline;" upon the DC.wrapper and DC.container elements when rendered.
 // Otherwise, default block level styling for div elements will be inherited.
 // This property is ignored when DC.contentOnly is true.
   displayInline: false
@@ -116,13 +116,13 @@ Accepted Values for DC.autoFix
 
 // Add animation effects when a DC object is rendered or removed.
 animate: {
-  onRender: function(DC, outerNode, complete) {
+  onRender: function(DC, wrapper, complete) {
     // Optionally add an animation effect when the component is rendered.
     // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
     // Running complete() is required to continue executing built-in lifecycle methods after the animation completes.
     complete();
   },
-  onRemove: function(DC, outerNode, complete) {
+  onRemove: function(DC, wrapper, complete) {
     // Optionally add an animation effect when the component is removed.
     // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
     complete();

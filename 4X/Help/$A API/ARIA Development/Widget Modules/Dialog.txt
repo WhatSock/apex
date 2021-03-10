@@ -91,10 +91,10 @@ style: { display: "none" }, // Set the initial state to hidden in prep for anima
 
 animate: {
 
-onRender: function(dc, outerNode, complete) {
+onRender: function(dc, wrapper, complete) {
 
 // Specify the render animation effect, including the callback function statement to execute when the animation effect completes.
-Velocity(outerNode, "transition.TYPE", {
+Velocity(wrapper, "transition.TYPE", {
 // Velocity options here, plus the callback declaration after the animation completes.
 complete: function() {
 complete(); // REQUIRED: complete() must be executed so control is passed back to 4X for rendering.
@@ -103,10 +103,10 @@ complete(); // REQUIRED: complete() must be executed so control is passed back t
 
 },
 
-onRemove: function(dc, outerNode, complete) {
+onRemove: function(dc, wrapper, complete) {
 
 // Specify the removal animation effect, including the callback function statement to execute when the animation effect completes.
-Velocity(outerNode, "transition.TYPE", {
+Velocity(wrapper, "transition.TYPE", {
 // Velocity options here, plus the callback declaration after the animation completes.
 complete: function() {
 complete(); // REQUIRED: complete() must be executed so control is passed back to 4X for removal.

@@ -13,15 +13,15 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
     delay: 200,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, outerNode, complete) {
-        Velocity(outerNode, "transition.fadeIn", {
+      onRender: function(dc, wrapper, complete) {
+        Velocity(wrapper, "transition.fadeIn", {
           complete: function() {
             complete();
           }
         });
       },
-      onRemove: function(dc, outerNode, complete) {
-        Velocity(outerNode, "transition.fadeOut", {
+      onRemove: function(dc, wrapper, complete) {
+        Velocity(wrapper, "transition.fadeOut", {
           complete: function() {
             complete();
           }
