@@ -58,11 +58,11 @@
                             <div class="dateField--flex-item">
                                 <!-- Attributes explained:
                                 * class="aria-date-picker" : The class name that specifies an accessible calendar picker. (Must be on the link or button triggering element.)
-                                * data-controls : The id value for the associated input element where stored dates will be saved after a date is selected. (The id of the input element must match the data-controls attribute value on the triggering element.) This value is also registered as the ID of the date picker DC object, making it possible to invoke the object programmatically.
+                                * controls : The id value for the associated input element where stored dates will be saved after a date is selected. (The id of the input element must match the controls attribute value on the triggering element.) This value is also registered as the ID of the date picker DC object, making it possible to invoke the object programmatically.
                                 -->
                                 <label for="date">Set Date:</label>
                                 <input placeholder="MM/DD/YYYY" id="date" type="text" name="birthdate">
-                                <button data-controls="date" aria-describedby="date" id="dateIcon" class="accCalendar aria-date-picker">
+                                <button controls="date" aria-describedby="date" id="dateIcon" class="accCalendar aria-date-picker">
                                     <img src="img/calendar-button.svg" alt="Calendar" title="Calendar">
                                 </button>
                             </div>

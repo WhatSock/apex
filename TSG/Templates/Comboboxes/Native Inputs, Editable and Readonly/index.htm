@@ -64,8 +64,7 @@
                                     </p>
                                     <p>
                                         <label for="stt">State or province:</label>
-                                        <!-- The attribute role=combobox is required. -->
-                                        <input role="combobox" type="text" name="state-input-value" required id="stt">
+                                        <input type="text" name="state-input-value" required id="stt" class="aria-combobox">
                                         <!-- For editable Input elements:
                                         To ensure accessibility for non-sighted touch screen device users, a dynamic Close icon is needed.
                                         This must include an active element role such as 'button' or 'link', and include informative label text. -->
@@ -77,10 +76,7 @@
                                     </p>
                                     <p class="select--container">
                                         <label for="ctry">Country:</label>
-                                        <!--
-                                        The attribute role=combobox is required.
-                                        -->
-                                        <input role="combobox" type="text" name="country-input-value" required readonly id="ctry">
+                                        <input type="text" name="country-input-value" required readonly id="ctry" class="aria-combobox">
                                         <!--
                                         For readonly Input elements:
                                         To ensure accessibility for sighted mouse and non-sighted touch screen device users, a dynamic Toggle icon is needed.

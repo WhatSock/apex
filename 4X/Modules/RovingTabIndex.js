@@ -7,7 +7,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
 (function() {
   if (!("RovingTabIndex" in $A)) {
-    window.AccNamePrototypeNameSpace = $A;
     $A.import("AccName", {
       name: "RovingTabIndexModule",
       props: props,
@@ -147,9 +146,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   $A.data(
                     o,
                     "AccName",
-                    $A.getAccName
-                      ? $A.getAccName(o).name.toLowerCase()
-                      : $A.getText(o).toLowerCase()
+                    $A
+                      .trim(
+                        ($A.isFn(window.getAccName) &&
+                          window.getAccName(o).name) ||
+                          $A.getText(o)
+                      )
+                      .toLowerCase()
                   );
 
                   if (that.breakPoint) {
@@ -202,25 +205,24 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   $A.on(
                     o,
                     {
-                      click: function(ev) {
-                        var child = that.children.get(o);
+                      click: function(ev, DC) {
+                        var child = that.children.get(o),
+                          dc = (child && child.DC) || DC;
                         that.index = i;
                         that.setFocus.apply(that.nodes[that.index], [ev, that]);
 
                         if (
                           (that.DC && (that.DC.loading || that.DC.closing)) ||
-                          (child &&
-                            child.DC &&
-                            (child.DC.loading || child.DC.closing))
+                          (dc && (dc.loading || dc.closing))
                         ) {
                           ev.preventDefault();
                           ev.stopPropagation();
                           return false;
                         }
 
-                        fire(["Click", "Open"], ev, o, child && child.DC, 0);
+                        fire(["Click", "Open"], ev, o, dc, 0);
                       },
-                      keydown: function(ev) {
+                      keydown: function(ev, DC) {
                         changePressed(ev);
 
                         if (
@@ -241,6 +243,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           arrowKey = 0,
                           oMap = map.get(o),
                           child = that.children.get(o),
+                          dc = (child && child.DC) || DC,
                           breakPointBack = function() {
                             if (
                               that.breakPoint.horizontal &&
@@ -307,9 +310,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                         if (
                           (that.DC && (that.DC.loading || that.DC.closing)) ||
-                          (child &&
-                            child.DC &&
-                            (child.DC.loading || child.DC.closing))
+                          (dc && (dc.loading || dc.closing))
                         ) {
                           ev.preventDefault();
                           ev.stopPropagation();
@@ -407,13 +408,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             )
                               keys.push("CtrlShiftDown");
                           }
-                          cancel = fire(
-                            keys,
-                            ev,
-                            o,
-                            child && child.DC,
-                            arrowKey
-                          );
+                          cancel = fire(keys, ev, o, dc, arrowKey);
                           keys = [];
                           if (cancel) stop = true;
                           if (
@@ -443,13 +438,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                                 that.orientation === 2))
                           ) {
                             if (that.index === 0)
-                              cancel = fire(
-                                ["Top"],
-                                ev,
-                                o,
-                                child && child.DC,
-                                arrowKey
-                              );
+                              cancel = fire(["Top"], ev, o, dc, arrowKey);
                             if (cancel) stop = true;
 
                             if (that.breakPoint) {
@@ -470,13 +459,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                                 that.orientation === 2))
                           ) {
                             if (that.index === that.nodes.length - 1)
-                              cancel = fire(
-                                ["Bottom"],
-                                ev,
-                                o,
-                                child && child.DC,
-                                arrowKey
-                              );
+                              cancel = fire(["Bottom"], ev, o, dc, arrowKey);
                             if (cancel) stop = true;
 
                             if (that.breakPoint) {
@@ -510,13 +493,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                               pressed.shift
                             )
                               keys.push("CtrlShiftEnd");
-                            cancel = fire(
-                              keys,
-                              ev,
-                              o,
-                              child && child.DC,
-                              arrowKey
-                            );
+                            cancel = fire(keys, ev, o, dc, arrowKey);
                             keys = [];
                             if (cancel) stop = true;
 
@@ -551,13 +528,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                               pressed.shift
                             )
                               keys.push("CtrlShiftHome");
-                            cancel = fire(
-                              keys,
-                              ev,
-                              o,
-                              child && child.DC,
-                              arrowKey
-                            );
+                            cancel = fire(keys, ev, o, dc, arrowKey);
                             keys = [];
                             if (cancel) stop = true;
 
@@ -754,20 +725,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           ev.preventDefault();
                         }
 
-                        fire(keys, ev, o, child && child.DC, arrowKey);
+                        fire(keys, ev, o, dc, arrowKey);
                       },
-                      keyup: function(ev) {
+                      keyup: function(ev, DC) {
                         changePressed(ev);
                         var keys = [],
                           child = that.children.get(o),
+                          dc = (child && child.DC) || DC,
                           k = $A.keyEvent(ev),
                           arrowKey = k >= 37 && k <= 40 ? k : 0;
 
                         if (
                           (that.DC && (that.DC.loading || that.DC.closing)) ||
-                          (child &&
-                            child.DC &&
-                            (child.DC.loading || child.DC.closing))
+                          (dc && (dc.loading || dc.closing))
                         ) {
                           ev.preventDefault();
                           ev.stopPropagation();
@@ -804,13 +774,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           keys.push("Paste");
                         }
 
-                        fire(keys, ev, o, child && child.DC, arrowKey);
+                        fire(keys, ev, o, dc, arrowKey);
                       },
-                      focus: function(ev) {
-                        var child = that.children.get(o);
+                      focus: function(ev, DC) {
+                        var child = that.children.get(o),
+                          dc = (child && child.DC) || DC;
+
                         that.index = i;
                         that.setFocus.apply(that.nodes[that.index], [ev, that]);
-                        fire(["Focus"], ev, o, child && child.DC, 0);
+                        fire(["Focus"], ev, o, dc, 0);
                       }
                     },
                     ".RovingTabIndex"
@@ -826,25 +798,23 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
             if (that.isTree) {
               that.top.treeNodes = [];
-              var get = function(nodes) {
+              var get = function(nodes, RTI) {
                 if (nodes.length) {
-                  var RTI = $A.data(nodes[0], "RTI");
-                  if (RTI) {
-                    $A.loop(
-                      nodes,
-                      function(i, n) {
-                        var child = RTI.children.get(n),
-                          tI = RTI.top.treeNodes.length;
-                        $A.data(n, "RTI-TreeIndex", tI);
-                        RTI.top.treeNodes[tI] = n;
-                        if (child && $A.isArray(child.nodes)) get(child.nodes);
-                      },
-                      "array"
-                    );
-                  }
+                  $A.loop(
+                    nodes,
+                    function(i, n) {
+                      var child = RTI.children.get(n),
+                        tI = RTI.top.treeNodes.length;
+                      $A.data(n, "RTI-TreeIndex", tI);
+                      RTI.top.treeNodes[tI] = n;
+                      if (child && $A.isArray(child.nodes))
+                        get(child.nodes, child);
+                    },
+                    "array"
+                  );
                 }
               };
-              get(that.top.nodes);
+              get(that.top.nodes, that.top);
             }
 
             that.on();

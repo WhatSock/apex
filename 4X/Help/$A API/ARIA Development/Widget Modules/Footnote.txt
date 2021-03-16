@@ -5,11 +5,11 @@ Expected behaviors: Each footnote must be actionable using both the keyboard and
 
 The 4X ARIA Footnote module automatically configures all required focus handling and interaction events to ensure accessibility.
 
-Required attributes
+Requirements:
 
 The Footnote module utilizes traditional skip link syntax, which consists of a standard link with an href attribute. The href attribute includes an id reference to the associated footnote definition, by pointing to a back link at the beginning of the definition content.
 
-Example:
+HTML syntax:
 
 <!-- The footnote skip link -->
 
@@ -23,19 +23,19 @@ Example:
 
 JavaScript syntax:
 
-$A.setFootnotes( DOM-Node-or-CSS-Selector-forTriggering-Element , {
+$A.setFootnotes( DOM-NodeList-or-CSS-Selector-forFootnote-Links , {
 // Configuration key / value map
 });
+
+Parameters
+
+1: A DOM element list or CSS selector to specify the footnote triggering elements.
+
+2: A configuration map to customize behaviors and options.
 
 Configuration
 
 {
-
-// Specify all footnote links to configure.
-// Must reference links with an href attribute;
-// The href attribute must contain an id reference pointing to the associated footnote definition.
-
-footnotes: 'span.aria-footnote > a[href^="#"]',
 
 // Modify the smooth scrolling animation effects.
 override: {
@@ -44,7 +44,3 @@ easing: "ease-in"
 }
 
 }
-
-Straylight
-
-When the Straylight module is loaded, it parses the newly loaded document, recognizes the class "aria-footnote" on the link or button triggering element, then configures each footnote accordingly.

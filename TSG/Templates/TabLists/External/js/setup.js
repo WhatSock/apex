@@ -1,5 +1,5 @@
 $A.import(["Animate", "TabList"], { defer: true }, function() {
-  $A.setTabList('*[role="tablist"] *[role="tab"]', {
+  $A.setTabList("button.aria-tab", {
     // Preload HTML markup when pulling content from external resources to speed rendering
     preload: true,
     preloadImages: true,

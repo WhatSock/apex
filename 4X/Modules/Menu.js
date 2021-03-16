@@ -144,7 +144,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 if (!$A.isDOMNode(o)) return;
                 var ref =
                   list ||
-                  $A.getAttr(o, "data-menu") ||
+                  $A.getAttr(o, "menu") ||
                   $A.next(o, function(e) {
                     if (e.nodeName.toLowerCase() === tag.parent) return true;
                   });
@@ -153,10 +153,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 $A.setAttr(o, "aria-haspopup", "true");
                 var mItems = tag.parse(ref);
 
-                if (isIE)
-                  $A.query("svg", ref, function(i, o) {
-                    $A.setAttr(o, "focusable", "false");
-                  });
+                $A.svgFix(ref);
 
                 var DC = $A.toDC(
                   $A.extend(
@@ -382,8 +379,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 $A.on(o, e);
               };
               var p =
-                  (config.fetch && config.fetch.url) ||
-                  $A.getAttr(o, "data-menu"),
+                  (config.fetch && config.fetch.url) || $A.getAttr(o, "menu"),
                 s =
                   (config.fetch &&
                     config.fetch.data &&

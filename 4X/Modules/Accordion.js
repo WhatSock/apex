@@ -56,27 +56,35 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               o = config.trigger || config.content || null;
             }
             if (!o) return null;
+            var triggers = null;
+
+            if ($A.isArray(o)) triggers = o;
+            else if ($A.isStr(o))
+              triggers = (config.context || document).querySelectorAll(o);
 
             var dcArray = [],
               active = null,
-              startIndex = 0,
-              triggers = $A.query(o, function(i, o) {
-                var panelContainer = $A.get($A.getAttr(o, "data-root")),
-                  dc = $A(o).toDC(
-                    $A.extend(
-                      {
-                        widgetType: "Accordion",
-                        root: panelContainer
-                      },
-                      config || {}
-                    )
-                  );
-                dcArray.push(dc);
-                if ($A.getAttr(o, "data-active") === "true") {
-                  active = dc;
-                  startIndex = i;
-                }
-              });
+              startIndex = 0;
+
+            $A.loop(triggers, function(i, o) {
+              $A.svgFix(o);
+              var panelContainer = $A.get($A.getAttr(o, "root")),
+                dc = $A.toDC(
+                  o,
+                  $A.extend(
+                    {
+                      widgetType: "Accordion",
+                      root: panelContainer
+                    },
+                    config || {}
+                  )
+                );
+              dcArray.push(dc);
+              if ($A.hasAttr(o, "active")) {
+                active = dc;
+                startIndex = i;
+              }
+            });
 
             $A.map({
               siblings: dcArray

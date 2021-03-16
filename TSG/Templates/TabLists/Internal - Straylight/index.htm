@@ -51,47 +51,35 @@
                 <div class="demo-block flex-container">
                     <div class="component flex-item">
                         <h1 class="pageTitle">Tabs <small>(Straylight Internal Content)</small></h1>
-                        <!-- The tab list container element must include the attribute role="tablist", and all tab item nodes must include the attribute role="tab" to ensure accessibility for screen reader users.
-                Additionally, both the tab list container element and all tab item nodes must include unique ID values.
-                Attributes explained:
-                * role="tablist" : The ARIA role that specifies a group of tab controls. This must only be included within the element that contains all individual tabs.
-                * role="tab" : The ARIA role that specifies an individual tab control. To ensure accessibility, this element must not contain any other active elements.
-                * data-controls : The resource path and pointer to the ID attribute of the tab content container element.
-                * data-active="true" : Specifies that the referenced tab will open automatically. Only one tab per group should include this attribute.
-                * data-root : The ID attribute of the container element where tab panel content will be inserted.
-                * id : The unique ID of the element. This value is also registered as the ID of the individual tab DC object, making it possible to invoke the object
-                programmatically.
-                E.G $A(uniqueID).render();
-                -->
-                        <div class="aria-tablist" role="tablist">
-                            <button role="tab" id="xTab1id" class="accTab tab1" data-controls="tab1content" data-root="tabInsertId" data-active="true">
+                        <div class="aria-tablist">
+                            <button class="aria-tab tab1" controls="tab1content" root="tabInsertId" active>
                                 Name 1
                             </button>
-                            <button role="tab" id="xTab2id" class="accTab tab2" data-controls="tab2content" data-root="tabInsertId">
+                            <button class="aria-tab tab2" controls="tab2content" root="tabInsertId">
                                 Name 2
                             </button>
-                            <button role="tab" id="xTab3id" class="accTab tab3" data-controls="tab3content" data-root="tabInsertId">
+                            <button class="aria-tab tab3" controls="tab3content" root="tabInsertId">
                                 Name 3
                             </button>
-                            <button role="tab" id="xTab4id" class="accTab tab4" data-controls="tab4content" data-root="tabInsertId">
+                            <button aria-disabled="true" title="Disabled" class="aria-tab tab4" controls="tab4content" root="tabInsertId">
                                 Name 4
                             </button>
                         </div>
                         <div class="content" id="tabInsertId">
 
-                            <div hidden class="content" id="tab1content">
+                            <div hidden class="aria-tabpanel content" id="tab1content">
                                 <p>Tab Panel One Content
                             </div>
 
-                            <div hidden class="content" id="tab2content">
+                            <div hidden class="aria-tabpanel content" id="tab2content">
                                 <p>Tab Panel Two Content
                             </div>
 
-                            <div hidden class="content" id="tab3content">
+                            <div hidden class="aria-tabpanel content" id="tab3content">
                                 <p>Tab Panel Three Content
                             </div>
 
-                            <div hidden class="content" id="tab4content">
+                            <div hidden class="aria-tabpanel content" id="tab4content">
                                 <p>Tab Panel Four Content
                             </div>
 

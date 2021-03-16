@@ -9,23 +9,32 @@ In contrast, an Tab has a series of triggering elements that expand and collapse
 
 The 4X ARIA TabList module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 Tab design pattern.
 
+The following attributes are handled automatically by the TabList module:
+
+• role=tablist
+• role=tab
+• aria-expanded
+• aria-selected
+• aria-controls
+• role=tabpanel
+• aria-labelledby
+• tabindex
+
 Available attributes for the triggering element:
 
-• data-controls : The resource path and pointer to the ID attribute of the tab container element.
-• data-root : The ID attribute of the container element where the tab content will be inserted when rendered. (This must not be inside the triggering element)
-• data-active="true" : Specifies that the referenced tab node will open automatically. Only one tab node per group should include this attribute.
-
-Note: All focusable triggering elements must include the attribute role="tab", and contained within an element that includes role="tablist" in conformance with the ARIA specification.
+• controls : The resource path and pointer to the ID attribute of the tab content container element.
+• root : The ID attribute of the container element where the tab content will be inserted when rendered. (This must not be inside the triggering element)
+• active : Specifies that the referenced tab node will open automatically. Only one tab node per group should include this attribute.
 
 JavaScript syntax:
 
-$A.setTabList( DOM-Node-or-CSS-Selector-forTriggering-Elements , {
+$A.setTabList( DOM-NodeList-or-CSS-Selector-forTriggering-Elements , {
 // Configure functionality key / value mappings
 });
 
 Parameters
 
-1: A DOM element or CSS selector to specify the group of triggering elements.
+1: A DOM element list or CSS selector to specify the group of triggering elements.
 
 2: A configuration map to customize behaviors and options.
 
@@ -106,7 +115,7 @@ complete(); // REQUIRED: complete() must be executed so control is passed back t
 
 Programmatic Control
 
-// Get the DC object for the tab using its id.
+// Get the DC object for the tab using its triggering element id.
 var DC = $A("tabId");
 
 // Open the tab manually.

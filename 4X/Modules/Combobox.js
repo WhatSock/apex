@@ -7,7 +7,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
 (function() {
   if (!("Combobox" in $A)) {
-    window.AccNamePrototypeNameSpace = $A;
     $A.import(["SmoothScroll", "AccName"], {
       name: "ComboboxModule",
       props: props,
@@ -372,10 +371,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       "aria-expanded": "false"
                     });
 
-                    if ($A.isFn($A.getAccName) && !$A.getAccName(o).name)
-                      $A.setAttr(o, {
-                        "aria-label": $A.getAccName(dc.triggerNode).name
-                      });
+                    $A.setAttr(o, {
+                      "aria-label":
+                        ($A.isFn(window.getAccName) &&
+                          window.getAccName(dc.triggerNode).name) ||
+                        $A.getText(dc.triggerNode)
+                    });
 
                     dc.cb.altClicked = false;
 
@@ -1218,7 +1219,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 o,
                 $A.extend(
                   {
-                    duration: 150,
+                    duration: 100,
                     container: that.listboxNode,
                     complete: function() {
                       if ($A.isFn(cb)) cb.call(o, o);

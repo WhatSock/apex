@@ -105,6 +105,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             $A.import(dc.importCSS, {}, dc.fn.style);
           }
         }
+
         return w;
       };
 
@@ -444,11 +445,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       }
       if (!$A.isPlainObject(config)) config = {};
       if (o) o = $A.morph(o);
-      var ctrl = $A.isDOMNode(o) && $A.getAttr(o, "data-controls");
+      var ctrl = $A.isDOMNode(o) && $A.getAttr(o, "controls");
 
-      if (config.fetch && config.fetch.url) config.mode = 1;
+      if (config.fetch && config.fetch.url) {
+        config.toggleHide = false;
+        config.mode = 1;
+      }
 
       if (ctrl && $A.isPath(ctrl)) {
+        config.toggleHide = false;
         config.fetch = $A.toFetch(ctrl);
         config.content = null;
         config.trigger = o;
@@ -2991,11 +2996,13 @@ error: function(error, promise){}
       if (this._4X) {
         o = this._X;
       }
-      return $A.isDOMNode(o) &&
-        (!(o.offsetHeight + o.offsetWidth) ||
-          $A.css(o, "visibility") === "hidden")
-        ? true
-        : false;
+      if (!$A.isDOMNode(o)) return true;
+      if (
+        o.offsetHeight + o.offsetWidth < 1 ||
+        $A.css(o, "visibility") === "hidden"
+      )
+        return true;
+      return false;
     },
 
     isWithin: function(node, container) {
@@ -3065,6 +3072,20 @@ error: function(error, promise){}
         );
       }
       return $A._XR.call(this, n);
+    },
+
+    svgFix: function(c) {
+      if (this._4X) {
+        c = this._X;
+      }
+      c = $A.morph(c);
+      if ($A.isDOMNode(c, null, document, 11)) {
+        if ($A.isIE())
+          $A.query("svg", c, function(i, o) {
+            $A.setAttr(o, "focusable", "false");
+          });
+      }
+      return $A._XR.call(this, c);
     },
 
     setKBA11Y: function(node, role, name, noSpacebar) {
@@ -3164,8 +3185,7 @@ error: function(error, promise){}
               $A.getAttr(e, "aria-disabled") === "true"
                 ? true
                 : false;
-            if ($A.isDC(o)) o.disabled = isD;
-            else if ($A.isDOMNode(o)) $A.data(o, "disabled", isD);
+            if (isD) $A.data(e, "disabled", true);
           });
         },
         "array"
@@ -3247,8 +3267,10 @@ error: function(error, promise){}
           return dc;
         },
         DCR1 = function(DC) {
-          var dc = WL[DC.indexVal];
+          var dc = WL[DC.indexVal],
+            disabled = dc.isDisabled();
           if (
+            disabled ||
             dc.loading ||
             dc.loaded ||
             dc.allowRerender ||
@@ -3264,6 +3286,7 @@ error: function(error, promise){}
             if (
               !(
                 dc.allowRerender &&
+                !disabled &&
                 !dc.loading &&
                 !dc.loaded &&
                 !dc.lock &&

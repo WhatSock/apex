@@ -1,11 +1,11 @@
 
 ARIA Data Grids
 
-Expected behaviors: The entire grid should have only one tab stop, one cell should be focusable at a time, the arrow keys should move focus between cells, Home and End should move focus to the beginning or end of a row, PageUp and PageDown should open the previous or next page of the grid, Alt+PageUp and Alt+PageDown should move focus to the first or last page in the grid, Space and Enter should activate the current cell or row, and textual equivalents should indicate the role and state of each interactive control type for screen reader users.
+Expected behaviors: The grid should have only one tab stop, one cell should be focusable at a time, the arrow keys should move focus between cells, Home and End should move focus to the beginning or end of a row, PageUp and PageDown should open the previous or next page of the grid, Alt+PageUp and Alt+PageDown should move focus to the first or last page in the grid, Space and Enter should activate the current cell or row, and textual equivalents should indicate the role and state of each interactive control type for screen reader users.
 
 The 4X ARIA Grid module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 Grid design pattern.
 
-The following attributes are dynamically applied:
+The following attributes are handled automatically by the Grid module:
 
 • role=grid
 • role=rowgroup
@@ -20,8 +20,8 @@ The following attributes are dynamically applied:
 • aria-selected
 • title
 • aria-hidden
-• tabindex
 • aria-owns
+• tabindex
 
 JavaScript syntax:
 

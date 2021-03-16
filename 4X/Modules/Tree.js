@@ -124,7 +124,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 var ref =
                   list ||
                   ($A.isDOMNode(o) &&
-                    ($A.getAttr(o, "data-controls") ||
+                    ($A.getAttr(o, "controls") ||
                       $A.next(o, function(e) {
                         if (e.nodeName.toLowerCase() === tag.parent)
                           return true;
@@ -140,10 +140,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 var mItems = tag.parse(ref);
                 $A.setAttr(ref, "role", top ? "tree" : "group");
 
-                if (isIE)
-                  $A.query("svg", ref, function(i, o) {
-                    $A.setAttr(o, "focusable", "false");
-                  });
+                $A.svgFix(ref);
 
                 var DC = $A.toDC(
                   $A.extend(

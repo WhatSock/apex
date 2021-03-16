@@ -40,7 +40,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       role: function(dc) {
         return {
           role: "region",
-          "aria-label": dc.isError ? "Error" : "Tooltip"
+          "aria-label": dc.isError && !dc.isResponsive ? "Error" : "Tooltip"
         };
       },
       innerRole: function(dc) {
@@ -214,8 +214,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
           if (!config.isError && config.isResponsive) config.isError = true;
 
-          if ($A.hasAttr(o, "data-tooltip")) {
-            var dt = $A.getAttr(o, "data-tooltip");
+          if ($A.hasAttr(o, "tooltip")) {
+            var dt = $A.getAttr(o, "tooltip");
             tooltip = {
               id: $A.hasDC(id) ? $A.genId() : id,
               target: o,
@@ -225,8 +225,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             else tooltip.content = $A.morph(dt);
           }
 
-          if ($A.hasAttr(o, "data-error")) {
-            var de = $A.getAttr(o, "data-error");
+          if ($A.hasAttr(o, "error")) {
+            var de = $A.getAttr(o, "error");
             error = {
               id: $A.hasDC(id) ? $A.genId() : id,
               target: o,

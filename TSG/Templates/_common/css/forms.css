@@ -205,13 +205,13 @@ li.option.active a:visited {
   background: var(--elementBlack);
 }
 
-li[role="option"][aria-checked="false"] {
+li [role="option"][aria-checked="false"] {
   background: url("../img/unchecked.svg");
   background-repeat: no-repeat;
   background-position: right;
 }
 
-li[role="option"][aria-checked="true"] {
+li [role="option"][aria-checked="true"] {
   background: url("../img/checked.svg");
   background-repeat: no-repeat;
   background-position: right;
@@ -233,11 +233,11 @@ div.toplevel-div {
   display: inline;
 }
 
-span[role="combobox"][aria-expanded="false"] sup:before {
+span.aria-combobox[aria-expanded="false"] sup:before {
   content: "\2193";
 }
 
-span[role="combobox"][aria-expanded="true"] sup:before {
+span.aria-combobox[aria-expanded="true"] sup:before {
   content: "\2191";
 }
 
@@ -568,7 +568,7 @@ div.description code {
 *********************************/
 /*Red button for select languages*/
 
-span[role="combobox"] {
+span.aria-combobox {
   display: inline-block;
   line-height: 1.6em;
   color: var(--globalWhite);
@@ -611,7 +611,7 @@ IE11 fallback
   input {
     border: 1px solid #c0c0c0;
   }
-  span[role="combobox"] {
+  span.aria-combobox {
     color: #fff;
     background: #c1384d url(../img/sprite.svg) right -1686px no-repeat;
   }

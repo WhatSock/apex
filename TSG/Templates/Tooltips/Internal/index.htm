@@ -53,14 +53,14 @@
                         <h1 class="pageTitle">Tooltip <small>Internal Content</small></h1>
                         <section>
                             <h2>Tooltip with manual click to render</h2>
-                            <!-- Here the data-tooltip attribute is used to set the tooltip content. -->
-                            <p><a data-tooltip='<p>"It is a mistake to think you can solve any major problems just with potatoes.", Douglas Adams</p>' id="helpIcon" href="#" class="helpIcon aria-tooltip"><img src="img/ic_help.svg" alt="What is the greatest secret known to man?" title="What is the greatest secret known to man?" /></a></p>
+                            <!-- Here the tooltip attribute is used to set the tooltip content. -->
+                            <p><a tooltip='<p>"It is a mistake to think you can solve any major problems just with potatoes.", Douglas Adams</p>' id="helpIcon" href="#" class="helpIcon aria-tooltip"><img src="img/ic_help.svg" alt="What is the greatest secret known to man?" title="What is the greatest secret known to man?" /></a></p>
                         </section>
                         <section>
                             <h2>Tooltip with explicit onFocus to render</h2>
-                            <!-- Here the data-tooltip attribute is used to reference the id of the hidden tooltip container element. -->
+                            <!-- Here the tooltip attribute is used to reference the id of the hidden tooltip container element. -->
                             <p><label for="pWord">Password:</label>
-                                <input data-tooltip="#password-tooltip" id="pWord" type="password" />
+                                <input tooltip="#password-tooltip" id="pWord" type="password" />
                             </p>
                             <div hidden id="password-tooltip">
                                 <p>

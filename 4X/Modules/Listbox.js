@@ -98,10 +98,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 if (!$A.isDOMNode(ref)) return;
                 if (!ref.id) ref.id = $A.genId();
 
-                if (isIE)
-                  $A.query("svg", ref, function(i, o) {
-                    $A.setAttr(o, "focusable", "false");
-                  });
+                $A.svgFix(ref);
 
                 DC = $A.toDC(
                   $A.extend(
@@ -256,7 +253,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   if (init.select.nodeType && $A.isHidden(init.select)) {
                     var tmp = init.select.cloneNode();
                     tmp.hidden = false;
-                    hiddenName = $A.getAccName(tmp).name;
+                    hiddenName =
+                      $A.isFn(window.getAccName) && window.getAccName(tmp).name;
                   }
                   $A.setAttr(
                     init.listbox,
@@ -264,8 +262,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     config.label ||
                       hiddenName ||
                       (init.select.nodeType
-                        ? $A.getAccName
-                          ? $A.getAccName(init.select).name
+                        ? $A.isFn(window.getAccName)
+                          ? window.getAccName(init.select).name
                           : ""
                         : "")
                   );
@@ -809,7 +807,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 init.select = $A.morph(config.select);
               else init.select = { nodeType: false };
               config.select = init.select;
-              var ref = $A.getAttr(init.select, "data-controls");
+              var ref = $A.getAttr(init.select, "controls");
               if (ref && $A.isDOMNode($A.morph(ref)))
                 init.listbox = $A.morph(ref);
               else if (!$A.isNative(o)) init.listbox = o;

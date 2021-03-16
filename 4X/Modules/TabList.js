@@ -66,28 +66,67 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               o = config.trigger || config.content || null;
             }
             if (!o) return null;
-            var container = null,
-              flag = false;
+
+            var triggers = null,
+              container = $A.morph(config.container);
+
+            if ($A.isArray(o)) triggers = o;
+            else if ($A.isStr(o))
+              triggers = (config.context || document).querySelectorAll(o);
+
+            if (!$A.isDOMNode(container)) {
+              (function() {
+                var f = [],
+                  l = [];
+                $A.closest(triggers[0], function(n) {
+                  if ($A.isDOMNode(n)) f.push(n);
+                  if (n === document.body) return true;
+                });
+                $A.closest(triggers[triggers.length - 1], function(n) {
+                  if ($A.isDOMNode(n)) l.push(n);
+                  if (n === document.body) return true;
+                });
+                f = f.reverse();
+                l = l.reverse();
+                var c = null;
+                for (var i = 0; i < f.length; i++) {
+                  if (f[i] === l[i]) c = f[i];
+                  else if (f[i] !== l[i]) break;
+                }
+                container = c;
+              })();
+            }
+            $A.setAttr(container, "role", "tablist");
 
             var dcArray = [],
               active = null,
-              startIndex = 0,
-              triggers = $A.query(o, function(i, o) {
+              startIndex = 0;
+
+            $A.loop(
+              triggers,
+              function(i, o) {
+                $A.svgFix(o);
                 var tree = [];
-                if (!$A.isDOMNode(container))
-                  container = $A.closest(o, function(n) {
-                    if ($A.getAttr(n, "role") === "tablist") return true;
+                if ($A.isDOMNode(container))
+                  $A.closest(o, function(n) {
+                    if (n === container) return true;
                     tree.push(n);
                   });
-                if ($A.isDOMNode(container) && tree.length)
+                if (
+                  container !== document.body &&
+                  $A.isDOMNode(container) &&
+                  tree.length
+                )
                   $A.setAttr(tree, "role", "presentation");
+                if (!o.id) o.id = $A.genId();
                 $A.setAttr(o, {
+                  role: "tab",
                   "aria-expanded": "false",
                   "aria-selected": "false"
                 });
-                if ($A.getAttr(o, "role") !== "tab") flag = true;
-                var panelContainer = $A.get($A.getAttr(o, "data-root")),
-                  dc = $A(o).toDC(
+                var panelContainer = $A.get($A.getAttr(o, "root")),
+                  dc = $A.toDC(
+                    o,
                     $A.extend(
                       {
                         widgetType: "TabList",
@@ -98,21 +137,17 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     )
                   );
                 dcArray.push(dc);
-                if ($A.getAttr(o, "data-active") === "true") {
+                if ($A.hasAttr(o, "active")) {
                   active = dc;
                   startIndex = i;
                 }
-              });
-
-            if (flag && $A.isDOMNode(container)) {
-              $A.remAttr(container.querySelectorAll('*[role="tab"]'), "role");
-              $A.setAttr(triggers, "role", "tab");
-            }
+              },
+              "array"
+            );
 
             $A.map({
               siblings: dcArray
             });
-            $A.updateDisabled(dcArray);
 
             var RTI = new $A.RovingTabIndex(
               $A.extend(
@@ -127,17 +162,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     ev.preventDefault();
                   },
                   onSpace: function(ev, tabNode, RTI, DC) {
-                    DC.render();
+                    RTI.onClick.apply(tabNode, arguments);
                     ev.preventDefault();
                   },
                   onEnter: function(ev, tabNode, RTI, DC) {
-                    DC.render();
+                    RTI.onClick.apply(tabNode, arguments);
                     ev.preventDefault();
                   }
                 },
                 config.extendRTI || {}
               )
             );
+
+            $A.updateDisabled(RTI.nodes);
 
             if ($A.isDC(active)) active.render();
 

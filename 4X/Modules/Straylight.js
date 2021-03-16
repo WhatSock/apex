@@ -12,70 +12,76 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
   if (!("straylight" in $A))
     $A.extend({
       straylight: function(context) {
-        context = $A.isDOMNode(context) ? context : document;
+        context = $A.isDOMNode(context, null, document, 11)
+          ? context
+          : document;
 
         (function() {
           // ARIA Accordions
           // Search and recognise accordion triggering elements with the class "aria-accordion-trigger" plus a valid data-name attribute for shared control groups.
-          var groups = {};
+          var map = new Map();
           $A.query(
-            "button[data-controls][data-name].aria-accordion-trigger",
+            "button[controls][data-name].aria-accordion-trigger, a[controls][data-name].aria-accordion-trigger",
             context,
             function(i, o) {
-              var groupName = $A.getAttr(o, "data-name");
-              if (!groups[groupName]) groups[groupName] = [];
               if (!$A.data(o, "_isBoundAccordion")) {
                 $A.data(o, "_isBoundAccordion", true);
-                groups[groupName].push(o);
+                var name = $A.getAttr(o, "data-name");
+                if (!map.has(name)) map.set(name, []);
+                map.get(name).push(o);
               }
             }
           );
-          for (var n in groups) {
-            $A.import(["Animate", "Accordion"], {
-              name: "StraylightAccordion",
-              defer: true,
-              props: $A.extend(props, {
-                accordionGroup: groups[n]
-              }),
-              call: function(props) {
-                $A.setAccordion(props.accordionGroup, {
-                  toggleClass: "open",
-                  toggleHide: true,
-                  isToggle: false,
-                  allowMultiple: false,
-                  preload: true,
-                  preloadImages: true,
-                  preloadCSS: true,
+          $A.loop(
+            map,
+            function(i, o) {
+              $A.import(["Animate", "Accordion"], {
+                name: "StraylightAccordion",
+                defer: true,
+                props: $A.extend(props, {
+                  triggers: o
+                }),
+                call: function(props) {
+                  $A.setAccordion(props.triggers, {
+                    toggleClass: "open",
+                    isToggle: false,
+                    allowMultiple: false,
+                    preload: true,
+                    preloadImages: true,
+                    preloadCSS: true,
+                    toggleHide: true,
 
-                  style: { display: "none" },
-                  animate: {
-                    onRender: function(dc, wrapper, complete) {
-                      Velocity(wrapper, "transition.slideLeftIn", {
-                        complete: function() {
-                          complete();
-                        }
-                      });
+                    style: { display: "none" },
+                    animate: {
+                      onRender: function(dc, wrapper, complete) {
+                        Velocity(wrapper, "transition.slideLeftIn", {
+                          complete: function() {
+                            complete();
+                          }
+                        });
+                      },
+                      onRemove: function(dc, wrapper, complete) {
+                        Velocity(wrapper, "transition.slideLeftOut", {
+                          complete: function() {
+                            complete();
+                          }
+                        });
+                      }
                     },
-                    onRemove: function(dc, wrapper, complete) {
-                      Velocity(wrapper, "transition.slideLeftOut", {
-                        complete: function() {
-                          complete();
-                        }
-                      });
-                    }
-                  },
-                  context: context
-                });
-              }
-            });
-          }
+                    context: context
+                  });
+                }
+              });
+            },
+            "map"
+          );
         })();
 
         (function() {
           // ARIA TabLists
-          // Search and recognise tablist grouping containers with the class "aria-tablist" and the role "tablist"
+          // Search and recognise tablist grouping containers with the class "aria-tablist"
           var groups = [];
-          $A.query('*.aria-tablist[role="tablist"]', context, function(i, o) {
+          $A.query("*.aria-tablist", context, function(i, o) {
             if (!$A.data(o, "_isBoundTabList")) {
               $A.data(o, "_isBoundTabList", true);
               groups.push(o);
@@ -92,32 +98,37 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 $A.loop(
                   props.tabList,
                   function(i, list) {
-                    $A.setTabList(list.querySelectorAll('*[role="tab"]'), {
-                      preload: true,
-                      preloadImages: true,
-                      preloadCSS: true,
+                    $A.setTabList(
+                      list.querySelectorAll(
+                        "button[controls].aria-tab, a[controls].aria-tab"
+                      ),
+                      {
+                        preload: true,
+                        preloadImages: true,
+                        preloadCSS: true,
+                        toggleHide: true,
 
-                      style: { display: "none" },
-                      animate: {
-                        onRender: function(dc, wrapper, complete) {
-                          Velocity(wrapper, "transition.slideUpIn", {
-                            complete: function() {
-                              complete();
-                            }
-                          });
+                        style: { display: "none" },
+                        animate: {
+                          onRender: function(dc, wrapper, complete) {
+                            Velocity(wrapper, "transition.slideUpIn", {
+                              complete: function() {
+                                complete();
+                              }
+                            });
+                          },
+                          onRemove: function(dc, wrapper, complete) {
+                            Velocity(wrapper, "transition.slideUpOut", {
+                              complete: function() {
+                                complete();
+                              }
+                            });
+                          }
                         },
-                        onRemove: function(dc, wrapper, complete) {
-                          Velocity(wrapper, "transition.slideUpOut", {
-                            complete: function() {
-                              complete();
-                            }
-                          });
-                        }
-                      },
-                      isToggle: false,
-                      toggleClass: "active",
-                      toggleHide: true
-                    });
+                        isToggle: false,
+                        toggleClass: "active"
+                      }
+                    );
                   },
                   "array"
                 );
@@ -128,7 +139,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         (function() {
           // ARIA Date Pickers
           // Parse all A and button tags that include the class 'aria-date-picker'
-          // An Input element with type=text is specified as the return recipient by matching the data-controls attribute of the A/Button with the Input element's id attribute.
+          // An Input element with type=text is specified as the return recipient by matching the controls attribute of the A/Button with the Input element's id attribute.
           // A and Button tags were chosen because they are always active elements, to ensure keyboard accessibility.
           $A.query(
             "a.aria-date-picker, button.aria-date-picker",
@@ -140,7 +151,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 tdc.remove();
                 tdc.returnFocus = true;
               }
-              var id = $A.getAttr(o, "data-controls") || false,
+              var id = $A.getAttr(o, "controls") || false,
                 target = id ? context.querySelector("#" + id) : false;
               if (target) {
                 // Prevent duplicate event bindings when nested within multi-level same page apps
@@ -199,7 +210,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           // ARIA Dialogs
           // Search and recognise dialog triggering elements with the class "aria-dialog"
           var triggers = context.querySelectorAll(
-            "a[href][data-controls].aria-dialog, button[data-controls].aria-dialog"
+            "a[href][controls].aria-dialog, button[controls].aria-dialog"
           );
 
           if (triggers.length)
@@ -273,7 +284,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           // ARIA Popups
           // Search and recognise popup triggering elements with the class "aria-popup"
           var triggers = context.querySelectorAll(
-            "a[href][data-controls].aria-popup, button[data-controls].aria-popup"
+            "a[href][controls].aria-popup, button[controls].aria-popup"
           );
 
           if (triggers.length)
@@ -379,7 +390,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         (function() {
           // ARIA Menus
           // Search and recognise menu triggering elements with the class "aria-menu"
-          var triggers = context.querySelectorAll("*[data-menu].aria-menu");
+          var triggers = context.querySelectorAll("*[menu].aria-menu");
 
           if (triggers.length)
             $A.import(["Animate", "Menu"], {

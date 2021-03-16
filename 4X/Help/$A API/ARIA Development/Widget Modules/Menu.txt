@@ -8,16 +8,76 @@ The 4X ARIA Menu module automatically configures all required ARIA attributes an
 The following attributes are handled automatically by the Menu module:
 
 • role=menu
-• role=menuitem
-• role=menuitemcheckbox
-• role=menuitemradio
+• role=menuitem/menuitemcheckbox/menuitemradio
 • aria-checked
 • aria-haspopup
 • aria-orientation
+• tabindex
+
+Available attributes for the triggering element:
+
+• menu : The resource path and pointer to the ID attribute of the menu container element.
+
+Available attributes for menu item links:
+
+• menu : The resource path and pointer to the ID attribute of the submenu container element.
+• radio : May be set to "false" or "true" to set the current state of a radio menu item when rendered.
+• check : May be set to "false", "true", or "mixed" to set the current state of a checkbox menu item when rendered.
+
+HTML syntax:
+
+[Standard]
+
+<ul id="menuId">
+  <li>
+    <a href=" ... " >
+      Accessible name and markup.
+    </a>
+  </li>
+</ul>
+
+[Submenu]
+
+<ul id="menuId">
+  <li>
+    <a href=" ... " >
+      Accessible name and markup.
+    </a>
+    <ul>
+      <li>
+        <a href=" ... " >
+          Accessible name and markup.
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+[Checkbox]
+
+<ul id="menuId">
+  <li>
+    <a check="false" href=" ... " >
+      Accessible name and markup.
+    </a>
+  </li>
+</ul>
+
+[Radio]
+
+<ul id="menuId">
+  <li>
+    <a radio="false" href=" ... " >
+      Accessible name and markup.
+    </a>
+  </li>
+</ul>
+
+IMPORTANT: An ARIA Menu must never include any other active elements other than those specified as menu items. Otherwise, all such additional active elements will be undiscoverable and inaccessible to non-sighted screen reader users.
 
 JavaScript syntax:
 
-$A.setMenu( DOM-Node-or-CSS-Selector-forTriggering-Element , {
+var myMenuDC = $A.setMenu( DOM-Node-or-CSS-Selector-forTriggering-Element , {
 // Configure functionality key / value mappings
 });
 
@@ -37,14 +97,14 @@ id: 'uniqueId',
 
 // Optionally specify the content to be rendered when referencing internal content.
 // May be a DOM node or CSS selector.
-// Not necessary if data-menu is set on the triggering element.
+// Not necessary if menu is set on the triggering element.
 content: "#uniqueId",
 
 // Specifies that the referenced content for rendering should not be dynamically inserted into the DOM, but will instead toggle the hidden attribute.
 toggleHide: true,
 
 // Optionally specify the content to be rendered when referencing external content.
-// Not necessary if data-menu is set on the triggering element.
+// Not necessary if menu is set on the triggering element.
 // If set, the source property will be auto-populated with the returned content.
 fetch: {
 url: "path/file.htm",
@@ -58,15 +118,18 @@ selector: "#uniqueId"
 leftClick: true,
 rightClick: false,
 
-// Specify the tag names for the parent a child elements that will be matched against when building the menu structure.
+// Specify the tag names for the parent and child elements that will be matched against when building the menu structure.
 tag: {
 parent: "ul", // Will become the container with role="menu"
 child: "a" // Will become the focusable active element with role="menuitem", "menuitemcheckbox", or "menuitemradio"
 },
 
 // Set a custom event handler to process every time a menu item is activated.
-onActivate: function(event, triggerNode, RTI, DC, arrowKeyCode) {
-// Do something.
+onActivate: function(event, triggerNode, RTI, DC, currentState, setNewStateFn) {
+// If the menu item is checkable, currentState will include a number from 0 to 2.
+// (0 = "false", 1 = "true", 2 = "mixed".)
+// The setNewStateFn function can be used to set a new state for the option.
+// E.G. setNewStateFn("false"), setNewStateFn("true"), or setNewStateFn("mixed") for checkbox menu items only.
 },
 
 // Set the class name for the top level container element
@@ -78,11 +141,11 @@ closeClassName: "CloseDC",
 
 // Preload markup in the background when using the Fetch API to load external content.
 // For examples, view files within "TSG/Templates/Menus".
-preload: false,
+preload: true,
 
 // Preload images in the background when using the Fetch API to load external content.
 // For examples, view files within "TSG/Templates/Menus".
-preloadImages: false,
+preloadImages: true,
 
 // Optionally run a script after the menu finishes rendering.
 afterRender: function(DC) {
@@ -157,19 +220,3 @@ DC.remove(function() {
 
 // All other 4X API properties and methods can be applied here as well.
 // To view available options, reference the help docs located at: "4X/Help/DC API/DC Object Properties and Methods"
-
-Straylight
-
-When the Straylight module is loaded, it parses the newly loaded document, recognizes the class "aria-menu" on the link or button triggering element, then configures the menu using these HTML5 attributes.
-
-Available attributes for the triggering element:
-
-• data-menu : The resource path and pointer to the ID attribute of the menu container element.
-
-Available attributes for menu item links:
-
-• data-menu : The resource path and pointer to the ID attribute of the submenu container element.
-• data-role : May be set to either "checkbox" or "radio" to create checkable menu items when rendered.
-• data-checked : May be set to "false", "true", or "mixed" to set the current state of a checkable menu item element when rendered.
-
-Additional attributes can be added to enhance functionality by editing the file "4X/Modules/Straylight".

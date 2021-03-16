@@ -10,7 +10,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     $A.extend({
       Grid: function(container) {
         var that = this,
-          container = $A.isStr(container) ? $A.get(container) : container,
+          container = $A.morph(container),
           config = {
             gridClass: "data-grid",
             gridReadOnlyClass: "data-grid-readonly",
@@ -602,7 +602,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 selectClass: "selected",
                 multiSelect: false,
                 preserveSelect: false,
-                ariaSelect: false,
+                ariaSelect: true,
                 selected: [],
                 select: function(cellObject, sv) {
                   var newVal =
@@ -1501,7 +1501,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           }
         };
 
-        $A([
+        config.dc = $A([
           {
             id: uId,
             role: "Grid",
@@ -1610,9 +1610,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               dc.table = dc.thead = dc.tbody = dc.tr = null;
             }
           }
-        ]);
-
-        config.dc = $A.getDC(uId);
+        ])[0];
 
         that.id = uId;
 

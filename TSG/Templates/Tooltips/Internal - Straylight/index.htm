@@ -52,14 +52,14 @@
                         <h1 class="pageTitle">Straylight Tooltip <small>Internal Content</small></h1>
                         <section>
                             <h2>Tooltip with manual click to render</h2>
-                            <!-- Here the data-tooltip attribute is used to set the tooltip content. -->
-                            <p><a data-mode="click" data-tooltip='<p>"It is a mistake to think you can solve any major problems just with potatoes.", Douglas Adams</p>' id="helpIcon" href="#" class="helpIcon aria-tooltip"><img src="img/ic_help.svg" alt="What is the greatest secret known to man?" title="What is the greatest secret known to man?" /></a></p>
+                            <!-- Here the tooltip attribute is used to set the tooltip content. -->
+                            <p><a data-mode="click" tooltip='<p>"It is a mistake to think you can solve any major problems just with potatoes.", Douglas Adams</p>' id="helpIcon" href="#" class="helpIcon aria-tooltip"><img src="img/ic_help.svg" alt="What is the greatest secret known to man?" title="What is the greatest secret known to man?" /></a></p>
                         </section>
                         <section>
                             <h2>Tooltip with explicit onFocus to render</h2>
-                            <!-- Here the data-tooltip attribute is used to reference the id of the hidden tooltip container element. -->
+                            <!-- Here the tooltip attribute is used to reference the id of the hidden tooltip container element. -->
                             <p><label for="pWord">Password:</label>
-                                <input data-mode="focus" data-delay="1000" data-tooltip="#password-tooltip" id="pWord" type="password" class="aria-tooltip" />
+                                <input data-mode="focus" data-delay="1000" tooltip="#password-tooltip" id="pWord" type="password" class="aria-tooltip" />
                             </p>
                             <div hidden id="password-tooltip">
                                 <p>
@@ -74,7 +74,7 @@
                         </section>
                         <section>
                             <h2>Tooltip with hover support to render</h2>
-                            <p><button data-delay="600" data-timeout="3000" data-tooltip='<div id="hover-tooltip"><p>Wow, look at that!</p></div>' class="action-btn aria-tooltip" onclick="alert('Do something else.')">Action</button></p>
+                            <p><button data-delay="600" data-timeout="3000" tooltip='<div id="hover-tooltip"><p>Wow, look at that!</p></div>' class="action-btn aria-tooltip" onclick="alert('Do something else.')">Action</button></p>
                         </section>
                     </div>
                     <div class="keyboard flex-item">

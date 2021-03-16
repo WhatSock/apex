@@ -11,9 +11,13 @@ The following attributes are handled automatically by the Popup module:
 • aria-label
 • aria-expanded
 
+Available attributes for the triggering element:
+
+• controls : The resource path and pointer to the ID attribute of the popup container element.
+
 JavaScript syntax:
 
-$A.setPopup( DOM-Node-or-CSS-Selector-forTriggering-Element , {
+var myPopupDC = $A.setPopup( DOM-Node-or-CSS-Selector-forTriggering-Element , {
 // Configure functionality key / value mappings
 });
 
@@ -33,11 +37,11 @@ id: 'uniqueId',
 
 // Optionally specify the content to be rendered when referencing internal content.
 // May be a DOM node or CSS selector.
-// Not necessary if data-controls is set on the triggering element.
+// Not necessary if controls is set on the triggering element.
 content: "#uniqueId",
 
 // Optionally specify the content to be rendered when referencing external content.
-// Not necessary if data-controls is set on the triggering element.
+// Not necessary if controls is set on the triggering element.
 // If set, the source property will be auto-populated with the returned content.
 fetch: {
 url: "path/file.htm",
@@ -135,13 +139,3 @@ DC.remove(function() {
 
 // All other 4X API properties and methods can be applied here as well.
 // To view available options, reference the help docs located at: "4X/Help/DC API/DC Object Properties and Methods"
-
-Straylight
-
-When the Straylight module is loaded, it parses the newly loaded document, recognizes the class "aria-popup" on the link or button triggering element, then configures the popup using these HTML5 attributes.
-
-Available attributes for the triggering element:
-
-• data-controls : The resource path and pointer to the ID attribute of the popup container element.
-
-Additional attributes can be added to enhance functionality by editing the file "4X/Modules/Straylight".

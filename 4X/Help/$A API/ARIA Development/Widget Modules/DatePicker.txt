@@ -5,9 +5,13 @@ Expected behaviors: The associated INPUT field should not include readonly, an e
 
 The 4X ARIA DatePicker module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 specification.
 
+Available attributes for the triggering element:
+
+• controls : The id reference for the date picker triggering element to map the corresponding id of the associated input element. The controls attribute must be on the link or button triggering element, and its value must match the id value for the associated input element.
+
 JavaScript syntax:
 
-$A.setDatePicker({
+var myCalendarDC = $A.setDatePicker({
 // Configuration key / value map
 });
 
@@ -279,8 +283,6 @@ configure: function(dc){
 
 Programmatic Control
 
-Every Date Picker is registered as an DC object, the ID of which matches the value declared as the "id" property.
-
 var dc = $A('UniqueCalendarId');
 
 // Manually open the calendar.
@@ -318,20 +320,6 @@ There are some additional methods which allow altering the Date Picker state aft
 * dc.setDate(dc, dateObj)
 
 * dc.presetDate(dc, initialDateObj, minDateObj, maxDateObj)
-
-Straylight
-
-When the Straylight module is loaded, it parses the newly loaded document, recognizes the class "aria-date-picker" on the link or button triggering element, then configures the date picker using these HTML5 attributes.
-
-Available HTML5 attributes for the triggering element:
-
-* data-controls : The id reference for the date picker triggering element to map the corresponding id of the associated input element. The data-controls attribute must be on the link or button triggering element, and its value must match the id value for the associated input element.
-
-Additional HTML5 attributes can be added to enhance functionality by editing the file "/4X/Modules/Straylight".
-
-Required attributes:
-
-* class="aria-date-picker" : The class name that specifies an accessible 4X date picker widget. (Must be on the link or button triggering element.)
 
 Implementation Notes
 

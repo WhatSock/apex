@@ -1,0 +1,165 @@
+
+ARIA Trees
+
+Expected behaviors: Ensure that each tree has only one tab stop and that available tree items can be navigated using the arrow keys in the same manner as a native Windows TreeView control.
+
+The 4X ARIA Tree module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 specification.
+
+The following attributes are handled automatically by the Tree module:
+
+• role=tree/group
+• role=treeitem
+• aria-expanded
+• aria-checked
+• aria-owns
+• aria-level
+• aria-multiselectable
+• aria-selected
+• tabindex
+
+Available attributes for tree item links:
+
+• controls : The resource path and pointer to the ID attribute of the subtree container element.
+• check : May be set to "false", "true", or "mixed" to set the current state of a checkbox tree item when rendered.
+
+HTML syntax:
+
+[Standard]
+
+<ul id="treeId">
+  <li>
+    <a href=" ... " >
+      Accessible name and markup.
+    </a>
+  </li>
+</ul>
+
+[Subtree]
+
+<ul id="treeId">
+  <li>
+    <a href=" ... " >
+      Accessible name and markup.
+    </a>
+    <ul>
+      <li>
+        <a href=" ... " >
+          Accessible name and markup.
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+[Checkbox]
+
+<ul id="treeId">
+  <li>
+    <a check="false" href=" ... " >
+      Accessible name and markup.
+    </a>
+  </li>
+</ul>
+
+IMPORTANT: An ARIA Tree must never include any other active elements other than those specified as tree items. Otherwise, all such additional active elements will be undiscoverable and inaccessible to non-sighted screen reader users.
+
+JavaScript syntax:
+
+var myTreeDC = $A.setTree( DOM-Node-or-CSS-Selector-forTriggering-Element , {
+// Configure functionality key / value mappings
+});
+
+Parameters
+
+1: A DOM element or CSS selector to specify the triggering element.
+
+2: A configuration map to customize behaviors and options.
+
+Configuration
+
+{
+
+// Specifies that the referenced content for rendering should not be dynamically inserted into the DOM, but will instead toggle the hidden attribute.
+toggleHide: true,
+
+// Optionally specify the content to be rendered when referencing external content.
+// If set, the source property will be auto-populated with the returned content.
+fetch: {
+url: "path/file.htm",
+data: {
+selector: "#uniqueId"
+}
+},
+
+// Specify the tag names for the parent and child elements that will be matched against when building the tree structure.
+tag: {
+parent: "ul", // Will become the container with role="tree" or "group" if nested.
+child: "a" // Will become the focusable active element with role="treeitem".
+},
+
+// Set a custom event handler to process every time a tree item is activated.
+onActivate: function(event, triggerNode, RTI, DC, currentState, setNewStateFn) {
+// If the tree item is checkable, currentState will include a number from 0 to 2.
+// (0 = "false", 1 = "true", 2 = "mixed".)
+// The setNewStateFn function can be used to set a new state for the option.
+// E.G. setNewStateFn("false"), setNewStateFn("true"), or setNewStateFn("mixed") for checkbox tree items only.
+},
+
+// Set the class name for the top level container element
+className: 'tree',
+
+// Optionally run a script after the tree finishes rendering.
+afterRender: function(DC) {
+// DC.container is the rendered tree content.
+},
+
+// Optionally run a script after the tree is removed.
+afterRemove: function(DC) {
+// Do something.
+},
+
+// Optionally specify a render and remove animation effect for the tree.
+// Requires the "Animate" module import to function, which is powered by Velocity.js.
+// To ignore animation effects, delete the animate object declaration entirely from the setup script.
+// View implementations within "TSG/WidgetTemplates/Trees" for practical animation usage examples.
+
+style: { display: "none" }, // Set the initial state to hidden in prep for animation.
+
+animate: {
+
+onRender: function(dc, wrapper, complete) {
+
+// Specify the render animation effect, including the callback function statement to execute when the animation effect completes.
+Velocity(wrapper, "transition.TYPE", {
+// Velocity options here, plus the callback declaration after the animation completes.
+complete: function() {
+complete(); // REQUIRED: complete() must be executed so control is passed back to 4X for rendering.
+}
+});
+
+},
+
+onRemove: function(dc, wrapper, complete) {
+
+// Specify the removal animation effect, including the callback function statement to execute when the animation effect completes.
+Velocity(wrapper, "transition.TYPE", {
+// Velocity options here, plus the callback declaration after the animation completes.
+complete: function() {
+complete(); // REQUIRED: complete() must be executed so control is passed back to 4X for removal.
+}
+});
+
+}
+
+},
+
+// Optionally extend the RTI instance with custom event handlers.
+// For available options, view the RovingTabIndex help doc at "4X/Help/$A API/ARIA Development/Action Modules/RovingTabIndex".
+extendRTI: {
+// Optional event handlers.
+}
+
+// (Other 4X API properties and methods can be declared here also to customize functionality and behavior)
+// To view available options, reference the help docs located at: "4X/Help/DC API/DC Object Configuration"
+
+}

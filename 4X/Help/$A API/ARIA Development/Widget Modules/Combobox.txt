@@ -28,13 +28,12 @@ The following attributes are dynamically applied:
 • aria-expanded
 • aria-controls
 • aria-autocomplete
+• aria-haspopup
 • aria-description
 • role=listbox
 • role=option
 
 JavaScript syntax:
-
-// Create a new Combobox instance and bind the relevant elements
 
 var myCombobox = new $A.Combobox({
 select: selectElementDOM-Node ,

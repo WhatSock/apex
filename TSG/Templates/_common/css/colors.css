@@ -32,6 +32,8 @@ Call 'background-color:  var(--globalWhite);
 
   /*Accordion*/
   --acordDarkGreen: #24575b;
+  --acordLightGrey: #eeeeee;
+  --acordDarkGrey: #333333;
 
   /*NAV*/
   --navLinkBackground: #444a51;
@@ -45,6 +47,7 @@ Call 'background-color:  var(--globalWhite);
   /*Tablist*/
   --tablist-black: #2e3135;
   --tablist-brown: #5d1f2c;
+  --tablistDarkGrey: #333333;
 
   /*Listbox*/
   --listbox-lightGrey: #e0e0e0;

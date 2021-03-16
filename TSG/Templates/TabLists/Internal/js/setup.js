@@ -1,5 +1,5 @@
 $A.import(["Animate", "TabList"], { defer: true }, function() {
-  $A.setTabList('*[role="tablist"] *[role="tab"]', {
+  $A.setTabList("button.aria-tab", {
     style: { display: "none" },
     animate: {
       onRender: function(dc, wrapper, complete) {

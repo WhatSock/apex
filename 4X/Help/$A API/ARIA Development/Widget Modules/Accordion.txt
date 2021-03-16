@@ -9,7 +9,7 @@ In contrast, an Accordion has a series of triggering elements that expand and co
 
 The 4X ARIA Accordion module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 specification.
 
-The following attributes are dynamically applied:
+The following attributes are handled automatically by the Accordion module:
 
 • aria-expanded
 • aria-controls
@@ -18,21 +18,21 @@ The following attributes are dynamically applied:
 
 Available attributes for the triggering element:
 
-• data-controls : The resource path and pointer to the ID attribute of the accordion container element.
-• data-root : The ID attribute of the container element where the accordion content will be inserted when rendered. (This must not be inside the triggering element)
-• data-active="true" : Specifies that the referenced accordion node will open automatically. Only one accordion node per group should include this attribute.
+• controls : The resource path and pointer to the ID attribute of the accordion container element.
+• root : The ID attribute of the container element where the accordion content will be inserted when rendered. (This must not be inside the triggering element)
+• active : Specifies that the referenced accordion node will open automatically. Only one accordion node per group should include this attribute.
 
 Note: To ensure the greatest level of accessibility, the triggering element should always be an element with a role of "button" or "link".
 
 JavaScript syntax:
 
-$A.setAccordion( DOM-Node-or-CSS-Selector-forTriggering-Elements , {
+$A.setAccordion( DOM-NodeList-or-CSS-Selector-forTriggering-Elements , {
 // Configure functionality key / value mappings
 });
 
 Parameters
 
-1: A DOM element or CSS selector to specify the group of triggering elements.
+1: A DOM element list or CSS selector to specify the group of triggering elements.
 
 2: A configuration map to customize behaviors and options.
 
@@ -63,11 +63,9 @@ isToggle: false,
 allowMultiple: false,
 
 // Preload markup in the background when using the Fetch API to load external content.
-// For examples, view files within "TSG/Templates/Accordions".
 preload: false,
 
 // Preload images in the background when using the Fetch API to load external content.
-// For examples, view files within "TSG/Templates/Accordions".
 preloadImages: false,
 
 // Optionally run a script after the accordion panel finishes rendering.
@@ -122,7 +120,7 @@ complete(); // REQUIRED: complete() must be executed so control is passed back t
 
 Programmatic Control
 
-// Get the DC object for the accordion using its id.
+// Get the DC object for the accordion using its triggering element id.
 var DC = $A("accordionId");
 
 // Open the accordion manually.
