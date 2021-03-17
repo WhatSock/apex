@@ -1,5 +1,6 @@
 $A.import(["Animate", "Accordion"], { defer: true }, function() {
   $A.setAccordion(".aria-accordion-trigger", {
+    trackPage: true,
     isToggle: false,
     allowMultiple: false,
     preload: true,

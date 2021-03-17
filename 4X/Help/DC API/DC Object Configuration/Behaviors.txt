@@ -27,6 +27,13 @@ Note: The displayed value for each property represents its default value when om
   // Will not render if disabled is set to true.
   autoRender: false
 
+  // Enable auto-rendering when the page loads.
+  // When true, the hash tag in the URL will automatically open the associated DC object.
+  // To render automatically, the hash tag must match the DC object id.
+  // To set a hash tag within the address bar, use the $A.setPage() function.
+  // For more details, view: 4X/Help/$A API/ARIA Development/Browser History and Permalinks
+  trackPage: false,
+
   // Convey beginning and ending boundary information to screen reader users.
   // Causes a named region to be created when rendered.
   // Requires DC.role be set to an informative name, which will become the name for the region.

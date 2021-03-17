@@ -1,5 +1,7 @@
 $A.import(["Animate", "TabList"], { defer: true }, function() {
   $A.setTabList("button.aria-tab", {
+    trackPage: true,
+
     // Preload HTML markup when pulling content from external resources to speed rendering
     preload: true,
     preloadImages: true,

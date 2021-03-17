@@ -43,6 +43,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 }),
                 call: function(props) {
                   $A.setAccordion(props.triggers, {
+                    trackPage: true,
                     toggleClass: "open",
                     isToggle: false,
                     allowMultiple: false,
@@ -103,6 +104,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         "button[controls].aria-tab, a[controls].aria-tab"
                       ),
                       {
+                        trackPage: true,
                         preload: true,
                         preloadImages: true,
                         preloadCSS: true,

@@ -39,6 +39,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           duringRender: function(dc, container) {
             $A.setAttr(dc.triggerNode, "aria-expanded", "true");
           },
+          afterRender: function(dc, container) {
+            if (dc.trackPage) $A.setPage(dc.id);
+          },
           beforeRemove: function(dc, container) {
             $A.setAttr(dc.triggerNode, "aria-expanded", "false");
           }
@@ -63,7 +66,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               triggers = (config.context || document).querySelectorAll(o);
 
             var dcArray = [],
-              active = null,
+              active = [],
               startIndex = 0;
 
             $A.loop(triggers, function(i, o) {
@@ -81,7 +84,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 );
               dcArray.push(dc);
               if ($A.hasAttr(o, "active")) {
-                active = dc;
+                active.push(dc);
                 startIndex = i;
               }
             });
@@ -117,7 +120,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 )
               );
 
-            if ($A.isDC(active)) active.render();
+            if (!$A.hasHash(dcArray))
+              $A.loop(
+                active,
+                function(i, dc) {
+                  dc.render();
+                },
+                "array"
+              );
 
             return dcArray.length === 1 ? dcArray[0] : dcArray;
           }

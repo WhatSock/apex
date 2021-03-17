@@ -434,6 +434,36 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return dc;
     },
 
+    setPage: function(id, title) {
+      if (!id) return;
+      if (title) document.title = title;
+      window.history.pushState(
+        { html: document.html, pageTitle: id },
+        "",
+        "./#" + id
+      );
+    },
+
+    getHash: function(u) {
+      if (!u || !$A.isStr(u)) return $A.trim(location.hash.replace("#", ""));
+      var x = u.indexOf("#");
+      return x !== -1 ? $A.trim(u.slice(x + 1)) : "";
+    },
+
+    isHash: function(h) {
+      var h = h || $A.getHash();
+      return $A.hasDC(h);
+    },
+
+    hasHash: function(a, h) {
+      var h = h || $A.getHash();
+      if (!$A.isArray(a) || !$A.isHash(h)) return false;
+      for (var i = 0; i < a.length; i++) {
+        if (($A.isDC(a[i]) ? a[i].id : a[i]) === h) return true;
+      }
+      return false;
+    },
+
     toDC: function(o, config) {
       if (this._4X) {
         config = o;
@@ -646,13 +676,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     },
 
     hasDC: function(o, includeFromBound) {
-      if (this._4X) {
-        includeFromBound = o;
-        o = this._X;
-      }
-      return (
-        $A.isDC(o) || $A.reg.has(o) || (includeFromBound && $A.data(o, "DC"))
-      );
+      if (!o) return false;
+      if ($A.isDC(o)) return true;
+      if ($A.reg.has(o)) return true;
+      if (includeFromBound && $A.isDC($A.data(o, "DC"))) return true;
+      return false;
     },
 
     preload: function(a) {
@@ -3908,11 +3936,11 @@ error: function(error, promise){}
           var nDC = new f();
           nDC.props.DC = nDC.DC = nDC;
           $A.lastCreated.push(nDC);
-          $A.reg.set(nDC.id, nDC);
           return nDC;
         },
         DCInit = function(dc) {
           var dc = WL[DC.indexVal];
+          $A.reg.set(dc.id, dc);
           if (dc.widgetType && dc.autoCloseWidget) {
             $A._widgetTypes.push(dc.id);
           }
@@ -4626,11 +4654,12 @@ error: function(error, promise){}
           }
 
           $A.updateDisabled(DC);
+
+          if (DC.trackPage && $A.getHash() === DC.id) render.push(DC);
         }
       }
 
       for (a = 0; a < WL.length; a++) WL[a].siblings = WL;
-
       if (render.length) {
         for (s = 0; s < render.length; s++) DCR1(render[s]);
       }
@@ -4826,8 +4855,7 @@ error: function(error, promise){}
   (function() {
     var scripts = document.querySelectorAll("script[src]"),
       path = scripts[scripts.length - 1].src.replace(/\/|\\|<|>/g, "") || "",
-      x = path.indexOf("#"),
-      ext = x !== -1 ? path.slice(x + 1) : "",
+      ext = $A.getHash(path),
       mods = ext ? ext.split(",") : [];
     if (mods.length) $A.import(mods);
   })();

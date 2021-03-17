@@ -1,5 +1,6 @@
 $A.import(["Animate", "TabList"], { defer: true }, function() {
   $A.setTabList("button.aria-tab", {
+    trackPage: true,
     style: { display: "none" },
     animate: {
       onRender: function(dc, wrapper, complete) {
