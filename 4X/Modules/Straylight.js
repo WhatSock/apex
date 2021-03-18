@@ -105,6 +105,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       ),
                       {
                         trackPage: true,
+                        afterRender: function(dc) {
+                          $A.setPage(
+                            dc.id,
+                            $A.getText(dc.triggerNode) +
+                              " ARIA Tab - Apex 4X Technical Style Guide"
+                          );
+                        },
                         preload: true,
                         preloadImages: true,
                         preloadCSS: true,
@@ -488,6 +495,32 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 );
               }
             });
+        })();
+
+        (function() {
+          // ARIA Listboxes
+          // Search and recognise native select elements with the class "aria-listbox-root"
+          var lbs = context.querySelectorAll("select.aria-listbox-root");
+          if (lbs.length) {
+            $A.import(["Animate", "Listbox"], {
+              name: "StraylightListbox",
+              defer: true,
+              props: $A.extend(props, {
+                selects: lbs
+              }),
+              call: function(props) {
+                $A.loop(
+                  props.selects,
+                  function(i, s) {
+                    $A.setListbox(s, {
+                      // Additional configuration options.
+                    });
+                  },
+                  "array"
+                );
+              }
+            });
+          }
         })();
       }
     });

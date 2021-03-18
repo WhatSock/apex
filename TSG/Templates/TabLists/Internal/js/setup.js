@@ -1,6 +1,13 @@
 $A.import(["Animate", "TabList"], { defer: true }, function() {
   $A.setTabList("button.aria-tab", {
     trackPage: true,
+    afterRender: function(dc) {
+      $A.setPage(
+        dc.id,
+        $A.getText(dc.triggerNode) + " ARIA Tab - Apex 4X Technical Style Guide"
+      );
+    },
+
     style: { display: "none" },
     animate: {
       onRender: function(dc, wrapper, complete) {

@@ -28,6 +28,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               },
               onCreate: function(dc) {
                 $A.setAttr(dc.trigger, "aria-expanded", "false");
+              },
+              afterRender: function(dc, container) {
+                if (dc.trackPage) $A.setPage(dc.id);
               }
             };
           },
@@ -38,9 +41,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           },
           duringRender: function(dc, container) {
             $A.setAttr(dc.triggerNode, "aria-expanded", "true");
-          },
-          afterRender: function(dc, container) {
-            if (dc.trackPage) $A.setPage(dc.id);
           },
           beforeRemove: function(dc, container) {
             $A.setAttr(dc.triggerNode, "aria-expanded", "false");
