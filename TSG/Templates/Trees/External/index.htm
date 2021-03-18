@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Tree (External Content) - 4X Technical Style Guide</title>
+    <meta name="description" content="Scalable ARIA Components">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
+    <link rel="stylesheet" type="text/css" href="css/customize.css">
+    <script src="/4X/4X.js"></script>
+    <script src="js/setup.js"></script>
+</head>
+
+<body>
+    <div class="bypass">
+        <ul class="list-unstyled">
+            <li>
+                <a class="skip--link" href="javascript:void(0);" onclick="document.getElementById('main').focus();">
+                    Skip to Main Content
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="outer-wrapper">
+        <header class="header flex-container">
+            <div class="logo flex-item">
+                <a href="http://whatsock.com">
+                    <img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg"></a>
+            </div>
+            <div class="site-name flex-item">
+                <strong>Apex 4X</strong> Technical Style Guide
+            </div>
+        </header>
+        <div class="wrapper">
+            <div class="left-aside">
+                <nav>
+                    <ul>
+                        <li><a href="../../index.htm">Components</a></li>
+                        <li><a href="../External/index.htm" aria-current="page">External</a></li>
+                        <li><a href="../Internal/index.htm">Internal</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <main id="main" class="main" tabindex="-1">
+                <div class="demo-block flex-container">
+                    <div class="component flex-item">
+                        <h1 class="pageTitle">Tree <small>External Content</small></h1>
+                        <section class="sample-block">
+
+                            <div class="viewport">
+
+                                <div id="container">
+                                    <div class="treeview" role="navigation" aria-label="Library"></div>
+                                </div>
+
+                                <div class="books" role="region" aria-labelledby="readingListHeadingId">
+                                    <h3 id="readingListHeadingId">Reading List</h3>
+                                    <div>
+                                        <ul id="readingList"></ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </section>
+                    </div>
+                    <div class="keyboard flex-item">
+                        <h2>The tree is optimized for screen reader and keyboard only users:</h2>
+                        <ul>
+                            <li>Set focus to the tree using the keyboard.</li>
+                            <li>Press the <kbd class="up">Up</kbd> and <kbd class="down">Down</kbd> Arrow keys to move focus between the tree options.</li>
+                            <li>Press the <kbd class="left">Left</kbd> and <kbd class="right">Right</kbd> Arrow keys to open or close subtrees.</li>
+                            <li>Press the Ctrl+<kbd class="left">Left</kbd> and Ctrl+<kbd class="right">Right</kbd> Arrow keys to open or close groups of subtrees.</li>
+                            <li>Press any letter or number to jump to a tree item starting with that character or digit.</li>
+                            <li>Press <kbd>Enter</kbd> to activate a tree option.</li>
+                            <li>Press <kbd>Escape</kbd> to close the currently open tree.</li>
+                            <li>Mouse users can click the desired tree option to toggle as usual.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+        <footer class="footer">
+            <p class="copyright">&copy;<script type="text/javascript">
+                    document.write(new Date().getFullYear());
+                </script> WhatSock. All rights reserved.</p>
+            <p>Visual design by <a href="http://gericci.me/">Angela Ricci</a>. Styling updated by Laurence Lewis October 2020</p>
+        </footer>
+    </div>
+</body>
+
+</html>
