@@ -26,6 +26,8 @@ click: function(event, DC) {   }
 
 dblClick: function(event, DC) {   }
 
+touchStart: function(event, DC) {   }
+
 mouseOver: function(event, DC) {   }
 
 mouseOut: function(event, DC) {   }

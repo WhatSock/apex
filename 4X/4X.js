@@ -4045,7 +4045,7 @@ error: function(error, promise){}
         },
 
         // content: "",
-        sourceOnly: true,
+        contentOnly: true,
         // storeData: false,
         // toggleHide: false,
 
@@ -4415,6 +4415,7 @@ error: function(error, promise){}
           "resize",
           "scroll",
           "click",
+          "touchStart",
           "dblClick",
           "mouseDown",
           "mouseUp",
