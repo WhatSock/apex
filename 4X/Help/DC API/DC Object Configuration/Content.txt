@@ -28,7 +28,7 @@ Note: The displayed value for each property represents its default value when om
 // Extra divs are added to create accessibility support for widgets and complex interactive structures.
 // For simple structures that don't require these however, these can be suppressed so that only the source is rendered.
 // Important: Must not be plain text, valid elements are required since event bindings will be applied to the source element container.
-  sourceOnly: true
+  contentOnly: true
 
 // Set the mode to determine the type of the content being rendered.
 // 0 = DC.content includes DOM elements or source code to be rendered directly.
