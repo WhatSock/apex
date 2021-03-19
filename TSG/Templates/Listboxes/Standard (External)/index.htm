@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Checkable ARIA Listbox - Apex 4X Technical Style Guide</title>
+    <title>Standard ARIA Listbox (External) - Apex 4X Technical Style Guide</title>
     <meta name="description" content="Scalable ARIA Components">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
@@ -36,15 +36,16 @@
             <div class="left-aside">
                 <nav>
                     <ul>
+                        aria-current="page"
                         <nav>
                             <ul>
                                 <li><a href="../../index.htm">Components</a></li>
-                                <li><a href="../Checkable/index.htm" aria-current="page">Checkable</a></li>
+                                <li><a href="../Checkable/index.htm">Checkable</a></li>
                                 <li><a href="../Multiselect/index.htm">Multiselect</a></li>
                                 <li><a href="../Sortable/index.htm">Sortable</a></li>
                                 <li><a href="../Standard/index.htm">Standard</a></li>
                                 <li><a href="Standard%20-%20Straylight/index.htm">Standard - Straylight</a></li>
-                                <li><a href="../Standard%20(External)/index.htm">Standard (External)</a></li>
+                                <li><a href="../Standard%20(External)/index.htm" aria-current="page">Standard (External)</a></li>
                             </ul>
                         </nav>
                     </ul>
@@ -53,51 +54,21 @@
             <main id="main" class="main" tabindex="-1">
                 <div class="demo-block flex-container">
                     <div class="component flex-item">
-                        <h1 class="pageTitle">ARIA Listbox <small>(Checkable)</small></h1>
+                        <h1 class="pageTitle">ARIA Listbox <small>(Standard External)</small></h1>
                         <div class="sample">
-
-                            <!--
-If the checkable property is not set to true within the setup script,
-use the check attribute to specify individual options that should be made checkable.
--->
-
-                            <ul id="listboxId" class="aria-listbox">
-                                <li>
-                                    <button check="true">
-                                        <span class="lbl">One</span>
-                                    </button>
-                                </li>
-                                <li>
-                                    <button check>
-                                        <span class="lbl">Two</span>
-                                    </button>
-                                </li>
-                                <li>
-                                    <button check>
-                                        <span class="lbl">Three</span>
-                                    </button>
-                                </li>
-                                <li>
-                                    <button check>
-                                        <span class="lbl">Four</span>
-                                    </button>
-                                </li>
-                                <li>
-                                    <button check>
-                                        <span class="lbl">Five</span>
-                                    </button>
-                                </li>
-                            </ul>
+                            <div class="standardWrapper listbox-root"></div>
+                        </div>
+                        <div class="note">
+                            <p>The ARIA Listbox and standard Select element mirror each other.</p>
                         </div>
                     </div>
-                    note <div class="keyboard flex-item">
+                    <div class="keyboard flex-item">
                         <h2>The Listbox is keyboard accessible:</h2>
                         <ul>
                             <li>Set focus on the Listbox.</li>
                             <li>Press the Arrow keys to change options, or press <kbd class="home">Home</kbd> or <kbd class="end">End</kbd> to jump to the beginning or end of the list.</li>
                             <li>Press <kbd>PageUp</kbd> or <kbd>PageDown</kbd> to jump backward or forward incrementally.</li>
                             <li>Press any letter or number to jump to an item starting with that character or digit.</li>
-                            <li>Press the <kbd>Spacebar</kbd> to toggle the independant checked state of the focused option.</li>
                         </ul>
                     </div>
                 </div>

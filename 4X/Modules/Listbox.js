@@ -53,7 +53,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               config = o;
               o = config.select || config.listbox || null;
             }
-            if (!o) return null;
             config = config || {};
 
             var tag = $A.extend(
@@ -831,11 +830,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               isP = s && $A.isPath(p) ? true : false;
             config.fetch = null;
             if (isP) {
-              config.toggleHide = false;
-              var d = $A.toNode();
               $A.load(
                 p,
-                d,
+                config.root,
                 {
                   selector: s
                 },

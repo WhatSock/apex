@@ -1,0 +1,33 @@
+/* Specific styles for ARIA Listboxes */
+
+.standardWrapper {
+  position: relative;
+  padding-top: 1.6em;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+}
+
+.aria-listbox {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.aria-listbox > li {
+  padding: 3px;
+}
+
+.aria-listbox > li > *[role="option"] {
+  display: block;
+  text-decoration: none;
+  padding: 0.3em 0.5em;
+}
+
+.aria-listbox > li > *[role="option"] > span {
+  display: block;
+}
+
+.desc {
+  clear: both;
+}
