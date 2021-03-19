@@ -222,6 +222,23 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                         fire(["Click", "Open"], ev, o, dc, 0);
                       },
+                      touchstart: function(ev, DC) {
+                        var child = that.children.get(o),
+                          dc = (child && child.DC) || DC;
+                        that.index = i;
+                        that.setFocus.apply(that.nodes[that.index], [ev, that]);
+
+                        if (
+                          (that.DC && (that.DC.loading || that.DC.closing)) ||
+                          (dc && (dc.loading || dc.closing))
+                        ) {
+                          ev.preventDefault();
+                          ev.stopPropagation();
+                          return false;
+                        }
+
+                        fire(["TouchStart"], ev, o, dc, 0);
+                      },
                       keydown: function(ev, DC) {
                         changePressed(ev);
 
