@@ -44,7 +44,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         dcA[0] &&
         typeof dcA[0] === "object" &&
         dcA[0].id &&
-        !$A.isDOMNode(dcA, window, document, 11)
+        !$A.isNode(dcA, window, document, 11)
       ) {
         if ($A.reg.has(dc)) dc = $A.reg.get(dc);
       } else if (dc || (this && this !== $A)) {
@@ -475,7 +475,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       }
       if (!$A.isPlainObject(config)) config = {};
       if (o) o = $A.morph(o);
-      var ctrl = $A.isDOMNode(o) && $A.getAttr(o, "controls");
+      var ctrl = $A.isNode(o) && $A.getAttr(o, "controls");
 
       if (config.fetch && config.fetch.url) {
         config.toggleHide = false;
@@ -488,7 +488,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         config.content = null;
         config.trigger = o;
         config.mode = 1;
-        if (!config.id && $A.isDOMNode(o) && o.id) config.id = o.id;
+        if (!config.id && $A.isNode(o) && o.id) config.id = o.id;
       } else if (
         ctrl &&
         $A.isSelector("#" + ctrl) &&
@@ -496,11 +496,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       ) {
         config.content = document.querySelector("#" + ctrl);
         config.trigger = o;
-        if (!config.id && $A.isDOMNode(o) && o.id) config.id = o.id;
-      } else if ($A.isDOMNode(o) && (config.content || config.fetch)) {
+        if (!config.id && $A.isNode(o) && o.id) config.id = o.id;
+      } else if ($A.isNode(o) && (config.content || config.fetch)) {
         config.trigger = o;
         if (!config.id && o.id) config.id = o.id;
-      } else if ($A.isDOMNode(o)) {
+      } else if ($A.isNode(o)) {
         if (!config.id && o.id) config.id = o.id;
         config.content = o;
       }
@@ -510,13 +510,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         : !$A.isHidden(config.content);
 
       if (rendered && !config.root) {
-        if ($A.isDOMNode($A.next(config.content))) {
+        if ($A.isNode($A.next(config.content))) {
           config.root = $A.next(config.content);
           config.before = true;
-        } else if ($A.isDOMNode($A.previous(config.content))) {
+        } else if ($A.isNode($A.previous(config.content))) {
           config.root = $A.previous(config.content);
           config.after = true;
-        } else if ($A.isDOMNode(config.content.parentNode)) {
+        } else if ($A.isNode(config.content.parentNode)) {
           config.root = config.content.parentNode;
           config.append = true;
         }
@@ -542,7 +542,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         )
       ])[0];
 
-      if (rendered && DC.loaded && $A.isDOMNode(DC.content)) {
+      if (rendered && DC.loaded && $A.isNode(DC.content)) {
         if (!DC.content.id) DC.content.id = $A.genId();
         DC.wrapper = DC.container = DC.content;
         DC.wrapperId = DC.containerId = DC.content.id;
@@ -556,7 +556,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         var nl = [];
         for (var i = 0; i < f.childNodes.length; i++) {
           var o = f.childNodes[i];
-          if ($A.isDOMNode(o)) nl.push(o);
+          if ($A.isNode(o)) nl.push(o);
         }
         $A.data(nl, "StoredFrag", f);
         $A.data(f, "StoredNodeList", nl);
@@ -607,7 +607,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             s,
             function(i, n) {
               if (n && n.nodeType === 11) loop(n);
-              else if ($A.isDOMNode(n)) f.appendChild(n);
+              else if ($A.isNode(n)) f.appendChild(n);
             },
             "array"
           );
@@ -688,7 +688,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         a = this._X;
       }
       var c = $A.morph(a);
-      if ($A.isDOMNode(c)) {
+      if ($A.isNode(c)) {
         $A.on("load", function() {
           if (!$A._imageMap) $A._imageMap = {};
           var images = [];
@@ -727,7 +727,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
     morph: function(o, retArray, context) {
       if ($A.isArray(o)) {
         return o;
-      } else if ($A.isDOMNode(o, null, null, 11)) {
+      } else if ($A.isNode(o, null, null, 11)) {
         return retArray && !$A.isArray(o) ? [o] : o;
       } else if ($A.isStr(o)) {
         if ($A.isMarkup(o)) return $A.toNode(o, false, retArray);
@@ -735,7 +735,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           if (window.document.getElementById(o))
             return window.document.getElementById(o);
           else if ($A.isSelector(o)) {
-            if (!$A.isDOMNode(context, null, document, 11)) context = document;
+            if (!$A.isNode(context, null, document, 11)) context = document;
             var r = context.querySelectorAll(o);
             if (!retArray && r.length === 1) r = r[0];
             else if (!retArray && !r.length) r = null;
@@ -784,7 +784,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         for (var i = 0; i < o.length; i++) {
           fn.call(o.charAt(i), i, o.charAt(i));
         }
-      } else if ($A.isDOMNode(o)) {
+      } else if ($A.isNode(o)) {
         fn.call(o, 0, o);
       } else if (o && type === "other") fn.call(o, 0, o);
       return $A._XR.call(this, o);
@@ -801,7 +801,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       return false;
     },
 
-    isDOMNode: function(n, win, doc) {
+    isNode: function(n, win, doc) {
       var isType = function(args) {
         var i = 3;
         while (args[i]) {
@@ -889,7 +889,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         con = null;
       }
 
-      if (!$A.isDOMNode(con, null, document, 11)) con = document;
+      if (!$A.isNode(con, null, document, 11)) con = document;
 
       var r = [],
         isA = true,
@@ -903,7 +903,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         r = $A.toNode(sel, false, true);
       } else if ($A.isSelector(sel) && $A.isFn(con.querySelectorAll)) {
         r = con.querySelectorAll(sel);
-      } else if ($A.isDOMNode(sel)) {
+      } else if ($A.isNode(sel)) {
         r.push(sel);
       } else {
         isA = $A.isArray(sel);
@@ -933,7 +933,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         n = this._X;
       }
       if (!n) return "";
-      if ($A.isDOMNode(n)) return n.innerText || n.textContent || "";
+      if ($A.isNode(n)) return n.innerText || n.textContent || "";
       if (n && n.nodeType === 3) return n.data;
       return "";
     },
@@ -1026,7 +1026,7 @@ error: function(error, promise){}
                     )
                       content = $A.toNode(content);
                     if (
-                      $A.isDOMNode(content, null, document, 11) &&
+                      $A.isNode(content, null, document, 11) &&
                       $A.isSelector(options.selector)
                     )
                       content = content.querySelector(options.selector);
@@ -1091,7 +1091,7 @@ error: function(error, promise){}
         context = this._X;
       }
       if ($A.isFn(config)) config = { call: config };
-      else if ($A.isDOMNode(config, null, null, 11)) {
+      else if ($A.isNode(config, null, null, 11)) {
         context = config;
         config = {};
       }
@@ -1101,9 +1101,8 @@ error: function(error, promise){}
         config.call = context;
         context = null;
       }
-      if ($A.isDOMNode(config.context, null, null, 11))
-        context = config.context;
-      if (!$A.isDOMNode(context, null, null, 11)) context = null;
+      if ($A.isNode(config.context, null, null, 11)) context = config.context;
+      if (!$A.isNode(context, null, null, 11)) context = null;
       if (!config.props) config.props = {};
       var pDeferred = config.props._Defer ? true : false;
       if (pDeferred) config.defer = true;
@@ -1131,10 +1130,7 @@ error: function(error, promise){}
             });
           else $A._cacheName[config.name].call(window, config.props);
         }
-      } else if (
-        config.tag === "img" &&
-        $A.isDOMNode(context, null, null, 11)
-      ) {
+      } else if (config.tag === "img" && $A.isNode(context, null, null, 11)) {
         $A.loop(
           source,
           function(i, s) {
@@ -1550,7 +1546,7 @@ error: function(error, promise){}
       $A.loop(
         obj,
         function(i, o) {
-          if ($A.isDOMNode(o, window, document, 11)) {
+          if ($A.isNode(o, window, document, 11)) {
             if (save) $A.data(o, "SavedEventParameters", save);
             $A.loop(
               e,
@@ -1618,7 +1614,7 @@ error: function(error, promise){}
       $A.loop(
         obj,
         function(i, o) {
-          if ($A.isDOMNode(o, window, document, 11)) {
+          if ($A.isNode(o, window, document, 11)) {
             $A.removeData(o, "SavedEventParameters");
             if (!e) {
               $A.detachObserver(o);
@@ -1656,7 +1652,7 @@ error: function(error, promise){}
       $A.loop(
         obj,
         function(i, o) {
-          if ($A.isDOMNode(o, window, document)) {
+          if ($A.isNode(o, window, document)) {
             $A.loop(
               events,
               function(j, p) {
@@ -1675,7 +1671,7 @@ error: function(error, promise){}
       if (this._4X) {
         node = this._X;
       }
-      if (!$A.isDOMNode(node)) return false;
+      if (!$A.isNode(node)) return false;
       var nodeName = node.nodeName.toLowerCase(),
         href = $A.hasAttr(node, "href");
       return (nodeName === "a" && href) ||
@@ -1687,7 +1683,7 @@ error: function(error, promise){}
     },
 
     getActive: function(c, onlyFocusable) {
-      var c = $A.isDOMNode(c) ? c : document;
+      var c = $A.isNode(c) ? c : document;
       return $A.query(
         "a[href], button, input, textarea, select, details, *[tabindex]",
         c,
@@ -1706,9 +1702,9 @@ error: function(error, promise){}
         activeElements = c;
         c = null;
       }
-      if (!$A.isArray(activeElements) && !$A.isDOMNode(c, null, null, 11))
+      if (!$A.isArray(activeElements) && !$A.isNode(c, null, null, 11))
         return [];
-      if (!$A.isArray(activeElements) && $A.isDOMNode(c, null, null, 11))
+      if (!$A.isArray(activeElements) && $A.isNode(c, null, null, 11))
         activeElements = $A.getActive(c, true);
       if (activeElements.length) {
         var f = activeElements[0],
@@ -1799,8 +1795,8 @@ error: function(error, promise){}
       obj = $A.morph(obj);
       root = $A.morph(root);
       if (
-        !$A.isDOMNode(root, null, null, 11) ||
-        !$A.isDOMNode(obj, null, null, 11, 3)
+        !$A.isNode(root, null, null, 11) ||
+        !$A.isNode(obj, null, null, 11, 3)
       )
         return this._4X ? this : obj;
       $A.empty(root);
@@ -1837,7 +1833,7 @@ error: function(error, promise){}
       }
       obj = $A.morph(obj);
       existingNode = $A.morph(existingNode);
-      if (!$A.isDOMNode(existingNode) || !$A.isDOMNode(obj, null, null, 11))
+      if (!$A.isNode(existingNode) || !$A.isNode(obj, null, null, 11))
         return this._4X ? this : obj;
       existingNode.parentNode.insertBefore(obj, existingNode);
       if (fn && $A.isFn(fn)) fn.apply(obj, [obj]);
@@ -1857,7 +1853,7 @@ error: function(error, promise){}
     _replaceChild: function(obj, existingNode, fn) {
       obj = $A.morph(obj);
       existingNode = $A.morph(existingNode);
-      if (!$A.isDOMNode(existingNode) || !$A.isDOMNode(obj, null, null, 11))
+      if (!$A.isNode(existingNode) || !$A.isNode(obj, null, null, 11))
         return obj;
       existingNode.parentNode.replaceChild(obj, existingNode);
       if (fn && $A.isFn(fn)) fn.apply(obj, [obj]);
@@ -1877,7 +1873,7 @@ error: function(error, promise){}
     _insertAfter: function(obj, existingNode, fn) {
       obj = $A.morph(obj);
       existingNode = $A.morph(existingNode);
-      if (!$A.isDOMNode(existingNode) || !$A.isDOMNode(obj, null, null, 11))
+      if (!$A.isNode(existingNode) || !$A.isNode(obj, null, null, 11))
         return obj;
       var ns = $A.nextSibling(existingNode);
       if (ns) ns.parentNode.insertBefore(obj, ns);
@@ -1893,10 +1889,7 @@ error: function(error, promise){}
       }
       obj = $A.morph(obj);
       root = $A.morph(root);
-      if (
-        $A.isDOMNode(root, null, null, 11) &&
-        $A.isDOMNode(obj, null, null, 11)
-      ) {
+      if ($A.isNode(root, null, null, 11) && $A.isNode(obj, null, null, 11)) {
         var fc = $A.firstChild(root);
         if (fc) $A._insertBefore(obj, fc);
         else root.appendChild(obj);
@@ -1921,10 +1914,7 @@ error: function(error, promise){}
       }
       obj = $A.morph(obj);
       root = $A.morph(root);
-      if (
-        $A.isDOMNode(root, null, null, 11) &&
-        $A.isDOMNode(obj, null, null, 11)
-      ) {
+      if ($A.isNode(root, null, null, 11) && $A.isNode(obj, null, null, 11)) {
         if ($A.isStr(obj)) obj = $A.morph(obj);
         root.appendChild(obj);
       }
@@ -1952,7 +1942,7 @@ error: function(error, promise){}
         pos = null;
       }
       root = $A.morph(root);
-      if ($A.isDOMNode(root)) {
+      if ($A.isNode(root)) {
         if ($A.isNum(obj)) obj = obj.toString();
         if ($A.isStr(obj)) {
           var locale = {
@@ -1994,7 +1984,7 @@ error: function(error, promise){}
         r = range.cloneContents();
       } catch (e) {
         r = $A.toNode();
-        if ($A.isDOMNode(o) && o.firstChild) {
+        if ($A.isNode(o) && o.firstChild) {
           var node = o.firstChild;
           while (node) {
             if (node.cloneNode) r.appendChild(node.cloneNode(true));
@@ -2018,7 +2008,7 @@ error: function(error, promise){}
         r = range.extractContents();
       } catch (e) {
         r = $A.toNode();
-        if ($A.isDOMNode(o) && o.firstChild) {
+        if ($A.isNode(o) && o.firstChild) {
           var node = o.firstChild;
           while (node) {
             r.appendChild(o.removeChild(node));
@@ -2163,20 +2153,20 @@ error: function(error, promise){}
         fn = con;
         con = null;
       }
-      con = $A.isDOMNode(con, null, document) ? con : document;
+      con = $A.isNode(con, null, document) ? con : document;
       if (!e || !$A.isStr(e)) return null;
 
       var r = null;
       if (con.getElementById) r = con.getElementById(e);
-      if (!$A.isDOMNode(r) && con.querySelector) r = con.querySelector(e);
-      if ($A.isDOMNode(r) && $A.isFn(fn)) fn.call(r, r);
+      if (!$A.isNode(r) && con.querySelector) r = con.querySelector(e);
+      if ($A.isNode(r) && $A.isFn(fn)) fn.call(r, r);
 
       return $A._XR.call(this, r);
     },
 
     create: function(t) {
       var o = $A.isMarkup(t) ? $A.morph(t) : document.createElement(t);
-      if (arguments.length === 1 || !$A.isDOMNode(o)) return o;
+      if (arguments.length === 1 || !$A.isNode(o)) return o;
       if (arguments[1]) $A.setAttr(o, arguments[1]);
       if (arguments[2]) $A.css(o, arguments[2]);
       if (arguments[3]) $A.addClass(o, arguments[3]);
@@ -2185,7 +2175,7 @@ error: function(error, promise){}
     },
 
     toText: function(s) {
-      if ($A.isDOMNode(s, null, null, 3)) return s;
+      if ($A.isNode(s, null, null, 3)) return s;
       else if (!$A.isStr(s)) s = "";
       return document.createTextNode(s);
     },
@@ -2197,7 +2187,7 @@ error: function(error, promise){}
       }
       e = $A.morph(e);
       var E = $A._check(e, true);
-      if (!$A.isDOMNode(E) || !n) return null;
+      if (!$A.isNode(E) || !n) return null;
       return E.getAttribute(n);
     },
 
@@ -2208,7 +2198,7 @@ error: function(error, promise){}
       }
       e = $A.morph(e);
       var E = $A._check(e, true);
-      if (!$A.isDOMNode(E) || !n) return null;
+      if (!$A.isNode(E) || !n) return null;
       return E.hasAttribute(n);
     },
 
@@ -2221,7 +2211,7 @@ error: function(error, promise){}
       var E = $A._check(e);
       var o = $A.isArray(E) ? E : [E];
       for (var x = 0; x < o.length; x++) {
-        if ($A.isDOMNode(o[x])) {
+        if ($A.isNode(o[x])) {
           var a = $A.isArray(n) ? n : [n];
           for (var i = 0; i < a.length; i++) {
             o[x].removeAttribute(a[i]);
@@ -2242,7 +2232,7 @@ error: function(error, promise){}
       var E = $A._check(e);
       var o = $A.isArray(E) ? E : [E];
       for (var x = 0; x < o.length; x++) {
-        if ($A.isDOMNode(o[x])) {
+        if ($A.isNode(o[x])) {
           if ($A.isStr(name)) {
             if (value === null) o[x].removeAttribute(name);
             else o[x].setAttribute(name, value);
@@ -2265,10 +2255,10 @@ error: function(error, promise){}
       }
       e = $A.morph(e);
       e = $A._check(e, true);
-      if (!$A.isDOMNode(e, null, null, 11)) return this._4X ? this : e;
+      if (!$A.isNode(e, null, null, 11)) return this._4X ? this : e;
       e = e.previousSibling;
       while (e) {
-        if ($A.isDOMNode(e) && (!$A.isFn(t) || ($A.isFn(t) && t(e) === true)))
+        if ($A.isNode(e) && (!$A.isFn(t) || ($A.isFn(t) && t(e) === true)))
           break;
         e = e.previousSibling;
       }
@@ -2282,10 +2272,10 @@ error: function(error, promise){}
       }
       e = $A.morph(e);
       e = $A._check(e, true);
-      if (!$A.isDOMNode(e, null, null, 11)) return this._4X ? this : e;
+      if (!$A.isNode(e, null, null, 11)) return this._4X ? this : e;
       e = e.nextSibling;
       while (e) {
-        if ($A.isDOMNode(e) && (!$A.isFn(t) || ($A.isFn(t) && t(e) === true)))
+        if ($A.isNode(e) && (!$A.isFn(t) || ($A.isFn(t) && t(e) === true)))
           break;
         e = e.nextSibling;
       }
@@ -2299,10 +2289,10 @@ error: function(error, promise){}
       }
       e = $A.morph(e);
       e = $A._check(e, true);
-      if (!$A.isDOMNode(e, null, null, 11)) return this._4X ? this : e;
+      if (!$A.isNode(e, null, null, 11)) return this._4X ? this : e;
       e = e.firstChild;
       while (e) {
-        if ($A.isDOMNode(e) && (!$A.isFn(t) || ($A.isFn(t) && t(e) === true)))
+        if ($A.isNode(e) && (!$A.isFn(t) || ($A.isFn(t) && t(e) === true)))
           break;
         e = e.nextSibling;
       }
@@ -2316,10 +2306,10 @@ error: function(error, promise){}
       }
       e = $A.morph(e);
       e = $A._check(e, true);
-      if (!$A.isDOMNode(e, null, null, 11)) return this._4X ? this : e;
+      if (!$A.isNode(e, null, null, 11)) return this._4X ? this : e;
       e = e.lastChild;
       while (e) {
-        if ($A.isDOMNode(e) && (!$A.isFn(t) || ($A.isFn(t) && t(e) === true)))
+        if ($A.isNode(e) && (!$A.isFn(t) || ($A.isFn(t) && t(e) === true)))
           break;
         e = e.previousSibling;
       }
@@ -2332,7 +2322,7 @@ error: function(error, promise){}
         node = this._X;
       }
       node = $A.morph(node);
-      while ($A.isDOMNode(node)) {
+      while ($A.isNode(node)) {
         node = node.parentNode;
         if (!$A.isFn(fn) || ($A.isFn(fn) && fn(node) === true)) break;
       }
@@ -2361,7 +2351,7 @@ error: function(error, promise){}
       if (!$A.isArray(obj)) obj = [obj];
       if (
         obj.length === 1 &&
-        $A.isDOMNode(obj[0]) &&
+        $A.isNode(obj[0]) &&
         $A.isStr(p) &&
         !$A.isStr(v) &&
         !$A.isNum(v) &&
@@ -2389,7 +2379,7 @@ error: function(error, promise){}
         } catch (e) {}
       };
       for (var z = 0; z < obj.length; z++) {
-        if ($A.isDOMNode(obj[z])) {
+        if ($A.isNode(obj[z])) {
           if ($A.isStr(p)) setProp(obj[z], p, v);
           else if (typeof p === "object") {
             for (var n in p) {
@@ -2409,8 +2399,7 @@ error: function(error, promise){}
       }
       var t = $A.morph(O);
       var o = $A._check(t, true);
-      if (!$A.isDOMNode(o) || !o.className || !cn || !$A.isStr(cn))
-        return false;
+      if (!$A.isNode(o) || !o.className || !cn || !$A.isStr(cn)) return false;
       var names = cn.split(/\s+/),
         i = 0,
         n = 0;
@@ -2444,7 +2433,7 @@ error: function(error, promise){}
           var cL = o[x].classList;
           for (n = 0; n < names.length; n++) cL.add(names[n]);
         } catch (e) {
-          if ($A.isDOMNode(o[x]) && !$A.hasClass(o[x], cn)) {
+          if ($A.isNode(o[x]) && !$A.hasClass(o[x], cn)) {
             var oClasses = o[x].className ? o[x].className.split(/\s+/) : [];
             for (n = 0; n < names.length; n++) {
               if (oClasses.indexOf(names[n]) === -1) oClasses.push(names[n]);
@@ -2474,7 +2463,7 @@ error: function(error, promise){}
           var cL = o[x].classList;
           for (n = 0; n < names.length; n++) cL.remove(names[n]);
         } catch (e) {
-          if ($A.isDOMNode(o[x]) && $A.hasClass(o[x], cn)) {
+          if ($A.isNode(o[x]) && $A.hasClass(o[x], cn)) {
             var oClasses = o[x].className ? o[x].className.split(/\s+/) : [],
               nc = [];
             for (n = 0; n < oClasses.length; n++) {
@@ -2612,7 +2601,7 @@ error: function(error, promise){}
     },
 
     getWindow: function(w) {
-      var w = $A.isDOMNode(w, window) ? w : window;
+      var w = $A.isNode(w, window) ? w : window;
       return {
         width:
           w.document.documentElement.clientWidth || w.document.body.clientWidth,
@@ -2643,7 +2632,7 @@ error: function(error, promise){}
         forceAbsolute = c;
         c = this._X;
       }
-      if (!$A.isDOMNode(c, window)) return c;
+      if (!$A.isNode(c, window)) return c;
       var r = {},
         position = $A.css(c, "position");
       if (forceAbsolute || position === "absolute") r = $A._getAbsolutePos(c);
@@ -2830,9 +2819,9 @@ error: function(error, promise){}
 
     isPointerWithin: function(n) {
       if (
-        $A.isDOMNode(n) &&
+        $A.isNode(n) &&
         $A.event.pointer &&
-        $A.isDOMNode($A.event.pointer.target)
+        $A.isNode($A.event.pointer.target)
       ) {
         return $A.isWithin($A.event.pointer.target, n);
       }
@@ -2897,7 +2886,7 @@ error: function(error, promise){}
         obj = $A.morph(obj);
         obj = $A._check(obj, true);
       }
-      if ($A.isDOMNode(obj)) {
+      if ($A.isNode(obj)) {
         obj.id = id;
         return $A._XR.call(this, obj);
       }
@@ -2956,7 +2945,7 @@ error: function(error, promise){}
         !nodes ||
         !$A.isArray(nodes) ||
         nodes.length < 2 ||
-        !$A.isDOMNode(nodes[0])
+        !$A.isNode(nodes[0])
       )
         return r;
       var nt = [],
@@ -3001,7 +2990,7 @@ error: function(error, promise){}
       }
 
       obj = $A.morph(obj);
-      if (!$A.isDOMNode(obj)) return this._4X ? this : obj;
+      if (!$A.isNode(obj)) return this._4X ? this : obj;
 
       $A._setFocus(obj);
 
@@ -3014,7 +3003,7 @@ error: function(error, promise){}
       if (this._4X) {
         o = this._X;
       }
-      if ($A.isDOMNode(o, null, document) && o.querySelectorAll) {
+      if ($A.isNode(o, null, document) && o.querySelectorAll) {
         return o.querySelectorAll("*:focus").length > 0;
       }
       return false;
@@ -3024,7 +3013,7 @@ error: function(error, promise){}
       if (this._4X) {
         o = this._X;
       }
-      if (!$A.isDOMNode(o)) return true;
+      if (!$A.isNode(o)) return true;
       if (
         o.offsetHeight + o.offsetWidth < 1 ||
         $A.css(o, "visibility") === "hidden"
@@ -3039,12 +3028,30 @@ error: function(error, promise){}
         node = this._X;
       }
       var n = node,
-        d = $A.isDOMNode(container, null, null, 11) ? container : document.body;
-      while ($A.isDOMNode(n, null, null, 11, 3)) {
+        d = $A.isNode(container, null, null, 11) ? container : document.body;
+      while ($A.isNode(n, null, null, 11, 3)) {
         if (n === d) return true;
         n = n.parentNode;
       }
       return false;
+    },
+
+    hide: function(o) {
+      if (this._4X) {
+        o = this._X;
+      }
+      o = $A.morph(o);
+      if ($A.isNode(o)) o.hidden = true;
+      return $A._XR.call(this, o);
+    },
+
+    show: function(o) {
+      if (this._4X) {
+        o = this._X;
+      }
+      o = $A.morph(o);
+      if ($A.isNode(o)) o.hidden = false;
+      return $A._XR.call(this, o);
     },
 
     hideBackground: function(eN) {
@@ -3052,7 +3059,7 @@ error: function(error, promise){}
         eN = this._X;
       }
       var n = eN ? $A.morph(eN) : null;
-      if (!$A.isDOMNode(n)) {
+      if (!$A.isNode(n)) {
         $A.showBackground();
       } else {
         if (
@@ -3067,7 +3074,7 @@ error: function(error, promise){}
         $A.loop(
           document.body.children,
           function(i, o) {
-            if ($A.isDOMNode(o)) {
+            if ($A.isNode(o)) {
               var m = o === n;
               o.inert = m ? false : true;
               $A.setAttr(o, "aria-hidden", m ? "false" : "true");
@@ -3085,13 +3092,13 @@ error: function(error, promise){}
         eN = this._X;
       }
       var n = eN ? $A.morph(eN) : null;
-      if ($A.isDOMNode(n)) {
+      if ($A.isNode(n)) {
         $A.hideBackground(n);
       } else {
         $A.loop(
           document.body.children,
           function(i, o) {
-            if ($A.isDOMNode(o)) {
+            if ($A.isNode(o)) {
               o.inert = false;
               $A.remAttr(o, "aria-hidden");
             }
@@ -3107,7 +3114,7 @@ error: function(error, promise){}
         c = this._X;
       }
       c = $A.morph(c);
-      if ($A.isDOMNode(c, null, document, 11)) {
+      if ($A.isNode(c, null, document, 11)) {
         if ($A.isIE())
           $A.query("svg", c, function(i, o) {
             $A.setAttr(o, "focusable", "false");
@@ -3116,32 +3123,61 @@ error: function(error, promise){}
       return $A._XR.call(this, c);
     },
 
-    setKBA11Y: function(node, role, name, noSpacebar) {
+    setKBA11Y: function(node, role, name, noSpacebar, fn) {
       if (this._4X) {
+        fn = noSpacebar;
         noSpacebar = name;
         name = role;
         role = node;
         node = this._X;
       }
+      if ($A.isFn(role)) {
+        fn = role;
+        role = null;
+      }
+      if ($A.isFn(name)) {
+        fn = name;
+        name = null;
+      }
+      if ($A.isFn(noSpacebar)) {
+        fn = noSpacebar;
+        noSpacebar = null;
+      }
+      if ($A.isBool(role)) {
+        noSpacebar = role;
+        role = null;
+      }
+      if ($A.isBool(name)) {
+        noSpacebar = name;
+        name = null;
+      }
+      role = role || "button";
       var nodes = $A.query(node, function(i, node) {
-        if ($A.isDOMNode(node) && !$A.isNative(node)) {
-          $A.setAttr(node, "tabindex", "0");
-          if (role) $A.setAttr(node, "role", role);
-          if (name) $A.setAttr(node, "aria-label", name);
-          $A.on(node, {
-            keydown: function(ev) {
-              var k = $A.keyEvent(ev);
-              if (k === 13 || (!noSpacebar && k === 32)) {
-                $A.trigger(node, "click");
-                ev.preventDefault();
-              }
-            }
+        if ($A.isNode(node) && !$A.isNative(node)) {
+          $A.setAttr(node, {
+            tabindex: 0,
+            role: role
           });
+          if (name) $A.setAttr(node, "aria-label", name);
+          if ($A.isFn(fn)) $A.on(node, "click.kba11y", fn);
+          $A.on(
+            node,
+            {
+              keydown: function(ev) {
+                var k = $A.keyEvent(ev);
+                if (k === 13 || (!noSpacebar && k === 32)) {
+                  $A.trigger(node, "click");
+                  ev.preventDefault();
+                }
+              }
+            },
+            ".kba11y"
+          );
           return true;
         }
         return false;
       });
-      if (nodes.length === 0) node = null;
+      if (!nodes.length) node = null;
       else if (nodes.length === 1) node = nodes[0];
       else node = nodes;
       return $A._XR.call(this, node);
@@ -3189,7 +3225,7 @@ error: function(error, promise){}
       if (
         ($A.isDC(o) && o.disabled) ||
         $A.data(t, "disabled") ||
-        ($A.isDOMNode(t) && $A.getAttr(t, "aria-disabled") === "true")
+        ($A.isNode(t) && $A.getAttr(t, "aria-disabled") === "true")
       )
         return true;
       return false;
@@ -3226,7 +3262,7 @@ error: function(error, promise){}
         usingFocus = node;
         node = this._X;
       }
-      if (!$A.isDOMNode(node) || $A.isHidden(node) || !$A.isWithin(node))
+      if (!$A.isNode(node) || $A.isHidden(node) || !$A.isWithin(node))
         return false;
       var tabI = parseInt($A.getAttr(node, "tabindex"));
       return (usingFocus && $A.isNum(tabI)) ||
@@ -3237,7 +3273,7 @@ error: function(error, promise){}
     },
 
     _setFocus: function(o) {
-      if ($A.isDOMNode(o)) {
+      if ($A.isNode(o)) {
         if (!$A.isFocusable(o)) $A.setAttr(o, "tabindex", -1);
         o.focus();
       }
@@ -3729,7 +3765,7 @@ error: function(error, promise){}
                     );
                   dc.wrapper = dc.container = null;
                 } else dc.content = $A.extractNodes(dc.container);
-                if ($A.isDOMNode(dc.wrapper)) $A.empty(dc.wrapper, true);
+                if ($A.isNode(dc.wrapper)) $A.empty(dc.wrapper, true);
               } else {
                 dc.content = dc.container;
                 dc.content.hidden = true;
@@ -4125,7 +4161,7 @@ error: function(error, promise){}
           $A.focus(
             !dc.forceFocusWithin ||
               !dc.activeElements.length ||
-              !$A.isDOMNode(dc.first)
+              !$A.isNode(dc.first)
               ? dc.container
               : dc.first
           );
@@ -4215,7 +4251,7 @@ error: function(error, promise){}
 
         insert: function(node) {
           var dc = this;
-          if (dc.loaded && $A.isDOMNode(dc.container)) {
+          if (dc.loaded && $A.isNode(dc.container)) {
             $A.insert(node, dc.container);
             if ($A.isNum(dc.delayTimeout) && dc.delayTimeout > 0) {
               if (dc.fn.timer) clearTimeout(dc.fn.timer);

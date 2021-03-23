@@ -62,7 +62,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               cb: {
                 selected: [],
                 select: function(dc, o, select) {
-                  if (!$A.isDOMNode(o) || !o.id) {
+                  if (!$A.isNode(o) || !o.id) {
                     $A.remAttr(dc.triggerNode, [
                       "aria-activedescendant",
                       "aria-controls"

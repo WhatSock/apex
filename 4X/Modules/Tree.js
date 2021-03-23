@@ -89,7 +89,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           if (e.nodeName.toLowerCase() === tag.child)
                             return true;
                         });
-                        if ($A.isDOMNode(c)) mItems.push(c);
+                        if ($A.isNode(c)) mItems.push(c);
                       });
                       return mItems;
                     } else
@@ -122,14 +122,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               genTree = function(o, p, list, top, level, triggerIndex) {
                 var ref =
                   list ||
-                  ($A.isDOMNode(o) &&
+                  ($A.isNode(o) &&
                     ($A.getAttr(o, "controls") ||
                       $A.next(o, function(e) {
                         if (e.nodeName.toLowerCase() === tag.parent)
                           return true;
                       })));
                 if (ref) ref = $A.morph(ref);
-                if (!$A.isDOMNode(ref)) return;
+                if (!$A.isNode(ref)) return;
                 if (o) {
                   $A.setAttr(o, "aria-expanded", "false");
                   $A.data(o, "expanded", false);

@@ -106,7 +106,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           if (e.nodeName.toLowerCase() === tag.child)
                             return true;
                         });
-                        if ($A.isDOMNode(c)) mItems.push(c);
+                        if ($A.isNode(c)) mItems.push(c);
                       });
                       return mItems;
                     } else
@@ -141,7 +141,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 return s;
               },
               genMenu = function(o, p, list) {
-                if (!$A.isDOMNode(o)) return;
+                if (!$A.isNode(o)) return;
                 var ref =
                   list ||
                   $A.getAttr(o, "menu") ||
@@ -149,7 +149,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     if (e.nodeName.toLowerCase() === tag.parent) return true;
                   });
                 ref = $A.morph(ref);
-                if (!$A.isDOMNode(ref)) return;
+                if (!$A.isNode(ref)) return;
                 $A.setAttr(o, "aria-haspopup", "true");
                 var mItems = tag.parse(ref);
 
@@ -327,7 +327,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
             var DC = null;
 
-            $A.query(o, function(i, o) {
+            $A.query(o, config.context || document, function(i, o) {
               var gen = function(m) {
                 DC = genMenu(o, null, m);
                 $A.on(window.document, "click.closemenus", function() {

@@ -83,7 +83,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         } else {
           if (dc.isModal) $A.showBackground();
         }
-        if (dc.isModal && $A.isDOMNode(dc.backdrop, null, null, 11))
+        if (dc.isModal && $A.isNode(dc.backdrop, null, null, 11))
           $A.remove(dc.backdrop);
       },
       backdrop: '<div class="modalBackdrop"></div>'
@@ -117,7 +117,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           };
 
         if (o)
-          $A.query(o, function(i, o) {
+          $A.query(o, config.context || document, function(i, o) {
             toDC(o);
           });
         else toDC();

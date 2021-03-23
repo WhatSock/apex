@@ -24,8 +24,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               fn = config;
               config = null;
             }
-            if (!$A.isDOMNode(o)) o = $A.morph(o);
-            if ($A.isDOMNode(o)) {
+            if (!$A.isNode(o)) o = $A.morph(o);
+            if ($A.isNode(o)) {
               $A.isScrolling = true;
               window.Velocity(
                 o,
@@ -52,7 +52,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               o = this._X;
             }
             o = $A.morph(o);
-            if ($A.isDOMNode(o)) {
+            if ($A.isNode(o)) {
               $A.scrollTo(
                 o,
                 config,
@@ -73,7 +73,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             }
             o = $A.morph(o);
             targ = $A.morph(targ);
-            if ($A.isDOMNode(o) && $A.isDOMNode(targ)) {
+            if ($A.isNode(o) && $A.isNode(targ)) {
               o = $A.setSkipLink(
                 o,
                 $A.extend(
@@ -100,11 +100,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               styleObj = config.style || {},
               c = config.context || c,
               skip = skipReturn || config.skipReturn ? true : false;
-            if (!$A.isDOMNode(c, null, document)) c = document;
+            if (!$A.isNode(c, null, document)) c = document;
             $A.query(l, c, function(i, o) {
               var t = config.target || $A.getAttr(o, "href");
               if ($A.isSelector(t)) t = c.querySelector(t);
-              if ($A.isDOMNode(t) && !$A.data(o, "_isBoundFn")) {
+              if ($A.isNode(t) && !$A.data(o, "_isBoundFn")) {
                 $A.data(o, "_isBoundFn", true);
                 $A.bindObjects(o, t);
                 $A.on(o, {

@@ -61,7 +61,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         if (!o) return null;
 
         var dcArray = [];
-        $A.query(o, function(i, o) {
+        $A.query(o, config.context || document, function(i, o) {
           $A.svgFix(o);
           dcArray.push(
             $A(o).toDC(

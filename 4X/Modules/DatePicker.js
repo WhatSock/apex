@@ -1222,7 +1222,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 }
                 dc.content += "</tr></table>";
 
-                if (!$A.isDOMNode(dc.messageContainer)) {
+                if (!$A.isNode(dc.messageContainer)) {
                   dc.messageContainerId = $A.genId();
                   dc.messageContainer = $A.create(
                     "div",

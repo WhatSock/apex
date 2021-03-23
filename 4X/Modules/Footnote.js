@@ -23,7 +23,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               o = config.footnotes || null;
             }
             if (!o) return null;
-            $A.query(o, function(i, o) {
+            $A.query(o, config.context || document, function(i, o) {
               $A.svgFix(o);
             });
             o = $A.setSkipLink(o, config);

@@ -207,7 +207,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           },
           dcArray = [];
 
-        $A.query(o, function(i, o) {
+        $A.query(o, config.context || document, function(i, o) {
           var tooltip = null,
             error = null,
             id = config.id || o.id || $A.genId();

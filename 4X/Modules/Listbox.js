@@ -94,7 +94,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 return s;
               },
               genListbox = function(ref) {
-                if (!$A.isDOMNode(ref)) return;
+                if (!$A.isNode(ref)) return;
                 if (!ref.id) ref.id = $A.genId();
 
                 $A.svgFix(ref);
@@ -131,7 +131,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           c = tag.build.child.replace("{OPTION-TEXT}", name);
                         c = $A.toNode(c, true);
                         var a = c.querySelector(tag.child);
-                        if ($A.isDOMNode(a)) {
+                        if ($A.isNode(a)) {
                           $A.bindObjects(a, o);
                           init.options.push(a);
                           $A.append(c, init.listbox);
@@ -208,7 +208,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       }
                       var select =
                         $A.hasAttr(o, "select") ||
-                        ($A.isDOMNode($A.boundTo(o)) && $A.boundTo(o).selected);
+                        ($A.isNode($A.boundTo(o)) && $A.boundTo(o).selected);
                       $A.setAttr(o, "aria-selected", select ? "true" : "false");
                       $A.data(o, "_Selected", select);
                       $A.closest(o, function(o) {
@@ -302,7 +302,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     n = init.listbox.querySelector(
                       '*[role="option"][aria-selected="true"]'
                     );
-                  if ($A.isDOMNode(n)) x = $A.inArray(n, init.options) || 0;
+                  if ($A.isNode(n)) x = $A.inArray(n, init.options) || 0;
                   DC.RTI = new $A.RovingTabIndex(
                     $A.extend(
                       {
@@ -779,8 +779,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   );
                   if (checked && checked.length) return checked;
                   else if (init.select.nodeType) {
-                    if ($A.isDOMNode(o))
-                      return $A.getAttr($A.boundTo(o), "value");
+                    if ($A.isNode(o)) return $A.getAttr($A.boundTo(o), "value");
                     else {
                       var s = [];
                       $A.loop(
@@ -807,14 +806,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               else init.select = { nodeType: false };
               config.select = init.select;
               var ref = $A.getAttr(init.select, "controls");
-              if (ref && $A.isDOMNode($A.morph(ref)))
-                init.listbox = $A.morph(ref);
+              if (ref && $A.isNode($A.morph(ref))) init.listbox = $A.morph(ref);
               else if (!$A.isNative(o)) init.listbox = o;
               else if (config.listbox && $A.morph(config.listbox))
                 init.listbox = $A.morph(config.listbox);
               else init.listbox = $A.morph(tag.build.parent);
               config.listbox = init.listbox;
-              if ($A.isDOMNode(init.select) && !$A.isWithin(init.listbox))
+              if ($A.isNode(init.select) && !$A.isWithin(init.listbox))
                 $A(init.listbox).before(init.select);
               init = $A.extend(init, config);
               config = $A.extend(config, init);

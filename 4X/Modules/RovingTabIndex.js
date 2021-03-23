@@ -81,7 +81,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 inst = $A.data(i, "RTI") || that;
               }
               if (!i) i = inst.nodes[0] || null;
-              if ($A.isDOMNode(i) && $A.isNum($A.data(i, "RTI-Index")))
+              if ($A.isNode(i) && $A.isNum($A.data(i, "RTI-Index")))
                 inst = $A.data(i, "RTI");
               else return inst;
               if ($A.isHidden(i)) return inst;
@@ -113,7 +113,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 inst = $A.data(i, "RTI") || that;
               }
               if (!i) i = inst.nodes[0] || null;
-              if ($A.isDOMNode(i) && $A.isNum($A.data(i, "RTI-Index")))
+              if ($A.isNode(i) && $A.isNum($A.data(i, "RTI-Index")))
                 inst = $A.data(i, "RTI");
               else return inst;
               if ($A.isHidden(i)) return inst;

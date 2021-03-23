@@ -77,16 +77,16 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             else if ($A.isStr(o))
               triggers = (config.context || document).querySelectorAll(o);
 
-            if (!$A.isDOMNode(container)) {
+            if (!$A.isNode(container)) {
               (function() {
                 var f = [],
                   l = [];
                 $A.closest(triggers[0], function(n) {
-                  if ($A.isDOMNode(n)) f.push(n);
+                  if ($A.isNode(n)) f.push(n);
                   if (n === document.body) return true;
                 });
                 $A.closest(triggers[triggers.length - 1], function(n) {
-                  if ($A.isDOMNode(n)) l.push(n);
+                  if ($A.isNode(n)) l.push(n);
                   if (n === document.body) return true;
                 });
                 f = f.reverse();
@@ -110,14 +110,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               function(i, o) {
                 $A.svgFix(o);
                 var tree = [];
-                if ($A.isDOMNode(container))
+                if ($A.isNode(container))
                   $A.closest(o, function(n) {
                     if (n === container) return true;
                     tree.push(n);
                   });
                 if (
                   container !== document.body &&
-                  $A.isDOMNode(container) &&
+                  $A.isNode(container) &&
                   tree.length
                 )
                   $A.setAttr(tree, "role", "presentation");

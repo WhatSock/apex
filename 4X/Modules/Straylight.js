@@ -12,9 +12,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
   if (!("straylight" in $A))
     $A.extend({
       straylight: function(context) {
-        context = $A.isDOMNode(context, null, document, 11)
-          ? context
-          : document;
+        context = $A.isNode(context, null, document, 11) ? context : document;
 
         (function() {
           // ARIA Accordions
