@@ -2229,17 +2229,66 @@ error: function(error, promise){}
         e = this._X;
       }
       e = $A.morph(e);
-      var E = $A._check(e);
-      var o = $A.isArray(E) ? E : [E];
+      var E = $A._check(e),
+        o = $A.isArray(E) ? E : [E];
       for (var x = 0; x < o.length; x++) {
         if ($A.isNode(o[x])) {
           if ($A.isStr(name)) {
-            if (value === null) o[x].removeAttribute(name);
+            if (value === null || value === undefined)
+              o[x].removeAttribute(name);
             else o[x].setAttribute(name, value);
           } else if (typeof name === "object") {
             for (var n in name) {
-              if (name[n] === null) o[x].removeAttribute(n);
+              if (name[n] === null || name[n] === undefined)
+                o[x].removeAttribute(n);
               else o[x].setAttribute(n, name[n]);
+            }
+          }
+        }
+      }
+
+      return $A._XR.call(this, e);
+    },
+
+    toggleAttr: function(e, name, value) {
+      if (this._4X) {
+        value = name;
+        name = e;
+        e = this._X;
+      }
+      e = $A.morph(e);
+      var E = $A._check(e),
+        o = $A.isArray(E) ? E : [E],
+        isIE = $A.isIE();
+      for (var x = 0; x < o.length; x++) {
+        if ($A.isNode(o[x])) {
+          if ($A.isStr(name)) {
+            if (!isIE) {
+              if ($A.isBool(value)) o[x].toggleAttribute(name, value);
+              else o[x].toggleAttribute(name);
+            } else
+              o[x].setAttribute(
+                name,
+                $A.isBool(value)
+                  ? value
+                  : o[x].getAttribute(name)
+                  ? false
+                  : true
+              );
+          } else if (typeof name === "object") {
+            for (var n in name) {
+              if (!isIE) {
+                if ($A.isBool(name[n])) o[x].toggleAttribute(n, name[n]);
+                else o[x].toggleAttribute(n);
+              } else
+                o[x].setAttribute(
+                  n,
+                  $A.isBool(name[n])
+                    ? name[n]
+                    : o[x].getAttribute(n)
+                    ? false
+                    : true
+                );
             }
           }
         }
@@ -4122,6 +4171,11 @@ error: function(error, promise){}
           $A.setAttr(dc.wrapper, n, v);
           return dc;
         },
+        toggleAttr: function(n, v) {
+          var dc = this;
+          $A.toggleAttr(dc.wrapper, n, v);
+          return dc;
+        },
 
         hasClass: function(cn) {
           var dc = this;
@@ -4615,6 +4669,7 @@ error: function(error, promise){}
         hasAttribute: dc["hasAttr"],
         removeAttribute: dc["remAttr"],
         setAttribute: dc["setAttr"],
+        toggleAttribute: dc["toggleAttr"],
         removeClass: dc["remClass"]
       });
 
@@ -4718,6 +4773,7 @@ error: function(error, promise){}
     hasAttribute: $A["hasAttr"],
     removeAttribute: $A["remAttr"],
     setAttribute: $A["setAttr"],
+    toggleAttribute: $A["toggleAttr"],
     previousSibling: $A["prevSibling"],
     previous: $A["prevSibling"],
     next: $A["nextSibling"],
