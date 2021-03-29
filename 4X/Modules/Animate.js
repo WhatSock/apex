@@ -19,7 +19,7 @@ $A.import(["Velocity", "VelocityUI"], {
         if ($A.isNode(o)) {
           Velocity(
             o,
-            effect,
+            effect || "transition.fadeOut",
             $A.extend(
               {
                 complete: function() {
@@ -45,11 +45,9 @@ $A.import(["Velocity", "VelocityUI"], {
           config = null;
         }
         if ($A.isNode(o)) {
-          $A.css(o, "display", "none");
-          o.hidden = false;
           Velocity(
             o,
-            effect,
+            effect || "transition.fadeIn",
             $A.extend(
               {
                 complete: function() {

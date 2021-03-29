@@ -9,17 +9,19 @@ $A.import(["Animate", "Accordion"], { defer: true }, function() {
 
     style: { display: "none" },
     animate: {
-      onRender: function(dc, wrapper, complete) {
+      onRender: function(dc, wrapper, next) {
         Velocity(wrapper, "transition.slideLeftIn", {
           complete: function() {
-            complete();
+            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+            next();
           }
         });
       },
-      onRemove: function(dc, wrapper, complete) {
+      onRemove: function(dc, wrapper, next) {
         Velocity(wrapper, "transition.slideLeftOut", {
           complete: function() {
-            complete();
+            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+            next();
           }
         });
       }

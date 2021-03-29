@@ -13,17 +13,19 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
     delay: 200,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, wrapper, complete) {
+      onRender: function(dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeIn", {
           complete: function() {
-            complete();
+            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+            next();
           }
         });
       },
-      onRemove: function(dc, wrapper, complete) {
+      onRemove: function(dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeOut", {
           complete: function() {
-            complete();
+            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+            next();
           }
         });
       }

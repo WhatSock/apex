@@ -33,15 +33,43 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               ) {
                 if (hasAttribute) {
                   var isRadio = $A.getAttr(o, "role") === "radio",
+                    isToggle =
+                      $A.hasAttr(o, "toggle") || $A.hasAttr(o, "aria-pressed"),
                     c = 0;
                   if (attributeValue === "true") c = 1;
-                  else if (!isRadio && attributeValue === "mixed") c = 2;
+                  else if (!isRadio && !isToggle && attributeValue === "mixed")
+                    c = 2;
                   else attributeValue = "false";
                   $A.data(o, "check", c);
                   if (write) {
                     if (isRadio && $A.isArray(nodes))
                       $A.setAttr(nodes, "aria-checked", "false");
-                    $A.setAttr(o, "aria-checked", attributeValue);
+                    $A.setAttr(
+                      o,
+                      isToggle ? "aria-pressed" : "aria-checked",
+                      attributeValue
+                    );
+                    if (attributeValue === "mixed") {
+                      $A.remClass(o, config.toggleClass || "pressed");
+                      $A.toggleClass(
+                        o,
+                        config.partialClass || "partially-pressed",
+                        true
+                      );
+                    } else if (attributeValue === "true") {
+                      $A.remClass(
+                        o,
+                        config.partialClass || "partially-pressed"
+                      );
+                      $A.toggleClass(o, config.toggleClass || "pressed", true);
+                    } else {
+                      $A.toggleClass(
+                        o,
+                        config.partialClass || "partially-pressed",
+                        false
+                      );
+                      $A.toggleClass(o, config.toggleClass || "pressed", false);
+                    }
                   }
                   return c;
                 }
@@ -58,7 +86,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     $A.morph($A.getAttr(o, "controls"))) ||
                   false,
                 n = $A.isNative(r) ? r : $A.isNative(o) ? o : null,
-                s = !$A.isNative(r) ? r : !$A.isNative(o) ? o : null;
+                s =
+                  $A.isNode(r) && !$A.isNative(r)
+                    ? r
+                    : !$A.isNative(o)
+                    ? o
+                    : null,
+                x = !$A.isNode(n) && $A.isNode(r) && s !== o ? r : null;
+              if (x === s) s = o;
               if ($A.isNode(s)) {
                 if ($A.isNode(n) && $A.isNode(s)) $A.bindObjects(n, s);
                 var radio = getState(
@@ -70,6 +105,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     s,
                     $A.getAttr(s, "check"),
                     $A.hasAttr(s, "check")
+                  ),
+                  press = getState(
+                    s,
+                    $A.getAttr(s, "toggle"),
+                    $A.hasAttr(s, "toggle")
                   );
                 if ($A.isNum(radio)) {
                   $A.setAttr(s, {
@@ -81,15 +121,54 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   var c = "false";
                   if (check === 1) c = "true";
                   else if (check === 2) c = "mixed";
+                  $A.setKBA11Y(s, "checkbox", function(ev) {});
                   $A.setAttr(s, {
-                    role: "checkbox",
                     "aria-checked": c
                   });
                 } else {
-                  $A.setKBA11Y(btns, "button", function(ev) {});
+                  if (press !== false) {
+                    $A.setAttr(o, "aria-pressed", press ? "true" : "false");
+                    if ($A.isNode(x)) {
+                      if (!x.id) x.id = $A.genId();
+                      $A.remAttr(o, "controls");
+                      $A.setAttr(o, {
+                        "aria-flowto": x.id,
+                        "aria-controls": x.id
+                      });
+                    }
+                  }
+                  $A.setKBA11Y(s, "button", function(ev, dc) {
+                    var o = this,
+                      isDisabled = $A.isDisabled(o),
+                      press = getState(
+                        o,
+                        $A.getAttr(o, "aria-pressed"),
+                        $A.hasAttr(o, "aria-pressed")
+                      ),
+                      args =
+                        press !== false
+                          ? [
+                              ev,
+                              o,
+                              press,
+                              function(attributeValue) {
+                                getState(o, attributeValue, true, true);
+                                $A.setAttr(
+                                  o,
+                                  "aria-pressed",
+                                  attributeValue === "true" ? "true" : "false"
+                                );
+                              },
+                              dc || x
+                            ]
+                          : [ev, o, dc || x];
+                    if (!isDisabled && $A.isFn(config.onActivate))
+                      config.onActivate.apply(o, args);
+                  });
                 }
-                if (radio !== false || check !== false) {
-                  $A(s).on(
+                if (radio !== false || check !== false || press !== false) {
+                  $A.on(
+                    s,
                     "attributeChange",
                     function(
                       MutationObject,
@@ -103,7 +182,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       getState(o, attributeValue, true);
                     },
                     {
-                      attributeFilter: ["aria-checked"]
+                      attributeFilter: ["aria-checked", "aria-pressed"]
                     }
                   );
                 }

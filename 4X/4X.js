@@ -3926,6 +3926,7 @@ error: function(error, promise){}
           dc.fn.internalEventsId = $A.getIdFor(dc.id) || $A.setIdFor(dc.id);
           if (dc.trigger)
             $A.query(dc.trigger, function(i, o) {
+              $A.remAttr(o, ["active", "controls", "menu", "tooltip", "error"]);
               if (dc.toggleHide) $A.off(o, "." + dc.fn.internalEventsId);
               if (!dc.triggerNode) dc.triggerNode = o;
               if ($A.isArray($A.data(o, "DC-ON"))) $A.data(o, "DC-ON").push(dc);

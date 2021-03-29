@@ -1,33 +1,35 @@
 $A.import(["Animate", "Tree"], { defer: true }, function() {
   $A.setTree("ul.top.tree", {
-    onActivate: function(ev, triggerNode, RTI, DC, checked, check) {
+    onActivate: function(ev, triggerNode, RTI, DC, checked, set) {
       var tree = RTI.DC.top;
       // If a triggerNode is checkable, the 'checked' variable will include a number from 0 to 2, otherwise it will be set to false.
       // 0 = "false".
       // 1 = "true".
       // 2 = "mixed".
       if (checked) {
-        check("false");
+        set("false");
       } else {
-        check("true");
+        set("true");
       }
       generateReadingList(tree);
     },
     style: { display: "none" },
     animate: {
-      onRender: function(dc, wrapper, complete) {
+      onRender: function(dc, wrapper, next) {
         Velocity(wrapper, "transition.slideLeftIn", {
           container: document.querySelector("div.treeview"),
           complete: function() {
-            complete();
+            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+            next();
           }
         });
       },
-      onRemove: function(dc, wrapper, complete) {
+      onRemove: function(dc, wrapper, next) {
         Velocity(wrapper, "transition.slideLeftOut", {
           container: document.querySelector("div.treeview"),
           complete: function() {
-            complete();
+            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+            next();
           }
         });
       }

@@ -116,15 +116,15 @@ Accepted Values for DC.autoFix
 
 // Add animation effects when a DC object is rendered or removed.
 animate: {
-  onRender: function(DC, wrapper, complete) {
+  onRender: function(DC, wrapper, next) {
     // Optionally add an animation effect when the component is rendered.
-    // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-    // Running complete() is required to continue executing built-in lifecycle methods after the animation completes.
-    complete();
+    // To ensure accessibility, make sure that the next() function is executed within the callback after the animation finishes.
+    // Running next() is required to continue executing built-in lifecycle methods after the animation completes.
+    next();
   },
-  onRemove: function(DC, wrapper, complete) {
+  onRemove: function(DC, wrapper, next) {
     // Optionally add an animation effect when the component is removed.
-    // To ensure accessibility, make sure that the complete() function is executed within the callback after the animation finishes.
-    complete();
+    // To ensure accessibility, make sure that the next() function is executed within the callback after the animation finishes.
+    next();
   }
 }

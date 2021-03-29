@@ -16,17 +16,19 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
       display: "none"
     },
     animate: {
-      onRender: function(dc, wrapper, complete) {
+      onRender: function(dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeIn", {
           complete: function() {
-            complete();
+            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+            next();
           }
         });
       },
-      onRemove: function(dc, wrapper, complete) {
+      onRemove: function(dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeOut", {
           complete: function() {
-            complete();
+            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+            next();
           }
         });
       }
@@ -48,17 +50,19 @@ $A.import(["Animate", "DatePicker"], { defer: true }, function() {
         offsetLeft: 0,
         style: { position: "absolute", zIndex: 1, display: "none" },
         animate: {
-          onRender: function(dc, wrapper, complete) {
+          onRender: function(dc, wrapper, next) {
             Velocity(wrapper, "transition.fadeIn", {
               complete: function() {
-                complete();
+                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                next();
               }
             });
           },
-          onRemove: function(dc, wrapper, complete) {
+          onRemove: function(dc, wrapper, next) {
             Velocity(wrapper, "transition.fadeOut", {
               complete: function() {
-                complete();
+                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                next();
               }
             });
           }

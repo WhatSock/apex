@@ -52,17 +52,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                     style: { display: "none" },
                     animate: {
-                      onRender: function(dc, wrapper, complete) {
+                      onRender: function(dc, wrapper, next) {
                         Velocity(wrapper, "transition.slideLeftIn", {
                           complete: function() {
-                            complete();
+                            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                            next();
                           }
                         });
                       },
-                      onRemove: function(dc, wrapper, complete) {
+                      onRemove: function(dc, wrapper, next) {
                         Velocity(wrapper, "transition.slideLeftOut", {
                           complete: function() {
-                            complete();
+                            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                            next();
                           }
                         });
                       }
@@ -117,17 +119,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                         style: { display: "none" },
                         animate: {
-                          onRender: function(dc, wrapper, complete) {
+                          onRender: function(dc, wrapper, next) {
                             Velocity(wrapper, "transition.slideUpIn", {
                               complete: function() {
-                                complete();
+                                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                next();
                               }
                             });
                           },
-                          onRemove: function(dc, wrapper, complete) {
+                          onRemove: function(dc, wrapper, next) {
                             Velocity(wrapper, "transition.slideUpOut", {
                               complete: function() {
-                                complete();
+                                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                next();
                               }
                             });
                           }
@@ -190,17 +194,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           display: "none"
                         },
                         animate: {
-                          onRender: function(dc, wrapper, complete) {
+                          onRender: function(dc, wrapper, next) {
                             Velocity(wrapper, "transition.fadeIn", {
                               complete: function() {
-                                complete();
+                                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                next();
                               }
                             });
                           },
-                          onRemove: function(dc, wrapper, complete) {
+                          onRemove: function(dc, wrapper, next) {
                             Velocity(wrapper, "transition.fadeOut", {
                               complete: function() {
-                                complete();
+                                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                next();
                               }
                             });
                           }
@@ -242,17 +248,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                         style: { display: "none" },
                         animate: {
-                          onRender: function(dc, wrapper, complete) {
+                          onRender: function(dc, wrapper, next) {
                             Velocity(wrapper, "transition.slideDownIn", {
                               complete: function() {
-                                complete();
+                                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                next();
                               }
                             });
                           },
-                          onRemove: function(dc, wrapper, complete) {
+                          onRemove: function(dc, wrapper, next) {
                             Velocity(wrapper, "transition.slideDownOut", {
                               complete: function() {
-                                complete();
+                                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                next();
                               }
                             });
                           }
@@ -316,17 +324,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                         style: { display: "none" },
                         animate: {
-                          onRender: function(dc, wrapper, complete) {
+                          onRender: function(dc, wrapper, next) {
                             Velocity(wrapper, "transition.fadeIn", {
                               complete: function() {
-                                complete();
+                                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                next();
                               }
                             });
                           },
-                          onRemove: function(dc, wrapper, complete) {
+                          onRemove: function(dc, wrapper, next) {
                             Velocity(wrapper, "transition.fadeOut", {
                               complete: function() {
-                                complete();
+                                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                next();
                               }
                             });
                           }
@@ -370,17 +380,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           parseInt($A.getAttr(t, "data-timeout")) || 0,
                         style: { display: "none" },
                         animate: {
-                          onRender: function(dc, wrapper, complete) {
+                          onRender: function(dc, wrapper, next) {
                             Velocity(wrapper, "transition.fadeIn", {
                               complete: function() {
-                                complete();
+                                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                next();
                               }
                             });
                           },
-                          onRemove: function(dc, wrapper, complete) {
+                          onRemove: function(dc, wrapper, next) {
                             Velocity(wrapper, "transition.fadeOut", {
                               complete: function() {
-                                complete();
+                                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                next();
                               }
                             });
                           }
@@ -427,7 +439,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             // if 0, the checked state is "false".
                             // if 1, the checked state is "true".
                             // if 2, the checked state is "mixed".
-                            // The 'check' argument is a function that will set the checkable item to a new state.
+                            // The 'set' argument is a function that will set the checkable item to a new state.
                             // The new value must be a string consisting of "false", "true", or "mixed".
                             if (checked === 0 || isRadio) {
                               check("true");
@@ -471,17 +483,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         },
                         style: { display: "none" },
                         animate: {
-                          onRender: function(dc, wrapper, complete) {
+                          onRender: function(dc, wrapper, next) {
                             Velocity(wrapper, "transition.slideUpIn", {
                               complete: function() {
-                                complete();
+                                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                next();
                               }
                             });
                           },
-                          onRemove: function(dc, wrapper, complete) {
+                          onRemove: function(dc, wrapper, next) {
                             Velocity(wrapper, "transition.slideUpOut", {
                               complete: function() {
-                                complete();
+                                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                next();
                               }
                             });
                           }
