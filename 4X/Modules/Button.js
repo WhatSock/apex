@@ -50,25 +50,23 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       attributeValue
                     );
                     if (attributeValue === "mixed") {
-                      $A.remClass(o, config.toggleClass || "pressed");
+                      $A.remClass(o, config.toggleClass || "pressed checked");
                       $A.toggleClass(
                         o,
-                        config.partialClass || "partially-pressed",
+                        config.partialClass || "partially-checked",
                         true
                       );
-                    } else if (attributeValue === "true") {
+                    } else {
                       $A.remClass(
                         o,
-                        config.partialClass || "partially-pressed"
+                        config.partialClass || "partially-checked"
                       );
-                      $A.toggleClass(o, config.toggleClass || "pressed", true);
-                    } else {
                       $A.toggleClass(
                         o,
-                        config.partialClass || "partially-pressed",
-                        false
+                        config.toggleClass ||
+                          (isToggle ? "pressed" : "checked"),
+                        attributeValue === "true"
                       );
-                      $A.toggleClass(o, config.toggleClass || "pressed", false);
                     }
                   }
                   return c;
@@ -82,8 +80,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             $A.query(o, config.context || document, function(i, o) {
               var r =
                   ($A.isNode(o) &&
-                    $A.hasAttr(o, "controls") &&
-                    $A.morph($A.getAttr(o, "controls"))) ||
+                    (($A.hasAttr(o, "controls") &&
+                      $A.morph($A.getAttr(o, "controls"))) ||
+                      ($A.isFn(o.querySelector) &&
+                        o.querySelector("input")))) ||
                   false,
                 n = $A.isNative(r) ? r : $A.isNative(o) ? o : null,
                 s =
@@ -118,20 +118,49 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   });
                   btns.push(s);
                 } else if ($A.isNum(check)) {
+                  if ($A.isNode(n) && n.checked) check = 1;
+                  if ($A.isNode(x)) {
+                    if (!x.id) x.id = $A.genId();
+                    $A.setAttr(s, {
+                      "aria-flowto": x.id,
+                      "aria-controls": x.id
+                    });
+                  }
                   var c = "false";
                   if (check === 1) c = "true";
                   else if (check === 2) c = "mixed";
-                  $A.setKBA11Y(s, "checkbox", function(ev) {});
+                  $A.setKBA11Y(s, "checkbox", function(ev, dc) {
+                    var o = this,
+                      isDisabled = $A.isDisabled(o),
+                      check = getState(
+                        o,
+                        $A.getAttr(o, "aria-checked"),
+                        $A.hasAttr(o, "aria-checked")
+                      );
+                    if (!isDisabled && $A.isFn(config.onActivate))
+                      config.onActivate.apply(o, [
+                        ev,
+                        o,
+                        check,
+                        function(attributeValue) {
+                          var check = getState(o, attributeValue, true, true),
+                            c = "false";
+                          if (check === 1) c = "true";
+                          else if (check === 2) c = "mixed";
+                          $A.setAttr(o, "aria-checked", c);
+                        },
+                        n
+                      ]);
+                  });
                   $A.setAttr(s, {
                     "aria-checked": c
                   });
                 } else {
                   if (press !== false) {
-                    $A.setAttr(o, "aria-pressed", press ? "true" : "false");
+                    $A.setAttr(s, "aria-pressed", press ? "true" : "false");
                     if ($A.isNode(x)) {
                       if (!x.id) x.id = $A.genId();
-                      $A.remAttr(o, "controls");
-                      $A.setAttr(o, {
+                      $A.setAttr(s, {
                         "aria-flowto": x.id,
                         "aria-controls": x.id
                       });
@@ -190,11 +219,18 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 if ($A.isNode(n) && n.disabled)
                   $A.setAttr(s, "aria-disabled", "true");
                 $A.updateDisabled(s);
+                $A.remAttr(s, ["check", "controls", "radio", "toggle"]);
               }
             });
 
             return $A._XR.call(this, o);
           }
+        });
+
+        // Set aliases
+        $A.extend({
+          setCheckbox: $A["setButton"],
+          setRadio: $A["setButton"]
         });
       }
     });

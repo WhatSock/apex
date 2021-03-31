@@ -1,0 +1,18 @@
+/* Specific styles for Accessible Checkboxes */
+
+.aria-checkbox {
+  float: left;
+  cursor: pointer;
+  width: 200px;
+  padding: 20px;
+  text-align: center;
+  background: url(../img/unchecked.svg) no-repeat;
+}
+
+.aria-checkbox.checked {
+  background: url(../img/checked.svg) no-repeat;
+}
+
+.aria-checkbox.partially-checked {
+  background: url(../img/indeterminate.svg) no-repeat;
+}
