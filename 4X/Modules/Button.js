@@ -208,7 +208,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       DC,
                       SavedData
                     ) {
-                      getState(o, attributeValue, true);
+                      if ($A.isNode(n)) {
+                        var check = getState(o, attributeValue, true);
+                        n.checked = check ? true : false;
+                      }
                     },
                     {
                       attributeFilter: ["aria-checked", "aria-pressed"]
@@ -219,15 +222,96 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 if ($A.isNode(n) && n.disabled)
                   $A.setAttr(s, "aria-disabled", "true");
                 $A.updateDisabled(s);
-                $A.remAttr(s, ["check", "controls", "radio", "toggle"]);
+                $A.remAttr(s, [
+                  "check",
+                  "controls",
+                  "radio",
+                  "switch",
+                  "toggle"
+                ]);
               }
             });
+
+            if (btns.length) {
+              var container =
+                (config.container && $A.morph(config.container)) ||
+                $A.closest(btns[0], function(n) {
+                  if ($A.getAttr(n, "role") === "radiogroup") return true;
+                });
+
+              if (!$A.isNode(container)) {
+                (function(triggers) {
+                  var f = [],
+                    l = [];
+                  $A.closest(triggers[0], function(n) {
+                    if ($A.isNode(n)) f.push(n);
+                    if (n === document.body) return true;
+                  });
+                  $A.closest(triggers[triggers.length - 1], function(n) {
+                    if ($A.isNode(n)) l.push(n);
+                    if (n === document.body) return true;
+                  });
+                  f = f.reverse();
+                  l = l.reverse();
+                  var c = null;
+                  for (var i = 0; i < f.length; i++) {
+                    if (f[i] === l[i]) c = f[i];
+                    else if (f[i] !== l[i]) break;
+                  }
+                  container = c;
+                })(btns);
+              }
+              $A.setAttr(container, "role", "radiogroup");
+
+              var RTI = new $A.RovingTabIndex(
+                $A.extend(
+                  {
+                    nodes: btns,
+                    startIndex: 0,
+                    orientation: 0,
+                    autoLoop: true,
+                    onClick: function(ev, radio, RTI, nativeInput) {
+                      var o = radio,
+                        isDisabled = $A.isDisabled(o),
+                        check = getState(
+                          o,
+                          $A.getAttr(o, "aria-checked"),
+                          $A.hasAttr(o, "aria-checked")
+                        );
+                      if (!isDisabled && $A.isFn(config.onActivate))
+                        config.onActivate.apply(o, [
+                          ev,
+                          o,
+                          check,
+                          function(attributeValue) {
+                            var check = getState(o, attributeValue, true, true);
+                            $A.setAttr(
+                              o,
+                              "aria-checked",
+                              check ? "true" : "false"
+                            );
+                          },
+                          nativeInput
+                        ]);
+                    },
+                    onSpace: function(ev, radio, RTI, nativeInput) {
+                      RTI.onClick.apply(radio, arguments);
+                    },
+                    onFocus: function(ev, radio, RTI, nativeInput) {
+                      if (RTI.arrowPressed && !$A.isTouch)
+                        RTI.onClick.apply(radio, arguments);
+                    }
+                  },
+                  config.extendRTI || {}
+                )
+              );
+            }
 
             return $A._XR.call(this, o);
           }
         });
 
-        // Set aliases
+        // Set related aliases
         $A.extend({
           setCheckbox: $A["setButton"],
           setRadio: $A["setButton"]

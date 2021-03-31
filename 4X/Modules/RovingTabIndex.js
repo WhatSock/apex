@@ -179,6 +179,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     };
 
                   var fire = function(keys, ev, o, DC, arrowKey) {
+                    DC = DC || $A.boundTo(o);
+                    if (arrowKey) that.arrowPressed = true;
                     var stop = false;
                     $A.loop(
                       keys,

@@ -70,12 +70,17 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             }
             if (!o) return null;
 
-            var triggers = null,
-              container = $A.morph(config.container);
+            var triggers = null;
 
             if ($A.isArray(o)) triggers = o;
             else if ($A.isStr(o))
               triggers = (config.context || document).querySelectorAll(o);
+
+            var container =
+              (config.container && $A.morph(config.container)) ||
+              $A.closest(triggers[0], function(n) {
+                if ($A.getAttr(n, "role") === "tablist") return true;
+              });
 
             if (!$A.isNode(container)) {
               (function() {

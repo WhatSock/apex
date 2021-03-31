@@ -452,10 +452,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   function(i, o) {
                     genTree(o, DC.RTI, null, false, level + 1, i);
                     var check = getState(
-                      o,
-                      $A.getAttr(o, "check"),
-                      $A.hasAttr(o, "check")
-                    );
+                        o,
+                        $A.getAttr(o, "check"),
+                        $A.hasAttr(o, "check")
+                      ),
+                      n =
+                        ($A.isFn(o.querySelector) &&
+                          o.querySelector("input")) ||
+                        false;
+                    if (n && n.checked) check = 1;
                     $A.setAttr(o, {
                       role: "treeitem",
                       "aria-level": level
@@ -478,7 +483,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           DC,
                           SavedData
                         ) {
-                          getState(o, attributeValue, true);
+                          if ($A.isNode(n)) {
+                            var check = getState(o, attributeValue, true);
+                            n.checked = check ? true : false;
+                          }
                         },
                         {
                           attributeFilter: ["aria-checked"]

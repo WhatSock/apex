@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Standard Checkboxes - 4X Technical Style Guide</title>
+    <title>Standard Radios - 4X Technical Style Guide</title>
     <meta name="description" content="Scalable ARIA Components">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
@@ -44,42 +44,44 @@
             <main id="main" class="main" tabindex="-1">
                 <div class="demo-block flex-container">
                     <div class="component flex-item">
-                        <h1 class="pageTitle">Standard Checkboxes</h1>
+                        <h1 class="pageTitle">Standard Radios</h1>
                         <section class="sample-block">
 
                             <!--
-IMPORTANT: The internal markup for an ARIA Checkbox must never include any other types of exposed active elements.
+IMPORTANT: The internal markup for an ARIA Radio must never include any other types of exposed active elements.
 Otherwise, based on how ARIA works in accordance with the spec, none of the embedded controls will be accessible to non-sighted screen reader users.
 -->
 
-                            <ul>
-                                <li>
-                                    <div check class="aria-checkbox agree">
-                                        <span>I Agree</span>
-                                        <input hidden type="checkbox" name="Agree" />
+                            <form>
+                                <fieldset>
+                                    <legend>What do you want to be when you grow up?</legend>
+
+                                    <div radio class="aria-radio future">
+                                        <span>A Banana</span>
+                                        <input hidden type="radio" name="Future" value="Banana" />
                                     </div>
-                                </li>
-                                <li>
-                                    <div check class="aria-checkbox subscribe checked">
-                                        <span>Subscribe to Notifications</span>
-                                        <input checked hidden type="checkbox" name="Subscribe" />
+
+                                    <div radio class="aria-radio future">
+                                        <span>A Carrot</span>
+                                        <input hidden type="radio" name="Future" value="Carrot" />
                                     </div>
-                                </li>
-                                <li>
-                                    <div check="mixed" class="aria-checkbox happy">
-                                        <span>Are you happy?</span>
+
+                                    <div radio class="aria-radio future">
+                                        <span>A Donkey</span>
+                                        <input hidden type="radio" name="Future" value="Donkey" />
                                     </div>
-                                </li>
-                            </ul>
+
+                                </fieldset>
+                            </form>
 
                         </section>
                     </div>
                     <div class="keyboard flex-item">
-                        <h2>The simulated checkboxes are optimized for screen reader and keyboard only users:</h2>
+                        <h2>The simulated radios are optimized for screen reader and keyboard only users:</h2>
                         <ul>
-                            <li>Set focus to the checkboxes using the keyboard.</li>
-                            <li>Press <kbd>Enter</kbd> or <kbd>Space</kbd> to activate a checkbox.</li>
-                            <li>Mouse users can click the desired checkbox to activate as usual.</li>
+                            <li>Set focus to the radios using the keyboard.</li>
+                            <li>Press <kbd>Enter</kbd> or <kbd>Space</kbd> to activate a radio.</li>
+                            <li>Mouse users can click the desired radio to activate as usual.</li>
                         </ul>
                     </div>
                 </div>

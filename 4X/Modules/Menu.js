@@ -278,13 +278,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         o,
                         $A.getAttr(o, "check"),
                         $A.hasAttr(o, "check")
-                      );
+                      ),
+                      n =
+                        ($A.isFn(o.querySelector) &&
+                          o.querySelector("input")) ||
+                        false;
                     if ($A.isNum(radio)) {
+                      if (n && n.checked) radio = 1;
                       $A.setAttr(o, {
                         role: "menuitemradio",
                         "aria-checked": radio ? "true" : "false"
                       });
                     } else if ($A.isNum(check)) {
+                      if (n && n.checked) check = 1;
                       var c = "false";
                       if (check === 1) c = "true";
                       else if (check === 2) c = "mixed";
@@ -305,7 +311,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           DC,
                           SavedData
                         ) {
-                          getState(o, attributeValue, true);
+                          if ($A.isNode(n)) {
+                            var check = getState(o, attributeValue, true);
+                            n.checked = check ? true : false;
+                          }
                         },
                         {
                           attributeFilter: ["aria-checked"]

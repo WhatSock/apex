@@ -135,6 +135,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           $A.bindObjects(a, o);
                           init.options.push(a);
                           $A.append(c, init.listbox);
+                          var n =
+                            ($A.isFn(a.querySelector) &&
+                              a.querySelector("input")) ||
+                            false;
                           $A(a).on(
                             "attributeChange",
                             function(
@@ -147,7 +151,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                               SavedData
                             ) {
                               if (attributeName === "aria-checked") {
-                                getState(o, attributeValue, true);
+                                if ($A.isNode(n)) {
+                                  var check = getState(o, attributeValue, true);
+                                  n.checked = check ? true : false;
+                                }
                               } else if (attributeName === "aria-selected") {
                                 $A.data(
                                   o,
@@ -633,7 +640,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                               ev,
                               option,
                               RTI,
-                              DC,
+                              DC || $A.boundTo(that),
                               check,
                               function(attributeValue) {
                                 if ($A.hasAttr(option, "aria-checked"))
