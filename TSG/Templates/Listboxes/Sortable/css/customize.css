@@ -14,11 +14,11 @@
 .aria-listbox > li {
   padding: 0.3em;
 }
-[role="option"] {
+.option {
   display: block;
   width: 100%;
 }
-.aria-listbox > li > [role="option"] span {
+.aria-listbox > li > .option span {
   display: block;
   font-size: 1em;
   font-weight: bold;
@@ -29,22 +29,19 @@
   border-radius: 0.3em;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
 }
-.aria-listbox > li > [role="option"]:hover {
+.aria-listbox > li > .option:hover {
   text-decoration: none;
 }
 
-.aria-listbox > li > [role="option"]:hover span {
+.aria-listbox > li > .option:hover span {
   box-shadow: none;
 }
 
-.aria-listbox > li > [role="option"][aria-grabbed="true"] span {
+.aria-listbox > li > .option[aria-grabbed="true"] span {
   opacity: 0.5;
 }
 
-.aria-listbox
-  > li
-  > [role="option"][aria-grabbed="true"][aria-selected="true"]
-  span {
+.aria-listbox > li > .option[aria-grabbed="true"][aria-selected="true"] span {
   box-shadow: 0 2px 5px rgba(241, 249, 0, 0.7);
 }
 

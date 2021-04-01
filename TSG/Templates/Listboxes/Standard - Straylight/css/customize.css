@@ -18,13 +18,13 @@
   padding: 3px;
 }
 
-.aria-listbox > li > *[role="option"] {
+.aria-listbox > li > *.option {
   display: block;
   text-decoration: none;
   padding: 0.3em 0.5em;
 }
 
-.aria-listbox > li > *[role="option"] > span {
+.aria-listbox > li > *.option > span {
   display: block;
 }
 

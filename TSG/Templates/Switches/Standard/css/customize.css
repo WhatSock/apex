@@ -1,0 +1,14 @@
+/* Specific styles for Accessible Switches */
+
+.aria-switch {
+  float: left;
+  cursor: pointer;
+  width: 200px;
+  padding: 20px;
+  text-align: center;
+  background: url(../img/unchecked.svg) no-repeat;
+}
+
+.aria-switch.checked {
+  background: url(../img/checked.svg) no-repeat;
+}

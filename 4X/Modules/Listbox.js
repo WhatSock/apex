@@ -66,7 +66,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   build: {
                     parent: '<ul class="aria-listbox"></ul>',
                     child:
-                      '<li><button><span class="lbl">{OPTION-TEXT}</span></button></li>'
+                      '<li><button class="option"><span class="lbl">{OPTION-TEXT}</span></button></li>'
                   }
                 },
                 config.tag || {}
@@ -135,45 +135,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           $A.bindObjects(a, o);
                           init.options.push(a);
                           $A.append(c, init.listbox);
-                          var n =
-                            ($A.isFn(a.querySelector) &&
-                              a.querySelector("input")) ||
-                            false;
-                          $A(a).on(
-                            "attributeChange",
-                            function(
-                              MutationObject,
-                              o,
-                              attributeName,
-                              attributeValue,
-                              attributePriorValue,
-                              boundNode,
-                              SavedData
-                            ) {
-                              if (attributeName === "aria-checked") {
-                                if ($A.isNode(n)) {
-                                  var check = getState(o, attributeValue, true);
-                                  n.checked = check ? true : false;
-                                }
-                              } else if (attributeName === "aria-selected") {
-                                $A.data(
-                                  o,
-                                  "_Selected",
-                                  attributeValue === "true"
-                                );
-                                if (
-                                  boundNode &&
-                                  $A.data(o, "_Selected") !==
-                                    (boundNode.selected ? true : false)
-                                ) {
-                                  boundNode.selected = $A.data(o, "_Selected");
-                                }
-                              }
-                            },
-                            {
-                              attributeFilter: ["aria-checked", "aria-selected"]
-                            }
-                          );
                         }
                       },
                       "array"
@@ -201,11 +162,22 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     init.options,
                     function(i, o) {
                       var check = getState(
-                        o,
-                        $A.getAttr(o, "check"),
-                        init.checkable || $A.hasAttr(o, "check")
-                      );
+                          o,
+                          $A.getAttr(o, "check"),
+                          init.checkable || $A.hasAttr(o, "check")
+                        ),
+                        n =
+                          ($A.hasAttr(o, "controls") &&
+                            $A.morph($A.getAttr(o, "controls"))) ||
+                          ($A.isFn(o.querySelector) &&
+                            o.querySelector("input")) ||
+                          false;
                       if (check !== false) {
+                        if ($A.isNode(n)) {
+                          if (!$A.hasBound(o)) $A.bindObjects(n, o);
+                          if (n.checked) check = 1;
+                          else if (check) n.checked = true;
+                        }
                         var c = "false";
                         if (check === 1) c = "true";
                         else if (check === 2) c = "mixed";
@@ -222,6 +194,39 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         if (o === init.listbox) return true;
                         $A.setAttr(o, "role", "presentation");
                       });
+                      $A.on(
+                        o,
+                        "attributeChange",
+                        function(
+                          MutationObject,
+                          o,
+                          attributeName,
+                          attributeValue,
+                          attributePriorValue,
+                          boundNode,
+                          SavedData
+                        ) {
+                          if (attributeName === "aria-checked") {
+                            if ($A.isNode(n)) {
+                              var check = getState(o, attributeValue, true);
+                              n.checked = check ? true : false;
+                            }
+                          } else if (attributeName === "aria-selected") {
+                            $A.data(o, "_Selected", attributeValue === "true");
+                            if (
+                              boundNode &&
+                              $A.data(o, "_Selected") !==
+                                (boundNode.selected ? true : false)
+                            ) {
+                              boundNode.selected = $A.data(o, "_Selected");
+                            }
+                          }
+                        },
+                        {
+                          attributeFilter: ["aria-checked", "aria-selected"]
+                        }
+                      );
+                      $A.remAttr(o, ["check", "controls", "select"]);
                     },
                     "array"
                   );

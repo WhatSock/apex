@@ -32,12 +32,19 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 nodes
               ) {
                 if (hasAttribute) {
-                  var isRadio = $A.getAttr(o, "role") === "radio",
+                  var role = $A.getAttr(o, "role"),
+                    isRadio = role === "radio",
+                    isSwitch = role === "switch",
                     isToggle =
                       $A.hasAttr(o, "toggle") || $A.hasAttr(o, "aria-pressed"),
                     c = 0;
                   if (attributeValue === "true") c = 1;
-                  else if (!isRadio && !isToggle && attributeValue === "mixed")
+                  else if (
+                    !isRadio &&
+                    !isToggle &&
+                    !isSwitch &&
+                    attributeValue === "mixed"
+                  )
                     c = 2;
                   else attributeValue = "false";
                   $A.data(o, "check", c);
@@ -110,6 +117,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     s,
                     $A.getAttr(s, "toggle"),
                     $A.hasAttr(s, "toggle")
+                  ),
+                  swich = getState(
+                    s,
+                    $A.getAttr(s, "switch"),
+                    $A.hasAttr(s, "switch")
                   );
                 if ($A.isNum(radio)) {
                   $A.setAttr(s, {
@@ -117,7 +129,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     "aria-checked": radio ? "true" : "false"
                   });
                   btns.push(s);
-                } else if ($A.isNum(check)) {
+                } else if ($A.isNum(check) || $A.isNum(swich)) {
                   if ($A.isNode(n) && n.checked) check = 1;
                   if ($A.isNode(x)) {
                     if (!x.id) x.id = $A.genId();
@@ -128,30 +140,35 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   }
                   var c = "false";
                   if (check === 1) c = "true";
-                  else if (check === 2) c = "mixed";
-                  $A.setKBA11Y(s, "checkbox", function(ev, dc) {
-                    var o = this,
-                      isDisabled = $A.isDisabled(o),
-                      check = getState(
-                        o,
-                        $A.getAttr(o, "aria-checked"),
-                        $A.hasAttr(o, "aria-checked")
-                      );
-                    if (!isDisabled && $A.isFn(config.onActivate))
-                      config.onActivate.apply(o, [
-                        ev,
-                        o,
-                        check,
-                        function(attributeValue) {
-                          var check = getState(o, attributeValue, true, true),
-                            c = "false";
-                          if (check === 1) c = "true";
-                          else if (check === 2) c = "mixed";
-                          $A.setAttr(o, "aria-checked", c);
-                        },
-                        n
-                      ]);
-                  });
+                  else if (!$A.isNum(swich) && check === 2) c = "mixed";
+                  $A.setKBA11Y(
+                    s,
+                    $A.isNum(swich) ? "switch" : "checkbox",
+                    function(ev, dc) {
+                      var o = this,
+                        isDisabled = $A.isDisabled(o),
+                        check = getState(
+                          o,
+                          $A.getAttr(o, "aria-checked"),
+                          $A.hasAttr(o, "aria-checked")
+                        );
+                      if (!isDisabled && $A.isFn(config.onActivate))
+                        config.onActivate.apply(o, [
+                          ev,
+                          o,
+                          check,
+                          function(attributeValue) {
+                            var check = getState(o, attributeValue, true, true),
+                              c = "false";
+                            if (check === 1) c = "true";
+                            else if (!$A.isNum(swich) && check === 2)
+                              c = "mixed";
+                            $A.setAttr(o, "aria-checked", c);
+                          },
+                          n
+                        ]);
+                    }
+                  );
                   $A.setAttr(s, {
                     "aria-checked": c
                   });
@@ -195,7 +212,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       config.onActivate.apply(o, args);
                   });
                 }
-                if (radio !== false || check !== false || press !== false) {
+                if (
+                  radio !== false ||
+                  check !== false ||
+                  press !== false ||
+                  swich !== false
+                ) {
                   $A.on(
                     s,
                     "attributeChange",
@@ -311,10 +333,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           }
         });
 
-        // Set related aliases
+        // Set related module aliases
         $A.extend({
           setCheckbox: $A["setButton"],
-          setRadio: $A["setButton"]
+          setRadio: $A["setButton"],
+          setSwitch: $A["setButton"]
         });
       }
     });

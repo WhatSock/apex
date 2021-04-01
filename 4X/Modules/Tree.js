@@ -460,7 +460,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         ($A.isFn(o.querySelector) &&
                           o.querySelector("input")) ||
                         false;
-                    if (n && n.checked) check = 1;
+                    if ($A.isNode(n)) {
+                      $A.bindObjects(n, o);
+                      if (n.checked) check = 1;
+                    }
                     $A.setAttr(o, {
                       role: "treeitem",
                       "aria-level": level

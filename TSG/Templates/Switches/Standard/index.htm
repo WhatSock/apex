@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Standard Switches - 4X Technical Style Guide</title>
+    <meta name="description" content="Scalable ARIA Components">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
+    <link rel="stylesheet" type="text/css" href="css/customize.css">
+    <script src="/4X/4X.js"></script>
+    <script src="js/setup.js"></script>
+</head>
+
+<body>
+    <div class="bypass">
+        <ul class="list-unstyled">
+            <li>
+                <a class="skip--link" href="javascript:void(0);" onclick="document.getElementById('main').focus();">
+                    Skip to Main Content
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="outer-wrapper">
+        <header class="header flex-container">
+            <div class="logo flex-item">
+                <a href="http://whatsock.com">
+                    <img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg"></a>
+            </div>
+            <div class="site-name flex-item">
+                <strong>Apex 4X</strong> Technical Style Guide
+            </div>
+        </header>
+        <div class="wrapper">
+            <div class="left-aside">
+                <nav>
+                    <ul>
+                        <li><a href="../../index.htm">Components</a></li>
+                        <li><a href="../Standard/index.htm" aria-current="page">Standard</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <main id="main" class="main" tabindex="-1">
+                <div class="demo-block flex-container">
+                    <div class="component flex-item">
+                        <h1 class="pageTitle">Standard Switches</h1>
+                        <section class="sample-block">
+
+                            <!--
+IMPORTANT: The internal markup for an ARIA Switch must never include any other types of exposed active elements.
+Otherwise, based on how ARIA works in accordance with the spec, none of the embedded controls will be accessible to non-sighted screen reader users.
+-->
+
+                            <ul>
+                                <li>
+                                    <div switch class="aria-switch thermostat">
+                                        <span>Thermostat</span>
+                                        <input hidden type="switch" name="Thermostat" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div switch class="aria-switch security checked">
+                                        <span>Security</span>
+                                        <input checked hidden type="switch" name="Security" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div switch="true" class="aria-switch lights">
+                                        <span>Lights</span>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </section>
+                    </div>
+                    <div class="keyboard flex-item">
+                        <h2>The simulated switches are optimized for screen reader and keyboard only users:</h2>
+                        <ul>
+                            <li>Set focus to the switches using the keyboard.</li>
+                            <li>Press <kbd>Enter</kbd> or <kbd>Space</kbd> to activate a switch.</li>
+                            <li>Mouse users can click the desired switch to activate as usual.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+        <footer class="footer">
+            <p class="copyright">&copy;<script type="text/javascript">
+                    document.write(new Date().getFullYear());
+                </script> WhatSock. All rights reserved.</p>
+            <p>Visual design by <a href="http://gericci.me/">Angela Ricci</a>. Styling updated by Laurence Lewis October 2020</p>
+        </footer>
+    </div>
+</body>
+
+</html>
