@@ -1,5 +1,5 @@
-$A.import(["Animate", "TabList"], { defer: true }, function() {
-  $A.setTabList("button.aria-tab", {
+$A.import(["Animate", "Tab"], { defer: true }, function() {
+  $A.setTab("button.aria-tab", {
     trackPage: true,
     afterRender: function(dc) {
       $A.setPage(
@@ -8,10 +8,16 @@ $A.import(["Animate", "TabList"], { defer: true }, function() {
       );
     },
 
+    // Preload HTML markup when pulling content from external resources to speed rendering
+    preload: true,
+    preloadImages: true,
+    preloadCSS: true,
+
     style: { display: "none" },
     animate: {
       onRender: function(dc, wrapper, next) {
-        Velocity(wrapper, "transition.slideUpIn", {
+        Velocity(wrapper, "transition.slideDownIn", {
+          duration: 1500,
           complete: function() {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
@@ -19,7 +25,9 @@ $A.import(["Animate", "TabList"], { defer: true }, function() {
         });
       },
       onRemove: function(dc, wrapper, next) {
-        Velocity(wrapper, "transition.slideUpOut", {
+        Velocity(wrapper, "transition.slideDownOut", {
+          delay: 500,
+          duration: 1500,
           complete: function() {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
@@ -29,7 +37,6 @@ $A.import(["Animate", "TabList"], { defer: true }, function() {
     },
 
     isToggle: false,
-    toggleClass: "active",
-    toggleHide: true
+    toggleClass: "active"
   });
 });

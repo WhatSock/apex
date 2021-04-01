@@ -3,11 +3,11 @@ ARIA Tabs
 
 Expected behaviors: The group of triggering elements should have only one tab stop, the arrow keys should move focus between each Tab in the group, pressing Enter or Space should expand the desired Tab panel, the expanded state should be toggled appropriately on the triggering element, and the expanded Tab panel should be rendered directly after the group of triggering elements in the tab order.
 
-Though similar in both concept and execution to tab controls, Tabs are not the same. A Tab control has a series of grouped triggering elements that expand and collapse, the rendered content of which is inserted directly after the triggering element group when opened. The container element insertion point for all Tab control triggering elements is shared between them. Also, the group of triggering elements in a Tab control has only one tab stop. The arrow keys are then used to switch focus between each Tab, and the Enter or Space key is used to expand the desired Tab content panel.
+Though similar in both concept and execution to Tab controls, accordions are not the same. A Tab control has a series of grouped triggering elements that expand and collapse, the rendered content of which is inserted directly after the triggering element group when opened. The container element insertion point for all Tab control triggering elements is shared between them. Also, the group of triggering elements in a Tab control has only one tab stop. The arrow keys are then used to switch focus between each Tab, and the Enter or Space key is used to expand the desired Tab content panel.
 
-In contrast, an Tab has a series of triggering elements that expand and collapse, the rendered content of which is inserted directly after the triggering element when opened. The container element insertion points for Tabs are not shared. Also, all Tab links appear in the tab order. The reason why ARIA attributes such as role="tablist" and role="tab" are not included within tabs, is because the insertion of inline content would place dynamic content sections within the same Tablist container, making it impossible to determine the order of nested Tab controls when present within the inserted content. The chosen implementation should always match the UI that it's being applied to, to prevent confusion.
+In contrast, an Accordion has a series of triggering elements that expand and collapse, the rendered content of which is inserted directly after the triggering element when opened. The container element insertion points for Accordions are not shared. Also, all Accordion links appear in the tab order. The reason why ARIA attributes such as role="tablist" and role="tab" are not included within accordions, is because the insertion of inline content would place dynamic content sections within the same Tablist container, making it impossible to determine the order of nested Tab controls when present within the inserted content. The chosen implementation should always match the UI that it's being applied to, to prevent confusion.
 
-The 4X ARIA TabList module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 Tab design pattern.
+The 4X ARIA Tab module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 Tab design pattern.
 
 The following attributes are handled automatically by the TabList module:
 
@@ -28,7 +28,7 @@ Available attributes for the triggering element:
 
 JavaScript syntax:
 
-$A.setTabList( DOM-NodeList-or-CSS-Selector-forTriggering-Elements , {
+$A.setTab( DOM-NodeList-or-CSS-Selector-forTriggering-Elements , {
 // Configure functionality key / value mappings
 });
 

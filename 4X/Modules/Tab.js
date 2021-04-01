@@ -1,18 +1,18 @@
 /*!
-ARIA TabList Module 2.0 for Apex 4X
+ARIA Tab Module 2.0 for Apex 4X
 Copyright 2021 Bryan Garaventa (WhatSock.com)
 https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
 
 (function() {
-  if (!("setTabList" in $A)) {
+  if (!("setTab" in $A)) {
     $A.import("RovingTabIndex", {
-      name: "TabListModule",
+      name: "TabModule",
       props: props,
       once: true,
       call: function(props) {
-        $A.addWidgetProfile("TabList", {
+        $A.addWidgetProfile("Tab", {
           configure: function(dc) {
             return {
               exposeBounds: true,
@@ -58,7 +58,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         });
 
         $A.extend({
-          setTabList: function(o, config) {
+          setTab: function(o, config) {
             if (this._4X) {
               config = o;
               o = this._X;
@@ -137,7 +137,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     o,
                     $A.extend(
                       {
-                        widgetType: "TabList",
+                        widgetType: "Tab",
                         root: panelContainer,
                         append: true
                       },

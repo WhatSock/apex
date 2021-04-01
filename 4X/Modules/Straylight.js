@@ -79,7 +79,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         })();
 
         (function() {
-          // ARIA TabLists
+          // ARIA Tabs
           // Search and recognise tablist grouping containers with the class "aria-tablist"
           var groups = [];
           $A.query("*.aria-tablist", context, function(i, o) {
@@ -89,8 +89,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             }
           });
           if (groups.length)
-            $A.import(["Animate", "TabList"], {
-              name: "StraylightTabList",
+            $A.import(["Animate", "Tab"], {
+              name: "StraylightTab",
               defer: true,
               props: $A.extend(props, {
                 tabList: groups
@@ -99,7 +99,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 $A.loop(
                   props.tabList,
                   function(i, list) {
-                    $A.setTabList(
+                    $A.setTab(
                       list.querySelectorAll(
                         "button[controls].aria-tab, a[controls].aria-tab"
                       ),
@@ -120,7 +120,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         style: { display: "none" },
                         animate: {
                           onRender: function(dc, wrapper, next) {
-                            Velocity(wrapper, "transition.slideUpIn", {
+                            Velocity(wrapper, "transition.slideDownIn", {
+                              duration: 1500,
                               complete: function() {
                                 // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                                 next();
@@ -128,7 +129,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             });
                           },
                           onRemove: function(dc, wrapper, next) {
-                            Velocity(wrapper, "transition.slideUpOut", {
+                            Velocity(wrapper, "transition.slideDownOut", {
+                              delay: 500,
+                              duration: 1500,
                               complete: function() {
                                 // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                                 next();
@@ -136,6 +139,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             });
                           }
                         },
+
                         isToggle: false,
                         toggleClass: "active"
                       }
