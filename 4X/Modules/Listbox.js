@@ -552,7 +552,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           isTop,
                           isBottom
                         ) {
-                          init.toggleSelect(option);
+                          if (init.sortable) init.toggleGrab(option);
+                          else RTI.onClick.apply(option, arguments);
                           if (isIE) {
                             setTimeout(function() {
                               $A.announce(
@@ -630,16 +631,14 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           isTop,
                           isBottom
                         ) {
-                          var that = this,
+                          var that = option,
                             isDisabled = $A.isDisabled(that),
-                            check = getState(option);
-                          if (!isDisabled && !$A.isNum(check) && init.multiple)
-                            init.toggleSelect(option);
+                            check = getState(that);
                           if (!$A.isNum(check) && init.multiple)
                             check =
-                              $A.getAttr(option, "aria-selected") === "true";
+                              $A.getAttr(that, "aria-selected") === "true";
                           if (!isDisabled && init.sortable)
-                            init.toggleGrab(option);
+                            init.toggleGrab(that);
                           if (!isDisabled && $A.isFn(config.onActivate)) {
                             config.onActivate.apply(that, [
                               ev,
