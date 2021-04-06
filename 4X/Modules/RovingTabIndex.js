@@ -180,7 +180,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
                   var fire = function(keys, ev, o, DC, arrowKey) {
                     DC = DC || $A.boundTo(o);
-                    if (arrowKey) that.arrowPressed = true;
                     var stop = false;
                     $A.loop(
                       keys,
@@ -341,6 +340,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           arrowKey = k >= 37 && k <= 40 ? k : 0;
                           var x = that.index,
                             pass = false;
+
+                          if (arrowKey) {
+                            that.arrowPressed = true;
+                            keys.push("Arrow");
+                          }
 
                           if (k === 37) {
                             if (!pressed.alt && !pressed.ctrl && !pressed.shift)

@@ -1,7 +1,11 @@
 $A.import(["Animate", "Button"], { defer: true }, function() {
   $A.setButton(".aria-button.toggle.like, .aria-button.toggle.favorite", {
-    onActivate: function(ev, triggerNode, pressed, set) {
-      // Do something.
+    onActivate: function(ev, triggerNode, boundTo, pressed, set) {
+      // 'pressed' reflects the current attribute value for the toggleable item, and is always a number if applicable.
+      // if 0, the pressed state is "false".
+      // if 1, the pressed state is "true".
+      // The 'set' argument is a function that will set the toggleable item to a new state.
+      // The new value must be a string consisting of "false" or "true".
       if (pressed) {
         set("false");
       } else {
@@ -12,7 +16,7 @@ $A.import(["Animate", "Button"], { defer: true }, function() {
   });
 
   $A.setButton(".aria-button.toggle.help", {
-    onActivate: function(ev, triggerNode, pressed, set, controlledElement) {
+    onActivate: function(ev, triggerNode, controlledElement, pressed, set) {
       // Do something.
       if (pressed) {
         set("false");

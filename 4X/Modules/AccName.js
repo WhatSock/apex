@@ -14,7 +14,7 @@ Distributed under the terms of the Open Source Initiative OSI - MIT License
     window[nameSpace] = {};
     nameSpace = window[nameSpace];
   }
-  nameSpace.getAccNameVersion = "2.51";
+  nameSpace.getAccNameVersion = "2.55";
   // AccName Computation Prototype
   nameSpace.getAccName = nameSpace.calcNames = function(
     node,
@@ -74,9 +74,10 @@ Plus roles extended for the Role Parity project.
             return false;
           }
 
+          var role = getRole(node);
+          var tag = node.nodeName.toLowerCase();
+
           var inList = function(node, list) {
-            var role = getRole(node);
-            var tag = node.nodeName.toLowerCase();
             return (
               (role && list.roles.indexOf(role) >= 0) ||
               (!role && list.tags.indexOf(tag) >= 0)
@@ -100,12 +101,21 @@ Plus roles extended for the Role Parity project.
             }
           }
           // Otherwise process list2 to identify roles to ignore processing name from content.
-          else
+          else {
             return !!(
               (inList(node, list2) ||
                 (node === rootNode && !inList(node, list1))) &&
+              !(
+                !role &&
+                ["section"].indexOf(tag) !== -1 &&
+                !(
+                  node.getAttribute("aria-labelledby") ||
+                  node.getAttribute("aria-label")
+                )
+              ) &&
               !skipTo.go
             );
+          }
         };
 
         var inParent = function(node, parent) {
@@ -519,7 +529,7 @@ Plus roles extended for the Role Parity project.
                   !skipTo.role &&
                   !hasName &&
                   !rolePresentation &&
-                  (nTag === "img" || btnType === "image") &&
+                  (nRole === "img" || nTag === "img" || btnType === "image") &&
                   (nAlt || trim(nTitle))
                 ) {
                   // Check for blank value, since whitespace chars alone are not valid as a name
@@ -677,10 +687,9 @@ Plus roles extended for the Role Parity project.
                   !skipTo.tag &&
                   !skipTo.role &&
                   !hasName &&
-                  node === rootNode &&
                   (nRole === "figure" || (!nRole && nTag === "figure"));
 
-                // Otherwise, if name is still empty and the current node matches the root node and is a standard figure element with a non-empty associated figcaption element as the first or last child node, process caption with same naming computation algorithm.
+                // Otherwise, if name is still empty and is a standard figure element with a non-empty associated figcaption element as the first or last child node, process caption with same naming computation algorithm.
                 // Plus do the same for role="figure" with embedded role="caption", or a combination of these.
                 if (isFigure) {
                   fChild =
@@ -698,7 +707,6 @@ Plus roles extended for the Role Parity project.
                   if (trim(name)) {
                     hasName = true;
                   }
-                  skip = true;
                 }
 
                 // Otherwise, if name is still empty and the root node and the current node are the same and node is an svg element, then parse the content of the title element to set the name and the desc element to set the description.

@@ -4897,13 +4897,14 @@ error: function(error, promise){}
     alertRendered: false
   };
 
-  $A.announce.clear = announceString.clear = stringAnnounce.clear;
   String.prototype.announce = function(noRep) {
     return $A.announce(this, noRep);
   };
   String.prototype.alert = function(noRep) {
     return $A.alert(this, noRep);
   };
+  $A.announce.clear = $A.alert.clear = String.prototype.announce.clear = String.prototype.alert.clear = announceString.clear =
+    stringAnnounce.clear;
 
   $A.on(document, {
     touchstart: function() {

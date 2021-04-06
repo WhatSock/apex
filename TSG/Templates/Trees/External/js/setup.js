@@ -7,12 +7,14 @@ $A.import(["Animate", "Tree"], { defer: true }, function() {
         selector: "ul.top.tree"
       }
     },
-    onActivate: function(ev, triggerNode, RTI, DC, checked, set) {
+    onActivate: function(ev, triggerNode, RTI, boundElement, checked, set) {
       var tree = RTI.DC.top;
-      // If a triggerNode is checkable, the 'checked' variable will include a number from 0 to 2, otherwise it will be set to false.
-      // 0 = "false".
-      // 1 = "true".
-      // 2 = "mixed".
+      // 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
+      // if 0, the checked state is "false".
+      // if 1, the checked state is "true".
+      // if 2, the checked state is "mixed".
+      // The 'set' argument is a function that will set the checkable item to a new state.
+      // The new value must be a string consisting of "false", "true", or "mixed".
       if (checked) {
         set("false");
       } else {

@@ -187,7 +187,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             ev,
                             triggerNode,
                             RTI,
-                            DC,
+                            DC || $A.boundTo(that),
                             check,
                             function(attributeValue) {
                               getState(

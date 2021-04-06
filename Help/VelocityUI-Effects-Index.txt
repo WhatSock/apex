@@ -1,5 +1,25 @@
 VelocityUI Animation Effects
 
+Syntax:
+
+Velocity( elementToAnimate, "transition.slideDownIn", {
+  delay: 0, // Delay in milliseconds.
+  duration: 1500, // Animation duration in milliseconds.
+  easing: "ease-in-out", // Easing effect when animation is running.
+  container: null, // Optional parent element when animating within a scrollable container.
+  begin: function() {
+    // Callback to run before animation begins.
+  },
+  complete: function() {
+    // Callback to run after animation completes.
+  }
+});
+
+// For more advanced properties and configuration options, visit:
+http://VelocityJS.org/
+
+Effects Index:
+
 callout.bounce
 callout.shake
 callout.flash

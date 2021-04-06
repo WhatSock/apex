@@ -24,40 +24,41 @@ Available attributes for tree item links:
 
 HTML syntax:
 
-[Standard]
+[Standard Tree]
 
-<ul id="treeId">
+<ul class="aria-tree top">
   <li>
-    <a href=" ... " >
-      Accessible name and markup.
+    <a>
+      Name One
     </a>
-  </li>
-</ul>
 
-[Subtree]
-
-<ul id="treeId">
-  <li>
-    <a href=" ... " >
-      Accessible name and markup.
-    </a>
     <ul>
       <li>
-        <a href=" ... " >
-          Accessible name and markup.
+        <a>
+          Name Two
         </a>
       </li>
     </ul>
+
   </li>
 </ul>
 
-[Checkbox]
+[Tree Plus Checkable Items]
 
-<ul id="treeId">
+<ul class="aria-tree top">
   <li>
-    <a check="false" href=" ... " >
-      Accessible name and markup.
+    <a>
+      Name One
     </a>
+
+    <ul>
+      <li>
+        <a check >
+          Name Two
+        </a>
+      </li>
+    </ul>
+
   </li>
 </ul>
 
@@ -65,13 +66,13 @@ IMPORTANT: An ARIA Tree must never include any other active elements other than 
 
 JavaScript syntax:
 
-var myTreeDC = $A.setTree( DOM-Node-or-CSS-Selector-forTriggering-Element , {
+var myTreeDC = $A.setTree( DOM-Node-or-CSS-Selector-forRoot-Container, {
 // Configure functionality key / value mappings
 });
 
 Parameters
 
-1: A DOM element or CSS selector to specify the triggering element.
+1: A DOM element or CSS selector to specify the top level container element of the tree structure.
 
 2: A configuration map to customize behaviors and options.
 
@@ -91,10 +92,32 @@ selector: "#uniqueId"
 }
 },
 
-// Specify the tag names for the parent and child elements that will be matched against when building the tree structure.
 tag: {
-parent: "ul", // Will become the container with role="tree" or "group" if nested.
-child: "a" // Will become the focusable active element with role="treeitem".
+
+// CSS selector for the top level tree container.
+parent: "ul",
+
+// The CSS selector that identifies the focusable active element within each child tag markup.
+// Only one focusable element is allowed within each child tag.
+// If the child tag markup is changed, this selector must also be changed to point to the focusable active element within that markup.
+child: "a",
+
+// Return an array of all focusable child elements within the tree container element.
+parse: function(ref) {
+if ($A.isIE()) {
+var mItems = [];
+$A.query(ref.children, function(i, o) {
+var c = $A.first(o, function(e) {
+if (e.nodeName.toLowerCase() === tag.child)
+return true;
+});
+if ($A.isNode(c)) mItems.push(c);
+});
+return mItems;
+} else
+return ref.querySelectorAll(":scope > * > " + tag.child);
+}
+
 },
 
 // Set a custom event handler to process every time a tree item is activated.

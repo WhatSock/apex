@@ -1,14 +1,13 @@
 $A.import("Listbox", { defer: true }, function() {
   var myListbox = $A.setListbox("#listboxId", {
     label: "Toggle checkable options",
-    // Set checkable to true to make all options checkable,
-    // otherwise set the 'check' attribute in the HTML markup to make individual options checkable instead.
-    checkable: false,
-    onActivate: function(ev, triggerNode, RTI, DC, checked, set) {
-      // If a triggerNode is checkable, the 'checked' variable will include a number from 0 to 2, otherwise it will be set to false.
-      // 0 = "false".
-      // 1 = "true".
-      // 2 = "mixed".
+    onActivate: function(ev, triggerNode, RTI, boundElement, checked, set) {
+      // 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
+      // if 0, the checked state is "false".
+      // if 1, the checked state is "true".
+      // if 2, the checked state is "mixed".
+      // The 'set' argument is a function that will set the checkable item to a new state.
+      // The new value must be a string consisting of "false", "true", or "mixed".
       if (checked) {
         set("false");
       } else {

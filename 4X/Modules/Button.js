@@ -156,6 +156,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         config.onActivate.apply(o, [
                           ev,
                           o,
+                          dc || n,
                           check,
                           function(attributeValue) {
                             var check = getState(o, attributeValue, true, true),
@@ -164,8 +165,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                             else if (!$A.isNum(swich) && check === 2)
                               c = "mixed";
                             $A.setAttr(o, "aria-checked", c);
-                          },
-                          n
+                          }
                         ]);
                     }
                   );
