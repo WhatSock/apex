@@ -18,7 +18,7 @@
                 // The DC object is automatically declared when an embedded script is included within an external content resource to be imported.
                 // DC provides access to the originating DC object instance.
                 // E.G. DC.container is the container element where this content is rendered within.
-                var frm = $A.getElement("lbForm");
+                var frm = $A.get("lbForm");
                 $A(frm).on("submit", function(ev) {
                     if (!frm.uname.value) {
                         alert("Woops! You forgot your username...");

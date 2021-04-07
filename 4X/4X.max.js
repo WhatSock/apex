@@ -85,7 +85,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 function(content) {
                   dc.isLoading = false;
                   if (dc.preloadImages) $A.preload(content);
-                  $A.getModule(dc, "onFetch", content);
+                  $A.getModule(dc, "afterFetch", content);
                   if ($A.isFn(dc.fn.afterLoaded)) {
                     dc.fn.afterLoaded(dc);
                     dc.fn.afterLoaded = null;
@@ -547,6 +547,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
         DC.wrapper = DC.container = DC.content;
         DC.wrapperId = DC.containerId = DC.content.id;
       }
+
+      if (ctrl) $A.remAttr(o, ["controls"]);
 
       return DC;
     },
@@ -3448,7 +3450,7 @@ error: function(error, promise){}
                 function(content, promise) {
                   dc.isLoading = false;
                   if (dc.preloadImages) $A.preload(content);
-                  $A.getModule(dc, "onFetch", content);
+                  $A.getModule(dc, "afterFetch", content);
                   dc.fetch.success(content, promise, dc);
                   DCR3(dc);
                 },
@@ -3468,7 +3470,7 @@ error: function(error, promise){}
                 success: function(content, promise) {
                   dc.isLoading = true;
                   if (dc.preloadImages) $A.preload(content);
-                  $A.getModule(dc, "onFetch", content);
+                  $A.getModule(dc, "afterFetch", content);
                   dc.fetch.success(content, promise, dc);
                   DCR3(dc);
                 },
@@ -3975,14 +3977,6 @@ error: function(error, promise){}
           dc.fn.internalEventsId = $A.getIdFor(dc.id) || $A.setIdFor(dc.id);
           if (dc.trigger)
             $A.query(dc.trigger, function(i, o) {
-              $A.remAttr(o, [
-                "active",
-                "controls",
-                "menu",
-                "root",
-                "tooltip",
-                "error"
-              ]);
               if (dc.toggleHide) $A.off(o, "." + dc.fn.internalEventsId);
               if (!dc.triggerNode) dc.triggerNode = o;
               if ($A.isArray($A.data(o, "DC-ON"))) $A.data(o, "DC-ON").push(dc);
@@ -4475,16 +4469,13 @@ error: function(error, promise){}
         },
 
         rerender: function(fn) {
-          var dc = this;
-          if (dc.isDisabled()) return dc;
-          if (dc.loaded) {
-            dc.bypass(function() {
-              dc.fn.renderCallback = fn;
-              DCR1(dc);
-            });
-          } else {
-            if ($A.isFn(fn)) fn.call(dc, dc);
-          }
+          var dc = this,
+            aR = dc.allowRerender;
+          dc.allowRerender = true;
+          dc.remove(function() {
+            dc.render(fn);
+          });
+          dc.allowRerender = aR;
           return dc;
         },
 

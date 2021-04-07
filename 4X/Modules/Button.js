@@ -35,8 +35,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   var role = $A.getAttr(o, "role"),
                     isRadio = role === "radio",
                     isSwitch = role === "switch",
-                    isToggle =
-                      $A.hasAttr(o, "toggle") || $A.hasAttr(o, "aria-pressed"),
+                    isToggle = $A.hasAttr(o, "aria-pressed"),
                     c = 0;
                   if (attributeValue === "true") c = 1;
                   else if (
@@ -50,7 +49,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   $A.data(o, "check", c);
                   if (write) {
                     if (isRadio && $A.isArray(nodes))
-                      $A.setAttr(nodes, "aria-checked", "false");
+                      $A.loop(
+                        nodes,
+                        function(i, n) {
+                          if (n !== o) $A.setAttr(n, "aria-checked", "false");
+                        },
+                        "array"
+                      );
                     $A.setAttr(
                       o,
                       isToggle ? "aria-pressed" : "aria-checked",
@@ -78,9 +83,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   }
                   return c;
                 }
-                var s = $A.data(o, "check");
-                if (!$A.isNum(s)) return false;
-                return s;
+                return false;
               },
               btns = [];
 
@@ -132,6 +135,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 } else if ($A.isNum(check) || $A.isNum(swich)) {
                   if ($A.isNode(n) && n.checked) check = 1;
                   if ($A.isNode(x)) {
+                    $A.remAttr(s, "controls");
                     if (!x.id) x.id = $A.genId();
                     $A.setAttr(s, {
                       "aria-flowto": x.id,
@@ -159,12 +163,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           dc || n,
                           check,
                           function(attributeValue) {
-                            var check = getState(o, attributeValue, true, true),
-                              c = "false";
-                            if (check === 1) c = "true";
-                            else if (!$A.isNum(swich) && check === 2)
-                              c = "mixed";
-                            $A.setAttr(o, "aria-checked", c);
+                            getState(o, attributeValue, true, true);
                           }
                         ]);
                     }
@@ -196,16 +195,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           ? [
                               ev,
                               o,
+                              dc || x,
                               press,
                               function(attributeValue) {
                                 getState(o, attributeValue, true, true);
-                                $A.setAttr(
-                                  o,
-                                  "aria-pressed",
-                                  attributeValue === "true" ? "true" : "false"
-                                );
-                              },
-                              dc || x
+                              }
                             ]
                           : [ev, o, dc || x];
                     if (!isDisabled && $A.isFn(config.onActivate))
@@ -304,16 +298,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         config.onActivate.apply(o, [
                           ev,
                           o,
+                          nativeInput,
                           check,
                           function(attributeValue) {
-                            var check = getState(o, attributeValue, true, true);
-                            $A.setAttr(
-                              o,
-                              "aria-checked",
-                              check ? "true" : "false"
-                            );
-                          },
-                          nativeInput
+                            getState(o, attributeValue, true, true, RTI.nodes);
+                          }
                         ]);
                     },
                     onSpace: function(ev, radio, RTI, nativeInput) {

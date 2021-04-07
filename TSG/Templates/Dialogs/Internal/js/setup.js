@@ -25,7 +25,7 @@ $A.import(["Animate", "Dialog"], { defer: true }, function() {
       }
     },
     afterRender: function(dc) {
-      var frm = $A.getElement("lbForm");
+      var frm = $A.get("lbForm");
       $A(frm).on("submit", function(ev) {
         if (!frm.uname.value) {
           alert("Woops! You forgot your username...");

@@ -910,6 +910,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 $A.addClass(dc.container, dc.middleClass);
               },
               afterRender: function(dc) {
+                $A.setAttr(that.combobox, "aria-controls", that.listboxNode.id);
                 if (dc.cb.matches !== dc.fn.matches) {
                   dc.beforeRender(dc);
                   dc.insert(dc.content);
@@ -1259,6 +1260,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               $A.setAttr(dc.triggerNode, "tabindex", "0");
 
             dc.cb.fn.set();
+
+            $A.remAttr(dc.triggerNode, ["controls"]);
 
             return that;
           }

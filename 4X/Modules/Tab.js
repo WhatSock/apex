@@ -107,6 +107,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             $A.setAttr(container, "role", "tablist");
 
             var dcArray = [],
+              active = null,
               startIndex = 0;
 
             $A.loop(
@@ -132,21 +133,20 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   "aria-selected": "false"
                 });
                 var panelContainer = $A.get($A.getAttr(o, "root")),
-                  autoRender = $A.hasAttr(o, "active"),
                   dc = $A.toDC(
                     o,
                     $A.extend(
                       {
                         widgetType: "Tab",
                         root: panelContainer,
-                        append: true,
-                        autoRender: autoRender
+                        append: true
                       },
                       config || {}
                     )
                   );
                 dcArray.push(dc);
-                if (autoRender) {
+                if ($A.hasAttr(o, "active")) {
+                  active = dc;
                   startIndex = i;
                 }
               },
@@ -183,6 +183,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             );
 
             $A.updateDisabled(RTI.nodes);
+
+            $A.remAttr(RTI.nodes, ["active", "controls", "root"]);
+
+            if (!$A.hasHash(dcArray) && $A.isDC(active)) active.render();
 
             return dcArray.length === 1 ? dcArray[0] : dcArray;
           }

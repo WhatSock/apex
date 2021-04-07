@@ -66,25 +66,25 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               triggers = (config.context || document).querySelectorAll(o);
 
             var dcArray = [],
+              active = [],
               startIndex = 0;
 
             $A.loop(triggers, function(i, o) {
               $A.svgFix(o);
               var panelContainer = $A.get($A.getAttr(o, "root")),
-                autoRender = $A.hasAttr(o, "active"),
                 dc = $A.toDC(
                   o,
                   $A.extend(
                     {
                       widgetType: "Accordion",
-                      root: panelContainer,
-                      autoRender: autoRender
+                      root: panelContainer
                     },
                     config || {}
                   )
                 );
               dcArray.push(dc);
-              if (autoRender) {
+              if ($A.hasAttr(o, "active")) {
+                active.push(dc);
                 startIndex = i;
               }
             });
@@ -93,6 +93,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               siblings: dcArray
             });
             $A.updateDisabled(dcArray);
+
+            $A.remAttr(triggers, ["active", "controls", "root"]);
 
             if (config.singleTabStop)
               var RTI = new $A.RovingTabIndex(
@@ -118,6 +120,15 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   },
                   config.extendRTI || {}
                 )
+              );
+
+            if (!$A.hasHash(dcArray))
+              $A.loop(
+                active,
+                function(i, dc) {
+                  dc.render();
+                },
+                "array"
               );
 
             return dcArray.length === 1 ? dcArray[0] : dcArray;

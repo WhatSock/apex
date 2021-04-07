@@ -78,8 +78,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 write,
                 nodes
               ) {
-                var s = $A.data(o, "check");
-                if (!hasAttribute && !$A.isNum(s)) return false;
                 if (hasAttribute) {
                   var c = 0;
                   if (attributeValue === "true") c = 1;
@@ -90,8 +88,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     $A.setAttr(o, "aria-checked", attributeValue);
                   }
                   return c;
+                } else {
+                  var s = $A.data(o, "check");
+                  if ($A.isNum(s)) return s;
                 }
-                return s;
+                return false;
               },
               genListbox = function(ref) {
                 if (!$A.isNode(ref)) return;
@@ -226,7 +227,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                           attributeFilter: ["aria-checked", "aria-selected"]
                         }
                       );
-                      $A.remAttr(o, ["check", "controls", "select"]);
                     },
                     "array"
                   );
@@ -236,6 +236,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   init.setRoles();
                   init.setEvents();
                   init.setSelected();
+                  $A.remAttr(init.options, ["check", "controls", "select"]);
                 },
                 setFlags: function() {
                   var select = init.select.nodeType ? init.select : config;

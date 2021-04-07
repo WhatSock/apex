@@ -48,7 +48,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           role: "tooltip"
         };
       },
-      onFetch: function(dc, container) {
+      afterFetch: function(dc, container) {
         if (
           !dc.isError &&
           !dc.isFocusOnly &&
@@ -279,6 +279,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               );
           }
         });
+
+        $A.remAttr(o, ["controls", "error", "tooltip"]);
 
         return dcArray.length === 1 ? dcArray[0] : dcArray;
       }

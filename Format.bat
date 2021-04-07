@@ -14,6 +14,7 @@
 (call uglifyjs 4X\Modules\CurrentDevice.js --comments /^!/ --compress --mangle --output 4X\Min\CurrentDevice.js 2>> .\FormatErrors.txt)
 (call uglifyjs 4X\Modules\DatePicker.js --comments /^!/ --compress --mangle --output 4X\Min\DatePicker.js 2>> .\FormatErrors.txt)
 (call uglifyjs 4X\Modules\Dialog.js --comments /^!/ --compress --mangle --output 4X\Min\Dialog.js 2>> .\FormatErrors.txt)
+(call uglifyjs 4X\Modules\Dragula.js --comments /^!/ --compress --mangle --output 4X\Min\Dragula.js 2>> .\FormatErrors.txt)
 (call uglifyjs 4X\Modules\Footnote.js --comments /^!/ --compress --mangle --output 4X\Min\Footnote.js 2>> .\FormatErrors.txt)
 (call uglifyjs 4X\Modules\Listbox.js --comments /^!/ --compress --mangle --output 4X\Min\Listbox.js 2>> .\FormatErrors.txt)
 (call uglifyjs 4X\Modules\Menu.js --comments /^!/ --compress --mangle --output 4X\Min\Menu.js 2>> .\FormatErrors.txt)

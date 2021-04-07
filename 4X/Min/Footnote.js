@@ -4,4 +4,4 @@ Copyright 2021 Bryan Garaventa (WhatSock.com)
 https://github.com/whatsock/apex
 Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
 */
-"setFootnotes"in $A||$A.import("SmoothScroll",{name:"FootnoteModule",props:props,once:!0,call:function(o){$A.extend({setFootnotes:function(o,t){return this._4X&&(t=o,o=this._X),$A.isPlainObject(o)&&(o=(t=o).footnotes||null),o?($A.query(o,t.context||document,function(o,t){$A.svgFix(t)}),o=$A.setSkipLink(o,t),$A._XR.call(this,o)):null}})}});
+"setFootnotes"in $A||$A.import("SmoothScroll",{name:"FootnoteModule",props:props,once:!0,call:function(t){$A.extend({setFootnotes:function(t,o){return this._4X&&(o=t,t=this._X),$A.isPlainObject(t)&&(t=(o=t).footnotes||null),t?($A.query(t,o.context||document,function(t,o){$A.svgFix(o)}),t=$A.setSkipLink(t,o),$A.remAttr(t,["controls"]),$A._XR.call(this,t)):null}})}});

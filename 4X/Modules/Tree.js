@@ -114,10 +114,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     $A.setAttr(o, "aria-checked", attributeValue);
                   }
                   return c;
+                } else {
+                  var s = $A.data(o, "check");
+                  if ($A.isNum(s)) return s;
                 }
-                var s = $A.data(o, "check");
-                if (!$A.isNum(s)) return false;
-                return s;
+                return false;
               },
               genTree = function(o, p, list, top, level, triggerIndex) {
                 var ref =
@@ -522,6 +523,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     if (a >= 0) DC.RTI.activate(a);
                   }
                 }
+
+                $A.remAttr(mItems, ["check", "controls"]);
 
                 return DC;
               };

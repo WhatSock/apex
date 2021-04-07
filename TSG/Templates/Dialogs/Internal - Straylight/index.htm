@@ -75,6 +75,26 @@
                                     <input type="reset" class="lbClose CloseDC" id="lbCancel" value="Cancel">
                                 </p>
                             </form>
+                            <script type="text/javascript">
+                                (function() {
+                                    var frm = $A.get("lbForm");
+                                    $A(frm).on("submit", function(ev) {
+                                        var DC = $A("triggerId");
+                                        // DC provides access to the originating DC object instance.
+                                        if (!frm.uname.value) {
+                                            alert("Woops! You forgot your username...");
+                                            frm.uname.focus();
+                                        } else if (!frm.pass.value) {
+                                            alert("Woops! You forgot your password...");
+                                            frm.pass.focus();
+                                        } else {
+                                            alert("WOW!");
+                                            DC.remove();
+                                        }
+                                        ev.preventDefault();
+                                    });
+                                })();
+                            </script>
                         </div>
 
                     </div>
