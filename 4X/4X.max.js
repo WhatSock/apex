@@ -6,7 +6,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 */
 
 (function() {
-  var moduleFolder = "/4X/Min/",
+  var moduleFolder = "/4X/Modules/",
     Version = "2021.1",
     $A = function(dc, dcA, dcI, onReady, disableAsync) {
       if (!arguments.length && this === $A) {
@@ -3333,25 +3333,6 @@ error: function(error, promise){}
 
     _GenDC: function(DCObjects, gImport, parentDC) {
       var WL = [],
-        changeTabs = function(DC, isClose) {
-          var dc = WL[DC.indexVal];
-          if ((dc.isTab || dc.isToggle) && dc.toggleClassName) {
-            if (isClose && (dc.trigger || dc.triggerNode)) {
-              $A.query(dc.trigger || dc.triggerNode, function(i, o) {
-                $A.toggleClass(o, dc.toggleClassName, false);
-              });
-            } else if (dc.trigger || dc.triggerNode) {
-              $A.query(dc.trigger || dc.triggerNode, function(i, o) {
-                $A.toggleClass(
-                  o,
-                  dc.toggleClassName,
-                  o === dc.triggerNode ? true : false
-                );
-              });
-            }
-          }
-          return dc;
-        },
         checkWT = function(dc) {
           var dc = WL[DC.indexVal],
             w = 0,
@@ -3742,7 +3723,8 @@ error: function(error, promise){}
             $A.on(dc.wrapper, toBind, dc.id, ".extradchandlers4x");
             dc.loading = false;
             dc.loaded = true;
-            if (dc.isTab || dc.isToggle) changeTabs(dc);
+            if (dc.toggleClassName)
+              $A.toggleClass(dc.triggerNode, dc.toggleClassName, true);
             if ($A.isArray(dc.embeddedJS) && dc.embeddedJS.length) {
               $A.loop(
                 dc.embeddedJS,
@@ -3825,7 +3807,8 @@ error: function(error, promise){}
               dc.isRendered = false;
               dc.loaded = false;
               if (dc.ariaControls) $A.remAttr(dc.triggerNode, "aria-controls");
-              if (dc.isTab || dc.isToggle) changeTabs(dc, true);
+              if (dc.toggleClassName)
+                $A.toggleClass(dc.triggerNode, dc.toggleClassName, false);
               dc.closing = false;
               $A.getModule(dc, "afterRemove", dc.container);
               $A._parseDCScripts(dc, "AfterRemove", function() {

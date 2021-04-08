@@ -32,7 +32,7 @@ $A.import(["Animate", "Tab"], { defer: true }, function() {
     },
 
     isToggle: false,
-    toggleClass: "active",
+    toggleClassName: "active",
     toggleHide: true
   });
 });

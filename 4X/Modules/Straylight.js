@@ -42,7 +42,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 call: function(props) {
                   $A.setAccordion(props.triggers, {
                     trackPage: true,
-                    toggleClass: "open",
+                    toggleClassName: "open",
                     isToggle: false,
                     allowMultiple: false,
                     preload: true,
@@ -141,7 +141,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                         },
 
                         isToggle: false,
-                        toggleClass: "active"
+                        toggleClassName: "active"
                       }
                     );
                   },

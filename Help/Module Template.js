@@ -3,7 +3,7 @@ There is no required syntax for creating a standalone module. Any properly coded
 
 However, when creating modules that reference additional module imports, it is important to use the below Module Import Template to do so.
 
-For a detailed explanation of $A.import() statement features, view the help file at: "4X/Help/$A API/Import and Fetch APIs/Import"
+For a detailed explanation of $A.import() statement features, view the help file at: "Help/$A API/Import and Fetch APIs/Import"
 */
 
 (function() {

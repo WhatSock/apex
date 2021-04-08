@@ -21,7 +21,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               ariaLabelledby: true,
               isToggle: false,
               allowMultiple: false,
-              escToClose: true,
+              escToClose: false,
               returnFocus: false,
               click: function(ev, dc) {
                 ev.stopPropagation();

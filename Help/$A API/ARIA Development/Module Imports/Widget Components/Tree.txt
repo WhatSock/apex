@@ -177,12 +177,12 @@ next(); // REQUIRED: next() must be executed so control is passed back to 4X for
 },
 
 // Optionally extend the RTI instance with custom event handlers.
-// For available options, view the RovingTabIndex help doc at "4X/Help/$A API/ARIA Development/Action Modules/RovingTabIndex".
+// For available options, view the RovingTabIndex help doc at "Help/$A API/ARIA Development/Module Imports/Actions/RovingTabIndex".
 extendRTI: {
 // Optional event handlers.
 }
 
 // (Other 4X API properties and methods can be declared here also to customize functionality and behavior)
-// To view available options, reference the help docs located at: "4X/Help/DC API/DC Object Configuration"
+// To view available options, reference the help docs located at: "Help/DC API/DC Object Configuration"
 
 }

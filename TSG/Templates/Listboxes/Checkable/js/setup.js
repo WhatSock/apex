@@ -16,7 +16,7 @@ $A.import("Listbox", { defer: true }, function() {
     },
     extendRTI: {
       // Interaction event Handlers to be added to each focusable role=option node.
-      // See /4X/Help/$A API/ARIA Methods/RovingTabIndex for help.
+      // See /Help/$A API/ARIA Methods/RovingTabIndex for help.
     }
   });
 });

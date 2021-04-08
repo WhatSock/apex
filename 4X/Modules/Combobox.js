@@ -55,7 +55,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               listboxClass: "listbox clearfix",
               optionClass: "option clearfix",
               activeClass: "active",
-              toggleClass: "pressed",
+              toggleClassName: "pressed",
               triggerNode: combobox,
               widgetType: "Combobox",
               autoCloseSameWidget: true,

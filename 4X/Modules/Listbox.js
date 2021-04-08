@@ -702,7 +702,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       }
                     });
                 },
-                toggleClass: "selected",
+                toggleClassName: "selected",
                 selectText: "Selected",
                 unselectText: "Not Selected",
                 toggleSelect: function(o, state, skip, recur, fromOption) {

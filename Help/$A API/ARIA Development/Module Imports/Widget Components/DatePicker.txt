@@ -228,7 +228,7 @@ wdOffset: 0,
 
 // Set CSS positioning calculation for the calendar
 // Set to 0 to disable auto positioning
-// Supported values for autoPosition are documented at: "4X/Help/DC API/DC Object Configuration/Visual Effects"
+// Supported values for autoPosition are documented at: "Help/DC API/DC Object Configuration/Visual Effects"
 autoPosition: 0,
 
 // Customize with positive or negative offsets

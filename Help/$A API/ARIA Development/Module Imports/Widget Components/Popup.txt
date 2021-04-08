@@ -118,7 +118,7 @@ next(); // REQUIRED: next() must be executed so control is passed back to 4X for
 }
 
 // (Other 4X API properties and methods can be declared here also to customize functionality and behavior)
-// To view available options, reference the help docs located at: "4X/Help/DC API/DC Object Configuration"
+// To view available options, reference the help docs located at: "Help/DC API/DC Object Configuration"
 
 }
 
@@ -138,4 +138,4 @@ DC.remove(function() {
 });
 
 // All other 4X API properties and methods can be applied here as well.
-// To view available options, reference the help docs located at: "4X/Help/DC API/DC Object Properties and Methods"
+// To view available options, reference the help docs located at: "Help/DC API/DC Object Properties and Methods"

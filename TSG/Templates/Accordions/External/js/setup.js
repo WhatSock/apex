@@ -7,7 +7,7 @@ $A.import(["Animate", "Accordion"], { defer: true }, function() {
     preloadImages: true,
     preloadCSS: true,
 
-    toggleClass: "open",
+    toggleClassName: "open",
 
     style: { display: "none" },
     animate: {

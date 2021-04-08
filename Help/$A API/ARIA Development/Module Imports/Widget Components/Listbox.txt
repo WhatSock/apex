@@ -138,7 +138,7 @@ onActivate: function(event, triggerNode, RTI, DC, currentState, setNewStateFn) {
 },
 
 // Optionally extend the RTI instance with custom event handlers.
-// For available options, view the RovingTabIndex help doc at "4X/Help/$A API/ARIA Development/Action Modules/RovingTabIndex".
+// For available options, view the RovingTabIndex help doc at "Help/$A API/ARIA Development/Module Imports/Actions/RovingTabIndex".
 extendRTI: {
 // Optional event handlers.
 }

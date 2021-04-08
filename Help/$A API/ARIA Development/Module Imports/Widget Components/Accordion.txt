@@ -7,7 +7,7 @@ Though similar in both concept and execution to Tab controls, accordions are not
 
 In contrast, an Accordion has a series of triggering elements that expand and collapse, the rendered content of which is inserted directly after the triggering element when opened. The container element insertion points for Accordions are not shared. Also, all Accordion links appear in the tab order. The reason why ARIA attributes such as role="tablist" and role="tab" are not included within accordions, is because the insertion of inline content would place dynamic content sections within the same Tablist container, making it impossible to determine the order of nested Tab controls when present within the inserted content. The chosen implementation should always match the UI that it's being applied to, to prevent confusion.
 
-The 4X ARIA Accordion module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 specification.
+The 4X ARIA Accordion module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.
 
 The following attributes are handled automatically by the Accordion module:
 
@@ -40,21 +40,30 @@ Configuration
 
 {
 
-// Set the class name for the top level container element
-className: 'accordion',
-
 // Optionally set a single tab stop for associated accordion triggering elements.
 singleTabStop: false,
 
-// Auto configure orientation using dynamic switching based on the visual layout of focusable elements when singleTabStop is true.
+// Auto configure orientation using dynamic switching based on the visual layout of focusable elements.
+// Only applicable when singleTabStop is true.
 // "off"=Inactive, "semi"=Switches between vertical and horizontal only, "full"= Switches between vertical, horizontal, and both when line-wrapping is detected.
 autoSwitch: "full",
 
-// Optionally extend the RTI instance with custom event handlers when singleTabStop is true.
-// For available options, view the RovingTabIndex help doc at "4X/Help/$A API/ARIA Development/Action Modules/RovingTabIndex".
+// Optionally extend the RTI instance with custom event handlers.
+// Only applicable when singleTabStop is true.
+// For available options, view the RovingTabIndex help doc at "Help/$A API/ARIA Development/Module Imports/Actions/RovingTabIndex".
 extendRTI: {
 // Optional event handlers.
 },
+
+// Optionally choose to track the browser history when each panel is opened.
+// May be used to automatically open the same panel after the page is bookmarked.
+    trackPage: false,
+
+// Toggle the specified class name on the triggering element when hidden or shown.
+    toggleClass: "open",
+
+// Optionally toggle the hidden attribute instead of inserting the accordion panel when rendered.
+    toggleHide: false,
 
 // Specify that the collection of accordion triggering elements will function like toggles, where the currently open panel can be closed.
 isToggle: false,
@@ -63,10 +72,10 @@ isToggle: false,
 allowMultiple: false,
 
 // Preload markup in the background when using the Fetch API to load external content.
-preload: false,
+preload: true,
 
 // Preload images in the background when using the Fetch API to load external content.
-preloadImages: false,
+preloadImages: true,
 
 // Optionally run a script after the accordion panel finishes rendering.
 afterRender: function(DC) {
@@ -113,8 +122,8 @@ next(); // REQUIRED: next() must be executed so control is passed back to 4X for
 
 }
 
-// (Other 4X API properties and methods can be declared here also to customize functionality and behavior)
-// To view available options, reference the help docs located at: "4X/Help/DC API/DC Object Configuration"
+// (Additional DC API properties and methods can be declared here also to customize functionality and behavior)
+// To view available options, reference the help docs located at: "Help/DC API/DC Object Configuration"
 
 }
 
@@ -134,4 +143,4 @@ DC.remove(function() {
 });
 
 // All other 4X API properties and methods can be applied here as well.
-// To view available options, reference the help docs located at: "4X/Help/DC API/DC Object Properties and Methods"
+// To view available options, reference the help docs located at: "Help/DC API/DC Object Properties and Methods"
