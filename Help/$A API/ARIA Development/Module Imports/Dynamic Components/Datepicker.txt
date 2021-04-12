@@ -1,17 +1,26 @@
 
-ARIA Date Pickers
+ARIA Datepickers
 
-Expected behaviors: The associated INPUT field should not include readonly, an external triggering element should activate the date picker, the arrow keys should move between calendar cells and the calendar should scroll automatically between months, PageUp/PageDown should switch between months, Alt+PageUp/PageDown should switch between years, Enter should activate the selected date, and pressing Escape or Tab should close the calendar and return focus to the triggering element.
+Expected behaviors: An external triggering element should activate the datepicker for touch support, focus should move into the datepicker when selecting a date using the keyboard, the arrow keys should move between calendar cells and the calendar should scroll automatically between months, PageUp/PageDown should switch between months, Alt+PageUp/PageDown should switch between years, Enter should activate the selected date, and pressing Escape or Tab should close the calendar and return focus to the triggering element.
 
-The 4X ARIA DatePicker module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 specification.
+The 4X ARIA Datepicker module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.
 
-Available attributes for the triggering element:
+Note: A datepicker is a composite widget, meaning that it is comprised of many different ARIA roles and supporting attributes.
 
-• controls : The id reference for the date picker triggering element to map the corresponding id of the associated input element. The controls attribute must be on the link or button triggering element, and its value must match the id value for the associated input element.
+The following attributes are handled automatically by the Datepicker module:
+
+• role=dialog
+• role=application
+• role=button
+• aria-hidden
+• aria-label
+• aria-disabled
+• aria-current
+• tabindex
 
 JavaScript syntax:
 
-var myCalendarDC = $A.setDatePicker({
+var myCalendarDC = $A.setDatepicker({
 // Configuration key / value map
 });
 
@@ -19,15 +28,15 @@ Configuration
 
 {
 
-// Unique ID for the date picker instance
+// Unique ID for the datepicker instance
 // After instantiation, can be referenced using: var DC = $A("UniqueCalendarId");
 id: "UniqueCalendarId",
 
 // Clickable icon triggering element
-toggle: $A.get("dateIcon"),
+toggle: "#datepicker-trigger-icon-id",
 
 // Native or simulated active element
-input: $A.get("dateId"),
+input: "#datepicker-input-element-id",
 
 // Set initial inline styling properties for the dynamically rendered calendar.
 style: {
@@ -39,7 +48,7 @@ display: "none" // Set the initial state to hidden in prep for animation if appl
 // Optionally specify a render and remove animation effect for the calendar.
 // Requires the "Animate" module import to function, which is powered by Velocity.js.
 // To ignore animation effects, delete the animate object declaration entirely from the setup script.
-// View implementations within "TSG/WidgetTemplates/DatePickers" for practical animation usage examples.
+// View implementations within "TSG/Templates/Datepickers" for practical animation usage examples.
 
 animate: {
 
@@ -69,13 +78,13 @@ next(); // REQUIRED: next() must be executed so control is passed back to 4X for
 
 },
 
-onDateActivate: function(event, DC) {
+onActivate: function(event, dc) {
 // Optionally override the default functionality when a date is activated.
 // format selected calendar value and set into input field
-targ.value = dc.formatDate(dc);
+dc.target.value = dc.formatDate(dc);
 dc.remove();
-if (!dc.triggerClicked) targ.focus();
-else trigger.focus();
+if (!dc.triggerClicked) dc.target.focus();
+else dc.trigger.focus();
 dc.triggerClicked = false;
 },
 
@@ -83,7 +92,7 @@ dc.triggerClicked = false;
 
 role: 'Calendar',
 
-// Set the initial state of the date picker when activated.
+// Set the initial state of the datepicker when activated.
 disabled: false,
 
 // Short help text message that is automatically announced to screen reader users when the calendar first opens.
@@ -92,7 +101,7 @@ helpTextShort: 'Press F1 for help.',
 // Set help text to be displayed when F1 is pressed.
 helpText: 'Press the arrow keys to navigate by day, PageUp and PageDown to navigate by month, Alt+PageUp and Alt+PageDown to navigate by year, or Escape to cancel.',
 
-// Set description text to be announced when the date picker is set to open onFocus().
+// Set description text to be announced when the datepicker is set to open onFocus().
 openOnFocusHelpText: "Press Down arrow to browse the calendar, or Escape to close.",
 
 // Set tooltip text
@@ -155,7 +164,7 @@ l: 'Saturday'
 
 // Switch the behaviour when the PageUp or PageDown keys are pressed to a "natural" behaviour
 // (PageUp goes to previous month, PageDown goes to next month)
-pageUpDownNatural: false,
+pageUpDownNatural: true,
 
 // Append a "dayToday" CSS class to the current day cell element - this allows styling to be targeted to this specific element
 highlightToday: true,
@@ -185,7 +194,7 @@ leftButtonMonthText: '&lt;',
 rightButtonMonthText: '&gt;',
 
 // Specify if the calendar should open when the input field receives focus.
-// If true, the Down arrow must be pressed to move focus from the input field into the calendar for manual traversal, and Escape will collapse the calendar.
+// If true, the Down arrow or Tab key must be pressed to move focus from the input field into the calendar for manual traversal, and Escape will collapse the calendar.
 openOnFocus: false,
 openOnFocusHelpText: 'Press Down arrow to browse the calendar, or Escape to close.',
 
@@ -226,33 +235,18 @@ disableWeekends: false,
 // Set positive or negative offset for differing column arrangements, or 0 for none
 wdOffset: 0,
 
-// Set CSS positioning calculation for the calendar
-// Set to 0 to disable auto positioning
-// Supported values for autoPosition are documented at: "Help/DC API/DC Object Configuration/Visual Effects"
-autoPosition: 0,
-
-// Customize with positive or negative offsets
-offsetTop: 0,
-offsetLeft: 0,
-
-// Set class for the calendar container
+// Set class for the calendar wrapper
 className: 'calendar',
 
 // Choose a different insertion point in the DOM; must be a DOM node; defaults to the triggering element if not specified.
-targetObj: null,
+targetNode: null,
 
-// Choose a different focus element in the DOM for CSS autoPositioning; may be a DOM node or CSS Selector; defaults to the triggering element if not specified.
-posAnchor: '',
-
-// Reset date to the current calendar date every time the date picker opens
+// Reset date to the current calendar date every time the datepicker opens
 resetCurrent: false,
 
 // Configure the Comments tooltip pane
 comments: {
 role: 'Comment',
-autoPosition: 1,
-offsetTop: 0,
-offsetLeft: 0,
 className: 'commentTooltip'
 },
 
@@ -262,9 +256,6 @@ editor: {
 show: false,
 // Set the section name, and the Edit button text
 role: 'Edit',
-autoPosition: 6,
-offsetTop: 0,
-offsetLeft: 0,
 className: 'commentAdd',
 // Set the Save button text
 action1: 'Save'
@@ -291,7 +282,7 @@ dc.render();
 // Or close it
 dc.remove();
 
-// All other 4X API properties and methods can be applied here as well.
+// Additional DC API properties and methods can be applied here as well.
 
 Additional Programmatic Control
 

@@ -25,7 +25,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
       else if (i > answer.length) return "Wo, hold on there cowboy!";
       else if (dc.isValid) return "That's correct, you've got it!";
     },
-    onValid: function(dc) {
+    onValidate: function(dc) {
       document.querySelector('input[type="submit"]').disabled = !dc.isValid;
     },
     className: "help-tooltip",

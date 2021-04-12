@@ -1,5 +1,5 @@
-$A.import(["Animate", "DatePicker"], { defer: true }, function() {
-  var bc = $A.setDatePicker({
+$A.import(["Animate", "Datepicker"], { defer: true }, function() {
+  var bc = $A.setDatepicker({
     // Unique ID for the date picker instance
     // After instantiation, can be referenced using: var DC = $A("UniqueCalendarId");
     id: "UniqueCalendarId",

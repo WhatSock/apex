@@ -3,7 +3,7 @@ ARIA Menus
 
 Expected behaviors: Move focus into the menu when it is rendered, ensure that each menu has only one tab stop and that available menu items can be navigated using the arrow keys, make sure the menu can be closed from the keyboard, and move focus back to the triggering element after the menu is removed.
 
-The 4X ARIA Menu module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 specification.
+The 4X ARIA Menu module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.
 
 The following attributes are handled automatically by the Menu module:
 
@@ -26,7 +26,7 @@ Available attributes for menu item links:
 
 HTML syntax:
 
-[Standard]
+[Standard Menu]
 
 <ul id="menuId">
   <li>
@@ -36,7 +36,7 @@ HTML syntax:
   </li>
 </ul>
 
-[Submenu]
+[Standard Menu Including Submenu]
 
 <ul id="menuId">
   <li>
@@ -53,7 +53,7 @@ HTML syntax:
   </li>
 </ul>
 
-[Checkbox]
+[Standard Menu Including Checkable Items]
 
 <ul id="menuId">
   <li>
@@ -63,11 +63,16 @@ HTML syntax:
   </li>
 </ul>
 
-[Radio]
+[Standard Menu Including Checkable Radios]
 
 <ul id="menuId">
   <li>
-    <a radio="false" href=" ... " >
+    <a radio href=" ... " >
+      Accessible name and markup.
+    </a>
+  </li>
+  <li>
+    <a radio="true" href=" ... " >
       Accessible name and markup.
     </a>
   </li>
@@ -105,7 +110,7 @@ toggleHide: true,
 
 // Optionally specify the content to be rendered when referencing external content.
 // Not necessary if menu is set on the triggering element.
-// If set, the source property will be auto-populated with the returned content.
+// If set, the content property will be auto-populated with the returned content.
 fetch: {
 url: "path/file.htm",
 data: {
@@ -149,7 +154,7 @@ preloadImages: true,
 
 // Optionally run a script after the menu finishes rendering.
 afterRender: function(DC) {
-// DC.container is the rendered menu content.
+// DC.container includes the rendered menu content.
 },
 
 // Optionally run a script after the menu is removed.
@@ -160,7 +165,7 @@ afterRemove: function(DC) {
 // Optionally specify a render and remove animation effect for the menu.
 // Requires the "Animate" module import to function, which is powered by Velocity.js.
 // To ignore animation effects, delete the animate object declaration entirely from the setup script.
-// View implementations within "TSG/WidgetTemplates/Menus" for practical animation usage examples.
+// View implementations within "TSG/Templates/Menus" for practical animation usage examples.
 
 style: { display: "none" }, // Set the initial state to hidden in prep for animation.
 
@@ -198,15 +203,15 @@ extendRTI: {
 // Optional event handlers.
 }
 
-// (Other 4X API properties and methods can be declared here also to customize functionality and behavior)
+// Additional DC API properties and methods can be declared here also to customize functionality and behavior.
 // To view available options, reference the help docs located at: "Help/DC API/DC Object Configuration"
 
 }
 
 Programmatic Control
 
-// Get the DC object for the menu using its id.
-var DC = $A("menuId");
+// Get the DC object for the top level menu using its id.
+var DC = $A("menuTriggerId");
 
 // Open the menu manually.
 DC.render(function() {
@@ -218,5 +223,5 @@ DC.remove(function() {
 // Optionally do something after removal completes.
 });
 
-// All other 4X API properties and methods can be applied here as well.
+// Additional DC API properties and methods can be applied here as well.
 // To view available options, reference the help docs located at: "Help/DC API/DC Object Properties and Methods"

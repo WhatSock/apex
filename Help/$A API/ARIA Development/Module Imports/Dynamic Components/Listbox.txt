@@ -3,7 +3,7 @@ ARIA Listboxes
 
 Expected behaviors: ARIA Listboxes should only receive one tab stop, the Up/Down/Home/End keys should move focus appropriately, typing letters or numbers should jump ahead to the next matching option, and every listbox and option element should be explicitly labeled.
 
-The 4X ARIA Listbox module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 Listbox design pattern.
+The 4X ARIA Listbox module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.
 
 The following attributes are handled automatically by the Listbox module:
 
@@ -40,7 +40,7 @@ HTML syntax:
   </li>
 </ul>
 
-IMPORTANT: An ARIA Listbox must never include any other active elements other than those specified as listbox options. Otherwise, all such additional active elements will be undiscoverable and inaccessible to non-sighted screen reader users.
+IMPORTANT: The focusable active element must not include any other active elements, otherwise these will not be accessible to non-sighted screen reader users.
 
 JavaScript syntax:
 
@@ -77,26 +77,27 @@ tag: {
 // CSS selector for the top level listbox container.
 parent: "ul",
 
-// The CSS selector that identifies the focusable active element within each child tag markup.
+// The CSS selector that identifies the focusable active element within each tag.build.child tag markup.
 // Only one focusable element is allowed within each child tag.
 // If the child tag markup is changed, this selector must also be changed to point to the focusable active element within that markup.
 child: "button",
 
 // Return an array of all focusable child elements within the listbox container element.
-parse: function(ref) {
-  return ref.querySelectorAll(tag.child);
+// This must match the CSS selector chosen above.
+parse: function(listboxNode) {
+  return listboxNode.querySelectorAll("button");
 },
 
 // Specify the build markup structure for generating new listboxes.
 build: {
   parent: '<ul class="aria-listbox"></ul>',
-  child:
-    '<li><button><span class="lbl">{OPTION-TEXT}</span></button></li>'
+  child: '<li><button class="option"><span class="lbl">{OPTION-TEXT}</span></button></li>'
 }
                 },
 
 // Specify if the listbox is multiselect or single-select.
 // If a native select element is specified, this property will automatically be set to match the select element's 'multiple' property.
+// The selected state will automatically be toggleable by pressing the Spacebar when applicable.
 multiselect: false,
 
 // Specify if the listbox is required.
@@ -111,15 +112,17 @@ disabled: false,
 // Checkable options support the values "false", "true", or "mixed" to represent the partially checked state.
 // When checkable is true, the multiple and sortable properties are automatically set to false to ensure intuitive accessibility.
 // Alternatively, the 'check' attribute may be set on individual option elements to set their default state when rendered.
+// The checked state will automatically be toggleable by pressing the Spacebar when applicable.
 checkable: false,
 
 // Specify if the listbox includes sortable options.
 // When sortable is true, the multiple and checkable properties are automatically set to false to ensure intuitive accessibility.
+// The grabbed state will automatically be toggleable by pressing the Spacebar when applicable.
 sortable: false,
 
 // Set the class to be applied when a listbox option is selected.
 // If undefined, "selected" will be set by default.
-toggleClass: "selected",
+toggleClassName: "selected",
 
 // Set screen reader accessible description text for key functionality within IE11.
 grabText: "Grabbable",
@@ -155,19 +158,14 @@ myListbox.listbox // The Listbox DOM node for the element with role="listbox"
 
 myListbox.options // The array of list option DOM nodes that contain role="option"
 
+myListbox.optionNodes // The array of native select option DOM nodes
+
 Methods
 
 // Force the listbox widget to redraw itself and recompute all child options and reset all event handlers.
 // Only applicable when a native select element is bound to the listbox.
 // This is necessary when new options are added, removed, or reordered within the bound select element to ensure proper keyboard accessibility.
 myListbox.update();
-
-// Toggle selection on a specific listbox option node.
-myListbox.toggleSelect(listboxOption, boolStateOptional); // Omit boolState to simply toggle the current state instead of setting it to a specific one.
-
-// Set the checked state of the listbox option to a specific value.
-// Only valid when config.checkable is set to true.
-myListbox.check(listboxOption, stringValue); // stringValue must be set to either "false", "true", or "mixed"
 
 // Returns an array of currently checked or selected listbox option nodes.
 // If any option elements are checked, all those set to "true" will be returned.

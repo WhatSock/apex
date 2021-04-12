@@ -1,17 +1,21 @@
 
 ARIA Tooltips
 
-Expected behaviors: Hover tooltips appear when moused over and when the triggering element receives focus, then close when the mouse moves away or when focus moves to a different element. 
-Manual tooltips appear when the triggering element is activated, then close when clicked again or when focus moves to a different element. 
-Responsive tooltips appear when validation criteria are met when typing, and close when focus moves to a different element. 
-Error tooltips appear when focus moves away from a field that fails validation, then close when focus moves back to the triggering element.
+Expected behaviors:
+• Hover tooltips appear when moused over and when the triggering element receives focus, then close when the mouse moves away or when focus moves to a different element. 
+• Manual tooltips appear when the triggering element is activated, then close when clicked again or when focus moves to a different element. 
+• Responsive tooltips appear when validation criteria are met when typing, and close when focus moves to a different element. 
+• Error tooltips appear when focus moves away from a field that fails validation, then close when focus moves back to the triggering element.
 
-The 4X ARIA Tooltip module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 specification.
+The 4X ARIA Tooltip module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.
 
 The following attributes are handled automatically by the Tooltip module:
 
 • role=tooltip
 • aria-describedby
+• aria-description
+• role=region
+• aria-label
 
 Available attributes for the triggering element:
 
@@ -36,6 +40,7 @@ Configuration
 
 // Optionally set a unique ID for the tooltip DC object, which can be referenced through $A('uniqueId')
 // If not specified, the id of the triggering element will be used instead.
+// When an error and a tooltip are set on the same trigger, a unique id for each must be manually specified.
 id: 'uniqueId',
 
 // Optionally specify the content to be rendered when referencing internal content.
@@ -45,7 +50,7 @@ content: "#uniqueId",
 
 // Optionally specify the content to be rendered when referencing external content.
 // Not necessary if tooltip or error is set on the triggering element.
-// If set, the source property will be auto-populated with the returned content.
+// If set, the content property will be auto-populated with the returned content.
 fetch: {
 url: "path/file.htm",
 data: {
@@ -53,15 +58,18 @@ selector: "#uniqueId"
 }
 },
 
-// Set the class name for the top level container element
-className: 'tooltip',
+// Optionally toggle the hidden attribute instead of inserting the tooltip content when rendered.
+    toggleHide: false,
 
-// Set the class name for the screen reader accessible close link
-// This must match the class name for any close links or buttons within the tooltip content, which will cause close event binding to automatically occur when the content is rendered.
-closeClassName: "CloseDC",
+// Preload markup in the background when using the Fetch API to load external content.
+preload: true,
+
+// Preload images in the background when using the Fetch API to load external content.
+preloadImages: true,
 
 // Optionally specify if the tooltip is an alert message.
 // If true, a system alert will be fired when the tooltip is rendered.
+// As a general practice, tooltips and errors should never be alerts because this can interfere with speech announcement, so use with caution.
 isAlert: false,
 
 // Specify that the tooltip is an inline error message.
@@ -70,23 +78,34 @@ isError: false,
 // Specify that the tooltip will only open when the triggering element receives focus, and not when moused over.
 isFocusOnly: false,
 
-// Specify that the tooltip will be displayed only when specific validation criteria are met when typing.
-isResponsive: false,
-
 // Specify that the tooltip will only open when the triggering element is clicked, and will close when clicked again.
 isManualOpen: false,
 
 // Specify that the tooltip will only close when the mouse leaves the tooltip instead of the triggering element.
+// Necessary to pass some WCAG guidelines.
 isManualClose: true,
 
-// Optionally run a script after the tooltip finishes rendering.
-afterRender: function(DC) {
-// DC.container is the rendered tooltip content.
+// Specify that the tooltip will be displayed only when specific validation criteria are met when typing.
+// Use when customized responses are needed to guide user input.
+isResponsive: false,
+
+// Set validation criteria to pass or fail as needed.
+// Only applicable when isResponsive is set to true.
+validate: function(DC, target) {
+// 'target' is the input element to validate.
+var val = target.value.toLowerCase();
+// Set the DC.isValid property to track the state of validation.
+DC.isValid = val.length > 0;
+// Return the string to display as the tooltip if validation passes or failes.
+if (DC.isValid) return "You typed something!";
+else return "This field desires input.";
 },
 
-// Optionally run a script after the tooltip is removed.
-afterRemove: function(DC) {
-// Do something.
+// Execute a handler every time validate is processed.
+// Only applicable when isResponsive is set to true.
+onValidate: function(DC, target) {
+// Do something every time the target is updated.
+document.querySelector('input[type="submit"]').disabled = !DC.isValid;
 },
 
 // Optionally specify a delay in milliseconds to wait before rendering the tooltip after the triggering element is activated.
@@ -103,7 +122,7 @@ dc.remove();
 // Optionally specify a render and remove animation effect for the tooltip.
 // Requires the "Animate" module import to function, which is powered by Velocity.js.
 // To ignore animation effects, delete the animate object declaration entirely from the setup script.
-// View implementations within "TSG/WidgetTemplates/Tooltips" for practical animation usage examples.
+// View implementations within "TSG/Templates/Tooltips" for practical animation usage examples.
 
 style: { display: "none" }, // Set the initial state to hidden in prep for animation.
 
@@ -133,9 +152,19 @@ next(); // REQUIRED: next() must be executed so control is passed back to 4X for
 
 }
 
+},
+
+// Optionally run a script after the tooltip finishes rendering.
+afterRender: function(DC) {
+// DC.container includes the rendered tooltip content.
+},
+
+// Optionally run a script after the tooltip is removed.
+afterRemove: function(DC) {
+// Do something.
 }
 
-// (Other 4X API properties and methods can be declared here also to customize functionality and behavior)
+// Additional DC API properties and methods can be declared here also to customize functionality and behavior.
 // To view available options, reference the help docs located at: "Help/DC API/DC Object Configuration"
 
 }
@@ -155,5 +184,5 @@ DC.remove(function() {
 // Optionally do something after removal completes.
 });
 
-// All other 4X API properties and methods can be applied here as well.
+// Additional DC API properties and methods can be applied here as well.
 // To view available options, reference the help docs located at: "Help/DC API/DC Object Properties and Methods"

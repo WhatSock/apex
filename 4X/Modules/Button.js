@@ -104,6 +104,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     : null,
                 x = !$A.isNode(n) && $A.isNode(r) && s !== o ? r : null;
               if (x === s) s = o;
+              $A.remAttr([o, s, n, x], "controls");
               if ($A.isNode(s)) {
                 if ($A.isNode(n) && $A.isNode(s)) $A.bindObjects(n, s);
                 var radio = getState(
@@ -135,7 +136,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 } else if ($A.isNum(check) || $A.isNum(swich)) {
                   if ($A.isNode(n) && n.checked) check = 1;
                   if ($A.isNode(x)) {
-                    $A.remAttr(s, "controls");
                     if (!x.id) x.id = $A.genId();
                     $A.setAttr(s, {
                       "aria-flowto": x.id,
@@ -238,14 +238,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 if ($A.isNode(n) && n.disabled)
                   $A.setAttr(s, "aria-disabled", "true");
                 $A.updateDisabled(s);
-                $A.remAttr(s, [
-                  "check",
-                  "controls",
-                  "radio",
-                  "switch",
-                  "toggle"
-                ]);
               }
+              $A.remAttr([o, s, n, x], ["check", "radio", "switch", "toggle"]);
             });
 
             if (btns.length) {

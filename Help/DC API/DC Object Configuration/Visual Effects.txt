@@ -66,7 +66,7 @@ preloadCSS: false
 
 // Set an auto-position value to visually position a floating DC object relative to its triggering element or a specified target.
 // Requires that DC.className or DC.style includes "position: absolute", and possibly z-index.
-// Requires that DC.trigger or DC.targetObj is set to assign a triggering element, and that DC.root is not set.
+// Requires that DC.trigger or DC.targetNode is set to assign a triggering element, and that DC.root is not set.
   autoPosition: 0
 
 /*
@@ -110,7 +110,7 @@ Accepted Values for DC.autoFix
   offsetLeft: 0
 
 // Alternately set a different DOM element as the reference point for auto-positioning.
-// When set, DC.trigger and DC.targetObj will not be used as the positioning reference points.
+// When set, DC.trigger and DC.targetNode will not be used as the positioning reference points.
 // This only applies to DC.autoPosition, and has no impact on DC.autoFix.
   posAnchor: null
 

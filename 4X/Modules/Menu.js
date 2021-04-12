@@ -324,6 +324,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 );
 
                 $A.updateDisabled(mItems);
+                $A.remAttr(mItems, ["check", "menu", "radio"]);
 
                 return DC;
               };
@@ -408,8 +409,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 gen(main);
               }
             });
-
-            $A.remAttr(o, ["check", "menu", "radio"]);
 
             return $A._XR.call(this, DC);
           }

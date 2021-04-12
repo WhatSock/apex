@@ -120,7 +120,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     if (!!dc.loaded) dc.speak(v);
                     dc.insert(v);
                   }
-                  if ($A.isFn(dc.onValid)) dc.onValid(dc);
+                  if ($A.isFn(dc.onValidate)) dc.onValidate(dc, dc.target);
                 },
                 on: {
                   focus: function(ev, dc) {
@@ -134,7 +134,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     else if (dc.isError || dc.isResponsive) {
                       if (dc.isError) dc.remove();
                       dc.validate(dc, dc.target);
-                      if ($A.isFn(dc.onValid)) dc.onValid(dc);
+                      if ($A.isFn(dc.onValidate)) dc.onValidate(dc, dc.target);
                     }
                   },
                   blur: function(ev, dc) {
@@ -150,7 +150,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     else if (dc.isError || dc.isResponsive) {
                       if (dc.isError) dc.remove();
                       dc.validate(dc, dc.target);
-                      if ($A.isFn(dc.onValid)) dc.onValid(dc);
+                      if ($A.isFn(dc.onValidate)) dc.onValidate(dc, dc.target);
                     }
                   },
                   click: function(ev, dc) {
@@ -188,7 +188,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       dc.validateCondition(dc);
                     } else if (dc.isError || dc.isResponsive) {
                       dc.validate(dc, dc.target);
-                      if ($A.isFn(dc.onValid)) dc.onValid(dc);
+                      if ($A.isFn(dc.onValidate)) dc.onValidate(dc, dc.target);
                     }
                   },
                   change: function(ev, dc) {
@@ -197,7 +197,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       dc.validateCondition(dc);
                     } else if (dc.isError || dc.isResponsive) {
                       dc.validate(dc, dc.target);
-                      if ($A.isFn(dc.onValid)) dc.onValid(dc);
+                      if ($A.isFn(dc.onValidate)) dc.onValidate(dc, dc.target);
                     }
                   }
                 }
@@ -278,9 +278,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 $A.getText($A.morph(config.content))
               );
           }
-        });
 
-        $A.remAttr(o, ["controls", "error", "tooltip"]);
+          $A.remAttr(o, ["controls", "error", "tooltip"]);
+        });
 
         return dcArray.length === 1 ? dcArray[0] : dcArray;
       }

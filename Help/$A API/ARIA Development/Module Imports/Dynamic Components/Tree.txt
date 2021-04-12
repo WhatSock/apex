@@ -3,11 +3,12 @@ ARIA Trees
 
 Expected behaviors: Ensure that each tree has only one tab stop and that available tree items can be navigated using the arrow keys in the same manner as a native Windows TreeView control.
 
-The 4X ARIA Tree module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 specification.
+The 4X ARIA Tree module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.
 
 The following attributes are handled automatically by the Tree module:
 
-• role=tree/group
+• role=tree
+• role=group
 • role=treeitem
 • aria-expanded
 • aria-checked
@@ -43,7 +44,7 @@ HTML syntax:
   </li>
 </ul>
 
-[Tree Plus Checkable Items]
+[Standard Tree Including Checkable Items]
 
 <ul class="aria-tree top">
   <li>
@@ -80,17 +81,23 @@ Configuration
 
 {
 
-// Specifies that the referenced content for rendering should not be dynamically inserted into the DOM, but will instead toggle the hidden attribute.
-toggleHide: true,
-
 // Optionally specify the content to be rendered when referencing external content.
-// If set, the source property will be auto-populated with the returned content.
+// If set, the content property will be auto-populated with the returned content.
 fetch: {
 url: "path/file.htm",
 data: {
 selector: "#uniqueId"
 }
 },
+
+// Optionally toggle the hidden attribute instead of inserting the tree content when rendered.
+    toggleHide: true,
+
+// Preload markup in the background when using the Fetch API to load external content.
+preload: true,
+
+// Preload images in the background when using the Fetch API to load external content.
+preloadImages: true,
 
 tag: {
 
@@ -108,32 +115,29 @@ if ($A.isIE()) {
 var mItems = [];
 $A.query(ref.children, function(i, o) {
 var c = $A.first(o, function(e) {
-if (e.nodeName.toLowerCase() === tag.child)
+if (e.nodeName.toLowerCase() === "a")
 return true;
 });
 if ($A.isNode(c)) mItems.push(c);
 });
 return mItems;
 } else
-return ref.querySelectorAll(":scope > * > " + tag.child);
+return ref.querySelectorAll(":scope > * > a");
 }
 
 },
 
 // Set a custom event handler to process every time a tree item is activated.
-onActivate: function(event, triggerNode, RTI, DC, currentState, setNewStateFn) {
+onActivate: function(event, triggerNode, RTI, boundElement, currentState, setNewStateFn) {
 // If the tree item is checkable, currentState will include a number from 0 to 2.
 // (0 = "false", 1 = "true", 2 = "mixed".)
 // The setNewStateFn function can be used to set a new state for the option.
 // E.G. setNewStateFn("false"), setNewStateFn("true"), or setNewStateFn("mixed") for checkbox tree items only.
 },
 
-// Set the class name for the top level container element
-className: 'tree',
-
 // Optionally run a script after the tree finishes rendering.
 afterRender: function(DC) {
-// DC.container is the rendered tree content.
+// DC.container includes the rendered tree content.
 },
 
 // Optionally run a script after the tree is removed.
@@ -144,7 +148,7 @@ afterRemove: function(DC) {
 // Optionally specify a render and remove animation effect for the tree.
 // Requires the "Animate" module import to function, which is powered by Velocity.js.
 // To ignore animation effects, delete the animate object declaration entirely from the setup script.
-// View implementations within "TSG/WidgetTemplates/Trees" for practical animation usage examples.
+// View implementations within "TSG/Templates/Trees" for practical animation usage examples.
 
 style: { display: "none" }, // Set the initial state to hidden in prep for animation.
 
@@ -182,7 +186,7 @@ extendRTI: {
 // Optional event handlers.
 }
 
-// (Other 4X API properties and methods can be declared here also to customize functionality and behavior)
+// Additional DC API properties and methods can be declared here also to customize functionality and behavior.
 // To view available options, reference the help docs located at: "Help/DC API/DC Object Configuration"
 
 }

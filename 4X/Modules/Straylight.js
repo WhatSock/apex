@@ -170,11 +170,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 target = id ? context.querySelector("#" + id) : false;
               if (target) {
                 // Prevent duplicate event bindings when nested within multi-level same page apps
-                if ($A.data(o, "_isBoundDatePicker")) var isBound = true;
-                else $A.data(o, "_isBoundDatePicker", true);
+                if ($A.data(o, "_isBoundDatepicker")) var isBound = true;
+                else $A.data(o, "_isBoundDatepicker", true);
                 if (!isBound)
-                  $A.import(["Animate", "DatePicker"], {
-                    name: "StraylightDatePicker",
+                  $A.import(["Animate", "Datepicker"], {
+                    name: "StraylightDatepicker",
                     defer: true,
                     props: $A.extend(props, {
                       id: id,
@@ -182,7 +182,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       input: target
                     }),
                     call: function(props) {
-                      $A.setDatePicker({
+                      $A.setDatepicker({
                         // Unique ID for the date picker instance
                         id: props.id,
 

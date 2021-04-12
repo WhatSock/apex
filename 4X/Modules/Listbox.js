@@ -792,17 +792,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   if (checked && checked.length) return checked;
                   else if (init.select.nodeType) {
                     if ($A.isNode(o)) return $A.getAttr($A.boundTo(o), "value");
-                    else {
-                      var s = [];
-                      $A.loop(
-                        init.optionNodes,
-                        function(i, n) {
-                          if (n.selected) s.push(n);
-                        },
-                        "array"
-                      );
-                      return s;
-                    }
+                    else return init.select.value;
                   } else
                     return init.listbox.querySelectorAll(
                       '*[role="option"][aria-selected="true"]'

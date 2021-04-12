@@ -3618,8 +3618,8 @@ error: function(error, promise){}
                 } else {
                   $A.insert(dc.wrapper, dc.root, null, true);
                 }
-              } else if (dc.targetObj)
-                $A._insertAfter(dc.wrapper, dc.targetObj);
+              } else if (dc.targetNode)
+                $A._insertAfter(dc.wrapper, dc.targetNode);
               else if (dc.triggerNode)
                 $A._insertAfter(dc.wrapper, dc.triggerNode);
             }
@@ -4100,7 +4100,7 @@ error: function(error, promise){}
           if (!dc.trigger || !dc.on) return dc;
           return unsetTrigger(dc);
         },
-        // targetObj: null,
+        // targetNode: null,
 
         hiddenCloseName: "Close",
         // exposeHiddenClose: false,

@@ -114,6 +114,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 )
               )
             );
+            $A.remAttr(o, ["controls"]);
           };
 
         if (o)
@@ -121,8 +122,6 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             toDC(o);
           });
         else toDC();
-
-        $A.remAttr(o, ["controls"]);
 
         return dcArray.length === 1 ? dcArray[0] : dcArray;
       }

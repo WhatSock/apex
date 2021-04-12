@@ -7,8 +7,8 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 */
 
 (function() {
-  if (!("setDatePicker" in $A)) {
-    $A.addWidgetProfile("DatePicker", {
+  if (!("setDatepicker" in $A)) {
+    $A.addWidgetProfile("Datepicker", {
       configure: function(dc) {
         return {
           returnFocus: false,
@@ -30,7 +30,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
       }
     });
     $A.extend({
-      setDatePicker: function(config) {
+      setDatepicker: function(config) {
         var config = config || {},
           helpTextShort = config.helpTextShort
             ? config.helpTextShort
@@ -45,12 +45,12 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
           onFocusInit = false,
           onFocusTraverse = false,
           pId = config.id || $A.genId(),
-          trigger = config.toggle,
-          targ = config.input,
+          trigger = $A.morph(config.toggle),
+          targ = $A.morph(config.input),
           commentsEnabled = config.enableComments === true,
           // Control the behavior of date selection clicks
-          handleClick = $A.isFn(config.onDateActivate)
-            ? config.onDateActivate
+          handleClick = $A.isFn(config.onActivate)
+            ? config.onActivate
             : function(ev, dc) {
                 // format selected calendar value and set into input field
                 targ.value = dc.formatDate(dc);
@@ -76,10 +76,11 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             {
               id: pId,
               role: config.role || "Calendar",
-              widgetType: "DatePicker",
+              widgetType: "Datepicker",
               //              autoCloseWidget: true,
               //              autoCloseSameWidget: true,
               trigger: trigger,
+              target: targ,
               on: "opendatepicker",
               disabled: config.disabled === true,
               // Toggles for openOnFocus support.
@@ -102,7 +103,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
               leftButtonMonthText: config.leftButtonMonthText || "&#8592;",
               rightButtonMonthText: config.rightButtonMonthText || "&#8594;",
               drawFullCalendar: config.drawFullCalendar === true,
-              highlightToday: config.highlightToday === true,
+              highlightToday: $A.isBool(config.highlightToday)
+                ? config.highlightToday
+                : true,
               pageUpDownNatural: true,
               // inputDateFormat: config.inputDateFormat || "dddd MMMM D, YYYY",
               inputDateFormat: config.inputDateFormat || "MM/DD/YYYY",
@@ -2395,13 +2398,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             {
               id: pId + "commentTooltip",
               role: (config.comments && config.comments.role) || "Comment",
-              widgetType: "DatePicker",
+              widgetType: "Datepicker",
               returnFocus: false,
               className:
                 (config.comments && config.comments.className) ||
                 "commentTooltip",
               beforeRender: function(dc) {
-                dc.targetObj = dc.parent.wrapper;
+                dc.targetNode = dc.parent.wrapper;
               }
             }
           ],
@@ -2416,7 +2419,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             {
               id: pId + "commentAdd",
               role: (config.editor && config.editor.role) || "Edit",
-              widgetType: "DatePicker",
+              widgetType: "Datepicker",
               className:
                 (config.editor && config.editor.className) || "commentAdd",
               openEditor: false,
@@ -2431,7 +2434,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 ((config.editor && config.editor.role) || "Edit") +
                 "</button>",
               beforeRender: function(dc) {
-                dc.targetObj = dc.parent.wrapper;
+                dc.targetNode = dc.parent.wrapper;
               },
               click: function(ev, dc) {
                 ev.stopPropagation();

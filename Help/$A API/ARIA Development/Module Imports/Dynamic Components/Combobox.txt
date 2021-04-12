@@ -7,21 +7,9 @@ Expected behaviors:
 • Interactive readonly Combobox controls that use an Input+type=text element, open using the Down arrow, are navigated using Up and Down, are saved and closed by pressing Alt+Up or Enter, are canceled and closed by pressing Escape, and require a toggleable triggering element for sighted mouse and mobile touch device users.
 • Interactive Combobox controls that use simulated active elements such as Divs or Spans, are readonly by default, open using the Down arrow or Enter key, are navigated using Up and Down, are saved and closed by pressing Alt+Up or Enter, are canceled and closed by pressing Escape, and act as their own actionable toggle control.
 
-The 4X ARIA Combobox module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 Combobox design pattern.
+The 4X ARIA Combobox module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA 1.2 specification.
 
-For Simulated Active Elements:
-• Any combination of HTML container markup with embedded tags is supported.
-• The tabindex attribute is required on the same container element that includes role=combobox to ensure keyboard accessibility, and an empty child container element must be included where dynamically saved values will be inserted.
-
-Hidden Select Element
-
-All Combobox controls are bound to a standard Select element instance, which may be hidden within the page, or dynamically generated using JavaScript to support dynamic population via AJAX.
-
-To enable multiselect functionality, add the 'multiple' attribute to the hidden select element.
-
-To set a default value for the Combobox other than index[0], add the 'selected' attribute to the default option.
-
-The following attributes are dynamically applied:
+The following attributes are handled automatically by the Combobox module:
 
 • role=combobox
 • aria-activedescendant
@@ -32,6 +20,20 @@ The following attributes are dynamically applied:
 • aria-description
 • role=listbox
 • role=option
+• tabindex
+
+For Simulated Active Elements:
+• Any combination of HTML container markup with embedded tags is supported.
+
+IMPORTANT: The focusable combobox element must not include any other active elements, otherwise these will not be accessible to non-sighted screen reader users.
+
+Hidden Select Element
+
+All Combobox controls are bound to a standard Select element instance, which may be hidden within the page, or dynamically generated using JavaScript to support dynamic population via AJAX.
+
+To enable multiselect functionality, add the 'multiple' attribute to the hidden select element.
+
+To set a default value for the Combobox other than index[0], add the 'selected' attribute to the default option.
 
 JavaScript syntax:
 
@@ -40,7 +42,7 @@ select: selectElementDOM-Node ,
 input: inputDOM-Node ,
 childNode: optionalChildDOM-Node,
 override: {
-// DC object overrides
+// DC API overrides
 });
 
 // Configure settings here prior to invocation

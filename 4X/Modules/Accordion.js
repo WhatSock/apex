@@ -87,14 +87,13 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 active.push(dc);
                 startIndex = i;
               }
+              $A.remAttr(o, ["active", "controls", "root"]);
             });
 
             $A.map({
               siblings: dcArray
             });
             $A.updateDisabled(dcArray);
-
-            $A.remAttr(triggers, ["active", "controls", "root"]);
 
             if (config.singleTabStop)
               var RTI = new $A.RovingTabIndex(

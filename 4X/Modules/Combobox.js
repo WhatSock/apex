@@ -1122,7 +1122,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
             };
 
             that.setTargetObj = function(o) {
-              dc.targetObj = o;
+              dc.targetNode = o;
             };
 
             that.setClassNames = function(o) {

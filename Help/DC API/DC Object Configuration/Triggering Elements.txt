@@ -23,8 +23,8 @@ DC Object Properties
 
 // Manually set a different DOM element to insert a DC object after when rendered.
 // This is for addressing issues when a DC object cannot be practically inserted after the triggering element.
-// So, instead, 'targetObj' will pretend to be the triggering element for the purpose of DOM insertion.
-  targetObj: null
+// So, instead, 'targetNode' will pretend to be the triggering element for the purpose of DOM insertion.
+  targetNode: null
 
 // Set one or more event bindings to trigger the opening process of a DC object.
 // All event bindings specified using the 'on' property are bound to the triggering element specified declaratively using the 'trigger' property.

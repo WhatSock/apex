@@ -21,7 +21,7 @@ DC Object Properties
 Note: The displayed value for each property represents its default value when omitted.
 
 // Set a root node for a DC object.
-// This will be used as the target element instead of DC.trigger or DC.targetObj, and will disable auto-positioning.
+// This will be used as the target element instead of DC.trigger or DC.targetNode, and will disable auto-positioning.
 // DC.root may include a CSS selector string, or a DOM element object.
   root: ""
 
