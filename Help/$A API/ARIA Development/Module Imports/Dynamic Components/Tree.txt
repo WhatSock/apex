@@ -148,7 +148,7 @@ afterRemove: function(DC) {
 // Optionally specify a render and remove animation effect for the tree.
 // Requires the "Animate" module import to function, which is powered by Velocity.js.
 // To ignore animation effects, delete the animate object declaration entirely from the setup script.
-// View implementations within "TSG/Templates/Trees" for practical animation usage examples.
+// View implementations within "Templates/Trees" for practical animation usage examples.
 
 style: { display: "none" }, // Set the initial state to hidden in prep for animation.
 

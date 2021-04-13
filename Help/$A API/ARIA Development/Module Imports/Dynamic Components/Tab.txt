@@ -83,7 +83,7 @@ afterRemove: function(DC) {
 // Optionally specify a render and remove animation effect for the tab panel.
 // Requires the "Animate" module import to function, which is powered by Velocity.js.
 // To ignore animation effects, delete the animate object declaration entirely from the setup script.
-// View implementations within "TSG/Templates/TabLists" for practical animation usage examples.
+// View implementations within "Templates/TabLists" for practical animation usage examples.
 
 style: { display: "none" }, // Set the initial state to hidden in prep for animation.
 

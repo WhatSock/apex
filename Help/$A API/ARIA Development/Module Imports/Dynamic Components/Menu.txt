@@ -145,11 +145,11 @@ className: 'menu',
 closeClassName: "CloseDC",
 
 // Preload markup in the background when using the Fetch API to load external content.
-// For examples, view files within "TSG/Templates/Menus".
+// For examples, view files within "Templates/Menus".
 preload: true,
 
 // Preload images in the background when using the Fetch API to load external content.
-// For examples, view files within "TSG/Templates/Menus".
+// For examples, view files within "Templates/Menus".
 preloadImages: true,
 
 // Optionally run a script after the menu finishes rendering.
@@ -165,7 +165,7 @@ afterRemove: function(DC) {
 // Optionally specify a render and remove animation effect for the menu.
 // Requires the "Animate" module import to function, which is powered by Velocity.js.
 // To ignore animation effects, delete the animate object declaration entirely from the setup script.
-// View implementations within "TSG/Templates/Menus" for practical animation usage examples.
+// View implementations within "Templates/Menus" for practical animation usage examples.
 
 style: { display: "none" }, // Set the initial state to hidden in prep for animation.
 
