@@ -5,7 +5,12 @@ Expected behaviors: Each footnote must be actionable using both the keyboard and
 
 The 4X ARIA Footnote module automatically configures all required focus handling and interaction events to ensure accessibility.
 
-Requirements:
+The following attributes are handled automatically by the Footnote module:
+
+• aria-controls
+• aria-flowto
+
+HTML syntax:
 
 The Footnote module utilizes traditional skip link syntax, which consists of a standard link with an href attribute. The href attribute includes an id reference to the associated footnote definition, by pointing to a back link at the beginning of the definition content.
 
