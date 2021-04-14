@@ -51,7 +51,7 @@ Configuration
 {
 
 // Set an explicit name for the checkbox.
-// If undefined, the accessible name will default to the text content within the checkbox.
+// If undefined, the accessible name will default to the text content within the checkbox element.
 label: "My informative checkbox label",
 
 // Specify if the checkbox is required.
@@ -59,33 +59,18 @@ label: "My informative checkbox label",
 required: false,
 
 // Specify if the checkbox is disabled.
-// If a native select element is specified, this property will automatically be set to match the select element's 'disabled' property.
+// If a native checkbox element is specified, this property will automatically be set to match the checkbox element's 'disabled' property.
 disabled: false,
 
-// Specify if the checkbox includes checkable options.
-// Checkable options support the values "false", "true", or "mixed" to represent the partially checked state.
-// When checkable is true, the multiple and sortable properties are automatically set to false to ensure intuitive accessibility.
-// Alternatively, the 'check' attribute may be set on individual option elements to set their default state when rendered.
-// The checked state will automatically be toggleable by pressing the Spacebar when applicable.
-checkable: false,
+// Set the class to be applied when a checkbox is checked.
+// If undefined, "checked" will be set by default.
+toggleClassName: "checked",
 
-// Specify if the checkbox includes sortable options.
-// When sortable is true, the multiple and checkable properties are automatically set to false to ensure intuitive accessibility.
-// The grabbed state will automatically be toggleable by pressing the Spacebar when applicable.
-sortable: false,
+// Set the class to be applied when a checkbox is partially-checked.
+// If undefined, "partially-checked" will be set by default.
+partialClassName: "partially-checked",
 
-// Set the class to be applied when a checkbox option is selected.
-// If undefined, "selected" will be set by default.
-toggleClassName: "selected",
-
-// Set screen reader accessible description text for key functionality within IE11.
-grabText: "Grabbable",
-grabbedText: "Grabbed",
-dropText: "Droppable",
-selectText: "Selected",
-unselectText: "Not Selected",
-
-// Set a custom event handler to process every time a checkbox option is activated.
+// Set a custom event handler to process every time a checkbox is activated.
 onActivate: function(event, triggerNode, RTI, DC, currentState, setNewStateFn) {
 // If the option node is checkable, currentState will include a number from 0 to 2.
 // (0 = "false", 1 = "true", 2 = "mixed".)

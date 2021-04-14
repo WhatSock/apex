@@ -2879,6 +2879,23 @@ error: function(error, promise){}
       return false;
     },
 
+    flowsTo: function(o, targ) {
+      if (this._4X) {
+        targ = o;
+        o = this._X;
+      }
+      $A.query(targ, function(i, t) {
+        if ($A.isNode(t)) {
+          if (!t.id) t.id = $A.genId();
+          var id = t.id;
+          $A.query(o, function(i, o) {
+            $A.addIdRef(o, ["aria-controls", "aria-flowto"], id);
+          });
+        }
+      });
+      return $A._XR.call(this, o);
+    },
+
     addIdRef: function(obj, attr, ids) {
       if (this._4X) {
         ids = attr;
@@ -2891,12 +2908,18 @@ error: function(error, promise){}
       $A.loop(
         t,
         function(i, o) {
-          var ds = ($A.getAttr(o, attr) || "").split(/\s+/);
-          for (var z = 0; z < ni.length; z++) {
-            var d = ni[z];
-            if (ds.indexOf(d) === -1) ds.push(d);
-          }
-          $A.setAttr(o, attr, ds.join(" "));
+          $A.loop(
+            attr,
+            function(j, attr) {
+              var ds = ($A.getAttr(o, attr) || "").split(/\s+/);
+              for (var z = 0; z < ni.length; z++) {
+                var d = ni[z];
+                if (ds.indexOf(d) === -1) ds.push(d);
+              }
+              $A.setAttr(o, attr, ds.join(" "));
+            },
+            "array"
+          );
         },
         "array"
       );
@@ -2915,13 +2938,19 @@ error: function(error, promise){}
       $A.loop(
         t,
         function(i, o) {
-          var n = [],
-            ds = ($A.getAttr(o, attr) || "").split(/\s+/);
-          for (var z = 0; z < ds.length; z++) {
-            var d = ds[z];
-            if (ni.indexOf(d) === -1) n.push(d);
-          }
-          $A.setAttr(o, attr, n.join(" "));
+          $A.loop(
+            attr,
+            function(j, attr) {
+              var n = [],
+                ds = ($A.getAttr(o, attr) || "").split(/\s+/);
+              for (var z = 0; z < ds.length; z++) {
+                var d = ds[z];
+                if (ni.indexOf(d) === -1) n.push(d);
+              }
+              $A.setAttr(o, attr, n.join(" "));
+            },
+            "array"
+          );
         },
         "array"
       );

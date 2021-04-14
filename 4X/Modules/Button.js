@@ -129,7 +129,10 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     s,
                     $A.getAttr(s, "switch"),
                     $A.hasAttr(s, "switch")
-                  );
+                  ),
+                  isRequired = $A.hasAttr(s, "required"),
+                  isDisabled = $A.hasAttr(s, "disabled");
+                $A.remAttr(s, ["disabled", "required"]);
                 if ($A.isNum(radio)) {
                   $A.setAttr(s, {
                     role: "radio",
@@ -238,12 +241,24 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                   );
                 }
                 $A.svgFix(s);
-                if ($A.isNode(n) && n.disabled)
-                  $A.setAttr(s, "aria-disabled", "true");
-                $A.updateDisabled(s);
                 if (config.label) $A.setAttr(s, "aria-label", config.label);
-                if (($A.isNode(n) && n.required) || config.required)
+                if (
+                  ($A.isNode(n) && n.required) ||
+                  config.required ||
+                  isRequired
+                ) {
                   $A.setAttr(s, "aria-required", "true");
+                  if ($A.isNode(n) && !n.required) n.required = true;
+                }
+                if (
+                  ($A.isNode(n) && n.disabled) ||
+                  config.disabled ||
+                  isDisabled
+                ) {
+                  $A.setAttr(s, "aria-disabled", "true");
+                  if ($A.isNode(n) && !n.disabled) n.disabled = true;
+                }
+                $A.updateDisabled(s);
               }
               $A.remAttr([o, s, n, x], ["check", "radio", "switch", "toggle"]);
             });
