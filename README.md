@@ -17,8 +17,8 @@ Usage
 # Add the following script statement within the head of your page: `<script type="text/javascript" src="/4X/4X.js"></script>`
 
 In contrast, the DC API is only applicable when creating DC instances for the configuring of dynamic components. For help regarding this, view the documentation at: 
-"4X/Help/$A API/DC Objects/", and 
-"4X/Help/DC API/DC Object Configuration".
+"Help/$A API/DC Objects/", and 
+"Help/DC API/DC Object Configuration".
 
 Modules
 -----
@@ -49,7 +49,7 @@ Importing Modules
 
 All modules used by 4X should be added to the "4X/Modules/" folder. This allows any module saved in this location to be imported using its file name alone. When importing a JS file, it is not necessary to add the .js extension. However, when importing a CSS file, the extension is needed to differentiate implicit JS files from explicit CSS files.
 
-To better understand dynamic importing, view the help documentation at: "/4X/Help/$A API/Import and Fetch APIs/Import.txt".
+To better understand dynamic importing, view the help documentation at: "/Help/$A API/Import and Fetch APIs/Import.txt".
 
 Alternative Import Methods
 -----
@@ -69,16 +69,16 @@ Creating Modules
 
 There is no required syntax for creating a standalone module. Any properly coded JavaScript file can become a module import as-needed using the $A.import() statement.
 
-However, when creating modules that reference additional module imports, it is important to use the Module Import Template to do so. This is available in the file at: "4X/Help/Module Import Template.js"
+However, when creating modules that reference additional module imports, it is important to use the Module Import Template to do so. This is available in the file at: "Help/Module Import Template.js"
 
 For example, the props object is required to be passed down to all imported modules to ensure that deferred callbacks can be queued correctly when chained together. This is an extremely powerful feature, and allows for shared props to be passed between external modules when loaded dynamically for custom behavior configurations.
 
-For more information regarding props, view the help file at: "4X/Help/$A API/Import and Fetch APIs/Props"
+For more information regarding props, view the help file at: "Help/$A API/Import and Fetch APIs/Props"
 
 Apex Widget Templates
 -----
 
-ToBeAdded
+Accordions, Buttons, Checkboxes, Comboboxes, Datepickers, Dialogs, Footnotes, Listboxes, Menus, Popups, Radios, Switches, Tabs, Tooltips, and Trees.
 
 Usage License
 -----
