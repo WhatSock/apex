@@ -1,0 +1,83 @@
+
+ARIA Switches
+
+Expected behaviors: The switch should be focusable using the keyboard, and toggle its switchable state when pressing the Spacebar or Enter key.
+
+The 4X ARIA Switch module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.
+
+The following attributes are handled automatically by the Switch module:
+
+• role=switch
+• aria-checked
+• tabindex
+
+Available attributes for switch elements:
+
+• switch : May be set to "false" or "true" to set the current state of a switchable control when rendered.
+
+HTML syntax:
+
+[Standard Off]
+
+<div switch >
+  Markup with switch name
+  <input hidden type="checkbox" name="OptionalBoundCheckbox" />
+</div>
+
+[Standard On]
+
+<div switch="true" >
+  Markup with switch name
+  <input checked hidden type="checkbox" name="OptionalBoundCheckbox" />
+</div>
+
+IMPORTANT: The focusable active element must not include any other exposed active elements, otherwise these will not be accessible to non-sighted screen reader users.
+
+JavaScript syntax:
+
+$A.setSwitch( DOM-Node-or-CSS-Selector-forTriggering-Element , {
+// Configure functionality key / value mappings
+});
+
+Parameters
+
+1: A DOM element or CSS selector to specify the triggering element.
+
+2: A configuration map to customize behaviors and options.
+
+Configuration
+
+{
+
+// Set an explicit name for the switch.
+// If undefined, the accessible name will default to the text content within the switch element.
+label: "My informative switch label",
+
+// Specify if the switch is required.
+// If a native checkbox element is specified, this property will automatically be set to match the checkbox element's 'required' property.
+required: false,
+
+// Specify if the switch is disabled.
+// If a native checkbox element is specified, this property will automatically be set to match the checkbox element's 'disabled' property.
+disabled: false,
+
+// Set the class to be applied when a switch is toggled.
+// If undefined, "checked" will be set by default.
+toggleClassName: "checked",
+
+// Set a custom event handler to process every time a switch is activated.
+onActivate: function(ev, triggerNode, boundCheckbox, on, set) {
+// 'on' reflects the current attribute value for the checkable item, and is always a number if applicable.
+// if 0, the toggle state is "false".
+// if 1, the toggle state is "true".
+// The 'set' argument is a function that will set the checkable item to a new state.
+// The new value must be a string consisting of "false" or "true".
+if (on) {
+set("false");
+} else {
+set("true");
+}
+ev.preventDefault();
+}
+
+}

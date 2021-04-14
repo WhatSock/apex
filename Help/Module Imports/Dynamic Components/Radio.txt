@@ -1,0 +1,80 @@
+
+ARIA Radios
+
+Expected behaviors: The radio should be focusable using the keyboard, and toggle its checkable state when arrowing between other radios within the same group or when pressing the Spacebar or Enter key. Multiple radios within the same group should have only one tab stop.
+
+The 4X ARIA Radio module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.
+
+The following attributes are handled automatically by the Radio module:
+
+• role=radiogroup
+• role=radio
+• aria-checked
+• tabindex
+
+Available attributes for radio elements:
+
+• radio : May be set to "false" or "true" to set the current state of a checkable control when rendered.
+
+HTML syntax:
+
+[Standard Unchecked]
+
+<div radio >
+Markup with radio name
+<input hidden type="radio" name="OptionalBoundRadio" />
+</div>
+
+[Standard Checked]
+
+<div radio="true" >
+Markup with radio name
+<input checked hidden type="radio" name="OptionalBoundRadio" />
+</div>
+
+IMPORTANT: The focusable active element must not include any other exposed active elements, otherwise these will not be accessible to non-sighted screen reader users.
+
+JavaScript syntax:
+
+$A.setRadio( DOM-Node-or-CSS-Selector-forTriggering-Element , {
+// Configure functionality key / value mappings
+});
+
+Parameters
+
+1: A DOM element or CSS selector to specify the triggering element.
+
+2: A configuration map to customize behaviors and options.
+
+Configuration
+
+{
+
+// Set an explicit name for the radio.
+// If undefined, the accessible name will default to the text content within the radio element.
+label: "My informative radio label",
+
+// Specify if the radio is required.
+// If a native radio element is specified, this property will automatically be set to match the radio element's 'required' property.
+required: false,
+
+// Specify if the radio is disabled.
+// If a native radio element is specified, this property will automatically be set to match the radio element's 'disabled' property.
+disabled: false,
+
+// Set the class to be applied when a radio is toggled.
+// If undefined, "checked" will be set by default.
+toggleClassName: "checked",
+
+// Set a custom event handler to process every time a radio is activated.
+onActivate: function(ev, triggerNode, boundRadio, checked, set) {
+// 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
+// if 0, the checked state is "false".
+// if 1, the checked state is "true".
+// The 'set' argument is a function that will set the checkable item to a new state.
+// The new value must be a string consisting of "false" or "true".
+set("true");
+ev.preventDefault();
+}
+
+}

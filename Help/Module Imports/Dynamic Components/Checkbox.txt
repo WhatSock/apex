@@ -13,7 +13,7 @@ The following attributes are handled automatically by the Checkbox module:
 
 Available attributes for checkbox elements:
 
-• check : May be set to "false", "true", or "mixed" to set the current state of a checkable option when rendered.
+• check : May be set to "false", "true", or "mixed" to set the current state of a checkable control when rendered.
 
 HTML syntax:
 
@@ -24,12 +24,11 @@ HTML syntax:
   <input hidden type="checkbox" name="OptionalBoundCheckbox" />
 </div>
 
-
 [Standard Checked]
 
 <div check="true" >
   Markup with checkbox name
-  <input hidden type="checkbox" name="OptionalBoundCheckbox" />
+  <input checked hidden type="checkbox" name="OptionalBoundCheckbox" />
 </div>
 
 [Standard Partially-Checked]
@@ -45,6 +44,12 @@ JavaScript syntax:
 $A.setCheckbox( DOM-Node-or-CSS-Selector-forTriggering-Element , {
 // Configure functionality key / value mappings
 });
+
+Parameters
+
+1: A DOM element or CSS selector to specify the triggering element.
+
+2: A configuration map to customize behaviors and options.
 
 Configuration
 
@@ -71,43 +76,19 @@ toggleClassName: "checked",
 partialClassName: "partially-checked",
 
 // Set a custom event handler to process every time a checkbox is activated.
-onActivate: function(event, triggerNode, RTI, DC, currentState, setNewStateFn) {
-// If the option node is checkable, currentState will include a number from 0 to 2.
-// (0 = "false", 1 = "true", 2 = "mixed".)
-// Otherwise, if multiselect is true instead, currentState will reflect the boolean value for the currently selected option.
-// The setNewStateFn function can be used to set a new state for the option.
-// E.G. setNewStateFn("false"), setNewStateFn("true"), or setNewStateFn("mixed") for checkable options.
-},
-
-// Optionally extend the RTI instance with custom event handlers.
-// For available options, view the RovingTabIndex help doc at "Help/$A API/ARIA Development/Module Imports/Actions/RovingTabIndex".
-extendRTI: {
-// Optional event handlers.
+onActivate: function(ev, triggerNode, boundCheckbox, checked, set) {
+// 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
+// if 0, the checked state is "false".
+// if 1, the checked state is "true".
+// if 2, the checked state is "mixed".
+// The 'set' argument is a function that will set the checkable item to a new state.
+// The new value must be a string consisting of "false", "true", or "mixed".
+if (checked) {
+set("false");
+} else {
+set("true");
+}
+ev.preventDefault();
 }
 
 }
-
-Programmatic Control
-
-Since the Checkbox control is an instantiated object, all of the following public properties and methods are available:
-
-Properties
-
-myCheckbox.checkbox // The Checkbox DOM node for the element with role="checkbox"
-
-myCheckbox.options // The array of list option DOM nodes that contain role="option"
-
-myCheckbox.optionNodes // The array of native select option DOM nodes
-
-Methods
-
-// Force the checkbox widget to redraw itself and recompute all child options and reset all event handlers.
-// Only applicable when a native select element is bound to the checkbox.
-// This is necessary when new options are added, removed, or reordered within the bound select element to ensure proper keyboard accessibility.
-myCheckbox.update();
-
-// Returns an array of currently checked or selected checkbox option nodes.
-// If any option elements are checked, all those set to "true" will be returned.
-// Otherwise, if there is a bound select element, the value of the select element will be returned.
-// Otherwise, all selected option elements will be returned.
-var checkboxValue = myCheckbox.value();
