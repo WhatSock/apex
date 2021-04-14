@@ -967,7 +967,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 $A.setAttr(dc.triggerNode, "aria-expanded", "true");
 
                 if (dc.cb.altTrigger && dc.cb.altTrigger.nodeType === 1) {
-                  $A.addClass(dc.cb.altTrigger, dc.toggleClass);
+                  $A.addClass(dc.cb.altTrigger, dc.toggleClassName);
                   $A.setAttr(dc.cb.altTrigger, "aria-expanded", "true");
 
                   if (
@@ -998,7 +998,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 });
 
                 if (dc.cb.altTrigger && dc.cb.altTrigger.nodeType === 1) {
-                  $A.remClass(dc.cb.altTrigger, dc.toggleClass);
+                  $A.remClass(dc.cb.altTrigger, dc.toggleClassName);
 
                   $A.setAttr(dc.cb.altTrigger, {
                     "aria-expanded": "false"
@@ -1136,7 +1136,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
 
               if (o.activeClass) dc.activeClass = o.activeClass;
 
-              if (o.toggleClass) dc.toggleClass = o.toggleClass;
+              if (o.toggleClass) dc.toggleClassName = o.toggleClass;
             };
 
             that.setDefault = function(v) {

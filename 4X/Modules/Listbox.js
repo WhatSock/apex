@@ -724,7 +724,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                     DC.RTI.activate(o);
                   }
                   $A.setAttr(o, "aria-selected", state ? "true" : "false");
-                  $A.toggleClass(o, init.toggleClass, state, function(
+                  $A.toggleClass(o, init.toggleClassName, state, function(
                     state
                   ) {});
                 },

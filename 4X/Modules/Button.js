@@ -62,20 +62,23 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                       attributeValue
                     );
                     if (attributeValue === "mixed") {
-                      $A.remClass(o, config.toggleClass || "pressed checked");
+                      $A.remClass(
+                        o,
+                        config.toggleClassName || "pressed checked"
+                      );
                       $A.toggleClass(
                         o,
-                        config.partialClass || "partially-checked",
+                        config.partialClassName || "partially-checked",
                         true
                       );
                     } else {
                       $A.remClass(
                         o,
-                        config.partialClass || "partially-checked"
+                        config.partialClassName || "partially-checked"
                       );
                       $A.toggleClass(
                         o,
-                        config.toggleClass ||
+                        config.toggleClassName ||
                           (isToggle ? "pressed" : "checked"),
                         attributeValue === "true"
                       );
@@ -238,6 +241,9 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 if ($A.isNode(n) && n.disabled)
                   $A.setAttr(s, "aria-disabled", "true");
                 $A.updateDisabled(s);
+                if (config.label) $A.setAttr(s, "aria-label", config.label);
+                if (($A.isNode(n) && n.required) || config.required)
+                  $A.setAttr(s, "aria-required", "true");
               }
               $A.remAttr([o, s, n, x], ["check", "radio", "switch", "toggle"]);
             });

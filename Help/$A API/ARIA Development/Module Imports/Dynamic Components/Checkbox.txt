@@ -1,0 +1,128 @@
+
+ARIA Checkboxes
+
+Expected behaviors: The checkbox should be focusable using the keyboard, and toggle its checkable state when pressing the Spacebar or Enter key.
+
+The 4X ARIA Checkbox module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.
+
+The following attributes are handled automatically by the Checkbox module:
+
+• role=checkbox
+• aria-checked
+• tabindex
+
+Available attributes for checkbox elements:
+
+• check : May be set to "false", "true", or "mixed" to set the current state of a checkable option when rendered.
+
+HTML syntax:
+
+[Standard Unchecked]
+
+<div check >
+  Markup with checkbox name
+  <input hidden type="checkbox" name="OptionalBoundCheckbox" />
+</div>
+
+
+[Standard Checked]
+
+<div check="true" >
+  Markup with checkbox name
+  <input hidden type="checkbox" name="OptionalBoundCheckbox" />
+</div>
+
+[Standard Partially-Checked]
+
+<div check="mixed" >
+  Markup with checkbox name
+</div>
+
+IMPORTANT: The focusable active element must not include any other exposed active elements, otherwise these will not be accessible to non-sighted screen reader users.
+
+JavaScript syntax:
+
+$A.setCheckbox( DOM-Node-or-CSS-Selector-forTriggering-Element , {
+// Configure functionality key / value mappings
+});
+
+Configuration
+
+{
+
+// Set an explicit name for the checkbox.
+// If undefined, the accessible name will default to the text content within the checkbox.
+label: "My informative checkbox label",
+
+// Specify if the checkbox is required.
+// If a native checkbox element is specified, this property will automatically be set to match the checkbox element's 'required' property.
+required: false,
+
+// Specify if the checkbox is disabled.
+// If a native select element is specified, this property will automatically be set to match the select element's 'disabled' property.
+disabled: false,
+
+// Specify if the checkbox includes checkable options.
+// Checkable options support the values "false", "true", or "mixed" to represent the partially checked state.
+// When checkable is true, the multiple and sortable properties are automatically set to false to ensure intuitive accessibility.
+// Alternatively, the 'check' attribute may be set on individual option elements to set their default state when rendered.
+// The checked state will automatically be toggleable by pressing the Spacebar when applicable.
+checkable: false,
+
+// Specify if the checkbox includes sortable options.
+// When sortable is true, the multiple and checkable properties are automatically set to false to ensure intuitive accessibility.
+// The grabbed state will automatically be toggleable by pressing the Spacebar when applicable.
+sortable: false,
+
+// Set the class to be applied when a checkbox option is selected.
+// If undefined, "selected" will be set by default.
+toggleClassName: "selected",
+
+// Set screen reader accessible description text for key functionality within IE11.
+grabText: "Grabbable",
+grabbedText: "Grabbed",
+dropText: "Droppable",
+selectText: "Selected",
+unselectText: "Not Selected",
+
+// Set a custom event handler to process every time a checkbox option is activated.
+onActivate: function(event, triggerNode, RTI, DC, currentState, setNewStateFn) {
+// If the option node is checkable, currentState will include a number from 0 to 2.
+// (0 = "false", 1 = "true", 2 = "mixed".)
+// Otherwise, if multiselect is true instead, currentState will reflect the boolean value for the currently selected option.
+// The setNewStateFn function can be used to set a new state for the option.
+// E.G. setNewStateFn("false"), setNewStateFn("true"), or setNewStateFn("mixed") for checkable options.
+},
+
+// Optionally extend the RTI instance with custom event handlers.
+// For available options, view the RovingTabIndex help doc at "Help/$A API/ARIA Development/Module Imports/Actions/RovingTabIndex".
+extendRTI: {
+// Optional event handlers.
+}
+
+}
+
+Programmatic Control
+
+Since the Checkbox control is an instantiated object, all of the following public properties and methods are available:
+
+Properties
+
+myCheckbox.checkbox // The Checkbox DOM node for the element with role="checkbox"
+
+myCheckbox.options // The array of list option DOM nodes that contain role="option"
+
+myCheckbox.optionNodes // The array of native select option DOM nodes
+
+Methods
+
+// Force the checkbox widget to redraw itself and recompute all child options and reset all event handlers.
+// Only applicable when a native select element is bound to the checkbox.
+// This is necessary when new options are added, removed, or reordered within the bound select element to ensure proper keyboard accessibility.
+myCheckbox.update();
+
+// Returns an array of currently checked or selected checkbox option nodes.
+// If any option elements are checked, all those set to "true" will be returned.
+// Otherwise, if there is a bound select element, the value of the select element will be returned.
+// Otherwise, all selected option elements will be returned.
+var checkboxValue = myCheckbox.value();
