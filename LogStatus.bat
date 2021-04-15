@@ -1,1 +1,0 @@
-call git status >> .\LogStatus.txt

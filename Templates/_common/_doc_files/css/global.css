@@ -407,15 +407,7 @@ FOOTER ---------------
 
 footer {
   margin: 1rem 0 2rem;
-  text-align: center;
-}
-
-p.copyright {
-  font-size: 0.7em;
-  text-transform: uppercase;
-  color: var(--globalWhite);
-  background: transparent;
-  margin-top: 1rem;
+  text-align: left;
 }
 
 footer p:last-child {
