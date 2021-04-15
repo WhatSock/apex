@@ -2909,20 +2909,48 @@ error: function(error, promise){}
       return $A._XR.call(this, o);
     },
 
-    flowsTo: function(o, targ) {
+    controls: function(o, targ, attr) {
       if (this._4X) {
         targ = o;
         o = this._X;
       }
+      attr = attr || "aria-controls";
       $A.query(targ, function(i, t) {
         if ($A.isNode(t)) {
           if (!t.id) t.id = $A.genId();
           var id = t.id;
           $A.query(o, function(i, o) {
-            $A.addIdRef(o, ["aria-controls", "aria-flowto"], id);
+            $A.addIdRef(o, attr, id);
           });
         }
       });
+      return $A._XR.call(this, o);
+    },
+
+    labelledBy: function(o, targ) {
+      if (this._4X) {
+        targ = o;
+        o = this._X;
+      }
+      o = $A.controls(o, targ, "aria-labelledby");
+      return $A._XR.call(this, o);
+    },
+
+    describedBy: function(o, targ) {
+      if (this._4X) {
+        targ = o;
+        o = this._X;
+      }
+      o = $A.controls(o, targ, "aria-describedby");
+      return $A._XR.call(this, o);
+    },
+
+    flowsTo: function(o, targ) {
+      if (this._4X) {
+        targ = o;
+        o = this._X;
+      }
+      o = $A.controls(o, targ, ["aria-controls", "aria-flowto"]);
       return $A._XR.call(this, o);
     },
 
