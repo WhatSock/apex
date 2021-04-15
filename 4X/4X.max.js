@@ -2879,6 +2879,36 @@ error: function(error, promise){}
       return false;
     },
 
+    owns: function(o, targ) {
+      if (this._4X) {
+        targ = o;
+        o = this._X;
+      }
+      var a = [],
+        o = $A.morph(o);
+      if ($A.isNode(o)) {
+        $A.query(targ, function(i, t) {
+          if ($A.isNode(t)) a.push(t);
+        });
+        a = a.reverse();
+        $A.loop(
+          a,
+          function(i, t) {
+            if (!t.id) t.id = $A.genId();
+            var id = t.id;
+            if (
+              ["input", "img", "progress", "iframe", "hr"].indexOf(
+                o.nodeName.toLowerCase()
+              ) === -1
+            )
+              $A.addIdRef(o, "aria-owns", id);
+          },
+          "array"
+        );
+      }
+      return $A._XR.call(this, o);
+    },
+
     flowsTo: function(o, targ) {
       if (this._4X) {
         targ = o;

@@ -48,6 +48,10 @@ var myListboxDC = $A.setListbox({
 // Configuration key / value mappings
 });
 
+Parameters
+
+1: A configuration map to customize behaviors and options.
+
 Configuration
 
 {

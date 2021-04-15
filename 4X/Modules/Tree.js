@@ -134,8 +134,7 @@ Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT L
                 if (o) {
                   $A.setAttr(o, "aria-expanded", "false");
                   $A.data(o, "expanded", false);
-                  if (!ref.id) ref.id = $A.genId();
-                  $A.setAttr(o, "aria-owns", ref.id);
+                  $A(o).owns(ref);
                 }
                 var mItems = tag.parse(ref);
                 $A.setAttr(ref, "role", top ? "tree" : "group");

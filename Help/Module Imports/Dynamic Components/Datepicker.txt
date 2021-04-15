@@ -24,6 +24,10 @@ var myCalendarDC = $A.setDatepicker({
 // Configuration key / value map
 });
 
+Parameters
+
+1: A configuration map to customize behaviors and options.
+
 Configuration
 
 {

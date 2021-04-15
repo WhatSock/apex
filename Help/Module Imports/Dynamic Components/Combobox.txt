@@ -51,7 +51,11 @@ override: {
 
 myCombobox.start();
 
-Config Object Parameters
+Parameters
+
+1: A configuration map to customize behaviors and options.
+
+Configuration
 
 "select" is the hidden Select element DOM node that will be bound to the Combobox control.
 

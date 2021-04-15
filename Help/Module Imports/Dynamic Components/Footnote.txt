@@ -14,8 +14,6 @@ HTML syntax:
 
 The Footnote module utilizes traditional skip link syntax, which consists of a standard link with an href attribute. The href attribute includes an id reference to the associated footnote definition, by pointing to a back link at the beginning of the definition content.
 
-HTML syntax:
-
 <!-- The footnote skip link -->
 
 [Key Word or Phrase Here] <a class="aria-footnote" href="#footnoteId1"><sup>1</sup></a>
