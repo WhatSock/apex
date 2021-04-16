@@ -49,6 +49,7 @@ main:focus {
   .wrapper main {
     flex: 3 auto;
     padding: 1em;
+    padding-bottom: 2em;
   }
 }
 
@@ -319,50 +320,74 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
 /**********************************************
    FOOTER
 *************************************************/
-footer {
-  margin: 1rem 0 2rem;
-  text-align: left;
+
+footer.footer {
+    color: var(--offWhite);
+    font-size: 1.2rem;
+    height: auto;
+    padding: 0.5em;
+    position: relative;
+    margin: 1rem 0 2rem;
+    text-align: left;
+    border-top: 1px solid solid var(--offWhite);
+}
+footer.footer .flex-container-row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: auto;
+    padding: 1em;
 }
 
-footer p:last-child {
-  font-size: 0.7em;
-  margin-top: 0.5em;
-  color: var(--combobox-lightGrey2);
+footer.footer .flex-container-row .flex-item {
+    flex: 1 0 100%;
+}
+footer.footer h2 {
+    color: var(--offWhite);
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+}
+footer.footer p {
+    color: var(--offWhite);
+    font-size: 1rem;
+    margin: 0 0 0.6rem 0;
 }
 
-footer p:last-child a,
-footer p:last-child a:link {
-  text-decoration: underline;
-  color: var(--globalWhite);
-  background: transparent none repeat scroll 0% 0%;
+footer.footer ul {
+    list-style-type: disc;
+    margin-left: 2em;
+    margin-bottom:1em;
 }
 
-ul.policies li {
-  display: inline-block;
-  position: relative;
-  list-style-type: none;
+footer.footer ul li {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-top: 0;
 }
-
-ul.policies li::after {
-  position: absolute;
-  top: 0.7em;
-  right: -0.35em;
-  display: block;
-  content: "";
-  width: 5px;
-  height: 5px;
-  background: var(--datepicker-day);
-  border-radius: 5px;
+footer.footer li {
+    margin-bottom: 0;
 }
-
-ul.policies li:last-child::after {
-  content: none;
+footer.footer a {
+    color: var(--offWhite);
+    text-decoration: underline;
 }
-
-footer button {
-  color: var(--globalWhite);
-  background: transparent;
-  border: none;
+footer.footer a:hover,
+footer.footer a:focus {
+    text-decoration: none;
+}
+@media (min-width: 70em) {
+  footer.footer .flex-container-row .flex-item {
+      flex: 1 0 0;
+  }
+  footer.footer .flex-container-row .flex-item:nth-child(2) h2 {
+    margin-left: 10em;
+  }
+  footer.footer .flex-container-row .flex-item:nth-child(2) ul {
+    margin-left: 12em;
+  }
 }
 /**********************************************
     INTERNAL COMPONENTS COMMON

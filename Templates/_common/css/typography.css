@@ -74,7 +74,6 @@ a:link,
 a:visited {
   text-decoration: none;
   color: var(--tablist-black);
-  background: var(--whatsockBeige);
 }
 
 a:hover {

@@ -399,34 +399,82 @@ main {
   .wrapper main {
     flex: 1 0 auto;
     padding: 0;
+    padding-bottom: 2em;
   }
 }
 /* --------------- 
 FOOTER --------------- 
 */
 
-footer {
-  margin: 1rem 0 2rem;
-  text-align: left;
+footer.footer {
+    color: var(--offWhite);
+    border-top: 1px solid var(--offWhite);
+    margin: 1rem 0 2rem;
+    text-align: left;
+    font-size: 1.2rem;
+    height: auto;
+    padding: 0.5em;
+    padding-top:1em;
+    position: relative;
+}
+footer.footer .flex-container-row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: auto;
+    padding: 1em;
 }
 
-footer p:last-child {
-  font-size: 0.7em;
-  margin-top: 0.5em;
-  color: var(--combobox-lightGrey2);
+footer.footer .flex-container-row .flex-item {
+    flex: 1 0 100%;
+}
+footer.footer h2 {
+    color: solid var(--offWhite);
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+}
+footer.footer p {
+    color: #fff;
+    font-size: 1rem;
+    margin: 0 0 0.6em 0;
+    line-height:1.5;
 }
 
-footer p:last-child a,
-footer p:last-child a:link {
-  text-decoration: underline;
-  color: var(--globalWhite);
-  background: transparent none repeat scroll 0% 0%;
+footer.footer ul {
+    list-style-type: disc;
+    margin-left: 2em;
+    margin-bottom:1em;
 }
 
-footer button {
-  color: var(--globalWhite);
-  background: transparent;
-  border: none;
+footer.footer ul li {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-top: 0;
+}
+footer.footer li {
+    margin-bottom: 0;
+}
+footer.footer a {
+    color: #fff;
+    text-decoration: underline;
+}
+footer.footer a:hover,
+footer.footer a:focus {
+    text-decoration: none;
+}
+@media (min-width: 70em) {
+  footer.footer .flex-container-row .flex-item {
+      flex: 1 0 0;
+  }
+  footer.footer .flex-container-row .flex-item:nth-child(2) h2 {
+    margin-left: 10em;
+  }
+  footer.footer .flex-container-row .flex-item:nth-child(2) ul {
+    margin-left: 12em;
+  }
 }
 /***********************************
 ===================================
