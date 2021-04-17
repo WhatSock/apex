@@ -322,65 +322,65 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
 *************************************************/
 
 footer.footer {
-    color: var(--offWhite);
-    font-size: 1.2rem;
-    height: auto;
-    padding: 0.5em;
-    position: relative;
-    margin: 1rem 0 2rem;
-    text-align: left;
-    border-top: 1px solid solid var(--offWhite);
+  color: var(--offWhite);
+  font-size: 1.2rem;
+  height: auto;
+  padding: 0.5em;
+  position: relative;
+  margin: 1rem 0 2rem;
+  text-align: left;
+  border-top: 1px solid solid var(--offWhite);
 }
 footer.footer .flex-container-row {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    margin: auto;
-    padding: 1em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: auto;
+  padding: 1em;
 }
 
 footer.footer .flex-container-row .flex-item {
-    flex: 1 0 100%;
+  flex: 1 0 100%;
 }
 footer.footer h2 {
-    color: var(--offWhite);
-    font-size: 1.2rem;
-    line-height: 1.5;
-    margin-top: 0;
-    margin-bottom: 0.5em;
-    font-weight: 700;
+  color: var(--offWhite);
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-weight: 700;
 }
 footer.footer p {
-    color: var(--offWhite);
-    font-size: 1rem;
-    margin: 0 0 0.6rem 0;
+  color: var(--offWhite);
+  font-size: 1rem;
+  margin: 0 0 0.6rem 0;
 }
 
 footer.footer ul {
-    list-style-type: disc;
-    margin-left: 2em;
-    margin-bottom:1em;
+  list-style-type: disc;
+  margin-left: 2em;
+  margin-bottom: 1em;
 }
 
 footer.footer ul li {
-    font-size: 1rem;
-    line-height: 1.5;
-    margin-top: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-top: 0;
 }
 footer.footer li {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 footer.footer a {
-    color: var(--offWhite);
-    text-decoration: underline;
+  color: var(--offWhite);
+  text-decoration: underline;
 }
 footer.footer a:hover,
 footer.footer a:focus {
-    text-decoration: none;
+  text-decoration: none;
 }
 @media (min-width: 70em) {
   footer.footer .flex-container-row .flex-item {
-      flex: 1 0 0;
+    flex: 1 0 0;
   }
   footer.footer .flex-container-row .flex-item:nth-child(2) h2 {
     margin-left: 10em;

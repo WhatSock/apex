@@ -407,67 +407,67 @@ FOOTER ---------------
 */
 
 footer.footer {
-    color: var(--offWhite);
-    border-top: 1px solid var(--offWhite);
-    margin: 1rem 0 2rem;
-    text-align: left;
-    font-size: 1.2rem;
-    height: auto;
-    padding: 0.5em;
-    padding-top:1em;
-    position: relative;
+  color: var(--offWhite);
+  border-top: 1px solid var(--offWhite);
+  margin: 1rem 0 2rem;
+  text-align: left;
+  font-size: 1.2rem;
+  height: auto;
+  padding: 0.5em;
+  padding-top: 1em;
+  position: relative;
 }
 footer.footer .flex-container-row {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    margin: auto;
-    padding: 1em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: auto;
+  padding: 1em;
 }
 
 footer.footer .flex-container-row .flex-item {
-    flex: 1 0 100%;
+  flex: 1 0 100%;
 }
 footer.footer h2 {
-    color: solid var(--offWhite);
-    font-size: 1.2rem;
-    line-height: 1.5;
-    margin-top: 0;
-    margin-bottom: 0.5em;
-    font-weight: 700;
+  color: solid var(--offWhite);
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-weight: 700;
 }
 footer.footer p {
-    color: #fff;
-    font-size: 1rem;
-    margin: 0 0 0.6em 0;
-    line-height:1.5;
+  color: #fff;
+  font-size: 1rem;
+  margin: 0 0 0.6em 0;
+  line-height: 1.5;
 }
 
 footer.footer ul {
-    list-style-type: disc;
-    margin-left: 2em;
-    margin-bottom:1em;
+  list-style-type: disc;
+  margin-left: 2em;
+  margin-bottom: 1em;
 }
 
 footer.footer ul li {
-    font-size: 1rem;
-    line-height: 1.5;
-    margin-top: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-top: 0;
 }
 footer.footer li {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 footer.footer a {
-    color: #fff;
-    text-decoration: underline;
+  color: #fff;
+  text-decoration: underline;
 }
 footer.footer a:hover,
 footer.footer a:focus {
-    text-decoration: none;
+  text-decoration: none;
 }
 @media (min-width: 70em) {
   footer.footer .flex-container-row .flex-item {
-      flex: 1 0 0;
+    flex: 1 0 0;
   }
   footer.footer .flex-container-row .flex-item:nth-child(2) h2 {
     margin-left: 10em;
