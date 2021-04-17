@@ -1,14 +1,129 @@
 /* Specific styles for Accessible Switches */
 
-.aria-switch {
-  float: left;
-  cursor: pointer;
-  width: 200px;
-  padding: 20px;
-  text-align: center;
-  background: url(../img/unchecked.svg) no-repeat;
+/*.aria-switch {
+float: left;
+cursor: pointer;
+width: 200px;
+padding: 20px;
+text-align: center;
+background: url(../img/unchecked.svg) no-repeat;
 }
 
 .aria-switch.checked {
-  background: url(../img/checked.svg) no-repeat;
+background: url(../img/checked.svg) no-repeat;
+}
+*/
+ul.switch--container{
+	max-width:15em;
+}
+.aria-switch {
+    background: none;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    line-height: 1;
+    padding: .75em 3.75em .75em .5em;
+    position: relative;
+    text-align: left;
+    width: 100%;
+}
+
+.aria-switch span {
+    pointer-events: none;
+}
+
+.aria-switch[tabindex="0"]:focus{
+	outline-style: none;
+	box-shadow: none;
+	border-color: transparent;
+}
+
+.aria-switch__button {
+    background: #fff;
+    border-radius: 1em;
+    border: 1px solid #2a2a2a;
+    bottom: .5em;
+    box-shadow: inset -1.625em 0 0 1px rgba(120, 120, 120, 1);
+    height: 1.5em;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: .5em;
+    transition:
+    border .2s ease-in-out,
+    box-shadow .2s ease-in-out;
+    width: 3em;
+}
+
+.aria-switch[aria-checked="true"] .aria-switch__button {
+    border: 1px solid rgba(0, 2, 120, 1);
+    box-shadow: inset 1.625em 0 0 1px #2196f3;
+}
+
+.aria-switch__button:before {
+    border: 2px solid;
+    border-color: rgba(33, 150, 243, 0);
+    border-radius: 1em;
+    bottom: 0;
+    content: "";
+    left: 0em;
+    position: absolute;
+    right: 0em;
+    top: 0em;
+    transition:
+        border-color .2s ease-in-out,
+        bottom .2s ease-in-out,
+        left .2s ease-in-out,
+        right .2s ease-in-out,
+        top .2s ease-in-out;
+}
+
+.aria-switch:focus .aria-switch__button:before {
+    border-color: rgba(33, 150, 243, 1);
+    bottom: -.325em;
+    left: -.325em;
+    right: -.325em;
+    top: -.325em;
+}
+
+.aria-switch[aria-checked="true"] {
+    padding-right: 4.5em;
+}
+
+.aria-switch[aria-checked="true"] .aria-switch__button {
+    box-shadow: inset -2.05em 0 0 1px rgba(120, 120, 120, 1);
+    width: 3.5em;
+}
+
+.aria-switch[aria-checked="true"] .aria-switch__button {
+    box-shadow: inset 2.05em 0 0 1px var(--whatsock-red);
+}
+
+.aria-switch[aria-checked="true"] .aria-switch__button:after {
+    color: #fff;
+    content: "Off";
+    display: block;
+    font-size: .825em;
+    line-height: 1.825;
+    padding: 0 .5em;
+    text-align: right;
+}
+
+.aria-switch[aria-checked="true"] .aria-switch__button:after {
+    content: "On";
+    text-align: left;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .aria-switch__button:before,
+    .aria-switch__button {
+        transition: none;
+    }
+}
+
+@media screen and (-ms-high-contrast: active) {
+    .aria-switch__button:after {
+        background-color: windowText;
+    }
 }

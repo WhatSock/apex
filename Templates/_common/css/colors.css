@@ -13,7 +13,7 @@ Lets modernise this and use css variables to define the colours so we only have 
 There are a lot of different colours used in the modules. We can review all the colours used and reduce the number by examining the root colours below.
 
 If root color is  --color-06: #c0294245;
-Call 'background-color:  var(--globalWhite);
+Call 'background-color:  var(--whatsock-red);
 ************/
 :root {
   /*common*/

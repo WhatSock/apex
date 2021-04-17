@@ -52,22 +52,26 @@ IMPORTANT: The internal markup for an ARIA Switch must never include any other t
 Otherwise, based on how ARIA works in accordance with the spec, none of the embedded controls will be accessible to non-sighted screen reader users.
 -->
 
-                            <ul>
+                            <ul class="switch--container">
                                 <li>
                                     <div switch class="aria-switch thermostat">
-                                        <span>Thermostat</span>
+                                        <span class="aria-switch__label">Thermostat</span>
+                                        <span class="aria-switch__button" aria-hidden="true"></span>
                                         <input hidden type="switch" name="Thermostat" />
                                     </div>
                                 </li>
                                 <li>
                                     <div switch class="aria-switch security checked">
-                                        <span>Security</span>
+                                        <span class="aria-switch__label">Security</span>
+                                        <span class="aria-switch__button" aria-hidden="true"></span>
                                         <input checked hidden type="switch" name="Security" />
                                     </div>
                                 </li>
                                 <li>
                                     <div switch="true" class="aria-switch lights">
-                                        <span>Lights</span>
+                                        <span class="aria-switch__label">Lights</span>
+                                        <span class="aria-switch__button" aria-hidden="true"></span>
+                                        <input checked hidden type="switch" name="Lights" />
                                     </div>
                                 </li>
                             </ul>
