@@ -346,7 +346,7 @@ td[aria-current="date"] {
 
 div.calendar *:focus,
 div.commentAdd *:focus {
-  outline: var(--whatsock-blue) 2px inset;
+  outline: var(--whatsock-red) 3px solid;
 }
 
 td.month {
@@ -376,7 +376,7 @@ td.comment.selected {
 
 td.disabled,
 td.disabled:hover {
-  color: var(--datepicker-lightGrey);
+  color: var(--datepicker-darkGrey);
   background: var(--datepicker-lmGrey);
 }
 
