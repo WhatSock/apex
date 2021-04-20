@@ -1,9 +1,9 @@
 /*!
 ARIA Date Picker Module 4.0 for Apex 4X
-Copyright 2021 Bryan Garaventa (WhatSock.com)
+Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Refactoring Contributions Copyright 2018 Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
-Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
+License: MIT <https://opensource.org/licenses/MIT>
 */
 
 (function() {

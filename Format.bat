@@ -19,7 +19,6 @@
 (call uglifyjs 4X\Modules\Listbox.js --comments /^!/ --compress --mangle --output 4X\Min\Listbox.js 2>> .\FormatErrors.txt)
 (call uglifyjs 4X\Modules\Menu.js --comments /^!/ --compress --mangle --output 4X\Min\Menu.js 2>> .\FormatErrors.txt)
 (call uglifyjs 4X\Modules\Popup.js --comments /^!/ --compress --mangle --output 4X\Min\Popup.js 2>> .\FormatErrors.txt)
-(call uglifyjs 4X\Modules\Prism.js --comments /^!/ --compress --mangle --output 4X\Min\Prism.js 2>> .\FormatErrors.txt)
 (call uglifyjs 4X\Modules\Radio.js --comments /^!/ --compress --mangle --output 4X\Min\Radio.js 2>> .\FormatErrors.txt)
 (call uglifyjs 4X\Modules\RovingTabIndex.js --comments /^!/ --compress --mangle --output 4X\Min\RovingTabIndex.js 2>> .\FormatErrors.txt)
 (call uglifyjs 4X\Modules\SmoothScroll.js --comments /^!/ --compress --mangle --output 4X\Min\SmoothScroll.js 2>> .\FormatErrors.txt)
