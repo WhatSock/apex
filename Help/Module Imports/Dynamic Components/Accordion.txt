@@ -13,6 +13,7 @@ Note: An accordion is a composite widget, meaning that it is comprised of many d
 
 The following attributes are handled automatically by the Accordion module:
 
+• role=button
 • aria-expanded
 • aria-controls
 • role=region

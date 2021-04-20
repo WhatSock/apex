@@ -457,7 +457,8 @@ License: MIT (https://opensource.org/licenses/MIT)
 
     hasHash: function(a, h) {
       var h = h || $A.getHash();
-      if (!$A.isArray(a) || !$A.isHash(h)) return false;
+      if (!$A.isHash(h)) return false;
+      if (!$A.isArray(a)) return true;
       for (var i = 0; i < a.length; i++) {
         if (($A.isDC(a[i]) ? a[i].id : a[i]) === h) return true;
       }

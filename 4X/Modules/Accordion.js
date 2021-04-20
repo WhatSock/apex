@@ -70,6 +70,13 @@ License: MIT (https://opensource.org/licenses/MIT)
               startIndex = 0;
 
             $A.loop(triggers, function(i, o) {
+              if (
+                !$A.isNative(o) &&
+                ["button", "link"].indexOf(
+                  $A.getAttr(o, "role").toLowerCase() || "false"
+                ) === -1
+              )
+                $A.setAttr(o, "role", "button");
               $A.svgFix(o);
               var panelContainer = $A.get($A.getAttr(o, "root")),
                 dc = $A.toDC(
