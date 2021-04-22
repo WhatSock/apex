@@ -49,7 +49,7 @@ Configuration
 autoSwitch: "full",
 
 // Optionally extend the RTI instance with custom event handlers.
-// For available options, view the RovingTabIndex help doc at "Help/$A API/ARIA Development/Module Imports/Actions/RovingTabIndex".
+// For available options, view the RovingTabIndex help doc at "Help/Module Imports/Actions/RovingTabIndex".
 extendRTI: {
 // Optional event handlers.
 },

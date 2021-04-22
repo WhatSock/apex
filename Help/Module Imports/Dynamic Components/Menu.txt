@@ -130,11 +130,11 @@ child: "a" // Will become the focusable active element with role="menuitem", "me
 },
 
 // Set a custom event handler to process every time a menu item is activated.
-onActivate: function(event, triggerNode, RTI, DC, currentState, setNewStateFn) {
+onActivate: function(event, triggerNode, RTI, DC, currentState, set) {
 // If the menu item is checkable, currentState will include a number from 0 to 2.
 // (0 = "false", 1 = "true", 2 = "mixed".)
-// The setNewStateFn function can be used to set a new state for the option.
-// E.G. setNewStateFn("false"), setNewStateFn("true"), or setNewStateFn("mixed") for checkbox menu items only.
+// The set function can be used to set a new state for the option.
+// E.G. set("false"), set("true"), or set("mixed") for checkbox menu items only.
 },
 
 // Set the class name for the top level container element
@@ -198,7 +198,7 @@ next(); // REQUIRED: next() must be executed so control is passed back to 4X for
 },
 
 // Optionally extend the RTI instance with custom event handlers.
-// For available options, view the RovingTabIndex help doc at "Help/$A API/ARIA Development/Module Imports/Actions/RovingTabIndex".
+// For available options, view the RovingTabIndex help doc at "Help/Module Imports/Actions/RovingTabIndex".
 extendRTI: {
 // Optional event handlers.
 }

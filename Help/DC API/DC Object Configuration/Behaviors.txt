@@ -31,7 +31,7 @@ Note: The displayed value for each property represents its default value when om
   // When true, the hash tag in the URL will automatically open the associated DC object.
   // To render automatically, the hash tag must match the DC object id.
   // To set a hash tag within the address bar, use the $A.setPage() function.
-  // For more details, view: Help/$A API/ARIA Development/Browser History and Permalinks
+  // For more details, view: Help/ARIA Development/Browser History and Permalinks
   trackPage: false,
 
   // Convey beginning and ending boundary information to screen reader users.

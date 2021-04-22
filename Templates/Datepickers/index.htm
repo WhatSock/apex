@@ -8,6 +8,8 @@
     <meta name="Author" content="Bryan Garaventa" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/global.css">
+    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/prism.css">
+    <script type="text/javascript" src="../_common/_doc_files/prism.js"></script>
 </head>
 
 <body>
@@ -21,7 +23,7 @@
         </header>
         <div class="wrapper">
             <main id="main" class="main">
-                <h1><strong>Apex 4X</strong> Technical Style Guide</h1>
+                <h1><strong>ARIA Datepickers</strong> </h1>
                 <nav>
                     <ul>
                         <li><a href="../index.htm">Components</a></li>
@@ -39,6 +41,352 @@
                         <li><a href="With Tooltip Comments/index.htm">With Tooltip Comments</a></li>
                     </ul>
                 </nav>
+                <section>
+
+                    <h2>Expected behaviors</h2>
+
+                    <p>An external triggering element should activate the datepicker for touch support, focus should move into the datepicker when selecting a date using the keyboard, the arrow keys should move between calendar cells and the calendar should scroll automatically between months, PageUp/PageDown should switch between months, Alt+PageUp/PageDown should switch between years, Enter should activate the selected date, and pressing Escape or Tab should close the calendar and return focus to the triggering element.</p>
+
+                    <p>The 4X ARIA Datepicker module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.</p>
+
+                    <p>Note: A datepicker is a composite widget, meaning that it is comprised of different ARIA roles and supporting attributes.</p>
+
+                    <p>The following attributes are handled automatically by the Datepicker module:</p>
+
+                    <ul>
+                        <li> role=dialog</li>
+                        <li> role=application</li>
+                        <li> role=button</li>
+                        <li> role=presentation</li>
+                        <li> aria-hidden</li>
+                        <li> aria-label</li>
+                        <li> aria-disabled</li>
+                        <li> aria-current</li>
+                        <li> tabindex</li>
+                    </ul>
+
+                    <h2>JavaScript syntax</h2>
+
+                    <div>
+                        <pre><code class="language-javascript">var myCalendarDC = $A.setDatepicker({
+// Configuration key / value map
+});</code></pre>
+                    </div>
+
+                    <h2>Parameters</h2>
+
+                    <ol>
+                        <li>A configuration map to customize behaviors and options</li>
+                    </ol>
+
+                    <h3>Configuration</h3>
+
+                    <div>
+                        <pre><code class="language-javascript">{
+
+// Unique ID for the datepicker instance
+// After instantiation, can be referenced using: var DC = $A("UniqueCalendarId");
+id: "UniqueCalendarId",
+
+// Clickable icon triggering element
+toggle: "#datepicker-trigger-icon-id",
+
+// Native input element where the saved date value will be set.
+input: "#datepicker-input-element-id",
+
+// Set initial inline styling properties for the dynamically rendered calendar.
+style: {
+position: 'absolute',
+zIndex: 1,
+display: "none" // Set the initial state to hidden in prep for animation if applicable.
+},
+
+// Optionally specify a render and remove animation effect for the calendar.
+// Requires the "Animate" module import to function, which is powered by Velocity.js.
+// To ignore animation effects, delete the animate object declaration entirely from the setup script.
+// View implementations within "Templates/Datepickers" for practical animation usage examples.
+
+animate: {
+
+onRender: function(dc, wrapper, next) {
+
+// Specify the render animation effect, including the callback function statement to execute when the animation effect completes.
+Velocity(wrapper, "transition.TYPE", {
+// Velocity options here, plus the callback declaration after the animation completes.
+complete: function() {
+next(); // REQUIRED: next() must be executed so control is passed back to 4X for rendering.
+}
+});
+
+},
+
+onRemove: function(dc, wrapper, next) {
+
+// Specify the removal animation effect, including the callback function statement to execute when the animation effect completes.
+Velocity(wrapper, "transition.TYPE", {
+// Velocity options here, plus the callback declaration after the animation completes.
+complete: function() {
+next(); // REQUIRED: next() must be executed so control is passed back to 4X for removal.
+}
+});
+
+}
+
+},
+
+onActivate: function(event, dc) {
+// Optionally override the default functionality when a date is activated.
+// format selected calendar value and set into input field
+dc.target.value = dc.formatDate(dc);
+dc.remove();
+if (!dc.triggerClicked) dc.target.focus();
+else dc.trigger.focus();
+dc.triggerClicked = false;
+},
+
+// If not included, all of the below values are set by default
+
+role: 'Calendar',
+
+// Set the initial state of the datepicker when activated.
+// If true, the datepicker will not open and the associated input will be disabled.
+disabled: false,
+
+// Short help text message that is automatically announced to screen reader users when the calendar first opens.
+helpTextShort: 'Press F1 for help.',
+
+// Set help text to be displayed when F1 is pressed.
+helpText: 'Press the arrow keys to navigate by day, PageUp and PageDown to navigate by month, Alt+PageUp and Alt+PageDown to navigate by year, or Escape to cancel.',
+
+// Set description text to be announced when the datepicker is set to open onFocus().
+openOnFocusHelpText: "Press Down arrow to browse the calendar, or Escape to close.",
+
+// Set tooltip text
+tooltipTxt: 'Press Escape to cancel',
+disabledTxt: 'Disabled',
+markedTxt: 'Selected',
+commentedTxt: 'Has Comment',
+prevTxt: 'Previous',
+nextTxt: 'Next',
+monthTxt: 'Month',
+yearTxt: 'Year',
+
+// Set month names
+months: [
+'January',
+'February',
+'March',
+'April',
+'May',
+'June',
+'July',
+'August',
+'September',
+'October',
+'November',
+'December'
+],
+
+// Set short and long weekday names
+days: [
+{
+s: 'S',
+l: 'Sunday'
+},
+{
+s: 'M',
+l: 'Monday'
+},
+{
+s: 'T',
+l: 'Tuesday'
+},
+{
+s: 'W',
+l: 'Wednesday'
+},
+{
+s: 'T',
+l: 'Thursday'
+},
+{
+s: 'F',
+l: 'Friday'
+},
+{
+s: 'S',
+l: 'Saturday'
+}
+],
+
+// Switch the behaviour when the PageUp or PageDown keys are pressed to a "natural" behaviour
+// (PageUp goes to previous month, PageDown goes to next month)
+pageUpDownNatural: true,
+
+// Append a "dayToday" CSS class to the current day cell element - this allows styling to be targeted to this specific element
+highlightToday: true,
+
+// Fill in the day cells outside of the current month so that the calendar grid is always filled with day cells
+drawFullCalendar: true,
+
+// Run custom functions at the end of the code within the following component functions.
+// Receives a single parameter "dc", which provides access to the Datepicker object.
+beforeRender: function (dc) {
+console.log('beforeRender');
+console.log(dc);
+},
+afterRender: function (dc) {
+console.log('afterRender');
+console.log(dc);
+},
+afterRemove: function (dc) {
+console.log('afterRemove');
+console.log(dc);
+},
+
+// Override the character used on the month / year change buttons
+leftButtonYearText: '&lt;',
+rightButtonYearText: '&gt;',
+leftButtonMonthText: '&lt;',
+rightButtonMonthText: '&gt;',
+
+// Specify if the calendar should open when the input field receives focus.
+// If true, the Down arrow or Tab key must be pressed to move focus from the input field into the calendar for manual traversal, and Escape will collapse the calendar.
+openOnFocus: false,
+openOnFocusHelpText: 'Press Down arrow to browse the calendar, or Escape to close.',
+
+// Display a Close button
+showEscBtn: true,
+escBtnName: 'Close',
+escBtnIcon: '&times;',
+
+// Set specific start / end boundaries of a date range. Can be Date objects (absolute boundaries), or positive/negative integers (relative boundaries).
+// If undefined, no date range will be enforced.
+minDate: undefined,
+maxDate: undefined,
+
+// Using a token system, set a specific date string format to be used when setting the selected value into the calendar input box
+// 'YYYY': 4 digit year, 2019
+// 'MMMM': Full name of month, January, etc.
+// 'dddd': Full name of weekday, Monday, etc.
+// 'MM': 2 digit month, 01, etc.
+// 'DD': 2 digit day, 01, etc.
+// 'Do': getDateOrdinalSuffix, 1st, 2nd, 3rd.
+// 'M': 1 or 2 digit month, 1 through 12
+// 'D': 1 or 2 digit day, 1 through 31.
+
+inputDateFormat: 'MM/DD/YYYY',
+
+// Using a token system, set a specific date string format to be read out to screen reader users
+// The default format covers all necessary information to ensure accessibility, so do not change unless absolutely necessary.
+audibleDateFormat: 'D, dddd MMMM YYYY',
+
+// Allow a date that isn't today to be set as the initial date. If unset, this value is initialised to today's date
+initialDate: new Date(),
+
+// Disable weekdays from selection
+disableWeekdays: false,
+
+// Disable weekends from selection
+disableWeekends: false,
+
+// Set positive or negative offset for differing column arrangements, or 0 for none
+wdOffset: 0,
+
+// Set class for the calendar wrapper
+className: 'calendar',
+
+// Choose a different insertion point in the DOM; must be a DOM node; defaults to the triggering element if not specified.
+targetNode: null,
+
+// Reset date to the current calendar date every time the datepicker opens
+resetCurrent: false,
+
+// Configure the Comments tooltip pane
+comments: {
+role: 'Comment',
+className: 'commentTooltip'
+},
+
+// Configure the editor form pane
+editor: {
+// Choose to show the form, defaults to false
+show: false,
+// Set the section name, and the Edit button text
+role: 'Edit',
+className: 'commentAdd',
+// Set the Save button text
+action1: 'Save'
+},
+
+// Condense the year display by removing the year nav buttons.
+condenseYear: false,
+
+// Manually configure the calendar using the configure method or a customization script
+configure: function(dc){
+// And optionally prevent this script from running again
+// dc.stopConfigure = true;
+}
+
+}</code></pre>
+                    </div>
+
+                    <h2>Programmatic control</h2>
+
+                    <div>
+                        <pre><code class="language-javascript">// Get a reference to the calendar DC instance using its id.
+var dc = $A('UniqueCalendarId');
+
+// Manually open the calendar.
+dc.render();
+
+// Or close it
+dc.remove();
+
+// There are some additional methods which allow altering the Date Picker state after invocation:
+
+dc.setDayMarked(dc, dateObj, isMarked);
+
+dc.clearAllMarked(dc);
+
+dc.setDayDisabled(dc, dateObj, isDisabled);
+
+dc.setMonthDisabled(dc, dateObj, isDisabled);
+
+dc.setDayOfWeekDisabled(dc, dateObj, daysOfWeekArray, isDisabled);
+
+dc.setWeekdaysDisabled(dc, dateObj, isDisabled);
+
+dc.setWeekendsDisabled(dc, dateObj, isDisabled);
+
+dc.clearAllDisabled(dc);
+
+dc.setMonthMessage(dc, dateObj, message);
+
+dc.clearAllMessage(dc);
+
+dc.setDate(dc, dateObj);
+
+dc.presetDate(dc, initialDateObj, minDateObj, maxDateObj);</code></pre>
+                    </div>
+
+                    <h2>Implementation notes</h2>
+
+                    <p>For more granular access to date string values that exist within each calendar object instance, you can access the internal variables like so:</p>
+
+                    <div>
+                        <pre><code class="language-javascript">var weekday = dc.range.wDays[dc.range.current.wDay].lng; // = 'Friday'
+
+var monthName = dc.range[dc.range.current.month].name; // = 'November'
+
+var monthDay = (dc.range.current.month+1); // = numerical month string
+
+var day = dc.range.current.mDay; // = '30'
+
+var year = dc.range.current.year; // = '2012'</code></pre>
+                    </div>
+
+                </section>
             </main>
         </div>
         <footer class="footer">

@@ -7,6 +7,8 @@
     <meta name="description" content="Scalable ARIA Components">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/global.css">
+    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/prism.css">
+    <script type="text/javascript" src="../_common/_doc_files/prism.js"></script>
 </head>
 
 <body>
@@ -20,7 +22,7 @@
         </header>
         <div class="wrapper">
             <main id="main" class="main">
-                <h1><strong>Apex 4X</strong> Technical Style Guide</h1>
+                <h1><strong>ARIA Tooltips</strong> </h1>
                 <nav>
                     <ul>
                         <li><a href="../index.htm">Components</a></li>
@@ -33,6 +35,207 @@
                         <li><a href="Internal - Straylight/index.htm">Internal - Straylight</a></li>
                     </ul>
                 </nav>
+                <section>
+
+                    <h2>Expected behaviors</h2>
+
+                    <ul>
+                        <li> Hover tooltips appear when moused over and when the triggering element receives focus, then close when the mouse moves away or when focus moves to a different element. </li>
+                        <li> Manual tooltips appear when the triggering element is activated, then close when clicked again or when focus moves to a different element. </li>
+                        <li> Responsive tooltips appear when validation criteria are met when typing, and close when focus moves to a different element. </li>
+                        <li> Error tooltips appear when focus moves away from a field that fails validation, then close when focus moves back to the triggering element.</li>
+                    </ul>
+
+                    <p>The 4X ARIA Tooltip module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.</p>
+
+                    <p>The following attributes are handled automatically by the Tooltip module:</p>
+
+                    <ul>
+                        <li> role=tooltip</li>
+                        <li> aria-describedby</li>
+                        <li> aria-description</li>
+                        <li> role=region</li>
+                        <li> aria-label</li>
+                    </ul>
+
+                    <p>Available attributes for the triggering element:</p>
+
+                    <ul>
+                        <li> tooltip : The resource path and pointer to the ID attribute of the tooltip container element.</li>
+                        <li> error : The resource path and pointer to the ID attribute of the error container element.</li>
+                    </ul>
+
+                    <h2>JavaScript syntax</h2>
+
+                    <div>
+                        <pre><code class="language-javascript">var myTooltipDC = $A.setTooltip( domNodeOrCSSSelectorForTriggeringElement , {
+// Configure functionality key / value mappings
+});</code></pre>
+                    </div>
+
+                    <h2>Parameters</h2>
+
+                    <ol>
+                        <li>A DOM element or CSS selector to specify the triggering element</li>
+                        <li>A configuration map to customize behaviors and options</li>
+                    </ol>
+
+                    <h3>Configuration</h3>
+
+                    <div>
+                        <pre><code class="language-javascript">{
+
+// Optionally set a unique ID for the tooltip DC object, which can be referenced through $A('uniqueId')
+// If not specified, the id of the triggering element will be used instead.
+// When an error and a tooltip are set on the same trigger, a unique id for each must be manually specified.
+id: 'uniqueId',
+
+// Optionally specify the content to be rendered when referencing internal content.
+// May be a DOM node or CSS selector.
+// Not necessary if tooltip or error is set on the triggering element.
+content: "#uniqueId",
+
+// Optionally specify the content to be rendered when referencing external content.
+// Not necessary if tooltip or error is set on the triggering element.
+// If set, the content property will be auto-populated with the returned content.
+fetch: {
+url: "path/file.htm",
+data: {
+selector: "#uniqueId"
+}
+},
+
+// Optionally toggle the hidden attribute instead of inserting the tooltip content when rendered.
+    toggleHide: false,
+
+// Preload markup in the background when using the Fetch API to load external content.
+preload: true,
+
+// Preload images in the background when using the Fetch API to load external content.
+preloadImages: true,
+
+// Optionally specify if the tooltip is an alert message.
+// If true, a system alert will be fired when the tooltip is rendered.
+// As a general practice, tooltips and errors should never be alerts because this can interfere with speech announcement, so use with caution.
+isAlert: false,
+
+// Specify that the tooltip is an inline error message.
+isError: false,
+
+// Specify that the tooltip will only open when the triggering element receives focus, and not when moused over.
+isFocusOnly: false,
+
+// Specify that the tooltip will only open when the triggering element is clicked, and will close when clicked again.
+isManualOpen: false,
+
+// Specify that the tooltip will only close when the mouse leaves the tooltip instead of the triggering element.
+// Necessary to pass some WCAG guidelines.
+isManualClose: true,
+
+// Specify that the tooltip will be displayed only when specific validation criteria are met when typing.
+// Use when customized responses are needed to guide user input.
+isResponsive: false,
+
+// Set validation criteria to pass or fail as needed.
+validate: function(DC, target) {
+// 'target' is the input element to validate.
+var val = target.value.toLowerCase();
+// Set the DC.isValid property to track the state of validation.
+DC.isValid = val.length > 0;
+// Return the string to display as the tooltip if validation passes or failes.
+if (DC.isValid) return "You typed something!";
+else return "This field desires input.";
+},
+
+// Execute a handler every time validate is processed.
+onValidate: function(DC, target) {
+// Do something every time the target is updated.
+document.querySelector('input[type="submit"]').disabled = !DC.isValid;
+},
+
+// Optionally specify a delay in milliseconds to wait before rendering the tooltip after the triggering element is activated.
+delay: 0,
+
+// Optionally specify a timeout length in milliseconds, after which the tooltip will automatically close.
+delayTimeout: 0,
+
+// Optionally override the default timeout function that occurs after the delayTimeout length is reached.
+timeout: function(dc) {
+dc.remove();
+},
+
+// Optionally specify a render and remove animation effect for the tooltip.
+// Requires the "Animate" module import to function, which is powered by Velocity.js.
+// To ignore animation effects, delete the animate object declaration entirely from the setup script.
+// View implementations within "Templates/Tooltips" for practical animation usage examples.
+
+style: { display: "none" }, // Set the initial state to hidden in prep for animation.
+
+animate: {
+
+onRender: function(dc, wrapper, next) {
+
+// Specify the render animation effect, including the callback function statement to execute when the animation effect completes.
+Velocity(wrapper, "transition.TYPE", {
+// Velocity options here, plus the callback declaration after the animation completes.
+complete: function() {
+next(); // REQUIRED: next() must be executed so control is passed back to 4X for rendering.
+}
+});
+
+},
+
+onRemove: function(dc, wrapper, next) {
+
+// Specify the removal animation effect, including the callback function statement to execute when the animation effect completes.
+Velocity(wrapper, "transition.TYPE", {
+// Velocity options here, plus the callback declaration after the animation completes.
+complete: function() {
+next(); // REQUIRED: next() must be executed so control is passed back to 4X for removal.
+}
+});
+
+}
+
+},
+
+// Optionally run a script after the tooltip finishes rendering.
+afterRender: function(DC) {
+// DC.container includes the rendered tooltip content.
+},
+
+// Optionally run a script after the tooltip is removed.
+afterRemove: function(DC) {
+// Do something.
+}
+
+// Additional DC API properties and methods can be declared here also to customize functionality and behavior.
+// To view available options, reference the help docs located at: "Help/DC API/DC Object Configuration"
+
+}</code></pre>
+                    </div>
+
+                    <h2>Programmatic control</h2>
+
+                    <div>
+                        <pre><code class="language-javascript">// Get the DC object for the tooltip using its id.
+var DC = $A("tooltipId");
+
+// Open the tooltip manually.
+DC.render(function() {
+// Optionally do something after rendering completes.
+});
+
+// Close the tooltip manually.
+DC.remove(function() {
+// Optionally do something after removal completes.
+});
+
+// Additional DC API properties and methods can be applied here as well.
+// To view available options, reference the help docs located at: "Help/DC API/DC Object Properties and Methods"</code></pre>
+                    </div>
+
+                </section>
             </main>
         </div>
         <footer class="footer">

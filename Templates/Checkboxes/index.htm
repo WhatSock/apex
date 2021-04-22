@@ -7,6 +7,8 @@
     <meta name="description" content="Scalable ARIA Components">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/global.css">
+    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/prism.css">
+    <script type="text/javascript" src="../_common/_doc_files/prism.js"></script>
 </head>
 
 <body>
@@ -20,13 +22,125 @@
         </header>
         <div class="wrapper">
             <main id="main" class="main">
-                <h1><strong>Apex 4X</strong> Technical Style Guide</h1>
+                <h1><strong>ARIA Checkboxes</strong> </h1>
                 <nav>
                     <ul>
                         <li><a href="../index.htm">Components</a></li>
                         <li><a href="Standard/index.htm">Standard</a></li>
                     </ul>
                 </nav>
+                <section>
+
+                    <h2>Expected behaviors</h2>
+
+                    <p>The checkbox should be focusable using the keyboard, and toggle its checkable state when pressing the Spacebar or Enter key.</p>
+
+                    <p>The 4X ARIA Checkbox module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.</p>
+
+                    <p>The following attributes are handled automatically by the Checkbox module:</p>
+
+                    <ul>
+                        <li> role=checkbox</li>
+                        <li> aria-checked</li>
+                        <li> tabindex</li>
+                    </ul>
+
+                    <p>Available attributes for checkbox elements:</p>
+
+                    <ul>
+                        <li> check : May be set to "false", "true", or "mixed" to set the current state of a checkable control when rendered.</li>
+                    </ul>
+
+                    <h2>HTML syntax</h2>
+
+                    <h3>Standard Unchecked</h3>
+
+                    <div>
+                        <pre><code class="language-markup">&lt;div check >
+  Markup with checkbox name
+  &lt;input hidden type="checkbox" name="OptionalBoundCheckbox" />
+&lt;/div></code></pre>
+                    </div>
+
+                    <h3>Standard Checked</h3>
+
+                    <div>
+                        <pre><code class="language-markup">&lt;div check="true" >
+  Markup with checkbox name
+  &lt;input checked hidden type="checkbox" name="OptionalBoundCheckbox" />
+&lt;/div></code></pre>
+                    </div>
+
+                    <h3>Standard Partially-Checked</h3>
+
+                    <div>
+                        <pre><code class="language-markup">&lt;div check="mixed" >
+  Markup with checkbox name
+&lt;/div></code></pre>
+                    </div>
+
+                    <p>IMPORTANT: The focusable active element must not include any other exposed active elements, otherwise these will not be accessible to non-sighted screen reader users.</p>
+
+                    <h2>JavaScript syntax</h2>
+
+                    <div>
+                        <pre><code class="language-javascript">$A.setCheckbox( domNodeOrCSSSelectorForTriggeringElement , {
+// Configure functionality key / value mappings
+});</code></pre>
+                    </div>
+
+                    <h2>Parameters</h2>
+
+                    <ol>
+                        <li>A DOM element or CSS selector to specify the triggering element</li>
+                        <li>A configuration map to customize behaviors and options</li>
+                    </ol>
+
+                    <h3>Configuration</h3>
+
+                    <div>
+                        <pre><code class="language-javascript">{
+
+// Set an explicit name for the checkbox.
+// If undefined, the accessible name will default to the text content within the checkbox element.
+label: "My informative checkbox label",
+
+// Specify if the checkbox is required.
+// If a native checkbox element is specified, this property will automatically be set to match the checkbox element's 'required' property.
+required: false,
+
+// Specify if the checkbox is disabled.
+// If a native checkbox element is specified, this property will automatically be set to match the checkbox element's 'disabled' property.
+disabled: false,
+
+// Set the class to be applied when a checkbox is checked.
+// If undefined, "checked" will be set by default.
+toggleClassName: "checked",
+
+// Set the class to be applied when a checkbox is partially-checked.
+// If undefined, "partially-checked" will be set by default.
+partialClassName: "partially-checked",
+
+// Set a custom event handler to process every time a checkbox is activated.
+onActivate: function(ev, triggerNode, boundCheckbox, checked, set) {
+// 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
+// if 0, the checked state is "false".
+// if 1, the checked state is "true".
+// if 2, the checked state is "mixed".
+// The 'set' argument is a function that will set the checkable item to a new state.
+// The new value must be a string consisting of "false", "true", or "mixed".
+if (checked) {
+set("false");
+} else {
+set("true");
+}
+ev.preventDefault();
+}
+
+}</code></pre>
+                    </div>
+
+                </section>
             </main>
         </div>
         <footer class="footer">

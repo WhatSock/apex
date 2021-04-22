@@ -123,7 +123,7 @@ myCombobox.setSize(Number); // Default: 5
 myCombobox.setPosAnchor(alternateDOM-Node); // Will not change the DOM insertion point and reading order
 
 // Set a different element to act as an insertion point and autoPosition focus element instead of the Combobox control
-myCombobox.setTargetObj(alternateDOM-Node); // Will change the DOM reading order
+myCombobox.setTargetNode(alternateDOM-Node); // Will change the DOM reading order
 
 // Invoke the Combobox control and apply all saved settings
 myCombobox.start();

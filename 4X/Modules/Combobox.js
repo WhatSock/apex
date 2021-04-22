@@ -1121,7 +1121,7 @@ License: MIT (https://opensource.org/licenses/MIT)
               dc.posAnchor = o;
             };
 
-            that.setTargetObj = function(o) {
+            that.setTargetNode = function(o) {
               dc.targetNode = o;
             };
 

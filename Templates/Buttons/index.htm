@@ -7,6 +7,8 @@
     <meta name="description" content="Scalable ARIA Components">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/global.css">
+    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/prism.css">
+    <script type="text/javascript" src="../_common/_doc_files/prism.js"></script>
 </head>
 
 <body>
@@ -20,7 +22,7 @@
         </header>
         <div class="wrapper">
             <main id="main" class="main">
-                <h1><strong>Apex 4X</strong> Technical Style Guide</h1>
+                <h1><strong>ARIA Buttons</strong> </h1>
                 <nav>
                     <ul>
                         <li><a href="../index.htm">Components</a></li>
@@ -28,6 +30,113 @@
                         <li><a href="Toggle/index.htm">Toggle</a></li>
                     </ul>
                 </nav>
+                <section>
+
+                    <h2>Expected behaviors</h2>
+
+                    <p>The toggle button should be focusable using the keyboard, and toggle its pressed state when pressing the Spacebar or Enter key.</p>
+
+                    <p>The 4X ARIA Button module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.</p>
+
+                    <p>The following attributes are handled automatically by the Button module:</p>
+
+                    <ul>
+                        <li> role=button</li>
+                        <li> aria-pressed</li>
+                        <li> tabindex</li>
+                    </ul>
+
+                    <p>Available attributes for toggle button elements:</p>
+
+                    <ul>
+                        <li> toggle : May be set to "false" or "true" to set the current state of a toggle button control when rendered.</li>
+                    </ul>
+
+                    <h2>HTML syntax</h2>
+
+                    <h3>Standard Button</h3>
+
+                    <div>
+                        <pre><code class="language-markup">&lt;div class="aria-button" >
+  Markup with button name
+&lt;/div></code></pre>
+                    </div>
+
+                    <h3>Standard Toggle Unpressed</h3>
+
+                    <div>
+                        <pre><code class="language-markup">&lt;div toggle >
+  Markup with toggle name
+  &lt;input hidden type="checkbox" name="OptionalBoundCheckbox" />
+&lt;/div></code></pre>
+                    </div>
+
+                    <h3>Standard Toggle Pressed</h3>
+
+                    <div>
+                        <pre><code class="language-markup">&lt;div toggle="true" >
+  Markup with toggle name
+  &lt;input checked hidden type="checkbox" name="OptionalBoundCheckbox" />
+&lt;/div></code></pre>
+                    </div>
+
+                    <p>IMPORTANT: The focusable active element must not include any other exposed active elements, otherwise these will not be accessible to non-sighted screen reader users.</p>
+
+                    <h2>JavaScript syntax</h2>
+
+                    <div>
+                        <pre><code class="language-javascript">$A.setButton( domNodeOrCSSSelectorForTriggeringElement , {
+// Configure functionality key / value mappings
+});</code></pre>
+                    </div>
+
+                    <h2>Parameters</h2>
+
+                    <ol>
+                        <li>A DOM element or CSS selector to specify the triggering element</li>
+                        <li>A configuration map to customize behaviors and options</li>
+                    </ol>
+
+                    <h3>Configuration</h3>
+
+                    <div>
+                        <pre><code class="language-javascript">{
+
+// Set an explicit name for the button.
+// If undefined, the accessible name will default to the text content within the button element.
+label: "My informative button label",
+
+// Specify if the toggle button is required.
+// If a native checkbox element is specified, this property will automatically be set to match the checkbox element's 'required' property.
+required: false,
+
+// Specify if the toggle button is disabled.
+// If a native checkbox element is specified, this property will automatically be set to match the checkbox element's 'disabled' property.
+disabled: false,
+
+// Set the class to be applied when a toggle is pressed.
+// If undefined, "pressed" will be set by default.
+toggleClassName: "pressed",
+
+// Set a custom event handler to process every time a toggle button is activated.
+onActivate: function(ev, triggerNode, boundTo, pressed, set) {
+// 'pressed' reflects the current attribute value for the toggleable item, and is always a number if applicable.
+// if 0, the pressed state is "false".
+// if 1, the pressed state is "true".
+// The 'set' argument is a function that will set the toggleable item to a new state.
+// The new value must be a string consisting of "false" or "true".
+if (pressed) {
+set("false");
+} else {
+set("true");
+}
+ev.preventDefault();
+}
+
+}</code></pre>
+                    </div>
+
+                </section>
             </main>
         </div>
         <footer class="footer">

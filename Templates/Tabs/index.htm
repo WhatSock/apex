@@ -7,6 +7,8 @@
     <meta name="description" content="Scalable ARIA Components">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/global.css">
+    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/prism.css">
+    <script type="text/javascript" src="../_common/_doc_files/prism.js"></script>
 </head>
 
 <body>
@@ -20,7 +22,7 @@
         </header>
         <div class="wrapper">
             <main id="main" class="main">
-                <h1><strong>Apex 4X</strong> Technical Style Guide</h1>
+                <h1><strong>ARIA Tabs</strong> </h1>
                 <nav>
                     <ul>
                         <li><a href="../index.htm">Components</a></li>
@@ -30,6 +32,159 @@
                         <li><a href="Internal - Straylight/index.htm">Internal - Straylight</a></li>
                     </ul>
                 </nav>
+                <section>
+
+                    <h2>Expected behaviors</h2>
+
+                    <p>The group of triggering elements should have only one tab stop, the arrow keys should move focus between each Tab in the group, pressing Enter or Space should expand the desired Tab panel, the expanded state should be toggled appropriately on the triggering element, and the expanded Tab panel should be rendered directly after the group of triggering elements in the tab order.</p>
+
+                    <p>Though similar in both concept and execution to Tab controls, accordions are not the same. A Tab control has a series of grouped triggering elements that expand and collapse, the rendered content of which is inserted directly after the triggering element group when opened. The container element insertion point for all Tab control triggering elements is shared between them. Also, the group of triggering elements in a Tab control has only one tab stop. The arrow keys are then used to switch focus between each Tab, and the Enter or Space key is used to expand the desired Tab content panel.</p>
+
+                    <p>In contrast, an Accordion has a series of triggering elements that expand and collapse, the rendered content of which is inserted directly after the triggering element when opened. The container element insertion points for Accordions are not shared. Also, all Accordion links appear in the tab order. The reason why ARIA attributes such as role="tablist" and role="tab" are not included within accordions, is because the insertion of inline content would place dynamic content sections within the same Tablist container, making it impossible to determine the order of nested Tab controls when present within the inserted content. The chosen implementation should always match the UI that it's being applied to, to prevent confusion.</p>
+
+                    <p>The 4X ARIA Tab module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.</p>
+
+                    <p>The following attributes are handled automatically by the TabList module:</p>
+
+                    <ul>
+                        <li> role=tablist</li>
+                        <li> role=tab</li>
+                        <li> aria-expanded</li>
+                        <li> aria-selected</li>
+                        <li> aria-controls</li>
+                        <li> role=tabpanel</li>
+                        <li> aria-labelledby</li>
+                        <li> tabindex</li>
+                    </ul>
+
+                    <p>Available attributes for the triggering element:</p>
+
+                    <ul>
+                        <li> controls : The resource path and pointer to the ID attribute of the tab content container element.</li>
+                        <li> root : The ID attribute of the container element where the tab content will be inserted when rendered. (This must not be inside the triggering element)</li>
+                        <li> active : Specifies that the referenced tab node will open automatically. Only one tab node per group should include this attribute.</li>
+                    </ul>
+
+                    <p>IMPORTANT: The triggering element must not include any other active elements, otherwise these will not be accessible to non-sighted screen reader users.</p>
+
+                    <h2>JavaScript syntax</h2>
+
+                    <div>
+                        <pre><code class="language-javascript">$A.setTab( domNodeListOrCSSSelectorForTriggeringElements , {
+// Configure functionality key / value mappings
+});</code></pre>
+                    </div>
+
+                    <h2>Parameters</h2>
+
+                    <ol>
+                        <li>A DOM element or CSS selector to specify the triggering elements</li>
+                        <li>A configuration map to customize behaviors and options</li>
+                    </ol>
+
+                    <h3>Configuration</h3>
+
+                    <div>
+                        <pre><code class="language-javascript">{
+
+// Auto configure orientation using dynamic switching based on the visual layout of focusable elements.
+// "off"=Inactive, "semi"=Switches between vertical and horizontal only, "full"= Switches between vertical, horizontal, and both when line-wrapping is detected.
+autoSwitch: "full",
+
+// Optionally extend the RTI instance with custom event handlers.
+// For available options, view the RovingTabIndex help doc at "Help/Module Imports/Actions/RovingTabIndex".
+extendRTI: {
+// Optional event handlers.
+},
+
+// Optionally choose to track the browser history when each panel is opened.
+// May be used to automatically open the same panel after the page is bookmarked.
+    trackPage: false,
+
+// Toggle the specified class name on the triggering element when hidden or shown.
+    toggleClassName: "open",
+
+// Optionally toggle the hidden attribute instead of inserting the tab panel when rendered.
+    toggleHide: false,
+
+// Preload markup in the background when using the Fetch API to load external content.
+preload: true,
+
+// Preload images in the background when using the Fetch API to load external content.
+preloadImages: true,
+
+// Optionally run a script after the tab panel finishes rendering.
+afterRender: function(DC) {
+// DC.container includes the rendered tab panel content.
+},
+
+// Optionally run a script after the tab panel is removed.
+afterRemove: function(DC) {
+// Do something.
+},
+
+// Optionally specify a render and remove animation effect for the tab panel.
+// Requires the "Animate" module import to function, which is powered by Velocity.js.
+// To ignore animation effects, delete the animate object declaration entirely from the setup script.
+// View implementations within "Templates/Tabs" for practical animation usage examples.
+
+style: { display: "none" }, // Set the initial state to hidden in prep for animation.
+
+animate: {
+
+onRender: function(dc, wrapper, next) {
+
+// Specify the render animation effect, including the callback function statement to execute when the animation effect completes.
+Velocity(wrapper, "transition.TYPE", {
+// Velocity options here, plus the callback declaration after the animation completes.
+complete: function() {
+next(); // REQUIRED: next() must be executed so control is passed back to 4X for rendering.
+}
+});
+
+},
+
+onRemove: function(dc, wrapper, next) {
+
+// Specify the removal animation effect, including the callback function statement to execute when the animation effect completes.
+Velocity(wrapper, "transition.TYPE", {
+// Velocity options here, plus the callback declaration after the animation completes.
+complete: function() {
+next(); // REQUIRED: next() must be executed so control is passed back to 4X for removal.
+}
+});
+
+}
+
+}
+
+// (Additional DC API properties and methods can be declared here also to customize functionality and behavior)
+// To view available options, reference the help docs located at: "Help/DC API/DC Object Configuration"
+
+}</code></pre>
+                    </div>
+
+                    <h2>Programmatic control</h2>
+
+                    <div>
+                        <pre><code class="language-javascript">// Get the DC object for the tab using its triggering element id.
+var DC = $A("tabTriggerId");
+
+// Open the tab panel manually.
+DC.render(function() {
+// Optionally do something after rendering completes.
+});
+
+// Close the tab manually.
+DC.remove(function() {
+// Optionally do something after removal completes.
+});
+
+// Additional DC API properties and methods can be applied here as well.
+// To view available options, reference the help docs located at: "Help/DC API/DC Object Properties and Methods"</code></pre>
+                    </div>
+
+                </section>
             </main>
         </div>
         <footer class="footer">

@@ -136,16 +136,16 @@ selectText: "Selected",
 unselectText: "Not Selected",
 
 // Set a custom event handler to process every time a listbox option is activated.
-onActivate: function(event, triggerNode, RTI, DC, currentState, setNewStateFn) {
+onActivate: function(event, triggerNode, RTI, DC, currentState, set) {
 // If the option node is checkable, currentState will include a number from 0 to 2.
 // (0 = "false", 1 = "true", 2 = "mixed".)
 // Otherwise, if multiselect is true instead, currentState will reflect the boolean value for the currently selected option.
-// The setNewStateFn function can be used to set a new state for the option.
-// E.G. setNewStateFn("false"), setNewStateFn("true"), or setNewStateFn("mixed") for checkable options.
+// The set function can be used to set a new state for the option.
+// E.G. set("false"), set("true"), or set("mixed") for checkable options.
 },
 
 // Optionally extend the RTI instance with custom event handlers.
-// For available options, view the RovingTabIndex help doc at "Help/$A API/ARIA Development/Module Imports/Actions/RovingTabIndex".
+// For available options, view the RovingTabIndex help doc at "Help/Module Imports/Actions/RovingTabIndex".
 extendRTI: {
 // Optional event handlers.
 }
