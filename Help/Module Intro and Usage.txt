@@ -1,4 +1,7 @@
 
+Modules
+-----
+
 Dynamic modularization is one of the most powerful features that 4X provides, including on-demand imports, internal caching for shared modules, automatic queuing for sequential imports, shared props between modules within the same import scope, and optional deferment.
 
 This makes it possible to dynamically import functionality modules on an as-needed basis, and to chain required dependencies that are shared between multiple modules, without having to preload all related script files in advance when the page first loads. Internal caching maximizes overall processing speed, and callback functions can be optionally deferred so they will only execute after the page completes loading.
@@ -8,17 +11,11 @@ Custom props can also be passed from the originating import statement into all c
 Module Usage
 -----
 
-By default, the 4X module folder is located at "/4X/Modules/", which is why the 4X folder needs to be placed at the root of your website directory. However, this can be changed if a different location is necessary.
+By default, the 4X module folder is located at "/4X/Modules/", which is why the 4X folder needs to be placed at the root of the website directory. However, this can be changed if a different location is necessary.
 
 If the 4X folder needs to be place somewhere else, such as at "/Subfolder/Path/4X", then it will be necessary to change the internal "moduleFolder" property in 4X.js to reference the correct module folder. E.G. Change it to "/Subfolder/Path/4X/Modules/".
 
 This will allow 4X to dynamically import required modules as needed to ensure proper functionality.
-
-If the path is changed, the webpage script src path must also be changed to reflect the new location.
-
-```
-<script type="text/javascript" src="/Subfolder/Path/4X/4X.js"></script>
-```
 
 Importing Modules
 -----
@@ -45,8 +42,8 @@ Creating Modules
 
 There is no required syntax for creating a standalone module. Any properly coded JavaScript file can become a module import as-needed using the $A.import() statement.
 
-However, when creating modules that reference additional module imports, it is important to use the Module Import Template to do so. This is available in the file at: "Help/Module Import Template.js"
+However, when creating modules that reference additional module imports, it is important to use the Module Import Template to do so. This is available in the file at: "Help/ModuleTemplate.js"
 
-For example, the props object is required to be passed down to all imported modules to ensure that deferred callbacks can be queued correctly when chained together. This is an extremely powerful feature, and allows for shared props to be passed between external modules when loaded dynamically for custom behavior configurations.
+For example, the props object is required to be passed down to all imported modules to ensure that deferred callbacks can be queued correctly when chained together. This is a powerful feature, and allows for shared props to be passed between external modules when loaded dynamically for custom behavior configurations.
 
 For more information regarding props, view the help file at: "Help/$A API/Import and Fetch APIs/Props"

@@ -11,6 +11,22 @@ Usage
 # Place the 4X folder at the root of your website directory. The 4X folder should then be accessible from "www.YourDomain.com/4X".
 # Add the following script statement within the head of your page: `<script type="text/javascript" src="/4X/4X.js"></script>`
 
-In contrast, the DC API is only applicable when creating DC instances for the configuring of dynamic components. For help regarding this, view the documentation at: 
+After which, all of the $A API features will be available, including the full suite of ARIA development processes. These are fully documented within the help docs folder at: "Help/ARIA Development"
+
+The default server location can be changed by modifying the "moduleFolder" property within 4X.js if needed.
+
+In contrast, the DC API is only applicable when creating DC instances for the configuring of dynamic components.
+
+Any DOM element or markup string can be turned into a DC object using the following syntax:
+
+```
+var DC = $A.toDC(domElement, {
+  // Optional DC API properties and methods here.
+});
+```
+
+After which, all DC API properties and methods will be available for that object.
+
+For help regarding this, view the documentation at: 
 "Help/$A API/DC Objects/", and 
-"Help/DC API/DC Object Configuration".
+"Help/DC API".

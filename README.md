@@ -16,9 +16,25 @@ Usage
 # Place the 4X folder at the root of your website directory. The 4X folder should then be accessible from "www.YourDomain.com/4X".
 # Add the following script statement within the head of your page: `<script type="text/javascript" src="/4X/4X.js"></script>`
 
-In contrast, the DC API is only applicable when creating DC instances for the configuring of dynamic components. For help regarding this, view the documentation at: 
+After which, all of the $A API features will be available, including the full suite of ARIA development processes. These are fully documented within the help docs folder at: "Help/ARIA Development"
+
+The default server location can be changed by modifying the "moduleFolder" property within 4X.js as needed.
+
+In contrast, the DC API is only applicable when creating DC instances for the configuring of dynamic components.
+
+Any DOM element or markup string can be turned into a DC object using the following syntax:
+
+```
+var DC = $A.toDC(domElement, {
+  // Optional DC API properties and methods here.
+});
+```
+
+After which, all DC API properties and methods will be available for that object.
+
+For help regarding this, view the documentation at: 
 "Help/$A API/DC Objects/", and 
-"Help/DC API/DC Object Configuration".
+"Help/DC API".
 
 Modules
 -----
@@ -32,17 +48,11 @@ Custom props can also be passed from the originating import statement into all c
 Module Usage
 -----
 
-By default, the 4X module folder is located at "/4X/Modules/", which is why the 4X folder needs to be placed at the root of your website directory. However, this can be changed if a different location is necessary.
+By default, the 4X module folder is located at "/4X/Modules/", which is why the 4X folder needs to be placed at the root of the website directory. However, this can be changed if a different location is necessary.
 
 If the 4X folder needs to be place somewhere else, such as at "/Subfolder/Path/4X", then it will be necessary to change the internal "moduleFolder" property in 4X.js to reference the correct module folder. E.G. Change it to "/Subfolder/Path/4X/Modules/".
 
 This will allow 4X to dynamically import required modules as needed to ensure proper functionality.
-
-If the path is changed, the webpage script src path must also be changed to reflect the new location.
-
-```
-<script type="text/javascript" src="/Subfolder/Path/4X/4X.js"></script>
-```
 
 Importing Modules
 -----
@@ -69,30 +79,31 @@ Creating Modules
 
 There is no required syntax for creating a standalone module. Any properly coded JavaScript file can become a module import as-needed using the $A.import() statement.
 
-However, when creating modules that reference additional module imports, it is important to use the Module Import Template to do so. This is available in the file at: "Help/Module Import Template.js"
+However, when creating modules that reference additional module imports, it is important to use the Module Import Template to do so. This is available in the file at: "Help/ModuleTemplate.js"
 
-For example, the props object is required to be passed down to all imported modules to ensure that deferred callbacks can be queued correctly when chained together. This is an extremely powerful feature, and allows for shared props to be passed between external modules when loaded dynamically for custom behavior configurations.
+For example, the props object is required to be passed down to all imported modules to ensure that deferred callbacks can be queued correctly when chained together. This is a powerful feature, and allows for shared props to be passed between external modules when loaded dynamically for custom behavior configurations.
 
 For more information regarding props, view the help file at: "Help/$A API/Import and Fetch APIs/Props"
 
-Apex Widget Templates
+Widget Templates
 -----
+
+All of the following ARIA widget templates are available for immediate use. None of them require any prior knowledge of ARIA to implement.
 
 Accordions, Buttons, Checkboxes, Comboboxes, Datepickers, Dialogs, Footnotes, Listboxes, Menus, Popups, Radios, Switches, Tabs, Tooltips, and Trees.
 
-Usage License
+License
 -----
 
-Apex 4X is distributed under the terms of the Open Source Initiative OSI - MIT License.
+Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
 
-Developed and maintained by: Bryan Garaventa https://www.linkedin.com/in/bgaraventa
-Or on Twitter at https://twitter.com/bryanegaraventa
-
-Contributors
+Acknowledgements
 -----
 
-* Laurence Lewis (Markup and Style Editor): https://www.linkedin.com/in/laurence-lewis-77520365/  
-* Visual design by Angela Ricci (web designer and web front-end developer). You can check her work at her personal site http://gericci.me/ Or you can follow her on Twitter at https://twitter.com/gericci
+* Author and developer: Bryan Garaventa https://www.linkedin.com/in/bgaraventa
+* Website designer: Angela Ricci http://gericci.me
+* Style and markup editor: Laurence Lewis https://www.linkedin.com/in/laurence-lewis-77520365/  
+* Contributions by: Danny Allen http://dannya.com
 
 Project home:
 -----
@@ -102,4 +113,4 @@ http://whatsock.com
 Related projects:
 -----
 
-* WhatSock Organization: https://github.com/whatsock
+https://github.com/whatsock
