@@ -13,27 +13,27 @@ The following attributes are handled automatically by the Checkbox module:
 
 Available attributes for checkbox elements:
 
-• check : May be set to "false", "true", or "mixed" to set the current state of a checkable control when rendered.
+• data-check : May be set to "false", "true", or "mixed" to set the current state of a checkable control when rendered.
 
 HTML syntax:
 
 [Standard Unchecked]
 
-<div check >
+<div data-check >
   Markup with checkbox name
   <input hidden type="checkbox" name="OptionalBoundCheckbox" />
 </div>
 
 [Standard Checked]
 
-<div check="true" >
+<div data-check="true" >
   Markup with checkbox name
   <input checked hidden type="checkbox" name="OptionalBoundCheckbox" />
 </div>
 
 [Standard Partially-Checked]
 
-<div check="mixed" >
+<div data-check="mixed" >
   Markup with checkbox name
 </div>
 

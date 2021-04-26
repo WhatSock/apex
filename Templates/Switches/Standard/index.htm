@@ -54,24 +54,24 @@ Otherwise, based on how ARIA works in accordance with the spec, none of the embe
 
                             <ul class="switch--container">
                                 <li>
-                                    <div switch class="aria-switch thermostat">
+                                    <div data-switch class="aria-switch thermostat">
                                         <span class="aria-switch__label">Thermostat</span>
                                         <span class="aria-switch__button" aria-hidden="true"></span>
                                         <input hidden type="switch" name="Thermostat" />
                                     </div>
                                 </li>
                                 <li>
-                                    <div switch class="aria-switch security checked">
+                                    <div data-switch="true" class="aria-switch security checked">
                                         <span class="aria-switch__label">Security</span>
                                         <span class="aria-switch__button" aria-hidden="true"></span>
                                         <input checked hidden type="switch" name="Security" />
                                     </div>
                                 </li>
                                 <li>
-                                    <div switch="true" class="aria-switch lights">
+                                    <div data-switch class="aria-switch lights">
                                         <span class="aria-switch__label">Lights</span>
                                         <span class="aria-switch__button" aria-hidden="true"></span>
-                                        <input checked hidden type="switch" name="Lights" />
+                                        <input hidden type="switch" name="Lights" />
                                     </div>
                                 </li>
                             </ul>

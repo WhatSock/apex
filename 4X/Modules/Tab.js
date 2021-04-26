@@ -132,7 +132,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                   "aria-expanded": "false",
                   "aria-selected": "false"
                 });
-                var panelContainer = $A.get($A.getAttr(o, "root")),
+                var panelContainer = $A.get($A.getAttr(o, "data-root")),
                   dc = $A.toDC(
                     o,
                     $A.extend(
@@ -145,7 +145,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     )
                   );
                 dcArray.push(dc);
-                if ($A.hasAttr(o, "active")) {
+                if ($A.hasAttr(o, "data-active")) {
                   active = dc;
                   startIndex = i;
                 }
@@ -183,8 +183,6 @@ License: MIT (https://opensource.org/licenses/MIT)
             );
 
             $A.updateDisabled(RTI.nodes);
-
-            $A.remAttr(RTI.nodes, ["active", "controls", "root"]);
 
             if (!$A.hasHash(dcArray) && $A.isDC(active)) active.render();
 

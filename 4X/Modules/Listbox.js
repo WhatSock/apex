@@ -83,7 +83,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                   if (attributeValue === "true") c = 1;
                   else if (attributeValue === "mixed") c = 2;
                   else attributeValue = "false";
-                  $A.data(o, "check", c);
+                  $A.data(o, "data-check", c);
                   if (write) {
                     $A.setAttr(o, "aria-checked", attributeValue);
                   }
@@ -164,12 +164,12 @@ License: MIT (https://opensource.org/licenses/MIT)
                     function(i, o) {
                       var check = getState(
                           o,
-                          $A.getAttr(o, "check"),
-                          init.checkable || $A.hasAttr(o, "check")
+                          $A.getAttr(o, "data-check"),
+                          init.checkable || $A.hasAttr(o, "data-check")
                         ),
                         n =
-                          ($A.hasAttr(o, "controls") &&
-                            $A.morph($A.getAttr(o, "controls"))) ||
+                          ($A.hasAttr(o, "data-controls") &&
+                            $A.morph($A.getAttr(o, "data-controls"))) ||
                           ($A.isFn(o.querySelector) &&
                             o.querySelector("input")) ||
                           false;
@@ -187,7 +187,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         });
                       }
                       var select =
-                        $A.hasAttr(o, "select") ||
+                        $A.hasAttr(o, "data-select") ||
                         ($A.isNode($A.boundTo(o)) && $A.boundTo(o).selected);
                       $A.setAttr(o, "aria-selected", select ? "true" : "false");
                       $A.data(o, "_Selected", select);
@@ -236,7 +236,6 @@ License: MIT (https://opensource.org/licenses/MIT)
                   init.setRoles();
                   init.setEvents();
                   init.setSelected();
-                  $A.remAttr(init.options, ["check", "controls", "select"]);
                 },
                 setFlags: function() {
                   var select = init.select.nodeType ? init.select : config;
@@ -807,7 +806,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 init.select = $A.morph(config.select);
               else init.select = { nodeType: false };
               config.select = init.select;
-              var ref = $A.getAttr(init.select, "controls");
+              var ref = $A.getAttr(init.select, "data-controls");
               if (ref && $A.isNode($A.morph(ref))) init.listbox = $A.morph(ref);
               else if (!$A.isNative(o)) init.listbox = o;
               else if (config.listbox && $A.morph(config.listbox))

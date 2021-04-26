@@ -13,7 +13,7 @@ The following attributes are handled automatically by the Button module:
 
 Available attributes for toggle button elements:
 
-• toggle : May be set to "false" or "true" to set the current state of a toggle button control when rendered.
+• data-toggle : May be set to "false" or "true" to set the current state of a toggle button control when rendered.
 
 HTML syntax:
 
@@ -25,14 +25,14 @@ HTML syntax:
 
 [Standard Toggle Unpressed]
 
-<div toggle >
+<div data-toggle >
   Markup with toggle name
   <input hidden type="checkbox" name="OptionalBoundCheckbox" />
 </div>
 
 [Standard Toggle Pressed]
 
-<div toggle="true" >
+<div data-toggle="true" >
   Markup with toggle name
   <input checked hidden type="checkbox" name="OptionalBoundCheckbox" />
 </div>

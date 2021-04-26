@@ -52,17 +52,17 @@
                         <h1 class="pageTitle">Straylight Tooltip <small>External Content</small></h1>
                         <section>
                             <h2>Tooltip with manual click to render</h2>
-                            <p><a data-mode="click" tooltip="files/tooltips.htm#quote-tooltip" id="helpIcon" href="#" class="helpIcon aria-tooltip"><img src="img/ic_help.svg" alt="What is the greatest secret known to man?" title="What is the greatest secret known to man?" /></a></p>
+                            <p><a data-mode="click" data-tooltip="files/tooltips.htm#quote-tooltip" id="helpIcon" href="#" class="helpIcon aria-tooltip"><img src="img/ic_help.svg" alt="What is the greatest secret known to man?" title="What is the greatest secret known to man?" /></a></p>
                         </section>
                         <section>
                             <h2>Tooltip with explicit onFocus to render</h2>
                             <p><label for="pWord">Password:</label>
-                                <input data-mode="focus" data-delay="1000" tooltip="files/tooltips.htm#password-tooltip" id="pWord" type="password" class="aria-tooltip" />
+                                <input data-mode="focus" data-delay="1000" data-tooltip="files/tooltips.htm#password-tooltip" id="pWord" type="password" class="aria-tooltip" />
                             </p>
                         </section>
                         <section>
                             <h2>Tooltip with hover support to render</h2>
-                            <p><button data-delay="600" data-timeout="3000" tooltip="files/tooltips.htm#hover-tooltip" class="action-btn aria-tooltip" onclick="alert('Do something else.')">Action</button></p>
+                            <p><button data-delay="600" data-timeout="3000" data-tooltip="files/tooltips.htm#hover-tooltip" class="action-btn aria-tooltip" onclick="alert('Do something else.')">Action</button></p>
                         </section>
                     </div>
                     <div class="keyboard flex-item">

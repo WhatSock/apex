@@ -19,7 +19,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           // Search and recognise accordion triggering elements with the class "aria-accordion-trigger" plus a valid data-name attribute for shared control groups.
           var map = new Map();
           $A.query(
-            "button[controls][data-name].aria-accordion-trigger, a[controls][data-name].aria-accordion-trigger",
+            "button[data-controls][data-name].aria-accordion-trigger, a[data-controls][data-name].aria-accordion-trigger",
             context,
             function(i, o) {
               if (!$A.data(o, "_isBoundAccordion")) {
@@ -154,7 +154,7 @@ License: MIT (https://opensource.org/licenses/MIT)
         (function() {
           // ARIA Date Pickers
           // Parse all A and button tags that include the class 'aria-date-picker'
-          // An Input element with type=text is specified as the return recipient by matching the controls attribute of the A/Button with the Input element's id attribute.
+          // An Input element with type=text is specified as the return recipient by matching the data-controls attribute of the A/Button with the Input element's id attribute.
           // A and Button tags were chosen because they are always active elements, to ensure keyboard accessibility.
           $A.query(
             "a.aria-date-picker, button.aria-date-picker",
@@ -166,7 +166,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 tdc.remove();
                 tdc.returnFocus = true;
               }
-              var id = $A.getAttr(o, "controls") || false,
+              var id = $A.getAttr(o, "data-controls") || false,
                 target = id ? context.querySelector("#" + id) : false;
               if (target) {
                 // Prevent duplicate event bindings when nested within multi-level same page apps
@@ -227,7 +227,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           // ARIA Dialogs
           // Search and recognise dialog triggering elements with the class "aria-dialog"
           var triggers = context.querySelectorAll(
-            "a[href][controls].aria-dialog, button[controls].aria-dialog"
+            "a[href][data-controls].aria-dialog, button[data-controls].aria-dialog"
           );
 
           if (triggers.length)
@@ -303,7 +303,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           // ARIA Popups
           // Search and recognise popup triggering elements with the class "aria-popup"
           var triggers = context.querySelectorAll(
-            "a[href][controls].aria-popup, button[controls].aria-popup"
+            "a[href][data-controls].aria-popup, button[data-controls].aria-popup"
           );
 
           if (triggers.length)

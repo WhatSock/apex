@@ -19,8 +19,8 @@ The following attributes are handled automatically by the Tooltip module:
 
 Available attributes for the triggering element:
 
-• tooltip : The resource path and pointer to the ID attribute of the tooltip container element.
-• error : The resource path and pointer to the ID attribute of the error container element.
+• data-tooltip : The resource path and pointer to the ID attribute of the tooltip container element.
+• data-error : The resource path and pointer to the ID attribute of the error container element.
 
 JavaScript syntax:
 

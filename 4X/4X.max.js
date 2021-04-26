@@ -476,7 +476,7 @@ License: MIT (https://opensource.org/licenses/MIT)
       }
       if (!$A.isPlainObject(config)) config = {};
       if (o) o = $A.morph(o);
-      var ctrl = $A.isNode(o) && $A.getAttr(o, "controls");
+      var ctrl = $A.isNode(o) && $A.getAttr(o, "data-controls");
 
       if (config.fetch && config.fetch.url) {
         config.toggleHide = false;
@@ -548,8 +548,6 @@ License: MIT (https://opensource.org/licenses/MIT)
         DC.wrapper = DC.container = DC.content;
         DC.wrapperId = DC.containerId = DC.content.id;
       }
-
-      if (ctrl) $A.remAttr(o, ["controls"]);
 
       return DC;
     },
@@ -3894,7 +3892,6 @@ error: function(error, promise){}
               }
               dc.isRendered = false;
               dc.loaded = false;
-              if (dc.ariaControls) $A.remAttr(dc.triggerNode, "aria-controls");
               if (dc.toggleClassName)
                 $A.toggleClass(dc.triggerNode, dc.toggleClassName, false);
               dc.closing = false;

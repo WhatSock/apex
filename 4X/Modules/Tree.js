@@ -124,7 +124,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 var ref =
                   list ||
                   ($A.isNode(o) &&
-                    ($A.getAttr(o, "controls") ||
+                    ($A.getAttr(o, "data-controls") ||
                       $A.next(o, function(e) {
                         if (e.nodeName.toLowerCase() === tag.parent)
                           return true;
@@ -453,8 +453,8 @@ License: MIT (https://opensource.org/licenses/MIT)
                     genTree(o, DC.RTI, null, false, level + 1, i);
                     var check = getState(
                         o,
-                        $A.getAttr(o, "check"),
-                        $A.hasAttr(o, "check")
+                        $A.getAttr(o, "data-check"),
+                        $A.hasAttr(o, "data-check")
                       ),
                       n =
                         ($A.isFn(o.querySelector) &&
@@ -522,8 +522,6 @@ License: MIT (https://opensource.org/licenses/MIT)
                     if (a >= 0) DC.RTI.activate(a);
                   }
                 }
-
-                $A.remAttr(mItems, ["check", "controls"]);
 
                 return DC;
               };

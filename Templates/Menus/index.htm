@@ -61,9 +61,9 @@
                     <p>Available attributes for menu item links:</p>
 
                     <ul>
-                        <li> menu : The resource path and pointer to the ID attribute of the submenu container element.</li>
-                        <li> radio : May be set to "false" or "true" to set the current state of a radio menu item when rendered.</li>
-                        <li> check : May be set to "false", "true", or "mixed" to set the current state of a checkbox menu item when rendered.</li>
+                        <li> data-menu : The resource path and pointer to the ID attribute of the submenu container element.</li>
+                        <li> data-radio : May be set to "false" or "true" to set the current state of a radio menu item when rendered.</li>
+                        <li> data-check : May be set to "false", "true", or "mixed" to set the current state of a checkbox menu item when rendered.</li>
                     </ul>
 
                     <h2>HTML syntax</h2>
@@ -104,7 +104,7 @@
                     <div>
                         <pre><code class="language-markup">&lt;ul id="menuId">
   &lt;li>
-    &lt;a check="false" href=" ... " >
+    &lt;a data-check="false" href=" ... " >
       Accessible name and markup.
     &lt;/a>
   &lt;/li>
@@ -116,12 +116,12 @@
                     <div>
                         <pre><code class="language-markup">&lt;ul id="menuId">
   &lt;li>
-    &lt;a radio href=" ... " >
+    &lt;a data-radio href=" ... " >
       Accessible name and markup.
     &lt;/a>
   &lt;/li>
   &lt;li>
-    &lt;a radio="true" href=" ... " >
+    &lt;a data-radio="true" href=" ... " >
       Accessible name and markup.
     &lt;/a>
   &lt;/li>

@@ -13,20 +13,20 @@ The following attributes are handled automatically by the Switch module:
 
 Available attributes for switch elements:
 
-• switch : May be set to "false" or "true" to set the current state of a switchable control when rendered.
+• data-switch : May be set to "false" or "true" to set the current state of a switchable control when rendered.
 
 HTML syntax:
 
 [Standard Off]
 
-<div switch >
+<div data-switch >
   Markup with switch name
   <input hidden type="checkbox" name="OptionalBoundCheckbox" />
 </div>
 
 [Standard On]
 
-<div switch="true" >
+<div data-switch="true" >
   Markup with switch name
   <input checked hidden type="checkbox" name="OptionalBoundCheckbox" />
 </div>

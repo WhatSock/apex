@@ -16,7 +16,7 @@ The following attributes are handled automatically by the Listbox module:
 
 Available attributes for listbox option elements:
 
-• check : May be set to "false", "true", or "mixed" to set the current state of a checkable option when rendered.
+• data-check : May be set to "false", "true", or "mixed" to set the current state of a checkable option when rendered.
 
 HTML syntax:
 
@@ -34,7 +34,7 @@ HTML syntax:
 
 <ul id="listboxId">
   <li>
-    <button check="false" >
+    <button data-check >
       Accessible name and markup.
     </button>
   </li>

@@ -214,8 +214,8 @@ License: MIT (https://opensource.org/licenses/MIT)
 
           if (!config.isError && config.isResponsive) config.isError = true;
 
-          if ($A.hasAttr(o, "tooltip")) {
-            var dt = $A.getAttr(o, "tooltip");
+          if ($A.hasAttr(o, "data-tooltip")) {
+            var dt = $A.getAttr(o, "data-tooltip");
             tooltip = {
               id: $A.hasDC(id) ? $A.genId() : id,
               target: o,
@@ -225,8 +225,8 @@ License: MIT (https://opensource.org/licenses/MIT)
             else tooltip.content = $A.morph(dt);
           }
 
-          if ($A.hasAttr(o, "error")) {
-            var de = $A.getAttr(o, "error");
+          if ($A.hasAttr(o, "data-error")) {
+            var de = $A.getAttr(o, "data-error");
             error = {
               id: $A.hasDC(id) ? $A.genId() : id,
               target: o,
@@ -278,8 +278,6 @@ License: MIT (https://opensource.org/licenses/MIT)
                 $A.getText($A.morph(config.content))
               );
           }
-
-          $A.remAttr(o, ["controls", "error", "tooltip"]);
         });
 
         return dcArray.length === 1 ? dcArray[0] : dcArray;

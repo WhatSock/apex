@@ -73,8 +73,6 @@ License: MIT (https://opensource.org/licenses/MIT)
               )
             )
           );
-
-          $A.remAttr(o, ["controls"]);
         });
 
         return dcArray.length === 1 ? dcArray[0] : dcArray;

@@ -2948,8 +2948,6 @@ License: MIT <https://opensource.org/licenses/MIT>
           "." + baseId
         );
 
-        $A.remAttr([trigger, targ], ["controls"]);
-
         return mainDC;
       }
     });

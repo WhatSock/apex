@@ -20,9 +20,9 @@ Available attributes for the triggering element:
 
 Available attributes for menu item links:
 
-• menu : The resource path and pointer to the ID attribute of the submenu container element.
-• radio : May be set to "false" or "true" to set the current state of a radio menu item when rendered.
-• check : May be set to "false", "true", or "mixed" to set the current state of a checkbox menu item when rendered.
+• data-menu : The resource path and pointer to the ID attribute of the submenu container element.
+• data-radio : May be set to "false" or "true" to set the current state of a radio menu item when rendered.
+• data-check : May be set to "false", "true", or "mixed" to set the current state of a checkbox menu item when rendered.
 
 HTML syntax:
 
@@ -57,7 +57,7 @@ HTML syntax:
 
 <ul id="menuId">
   <li>
-    <a check="false" href=" ... " >
+    <a data-check href=" ... " >
       Accessible name and markup.
     </a>
   </li>
@@ -67,12 +67,12 @@ HTML syntax:
 
 <ul id="menuId">
   <li>
-    <a radio href=" ... " >
+    <a data-radio href=" ... " >
       Accessible name and markup.
     </a>
   </li>
   <li>
-    <a radio="true" href=" ... " >
+    <a data-radio="true" href=" ... " >
       Accessible name and markup.
     </a>
   </li>

@@ -49,7 +49,7 @@
                     <p>Available attributes for radio elements:</p>
 
                     <ul>
-                        <li> radio : May be set to "false" or "true" to set the current state of a checkable control when rendered.</li>
+                        <li> data-radio : May be set to "false" or "true" to set the current state of a checkable control when rendered.</li>
                     </ul>
 
                     <h2>HTML syntax</h2>
@@ -57,7 +57,7 @@
                     <h3>Standard Unchecked</h3>
 
                     <div>
-                        <pre><code class="language-markup">&lt;div radio >
+                        <pre><code class="language-markup">&lt;div data-radio >
 Markup with radio name
 &lt;input hidden type="radio" name="OptionalBoundRadio" />
 &lt;/div></code></pre>
@@ -66,7 +66,7 @@ Markup with radio name
                     <h3>Standard Checked</h3>
 
                     <div>
-                        <pre><code class="language-markup">&lt;div radio="true" >
+                        <pre><code class="language-markup">&lt;div data-radio="true" >
 Markup with radio name
 &lt;input checked hidden type="radio" name="OptionalBoundRadio" />
 &lt;/div></code></pre>

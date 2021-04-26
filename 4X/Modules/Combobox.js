@@ -1261,7 +1261,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 
             dc.cb.fn.set();
 
-            $A.remAttr(dc.triggerNode, ["controls"]);
+            $A.remAttr(dc.triggerNode, ["data-controls"]);
 
             return that;
           }

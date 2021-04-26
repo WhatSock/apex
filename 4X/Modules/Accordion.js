@@ -78,7 +78,7 @@ License: MIT (https://opensource.org/licenses/MIT)
               )
                 $A.setAttr(o, "role", "button");
               $A.svgFix(o);
-              var panelContainer = $A.get($A.getAttr(o, "root")),
+              var panelContainer = $A.get($A.getAttr(o, "data-root")),
                 dc = $A.toDC(
                   o,
                   $A.extend(
@@ -90,11 +90,10 @@ License: MIT (https://opensource.org/licenses/MIT)
                   )
                 );
               dcArray.push(dc);
-              if ($A.hasAttr(o, "active")) {
+              if ($A.hasAttr(o, "data-active")) {
                 active.push(dc);
                 startIndex = i;
               }
-              $A.remAttr(o, ["active", "controls", "root"]);
             });
 
             $A.map({

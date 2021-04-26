@@ -14,20 +14,20 @@ The following attributes are handled automatically by the Radio module:
 
 Available attributes for radio elements:
 
-• radio : May be set to "false" or "true" to set the current state of a checkable control when rendered.
+• data-radio : May be set to "false" or "true" to set the current state of a checkable control when rendered.
 
 HTML syntax:
 
 [Standard Unchecked]
 
-<div radio >
+<div data-radio >
 Markup with radio name
 <input hidden type="radio" name="OptionalBoundRadio" />
 </div>
 
 [Standard Checked]
 
-<div radio="true" >
+<div data-radio="true" >
 Markup with radio name
 <input checked hidden type="radio" name="OptionalBoundRadio" />
 </div>

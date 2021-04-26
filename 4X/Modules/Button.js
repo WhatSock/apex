@@ -93,8 +93,8 @@ License: MIT (https://opensource.org/licenses/MIT)
             $A.query(o, config.context || document, function(i, o) {
               var r =
                   ($A.isNode(o) &&
-                    (($A.hasAttr(o, "controls") &&
-                      $A.morph($A.getAttr(o, "controls"))) ||
+                    (($A.hasAttr(o, "data-controls") &&
+                      $A.morph($A.getAttr(o, "data-controls"))) ||
                       ($A.isFn(o.querySelector) &&
                         o.querySelector("input")))) ||
                   false,
@@ -107,39 +107,37 @@ License: MIT (https://opensource.org/licenses/MIT)
                     : null,
                 x = !$A.isNode(n) && $A.isNode(r) && s !== o ? r : null;
               if (x === s) s = o;
-              $A.remAttr([o, s, n, x], "controls");
               if ($A.isNode(s)) {
                 if ($A.isNode(n) && $A.isNode(s)) $A.bindObjects(n, s);
                 var radio = getState(
                     s,
-                    $A.getAttr(s, "radio"),
-                    $A.hasAttr(s, "radio")
+                    $A.getAttr(s, "data-radio"),
+                    $A.hasAttr(s, "data-radio")
                   ),
                   check = getState(
                     s,
-                    $A.getAttr(s, "check"),
-                    $A.hasAttr(s, "check")
+                    $A.getAttr(s, "data-check"),
+                    $A.hasAttr(s, "data-check")
                   ),
                   press = getState(
                     s,
-                    $A.getAttr(s, "toggle"),
-                    $A.hasAttr(s, "toggle")
+                    $A.getAttr(s, "data-toggle"),
+                    $A.hasAttr(s, "data-toggle")
                   ),
                   swich = getState(
                     s,
-                    $A.getAttr(s, "switch"),
-                    $A.hasAttr(s, "switch")
+                    $A.getAttr(s, "data-switch"),
+                    $A.hasAttr(s, "data-switch")
                   ),
-                  isRequired = $A.hasAttr(s, "required"),
-                  isDisabled = $A.hasAttr(s, "disabled");
-                $A.remAttr(s, ["disabled", "required"]);
+                  isRequired = $A.hasAttr(s, "data-required"),
+                  isDisabled = $A.hasAttr(s, "data-disabled");
                 if ($A.isNum(radio)) {
                   $A.setAttr(s, {
                     role: "radio",
                     "aria-checked": radio ? "true" : "false"
                   });
                   btns.push(s);
-                } else if ($A.isNum(check) || $A.isNum(swich)) {
+                } else if ($A.isNum(check)) {
                   if ($A.isNode(n) && n.checked) check = 1;
                   if ($A.isNode(x)) {
                     if (!x.id) x.id = $A.genId();
@@ -150,30 +148,59 @@ License: MIT (https://opensource.org/licenses/MIT)
                   }
                   var c = "false";
                   if (check === 1) c = "true";
-                  else if (!$A.isNum(swich) && check === 2) c = "mixed";
-                  $A.setKBA11Y(
-                    s,
-                    $A.isNum(swich) ? "switch" : "checkbox",
-                    function(ev, dc) {
-                      var o = this,
-                        isDisabled = $A.isDisabled(o),
-                        check = getState(
-                          o,
-                          $A.getAttr(o, "aria-checked"),
-                          $A.hasAttr(o, "aria-checked")
-                        );
-                      if (!isDisabled && $A.isFn(config.onActivate))
-                        config.onActivate.apply(o, [
-                          ev,
-                          o,
-                          dc || n,
-                          check,
-                          function(attributeValue) {
-                            getState(o, attributeValue, true, true);
-                          }
-                        ]);
-                    }
-                  );
+                  else if (check === 2) c = "mixed";
+                  $A.setKBA11Y(s, "checkbox", function(ev, dc) {
+                    var o = this,
+                      isDisabled = $A.isDisabled(o),
+                      check = getState(
+                        o,
+                        $A.getAttr(o, "aria-checked"),
+                        $A.hasAttr(o, "aria-checked")
+                      );
+                    if (!isDisabled && $A.isFn(config.onActivate))
+                      config.onActivate.apply(o, [
+                        ev,
+                        o,
+                        dc || n,
+                        check,
+                        function(attributeValue) {
+                          getState(o, attributeValue, true, true);
+                        }
+                      ]);
+                  });
+                  $A.setAttr(s, {
+                    "aria-checked": c
+                  });
+                } else if ($A.isNum(swich)) {
+                  if ($A.isNode(n) && n.checked) swich = 1;
+                  if ($A.isNode(x)) {
+                    if (!x.id) x.id = $A.genId();
+                    $A.setAttr(s, {
+                      "aria-flowto": x.id,
+                      "aria-controls": x.id
+                    });
+                  }
+                  var c = "false";
+                  if (swich === 1) c = "true";
+                  $A.setKBA11Y(s, "switch", function(ev, dc) {
+                    var o = this,
+                      isDisabled = $A.isDisabled(o),
+                      check = getState(
+                        o,
+                        $A.getAttr(o, "aria-checked"),
+                        $A.hasAttr(o, "aria-checked")
+                      );
+                    if (!isDisabled && $A.isFn(config.onActivate))
+                      config.onActivate.apply(o, [
+                        ev,
+                        o,
+                        dc || n,
+                        swich,
+                        function(attributeValue) {
+                          getState(o, attributeValue, true, true);
+                        }
+                      ]);
+                  });
                   $A.setAttr(s, {
                     "aria-checked": c
                   });
@@ -260,7 +287,6 @@ License: MIT (https://opensource.org/licenses/MIT)
                 }
                 $A.updateDisabled(s);
               }
-              $A.remAttr([o, s, n, x], ["check", "radio", "switch", "toggle"]);
             });
 
             if (btns.length) {

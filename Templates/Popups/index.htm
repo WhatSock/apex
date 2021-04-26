@@ -52,7 +52,7 @@
                     <p>Available attributes for the triggering element:</p>
 
                     <ul>
-                        <li> controls : The resource path and pointer to the ID attribute of the popup container element.</li>
+                        <li> data-controls : The resource path and pointer to the ID attribute of the popup container element.</li>
                     </ul>
 
                     <h2>JavaScript syntax</h2>
@@ -81,11 +81,11 @@ id: 'uniqueId',
 
 // Optionally specify the content to be rendered when referencing internal content.
 // May be a DOM node or CSS selector.
-// Not necessary if controls is set on the triggering element.
+// Not necessary if data-controls is set on the triggering element.
 content: "#uniqueId",
 
 // Optionally specify the content to be rendered when referencing external content.
-// Not necessary if controls is set on the triggering element.
+// Not necessary if data-controls is set on the triggering element.
 // If set, the content property will be auto-populated with the returned content.
 fetch: {
 url: "path/file.htm",

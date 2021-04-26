@@ -114,7 +114,6 @@ License: MIT (https://opensource.org/licenses/MIT)
                 )
               )
             );
-            $A.remAttr(o, ["controls"]);
           };
 
         if (o)

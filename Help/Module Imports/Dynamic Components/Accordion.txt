@@ -22,9 +22,9 @@ The following attributes are handled automatically by the Accordion module:
 
 Available attributes for the triggering element:
 
-• controls : The resource path and pointer to the ID attribute of the accordion container element.
-• root : The ID attribute of the container element where the accordion content will be inserted when rendered. (This must not be inside the triggering element)
-• active : Specifies that the referenced accordion node will open automatically. Only one accordion node per group should include this attribute.
+• data-controls : The resource path and pointer to the ID attribute of the accordion container element.
+• data-root : The ID attribute of the container element where the accordion content will be inserted when rendered. (This must not be inside the triggering element)
+• data-active : Specifies that the referenced accordion node will open automatically. Only one accordion node per group should include this attribute.
 
 IMPORTANT: The triggering element must not include any other active elements, otherwise these will not be accessible to non-sighted screen reader users.
 

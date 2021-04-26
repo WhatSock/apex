@@ -139,7 +139,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 if (!$A.isNode(o)) return;
                 var ref =
                   list ||
-                  $A.getAttr(o, "menu") ||
+                  $A.getAttr(o, "data-menu") ||
                   $A.next(o, function(e) {
                     if (e.nodeName.toLowerCase() === tag.parent) return true;
                   });
@@ -265,13 +265,13 @@ License: MIT (https://opensource.org/licenses/MIT)
                     genMenu(o, DC.RTI);
                     var radio = getState(
                         o,
-                        $A.getAttr(o, "radio"),
-                        $A.hasAttr(o, "radio")
+                        $A.getAttr(o, "data-radio"),
+                        $A.hasAttr(o, "data-radio")
                       ),
                       check = getState(
                         o,
-                        $A.getAttr(o, "check"),
-                        $A.hasAttr(o, "check")
+                        $A.getAttr(o, "data-check"),
+                        $A.hasAttr(o, "data-check")
                       ),
                       n =
                         ($A.isFn(o.querySelector) &&
@@ -324,7 +324,6 @@ License: MIT (https://opensource.org/licenses/MIT)
                 );
 
                 $A.updateDisabled(mItems);
-                $A.remAttr(mItems, ["check", "menu", "radio"]);
 
                 return DC;
               };
@@ -383,7 +382,8 @@ License: MIT (https://opensource.org/licenses/MIT)
                 $A.on(o, e);
               };
               var p =
-                  (config.fetch && config.fetch.url) || $A.getAttr(o, "menu"),
+                  (config.fetch && config.fetch.url) ||
+                  $A.getAttr(o, "data-menu"),
                 s =
                   (config.fetch &&
                     config.fetch.data &&

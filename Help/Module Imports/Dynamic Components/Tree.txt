@@ -20,8 +20,8 @@ The following attributes are handled automatically by the Tree module:
 
 Available attributes for tree item links:
 
-• controls : The resource path and pointer to the ID attribute of the subtree container element.
-• check : May be set to "false", "true", or "mixed" to set the current state of a checkbox tree item when rendered.
+• data-controls : The resource path and pointer to the ID attribute of the subtree container element.
+• data-check : May be set to "false", "true", or "mixed" to set the current state of a checkbox tree item when rendered.
 
 HTML syntax:
 
@@ -54,7 +54,7 @@ HTML syntax:
 
     <ul>
       <li>
-        <a check >
+        <a data-check >
           Name Two
         </a>
       </li>

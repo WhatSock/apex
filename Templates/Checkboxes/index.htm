@@ -48,7 +48,7 @@
                     <p>Available attributes for checkbox elements:</p>
 
                     <ul>
-                        <li> check : May be set to "false", "true", or "mixed" to set the current state of a checkable control when rendered.</li>
+                        <li> data-check : May be set to "false", "true", or "mixed" to set the current state of a checkable control when rendered.</li>
                     </ul>
 
                     <h2>HTML syntax</h2>
@@ -56,7 +56,7 @@
                     <h3>Standard Unchecked</h3>
 
                     <div>
-                        <pre><code class="language-markup">&lt;div check >
+                        <pre><code class="language-markup">&lt;div data-check >
   Markup with checkbox name
   &lt;input hidden type="checkbox" name="OptionalBoundCheckbox" />
 &lt;/div></code></pre>
@@ -65,7 +65,7 @@
                     <h3>Standard Checked</h3>
 
                     <div>
-                        <pre><code class="language-markup">&lt;div check="true" >
+                        <pre><code class="language-markup">&lt;div data-check="true" >
   Markup with checkbox name
   &lt;input checked hidden type="checkbox" name="OptionalBoundCheckbox" />
 &lt;/div></code></pre>
@@ -74,7 +74,7 @@
                     <h3>Standard Partially-Checked</h3>
 
                     <div>
-                        <pre><code class="language-markup">&lt;div check="mixed" >
+                        <pre><code class="language-markup">&lt;div data-check="mixed" >
   Markup with checkbox name
 &lt;/div></code></pre>
                     </div>
