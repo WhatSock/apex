@@ -103,7 +103,7 @@ Acknowledgements
 * Author and developer: Bryan Garaventa https://www.linkedin.com/in/bgaraventa
 * Website designer: Angela Ricci http://gericci.me
 * Style and markup editor: Laurence Lewis https://www.linkedin.com/in/laurence-lewis-77520365/  
-* Contributions by: Danny Allen http://dannya.com
+* Code contributor: Danny Allen http://dannya.com
 
 Project home:
 -----
