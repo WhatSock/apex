@@ -4368,7 +4368,7 @@ error: function(error, promise){}
           return dc;
         },
 
-        text: function() {
+        getText: function() {
           var dc = this;
           return $A.getText(dc.container);
         },
@@ -4731,6 +4731,7 @@ error: function(error, promise){}
       };
 
       $A.extend(dc, {
+        text: dc["getText"],
         getAttribute: dc["getAttr"],
         hasAttribute: dc["hasAttr"],
         removeAttribute: dc["remAttr"],
@@ -4855,7 +4856,8 @@ error: function(error, promise){}
     getActiveElements: $A["getActive"],
     setKeyboardA11Y: $A["setKBA11Y"],
     generateId: $A["genId"],
-    toTextNode: $A["toText"]
+    toTextNode: $A["toText"],
+    text: $A["getText"]
   });
 
   var announceString = function(strm, noRep, aggr, loop) {
