@@ -1,4 +1,4 @@
-/*!
+/*@license
 CalcNames: The AccName Computation Prototype, compute the Name and Description property values for a DOM node
 Returns an object with 'name' and 'desc' properties.
 Functionality mirrors the steps within the W3C Accessible Name and Description computation algorithm.

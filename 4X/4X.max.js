@@ -1,4 +1,4 @@
-/*!
+/*@license
 Apex 4X: The Comprehensive ARIA Development Suite (2021.1)
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex

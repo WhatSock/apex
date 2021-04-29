@@ -1,4 +1,4 @@
-/*!
+/*@license
  * current-device v0.10.1 - https://github.com/matthewhudson/current-device
  * MIT Licensed
  */

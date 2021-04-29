@@ -1,4 +1,4 @@
-/*!
+/*@license
 4X Straylight 2.0 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex

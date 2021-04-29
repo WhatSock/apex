@@ -1,4 +1,4 @@
-/*!
+/*@license
 Beep Module 1.0 for Apex 4X
 It goes beep, just because. (BEEP BEEP BEEP)
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)

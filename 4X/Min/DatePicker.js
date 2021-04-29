@@ -1,4 +1,4 @@
-/*!
+/*@license
 ARIA Date Picker Module 4.0 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
