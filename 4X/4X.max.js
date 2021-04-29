@@ -204,7 +204,7 @@ License: MIT (https://opensource.org/licenses/MIT)
   };
 
   $A.extend({
-    debug: true,
+    debug: false,
     parseDebug: function(e) {
       if ($A.debug) {
         throw e;
