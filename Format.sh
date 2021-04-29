@@ -1,3 +1,4 @@
+#!/bin/bash
 prettier --write "4X\\4X.max.js" 2>> FormatErrors.txt
 prettier --write ".\/**\/*.css" 2>> FormatErrors.txt
 prettier --write ".\/4X\/Modules\/*{.js,.json}" 2>> FormatErrors.txt
