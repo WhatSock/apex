@@ -15,13 +15,27 @@ After which, all of the $A API features will be available, including the full su
 
 The default server location can be changed by modifying the "moduleFolder" property within 4X.js if needed.
 
-In contrast, the DC API is only applicable when creating DC instances for the configuring of dynamic components.
+In contrast, the DC API is only applicable when creating DC object instances for the configuring of dynamic components.
 
 Any DOM element or markup string can be turned into a DC object using the following syntax:
 
 ```
 var DC = $A.toDC(domElement, {
   // Optional DC API properties and methods here.
+});
+```
+
+Or even the following:
+
+```
+// Fetch an external control and convert it into a DC object to render with behavior declarations.
+var DC = $A.toDC("path/resource.php?params#ExternalElementId", {
+  root: 'body',
+  append: true,
+  forceFocus: true,
+  afterRender: function(DC) {
+    // Do something.
+  }
 });
 ```
 

@@ -475,6 +475,16 @@ License: MIT (https://opensource.org/licenses/MIT)
         o = null;
       }
       if (!$A.isPlainObject(config)) config = {};
+      if ($A.isPath(o)) {
+        config = $A.extend(
+          {
+            fetch: $A.toFetch(o),
+            autoRender: true
+          },
+          config
+        );
+        o = null;
+      }
       if (o) o = $A.morph(o);
       var ctrl = $A.isNode(o) && $A.getAttr(o, "data-controls");
 

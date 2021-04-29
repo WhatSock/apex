@@ -30,6 +30,20 @@ var DC = $A.toDC(domElement, {
 });
 ```
 
+Or even the following:
+
+```
+// Fetch an external control and convert it into a DC object to render with behavior declarations.
+var DC = $A.toDC("path/resource.php?params#ExternalElementId", {
+  root: 'body',
+  append: true,
+  forceFocus: true,
+  afterRender: function(DC) {
+    // Do something.
+  }
+});
+```
+
 After which, all DC API properties and methods will be available for that object.
 
 For help regarding this, view the documentation at: 
