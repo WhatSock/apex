@@ -355,19 +355,12 @@ nav li {
     display:inline;
     height:3em;
 }
-/*nav li:not(:first-child):before {
-    content: "|";
-    color: var(--globalWhite);
-}*/
-/*nav li:last-child:after {
-    content: "";
-}*/
-nav button, nav a, nav a:visited {
-  border: none;
-}
 nav button:hover,
 nav a:hover {
-  color: var(--globalWhite);
+  background: var(--whatsock-red);
+  text-decoration: none;
+}
+nav a:focus {
   background: var(--whatsock-red);
   text-decoration: none;
 }
