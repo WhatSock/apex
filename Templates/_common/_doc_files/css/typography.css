@@ -78,12 +78,12 @@ a:hover {
   text-decoration: underline;
   background: transparent;
 }
-/*Laurence note: I am really not convinced this global focus is a good idea visually. I wil revisit and check against WCAg colour contrast recommendations */
+/*Laurence note I am really not convinced this global focus is a good idea visually. I wil revisit and check against WCAG colour contrast recommendations */
 /**:focus {
   color: var(--tablist-black);
   background: var(--whatsock-orange-main);
 }*/
-/*Laurence note: I have no idea what tis is for. I have never seena positioned link????  Experience says dump*/
+/*Laurence note: I have no idea what this is for. I have never seena positioned link????  Experience says dump*/
 a.permalink {
   position: relative;
   top: -4.5rem;

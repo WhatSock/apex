@@ -119,7 +119,7 @@ body {
 }
 ol,
 ul {
-  list-style: none;
+  list-style-type: none;
 }
 blockquote,
 q {
@@ -314,12 +314,11 @@ h1 strong {
 /* -------------------------------- NAVIGATION ------------------------------- */
 /* --------------------------------------------------------------------------- */
 
-nav {
-  text-align: center;
-  max-width: 40em;
-  padding: 0 5em;
-  margin: auto;
-  margin-top: 2em;
+/*nav {
+    text-align: center;
+    max-width: 40em;
+    padding: 0 5em;
+    margin: 2em auto;
 }
 
 nav li {
@@ -327,7 +326,6 @@ nav li {
 }
 nav button,
 nav a,
-nav a:link,
 nav a:visited {
   display: block;
   font: bold 1.2em/1 Frutiger, Helvetica, Arial, sans-serif;
@@ -337,6 +335,35 @@ nav a:visited {
   padding: 0.5em 0;
   border: none;
   border-top: 1px solid var(--datepicker-lightGrey);
+}*/
+nav {
+    text-align: center;
+    max-width: 90em;
+    margin: auto;
+    margin-bottom:1em;
+}
+nav ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+nav li {
+    list-style-type: none;
+    font-size: 1rem;
+    display:inline;
+    max-width:10em;
+}
+/*nav li:not(:first-child):before {
+    content: "|";
+    color: var(--globalWhite);
+}*/
+/*nav li:last-child:after {
+    content: "";
+}*/
+nav button, nav a, nav a:visited {
+  border: none;
 }
 nav button:hover,
 nav a:hover {
@@ -348,16 +375,23 @@ nav > ul > li > a[aria-current="true"] {
   color: var(--globalWhite);
   background: var(--whatsock-red);
 }
-nav > ul > li > a:link {
+nav > ul > li > a {
   line-height: 1.5;
+  padding: 0.5em 1.2em;
+  background: var(--navLinkBackground);
+  color: var(--globalWhite);
+  border-top: 2px solid var(--whatsock-orange-main);
+  margin: 0 2px;
 }
 /*Default*/
 .logo {
   margin-top: 1em;
   text-align: center;
 }
+.logo img {
+  width:50%;
+}
 .logo a,
-.logo a:link,
 .logo a:visited {
   background: none;
   display: inline-block;
@@ -367,7 +401,7 @@ nav > ul > li > a:link {
   outline: -webkit-focus-ring-color auto 1px;
 }
 h1 {
-  font-size: 3rem;
+  font-size: 1.5rem;
   padding: 0;
   text-align: center;
 }
@@ -401,6 +435,22 @@ main {
     padding: 0;
     padding-bottom: 2em;
   }
+}
+/* --------------------------------------------------------------------------- */
+/* ----------------------------- New section on components index ------------------------------ */
+/* --------------------------------------------------------------------------- */
+section.section--instructions {
+    background: #fff;
+    max-width:90em;
+    padding: 1em;
+    border-radius: 0.5em;
+}
+.section--instructions ul {
+  list-style-type: disc;
+  margin-bottom: 1em;
+}
+.section--instructions ul li a {
+  padding: 0.8em 1.2em;
 }
 /* --------------- 
 FOOTER --------------- 
@@ -494,7 +544,6 @@ IE11 fallback
 
   nav button,
   nav a,
-  nav a:link,
   nav a:visited {
     color: #fff;
     background: #444a51;
@@ -523,8 +572,7 @@ IE11 fallback
     color: #e0e0e0;
   }
 
-  footer p:last-child a,
-  footer p:last-child a:link {
+  footer p:last-child a {
     color: #fff;
   }
 
