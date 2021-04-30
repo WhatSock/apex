@@ -68,6 +68,10 @@ If the 4X folder needs to be place somewhere else, such as at "/Subfolder/Path/4
 
 This will allow 4X to dynamically import required modules as needed to ensure proper functionality.
 
+As another option, all of the modules provided within this archive have been minified to maximize responsiveness and reduce load times as much as possible. All of these are located within the folder "4X/Min/". To automatically utilize these enhancements, simply reference the "Min" folder within the moduleFolder property instead of the "Modules" folder.
+
+Example: `moduleFolder: "/4X/Min/"`
+
 Importing Modules
 -----
 
