@@ -353,7 +353,7 @@ nav li {
     list-style-type: none;
     font-size: 1rem;
     display:inline;
-    max-width:10em;
+    height:3em;
 }
 /*nav li:not(:first-child):before {
     content: "|";
