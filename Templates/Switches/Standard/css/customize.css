@@ -90,11 +90,11 @@ ul.switch--container {
 }
 
 .aria-switch[aria-checked="true"] .aria-switch__button {
-  box-shadow: inset 2.05em 0 0 1px var(--whatsock-red);
+  box-shadow: inset 2.05em 0 0 1px var(--apexDarkGreen);
 }
 
 .aria-switch[aria-checked="true"] .aria-switch__button:after {
-  color: #fff;
+  color: var(--globalWhite);
   content: "Off";
   display: block;
   font-size: 0.825em;

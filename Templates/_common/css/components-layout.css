@@ -298,6 +298,7 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
   text-decoration: none;
   color: var(--globalWhite);
   background-color: var(--tablist-black);
+  border-color: var(--whatsock-red);
 }
 
 .aria-tab[aria-expanded="true"] {
@@ -305,10 +306,14 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
   background-color: var(--tablist-black);
   font-weight: bold;
 }
+.aria-tab[aria-expanded="true"][aria-selected="true"]:focus{
+display:none;
+  }
 
 .aria-tab[aria-disabled="true"] {
-  background-color: var(--tablistDarkGrey);
-  color: var(--globalWhite);
+  background-color: var(--listbox-lightGrey);
+  border-color: var(--combobox-midGrey);
+  color: var(--combobox-midGrey);
 }
 
 .aria-tabpanel {
