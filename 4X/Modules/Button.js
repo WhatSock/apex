@@ -112,22 +112,26 @@ License: MIT (https://opensource.org/licenses/MIT)
                 var radio = getState(
                     s,
                     $A.getAttr(s, "data-radio"),
-                    $A.hasAttr(s, "data-radio")
+                    $A.hasAttr(s, "data-radio"),
+                    true
                   ),
                   check = getState(
                     s,
                     $A.getAttr(s, "data-check"),
-                    $A.hasAttr(s, "data-check")
+                    $A.hasAttr(s, "data-check"),
+                    true
                   ),
                   press = getState(
                     s,
                     $A.getAttr(s, "data-toggle"),
-                    $A.hasAttr(s, "data-toggle")
+                    $A.hasAttr(s, "data-toggle"),
+                    true
                   ),
                   swich = getState(
                     s,
                     $A.getAttr(s, "data-switch"),
-                    $A.hasAttr(s, "data-switch")
+                    $A.hasAttr(s, "data-switch"),
+                    true
                   ),
                   isRequired = $A.hasAttr(s, "data-required"),
                   isDisabled = $A.hasAttr(s, "data-disabled");
@@ -185,7 +189,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                   $A.setKBA11Y(s, "switch", function(ev, dc) {
                     var o = this,
                       isDisabled = $A.isDisabled(o),
-                      check = getState(
+                      swich = getState(
                         o,
                         $A.getAttr(o, "aria-checked"),
                         $A.hasAttr(o, "aria-checked")

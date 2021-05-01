@@ -337,23 +337,23 @@ nav a:visited {
   border-top: 1px solid var(--datepicker-lightGrey);
 }*/
 nav {
-    text-align: center;
-    max-width: 90em;
-    margin: auto;
-    margin-bottom:1em;
+  text-align: center;
+  max-width: 90em;
+  margin: auto;
+  margin-bottom: 1em;
 }
 nav ul {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
 }
 nav li {
-    list-style-type: none;
-    font-size: 1rem;
-    display:inline;
-    height:3em;
+  list-style-type: none;
+  font-size: 1rem;
+  display: inline;
+  height: 3em;
 }
 nav button:hover,
 nav a:hover {
@@ -382,7 +382,7 @@ nav > ul > li > a {
   text-align: center;
 }
 .logo img {
-  width:50%;
+  width: 50%;
 }
 .logo a,
 .logo a:visited {
@@ -433,10 +433,10 @@ main {
 /* ----------------------------- New section on components index ------------------------------ */
 /* --------------------------------------------------------------------------- */
 section.section--instructions {
-    background: #fff;
-    max-width:90em;
-    padding: 1em;
-    border-radius: 0.5em;
+  background: #fff;
+  max-width: 90em;
+  padding: 1em;
+  border-radius: 0.5em;
 }
 .section--instructions ul {
   list-style-type: disc;
