@@ -13,7 +13,8 @@ pre[class*="language-"] {
   font-size: 1em;
   text-align: left;
   text-shadow: 0 -0.1em 0.2em black;
-  white-space: pre;
+  white-space: pre-wrap; /*To fix issue with horizontal scroll bars*/
+  /*white-space: normal;*/
   word-spacing: normal;
   word-break: normal;
   word-wrap: normal;
@@ -84,7 +85,8 @@ code[class*="language-"] ::selection {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: hsl(0, 0%, 47%); /* #777777 */
+  /*color: hsl(0, 0%, 47%);*/ /* #777777 */
+  color: hsl(0, 0%, 57%); /* #919191 */ /*to meet WCAg 4.5:1 contrast ration against the background*/
 }
 
 .token.punctuation {

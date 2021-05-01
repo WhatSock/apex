@@ -6,8 +6,17 @@ main ul li {
   line-height: 1.5;
 }
 
+main ol {
+  margin-left: 3em;
+  list-style-type: decimal;
+}
+
+main ol li {
+  line-height: 1.5;
+}
 main p {
   margin-bottom: 1.5em;
+  line-height:1.5;
 }
 
 h1 {
