@@ -13,7 +13,8 @@ pre[class*="language-"] {
   font-size: 1em;
   text-align: left;
   text-shadow: 0 -0.1em 0.2em black;
-  white-space: pre;
+  white-space: pre-wrap;
+  /*white-space: normal;*/
   word-spacing: normal;
   word-break: normal;
   word-wrap: normal;
