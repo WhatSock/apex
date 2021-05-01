@@ -86,7 +86,11 @@ code[class*="language-"] ::selection {
 .token.doctype,
 .token.cdata {
   /*color: hsl(0, 0%, 47%);*/ /* #777777 */
-  color: hsl(0, 0%, 57%); /* #919191 */ /*to meet WCAg 4.5:1 contrast ration against the background*/
+  color: hsl(
+    0,
+    0%,
+    57%
+  ); /* #919191 */ /*to meet WCAg 4.5:1 contrast ration against the background*/
 }
 
 .token.punctuation {

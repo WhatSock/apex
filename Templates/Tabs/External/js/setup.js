@@ -1,5 +1,11 @@
 $A.import(["Animate", "Tab"], { defer: true }, function() {
   $A.setTab("button.aria-tab", {
+    // Enable auto-rendering when the page loads.
+    // When true, the hash tag in the URL will automatically open the associated DC object.
+    // To render automatically, the hash tag must match the DC object id.
+    // To set a hash tag within the address bar, use the $A.setPage() function.
+    // For more details, view: Help/ARIA Development/Browser History and Permalinks
+    // Plus: Help/DC API/DC Object Configuration/Behaviors
     trackPage: true,
     afterRender: function(dc) {
       $A.setPage(

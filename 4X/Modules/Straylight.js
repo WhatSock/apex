@@ -41,7 +41,6 @@ License: MIT (https://opensource.org/licenses/MIT)
                 }),
                 call: function(props) {
                   $A.setAccordion(props.triggers, {
-                    trackPage: true,
                     toggleClassName: "open",
                     isToggle: false,
                     allowMultiple: false,
@@ -49,6 +48,22 @@ License: MIT (https://opensource.org/licenses/MIT)
                     preloadImages: true,
                     preloadCSS: true,
                     toggleHide: true,
+
+                    /*
+  // Enable auto-rendering when the page loads.
+  // When true, the hash tag in the URL will automatically open the associated DC object.
+  // To render automatically, the hash tag must match the DC object id.
+  // To set a hash tag within the address bar, use the $A.setPage() function.
+  // For more details, view: Help/ARIA Development/Browser History and Permalinks
+// Plus: Help/DC API/DC Object Configuration/Behaviors
+    trackPage: true,
+    afterRender: function(dc) {
+      $A.setPage(
+        dc.id,
+        $A.getText(dc.triggerNode) + " ARIA Accordion - Apex 4X Technical Style Guide"
+      );
+    },
+*/
 
                     style: { display: "none" },
                     animate: {
@@ -104,6 +119,12 @@ License: MIT (https://opensource.org/licenses/MIT)
                         "button[controls].aria-tab, a[controls].aria-tab"
                       ),
                       {
+                        // Enable auto-rendering when the page loads.
+                        // When true, the hash tag in the URL will automatically open the associated DC object.
+                        // To render automatically, the hash tag must match the DC object id.
+                        // To set a hash tag within the address bar, use the $A.setPage() function.
+                        // For more details, view: Help/ARIA Development/Browser History and Permalinks
+                        // Plus: Help/DC API/DC Object Configuration/Behaviors
                         trackPage: true,
                         afterRender: function(dc) {
                           $A.setPage(
@@ -112,6 +133,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                               " ARIA Tab - Apex 4X Technical Style Guide"
                           );
                         },
+
                         preload: true,
                         preloadImages: true,
                         preloadCSS: true,

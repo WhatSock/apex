@@ -80,6 +80,22 @@ afterRemove: function(DC) {
 // Do something.
 },
 
+/*
+// Enable auto-rendering when the page loads.
+// When true, the hash tag in the URL will automatically open the associated DC object.
+// To render automatically, the hash tag must match the DC object id.
+// To set a hash tag within the address bar, use the $A.setPage() function.
+// For more details, view: Help/ARIA Development/Browser History and Permalinks
+// Plus: Help/DC API/DC Object Configuration/Behaviors
+trackPage: true,
+afterRender: function(dc) {
+$A.setPage(
+dc.id,
+$A.getText(dc.triggerNode) + " ARIA Tab - Apex 4X Technical Style Guide"
+);
+},
+*/
+
 // Optionally specify a render and remove animation effect for the tab panel.
 // Requires the "Animate" module import to function, which is powered by Velocity.js.
 // To ignore animation effects, delete the animate object declaration entirely from the setup script.
