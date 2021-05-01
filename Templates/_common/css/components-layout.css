@@ -315,15 +315,14 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
   color: var(--combobox-midGrey);
   position:relative;
 }
-.aria-tab[aria-disabled="true"]:focus:before,
+/* .aria-tab[aria-disabled="true"]:focus:before,
 .aria-tab[aria-disabled="true"]:hover:before {
     content: "Disabled";
     position: absolute;
     bottom: 3em;
     left: 1em;
     font-size: 0.7rem;
-
-}
+} */
 .aria-tab[aria-disabled="true"]:focus {
   text-decoration:underline;
 }
