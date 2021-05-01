@@ -4308,7 +4308,6 @@ error: function(error, promise){}
         // append: false,
         // after: false,
 
-        // isTab: false,
         // autoRender: false,
         // lock: false,
         // mode: 0,

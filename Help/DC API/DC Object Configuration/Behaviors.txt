@@ -104,11 +104,6 @@ Note: The displayed value for each property represents its default value when om
   // Specify that pressing the Escape key within the DC object will cause it to close.
   escToClose: false
 
-  // Specify that the collection of sibling DC objects will function like tabs, where only one can be opened at a time.
-  // No ARIA attributes are added as part of this functionality; these must be added separately if desired.
-  // View the TabList module for creating client-side TabList widgets with proper ARIA markup.
-  isTab: false
-
   // Specify that the collection of sibling DC objects will function like toggles, where the currently open DC object can be closed.
   // No ARIA attributes are added as part of this functionality; these must be added separately if desired.
   isToggle: false
