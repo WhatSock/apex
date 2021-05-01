@@ -286,34 +286,41 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
 }
 
 .aria-tab {
-  color: var(--globalWhite);
-  background: var(--tablist-brown);
+  color: var(--elementBlack);
+  background: var(--whatsock-orange-main);
   font-size: 1em;
   margin-bottom: 1px;
   padding: 0.3em 0.5em 0.3em;
+  border:none;
+  border: 2px solid var(--tablist-black);
 }
 
 .aria-tab:hover,
 .aria-tab:focus {
   text-decoration: none;
   color: var(--globalWhite);
-  background-color: var(--tablist-black);
-  border-color: var(--whatsock-red);
+  background-color: var(--whatsock-red);
 }
 
-.aria-tab[aria-expanded="true"] {
+/*.aria-tab[aria-expanded="true"] {
   color: var(--globalWhite);
   background-color: var(--tablist-black);
   font-weight: bold;
-}
-.aria-tab[aria-expanded="true"][aria-selected="true"]:focus {
-  display: none;
+}*/
+.aria-tab[aria-expanded="true"][aria-selected="true"] {
+  text-decoration: none;
+  color: var(--globalWhite);
+  background-color: var(--whatsock-red);
+  border-top: 3px solid var(--whatsock-orange-main);
 }
 
 .aria-tab[aria-disabled="true"] {
   background-color: var(--listbox-lightGrey);
   border-color: var(--combobox-midGrey);
   color: var(--combobox-midGrey);
+}
+.aria-tab[aria-disabled="true"]:focus {
+  text-decoration:underline;
 }
 
 .aria-tabpanel {
