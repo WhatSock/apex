@@ -302,11 +302,6 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
   background-color: var(--whatsock-red);
 }
 
-/*.aria-tab[aria-expanded="true"] {
-  color: var(--globalWhite);
-  background-color: var(--tablist-black);
-  font-weight: bold;
-}*/
 .aria-tab[aria-expanded="true"][aria-selected="true"] {
   text-decoration: none;
   color: var(--globalWhite);
@@ -318,6 +313,16 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
   background-color: var(--listbox-lightGrey);
   border-color: var(--combobox-midGrey);
   color: var(--combobox-midGrey);
+  position:relative;
+}
+.aria-tab[aria-disabled="true"]:focus:before,
+.aria-tab[aria-disabled="true"]:hover:before {
+    content: "Disabled";
+    position: absolute;
+    bottom: 3em;
+    left: 1em;
+    font-size: 0.7rem;
+
 }
 .aria-tab[aria-disabled="true"]:focus {
   text-decoration:underline;
