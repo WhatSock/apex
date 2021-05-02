@@ -291,7 +291,7 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
   font-size: 1em;
   margin-bottom: 1px;
   padding: 0.3em 0.5em 0.3em;
-  border:none;
+  border: none;
   border: 2px solid var(--tablist-black);
 }
 
@@ -313,7 +313,7 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
   background-color: var(--listbox-lightGrey);
   border-color: var(--combobox-midGrey);
   color: var(--combobox-midGrey);
-  position:relative;
+  position: relative;
 }
 /* .aria-tab[aria-disabled="true"]:focus:before,
 .aria-tab[aria-disabled="true"]:hover:before {
@@ -324,7 +324,7 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
     font-size: 0.7rem;
 } */
 .aria-tab[aria-disabled="true"]:focus {
-  text-decoration:underline;
+  text-decoration: underline;
 }
 
 .aria-tabpanel {
