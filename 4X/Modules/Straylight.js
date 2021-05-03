@@ -116,7 +116,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                   function(i, list) {
                     $A.setTab(
                       list.querySelectorAll(
-                        "button[controls].aria-tab, a[controls].aria-tab"
+                        "button[data-controls].aria-tab, a[data-controls].aria-tab"
                       ),
                       {
                         // Enable auto-rendering when the page loads.
@@ -435,7 +435,7 @@ License: MIT (https://opensource.org/licenses/MIT)
         (function() {
           // ARIA Menus
           // Search and recognise menu triggering elements with the class "aria-menu"
-          var triggers = context.querySelectorAll("*[menu].aria-menu");
+          var triggers = context.querySelectorAll("*[data-menu].aria-menu");
 
           if (triggers.length)
             $A.import(["Animate", "Menu"], {
