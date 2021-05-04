@@ -83,7 +83,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                   if (attributeValue === "true") c = 1;
                   else if (attributeValue === "mixed") c = 2;
                   else attributeValue = "false";
-                  $A.data(o, "data-check", c);
+                  $A.data(o, "check", c);
                   if (write) {
                     $A.setAttr(o, "aria-checked", attributeValue);
                   }
