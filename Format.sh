@@ -1,10 +1,10 @@
 #!/bin/bash
-prettier --write "4X\\4X.max.js" 2>> FormatErrors.txt
+prettier --write "4X\\4X.Max.js" 2>> FormatErrors.txt
 prettier --write ".\/**\/*.css" 2>> FormatErrors.txt
 prettier --write ".\/4X\/Modules\/*{.js,.json}" 2>> FormatErrors.txt
 prettier --write ".\/Templates\/**\/*{.js,.json}" 2>> FormatErrors.txt
 js-beautify -r --type="html" ".\/**\/*.{htm,html}" 2>> FormatErrors.txt
-uglifyjs 4X\/4X.max.js --comments --compress --mangle --output 4X\/4X.js 2>> FormatErrors.txt
+uglifyjs 4X\/4X.Max.js --comments --compress --mangle --output 4X\/4X.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/AccName.js --comments --compress --mangle --output 4X\/Min\/AccName.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Accordion.js --comments --compress --mangle --output 4X\/Min\/Accordion.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Animate.js --comments --compress --mangle --output 4X\/Min\/Animate.js 2>> FormatErrors.txt
