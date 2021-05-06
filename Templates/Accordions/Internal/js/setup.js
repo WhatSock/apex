@@ -1,6 +1,5 @@
 $A.import(["Animate", "Accordion"], { defer: true }, function() {
   $A.setAccordion(".aria-accordion-trigger", {
-    toggleClassName: "open",
     toggleHide: true,
     isToggle: false,
     allowMultiple: false,
@@ -21,6 +20,7 @@ $A.import(["Animate", "Accordion"], { defer: true }, function() {
     },
 */
 
+    /* Uncomment to set animation effects.
     style: { display: "none" },
     animate: {
       onRender: function(dc, wrapper, next) {
@@ -42,6 +42,9 @@ $A.import(["Animate", "Accordion"], { defer: true }, function() {
           }
         });
       }
-    }
+    },
+*/
+
+    toggleClassName: "open"
   });
 });

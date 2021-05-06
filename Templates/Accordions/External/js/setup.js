@@ -6,8 +6,6 @@ $A.import(["Animate", "Accordion"], { defer: true }, function() {
     preloadImages: true,
     preloadCSS: true,
 
-    toggleClassName: "open",
-
     /*
   // Enable auto-rendering when the page loads.
   // When true, the hash tag in the URL will automatically open the associated DC object.
@@ -24,6 +22,7 @@ $A.import(["Animate", "Accordion"], { defer: true }, function() {
     },
 */
 
+    /* Uncomment to set animation effects.
     style: { display: "none" },
     animate: {
       onRender: function(dc, wrapper, next) {
@@ -45,6 +44,9 @@ $A.import(["Animate", "Accordion"], { defer: true }, function() {
           }
         });
       }
-    }
+    },
+*/
+
+    toggleClassName: "open"
   });
 });
