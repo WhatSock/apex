@@ -113,6 +113,23 @@ All of the following ARIA widget templates are available for immediate use. None
 
 Accordions, Buttons, Checkboxes, Comboboxes, Datepickers, Dialogs, Footnotes, Listboxes, Menus, Popups, Radios, Switches, Tabs, Tooltips, and Trees.
 
+ReactJS Disambiguation
+-----
+
+Those familiar with React development will notice certain concept and keyword similarities within 4X. This was done deliberately to make it possible for developers to instantly understand the concept of what property or feature is being referenced, especially when the keyword or concept has a direct intuitive meaning that can be easily understood by itself. There are also some unintentional similarities as well. It is important to note, however, that 4X is not a ReactJS project, and has no external dependencies.
+
+One similarity is the use of the "root" property name for identifying the target insertion point for dynamic components when rendered.
+
+Another is the reference to lifecycle methods. Other than the loose concept of this functionality within the DC API documentation, there is no reuse of any ReactJS lifecycle method names within 4X.
+
+Additionally, the term "import" is used within ReactJS to reference and pull in native React components. 4X, in contrast, uses the term "import" to reference the browser Fetch API for importing external module files on an as-needed basis for conditional processing. The concept is similar, but different.
+
+Last is the concept of passing "props" between components. In this case, "props" is simply shorthand for properties. Within React, props are passed between native React component objects. Within 4X, in contrast, props are passed between external module components when dynamically imported using the browser Fetch API. Conceptually the two are similar, but also different.
+
+To summarize, 4X is not a ReactJS project, nor does it include any code from ReactJS. There is no 4X version at this time that can be imported directly into the ReactJS IDE in the same manner as other native React components. I hope to add this as time permits, but I can't predict when.
+
+Regarding other JavaScript libraries and frameworks, 4X is sandboxed within its own namespace, and should have no difficulties running alongside any other library or framework, as long as these resources are not programmed to control the same elements in similar ways when executed.
+
 License
 -----
 
