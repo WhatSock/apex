@@ -14,6 +14,7 @@ $A.import(["Animate", "Tab"], { defer: true }, function() {
       );
     },
 
+    /* Uncomment to set animation effects.
     style: { display: "none" },
     animate: {
       onRender: function(dc, wrapper, next) {
@@ -36,6 +37,7 @@ $A.import(["Animate", "Tab"], { defer: true }, function() {
         });
       }
     },
+*/
 
     isToggle: false,
     toggleClassName: "active",

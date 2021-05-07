@@ -41,7 +41,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 }),
                 call: function(props) {
                   $A.setAccordion(props.triggers, {
-                    isToggle: false,
+                    isToggle: true,
                     allowMultiple: false,
                     preload: true,
                     preloadImages: true,
@@ -146,6 +146,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         preloadCSS: true,
                         toggleHide: true,
 
+                        /* Uncomment to set animation effects.
                         style: { display: "none" },
                         animate: {
                           onRender: function(dc, wrapper, next) {
@@ -168,6 +169,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                             });
                           }
                         },
+*/
 
                         isToggle: false,
                         toggleClassName: "active"

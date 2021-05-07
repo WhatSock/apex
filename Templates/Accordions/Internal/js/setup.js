@@ -1,7 +1,7 @@
 $A.import(["Animate", "Accordion"], { defer: true }, function() {
   $A.setAccordion(".aria-accordion-trigger", {
     toggleHide: true,
-    isToggle: false,
+    isToggle: true,
     allowMultiple: false,
 
     /*

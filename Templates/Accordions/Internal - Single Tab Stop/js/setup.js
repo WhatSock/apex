@@ -2,7 +2,7 @@ $A.import(["Animate", "Accordion"], { defer: true }, function() {
   $A.setAccordion(".aria-accordion-trigger", {
     singleTabStop: true,
     toggleHide: true,
-    isToggle: false,
+    isToggle: true,
     allowMultiple: false,
 
     /*

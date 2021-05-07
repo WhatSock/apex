@@ -19,6 +19,7 @@ $A.import(["Animate", "Tab"], { defer: true }, function() {
     preloadImages: true,
     preloadCSS: true,
 
+    /* Uncomment to set animation effects.
     style: { display: "none" },
     animate: {
       onRender: function(dc, wrapper, next) {
@@ -41,6 +42,7 @@ $A.import(["Animate", "Tab"], { defer: true }, function() {
         });
       }
     },
+*/
 
     isToggle: false,
     toggleClassName: "active"
