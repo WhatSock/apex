@@ -20,11 +20,11 @@ This feature is non-standard and is not on a standards track. Do not use it on p
 /*https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-touch-callout*/
 
 body {
-  -webkit-touch-callout: none;
+  /* -webkit-touch-callout: none;
   -webkit-text-size-adjust: none;
   -webkit-user-select: none;
   -webkit-highlight: none;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); */
 }
 
 form p + p {
