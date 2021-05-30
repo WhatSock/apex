@@ -2,6 +2,10 @@ main ul {
   margin-left: 3em;
 }
 
+main nav ul{
+  margin-left:0;
+}
+
 main ul li {
   line-height: 1.5;
 }
@@ -54,6 +58,20 @@ h2 {
   font-weight: 400;
   line-height: 1.2;
   margin-bottom: 1.2em;
+}
+
+.left-aside h2 {
+  color: var(--listbox-lightGrey);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25em;
+}
+
+.parent--page {
+  color: var(--listbox-lightGrey);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.25em;
 }
 
 h3 {

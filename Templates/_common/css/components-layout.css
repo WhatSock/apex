@@ -28,13 +28,6 @@ main:focus {
   padding: 1em;
 }
 
-.left-aside h2 {
-  color: var(--listbox-lightGrey);
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 0.25em;
-}
-
 .wrapper > * {
   margin-bottom: 1em;
 }
