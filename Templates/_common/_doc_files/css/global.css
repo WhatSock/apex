@@ -355,6 +355,7 @@ nav li {
   display: inline;
   height: 3em;
 }
+
 nav button:hover,
 nav a:hover {
   background: var(--whatsock-red);
@@ -376,6 +377,27 @@ nav > ul > li > a {
   border-top: 2px solid var(--whatsock-orange-main);
   margin: 0 2px;
 }
+li.extLong--comboName {
+  font-size: 0.75rem;
+  margin-bottom:0.4em;
+}
+li.extLong--dateName {
+  font-size: 0.75rem;
+  margin-bottom:0.4em;
+}
+@media (min-width: 550px) {
+  li.extLong--comboName {
+    font-size: 1rem;
+    margin-bottom:2px;
+  }
+}
+@media (min-width: 650px) {
+  li.extLong--dateName {
+    font-size: 1rem;
+    margin-bottom:2px;
+  }
+}
+
 /*Default*/
 .logo {
   margin-top: 1em;
