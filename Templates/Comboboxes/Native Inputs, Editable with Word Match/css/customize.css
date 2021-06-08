@@ -1,6 +1,13 @@
 /* Specific styles for ARIA Combobox */
 /***Overwrite the auto positioning***/
 
+ul.listbox {
+  position: relative;
+  overflow-y: scroll;
+  margin-left: 0;
+  height: 10em;
+}
+
 div.toplevel-div {
   left: auto !important;
   right: 0.6em !important;
