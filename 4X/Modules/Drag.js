@@ -171,6 +171,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 actions.DC = $A.setMenu(
                   actions.button,
                   $A.extend(
+                    true,
                     {
                       toggleHide: true,
                       onActivate: function(

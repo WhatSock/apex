@@ -1,0 +1,188 @@
+/* Specific styles for Accessible Drag and Drop */
+
+.demo-block p > em {
+  display: block;
+}
+
+div.booksWrapper {
+  position: relative;
+  display: table;
+  margin: 1rem 0;
+}
+
+div.booksWrapper > div {
+  padding: 1rem 3%;
+  display: table-cell;
+  width: 50%;
+}
+
+div.availableBooks {
+  margin-bottom: 1rem;
+}
+
+.drop-list {
+  margin-left: -2rem;
+  padding: 10px;
+  min-height: 300px;
+  border: 1px solid #286278;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+div.book {
+  float: left;
+  width: 80px;
+  text-align: center;
+  padding: 10px 0;
+}
+
+div.book > img {
+  height: 75px;
+  border: 0;
+  padding: 1px;
+  margin-left: -10px;
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+
+div.chosenBooks,
+div.wishlist {
+  background-image: linear-gradient(90deg, transparent 80%, #e0e0e0 20%),
+    linear-gradient(transparent 80%, #e0e0e0 20%);
+  background-size: 15px 15px, 15px 15px;
+}
+
+div.totals {
+  position: relative;
+  background: #e0e0e0;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+#subtotals p:last-child {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 0.3rem;
+}
+
+@media screen and (min-width: 750px) {
+  div.chosenBooks,
+  div.wishlist {
+    margin-left: 2.5%;
+  }
+  div.availableBooks {
+    margin-bottom: 0;
+  }
+  div.booksWrapper {
+    -webkit-flex-flow: row nowrap;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+  }
+  #subtotals p:last-child {
+    font-size: 1.1em;
+  }
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-user-select: none; /* disable selection/Copy of UIWebView */
+  -webkit-touch-callout: none; /* disable the IOS popup when long-press */
+}
+
+/* Specific styles for ARIA Menus */
+
+a.aria-action-menu-button {
+  color: #fff;
+  border: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  border-radius: 2px;
+  cursor: pointer;
+  position: absolute;
+  margin-left: 6px;
+  margin-top: 55px;
+  font-size: 0.8em;
+}
+
+a.aria-action-menu-button:hover,
+a.aria-action-menu-button:focus {
+  color: #fff;
+  background-color: #c13836;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+ul.top.menu {
+  list-style: none;
+  position: absolute;
+  z-index: 1000;
+  background: #2e3135;
+  margin-top: -5px;
+  margin-left: -1px;
+}
+
+ul.top.menu > li {
+  text-transform: uppercase;
+}
+
+ul.top.menu > li li {
+  font-size: 100%;
+}
+
+ul.menu {
+  width: 10em;
+  list-style: none;
+  margin-left: 11em;
+}
+
+ul.top.menu a {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background: #2e3135;
+  padding: 0.3em 0.8em;
+}
+
+ul.top.menu a.has-submenu {
+  color: #fff;
+  background: #2e3135 url(../img/sprite.svg) right -288px no-repeat;
+  padding: 0.3em 36px 0.3em 0.8em;
+}
+
+ul.top.menu a:focus,
+ul.top.menu a:hover,
+ul.top.menu a.has-submenu:hover,
+ul.top.menu a.has-submenu:focus {
+  color: #fff;
+  background-color: #c13836;
+}
+
+ul.top.menu a.has-submenu {
+  background: #2e3135 url(../img/sprite.svg) right -288px no-repeat;
+  padding: 0.3em 36px 0.3em 0.8em;
+}
+
+a[aria-disabled="true"] {
+  color: #ccc;
+  background: #bdbdbd;
+  cursor: auto;
+}
+
+a[aria-checked="false"] {
+  background: url("../img/unchecked.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+a[aria-checked="mixed"] {
+  background: url("../img/indeterminate.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+a[aria-checked="true"] {
+  background: url("../img/checked.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}

@@ -1,0 +1,189 @@
+
+ARIA Drag and Drop
+
+Expected behaviors: Move focus between each menu button icon, press Space, Enter, or Down to open the dropdown menu, arrow to and activate the desired drop target.
+
+The 4X ARIA Drag module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.
+
+HTML syntax:
+
+[Source]
+
+<div class="source-container">
+<div class="draggable">
+[Embedded markup for element to drag and drop here.]
+</div>
+</div>
+
+[Target]
+
+<div class="target-container"></div>
+
+IMPORTANT: Any element that is draggable must be a first child element of its source container element, and all draggable elements must be wrapped within a container element that supports innerHTML such as a div or span element. To ensure accessibility, the top level draggable element must never consist of a focusable active element such as a link, form field, or simulated active element type that is meant to be directly actionable by itself. All such controls must instead be wrapped within a draggable div element which is the first child of the source container element. This is necessary to ensure that the keyboard accessible menu button element is rendered within the correct context element during execution.
+
+JavaScript syntax:
+
+var drake = $A.setDrag({
+// Configure functionality key / value mappings
+});
+
+// Returns a Drake instance that supports all functionality provided by DragulaJS, including all related event emitters specified at: https://github.com/bevacqua/dragula
+
+drake.on("drag", function(dragElement, source) {
+// "dragElement" was lifted from "source"
+})
+drake.on("dragend", function(dragElement) {
+// Dragging event for "dragElement" ended with either "cancel", "remove", or "drop"
+})
+.on("drop", function(dragElement, target, source, sibling) {
+// "dragElement" was dropped into "target" before a "sibling" element, and originally came from "source"
+})
+.on("cancel", function(dragElement, container, source) {
+// "dragElement" was being dragged but it got nowhere and went back into "container", its last stable parent; "dragElement" originally came from "source"
+})
+.on("remove", function(dragElement, container, source) {
+// "dragElement" was being dragged but it got nowhere and it was removed from the DOM. Its last stable parent was "container", and originally came from "source"
+})
+.on("shadow", function(dragElementClone, container, source) {
+// "dragElementClone", _the visual aid shadow_, was moved into "container". May trigger many times as the position of "dragElementClone" changes, even within the same "container"; "dragElementClone" originally came from "source"
+})
+.on("over", function(dragElementClone, container, source) {
+// "dragElementClone" is over "container", and originally came from "source"
+})
+.on("out", function(dragElementClone, container, source) {
+// "dragElementClone" was dragged out of "container" or dropped, and originally came from "source"
+})
+.on("cloned", function(dragElementClone, originalDragElement, type) {
+// DOM element "originalDragElement" was cloned as "dragElementClone", of "type" ('mirror' or 'copy'). Fired for mirror images and when "copy: true"
+});
+
+Parameters
+
+1: A configuration map to customize behaviors and options.
+
+Configuration
+
+{
+
+// Specify where dragged elements will be inserted within the drop target container element.
+// Applicable when using the keyboard to perform a manual drag and drop action using the accessible ARIA dropdown menu button.
+// Must be either "prepend" or "append".
+render: "append",
+
+// Specify if draggable elements within the same container can be sorted.
+sort: false,
+
+// Configure options for the Dragula instance declaration.
+// Based on DragulaJS by Nicolas Bevacqua: https://bevacqua.github.io/dragula/
+dragula: {
+
+// Specify the container elements where the first level children will become draggable.
+containers: [dragContainerElement, dropContainerElement],
+
+// Optionally prevent dragging when specified conditions are returned as true.
+invalid: function(dragElement, handle) {
+// 'handle' is the element that is clicked, 'dragElement' is the full draggable element.
+return false; // don't prevent any drags from initiating by default
+},
+
+// Optionally prevent dropping when specified conditions are returned as false.
+accepts: function(dragElement, target, source, sibling) {
+return source !== target; // Prevent source from referencing itself as a drop target by default.
+},
+
+direction: 'vertical', // Y axis is considered when determining where an element would be dropped
+
+copy: false, // elements are moved by default, not copied
+copySortSource: false, // elements in copy-source containers can be reordered
+
+revertOnSpill: true, // spilling will put the element back where it was dragged from, if this is true
+removeOnSpill: false, // spilling will remove the element, if this is true
+
+slideFactorX: 0, // allows users to select the amount of movement on the X axis before it is considered a drag instead of a click
+slideFactorY: 0, // allows users to select the amount of movement on the Y axis before it is considered a drag instead of a click
+
+},
+
+// Specify configuration options for the accessible menu that ensures integrated accessibility for screen reader and keyboard-only users.
+menu: {
+
+tag: {
+
+// Specify the basic element markup for the dropdown menu button triggering element.
+// Accessible keyboard support and ARIA markup will be added programmatically when rendered.
+button: '<a aria-label="Actions" class="aria-action-menu-button">&darr;</a>',
+
+// Specify where the dropdown menu button will be rendered within the dragElement.
+// Must be either "prepend" or "append".
+render: "append",
+
+// Specify the basic element markup for the dropdown menu element.
+// This must match the supported element structure for the 4X ARIA Menu module.
+menu: '<ul hidden class="drag top menu"></ul>',
+
+// Specify the basic element markup for the dropdown menu child drop target elements.
+// This must match the supported element structure for the 4X ARIA Menu module.
+// The data-action attribute specifies the 'action' type that is passed to various event handlers for customization.
+move: '<li><a data-action="move" class="menu-action move">Move to %DROPNAME%</a></li>',
+copy: '<li><a data-action="copy" class="menu-action copy">Copy to %DROPNAME%</a></li>',
+// Directional menu items for use when sorting within the same 'source' container element.
+// Directional references will automatically be adjusted based on the layout of the draggable elements within the source container.
+up: '<li><a data-action="up" class="menu-action up">Move Up</a></li>',
+left: '<li><a data-action="up" class="menu-action left">Move Left</a></li>',
+down: '<li><a data-action="down" class="menu-action down">Move Down</a></li>',
+right: '<li><a data-action="down" class="menu-action right">Move Right</a></li>',
+
+// Optionally add additional menu items to customize functionality as needed.
+// Array may include any number of menu items.
+// Use the data-action attribute to differentiate between specific actions when activated.
+custom: [
+'<li><a data-action="customActionType" class="menu-action whatever">Do Something</a></li>'
+],
+
+// Specify an event handler to process custom menu items as needed when activated.
+// 'action' matches the data-action attribute specified within the custom menu item.
+customActivate: function(event, dragElement, source, action, actionsObject, nextSibling) {
+if (action === "customActionType") alert("Do something!");
+},
+
+// Optionally specify conditions to limit when custom menu items are rendered within specific source containers.
+// 'action' matches the data-action attribute specified within the custom menu item.
+invalid: function(dragElement, action, source) {
+return false; // Render within every source container by default.
+}
+
+},
+
+// Specify a custom action to execute every time a manual drop is activated using the dropdown menu.
+manualDrop: function(dragElement, target, source, action, actionsObject, nextSibling) {
+// Do something.
+// Then return true to cancel the default drop functionality within Dragula,
+// Or return false to continue with the default drop.
+return false;
+},
+
+// Optionally specify a render and remove animation effect for the menu.
+// Powered by Velocity.js.
+// View implementations within "Templates/Menus" for practical animation usage examples.
+animate: {
+onRender: function(dc, wrapper, next) {
+Velocity(wrapper, "transition.slideUpIn", {
+complete: function() {
+// Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+next();
+}
+});
+},
+onRemove: function(dc, wrapper, next) {
+Velocity(wrapper, "transition.slideUpOut", {
+complete: function() {
+// Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+next();
+}
+});
+}
+}
+
+}
+
+}

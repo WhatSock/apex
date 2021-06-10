@@ -2,6 +2,7 @@
 Dragula https://github.com/bevacqua/dragula
 Author: Nicolas Bevacqua
 License: MIT (https://opensource.org/licenses/MIT)
+Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag module.
 */
 
 (function(f) {
