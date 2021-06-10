@@ -26,6 +26,7 @@ $A.import(["Beep", "Drag"], { defer: true }, function() {
             if (action === "remove") {
               $A.remove(dragElement);
               $A.focus(next);
+              if (source.id !== "wishedFor") compute();
             }
           },
           invalid: function(dragElement, action, source, target) {
