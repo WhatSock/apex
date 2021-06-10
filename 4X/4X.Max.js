@@ -1,5 +1,5 @@
 /*@license
-Apex 4X: The Comprehensive ARIA Development Suite (2021.1.1)
+Apex 4X: The Comprehensive ARIA Development Suite (2021.1.2)
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -7,7 +7,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 
 (function() {
   var moduleFolder = "/4X/Modules/",
-    Version = "2021.1.1",
+    Version = "2021.1.2",
     $A = function(dc, dcA, dcI, onReady, disableAsync) {
       if (!arguments.length && this === $A) {
         return $A;
@@ -4575,13 +4575,13 @@ error: function(error, promise){}
         },
 
         events: [
+          "click",
+          "dblClick",
+          "touchStart",
+          "touchEnd",
+          "touchMove",
           "mouseOver",
           "mouseOut",
-          "resize",
-          "scroll",
-          "click",
-          "touchStart",
-          "dblClick",
           "mouseDown",
           "mouseUp",
           "mouseMove",
@@ -4591,8 +4591,29 @@ error: function(error, promise){}
           "keyPress",
           "keyUp",
           "error",
+          "focus",
           "focusIn",
           "focusOut",
+          "blur",
+          "change",
+          "resize",
+          "scroll",
+          "contextmenu",
+          "mouseWL",
+          "mousemultiWL",
+          "DOMMouseScroll",
+          "selectstart",
+          "selectend",
+          "orientationchange",
+          "reset",
+          "select",
+          "submit",
+          "load",
+          "unload",
+          "beforeunload",
+          "move",
+          "DOMContentLoaded",
+          "abort",
           "onRemove"
         ],
 

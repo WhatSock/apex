@@ -1,5 +1,5 @@
 /*@license
-ARIA Combobox Module R3.0 for Apex 4X
+ARIA Combobox Module R3.1 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -555,7 +555,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                           }, 1000);
                         },
                         mousedown: function(ev) {
-                          if (dc.cb.isInput) handleClick.call(this, ev);
+                          // if (dc.cb.isInput) handleClick.call(this, ev);
                           ev.stopPropagation();
                         },
                         click: function(ev) {
