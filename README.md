@@ -9,6 +9,16 @@ The release article is available on LinkedIn at:
 
 Apex 4X is a comprehensive ARIA development suite, including a core collection of powerful ARIA development utilities and functions, plus a full index of scalable ARIA design pattern templates. It also includes two APIs that are specifically designed to enhance and facilitate advanced ARIA development.
 
+Widget Templates
+-----
+
+All of the following ARIA widget templates are available for immediate use. None of them require any prior knowledge of ARIA to implement.
+
+Accordions, Buttons, Checkboxes, Comboboxes, Datepickers, Dialogs, Drag and Drop, Footnotes, Listboxes, Menus, Popups, Radios, Switches, Tabs, Tooltips, and Trees.
+
+APIs
+-----
+
 The $A API provides all core functionality, including dynamic modularization for swappable components, advanced ARIA development features and processes, data management, DOM related methods and processes, dynamic import methods, visual effect methods for content display and animation, and chaining.
 
 The DC (Dynamic Component) API provides  direct access to individually configurable components and widgets. Each DC instance includes the ability to control dynamic behaviors, manage content and events, utilize lifecycle methods, pass custom props between other DC instances and external resources, control rendering processes, plus manage visual effects and animation.
@@ -105,13 +115,6 @@ However, when creating modules that reference additional module imports, it is i
 For example, the props object is required to be passed down to all imported modules to ensure that deferred callbacks can be queued correctly when chained together. This is a powerful feature, and allows for shared props to be passed between external modules when loaded dynamically for custom behavior configurations.
 
 For more information regarding props, view the help file at: "Help/$A API/Import and Fetch APIs/Props"
-
-Widget Templates
------
-
-All of the following ARIA widget templates are available for immediate use. None of them require any prior knowledge of ARIA to implement.
-
-Accordions, Buttons, Checkboxes, Comboboxes, Datepickers, Dialogs, Drag and Drop, Footnotes, Listboxes, Menus, Popups, Radios, Switches, Tabs, Tooltips, and Trees.
 
 ReactJS Disambiguation
 -----
