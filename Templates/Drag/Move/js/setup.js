@@ -12,6 +12,7 @@ $A.import(["Beep", "Drag"], { defer: true }, function() {
       if (container !== source) $A.beep();
     })
     .on("drop", function(el, target, source, sibling) {
+      $A.beep();
       if (target.id !== "wishedFor" && target.id !== "options") compute();
     });
 

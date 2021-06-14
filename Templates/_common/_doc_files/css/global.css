@@ -379,22 +379,22 @@ nav > ul > li > a {
 }
 li.extLong--comboName {
   font-size: 0.75rem;
-  margin-bottom:0.4em;
+  margin-bottom: 0.4em;
 }
 li.extLong--dateName {
   font-size: 0.75rem;
-  margin-bottom:0.4em;
+  margin-bottom: 0.4em;
 }
 @media (min-width: 550px) {
   li.extLong--comboName {
     font-size: 1rem;
-    margin-bottom:2px;
+    margin-bottom: 2px;
   }
 }
 @media (min-width: 650px) {
   li.extLong--dateName {
     font-size: 1rem;
-    margin-bottom:2px;
+    margin-bottom: 2px;
   }
 }
 
