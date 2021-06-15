@@ -1,5 +1,5 @@
 /*@license
-Apex 4X: The Comprehensive ARIA Development Suite (2021.1.2)
+Apex 4X: The Comprehensive ARIA Development Suite (2021.1.3)
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -7,7 +7,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 
 (function() {
   var moduleFolder = "/4X/Modules/",
-    Version = "2021.1.2",
+    Version = "2021.1.3",
     $A = function(dc, dcA, dcI, onReady, disableAsync) {
       if (!arguments.length && this === $A) {
         return $A;
@@ -981,6 +981,7 @@ License: MIT (https://opensource.org/licenses/MIT)
     },
 
     Get: function(o) {
+      if (!o || o.url === null) return;
       /* Syntax of array, may include multiple fetch objects to chain them in succession
 [
 {
