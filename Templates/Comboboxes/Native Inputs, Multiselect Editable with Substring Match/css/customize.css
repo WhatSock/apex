@@ -8,8 +8,10 @@ ul.listbox {
   height: 10em;
 }
 
-div.toplevel-div {
-  left: 7em !important;
-  top: 6em !important;
+.multi--select--editable .toplevel-div {
+  background-color: var(--globalWhite);
+  left: 71px !important;
+  top: 35px !important;
   width: 17em;
 }
+

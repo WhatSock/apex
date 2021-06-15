@@ -52,12 +52,13 @@
                 <div class="demo-block flex-container">
                     <div class="component flex-item">
                         <h1 class="pageTitle">ARIA Combobox <small>(Native Inputs, Editable with Word Match)</small></h1>
-                        <div class="form--container">
+                        <div class="form--container wordmatch">
                             <form method="post" action="#">
                                 <fieldset>
                                     <legend> Search for hardware devices</legend>
-                                    <p class="select--container">
-                                        <input title="Hardware" type="text" name="hardware" id="hardwareEdit" class="aria-combobox">
+                                    <p class="select--container--wordmatch">
+                                        <label for="hardwareEdit">Hardware</label>
+                                        <input type="text" name="hardware" id="hardwareEdit" class="aria-combobox">
                                     </p>
                                     <p>
                                         <input type="submit" id="hardwareBtn" value="Submit">

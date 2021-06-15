@@ -8,8 +8,12 @@ ul.listbox {
   height: 10em;
 }
 
-div.toplevel-div {
-  left: 1.6em !important;
-  top: 11.1em !important;
+.sim--readonly {
+  position:relative;
+} 
+.sim--readonly .toplevel-div {
+  background-color: var(--globalWhite);
+  left: 4px !important;
+  top: 187px !important;
   width: 17em;
 }

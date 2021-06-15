@@ -8,15 +8,39 @@ ul.listbox {
   height: 10em;
 }
 
-div.toplevel-div {
-  left: auto !important;
-  right: 0.6em !important;
-  top: 8.5em !important;
-  width: 50%;
+.select--container--wordmatch {
+
+}
+.select--container--wordmatch input {
+
 }
 
+.select--container--wordmatch {
+  
+}
+.form--container p.select--container--wordmatch label {
+  flex: 1;
+  min-width: 10em;
+  padding: 0;
+}
+.form--container .select--container--wordmatch input {
+  flex: 3;
+  min-width: 13em;
+  padding: 0.5em;
+}
+@media (min-width: 33em) {
+  .form--container .select--container--wordmatch input {
+    min-width: 15em;
+  }
+}
+.form--container.wordmatch .toplevel-div {
+  background-color: var(--globalWhite);
+  top: 36px;
+  left: 124px;
+}
 @media (min-width: 31.6em) {
-  div.toplevel-div {
-    top: 6.6em !important;
+  .form--container.wordmatch .toplevel-div  {
+    top: 36px;
+    left: 152px;
   }
 }

@@ -126,7 +126,7 @@ input[type="submit"]:focus {
   padding: 0;
 }
 
-.form--container p {
+/* .form--container p {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-end;
@@ -143,7 +143,7 @@ input[type="submit"]:focus {
   flex: 3;
   min-width: 13em;
   padding: 0.5em;
-}
+} */
 
 @media (min-width: 33em) {
   .form--container p input {
@@ -178,7 +178,7 @@ ul.listbox {
 }
 
 #ctryIcon {
-  float: right;
+  /* float: right; */
 }
 
 #mobileCloseIcon {
