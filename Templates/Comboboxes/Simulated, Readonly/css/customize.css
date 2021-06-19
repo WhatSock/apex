@@ -9,8 +9,8 @@ ul.listbox {
 }
 
 .sim--readonly {
-  position:relative;
-} 
+  position: relative;
+}
 .sim--readonly .toplevel-div {
   background-color: var(--globalWhite);
   left: 4px !important;

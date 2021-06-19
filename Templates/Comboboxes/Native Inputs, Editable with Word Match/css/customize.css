@@ -9,14 +9,11 @@ ul.listbox {
 }
 
 .select--container--wordmatch {
-
 }
 .select--container--wordmatch input {
-
 }
 
 .select--container--wordmatch {
-  
 }
 .form--container p.select--container--wordmatch label {
   flex: 1;
@@ -39,7 +36,7 @@ ul.listbox {
   left: 124px;
 }
 @media (min-width: 31.6em) {
-  .form--container.wordmatch .toplevel-div  {
+  .form--container.wordmatch .toplevel-div {
     top: 36px;
     left: 152px;
   }

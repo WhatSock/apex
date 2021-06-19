@@ -1,7 +1,7 @@
 # apex
 Apex 4X: The Comprehensive ARIA Development Suite
 
-Apex 4X (Snow Crash)
+Apex 4X (Current version: Snow Crash)
 ===
 
 Release article: https://www.linkedin.com/pulse/released-apex-4x-comprehensive-aria-development-suite-bryan-garaventa

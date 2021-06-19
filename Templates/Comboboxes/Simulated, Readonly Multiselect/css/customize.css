@@ -8,8 +8,8 @@ ul.listbox {
   height: 10em;
 }
 
-.simMulti--readonly{
-  position:relative;
+.simMulti--readonly {
+  position: relative;
 }
 
 .simMulti--readonly .toplevel-div {
