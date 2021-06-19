@@ -1,11 +1,10 @@
 # apex
 Apex 4X: The Comprehensive ARIA Development Suite
 
-Apex 4X
+Apex 4X (Snow Crash)
 ===
 
-The release article is available on LinkedIn at:
- https://www.linkedin.com/pulse/released-apex-4x-comprehensive-aria-development-suite-bryan-garaventa
+Release article: https://www.linkedin.com/pulse/released-apex-4x-comprehensive-aria-development-suite-bryan-garaventa
 
 Apex 4X is a comprehensive ARIA development suite, including a core collection of powerful ARIA development utilities and functions, plus a full index of scalable ARIA design pattern templates. It also includes two APIs that are specifically designed to enhance and facilitate advanced ARIA development.
 
@@ -155,3 +154,12 @@ Related projects:
 -----
 
 https://github.com/whatsock
+
+Change log:
+-----
+
+2021.1.3 (Snow Crash): Added all available touch events as DC overrides, and fixed a small bug in the Get() method to prevent null reference errors at runtime.
+
+2021.1.2 (Altered Carbon): Fixed the expected behavior for toggled DC objects within 4X.
+
+2021.1.1 (Burning Chrome): Initial public release.
