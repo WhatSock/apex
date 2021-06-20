@@ -336,6 +336,11 @@ nav a:visited {
   border: none;
   border-top: 1px solid var(--datepicker-lightGrey);
 }*/
+nav.navigation--parent {
+  text-align: center;
+  max-width: 90em;
+  margin: 1em auto;
+}
 nav {
   text-align: center;
   max-width: 90em;
@@ -377,23 +382,56 @@ nav > ul > li > a {
   border-top: 2px solid var(--whatsock-orange-main);
   margin: 0 2px;
 }
-li.extLong--comboName {
-  font-size: 0.75rem;
+li.mobile--componentName {
+  font-size: 0.65rem;
   margin-bottom: 0.4em;
 }
-li.extLong--dateName {
-  font-size: 0.75rem;
-  margin-bottom: 0.4em;
+
+@media (min-width: 384px) {
+  li.mobile--componentName {
+    font-size: 0.7rem;
+    margin-bottom: 2px;
+  }
 }
-@media (min-width: 550px) {
-  li.extLong--comboName {
+@media (min-width: 460px) {
+  li.mobile--componentName {
+    font-size: 0.8rem;
+    margin-bottom: 2px;
+  }
+}
+@media (min-width: 525px) {
+  li.mobile--componentName,
+   {
     font-size: 1rem;
     margin-bottom: 2px;
   }
 }
+
+li.extLong--dateName {
+  font-size: 0.75rem;
+  margin-bottom: 0.4em;
+}
+
 @media (min-width: 650px) {
   li.extLong--dateName {
     font-size: 1rem;
+    margin-bottom: 2px;
+  }
+}
+
+li.mobile--componentName.extlong {
+  font-size: 0.55rem;
+  margin-bottom: 2px;
+}
+@media (min-width: 506px) {
+  li.mobile--componentName.extlong {
+    font-size: 0.75rem;
+    margin-bottom: 2px;
+  }
+}
+@media (min-width: 535px) {
+  li.mobile--componentName.extlong {
+    font-size: 0.85rem;
     margin-bottom: 2px;
   }
 }

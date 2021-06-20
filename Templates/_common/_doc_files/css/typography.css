@@ -13,9 +13,14 @@ main p {
 
 h1 {
   font-family: antonregular, Helvetica, Arial, sans-serif;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   text-transform: capitalize;
   margin-bottom: 1.5em;
+}
+@media (min-width: 500px) {
+  h1 {
+    font-size: 1.8rem;
+  }
 }
 
 h1 strong {
