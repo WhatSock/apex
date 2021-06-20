@@ -374,6 +374,7 @@ nav > ul > li > a[aria-current="true"] {
   color: var(--globalWhite);
   background: var(--whatsock-red);
 }
+
 nav > ul > li > a {
   line-height: 1.5;
   padding: 0.5em 1.2em;
@@ -381,6 +382,7 @@ nav > ul > li > a {
   color: var(--globalWhite);
   border-top: 2px solid var(--whatsock-orange-main);
   margin: 0 2px;
+  text-decoration: none;
 }
 li.mobile--componentName {
   font-size: 0.65rem;

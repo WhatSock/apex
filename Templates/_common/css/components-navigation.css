@@ -8,6 +8,9 @@ nav {
   padding: 0 1em;
   text-align: center;
 }
+nav h2.parent--page{
+  color:var(--globalWhite);
+}
 
 nav > ul {
   list-style: none;
@@ -17,6 +20,9 @@ nav > ul > li {
   font-family: Frutiger, Helvetica, Arial, sans-serif;
   font-size: 1.2rem;
   font-weight: 700;
+}
+nav.parent--page > ul > li > a{
+  text-decoration: none;
 }
 
 nav > ul > li > a,
@@ -34,13 +40,11 @@ nav > ul > li > a:visited {
 nav > ul > li > a:hover {
   color: var(--globalWhite);
   background: var(--whatsock-red);
-  text-decoration: none;
 }
 
 nav > ul > li > a:focus {
   color: var(--globalWhite);
   background: var(--whatsock-red);
-  text-decoration: none;
 }
 
 nav > ul > li > a[aria-current="page"] {
