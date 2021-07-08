@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Horizontal ARIA Slider - 4X Technical Style Guide</title>
+    <meta name="description" content="Scalable ARIA Components">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
+    <link rel="stylesheet" type="text/css" href="css/customize.css">
+    <script src="/4X/4X.js"></script>
+    <script src="js/setup.js"></script>
+</head>
+
+<body>
+    <div class="bypass">
+        <ul class="list-unstyled">
+            <li>
+                <a class="skip--link" href="javascript:void(0);" onclick="document.getElementById('main').focus();">
+                    Skip to Main Content
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="outer-wrapper">
+        <header class="header flex-container">
+            <div class="logo flex-item">
+                <a href="http://whatsock.com">
+                    <img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg"></a>
+            </div>
+            <div class="site-name flex-item">
+                <strong>Apex 4X</strong> Technical Style Guide
+            </div>
+        </header>
+        <div class="wrapper">
+            <div class="left-aside">
+                <nav>
+                    <h2>Test Pages</h2>
+                    <ul>
+                        <li><a href="../../index.htm">Back to Components</a></li>
+                        <li><a href="../index.htm">Back to Parent Widget</a></li>
+                        <li><a href="../Horizontal/index.htm" aria-current="page">Horizontal</a></li>
+                        <li><a href="../Vertical/index.htm">Vertical</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <main id="main" class="main" tabindex="-1">
+                <div class="demo-block flex-container">
+                    <div class="component flex-item">
+                        <h1 class="pageTitle">Horizontal ARIA Slider</h1>
+                        <section class="sample-block">
+
+                            <table class="sample">
+                                <tr>
+                                    <td>
+                                        <div class="slider wrapper">
+                                            <div class="slider decrease button"><b>-10</b></div>
+                                            <div class="slider bar">
+                                                <div class="slider handle"></div>
+                                            </div>
+                                            <div class="slider increase button"><b>10</b></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b id="value">0</b>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </section>
+                    </div>
+                    <div class="keyboard flex-item">
+                        <h2>The slider functionality is optimized for screen reader and keyboard only users:</h2>
+                        <ul>
+                            <li>Set focus on the slider.</li>
+                            <li>Press the Arrow keys to move the slider.</li>
+                            <li>Press <kbd class="home">Home</kbd> or <kbd class="end">End</kbd> to jump to the beginning or end.</li>
+                            <li>Press <kbd>PageUp</kbd> or <kbd>PageDown</kbd> to jump by increments of 10%.</li>
+                            <li>Mouse users can drag the slider as usual.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+        <footer class="footer">
+            <div class="flex-container-row">
+                <div class="flex-item">
+                    <h2>License</h2>
+                    <p>
+                        Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
+                    </p>
+                </div>
+                <div class="flex-item">
+                    <h2>Resources</h2>
+                    <ul>
+                        <li>
+                            <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
+                        </li>
+                        <li>
+                            <a target="ext" href="http://whatsock.com/training/matrices/visual-aria.htm">Visual ARIA Bookmarklet</a>
+                        </li>
+                        <li>
+                            <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
+                        </li>
+                        <li>
+                            <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
+                        </li>
+                        <li>
+                            <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
+                        </li>
+                        <li>
+                            <a target="ext" href="http://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
+                        </li>
+                        <li>
+                            <a target="ext" href="http://whatsock.com/training/">Accessibility Tree Training Guide</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex-item">
+                    <h2>Acknowledgements</h2>
+                    <ul class="list--horizontal">
+                        <li>
+                            Author and developer:
+                            <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
+                        </li>
+                        <li>
+                            Website designer:
+                            <a target="ext" href="http://gericci.me/">Angela Ricci</a>
+                        </li>
+                        <li>
+                            Style and markup editor:
+                            <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

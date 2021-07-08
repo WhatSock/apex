@@ -1,7 +1,7 @@
 # apex
 Apex 4X: The Comprehensive ARIA Development Suite
 
-Apex 4X (Current version: Snow Crash)
+Apex 4X (Current version: Mona Lisa Overdrive - 2021.1.4)
 ===
 
 Release article: https://www.linkedin.com/pulse/released-apex-4x-comprehensive-aria-development-suite-bryan-garaventa
@@ -13,7 +13,7 @@ Widget Templates
 
 All of the following ARIA widget templates are available for immediate use. None of them require any prior knowledge of ARIA to implement.
 
-Accordions, Buttons, Checkboxes, Comboboxes, Datepickers, Dialogs, Drag and Drop, Footnotes, Listboxes, Menus, Popups, Radios, Switches, Tabs, Tooltips, and Trees.
+Accordions, Buttons, Checkboxes, Comboboxes, Datepickers, Dialogs, Drag and Drop, Footnotes, Listboxes, Menus, Popups, Radios, Sliders, Switches, Tabs, Tooltips, and Trees.
 
 APIs
 -----
@@ -157,6 +157,8 @@ https://github.com/whatsock
 
 Change log:
 -----
+
+2021.1.4 (Mona Lisa Overdrive): Added CSS offset aliases for width, height, top, and left for shorthand computation of common element rendering properties.
 
 2021.1.3 (Snow Crash): Added all available touch events as DC overrides, and fixed a small bug in the Get() method to prevent null reference errors at runtime.
 

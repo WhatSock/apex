@@ -1,0 +1,134 @@
+
+ARIA Sliders
+
+Expected behaviors: Set focus to the slider, press the arrow keys to move it backward or forward, press Home or End to move the slider to the beginning or end, press PageUp or PageDown to move it backward or forward in increments of 10%.
+
+The 4X ARIA Slider module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.
+
+HTML syntax:
+
+<div class="slider wrapper">
+  <div class="slider decrease button">0</div>
+  <div class="slider bar">
+    <div class="slider handle"></div>
+  </div>
+  <div class="slider increase button">100</div>
+</div>
+
+JavaScript syntax:
+
+var ariaSlider = new $A.Slider(".slider.bar", {
+// Configure functionality key / value mappings
+});
+
+Parameters
+
+1: A DOM element or CSS selector to specify the slider handle's container (slideBar) element.
+
+2: A configuration map to customize behaviors and options.
+
+Configuration
+
+{
+
+label: "Accessible name for the slider",
+
+description: "Optional accessible description",
+
+// Optionally specify the slider bar element if not passed as the first parameter of $A.Slider().
+slideBar: null,
+
+// Set the initial state values for the slider.
+// All must be numbers; both negative and positive values are supported.
+valueMin: 0,
+valueMax: 100,
+valueNow: 0,
+
+// Set functionality to occur when the value changes.
+// IMPORTANT: An updated textual representation of the current value must be returned to inform non-sighted screen reader users of the current slider value.
+valueChange: function(valueNow, valueMin, valueMax, sliderInstance) {
+return sliderInstance.getPercent();
+},
+
+// Optionally specify the location of accessible decrement and increment buttons to appear on mobile touch devices such as phones and tablets.
+// These must be at the same logical level as the slideBar element.
+decreaseBtn: ".slider.decrease.button", // CSS selector.
+decreaseBtnLabel: "Decrease", // Textual name for the accessible button.
+increaseBtn: ".slider.increase.button", // CSS selector.
+increaseBtnLabel: "Increase", // Textual name for the accessible button.
+
+dragStart: function(x, y, valueNow, valueMin, valueMax, sliderInstance) {
+// Optionally do something when mouse dragging starts.
+},
+
+dragging: function(x, y, valueNow, valueMin, valueMax, sliderInstance) {
+// Optionally do something when dragging the mouse.
+},
+
+dragEnd: function(x, y, valueNow, valueMin, valueMax, sliderInstance) {
+// Optionally do something when mouse dragging stops.
+},
+
+// Configure options for the Dragdealer instance declaration.
+// Based on DragdealerJS by Ovidiu Chereche: http://github.com/skidding/dragdealer
+
+dragdealer: {
+
+// Init Dragdealer in a disabled state. The handle will have a .disabled class.
+  disabled: false,
+
+// When a number of steps is set, snap the position of the handle to its closest step instantly, even when dragging.
+  snap: false,
+
+// Slide handle after releasing it, depending on the movement speed before the mouse/touch release.
+  slide: false,
+
+// Loosen-up wrapper boundaries when dragging. This allows the handle to be *slightly* dragged outside the bounds of the wrapper,
+// but slides it back to the margins of the wrapper upon release.
+  loose: false,
+
+// Custom class of handle element.
+  handleClass: "handle",
+
+// Use css3 transform in modern browsers instead of absolute positioning.
+  css3: true
+
+}
+
+}
+
+Slider Instance Properties and Methods
+
+// Access the Dragdealer instance object.
+  ariaSlider.dd
+
+// Get the current percent for the slider.
+  ariaSlider.getPercent();
+
+// Get the current value for the slider.
+  ariaSlider.getValue();
+
+// Set the current value for the slider.
+  ariaSlider.setValue(number);
+
+// Set the minimum value for the slider.
+  ariaSlider.setMin(number);
+
+// Set the maximum value for the slider.
+  ariaSlider.setMax(number);
+
+// Set the valueChange function for the slider.
+  ariaSlider.setValueChange(function(valueNow, valueMin, valueMax, sliderInstance) {
+    return valueNow.toString(); // Must return a textual representation of the current value to ensure accessibility for screen reader users.
+  });
+
+// Set the disabled state for the slider.
+  ariaSlider.disable(bool);
+
+// Manually move the slider as specified.
+  ariaSlider.back();
+  ariaSlider.next();
+  ariaSlider.home();
+  ariaSlider.end();
+  ariaSlider.pageUp();
+  ariaSlider.pageDown();

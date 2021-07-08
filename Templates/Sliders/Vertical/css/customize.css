@@ -1,0 +1,47 @@
+/* Specific styles for ARIA Sliders */
+
+table.sample td {
+  vertical-align: middle;
+}
+
+.slider.wrapper {
+  margin-right: 4rem;
+}
+
+.slider.button {
+  text-align: center;
+}
+
+.slider.button b {
+  display: block;
+  padding: 0.5rem 0;
+}
+
+.slider.bar {
+  position: relative;
+  height: 348px;
+  width: 46px;
+  z-index: 20;
+}
+.slider.bar::before {
+  display: block;
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 50%;
+  width: 0.1em;
+  height: 100%;
+  background: #ccc;
+}
+
+.slider.handle {
+  width: 46px;
+  height: 46px;
+  background-color: #000;
+  color: #f5f5f5;
+  border-radius: 5em;
+  cursor: pointer;
+  background: url(../img/sprite.svg) 9px -1551px no-repeat,
+    url(../img/sprite.svg) 9px -1402px no-repeat;
+  z-index: 20;
+}

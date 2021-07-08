@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>ARIA Sliders - Apex 4X Technical Style Guide</title>
+    <meta name="description" content="Scalable ARIA Components">
+    <meta name="Author" content="Bryan Garaventa" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/global.css">
+    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/prism.css">
+    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/components-style.css">
+    <script src="../_common/_doc_files/prism.js"></script>
+</head>
+
+<body>
+    <div class="outer-wrapper">
+        <header class="header">
+            <div class="logo">
+                <a href="http://whatsock.com">
+                    <img alt="WhatSock : Changing the world one step at a time" src="/Templates/_common/_doc_files/img/whatsock.svg">
+                </a>
+            </div>
+            <nav class="navigation--parent">
+                <h2 class="parent--page">Test Pages</h2>
+                <ul>
+                    <li><a href="../index.htm">Back to Components</a></li>
+                    <li><a href="Horizontal/index.htm">Horizontal</a></li>
+                    <li><a href="Vertical/index.htm">Vertical</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="wrapper">
+            <main id="main" class="main">
+                <h1><strong>ARIA Sliders</strong> </h1>
+
+                <section class="section--instructions">
+
+                    <h2>Expected behaviors</h2>
+
+                    <p>Set focus to the slider, press the arrow keys to move it backward or forward, press Home or End to move the slider to the beginning or end, press PageUp or PageDown to move it backward or forward in increments of 10%.</p>
+
+                    <p>The 4X ARIA Slider module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.</p>
+
+                    <h2>HTML syntax</h2>
+
+                    <div>
+                        <pre><code class="language-markup">
+&lt;div class="slider wrapper">
+  &lt;div class="slider decrease button">0&lt;/div>
+  &lt;div class="slider bar">
+    &lt;div class="slider handle">&lt;/div>
+  &lt;/div>
+  &lt;div class="slider increase button">100&lt;/div>
+&lt;/div>
+</code></pre>
+                    </div>
+
+                    <h2>JavaScript syntax</h2>
+
+                    <div>
+                        <pre><code class="language-javascript">
+var ariaSlider = new $A.Slider(".slider.bar", {
+// Configure functionality key / value mappings
+});
+</code></pre>
+                    </div>
+
+                    <h2>Parameters</h2>
+
+                    <ol>
+                        <li>A DOM element or CSS selector to specify the slider handle's container (slideBar) element.</li>
+                        <li>A configuration map to customize behaviors and options.</li>
+                    </ol>
+
+                    <h3>Configuration</h3>
+
+                    <div>
+                        <pre><code class="language-javascript">{
+
+label: "Accessible name for the slider",
+
+description: "Optional accessible description",
+
+// Optionally specify the slider bar element if not passed as the first parameter of $A.Slider().
+slideBar: null,
+
+// Set the initial state values for the slider.
+// All must be numbers; both negative and positive values are supported.
+valueMin: 0,
+valueMax: 100,
+valueNow: 0,
+
+// Set functionality to occur when the value changes.
+// IMPORTANT: An updated textual representation of the current value must be returned to inform non-sighted screen reader users of the current slider value.
+valueChange: function(valueNow, valueMin, valueMax, sliderInstance) {
+return sliderInstance.getPercent();
+},
+
+// Optionally specify the location of accessible decrement and increment buttons to appear on mobile touch devices such as phones and tablets.
+// These must be at the same logical level as the slideBar element.
+decreaseBtn: ".slider.decrease.button", // CSS selector.
+decreaseBtnLabel: "Decrease", // Textual name for the accessible button.
+increaseBtn: ".slider.increase.button", // CSS selector.
+increaseBtnLabel: "Increase", // Textual name for the accessible button.
+
+dragStart: function(x, y, valueNow, valueMin, valueMax, sliderInstance) {
+// Optionally do something when mouse dragging starts.
+},
+
+dragging: function(x, y, valueNow, valueMin, valueMax, sliderInstance) {
+// Optionally do something when dragging the mouse.
+},
+
+dragEnd: function(x, y, valueNow, valueMin, valueMax, sliderInstance) {
+// Optionally do something when mouse dragging stops.
+},
+
+// Configure options for the Dragdealer instance declaration.
+// Based on DragdealerJS by Ovidiu Chereche: http://github.com/skidding/dragdealer
+
+dragdealer: {
+
+// Init Dragdealer in a disabled state. The handle will have a .disabled class.
+  disabled: false,
+
+// When a number of steps is set, snap the position of the handle to its closest step instantly, even when dragging.
+  snap: false,
+
+// Slide handle after releasing it, depending on the movement speed before the mouse/touch release.
+  slide: false,
+
+// Loosen-up wrapper boundaries when dragging. This allows the handle to be *slightly* dragged outside the bounds of the wrapper,
+// but slides it back to the margins of the wrapper upon release.
+  loose: false,
+
+// Custom class of handle element.
+  handleClass: "handle",
+
+// Use css3 transform in modern browsers instead of absolute positioning.
+  css3: true
+
+}
+
+}</code></pre>
+                    </div>
+
+                    <h2>Slider Instance Properties and Methods</h2>
+
+                    <div>
+                        <pre><code class="language-javascript">
+
+// Access the Dragdealer instance object.
+  ariaSlider.dd
+
+// Get the current percent for the slider.
+  ariaSlider.getPercent();
+
+// Get the current value for the slider.
+  ariaSlider.getValue();
+
+// Set the current value for the slider.
+  ariaSlider.setValue(number);
+
+// Set the minimum value for the slider.
+  ariaSlider.setMin(number);
+
+// Set the maximum value for the slider.
+  ariaSlider.setMax(number);
+
+// Set the valueChange function for the slider.
+  ariaSlider.setValueChange(function(valueNow, valueMin, valueMax, sliderInstance) {
+    return valueNow.toString(); // Must return a textual representation of the current value to ensure accessibility for screen reader users.
+  });
+
+// Set the disabled state for the slider.
+  ariaSlider.disable(bool);
+
+// Manually move the slider as specified.
+  ariaSlider.back();
+  ariaSlider.next();
+  ariaSlider.home();
+  ariaSlider.end();
+  ariaSlider.pageUp();
+  ariaSlider.pageDown();
+
+</code></pre>
+                    </div>
+
+                </section>
+            </main>
+        </div>
+        <footer class="footer">
+            <div class="flex-container-row">
+                <div class="flex-item">
+                    <h2>License</h2>
+                    <p>
+                        Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
+                    </p>
+                </div>
+                <div class="flex-item">
+                    <h2>Resources</h2>
+                    <ul>
+                        <li>
+                            <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
+                        </li>
+                        <li>
+                            <a target="ext" href="http://whatsock.com/training/matrices/visual-aria.htm">Visual ARIA Bookmarklet</a>
+                        </li>
+                        <li>
+                            <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
+                        </li>
+                        <li>
+                            <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
+                        </li>
+                        <li>
+                            <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
+                        </li>
+                        <li>
+                            <a target="ext" href="http://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
+                        </li>
+                        <li>
+                            <a target="ext" href="http://whatsock.com/training/">Accessibility Tree Training Guide</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex-item">
+                    <h2>Acknowledgements</h2>
+                    <ul class="list--horizontal">
+                        <li>
+                            Author and developer:
+                            <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
+                        </li>
+                        <li>
+                            Website designer:
+                            <a target="ext" href="http://gericci.me/">Angela Ricci</a>
+                        </li>
+                        <li>
+                            Style and markup editor:
+                            <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

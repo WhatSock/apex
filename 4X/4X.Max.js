@@ -1,5 +1,5 @@
 /*@license
-Apex 4X: The Comprehensive ARIA Development Suite (2021.1.3 - Snow Crash)
+Apex 4X: The Comprehensive ARIA Development Suite (2021.1.4 - Mona Lisa Overdrive)
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -7,7 +7,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 
 (function() {
   var moduleFolder = "/4X/Modules/",
-    Version = "2021.1.3",
+    Version = "2021.1.4",
     $A = function(dc, dcA, dcI, onReady, disableAsync) {
       if (!arguments.length && this === $A) {
         return $A;
@@ -4878,6 +4878,10 @@ error: function(error, promise){}
     last: $A["lastChild"],
     parent: $A["closest"],
     removeClass: $A["remClass"],
+    height: $A["elementHeight"],
+    width: $A["elementWidth"],
+    top: $A["_top"],
+    left: $A["_left"],
     addIdReference: $A["addIdRef"],
     removeIdReference: $A["remIdRef"],
     preloadImages: $A["preload"],

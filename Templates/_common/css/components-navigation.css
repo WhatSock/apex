@@ -8,8 +8,8 @@ nav {
   padding: 0 1em;
   text-align: center;
 }
-nav h2.parent--page{
-  color:var(--globalWhite);
+nav h2.parent--page {
+  color: var(--globalWhite);
 }
 
 nav > ul {
@@ -21,7 +21,7 @@ nav > ul > li {
   font-size: 1.2rem;
   font-weight: 700;
 }
-nav.parent--page > ul > li > a{
+nav.parent--page > ul > li > a {
   text-decoration: none;
 }
 

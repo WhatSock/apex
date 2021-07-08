@@ -402,8 +402,7 @@ li.mobile--componentName {
   }
 }
 @media (min-width: 525px) {
-  li.mobile--componentName,
-   {
+  li.mobile--componentName {
     font-size: 1rem;
     margin-bottom: 2px;
   }
