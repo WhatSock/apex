@@ -37,11 +37,8 @@ table.sample td {
 .slider.handle {
   width: 46px;
   height: 46px;
-  background-color: #000;
-  color: #f5f5f5;
-  border-radius: 5em;
   cursor: pointer;
-  background: url(../img/sprite.svg) 9px -1551px no-repeat,
-    url(../img/sprite.svg) 9px -1402px no-repeat;
+  background: url(../img/sprite.svg) 10px 47px;
   z-index: 20;
+  background-repeat: repeat-y;
 }
