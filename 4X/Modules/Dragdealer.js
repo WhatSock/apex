@@ -220,7 +220,7 @@
       disabled: false,
       horizontal: true,
       vertical: false,
-      slide: true,
+      slide: false,
       steps: 0,
       snap: false,
       loose: false,

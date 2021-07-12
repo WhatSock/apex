@@ -154,6 +154,7 @@ License: MIT (https://opensource.org/licenses/MIT)
             that.refreshValues();
 
             var init = false,
+              isVert = config.orientation(o) === "vertical",
               fn = function(c, vn) {
                 config.valueNow = vn;
                 $A.setAttr(handle, {
@@ -170,8 +171,8 @@ License: MIT (https://opensource.org/licenses/MIT)
                 o,
                 $A.extend(
                   {
-                    horizontal: config.orientation(o) === "horizontal",
-                    vertical: config.orientation(o) === "vertical",
+                    horizontal: !isVert,
+                    vertical: isVert,
                     x: 0,
                     y: 0,
                     steps: config.max,
