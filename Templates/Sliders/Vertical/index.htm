@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Horizontal ARIA Slider - 4X Technical Style Guide</title>
+    <title>Vertical ARIA Slider - 4X Technical Style Guide</title>
     <meta name="description" content="Scalable ARIA Components">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
@@ -39,32 +39,55 @@
                     <ul>
                         <li><a href="../../index.htm">Back to Components</a></li>
                         <li><a href="../index.htm">Back to Parent Widget</a></li>
-                        <li><a href="../Horizontal/index.htm" aria-current="page">Horizontal</a></li>
-                        <li><a href="../Vertical/index.htm">Vertical</a></li>
+                        <li><a href="../Horizontal/index.htm">Horizontal</a></li>
+                        <li><a href="../Vertical/index.htm" aria-current="page">Vertical</a></li>
                     </ul>
                 </nav>
             </div>
             <main id="main" class="main" tabindex="-1">
                 <div class="demo-block flex-container">
                     <div class="component flex-item">
-                        <h1 class="pageTitle">Horizontal ARIA Slider</h1>
+                        <h1 class="pageTitle">Vertical ARIA Slider</h1>
                         <section class="sample-block">
 
                             <table class="sample">
                                 <tr>
                                     <td>
                                         <div class="slider wrapper">
-                                            <div class="slider decrease button"><b>-10</b></div>
+                                            <div class="slider decrease button"><b>12AM</b></div>
                                             <div class="slider bar">
                                                 <div class="slider handle"></div>
                                             </div>
-                                            <div class="slider increase button"><b>10</b></div>
+                                            <div class="slider increase button"><b>11PM</b></div>
                                         </div>
                                     </td>
-                                </tr>
-                                <tr>
                                     <td>
-                                        <b id="value">0</b>
+                                        <select id="syncSelect" size="24" title="Mirrored select field">
+                                            <option value="0">12:00 AM</option>
+                                            <option value="1">1:00 AM</option>
+                                            <option value="2">2:00 AM</option>
+                                            <option value="3">3:00 AM</option>
+                                            <option value="4">4:00 AM</option>
+                                            <option value="5">5:00 AM</option>
+                                            <option value="6">6:00 AM</option>
+                                            <option value="7">7:00 AM</option>
+                                            <option value="8">8:00 AM</option>
+                                            <option value="9">9:00 AM</option>
+                                            <option value="10">10:00 AM</option>
+                                            <option value="11">11:00 AM</option>
+                                            <option value="12">12:00 PM</option>
+                                            <option value="13">1:00 PM</option>
+                                            <option value="14">2:00 PM</option>
+                                            <option value="15">3:00 PM</option>
+                                            <option value="16">4:00 PM</option>
+                                            <option value="17">5:00 PM</option>
+                                            <option value="18">6:00 PM</option>
+                                            <option value="19">7:00 PM</option>
+                                            <option value="20">8:00 PM</option>
+                                            <option value="21">9:00 PM</option>
+                                            <option value="22">10:00 PM</option>
+                                            <option value="23">11:00 PM</option>
+                                        </select>
                                     </td>
                                 </tr>
                             </table>

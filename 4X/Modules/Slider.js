@@ -1,5 +1,5 @@
 /*@license
-ARIA Slider Module 1.0 for Apex 4X
+ARIA Slider Module 1.1 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -45,7 +45,9 @@ License: MIT (https://opensource.org/licenses/MIT)
             };
 
             that.getValue = function(i) {
-              return config.valueMin + (($A.isNum(i) ? i : config.current) - 1);
+              return Math.round(
+                config.valueMin + (($A.isNum(i) ? i : config.current) - 1)
+              );
             };
 
             that.getCurrent = function() {
@@ -66,8 +68,9 @@ License: MIT (https://opensource.org/licenses/MIT)
             };
 
             that.refreshValues = function() {
+              var dir = config.orientation(o);
               $A.setAttr(handle, {
-                "aria-orientation": config.orientation(o),
+                "aria-orientation": dir,
                 "aria-valuemin": config.valueMin,
                 "aria-valuemax": config.valueMax,
                 "aria-valuenow": config.valueNow,
@@ -94,7 +97,10 @@ License: MIT (https://opensource.org/licenses/MIT)
                 increaseBtn: ".slider.increase.button",
                 increaseBtnLabel: "Increase",
                 orientation: function(o) {
-                  return $A.width(o) > $A.height(o) ? "horizontal" : "vertical";
+                  var d =
+                    $A.width(o) > $A.height(o) ? "horizontal" : "vertical";
+                  config.isVertical = d === "vertical";
+                  return d;
                 },
                 dragStart: function(
                   x,
@@ -154,13 +160,12 @@ License: MIT (https://opensource.org/licenses/MIT)
             that.refreshValues();
 
             var init = false,
-              isVert = config.orientation(o) === "vertical",
               fn = function(c, vn) {
-                config.valueNow = vn;
+                config.valueNow = Math.round(vn);
                 $A.setAttr(handle, {
-                  "aria-valuenow": vn,
+                  "aria-valuenow": config.valueNow,
                   "aria-valuetext": config.valueChange(
-                    vn,
+                    config.valueNow,
                     config.valueMin,
                     config.valueMax,
                     that
@@ -171,8 +176,8 @@ License: MIT (https://opensource.org/licenses/MIT)
                 o,
                 $A.extend(
                   {
-                    horizontal: !isVert,
-                    vertical: isVert,
+                    horizontal: !config.isVertical,
+                    vertical: config.isVertical,
                     x: 0,
                     y: 0,
                     steps: config.max,
@@ -181,7 +186,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     left: 0,
                     right: 0,
                     callback: function(x, y) {
-                      var c = this.getStep()[0],
+                      var c = this.getStep()[config.isVertical ? 1 : 0],
                         vn = that.getValue(c);
                       fn(c, vn);
                     },
@@ -191,7 +196,9 @@ License: MIT (https://opensource.org/licenses/MIT)
                         that,
                         x,
                         y,
-                        that.getValue(this.getStep()[0]),
+                        that.getValue(
+                          this.getStep()[config.isVertical ? 1 : 0]
+                        ),
                         config.valueMin,
                         config.valueMax,
                         that
@@ -199,7 +206,9 @@ License: MIT (https://opensource.org/licenses/MIT)
                     },
                     dragStopCallback: function(x, y) {
                       this.options.dragging = false;
-                      var c = (config.current = this.getStep()[0]),
+                      var c = (config.current = this.getStep()[
+                          config.isVertical ? 1 : 0
+                        ]),
                         vn = that.getValue(c);
                       fn(c, vn);
                       config.dragEnd.call(
@@ -214,7 +223,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     },
                     animationCallback: function(x, y) {
                       if (init && this.options.dragging) {
-                        var c = this.getStep()[0],
+                        var c = this.getStep()[config.isVertical ? 1 : 0],
                           vn = that.getValue(c);
                         if (c !== config.current) config.current = c;
                         fn(c, vn);
@@ -258,15 +267,17 @@ License: MIT (https://opensource.org/licenses/MIT)
             };
 
             that.setValue = function(i) {
-              if ($A.isNum(i)) config.valueNow = i;
+              if ($A.isNum(i)) config.valueNow = Math.round(i);
               config.current = that.getCurrent();
-              dd.setStep(config.current);
+              if (config.isVertical) dd.setStep(1, config.current);
+              else dd.setStep(config.current, 1);
             };
 
             that.setCurrent = function(i) {
-              if ($A.isNum(i)) config.current = i;
+              if ($A.isNum(i)) config.current = Math.round(i);
               config.valueNow = that.getValue();
-              dd.setStep(config.current);
+              if (config.isVertical) dd.setStep(1, config.current);
+              else dd.setStep(config.current, 1);
             };
 
             that.setValueChange = function(f) {
@@ -292,13 +303,13 @@ License: MIT (https://opensource.org/licenses/MIT)
               that.setCurrent(config.max);
             };
 
-            that.pageUp = function(m) {
+            that.pageDown = function(m) {
               var r = config.current - Math.round(config.max * 0.1);
               config.current = r < config.min ? config.min : r;
               that.setCurrent(config.current);
             };
 
-            that.pageDown = function(m) {
+            that.pageUp = function(m) {
               var r = config.current + Math.round(config.max * 0.1);
               config.current = r > config.max ? config.max : r;
               that.setCurrent(config.current);
@@ -311,12 +322,21 @@ License: MIT (https://opensource.org/licenses/MIT)
                   var k = $A.keyEvent(ev);
                   if ((k >= 37 && k <= 40) || (k >= 33 && k <= 36)) {
                     dd.options.kb = true;
-                    if (k === 37 || k === 38) that.back(true);
-                    else if (k === 39 || k === 40) that.next(true);
-                    else if (k === 35) that.end(true);
-                    else if (k === 36) that.home(true);
-                    else if (k === 33) that.pageUp(true);
-                    else if (k === 34) that.pageDown(true);
+                    if (config.isVertical) {
+                      if (k === 37 || k === 38) that.back(true);
+                      else if (k === 39 || k === 40) that.next(true);
+                      else if (k === 35) that.end(true);
+                      else if (k === 36) that.home(true);
+                      else if (k === 34) that.pageUp(true);
+                      else if (k === 33) that.pageDown(true);
+                    } else {
+                      if (k === 37 || k === 40) that.back(true);
+                      else if (k === 38 || k === 39) that.next(true);
+                      else if (k === 35) that.end(true);
+                      else if (k === 36) that.home(true);
+                      else if (k === 33) that.pageUp(true);
+                      else if (k === 34) that.pageDown(true);
+                    }
                     ev.stopPropagation();
                     ev.preventDefault();
                   }
