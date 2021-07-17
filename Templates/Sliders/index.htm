@@ -91,6 +91,10 @@ valueMin: 0,
 valueMax: 100,
 valueNow: 0,
 
+// Optionally reverse the value computation.
+// When true, the minimum value will be at the bottom of a vertical slider instead of at the top.
+valueReverse: false,
+
 // Set functionality to occur when the value changes.
 // IMPORTANT: An updated textual representation of the current value must be returned to inform non-sighted screen reader users of the current slider value.
 valueChange: function(valueNow, valueMin, valueMax, sliderInstance) {

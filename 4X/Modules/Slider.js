@@ -1,5 +1,5 @@
 /*@license
-ARIA Slider Module 1.1 for Apex 4X
+ARIA Slider Module 1.2 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -22,12 +22,14 @@ License: MIT (https://opensource.org/licenses/MIT)
             o = config.slideBar = $A.morph(o);
             var handle = $A.first(o);
             if (!handle) return null;
-            var that = this;
+            var that = this,
+              getReverseCurrent = function(i) {
+                return config.max - ($A.isNum(i) ? i : config.current) + 1;
+              };
 
             that.getPercent = function() {
               return (
-                Math.round(((config.current - 1) / (config.max - 1)) * 100) +
-                "%"
+                Math.round((config.valueNow / config.valueMax) * 100) + "%"
               );
             };
 
@@ -46,7 +48,13 @@ License: MIT (https://opensource.org/licenses/MIT)
 
             that.getValue = function(i) {
               return Math.round(
-                config.valueMin + (($A.isNum(i) ? i : config.current) - 1)
+                config.valueMin +
+                  ((config.valueReverse
+                    ? getReverseCurrent($A.isNum(i) ? i : config.current)
+                    : $A.isNum(i)
+                    ? i
+                    : config.current) -
+                    1)
               );
             };
 
@@ -64,7 +72,7 @@ License: MIT (https://opensource.org/licenses/MIT)
               } else {
                 c = config.min;
               }
-              return c;
+              return config.valueReverse ? getReverseCurrent(c) : c;
             };
 
             that.refreshValues = function() {
@@ -92,6 +100,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 valueMin: 0,
                 valueMax: 100,
                 valueNow: 0,
+                valueReverse: false,
                 decreaseBtn: ".slider.decrease.button",
                 decreaseBtnLabel: "Decrease",
                 increaseBtn: ".slider.increase.button",

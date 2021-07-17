@@ -7,19 +7,20 @@ $A.import("Slider", { defer: true }, function() {
     valueMin: 0,
     valueMax: 23,
     valueNow: 9,
+    valueReverse: true,
     valueChange: function(val, min, max, sliderInstance) {
-      var option = options[val];
+      var option = select.querySelector('option[value="' + val + '"]');
       option.selected = true;
       return $A.text(option); // Must return a textual representation of the current value to ensure accessibility for screen reader users.
     }
   });
 
   $A(select).on("change blur", function(ev) {
-    var selectedIndex = (function() {
+    var option = (function() {
       for (var i = 0; i < options.length; i++) {
-        if (options[i].selected) return i;
+        if (options[i].selected) return options[i];
       }
     })();
-    ariaSlider.setValue(selectedIndex);
+    ariaSlider.setValue(parseInt($A.getAttr(option, "value")));
   });
 });
