@@ -65,6 +65,7 @@ table.sample td {
   height: 47px;
   background: url(../img/sprite.svg) 0 -1906px no-repeat;
   cursor: pointer;
+  z-index: 25;
 }
 
 #value {
