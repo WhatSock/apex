@@ -14,7 +14,7 @@ Distributed under the terms of the Open Source Initiative OSI - MIT License
     window[nameSpace] = {};
     nameSpace = window[nameSpace];
   }
-  nameSpace.getAccNameVersion = "2.55";
+  nameSpace.getAccNameVersion = "2.56";
   // AccName Computation Prototype
   nameSpace.getAccName = nameSpace.calcNames = function(
     node,
@@ -372,6 +372,32 @@ Plus roles extended for the Role Parity project.
                     ownedBy[node.id].target === node))
               );
 
+              // Check for non-empty value of aria-labelledby on current node, follow each ID ref, then stop and process no deeper.
+              if (!stop && !skipTo.tag && !skipTo.role && aLabelledby) {
+                ids = aLabelledby.split(/\s+/);
+                parts = [];
+                for (i = 0; i < ids.length; i++) {
+                  element = docO.getElementById(ids[i]);
+                  // Also prevent the current form field from having its value included in the naming computation if nested as a child of label
+                  parts.push(
+                    walk(element, true, skip, [node], element === refNode, {
+                      ref: ownedBy,
+                      top: element
+                    }).name
+                  );
+                }
+                // Check for blank value, since whitespace chars alone are not valid as a name
+                name = trim(parts.join(" "));
+
+                if (trim(name)) {
+                  hasName = true;
+                  hLabel = true;
+                  hasLabel = true;
+                  // Abort further recursion if name is valid.
+                  result.skip = true;
+                }
+              }
+
               // Check for non-empty value of aria-describedby/description if current node equals reference node, follow each ID ref, then stop and process no deeper.
               if (
                 !stop &&
@@ -402,32 +428,6 @@ Plus roles extended for the Role Parity project.
                 if (trim(desc)) {
                   result.desc = desc;
                   hasDesc = true;
-                }
-              }
-
-              // Check for non-empty value of aria-labelledby on current node, follow each ID ref, then stop and process no deeper.
-              if (!stop && !skipTo.tag && !skipTo.role && aLabelledby) {
-                ids = aLabelledby.split(/\s+/);
-                parts = [];
-                for (i = 0; i < ids.length; i++) {
-                  element = docO.getElementById(ids[i]);
-                  // Also prevent the current form field from having its value included in the naming computation if nested as a child of label
-                  parts.push(
-                    walk(element, true, skip, [node], element === refNode, {
-                      ref: ownedBy,
-                      top: element
-                    }).name
-                  );
-                }
-                // Check for blank value, since whitespace chars alone are not valid as a name
-                name = trim(parts.join(" "));
-
-                if (trim(name)) {
-                  hasName = true;
-                  hLabel = true;
-                  hasLabel = true;
-                  // Abort further recursion if name is valid.
-                  result.skip = true;
                 }
               }
 

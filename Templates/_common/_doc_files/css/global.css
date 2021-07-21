@@ -310,9 +310,9 @@ h1 strong {
   line-height: 1.2;
 }
 
-p.dark--bg{
+p.dark--bg {
   color: var(--globalWhite);
-  text-align:center;
+  text-align: center;
 }
 
 /* --------------------------------------------------------------------------- */
