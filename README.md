@@ -1,7 +1,7 @@
 # apex
 Apex 4X: The Comprehensive ARIA Development Suite
 
-Apex 4X (Current version: Mona Lisa Overdrive - 2021.1.4)
+Apex 4X (Current version: Broken Angels - 2021.1.5)
 ===
 
 Release article: https://www.linkedin.com/pulse/released-apex-4x-comprehensive-aria-development-suite-bryan-garaventa
@@ -157,6 +157,8 @@ https://github.com/whatsock
 
 Change log:
 -----
+
+2021.1.5 (Broken Angels): Reconfigured internal event handling object locale to better accomidate external testing frameworks.
 
 2021.1.4 (Mona Lisa Overdrive): Added CSS offset aliases for width, height, top, and left for shorthand computation of common element rendering properties.
 
