@@ -1,5 +1,5 @@
 /*@license
-ARIA Listbox Module 3.0 for Apex 4X
+ARIA Listbox Module 3.1 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -696,7 +696,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     .setAttr("tabindex", "0")
                     .on("focus click", function(ev) {
                       if (init.options.length) {
-                        DC.RTI.focus();
+                        if (!$A.isTouch) DC.RTI.focus();
                         $A.setAttr(init.listbox, "tabindex", "-1");
                       }
                     });
