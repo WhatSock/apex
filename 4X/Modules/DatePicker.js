@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 4.0 for Apex 4X
+ARIA Date Picker Module 4.1 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -699,12 +699,13 @@ License: MIT <https://opensource.org/licenses/MIT>
                 isDisabled,
                 isSelected
               ) {
-                var dc = this;
-
-                var cell = "<td ";
+                var dc = this,
+                  cell = "<td ",
+                  dateToday = dc.createDateComparisonValue(new Date()),
+                  dateNew = dc.createDateComparisonValue(cellDateObj);
 
                 // set correct ARIA attributes
-                if (isSelected) {
+                if (dateNew === dateToday) {
                   cell += 'aria-current="date" ';
                 }
 
@@ -761,10 +762,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 cell += 'class="day ' + (cssClasses ? cssClasses : "");
 
                 if (dc.highlightToday === true) {
-                  if (
-                    dc.createDateComparisonValue(cellDateObj) ===
-                    dc.currentDateComparisonValue
-                  ) {
+                  if (dateNew === dateToday) {
                     cell += " dayToday";
                   }
                 }
