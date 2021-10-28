@@ -19,6 +19,7 @@ uglifyjs 4X\/Modules\/Drag.js --comments --compress --mangle --output 4X\/Min\/D
 uglifyjs 4X\/Modules\/Dragdealer.js --comments --compress --mangle --output 4X\/Min\/Dragdealer.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Dragula.js --comments --compress --mangle --output 4X\/Min\/Dragula.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Footnote.js --comments --compress --mangle --output 4X\/Min\/Footnote.js 2>> FormatErrors.txt
+uglifyjs 4X\/Modules\/Grid.js --comments --compress --mangle --output 4X\/Min\/Grid.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Listbox.js --comments --compress --mangle --output 4X\/Min\/Listbox.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Menu.js --comments --compress --mangle --output 4X\/Min\/Menu.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Popup.js --comments --compress --mangle --output 4X\/Min\/Popup.js 2>> FormatErrors.txt

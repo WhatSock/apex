@@ -13,7 +13,7 @@ Widget Templates
 
 All of the following ARIA widget templates are available for immediate use. None of them require any prior knowledge of ARIA to implement.
 
-Accordions, Buttons, Checkboxes, Comboboxes, Datepickers, Dialogs, Drag and Drop, Footnotes, Listboxes, Menus, Popups, Radios, Sliders, Switches, Tabs, Tooltips, and Trees.
+Accordions, Buttons, Checkboxes, Comboboxes, Datepickers, Dialogs, Drag and Drop, Footnotes, Grids, Listboxes, Menus, Popups, Radios, Sliders, Switches, Tabs, Tooltips, and Trees.
 
 APIs
 -----
