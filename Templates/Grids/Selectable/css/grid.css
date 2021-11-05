@@ -243,15 +243,15 @@ input.data-grid-cell-link-edit {
 }
 /*Wider area for GRIDs*/
 @media (min-width: 70em) {
-  main .flex-container.wide--grid{
-    flex-direction:column;
+  main .flex-container.wide--grid {
+    flex-direction: column;
   }
   main .flex-container .flex-item.wide--grid:nth-child(1) {
     max-width: 100%;
-    width:100%;
+    width: 100%;
   }
   main .flex-container .flex-item.wide--grid:nth-child(2) {
     max-width: 100%;
-    width:100%
+    width: 100%;
   }
 }
