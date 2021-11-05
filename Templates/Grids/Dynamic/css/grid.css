@@ -16,12 +16,12 @@ div.mode label {
   display: inline-block;
   padding-right: 2rem;
 }
-
-#mro {
+/*Removed as causes issues on narrower screens*/
+/*#mro {
   position: absolute;
   top: 0.4rem;
   right: 0.3rem;
-}
+}*/
 #buv {
   border-radius: 0.3em;
 }
@@ -240,4 +240,18 @@ input.data-grid-cell-link-edit {
   font-size: 1.44em;
   font-weight: bold;
   vertical-align: middle;
+}
+/*Wider area for GRIDs*/
+@media (min-width: 70em) {
+  main .flex-container.wide--grid{
+    flex-direction:column;
+  }
+  main .flex-container .flex-item.wide--grid:nth-child(1) {
+    max-width: 100%;
+    width:100%;
+  }
+  main .flex-container .flex-item.wide--grid:nth-child(2) {
+    max-width: 100%;
+    width:100%
+  }
 }
