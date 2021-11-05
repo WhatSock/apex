@@ -118,13 +118,13 @@ header.flex-container .flex-item a:visited {
 main .flex-container {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
   margin: auto;
   min-height: 30em;
 }
 
 main .flex-container .flex-item {
-  background-color: transparent;
+  background-color: var(--globalWhite);
   margin: 0;
   padding: 1em 0;
 }
