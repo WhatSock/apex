@@ -4,4 +4,4 @@ Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
 */
-"setCarousel"in $A||$A.import(["TinySlider.css","TinySlider"],{name:"CarouselModule",once:!0,props:props,call:function(e){$A.extend({setCarousel:function(e){var n=$A.morph(e.container),o=$A.toDC(n.parentNode),r=$A.tns(e);return o.tns=r,o}})}});
+"setCarousel"in $A||$A.import(["CurrentDevice","TinySlider.css","TinySlider"],{name:"CarouselModule",once:!0,props:props,call:function(e){$A.extend({setCarousel:function(e){var n=$A.morph(e.container),r=$A.toDC(n.parentNode),o=$A.tns(e);return r.tns=o,r}})}});

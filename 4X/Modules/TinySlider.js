@@ -1025,6 +1025,7 @@ var tns = function(options) {
     },
     imgsComplete,
     liveregionCurrent,
+    liveRegionHidden,
     preventScroll = options.preventScrollOnTouch === "force" ? true : false; // controls
 
   if (hasControls) {
@@ -1884,7 +1885,10 @@ var tns = function(options) {
         "</div>"
     );
     liveregionCurrent = outerWrapper.querySelector(".tns-liveregion .current");
-    if (
+    if (window.device.type === "mobile" || window.device.type === "tablet") {
+      liveregionCurrent.parentNode.setAttribute("aria-hidden", "true");
+      liveRegionHidden = true;
+    } else if (
       !autoplay ||
       (autoplay && autoplayUserPaused && autoplayFocusPaused && !animating)
     )
@@ -2848,7 +2852,7 @@ var tns = function(options) {
     // 4X MOD
     if (!str) return;
 
-    if (liveregionCurrent.innerHTML !== str) {
+    if (!liveRegionHidden && liveregionCurrent.innerHTML !== str) {
       liveregionCurrent.innerHTML = str;
       // 4X MOD
       if (

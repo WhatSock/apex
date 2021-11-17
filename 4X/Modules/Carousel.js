@@ -7,7 +7,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 
 (function() {
   if (!("setCarousel" in $A)) {
-    $A.import(["TinySlider.css", "TinySlider"], {
+    $A.import(["CurrentDevice", "TinySlider.css", "TinySlider"], {
       name: "CarouselModule",
       once: true,
       props: props,
