@@ -1025,7 +1025,6 @@ var tns = function(options) {
     },
     imgsComplete,
     liveregionCurrent,
-    liveRegionHidden,
     preventScroll = options.preventScrollOnTouch === "force" ? true : false; // controls
 
   if (hasControls) {
@@ -1846,53 +1845,15 @@ var tns = function(options) {
     // 4X MOD
     outerWrapper.parentNode.setAttribute("role", "region");
     outerWrapper.parentNode.setAttribute("aria-label", "Carousel");
-
-    var getHeadingLvl = function() {
-      var els = document.querySelectorAll(
-          'h1, h2, h3, h4, h5, h6, *[role="heading"][aria-level], *[role="region"][aria-label="Carousel"]'
-        ),
-        h = null,
-        m = {
-          h1: 1,
-          h2: 2,
-          h3: 3,
-          h4: 4,
-          h5: 5,
-          h6: 6
-        };
-      $A.loop(
-        els,
-        function(i, e) {
-          if (e === outerWrapper.parentNode) h = els[i - 1] || null;
-        },
-        "array"
-      );
-      if (!$A.isNode(h)) return 2;
-      if (h.getAttribute("role") === "heading")
-        return (parseInt(h.getAttribute("aria-level")) || 2) + 1;
-      if (m[h.nodeName.toLowerCase()]) return m[h.nodeName.toLowerCase()] + 1;
-      return 2;
-    };
-
     outerWrapper.insertAdjacentHTML(
       "afterbegin",
-      '<div role="heading" aria-level="' +
-        getHeadingLvl() +
-        '" style="position: absolute; clip: rect(1px 1px 1px 1px); clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%); padding: 0; border: 0; height: 1px; width: 1px; overflow: hidden; white-space: nowrap;" class="tns-liveregion tns-visually-hidden">Slide <span class="current">' +
+      '<div aria-hidden="true" style="position: absolute; clip: rect(1px 1px 1px 1px); clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%); padding: 0; border: 0; height: 1px; width: 1px; overflow: hidden; white-space: nowrap;" class="tns-liveregion tns-visually-hidden">Slide <span class="current">' +
         getLiveRegionStr() +
         "</span> of " +
         slideCount +
         "</div>"
     );
     liveregionCurrent = outerWrapper.querySelector(".tns-liveregion .current");
-    if (window.device.type === "mobile" || window.device.type === "tablet") {
-      liveregionCurrent.parentNode.setAttribute("aria-hidden", "true");
-      liveRegionHidden = true;
-    } else if (
-      !autoplay ||
-      (autoplay && autoplayUserPaused && autoplayFocusPaused && !animating)
-    )
-      $A.announce(liveregionCurrent.parentNode);
 
     // == autoplayInit ==
 
@@ -2852,14 +2813,8 @@ var tns = function(options) {
     // 4X MOD
     if (!str) return;
 
-    if (!liveRegionHidden && liveregionCurrent.innerHTML !== str) {
+    if (liveregionCurrent.innerHTML !== str) {
       liveregionCurrent.innerHTML = str;
-      // 4X MOD
-      if (
-        !autoplay ||
-        (autoplay && autoplayUserPaused && autoplayFocusPaused && !animating)
-      )
-        $A.announce(liveregionCurrent.parentNode);
     }
   }
 
