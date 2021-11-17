@@ -10,6 +10,7 @@ uglifyjs 4X\/Modules\/Accordion.js --comments --compress --mangle --output 4X\/M
 uglifyjs 4X\/Modules\/Animate.js --comments --compress --mangle --output 4X\/Min\/Animate.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Beep.js --comments --compress --mangle --output 4X\/Min\/Beep.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Button.js --comments --compress --mangle --output 4X\/Min\/Button.js 2>> FormatErrors.txt
+uglifyjs 4X\/Modules\/Carousel.js --comments --compress --mangle --output 4X\/Min\/Carousel.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Checkbox.js --comments --compress --mangle --output 4X\/Min\/Checkbox.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Combobox.js --comments --compress --mangle --output 4X\/Min\/Combobox.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/CurrentDevice.js --comments --compress --mangle --output 4X\/Min\/CurrentDevice.js 2>> FormatErrors.txt
@@ -30,6 +31,7 @@ uglifyjs 4X\/Modules\/SmoothScroll.js --comments --compress --mangle --output 4X
 uglifyjs 4X\/Modules\/Straylight.js --comments --compress --mangle --output 4X\/Min\/Straylight.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Switch.js --comments --compress --mangle --output 4X\/Min\/Switch.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Tab.js --comments --compress --mangle --output 4X\/Min\/Tab.js 2>> FormatErrors.txt
+uglifyjs 4X\/Modules\/TinySlider.js --comments --compress --mangle --output 4X\/Min\/TinySlider.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Tooltip.js --comments --compress --mangle --output 4X\/Min\/Tooltip.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Tree.js --comments --compress --mangle --output 4X\/Min\/Tree.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Velocity.js --comments --compress --mangle --output 4X\/Min\/Velocity.js 2>> FormatErrors.txt

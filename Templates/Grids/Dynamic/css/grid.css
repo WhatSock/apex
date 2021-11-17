@@ -256,9 +256,9 @@ input.data-grid-cell-link-edit {
   }
 }
 /*Temp solution apply horizontal scroll to DIV if screen < 1024px wide - horrible solution*/
-.h--scroll{
-  background-color:var(--globalWhite);
-  min-width:65em;
+.h--scroll {
+  background-color: var(--globalWhite);
+  min-width: 65em;
   overflow-x: scroll;
   white-space: nowrap;
 }

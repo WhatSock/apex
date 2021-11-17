@@ -1,0 +1,45 @@
+/* Specific styles for Accessible Carousels */
+
+.my-slider .slide {
+  height: 300px;
+}
+
+.my-slider .slide.s01 {
+  background-color: #ff8a80;
+}
+
+.my-slider .slide.s02 {
+  background-color: #ea80fc;
+}
+
+.my-slider .slide.s03 {
+  background-color: #8c9eff;
+}
+
+.my-slider .slide.s04 {
+  background-color: #80d8ff;
+}
+
+.my-slider .slide.s05 {
+  background-color: #b9f6ca;
+}
+
+.my-slider .slide.s06 {
+  background-color: #ffd180;
+}
+
+.my-slider .slide > div {
+  font-family: "Roboto", sans-serif;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 100px;
+}
+
+div.tns-nav[role="toolbar"],
+#controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

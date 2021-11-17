@@ -1,0 +1,142 @@
+
+ARIA Carousels
+
+Expected behaviors: The beginning and ending boundaries of the region should be conveyed to screen reader users, content changes should be announced to screen reader users only when a navigation button is manually activated and not when auto-rotate is enabled, all navigation buttons should be keyboard accessible, auto-rotation should stop when an element within the carousel receives focus to ensure accessibility for keyboard-only users, and auto-rotation should stop when the mouse is moved over the carousel region to ensure accessibility for low vision users.
+
+The 4X ARIA Carousel module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.
+
+(A heavily modified version of Tiny-Slider.JS has been imported for this purpose, originally authored by William Lin, it was updated here to improve accessibility for screen reader and keyboard-only users.)
+
+HTML syntax:
+
+<div class="carousel-wrapper">
+
+    <div class="my-slider">
+        <div class="slide s01">
+            <div>1</div>
+        </div>
+        <div class="slide s02">
+            <div>2</div>
+        </div>
+        <div class="slide s03">
+            <div>3</div>
+        </div>
+        <div class="slide s04">
+            <div>4</div>
+        </div>
+    </div>
+
+    <div id="controls">
+        <button class="previous">Previous</button>
+        <button class="next">Next</button>
+    </div>
+
+</div>
+
+NOTE: Individual slides may include any type of content, such as images, text, structural markup, links buttons and form fields, or any other. Which ever type of content is chosen, however, it is always important to ensure that such content is tested to ensure accessibility.
+
+JavaScript syntax:
+
+var carouselDC = $A.setCarousel({
+container: ".my-slider"
+// Configure functionality key / value mappings
+});
+
+Parameters
+
+1: A configuration map to customize behaviors and options.
+
+Configuration
+
+Imported from: https://github.com/ganlanyuan/tiny-slider
+
+| 'container' | Node | String | Default: ''.slider''.   The slider container element or selector. |
+| 'mode' | "carousel" | "gallery" | Default: "carousel".   Controls animation behaviour.   With 'carousel' everything slides to the side, while 'gallery' uses fade animations and changes all slides at once. |
+| 'axis' | "horizontal" | "vertical" | Default: "horizontal".   The axis of the slider. |
+| 'items' | positive number | Default: 1.   Number of slides being displayed in the viewport.   If slides less or equal than 'items', the slider won't be initialized. |
+| 'gutter' | positive integer | Default: 0.   Space between slides (in "px"). |
+| 'edgePadding' | positive integer | Default: 0.   Space on the outside (in "px"). |
+| 'fixedWidth' | positive integer | false | Default: false.   Controls 'width' attribute of the slides. |
+| 'autoWidth' | Boolean | Default: false.   If 'true', the width of each slide will be its natural width as a 'inline-block' box. |
+| 'viewportMax' (was 'fixedWidthViewportWidth') | positive integer | false | Default: false.   Maximum viewport width for 'fixedWidth'/'autoWidth'. |
+| 'slideBy' | positive number | "page" | Default: 1.   Number of slides going on one "click". |
+| 'center' (v2.9.2+) | Boolean | Default: false.   Center the active slide in the viewport. |
+| 'controls' | Boolean | Default: true.   Controls the display and functionalities of 'controls' components (prev/next buttons). If 'true', display the 'controls' and add all functionalities.  For better accessibility, when a prev/next button is focused, user will be able to control the slider using left/right arrow keys.|
+| 'controlsPosition' | "top" | "bottom" | Default: "top".   Controls 'controls' position. |
+| 'controlsText' | (Text | Markup) Array | Default: ["prev", "next"].   Text or markup in the prev/next buttons. |
+| 'controlsContainer' | Node | String | false | Default: false.   The container element/selector around the prev/next buttons.   'controlsContainer' must have at least 2 child elements. |
+| 'prevButton' | Node | String | false | Default: false.   Customized previous buttons.   This option will be ignored if 'controlsContainer' is a Node element or a CSS selector. |
+| 'nextButton' | Node | String | false | Default: false.   Customized next buttons.   This option will be ignored if 'controlsContainer' is a Node element or a CSS selector. |
+| 'nav' | Boolean | Default: true.   Controls the display and functionalities of 'nav' components (dots). If 'true', display the 'nav' and add all functionalities. |
+| 'navPosition' | "top" | "bottom" | Default: "top".   Controls 'nav' position. |
+| 'navContainer' | Node | String | false | Default: false.   The container element/selector around the dots.   'navContainer' must have at least same number of children as the slides. |
+| 'navAsThumbnails' | Boolean | Default: false.   Indicate if the dots are thumbnails. If 'true', they will always be visible even when more than 1 slides displayed in the viewport. |
+| 'arrowKeys' | Boolean | Default: false.   Allows using arrow keys to switch slides. |
+| 'speed' | positive integer | Default: 300.   Speed of the slide animation (in "ms"). |
+| 'autoplay' | Boolean | Default: false.   Toggles the automatic change of slides. |
+| 'autoplayPosition' | "top" | "bottom" | Default: "top".   Controls 'autoplay' position. |
+| 'autoplayTimeout' | positive integer | Default: 5000.   Time between 2 'autoplay' slides change (in "ms"). |
+| 'autoplayDirection' | "forward" | "backward" | Default: "forward".   Direction of slide movement (ascending/descending the slide index). |
+| 'autoplayText' | Array (Text | Markup) | Default: ["start", "stop"].   Text or markup in the autoplay start/stop button. |
+| 'autoplayHoverPause' | Boolean | Default: false.   Stops sliding on mouseover. |
+| 'autoplayButton' | Node | String | false | Default: false.   The customized autoplay start/stop button or selector. |
+| 'autoplayButtonOutput' | Boolean | Default: true.   Output 'autoplayButton' markup when 'autoplay' is true but a customized 'autoplayButton' is not provided. |
+| 'autoplayResetOnVisibility' | Boolean | Default: true.   Pauses the sliding when the page is invisible and resumes it when the page becomes visible again. ([Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API)) |
+| 'animateIn' | String | Default: "tns-fadeIn".   Name of intro animation 'class'. |
+| 'animateOut' | String | Default: "tns-fadeOut".   Name of outro animation 'class'. |
+| 'animateNormal' | String | Default: "tns-normal".   Name of default animation 'class'. |
+| 'animateDelay' | positive integer | false | Default: false.   Time between each 'gallery' animation (in "ms"). |
+| 'loop' | Boolean | Default: true.   Moves throughout all the slides seamlessly. |
+| 'rewind' | Boolean | Default: false.   Moves to the opposite edge when reaching the first or last slide. |
+| 'autoHeight' | Boolean | Default: false.   Height of slider container changes according to each slide's height. |
+| 'responsive' | Object: {  &emsp;breakpoint: {  &emsp;&emsp;key: value &emsp;}  } | false | Default: false.  Breakpoint: Integer. Defines options for different viewport widths (see [Responsive Options]).   |
+| 'lazyload' | Boolean | Default: false.   Enables lazyloading images that are currently not viewed, thus saving bandwidth.   NOTE:  + Class '.tns-lazy-img' need to be set on every image you want to lazyload if option 'lazyloadSelector' is not specified;  + 'data-src' attribute with its value of the real image 'src' is required;  + 'width' attribute for every image is required for 'autoWidth' slider. |
+| 'lazyloadSelector' (v2.9.1+) | String | Default: ''.tns-lazy-img''.   The CSS selector for lazyload images. |
+| 'touch' | Boolean | Default: true.   Activates input detection for touch devices. |
+| 'mouseDrag' | Boolean | Default: false.   Changing slides by dragging them. |
+| 'swipeAngle' | positive integer | Boolean | Default: 15.   Swipe or drag will not be triggered if the angle is not inside the range when set. |
+| 'preventActionWhenRunning' (v2.9.1+) | Boolean | Default: false.   Prevent next transition while slider is transforming. |
+| 'preventScrollOnTouch' (v2.9.1+) | "auto" | "force" | false | Default: false.   Prevent page from scrolling on 'touchmove'. If set to "auto", the slider will first check if the touch direction matches the slider axis, then decide whether prevent the page scrolling or not. If set to "force", the slider will always prevent the page scrolling. |
+| 'nested' | "inner" | "outer" | false | Default: false.   Define the relationship between nested sliders. Make sure you run the inner slider first, otherwise the height of the inner slider container will be wrong. |
+| 'freezable' | Boolean | Default: true.   Indicate whether the slider will be frozen ('controls', 'nav', 'autoplay' and other functions will stop working) when all slides can be displayed in one page. |
+| 'disable' | Boolean | Default: false.   Disable slider. |
+| 'startIndex' | positive integer | Default: 0.   The initial 'index' of the slider. |
+| 'onInit' | Function | false | Default: false.   Callback to be run on initialization. |
+| 'useLocalStorage' | Boolean | Default: true.   Save browser capability variables to [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) and without detecting them everytime the slider runs if set to 'true'. |
+| 'nonce'| String / false | Default: false.   Optional Nonce attribute for inline style tag to allow slider usage without 'unsafe-inline Content Security Policy source. |
+
+Responsive options
+
+The following options can be redefined in the 'responsive' object declaration:
+
+'startIndex',
+'items',
+'slideBy',
+'speed',
+'autoHeight',
+'fixedWidth',
+'edgePadding',
+'gutter',
+'center',
+'controls',
+'controlsText',
+'nav',
+'autoplay',
+'autoplayHoverPause',
+'autoplayResetOnVisibility',
+'autoplayText',
+'autoplayTimeout',
+'touch',
+'mouseDrag',
+'arrowKeys',
+'disable'
+
+Properties and Methods
+
+Once initialized, the carousel DC object provides access to the tinySlider object instance to allow properties and methods to be accessed directly.
+
+// Reference the tinySlider object instance.
+
+var tinySliderInstance = carouselDC.tns;
+
+To learn more about accessing specific properties and methods, as well as setting custom events, visit: https://github.com/ganlanyuan/tiny-slider
