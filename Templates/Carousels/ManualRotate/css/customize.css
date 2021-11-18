@@ -43,3 +43,8 @@ div.tns-nav[role="toolbar"],
   align-items: center;
   justify-content: center;
 }
+
+div.tns-nav[role="toolbar"] button {
+  margin-left: auto;
+  margin-right: auto;
+}
