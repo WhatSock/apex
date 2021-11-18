@@ -1,5 +1,5 @@
 /*@license
-Apex 4X: The Comprehensive ARIA Development Suite (2021.1.5 - Broken Angels )
+Apex 4X: The Comprehensive ARIA Development Suite (2021.1.6 - Virtual Light )
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -2399,6 +2399,30 @@ error: function(error, promise){}
         return $A._XR.call(this, e);
       },
 
+      nearestHL: function(e, context) {
+        if (!$A.isNode(e)) return 0;
+        if (!e.id) e.id = $A.genId();
+        var els = (context || document).querySelectorAll(
+            'h1, h2, h3, h4, h5, h6, *[role="heading"], #' + e.id
+          ),
+          h = null;
+        $A.loop(
+          els,
+          function(i, o) {
+            if (e === o) h = els[i - 1] || null;
+          },
+          "array"
+        );
+        if (!$A.isNode(h)) return 0;
+        var l = 0,
+          nn = h.nodeName.toLowerCase();
+        if (nn.length === 2 && nn[0] === "h")
+          l = parseInt(h.getAttribute("aria-level")) || parseInt(nn[1]) || 0;
+        if (h.getAttribute("role") === "heading")
+          l = parseInt(h.getAttribute("aria-level")) || l || 2;
+        return l;
+      },
+
       closest: function(node, fn) {
         if (this._4X) {
           fn = node;
@@ -4293,6 +4317,11 @@ error: function(error, promise){}
             return dc;
           },
 
+          nearestHL: function(context) {
+            var dc = this;
+            return $A.nearestHL(dc.wrapper, context);
+          },
+
           remClass: function(cn) {
             var dc = this;
             $A.remClass(dc.wrapper, cn);
@@ -4793,7 +4822,8 @@ error: function(error, promise){}
           removeAttribute: dc["remAttr"],
           setAttribute: dc["setAttr"],
           toggleAttribute: dc["toggleAttr"],
-          removeClass: dc["remClass"]
+          removeClass: dc["remClass"],
+          nearestHeadingLevel: dc["nearestHL"]
         });
 
         if (!gImport) gImport = {};
@@ -4914,6 +4944,7 @@ error: function(error, promise){}
       setCircularTabbing: $A["setCircular"],
       isNativeActiveElement: $A["isNative"],
       getActiveElements: $A["getActive"],
+      nearestHeadingLevel: $A["nearestHL"],
       setKeyboardA11Y: $A["setKBA11Y"],
       generateId: $A["genId"],
       toTextNode: $A["toText"],

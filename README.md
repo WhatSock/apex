@@ -1,5 +1,5 @@
 # Apex 4X
-The Comprehensive ARIA Development Suite (Current version: Broken Angels - 2021.1.5)
+The Comprehensive ARIA Development Suite (Current version: Virtual Light - 2021.1.6)
 
 ## Contents
 + [Introduction](#introduction)
@@ -174,6 +174,8 @@ https://github.com/whatsock
 
 <!----><a name="changelog" tabindex="-1"></a>
 ## Change log:
+
+2021.1.6 (Virtual Light): Added $A.nearestHeadingLevel() and DC.nearestHeadingLevel() as an ARIA support function that will return the level number of the nearest heading. View Help/ARIA Development/NearestHeadingLevel for support.
 
 2021.1.5 (Broken Angels): Reconfigured internal event handling object locale to better accomidate external testing frameworks.
 
