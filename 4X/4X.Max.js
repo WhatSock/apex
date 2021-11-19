@@ -7,7 +7,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 
 (function() {
   var moduleFolder = "/4X/Modules/",
-    Version = "2021.1.5",
+    Version = "2021.1.6",
     BN = {};
   (function() {
     var $A = function(dc, dcA, dcI, onReady, disableAsync) {
