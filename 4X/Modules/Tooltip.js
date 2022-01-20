@@ -1,5 +1,5 @@
 /*@license
-ARIA Tooltip Module 2.0 for Apex 4X
+ARIA Tooltip Module 2.1 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -34,6 +34,16 @@ License: MIT (https://opensource.org/licenses/MIT)
             dc.remove();
             ev.stopPropagation();
             ev.preventDefault();
+          },
+          onCreate: function(dc) {
+            if (
+              dc.isManualOpen &&
+              $A.isNode(dc.triggerNode) &&
+              (dc.triggerNode.getAttribute("role") === "button" ||
+                (!dc.triggerNode.hasAttribute("role") &&
+                  dc.triggerNode.nodeName.toLowerCase() === "button"))
+            )
+              dc.triggerNode.setAttribute("aria-pressed", "false");
           }
         };
       },
@@ -70,9 +80,25 @@ License: MIT (https://opensource.org/licenses/MIT)
           dc.speak();
         } else if (!dc.noRepeat)
           $A.setAttr(dc.target, "aria-describedby", container.id);
+        if (
+          dc.isManualOpen &&
+          $A.isNode(dc.triggerNode) &&
+          (dc.triggerNode.getAttribute("role") === "button" ||
+            (!dc.triggerNode.hasAttribute("role") &&
+              dc.triggerNode.nodeName.toLowerCase() === "button"))
+        )
+          dc.triggerNode.setAttribute("aria-pressed", "true");
       },
       afterRemove: function(dc, container) {
         $A.remAttr(dc.target, "aria-describedby");
+        if (
+          dc.isManualOpen &&
+          $A.isNode(dc.triggerNode) &&
+          (dc.triggerNode.getAttribute("role") === "button" ||
+            (!dc.triggerNode.hasAttribute("role") &&
+              dc.triggerNode.nodeName.toLowerCase() === "button"))
+        )
+          dc.triggerNode.setAttribute("aria-pressed", "false");
       }
     });
 
