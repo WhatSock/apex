@@ -25,6 +25,8 @@ Release article: https://www.linkedin.com/pulse/released-apex-4x-comprehensive-a
 
 Apex 4X is a comprehensive ARIA development suite, including a core collection of powerful ARIA development utilities and functions, plus a full index of scalable ARIA design pattern templates. It also includes two APIs that are specifically designed to enhance and facilitate advanced ARIA development.
 
+ARIA stands for Accessible Rich Internet Applications, and is a technical specification published by the World Wide Web Consortium (W3C) Web Accessibility Initiative (WAI). The purpose, to map simulated web controls to equivalent control types on the platform Accessibility API, and to provide various mechanisms to enhance the accessibility of web technologies for people with disabilities.
+
 <!----><a name="templates" tabindex="-1"></a>
 ## Widget Templates
 
