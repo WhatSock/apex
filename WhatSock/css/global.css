@@ -617,3 +617,13 @@ ol.lsn li::before {
     padding: 0.5rem;
   }
 }
+
+ul.templates-list {
+  position: relative;
+}
+
+ul.templates-list li {
+  margin: 0;
+  padding: 5px 10px;
+  float: left;
+}

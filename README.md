@@ -30,7 +30,7 @@ Apex 4X provides a comprehensive suite of ARIA related processes to make develop
 Release article: https://www.linkedin.com/pulse/released-apex-4x-comprehensive-aria-development-suite-bryan-garaventa
 
 <!----><a name="templates" tabindex="-1"></a>
-## Widget Templates
+## Accessible Widget Templates
 
 All of the following ARIA widget templates are available for immediate use. None of them require any prior knowledge of ARIA to implement.
 
