@@ -3,7 +3,7 @@ The Comprehensive ARIA Development Suite (Current version: Virtual Light - 2021.
 
 ## Contents
 + [Introduction](#introduction)
-+ [Widget Templates](#templates)
++ [Accessible Widget Templates](#templates)
 + [4X APIs](#apis)
 + [Usage](#usage)
 + [Modules](#modules)
@@ -14,7 +14,6 @@ The Comprehensive ARIA Development Suite (Current version: Virtual Light - 2021.
 + [ReactJS Disambiguation](#reactjs)
 + [License](#license)
 + [Acknowledgements](#acknowledgements)
-+ [Project Home](#homepage)
 + [Related Projects](#related)
 + [Change Log](#changelog)
 
@@ -29,12 +28,16 @@ Apex 4X provides a comprehensive suite of ARIA related processes to make develop
 
 Release article: https://www.linkedin.com/pulse/released-apex-4x-comprehensive-aria-development-suite-bryan-garaventa
 
+Homepage: http://whatsock.com
+
 <!----><a name="templates" tabindex="-1"></a>
 ## Accessible Widget Templates
 
 All of the following ARIA widget templates are available for immediate use. None of them require any prior knowledge of ARIA to implement.
 
 Accordions, Buttons, Carousels, Checkboxes, Comboboxes, Datepickers, Dialogs, Drag and Drop, Footnotes, Grids, Listboxes, Menus, Popups, Radios, Sliders, Switches, Tabs, Tooltips, and Trees.
+
+Live demos: http://whatsock.com/Templates
 
 <!----><a name="apis" tabindex="-1"></a>
 ## 4X APIs
@@ -165,11 +168,6 @@ Apex 4X including all template design patterns is distributed under the terms of
 * Website designer: Angela Ricci http://gericci.me
 * Style and markup editor: Laurence Lewis https://www.linkedin.com/in/laurence-lewis-77520365/  
 * Code contributor: Danny Allen http://dannya.com
-
-<!----><a name="homepage" tabindex="-1"></a>
-## Project home
-
-http://whatsock.com
 
 <!----><a name="related" tabindex="-1"></a>
 ## Related projects
