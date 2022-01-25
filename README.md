@@ -49,7 +49,7 @@ The DC (Dynamic Component) API provides  direct access to individually configura
 <!----><a name="usage" tabindex="-1"></a>
 ## Usage
 
-* Place the 4X folder at the root of your website directory. The 4X folder should then be accessible from "www.YourDomain.com/4X".
+* Place the 4X folder at the root of your website directory. The 4X folder should then be accessible from: `www.YourDomain.com/4X`
 * Add the following script statement within the head of your page: `<script type="text/javascript" src="/4X/4X.js"></script>`
 
 After which, all of the $A API features will be available, including the full suite of ARIA development processes. These are fully documented within the help docs folder at: "Help/ARIA Development"
