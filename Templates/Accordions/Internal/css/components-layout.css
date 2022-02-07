@@ -1,0 +1,543 @@
+body {
+  background-color: var(--tablist-black);
+  font-family: open_sansregular, Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.outer-wrapper {
+  margin: auto;
+}
+
+.wrapper {
+  max-width: 90em;
+  position: relative;
+}
+
+main {
+  background-color: var(--globalWhite);
+  padding: 1em 2em;
+  padding-top: 2.5em;
+}
+
+main:focus {
+  outline: none;
+}
+
+.left-aside {
+  padding: 1em;
+}
+
+.wrapper > * {
+  margin-bottom: 1em;
+}
+
+@media (min-width: 87.5em) {
+  .wrapper {
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+  }
+
+  .wrapper .left-aside {
+    flex: 1 auto;
+    max-width: 20em;
+    position: relative;
+  }
+
+  .wrapper main {
+    flex: 3 auto;
+    padding: 1em;
+    padding-bottom: 2em;
+  }
+}
+
+/**********************************************
+    INTERNAL COMPONENTS Skip link
+*************************************************/
+.bypass ul {
+  margin: 0;
+  padding: 0;
+}
+
+.bypass ul li a {
+  background-color: var(--whatsock-red);
+  border-bottom: 1px solid var(--globalWhite);
+  border-bottom-right-radius: 0.8em;
+  border-right: 1px solid white;
+  color: var(--globalWhite);
+  left: 0;
+  padding: 0.6rem;
+  position: absolute;
+  top: -4rem;
+  transition: top 1s ease-out, background 1s linear;
+  z-index: 200;
+}
+
+.bypass ul li a:focus {
+  background-color: var(--whatsock-red);
+  left: 0;
+  outline: 0;
+  position: absolute;
+  top: 0;
+  transition: top 0.1s ease-in, background 0.5s linear;
+}
+
+/**********************************************
+    INTERNAL COMPONENTS LAYOUT
+*************************************************/
+header.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+
+header.flex-container .flex-item {
+  color: var(--globalWhite);
+  flex: 1 0 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+header.flex-container .flex-item:nth-child(1) {
+  text-align: center;
+}
+
+header.flex-container .flex-item:nth-child(2) {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+header.flex-container .flex-item a,
+header.flex-container .flex-item a:link,
+header.flex-container .flex-item a:visited {
+  background: none;
+}
+
+main .flex-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  margin: auto;
+  min-height: 30em;
+}
+
+main .flex-container .flex-item {
+  background-color: var(--globalWhite);
+  margin: 0;
+  padding: 1em 0;
+}
+
+main .flex-container .flex-item:nth-child(1) {
+  border-bottom: 2px dotted var(--whatsock-blue);
+  border-top: 2px dotted var(--whatsock-blue);
+  flex: 1 auto;
+}
+
+main .flex-container .flex-item:nth-child(1) a img {
+  max-width: 7em;
+}
+
+main .flex-container .flex-item:nth-child(2) {
+  flex: 1 auto;
+}
+
+@media (min-width: 70em) {
+  header.flex-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+  }
+
+  header.flex-container .flex-item {
+    flex: 1 0 auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 0.5em 0;
+  }
+
+  header.flex-container .flex-item:nth-child(1) {
+    padding-right: 0.5em;
+    text-align: right;
+  }
+
+  header.flex-container .flex-item:nth-child(1) a img {
+    max-width: 6em;
+  }
+
+  header.flex-container .flex-item:nth-child(2) {
+    font-size: 2rem;
+    text-align: inherit;
+  }
+
+  main .flex-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    margin: auto;
+    min-height: 30em;
+  }
+
+  main .flex-container .flex-item:nth-child(1) {
+    position: relative;
+    max-width: 40em;
+  }
+
+  main .flex-container .flex-item:nth-child(2) {
+    max-width: 30em;
+  }
+}
+/**********************************************
+    INTERNAL COMPONENTS LAYOUT FOR GRID
+*************************************************/
+
+main .flex-container.le-grid {
+  flex-flow: row wrap;
+}
+
+main .flex-container.le-grid .flex-item {
+  flex: 100%;
+  max-width: inherit;
+}
+
+main .flex-container.le-grid .flex-item:nth-child(2) {
+  padding-top: 3em;
+}
+
+/**********************************************
+    INTERNAL COMPONENTS Typography
+*************************************************/
+main .flex-container .flex-item.keyboard h2:first-child {
+  margin-bottom: 2em;
+  padding-left: 4em;
+  position: relative;
+}
+
+main .flex-container .flex-item.keyboard h2:first-child::before {
+  background: url(../img/keyboard.svg) 0 0 no-repeat;
+  content: "";
+  position: absolute;
+  width: 65px;
+  height: 65px;
+  left: 0;
+  top: -22px;
+}
+
+/**********************************************
+    Common Accordion styles
+*************************************************/
+.aria-accordion h2 {
+  font-size: inherit;
+  margin-bottom: 1px;
+  position: relative;
+}
+
+.aria-accordion-trigger {
+  background: url(../img/sprite.svg) right 0.5em top -18.2em no-repeat;
+  background-color: var(--whatsock-blue);
+  color: var(--bodyText);
+  text-align: left;
+  font-size: 1em;
+  padding: 0.5em 0.6em;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.aria-accordion-trigger:hover,
+.aria-accordion-trigger:focus {
+  background-color: var(--acordDarkGreen);
+  color: var(--globalWhite);
+}
+
+.aria-accordion-trigger[aria-expanded="true"] {
+  background-position-y: -7.2em;
+}
+
+.aria-accordion-trigger[aria-disabled="true"] {
+  background-color: var(--acordDarkGrey);
+  color: var(--globalWhite);
+}
+
+.aria-accordion .insertContent {
+  background: var(--globalWhite);
+}
+
+.aria-accordion .content {
+  padding: 1em;
+}
+#accordion-sect1,
+#accordion-sect2,
+#accordion-sect3 {
+  padding: 0.5em;
+}
+
+/**********************************************
+    Common Tablist styles
+*************************************************/
+.aria-tablist {
+  margin: 0;
+  border-bottom: 3px solid var(--tablist-black);
+}
+
+.aria-tablist + div.content {
+  background: var(--globalWhite);
+  margin-bottom: 2em;
+}
+
+.aria-tab {
+  color: var(--elementBlack);
+  background: var(--whatsock-orange-main);
+  font-size: 1em;
+  margin-bottom: 1px;
+  padding: 0.3em 0.5em 0.3em;
+  border: none;
+  border: 2px solid var(--tablist-black);
+}
+
+.aria-tab:hover,
+.aria-tab:focus {
+  text-decoration: none;
+  color: var(--globalWhite);
+  background-color: var(--whatsock-red);
+}
+
+.aria-tab[aria-expanded="true"][aria-selected="true"] {
+  text-decoration: none;
+  color: var(--globalWhite);
+  background-color: var(--whatsock-red);
+  border-top: 3px solid var(--whatsock-orange-main);
+}
+
+.aria-tab[aria-disabled="true"] {
+  background-color: var(--listbox-lightGrey);
+  border-color: var(--combobox-midGrey);
+  color: var(--combobox-midGrey);
+  position: relative;
+}
+/* .aria-tab[aria-disabled="true"]:focus:before,
+.aria-tab[aria-disabled="true"]:hover:before {
+    content: "Disabled";
+    position: absolute;
+    bottom: 3em;
+    left: 1em;
+    font-size: 0.7rem;
+} */
+.aria-tab[aria-disabled="true"]:focus {
+  text-decoration: underline;
+}
+
+.aria-tabpanel {
+  background: var(--globalWhite);
+  padding: 1em;
+  border-bottom: 3px solid var(--tablist-black);
+}
+
+/**********************************************
+   FOOTER
+*************************************************/
+
+footer.footer {
+  color: var(--offWhite);
+  font-size: 1.2rem;
+  height: auto;
+  padding: 0.5em;
+  position: relative;
+  margin: 1rem 0 2rem;
+  text-align: left;
+  border-top: 1px solid solid var(--offWhite);
+}
+footer.footer .flex-container-row {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: auto;
+  padding: 1em;
+}
+
+footer.footer .flex-container-row .flex-item {
+  flex: 1 0 100%;
+}
+footer.footer h2 {
+  color: var(--offWhite);
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-weight: 700;
+}
+footer.footer p {
+  color: var(--offWhite);
+  font-size: 1rem;
+  margin: 0 0 0.6rem 0;
+}
+
+footer.footer ul {
+  list-style-type: disc;
+  margin-left: 2em;
+  margin-bottom: 1em;
+}
+
+footer.footer ul li {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-top: 0;
+}
+footer.footer li {
+  margin-bottom: 0;
+}
+footer.footer a {
+  color: var(--offWhite);
+  text-decoration: underline;
+}
+footer.footer a:hover,
+footer.footer a:focus {
+  text-decoration: none;
+}
+@media (min-width: 70em) {
+  footer.footer .flex-container-row .flex-item {
+    flex: 1 0 0;
+  }
+  footer.footer .flex-container-row .flex-item:nth-child(2) h2 {
+    margin-left: 10em;
+  }
+  footer.footer .flex-container-row .flex-item:nth-child(2) ul {
+    margin-left: 12em;
+  }
+}
+/**********************************************
+    INTERNAL COMPONENTS COMMON
+*************************************************/
+main .note {
+  border-top: 1px dotted var(--whatsock-black);
+  padding-top: 1em;
+  margin-top: 2em;
+  max-width: 42em;
+}
+
+img {
+  max-width: 100%;
+}
+/**********************************************
+    KEYBOARD
+*************************************************/
+.keyboard ul {
+  list-style: disc;
+}
+
+.keyboard p:first-child {
+  padding-left: 3em;
+}
+/**********************************************
+   OTHER: hidden offscreen etc.
+*************************************************/
+[hidden],
+.hidden {
+  display: none;
+}
+
+/***********************************
+===================================
+IE11 fallback
+===================================
+***********************************/
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .bypass ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  .bypass ul li a {
+    background-color: #bf1722;
+    border-bottom: 1px solid #fff;
+    border-right: 1px solid #fff;
+    color: #fff;
+  }
+
+  .bypass ul li a:focus {
+    background-color: #bf1722;
+  }
+
+  body {
+    background-color: #2e3135;
+  }
+
+  main {
+    background-color: #fff;
+  }
+
+  header.flex-container .flex-item {
+    color: #fff;
+  }
+
+  main .flex-container .flex-item:nth-child(1) {
+    border-bottom: 2px dotted #63b7c2;
+    border-top: 2px dotted #63b7c2;
+  }
+
+  footer p:last-child {
+    color: #e0e0e0;
+  }
+
+  footer p:last-child a,
+  footer p:last-child a:link {
+    color: #fff;
+  }
+
+  ul.policies li::after {
+    background: #e2a037;
+  }
+
+  footer button {
+    color: #fff;
+  }
+
+  /**********************************************
+    Common Accordion styles
+*************************************************/
+  .aria-accordion-trigger {
+    background-color: #63b7c2;
+    border: none;
+    color: #262626;
+  }
+
+  .aria-accordion-trigger:hover,
+  .aria-accordion-trigger:focus {
+    background-color: #24575b;
+    color: #fff;
+  }
+
+  .aria-accordion .insertContent {
+    background: #fff;
+  }
+  /**********************************************
+    Common Tablist styles
+*************************************************/
+  .aria-tablist {
+    border-bottom: 3px solid #2e3135;
+  }
+
+  .aria-tablist + div.content {
+    background: #fff;
+  }
+
+  .aria-tab {
+    color: #fff;
+    background: #5d1f2c;
+  }
+
+  .aria-tab:hover,
+  .aria-tab:focus {
+    color: #fff;
+    background-color: #2e3135;
+  }
+
+  .aria-tab[aria-expanded="true"] {
+    color: #fff;
+    background-color: #2e3135;
+  }
+
+  .aria-tabpanel {
+    border-bottom: 3px solid #2e3135;
+  }
+}

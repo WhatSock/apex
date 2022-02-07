@@ -1,0 +1,218 @@
+main ul {
+  margin-left: 3em;
+}
+
+main nav ul {
+  margin-left: 0;
+}
+
+main ul li {
+  line-height: 1.5;
+}
+
+main ol {
+  margin-left: 3em;
+  list-style-type: decimal;
+}
+
+main ol li {
+  line-height: 1.5;
+}
+main p {
+  margin-bottom: 1.5em;
+  line-height: 1.5;
+}
+
+h1 {
+  font-family: antonregular, Helvetica, Arial, sans-serif;
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  margin-bottom: 1.5em;
+}
+@media (min-width: 500px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+}
+
+h1 strong {
+  color: var(--whatsock-red);
+  font-weight: 400;
+  top: 0.2em;
+}
+
+h1.pageTitle {
+  font-family: Frutiger, Helvetica, Arial, sans-serif;
+  font-size: 1.5em;
+  line-height: 1.3;
+  font-weight: normal;
+  text-transform: uppercase;
+  color: var(--whatsock-red);
+  margin: 0 0 1em;
+}
+
+h1.pageTitle small {
+  display: block;
+  font-size: 1.2rem;
+}
+
+h2 {
+  color: var(--whatsock-black);
+  font-family: Frutiger, Helvetica, Arial, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.2em;
+}
+
+.left-aside h2 {
+  color: var(--listbox-lightGrey);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25em;
+}
+
+.parent--page {
+  color: var(--listbox-lightGrey);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.25em;
+}
+
+h3 {
+  font-family: Frutiger, Helvetica, Arial, sans-serif;
+  color: var(--tablist-black);
+  margin: 1.5em 0 0.5em;
+}
+
+h4 {
+  font: normal 1.3em/1.3 open_sansbold, Helvetica, Arial, sans-serif;
+  color: var(--tablist-black);
+  margin: 1.5em 0 0.5em;
+}
+
+h5 {
+  font: normal 1em/1.3 open_sansbold, Helvetica, Arial, sans-serif;
+  color: var(--tablist-black);
+  margin: 1.5em 0 0.5em;
+}
+
+li li {
+  font-size: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: var(--tablist-black);
+}
+
+a:hover {
+  text-decoration: underline;
+  background: transparent;
+}
+/*Laurence note: I am really not convinced this global focus is a good idea visually. I wil revisit and check against WCAg colour contrast recommendations */
+/**:focus {
+  color: var(--tablist-black);
+  background: var(--whatsock-orange-main);
+}*/
+/*Laurence note: I have no idea what tis is for. I have never seena positioned link????  Experience says dump*/
+a.permalink {
+  position: relative;
+  top: -4.5rem;
+  left: -1.5rem !important;
+}
+
+em {
+  font-family: open_sansitalic, Helvetica, Arial, sans-serif;
+  font-style: normal;
+}
+
+strong {
+  font-family: open_sansbold, Helvetica, Arial, sans-serif;
+  font-weight: 600;
+}
+
+button {
+  font-family: open_sansregular, Helvetica, Arial, sans-serif;
+}
+
+code.block {
+  display: block;
+  color: var(--tablist-black);
+  background: var(--datepicker-codeBGrey);
+  padding: 1em;
+  margin: 1em 0;
+}
+
+code.js,
+code.html,
+code.css {
+  display: inline;
+}
+/*****************************************************************************
+ Styled simulated keyboard button
+******************************************************************************/
+kbd {
+  background-color: var(--offWhite);
+  border: 1px solid var(--datepicker-lightGrey);
+  border-radius: 3px;
+  box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px var(--globalWhite) inset;
+  color: var(--combobox-darkGrey);
+  display: inline-block;
+  line-height: 1.4;
+  margin: 0 0.1em;
+  padding: 0.1em 0.6em;
+  text-shadow: 0 1px 0 var(--globalWhite);
+  white-space: nowrap;
+}
+
+/***********************************
+===================================
+IE11 fallback
+===================================
+***********************************/
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  h1 strong {
+    color: #c13836;
+  }
+
+  h1.pageTitle {
+    color: #c13836;
+  }
+
+  h2 {
+    color: #c13836;
+  }
+
+  h3 {
+    color: #2e3135;
+  }
+
+  h4 {
+    color: #2e3135;
+  }
+
+  h5 {
+    color: #2e3135;
+  }
+
+  a {
+    color: #2e3135;
+    background: #f2d3a1;
+  }
+  /*Removing this on IE as it is horrible*/
+  /*  *:focus {
+    color: #2e3135;
+    background: #ffcc00;
+  }*/
+
+  code.block {
+    color: #2e3135;
+    background: #e4e4e4;
+  }
+
+  kbd {
+    background-color: #f7f7f7;
+    border: 1px solid #cccccc;
+  }
+}
