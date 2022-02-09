@@ -1,11 +1,13 @@
 
-  /*Accordion*/
-  --acordDarkGreen: #24575b;
-  --acordLightGrey: #eeeeee;
-  --acordDarkGrey: #333333;
+/**********************************************
+Common Accordion Colours
+*************************************************/
+--acordDarkGreen: #24575b;
+--acordLightGrey: #eeeeee;
+--acordDarkGrey: #333333;
 
 /**********************************************
-    Common Accordion styles
+Common Accordion styles
 *************************************************/
 .aria-accordion h2 {
   font-size: inherit;
@@ -31,7 +33,7 @@
 }
 
 .aria-accordion-trigger[aria-expanded="true"] {
-  background-position-y: -7.2em;
+background-position-y: -7.2em;
 }
 
 .aria-accordion-trigger[aria-disabled="true"] {
@@ -42,7 +44,6 @@
 .aria-accordion .insertContent {
   background: var(--globalWhite);
 }
-
 .aria-accordion .content {
   padding: 1em;
 }
@@ -51,24 +52,19 @@
 #accordion-sect3 {
   padding: 0.5em;
 }
+.aria-accordion-trigger {
+  background-color: #63b7c2;
+  border: none;
+  color: var(--bodyText);
+}
 
+.aria-accordion-trigger:hover,
+.aria-accordion-trigger:focus {
+  background-color: var(--acordDarkGreen);
+  color: color: var(--globalWhite);
+}
 
-  /**********************************************
-    Common Accordion styles
-*************************************************/
-  .aria-accordion-trigger {
-    background-color: #63b7c2;
-    border: none;
-    color: #262626;
-  }
-
-  .aria-accordion-trigger:hover,
-  .aria-accordion-trigger:focus {
-    background-color: #24575b;
-    color: #fff;
-  }
-
-  .aria-accordion .insertContent {
-    background: #fff;
-  }
+.aria-accordion .insertContent {
+  background: color: var(--globalWhite);
+}
 
