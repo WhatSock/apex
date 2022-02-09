@@ -225,7 +225,7 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
 }
 
 /**********************************************
-    Common Accordion styles
+    Common Accordion styles - now located in individual widget root folders
 *************************************************/
 .aria-accordion h2 {
   font-size: inherit;

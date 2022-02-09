@@ -1,0 +1,76 @@
+/**********************************************
+    Colours use in tabs
+
+    --tablist-black - #2e3135;
+    --elementBlack - #1f1f23;
+    --listbox-lightGrey - #e0e0e0;
+    --combobox-midGrey - #777777;
+    --whatsock-orange-main - #ffcc00;
+    --globalWhite - #ffffff
+    --whatsock-red - #c13836;
+*************************************************/
+
+/**********************************************
+    Common Tablist styles
+*************************************************/
+.aria-tablist {
+    margin: 0;
+    border-bottom: 3px solid var(--tablist-black);
+  }
+  
+  .aria-tablist + div.content {
+    background: var(--globalWhite);
+    margin-bottom: 2em;
+  }
+  
+  .aria-tab {
+    color: var(--elementBlack);
+    background: var(--whatsock-orange-main);
+    font-size: 1em;
+    margin-bottom: 1px;
+    padding: 0.3em 0.5em 0.3em;
+    border: none;
+    border: 2px solid var(--tablist-black);
+  }
+  
+  .aria-tab:hover,
+  .aria-tab:focus {
+    text-decoration: none;
+    color: var(--globalWhite);
+    background-color: var(--whatsock-red);
+  }
+  
+  .aria-tab[aria-expanded="true"][aria-selected="true"] {
+    text-decoration: none;
+    color: var(--globalWhite);
+    background-color: var(--whatsock-red);
+    border-top: 3px solid var(--whatsock-orange-main);
+  }
+  
+  .aria-tab[aria-disabled="true"] {
+    background-color: var(--listbox-lightGrey);
+    border-color: var(--combobox-midGrey);
+    color: var(--combobox-midGrey);
+    position: relative;
+  }
+
+  .aria-tab[aria-disabled="true"]:focus {
+    text-decoration: underline;
+  }
+  
+  .aria-tabpanel {
+    background: var(--globalWhite);
+    padding: 1em;
+    border-bottom: 3px solid var(--tablist-black);
+  }
+/**********************************************
+    Disabled Tablist styles
+*************************************************/
+/* .aria-tab[aria-disabled="true"]:focus:before,
+  .aria-tab[aria-disabled="true"]:hover:before {
+      content: "Disabled";
+      position: absolute;
+      bottom: 3em;
+      left: 1em;
+      font-size: 0.7rem;
+  } */
