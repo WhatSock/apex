@@ -36,6 +36,13 @@ Call 'background-color:  var(--whatsock-red);
   --acordLightGrey: #eeeeee;
   --acordDarkGrey: #333333;
 
+  /*Buttons*/
+  --button-blue--light: #90ceff; 
+  --button-blue-medium: #035f84;
+  --button-orange-dark: #7d2412;
+  --button-blueGrey: #286278;
+  --button-pink-dark: #49182e;
+
   /*NAV*/
   --navLinkBackground: #444a51;
 

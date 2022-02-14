@@ -226,7 +226,7 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
 
 /**********************************************
     Common Accordion styles - now located in individual widget root folders
-*************************************************/
+*************************************************
 .aria-accordion h2 {
   font-size: inherit;
   margin-bottom: 1px;
@@ -271,10 +271,10 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
 #accordion-sect3 {
   padding: 0.5em;
 }
-
+*/
 /**********************************************
     Common Tablist styles
-*************************************************/
+*************************************************
 .aria-tablist {
   margin: 0;
   border-bottom: 3px solid var(--tablist-black);
@@ -315,14 +315,6 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
   color: var(--combobox-midGrey);
   position: relative;
 }
-/* .aria-tab[aria-disabled="true"]:focus:before,
-.aria-tab[aria-disabled="true"]:hover:before {
-    content: "Disabled";
-    position: absolute;
-    bottom: 3em;
-    left: 1em;
-    font-size: 0.7rem;
-} */
 .aria-tab[aria-disabled="true"]:focus {
   text-decoration: underline;
 }
@@ -332,7 +324,7 @@ main .flex-container .flex-item.keyboard h2:first-child::before {
   padding: 1em;
   border-bottom: 3px solid var(--tablist-black);
 }
-
+*/
 /**********************************************
    FOOTER
 *************************************************/
@@ -438,9 +430,9 @@ img {
 
 /***********************************
 ===================================
-IE11 fallback
+IE11 fallback - hide and remove if not needed
 ===================================
-***********************************/
+***********************************
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   .bypass ul {
     margin: 0;
@@ -494,7 +486,7 @@ IE11 fallback
 
   /**********************************************
     Common Accordion styles
-*************************************************/
+*************************************************
   .aria-accordion-trigger {
     background-color: #63b7c2;
     border: none;
@@ -512,7 +504,7 @@ IE11 fallback
   }
   /**********************************************
     Common Tablist styles
-*************************************************/
+*************************************************
   .aria-tablist {
     border-bottom: 3px solid #2e3135;
   }
@@ -541,3 +533,4 @@ IE11 fallback
     border-bottom: 3px solid #2e3135;
   }
 }
+*/

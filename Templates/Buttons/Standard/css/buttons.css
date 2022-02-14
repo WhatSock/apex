@@ -1,4 +1,16 @@
-/* Specific styles for Accessible Buttons */
+/**********************************************
+Common Button Colours - update in colors.css
+*************************************************/
+/*
+--button-blue--light: #90ceff; 
+--button-blue-medium: #035f84;
+--button-orange-dark: #7d2412;
+--globalWhite: #ffffff;
+*/
+
+/**********************************************
+Common Button styles
+*************************************************/
 
 .aria-button {
   cursor: pointer;
@@ -10,7 +22,7 @@
   text-align: center;
   text-transform: uppercase;
   color: #fff;
-  background: linear-gradient(#90ceff, #035f84);
+  background: linear-gradient(var(--button-blue--light), var(--button-blue-medium));
   padding: 10em 0 1em;
 }
 
@@ -24,12 +36,12 @@
   content: "";
   background: linear-gradient(
       90deg,
-      #7d2412,
+      var(--button-orange-dark),
       transparent,
       transparent 15px,
-      #7d2412 2px
+      var(--button-orange-dark) 2px
     ),
-    linear-gradient(#7d2412, transparent, transparent 15px, #7d2412 2px);
+    linear-gradient(var(--button-orange-dark), transparent, transparent 15px, var(--button-orange-dark) 2px);
   background-size: 20px 20px;
 }
 .aria-button::after {
@@ -42,12 +54,12 @@
   content: "";
   background: linear-gradient(
       90deg,
-      #7d2412,
+      var(--button-orange-dark),
       transparent,
       transparent 15px,
-      #7d2412 2px
+      var(--button-orange-dark) 2px
     ),
-    linear-gradient(#7d2412, transparent, transparent 15px, #7d2412 2px);
+    linear-gradient(var(--button-orange-dark), transparent, transparent 15px, var(--button-orange-dark) 2px);
   background-size: 20px 20px;
   -webkit-transform: scale(0.3);
   -ms-transform: scale(0.3);
@@ -62,7 +74,7 @@
   width: 8em;
   height: 3px;
   content: "";
-  background: #7d2412;
+  background: var(--button-orange-dark);
   -webkit-transform: rotate(-3deg);
   -ms-transform: rotate(-3deg);
   transform: rotate(-3deg);
@@ -76,5 +88,5 @@
   width: 10em;
   height: 5em;
   content: "";
-  background: linear-gradient(transparent, #fff);
+  background: linear-gradient(transparent, var(--globalWhite));
 }

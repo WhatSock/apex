@@ -1,11 +1,12 @@
 
 /**********************************************
-Common Accordion Colours
+Common Accordion Colours - update in colors.css
 *************************************************/
+/*
 --acordDarkGreen: #24575b;
 --acordLightGrey: #eeeeee;
 --acordDarkGrey: #333333;
-
+*/
 /**********************************************
 Common Accordion styles
 *************************************************/
@@ -67,4 +68,3 @@ background-position-y: -7.2em;
 .aria-accordion .insertContent {
   background: color: var(--globalWhite);
 }
-
