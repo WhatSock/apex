@@ -1,4 +1,14 @@
-/* Specific styles for ARIA Combobox */
+/**********************************************
+Common Combobox Colours - update in colors.css
+*************************************************/
+/*
+--globalWhite: #ffffff;
+*/
+
+/**********************************************
+Common Button styles
+*************************************************/
+
 /***Overwrite the auto positioning***/
 
 ul.listbox {
@@ -7,7 +17,6 @@ ul.listbox {
   margin-left: 0;
   height: 10em;
 }
-
 .sim--readonly {
   position: relative;
 }

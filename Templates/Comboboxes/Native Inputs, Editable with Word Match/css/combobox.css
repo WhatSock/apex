@@ -1,4 +1,14 @@
-/* Specific styles for ARIA Combobox */
+/**********************************************
+Common Combobox Colours - update in colors.css
+*************************************************/
+/*
+--globalWhite: #ffffff;
+*/
+
+/**********************************************
+Common Button styles
+*************************************************/
+
 /***Overwrite the auto positioning***/
 
 ul.listbox {
@@ -6,14 +16,6 @@ ul.listbox {
   overflow-y: scroll;
   margin-left: 0;
   height: 10em;
-}
-
-.select--container--wordmatch {
-}
-.select--container--wordmatch input {
-}
-
-.select--container--wordmatch {
 }
 .form--container p.select--container--wordmatch label {
   flex: 1;

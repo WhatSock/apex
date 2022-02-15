@@ -1,4 +1,14 @@
-/* Specific styles for ARIA Combobox */
+/**********************************************
+Common Combobox Colours - update in colors.css
+*************************************************/
+/*
+--globalWhite: #ffffff;
+*/
+
+/**********************************************
+Common Button styles
+*************************************************/
+
 /***Overwrite the auto positioning***/
 
 ul.listbox {
@@ -9,11 +19,6 @@ ul.listbox {
 }
 
 div.toplevel-div {
-  /* left: auto !important;
-  right: 2.6em !important;
-  top: 5.1em !important;
-  width: 14.5em;
-  min-width: 8em; */
   left: 0px !important;
   top: 60px !important;
   background: var(--globalWhite);
@@ -21,9 +26,6 @@ div.toplevel-div {
 
 @media (min-width: 32.8em) {
   div.toplevel-div {
-    /* left: auto !important;
-    right: 2.6em !important;
-    top: 2.9em !important; */
     left: 111px !important;
     top: 36px !important;
   }

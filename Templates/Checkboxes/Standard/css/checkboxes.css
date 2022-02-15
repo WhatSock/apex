@@ -1,4 +1,13 @@
-/* Specific styles for Accessible Checkboxes */
+/**********************************************
+Common Checkbox Colours - update in colors.css
+*************************************************/
+/*
+Images used. Should this be styled using CSS only???
+*/
+
+/**********************************************
+Common Button styles
+*************************************************/
 
 .aria-checkbox {
   float: left;

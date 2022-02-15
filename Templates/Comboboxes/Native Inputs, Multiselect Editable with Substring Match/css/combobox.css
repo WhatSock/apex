@@ -1,0 +1,26 @@
+/**********************************************
+Common Combobox Colours - update in colors.css
+*************************************************/
+/*
+--globalWhite: #ffffff;
+*/
+
+/**********************************************
+Common Button styles
+*************************************************/
+
+/***Overwrite the auto positioning***/
+
+ul.listbox {
+  position: relative;
+  overflow-y: scroll;
+  margin-left: 0;
+  height: 10em;
+}
+
+.multi--select--editable .toplevel-div {
+  background-color: var(--globalWhite);
+  left: 71px !important;
+  top: 35px !important;
+  width: 17em;
+}
