@@ -18,6 +18,12 @@ The following attributes are handled automatically by the Datepicker module:
 • aria-current
 • tabindex
 
+HTML syntax:
+
+<label for="dateInputId"> Departure date: </label>
+<input placeholder="MM/DD/YYYY" id="dateInputId" type="text">
+<button title="Datepicker" id="dateCalendarIconId"><!-- Calendar Icon Here --></button>
+
 JavaScript syntax:
 
 var myCalendarDC = $A.setDatepicker({
@@ -37,10 +43,10 @@ Configuration
 id: "UniqueCalendarId",
 
 // Clickable icon triggering element
-toggle: "#datepicker-trigger-icon-id",
+toggle: "#dateCalendarIconId",
 
-// Native or simulated active element
-input: "#datepicker-input-element-id",
+// Native input element where the saved date value will be set.
+input: "#dateInputId",
 
 // Set initial inline styling properties for the dynamically rendered calendar.
 style: {

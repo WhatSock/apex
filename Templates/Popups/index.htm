@@ -55,15 +55,42 @@
                     <p>Available attributes for the triggering element:</p>
 
                     <ul>
-                        <li> data-controls : The resource path and pointer to the ID attribute of the popup container element.</li>
+                        <li>data-controls : The resource path and pointer to the ID attribute of the popup container element. May consist of a traditional id reference within the same document, or a url+id reference for pulling a popup in from an external resource. E.G. data-controls="path/get.php?type=moreInfo#popupContainerId"</li>
                     </ul>
+
+                    <h2>HTML syntax</h2>
+
+                    <h3>Triggering Element</h3>
+
+                    <div>
+                        <pre><code class="language-markup">
+&lt;button id="popupTriggerId"> MORE INFO &lt;/button>
+</code></pre>
+                    </div>
+
+                    <p>To ensure the greatest level of accessibility, a triggering element should always consist of a native button or link.</p>
+
+                    <h3>Popup Container</h3>
+
+                    <div>
+                        <pre><code class="language-markup">
+&lt;div hidden id="popupId">
+  &lt;button aria-label="Close" class="CloseDC">&lt;!-- Close Icon Here -->&lt;/button>
+  &lt;div> Popup content... &lt;/div>
+&lt;/div>
+</code></pre>
+                    </div>
+
+                    <p>When Implementing a Close link or button, the className must match the "closeClassName" property within the script declaration. Doing so will automatically bind the close methods with this element, and set keyboard focus properly when the popup is closed. If closeClassName is not specified, the default class will be set to "CloseDC" instead. The aria-label attribute provides an informative name for non-sighted screen reader users no matter what the visible icon is set to.</p>
 
                     <h2>JavaScript syntax</h2>
 
                     <div>
-                        <pre><code class="language-javascript">var myPopupDC = $A.setPopup( domNodeOrCSSSelectorForTriggeringElement , {
-// Configure functionality key / value mappings
-});</code></pre>
+                        <pre><code class="language-javascript">
+var myPopupDC = $A.setPopup( "#popupTriggerId", {
+  // Configure functionality key / value mappings
+});
+</code></pre>
                     </div>
 
                     <h2>Parameters</h2>
@@ -76,24 +103,24 @@
                     <h3>Configuration</h3>
 
                     <div>
-                        <pre><code class="language-javascript">{
+                        <pre><code class="language-javascript">
+{
 
-// Optionally set a unique ID for the popup DC object, which can be referenced through $A('uniqueId')
-// If not specified, the id of the triggering element will be used instead.
-id: 'uniqueId',
+// Specify the role name for the popup that will be conveyed to screen reader users. E.G. "Movie Details"
+role: "Popup Purpose",
 
-// Optionally specify the content to be rendered when referencing internal content.
+// Optionally specify the popup container element within the same document.
 // May be a DOM node or CSS selector.
 // Not necessary if data-controls is set on the triggering element.
-content: "#uniqueId",
+content: "#popupId",
 
-// Optionally specify the content to be rendered when referencing external content.
+// Optionally specify the popup to be rendered when referencing external content.
 // Not necessary if data-controls is set on the triggering element.
 // If set, the content property will be auto-populated with the returned content.
 fetch: {
 url: "path/file.htm",
 data: {
-selector: "#uniqueId"
+selector: "#popupId"
 }
 },
 
@@ -173,27 +200,29 @@ next(); // REQUIRED: next() must be executed so control is passed back to 4X for
 // Additional DC API properties and methods can be declared here also to customize functionality and behavior.
 // To view available options, reference the help docs located at: "Help/DC API/DC Object Configuration"
 
-}</code></pre>
+}
+</code></pre>
                     </div>
 
                     <h2>Programmatic control</h2>
 
                     <div>
-                        <pre><code class="language-javascript">// Get the DC object for the popup using its id.
-var DC = $A("popupTriggerId");
+                        <pre><code class="language-javascript">
+// Use the DC object that is returned by the $A.setPopup() function.
 
 // Open the popup manually.
-DC.render(function() {
-// Optionally do something after rendering completes.
+myPopupDC.render(function() {
+  // Optionally do something after rendering completes.
 });
 
 // Close the popup manually.
-DC.remove(function() {
-// Optionally do something after removal completes.
+myPopupDC.remove(function() {
+  // Optionally do something after removal completes.
 });
 
 // Additional DC API properties and methods can be applied here as well.
-// To view available options, reference the help docs located at: "Help/DC API/DC Object Properties and Methods"</code></pre>
+// To view available options, reference the help docs located at: "Help/DC API/DC Object Properties and Methods"
+</code></pre>
                     </div>
 
                 </section>

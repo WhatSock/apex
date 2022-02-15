@@ -26,7 +26,31 @@ Available attributes for the triggering element:
 • data-root : The ID attribute of the container element where the accordion content will be inserted when rendered. (This must not be inside the triggering element)
 • data-active : Specifies that the referenced accordion node will open automatically. Only one accordion node per group should include this attribute.
 
+HTML syntax:
+
+<h2>
+  <button data-active data-root="root-id-for-billing" data-controls="accordion-panel-id-for-billing" > BILLING </button>
+</h2>
+
+<div id="root-id-for-billing">
+  <div id="accordion-panel-id-for-billing">
+    Expandable content for the billing section here. (Content visible by default via the data-active attribute on the triggering element.)
+  </div>
+</div>
+
+<h2>
+  <button data-root="root-id-for-shipping" data-controls="accordion-panel-id-for-shipping" > SHIPPING </button>
+</h2>
+
+<div id="root-id-for-shipping">
+  <div hidden id="accordion-panel-id-for-shipping">
+    Expandable content for the shipping section here. (Content hidden by default via the hidden attribute on the accordion panel.)
+  </div>
+</div>
+
 IMPORTANT: The triggering element must not include any other active elements, otherwise these will not be accessible to non-sighted screen reader users.
+
+When aria-disabled="true" is set on an accordion triggering element, functionality for that accordion panel will automatically be disabled.
 
 JavaScript syntax:
 
@@ -61,13 +85,14 @@ extendRTI: {
 
 // Optionally choose to track the browser history when each panel is opened.
 // May be used to automatically open the same panel after the page is bookmarked.
+// Requires that each accordion triggering element include a unique id attribute.
     trackPage: false,
 
 // Toggle the specified class name on the triggering element when hidden or shown.
     toggleClassName: "open",
 
 // Optionally toggle the hidden attribute instead of inserting the accordion panel when rendered.
-    toggleHide: false,
+    toggleHide: true,
 
 // Specify that the collection of accordion triggering elements will function like toggles, where the currently open panel can be closed.
 isToggle: false,

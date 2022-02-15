@@ -68,7 +68,30 @@
                         <li> data-active : Specifies that the referenced tab node will open automatically. Only one tab node per group should include this attribute.</li>
                     </ul>
 
+                    <h2>HTML syntax</h2>
+
+                    <div>
+                        <pre><code class="language-markup">&lt;div class="tab-list">
+  &lt;button data-active data-root="root-container-id" data-controls="tab-panel-id-for-system" > SYSTEM &lt;/button>
+  &lt;button data-root="root-container-id" data-controls="tab-panel-id-for-network" > NETWORK &lt;/button>
+&lt;/div>
+
+&lt;div id="root-container-id">
+
+  &lt;div id="tab-panel-id-for-system">
+    Expandable content for the system section here. (Content visible by default via the data-active attribute on the triggering element.)
+  &lt;/div>
+
+  &lt;div hidden id="tab-panel-id-for-network">
+    Expandable content for the network section here. (Content hidden by default via the hidden attribute on the tab-panel.)
+  &lt;/div>
+
+&lt;/div></code></pre>
+                    </div>
+
                     <p>IMPORTANT: The triggering element must not include any other active elements, otherwise these will not be accessible to non-sighted screen reader users.</p>
+
+                    <p>When aria-disabled="true" is set on a tab triggering element, functionality for that panel will automatically be disabled.</p>
 
                     <h2>JavaScript syntax</h2>
 
@@ -102,6 +125,7 @@ extendRTI: {
 
 // Optionally choose to track the browser history when each panel is opened.
 // May be used to automatically open the same panel after the page is bookmarked.
+// Requires that each tab triggering element include a unique id attribute.
     trackPage: false,
 
 // Toggle the specified class name on the triggering element when hidden or shown.

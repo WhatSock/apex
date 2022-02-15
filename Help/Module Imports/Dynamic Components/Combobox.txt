@@ -22,14 +22,31 @@ The following attributes are handled automatically by the Combobox module:
 • role=option
 • tabindex
 
-For Simulated Active Elements:
-• Any combination of HTML container markup with embedded tags is supported.
+HTML syntax:
+
+<label for="comboboxId"> Unique Name: </label>
+<input type="text" id="comboboxId" >
+
+For simulated active elements, any combination of HTML container markup with embedded tags is supported.
+
+<div title="Set your location" id="comboboxId">
+  <span id="valueTextId">
+    <!-- Selected values will be dynamically inserted here. -->
+  </span>
+</div>
 
 IMPORTANT: The focusable combobox element must not include any other active elements, otherwise these will not be accessible to non-sighted screen reader users.
+
+It is equally important not to use aria-label on the simulated combobox to set the accessible name. Otherwise, it will prevent non-sighted screen reader users from being able to read the current value within the embedded markup.
 
 Hidden Select Element
 
 All Combobox controls are bound to a standard Select element instance, which may be hidden within the page, or dynamically generated using JavaScript to support dynamic population via AJAX.
+
+<select hidden id="hiddenSelectId">
+  <option value="value1"> ONE </option>
+  <option value="value2"> TWO </option>
+</select>
 
 To enable multiselect functionality, add the 'multiple' attribute to the hidden select element.
 
@@ -38,11 +55,12 @@ To set a default value for the Combobox other than index[0], add the 'selected' 
 JavaScript syntax:
 
 var myCombobox = new $A.Combobox({
-select: selectElementDOM-Node ,
-input: inputDOM-Node ,
-childNode: optionalChildDOM-Node,
-override: {
-// DC API overrides
+  select: $A.get("hiddenSelectId"), // Required
+  input: $A.get("comboboxId"), // Required
+  childNode: $A.get("valueTextId"), // For simulated comboboxes only.
+  override: {
+    // DC API overrides
+  }
 });
 
 // Configure settings here prior to invocation
@@ -57,13 +75,23 @@ Parameters
 
 Configuration
 
-"select" is the hidden Select element DOM node that will be bound to the Combobox control.
+{
 
-"input" is the focusable role=combobox element that will be bound to the hidden Select element.
+// The hidden Select element DOM node that will be bound to the Combobox control.
+select: selectElementDOMNode ,
 
-"childNode" is the embedded child container element that will be bound to the role=combobox element, which is only applicable if the role=combobox element is not a standard Input or Textarea element.
+// The focusable role=combobox element that will be bound to the hidden Select element.
+input: inputDOMNode ,
 
-"override" is an optional override of DC object properties and methods when instantiated.
+// The embedded child container element where the value text will be dynamically updated. This is only applicable when the combobox element is not a native HTML input or textarea element.
+childNode: optionalChildDOMNode,
+
+// An optional override of DC object properties and methods when instantiated.
+override: {
+// DC API overrides
+}
+
+}
 
 Programmatic Control
 

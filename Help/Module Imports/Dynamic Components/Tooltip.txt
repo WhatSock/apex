@@ -3,7 +3,7 @@ ARIA Tooltips
 
 Expected behaviors:
 • Hover tooltips appear when moused over and when the triggering element receives focus, then close when the mouse moves away or when focus moves to a different element. 
-• Manual tooltips appear when the triggering element is activated, then close when clicked again or when focus moves to a different element. 
+• Manual toggle tooltips appear when the triggering element is activated, then close when clicked again or when focus moves to a different element. 
 • Responsive tooltips appear when validation criteria are met when typing, and close when focus moves to a different element. 
 • Error tooltips appear when focus moves away from a field that fails validation, then close when focus moves back to the triggering element.
 
@@ -19,13 +19,49 @@ The following attributes are handled automatically by the Tooltip module:
 
 Available attributes for the triggering element:
 
-• data-tooltip : The resource path and pointer to the ID attribute of the tooltip container element.
-• data-error : The resource path and pointer to the ID attribute of the error container element.
+• data-tooltip : The resource path and pointer to the ID attribute of the tooltip container element. May consist of a traditional id reference within the same document, or a url+id reference for pulling a tooltip in from an external resource, or the tooltip markup and message that should be displayed visually when triggered.
+• data-error : The resource path and pointer to the ID attribute of the error container element. May consist of a traditional id reference within the same document, or a url+id reference for pulling an error tooltip in from an external resource, or the error tooltip markup and message that should be displayed visually when triggered.
+
+HTML syntax:
+
+There are many options for setting the content of a tooltip.
+
+Using embedded markup to create a tooltip
+
+<button data-tooltip='<p>Your email address is required to verify your account, but will not be used for any other purpose.</p>'> Why do we need this? </button>
+
+Using CSS selector to reference a tooltip
+
+<label for="passwordId"> Password: </label>
+<input data-tooltip="#passwordTooltipId" id="passwordId" type="password">
+
+<div hidden id="passwordTooltipId">
+    <p> Important! </p>
+    <ul>
+        <li> Must be 8 characters in length.</li>
+        <li> Must not contain special characters.</li>
+        <li> Must not contain any whitespace characters.</li>
+    </ul>
+</div>
+
+Using URL+id to reference an external tooltip
+
+<button data-tooltip="url/tooltips.php?type=help#tooltipContainerId"> What is this? </button>
+
+Using standard markup for any focusable element configured with JS setup script
+
+<a class="hasTooltip" href="URL"> ONE </a>
+
+<button class="hasTooltip"> TWO </button>
+
+<input class="hasTooltip" type="text" title="THREE" >
+
+The data-error attribute may be implemented using the same syntax as the data-tooltip attribute, and both data-error and data-tooltip attributes are supported on the same element. However, the data-error attribute is only valid on native input elements.
 
 JavaScript syntax:
 
 var myTooltipDC = $A.setTooltip( DOM-Node-or-CSS-Selector-forTriggering-Element , {
-// Configure functionality key / value mappings
+  // Configure functionality key / value mappings
 });
 
 Parameters
@@ -38,28 +74,23 @@ Configuration
 
 {
 
-// Optionally set a unique ID for the tooltip DC object, which can be referenced through $A('uniqueId')
-// If not specified, the id of the triggering element will be used instead.
-// When an error and a tooltip are set on the same trigger, a unique id for each must be manually specified.
-id: 'uniqueId',
-
-// Optionally specify the content to be rendered when referencing internal content.
+// Optionally specify the tooltip container element within the same document.
 // May be a DOM node or CSS selector.
-// Not necessary if tooltip or error is set on the triggering element.
-content: "#uniqueId",
+// Not necessary if data-tooltip or data-error is set on the triggering element.
+content: "#tooltipContainerId",
 
-// Optionally specify the content to be rendered when referencing external content.
-// Not necessary if tooltip or error is set on the triggering element.
+// Optionally specify the tooltip to be rendered when referencing external content.
+// Not necessary if data-tooltip or data-error is set on the triggering element.
 // If set, the content property will be auto-populated with the returned content.
 fetch: {
 url: "path/file.htm",
 data: {
-selector: "#uniqueId"
+selector: "#tooltipContainerId"
 }
 },
 
 // Optionally toggle the hidden attribute instead of inserting the tooltip content when rendered.
-    toggleHide: false,
+    toggleHide: true,
 
 // Preload markup in the background when using the Fetch API to load external content.
 preload: true,
@@ -87,10 +118,12 @@ isManualClose: true,
 
 // Specify that the tooltip will be displayed only when specific validation criteria are met when typing.
 // Use when customized responses are needed to guide user input.
+// Only valid on editable native input elements.
 isResponsive: false,
 
 // Set validation criteria to pass or fail as needed.
 // Only applicable when isResponsive is set to true.
+// Only valid on editable native input elements.
 validate: function(DC, target) {
 // 'target' is the input element to validate.
 var val = target.value.toLowerCase();
@@ -103,6 +136,7 @@ else return "This field desires input.";
 
 // Execute a handler every time validate is processed.
 // Only applicable when isResponsive is set to true.
+// Only valid on editable native input elements.
 onValidate: function(DC, target) {
 // Do something every time the target is updated.
 document.querySelector('input[type="submit"]').disabled = !DC.isValid;
@@ -116,6 +150,7 @@ delayTimeout: 0,
 
 // Optionally override the default timeout function that occurs after the delayTimeout length is reached.
 timeout: function(dc) {
+// Do something...
 dc.remove();
 },
 
@@ -171,16 +206,15 @@ afterRemove: function(DC) {
 
 Programmatic Control
 
-// Get the DC object for the tooltip using its id.
-var DC = $A("tooltipId");
+// Use the DC object that is returned by the $A.setTooltip() function.
 
 // Open the tooltip manually.
-DC.render(function() {
+myTooltipDC.render(function() {
 // Optionally do something after rendering completes.
 });
 
 // Close the tooltip manually.
-DC.remove(function() {
+myTooltipDC.remove(function() {
 // Optionally do something after removal completes.
 });
 

@@ -14,52 +14,72 @@ The following attributes are handled automatically by the Dialog module:
 
 Available attributes for the triggering element:
 
-• data-controls : The resource path and pointer to the ID attribute of the dialog container element.
+• data-controls : The resource path and pointer to the ID attribute of the dialog container element. May consist of a traditional id reference within the same document, or a url+id reference for pulling a dialog in from an external resource. E.G. data-controls="path/get.php?type=login#dialogContainerId"
+
+HTML syntax:
+
+Triggering Element (Optional)
+
+<button id="dialogTriggerId"> SIGN-IN </button>
+
+To ensure the greatest level of accessibility, a triggering element should always consist of a native button or link. However, it is not necessary to have a triggering element to create a new dialog.
+
+Dialog Container
+
+<div hidden id="dialogId">
+  <button aria-label="Close" class="CloseDC"><!-- Close Icon Here --></button>
+  <div> Dialog content... </div>
+</div>
+
+When Implementing a Close link or button, the className must match the "closeClassName" property within the script declaration. Doing so will automatically bind the close methods with this element, and set keyboard focus properly when the dialog is closed. If closeClassName is not specified, the default class will be set to "CloseDC" instead. The aria-label attribute provides an informative name for non-sighted screen reader users no matter what the visible icon is set to.
 
 JavaScript syntax:
 
-var myDialogDC = $A.setDialog( DOM-Node-or-CSS-Selector-forTriggering-Element , {
+var myDialogDC = $A.setDialog( domNodeOrCSSSelector, {
 // Configure functionality key / value mappings
 });
 
 Parameters
 
-1: A DOM element or CSS selector to specify the triggering element.
+1: A DOM node or CSS selector to specify either the dialog container element or the dialog triggering element. If referencing a triggering element, the data-controls attribute can be used to specify the id of the associated dialog container.
 
-2: A configuration map to customize behaviors and options. (If there is no triggering element, the configuration map can be passed as the first parameter.)
+2: A configuration map to customize behaviors and options.
 
 Configuration
 
 {
 
-// Optionally set a unique ID for the dialog DC object, which can be referenced through $A('uniqueId')
-// If not specified, the id of the triggering element will be used instead.
-id: 'uniqueId',
+// Specify the role name for the dialog that will be conveyed to screen reader users.
+role: "Dialog Purpose",
 
-// Optionally specify the content to be rendered when referencing internal content.
+// Specify the dialog triggering element if applicable.
+// Not necessary if already specified in the first parameter of the $A.setDialog() function.
+trigger: "#dialogTriggerId",
+
+// Optionally specify the dialog container element within the same document.
 // May be a DOM node or CSS selector.
-// Not necessary if data-controls is set on the triggering element.
-content: "#uniqueId",
+// Not necessary if data-controls is set on the triggering element or if already specified in the first parameter of the $A.setDialog() function.
+content: "#dialogId",
 
-// Optionally specify the content to be rendered when referencing external content.
+// Optionally specify the dialog to be rendered when referencing external content.
 // Not necessary if data-controls is set on the triggering element.
 // If set, the content property will be auto-populated with the returned content.
 fetch: {
 url: "path/file.htm",
 data: {
-selector: "#uniqueId"
+selector: "#dialogId"
 }
 },
 
 // Set the class name for the top level container element
 className: 'dialog',
 
-// Set the class name for the screen reader accessible close link
+// Set the class name for the close button.
 // This must match the class name for any close links or buttons within the dialog content, which will cause close event binding to automatically occur when the content is rendered.
 closeClassName: "CloseDC",
 
 // Optionally specify if the dialog is an alert message.
-// If true, a system alert will be fired when the dialog is rendered.
+// If true, a system alert will be fired when the dialog is rendered that will instantly convey the dialog content to screen reader users.
 isAlert: false,
 
 // Specify if the dialog is a modal dialog.
@@ -128,17 +148,16 @@ next(); // REQUIRED: next() must be executed so control is passed back to 4X for
 
 Programmatic Control
 
-// Get the DC object for the dialog using its id.
-var DC = $A("dialogId");
+// Use the DC object that is returned by the $A.setDialog() function.
 
 // Open the dialog manually.
-DC.render(function() {
-// Optionally do something after rendering completes.
+myDialogDC.render(function() {
+  // Optionally do something after rendering completes.
 });
 
 // Close the dialog manually.
-DC.remove(function() {
-// Optionally do something after removal completes.
+myDialogDC.remove(function() {
+  // Optionally do something after removal completes.
 });
 
 // Additional DC API properties and methods can be applied here as well.

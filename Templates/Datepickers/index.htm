@@ -68,6 +68,16 @@
                         <li> tabindex</li>
                     </ul>
 
+                    <h2>HTML syntax</h2>
+
+                    <div>
+                        <pre><code class="language-markup">
+&lt;label for="dateInputId"> Departure date: &lt;/label>
+&lt;input placeholder="MM/DD/YYYY" id="dateInputId" type="text">
+&lt;button title="Datepicker" id="dateCalendarIconId">&lt;!-- Calendar Icon Here -->&lt;/button>
+</code></pre>
+                    </div>
+
                     <h2>JavaScript syntax</h2>
 
                     <div>
@@ -92,10 +102,10 @@
 id: "UniqueCalendarId",
 
 // Clickable icon triggering element
-toggle: "#datepicker-trigger-icon-id",
+toggle: "#dateCalendarIconId",
 
 // Native input element where the saved date value will be set.
-input: "#datepicker-input-element-id",
+input: "#dateInputId",
 
 // Set initial inline styling properties for the dynamically rendered calendar.
 style: {

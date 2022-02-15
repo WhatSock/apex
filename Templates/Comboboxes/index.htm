@@ -65,11 +65,43 @@
                         <li> tabindex</li>
                     </ul>
 
+                    <h2>HTML syntax</h2>
+
+                    <div>
+                        <pre><code class="language-markup">
+&lt;label for="comboboxId"> Unique Name: &lt;/label>
+&lt;input type="text" id="comboboxId" >
+</code></pre>
+                    </div>
+
+                    <p>For simulated active elements, any combination of HTML container markup with embedded tags is supported.</p>
+
+                    <div>
+                        <pre><code class="language-markup">
+&lt;div title="Set your location" id="comboboxId">
+  &lt;span id="valueTextId">
+    &lt;!-- Selected values will be dynamically inserted here. -->
+  &lt;/span>
+&lt;/div>
+</code></pre>
+                    </div>
+
                     <p>IMPORTANT: The focusable combobox element must not include any other active elements, otherwise these will not be accessible to non-sighted screen reader users.</p>
 
-                    <h2>Hidden Select element</h2>
+                    <p>It is equally important not to use aria-label on the simulated combobox to set the accessible name. Otherwise, it will prevent non-sighted screen reader users from being able to read the current value within the embedded markup.</p>
+
+                    <h3>Hidden Select element</h3>
 
                     <p>All Combobox controls are bound to a standard Select element instance, which may be hidden within the page, or dynamically generated using JavaScript to support dynamic population via AJAX.</p>
+
+                    <div>
+                        <pre><code class="language-markup">
+&lt;select hidden id="hiddenSelectId">
+  &lt;option value="value1"> ONE &lt;/option>
+  &lt;option value="value2"> TWO &lt;/option>
+&lt;/select>
+</code></pre>
+                    </div>
 
                     <p>To enable multiselect functionality, add the 'multiple' attribute to the hidden select element.</p>
 
@@ -78,9 +110,22 @@
                     <h2>JavaScript syntax</h2>
 
                     <div>
-                        <pre><code class="language-javascript">var myCombobox = new $A.Combobox({
-// Configure functionality key / value mappings
-});</code></pre>
+                        <pre><code class="language-javascript">
+var myCombobox = new $A.Combobox({
+  select: $A.get("hiddenSelectId"), // Required
+  input: $A.get("comboboxId"), // Required
+  childNode: $A.get("valueTextId"), // For simulated comboboxes only.
+  override: {
+    // DC API overrides
+  }
+});
+
+// Configure settings here prior to invocation
+
+// Then invoke the Combobox for auto-rendering when interacted with.
+
+myCombobox.start();
+</code></pre>
                     </div>
 
                     <h2>Parameters</h2>
@@ -100,7 +145,7 @@ select: selectElementDOMNode ,
 // The focusable role=combobox element that will be bound to the hidden Select element.
 input: inputDOMNode ,
 
-// The embedded child container element that will be bound to the role=combobox element, which is only applicable if the role=combobox element is not a standard Input or Textarea element.
+// The embedded child container element where the value text will be dynamically updated. This is only applicable when the combobox element is not a native HTML input or textarea element.
 childNode: optionalChildDOMNode,
 
 // An optional override of DC object properties and methods when instantiated.
