@@ -1,5 +1,5 @@
 /*@license
-Apex 4X: The Comprehensive ARIA Development Suite (2021.1.6 - Virtual Light )
+Apex 4X: The Comprehensive ARIA Development Suite ( Diamond Age - 2022.2.16 )
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -7,7 +7,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 
 (function() {
   var moduleFolder = "/4X/Modules/",
-    Version = "2021.1.6",
+    Version = "2022.2.16",
     BN = {};
   (function() {
     var $A = function(dc, dcA, dcI, onReady, disableAsync) {
@@ -3433,6 +3433,7 @@ error: function(error, promise){}
         }
         var a = o;
         if ($A.isDC(o)) a = o.siblings;
+        if (!a) a = document.querySelectorAll('*[aria-disabled="true"]');
         $A.loop(
           a,
           function(i, o) {

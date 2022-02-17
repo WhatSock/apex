@@ -4,6 +4,8 @@ Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
 
+Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.js, Footnote.js, Popup.js, Tooltip.js, Menu.js, Listbox.js
+
 (Edit this file however desired to customize markup template functionality.)
 
 */

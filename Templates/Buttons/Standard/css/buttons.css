@@ -22,7 +22,10 @@ Common Button styles
   text-align: center;
   text-transform: uppercase;
   color: #fff;
-  background: linear-gradient(var(--button-blue--light), var(--button-blue-medium));
+  background: linear-gradient(
+    var(--button-blue--light),
+    var(--button-blue-medium)
+  );
   padding: 10em 0 1em;
 }
 
@@ -41,7 +44,12 @@ Common Button styles
       transparent 15px,
       var(--button-orange-dark) 2px
     ),
-    linear-gradient(var(--button-orange-dark), transparent, transparent 15px, var(--button-orange-dark) 2px);
+    linear-gradient(
+      var(--button-orange-dark),
+      transparent,
+      transparent 15px,
+      var(--button-orange-dark) 2px
+    );
   background-size: 20px 20px;
 }
 .aria-button::after {
@@ -59,7 +67,12 @@ Common Button styles
       transparent 15px,
       var(--button-orange-dark) 2px
     ),
-    linear-gradient(var(--button-orange-dark), transparent, transparent 15px, var(--button-orange-dark) 2px);
+    linear-gradient(
+      var(--button-orange-dark),
+      transparent,
+      transparent 15px,
+      var(--button-orange-dark) 2px
+    );
   background-size: 20px 20px;
   -webkit-transform: scale(0.3);
   -ms-transform: scale(0.3);

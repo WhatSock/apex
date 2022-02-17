@@ -1,5 +1,5 @@
 # Apex 4X
-The Comprehensive ARIA Development Suite (Current version: Virtual Light - 2021.1.6)
+The Comprehensive ARIA Development Suite (Current version: Diamond Age - 2022.2.16)
 
 ## Contents
 + [Introduction](#introduction)
@@ -174,6 +174,8 @@ https://github.com/whatsock
 
 <!----><a name="changelog" tabindex="-1"></a>
 ## Change log:
+
+2022.2.16 (Diamond Age): Added the ability to use $A.updateDisabled() with no arguments to map all disabled elements on the page that include aria-disabled="true".
 
 2021.1.6 (Virtual Light): Added $A.nearestHeadingLevel() and DC.nearestHeadingLevel() as an ARIA support function that will return the level number of the nearest heading. View Help/ARIA Development/NearestHeadingLevel for support.
 
