@@ -1,3 +1,31 @@
+Quick Start Guide
+
+Everything that is needed for 4X to run properly is included within the 4X folder. This can be copied into any other project to begin using it.
+
+• The primary script files, 4X.js and 4X.Max.js comprise all the core functionality of Apex 4X.
+• The module files within the folders 4X/Min and 4X/Modules are meant to be used with dynamic imports.
+• The module files within the 4X/Standard folder, in contrast, are meant to be used with standard script tags.
+
+There are two ways to implement 4X and its accompanying modules, using dynamic module imports, or using a standard script tag for each module as desired.
+
+Using Dynamic Module Imports
+
+The value of importing modules dynamically is that there is no need to hardcode script tags within each webpage. Instead, the requisit modules are loaded dynamically as-needed, which is faster and more responsive when running complex web apps.
+
+However, doing so requires some configuration. There is only one setting that needs to be set for 4X to run properly.
+
+1. Within the 4X folder, open the 4X.max.js file within a text editor, and search for "moduleFolder". The same thing will need to be done for the file 4X.js.
+2. Make sure that the folder path specified there points to the desired module folder within the 4X directory, including the "/" character at the end. This property needs to reflect the correct relative folder structure when loaded on a webserver.
+3. Load 4X into your project using a standard script statement as shown within the template folders.
+
+Since 4X uses Fetch protocols to import modules when needed, it must be run from a webserver. For testing and development, this can be easily set up locally by doing the following.
+
+1. Install NodeJS from: https://nodejs.org/en/download/
+2. Run the setup file named "WebserverInstall.sh" to install the local webserver within this project. This need only be done once.
+3. Run the file "WebserverRun.sh" to start the webserver and open the index.htm file at the project root.
+4. Within the opened browser, follow the Templates link to browse the available module templates and run them locally for testing and modification.
+
+Using Standard Script Tags
 
 For those wishing to load 4X using the standard script tag instead of using dynamic module imports, the following order should be observed to ensure that all module dependencies are loaded correctly.
 

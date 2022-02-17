@@ -4,13 +4,9 @@ The Comprehensive ARIA Development Suite (Current version: Diamond Age - 2022.2.
 ## Contents
 + [Introduction](#introduction)
 + [Accessible Widget Templates](#templates)
-+ [4X APIs](#apis)
-+ [Usage](#usage)
-+ [Modules](#modules)
-+ [ModuleUsage](#moduleusage)
-+ [Importing Modules](#importing)
-+ [Alternative Import Methods](#alternativeimports)
-+ [Creating Modules](#creatingmodules)
++ [Quick Start Guide](#quickstart)
++ [Using Dynamic Module Imports](#dynamicimports)
++ [Using Standard Script Tags](#standardscripttags)
 + [ReactJS Disambiguation](#reactjs)
 + [License](#license)
 + [Acknowledgements](#acknowledgements)
@@ -39,103 +35,85 @@ Accordions, Buttons, Carousels, Checkboxes, Comboboxes, Datepickers, Dialogs, Dr
 
 Live demos: http://whatsock.com/Templates
 
-<!----><a name="apis" tabindex="-1"></a>
-## 4X APIs
+<!----><a name="quickstart" tabindex="-1"></a>
+## Quick Start Guide
 
-The $A API provides all core functionality, including dynamic modularization for swappable components, advanced ARIA development features and processes, data management, DOM related methods and processes, dynamic import methods, visual effect methods for content display and animation, and chaining.
+Everything that is needed for 4X to run properly is included within the "4X" folder. This can be copied into any other project to begin using it.
 
-The DC (Dynamic Component) API provides  direct access to individually configurable components and widgets. Each DC instance includes the ability to control dynamic behaviors, manage content and events, utilize lifecycle methods, pass custom props between other DC instances and external resources, control rendering processes, plus manage visual effects and animation.
+* The primary script files, "4X.js" and "4X.Max.js" comprise all the core functionality of Apex 4X.
+* The module files within the folders "4X/Min" and "4X/Modules" are meant to be used with dynamic imports.
+* The module files within the "4X/Standard" folder, in contrast, are meant to be used with standard script tags.
 
-<!----><a name="usage" tabindex="-1"></a>
-## Usage
+There are two ways to implement 4X and its accompanying modules, using dynamic module imports, or using a standard script tag for each module as desired.
 
-* Place the 4X folder at the root of your website directory. The 4X folder should then be accessible from: `www.YourDomain.com/4X`
-* Add the following script statement within the head of your page: `<script type="text/javascript" src="/4X/4X.js"></script>`
+<!----><a name="dynamicimports" tabindex="-1"></a>
+### Using Dynamic Module Imports
 
-After which, all of the $A API features will be available, including the full suite of ARIA development processes. These are fully documented within the help docs folder at: "Help/ARIA Development"
+The value of importing modules dynamically is that there is no need to hardcode script tags within each webpage. Instead, the requisit modules are loaded dynamically as-needed, which is faster and more responsive when running complex web apps.
 
-The default server location can be changed by modifying the "moduleFolder" property within 4X.js as needed.
+However, doing so requires some configuration. There is only one setting that needs to be set for 4X to run properly.
 
-In contrast, the DC API is only applicable when creating DC instances for the configuring of dynamic components.
+1. Within the 4X folder, open the 4X.max.js file within a text editor, and search for "moduleFolder". The same thing will need to be done for the file 4X.js.
+2. Make sure that the folder path specified there points to the desired module folder within the 4X directory, including the "/" character at the end. This property needs to reflect the correct relative folder structure when loaded on a webserver.
+3. Load 4X into your project using a standard script statement as shown within the template folders.
 
-Any DOM element or markup string can be turned into a DC object using the following syntax:
+Since 4X uses Fetch protocols to import modules when needed, it must be run from a webserver. For testing and development, this can be easily set up locally by doing the following.
 
-```
-var DC = $A.toDC(domElement, {
-  // Optional DC API properties and methods here.
-});
-```
+1. Install NodeJS from: https://nodejs.org/en/download/
+2. Run the setup file named "WebserverInstall.sh" to install the local webserver within this project. This need only be done once.
+3. Run the file "WebserverRun.sh" to start the webserver and open the index.htm file at the project root.
+4. Within the opened browser, follow the Templates link to browse the available module templates and run them locally for testing and modification.
 
-Or even the following:
+<!----><a name="standardscripttags" tabindex="-1"></a>
+### Using Standard Script Tags
 
-```
-// Fetch an external control and convert it into a DC object to render with behavior declarations.
-var DC = $A.toDC("path/resource.php?params#ExternalElementId", {
-  root: 'body',
-  append: true,
-  forceFocus: true,
-  afterRender: function(DC) {
-    // Do something.
-  }
-});
-```
+For those wishing to load 4X using the standard script tag instead of using dynamic module imports, the following order should be observed to ensure that all module dependencies are loaded correctly.
 
-After which, all DC API properties and methods will be available for that object.
+Simply copy and paste the below list into the head tag of your webpage, 
+delete the module scripts that you don't wish to use,
+and change the href and src attribute paths to point to the correct modules within the 4X/Standard folder.
+Then a simple setup script can be loaded to configure all desired functionality.
 
-For help regarding this, view the documentation at: 
-"Help/$A API/DC Objects/", and 
-"Help/DC API".
-
-<!----><a name="modules" tabindex="-1"></a>
-## Modules
-
-Dynamic modularization is one of the most powerful features that 4X provides, including on-demand imports, internal caching for shared modules, automatic queuing for sequential imports, shared props between modules within the same import scope, and optional deferment.
-
-This makes it possible to dynamically import functionality modules on an as-needed basis, and to chain required dependencies that are shared between multiple modules, without having to preload all related script files in advance when the page first loads. Internal caching maximizes overall processing speed, and callback functions can be optionally deferred so they will only execute after the page completes loading.
-
-Custom props can also be passed from the originating import statement into all chained external modules, which are fully sandboxed within each module instance to ensure that no conflicts can occur, even when passing different props to the same module within differing import statements.
-
-<!----><a name="moduleusage" tabindex="-1"></a>
-### Module Usage
-
-By default, the 4X module folder is located at "/4X/Modules/", which is why the 4X folder needs to be placed at the root of the website directory. However, this can be changed if a different location is necessary.
-
-If the 4X folder needs to be place somewhere else, such as at "/Subfolder/Path/4X", then it will be necessary to change the internal "moduleFolder" property in 4X.js to reference the correct module folder. E.G. Change it to "/Subfolder/Path/4X/Modules/".
-
-This will allow 4X to dynamically import required modules as needed to ensure proper functionality.
-
-As another option, all of the modules provided within this archive have been minified to maximize responsiveness and reduce load times as much as possible. All of these are located within the folder "4X/Min/". To automatically utilize these enhancements, simply reference the "Min" folder within the moduleFolder property instead of the "Modules" folder.
-
-Example: `moduleFolder: "/4X/Min/"`
-
-<!----><a name="importing" tabindex="-1"></a>
-### Importing Modules
-
-All modules used by 4X should be added to the "4X/Modules/" folder. This allows any module saved in this location to be imported using its file name alone. When importing a JS file, it is not necessary to add the .js extension. However, when importing a CSS file, the extension is needed to differentiate implicit JS files from explicit CSS files.
-
-To better understand dynamic importing, view the help documentation at: "/Help/$A API/Import and Fetch APIs/Import.txt".
-
-<!----><a name="alternativeimports" tabindex="-1"></a>
-### Alternative Import Methods
-
-It is also possible to import any number of modules using the website script tag using the src attribute.
-
-Modules can be declared for importing by appending a hash symbol ("#") to the 4X.js file path, followed by the module name to import. Multiple modules can be imported by separating each with a comma (",").
+Note: For testing purposes, all of the below declarations have been added to the index.htm file at the root of this archive.
 
 ```
-<script type="text/javascript" src="/4X/4X.js#ModuleName1,ModuleName2,Etc"></script>
+    <link rel="stylesheet" type="text/css" href="4X/Standard/Modules/Dragula.css">
+    <link rel="stylesheet" type="text/css" href="4X/Standard/Modules/TinySlider.css">
+
+    <script type="text/javascript" src="4X/4X.js"></script>
+
+    <script type="text/javascript" src="4X/Standard/Modules/CurrentDevice.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Dragdealer.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Dragula.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/TinySlider.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Velocity.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/VelocityUI.js"></script>
+
+    <script type="text/javascript" src="4X/Standard/Modules/AccName.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Animate.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/RovingTabIndex.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/SmoothScroll.js"></script>
+
+    <script type="text/javascript" src="4X/Standard/Modules/Accordion.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Beep.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Button.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Carousel.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Combobox.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Datepicker.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Dialog.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Drag.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Footnote.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Grid.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Listbox.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Menu.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Popup.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Slider.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Tab.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Tooltip.js"></script>
+    <script type="text/javascript" src="4X/Standard/Modules/Tree.js"></script>
+
+    <script type="text/javascript" src="4X/Standard/Modules/Straylight.js"></script>
 ```
-
-<!----><a name="creatingmodules" tabindex="-1"></a>
-### Creating Modules
-
-There is no required syntax for creating a standalone module. Any properly coded JavaScript file can become a module import as-needed using the $A.import() statement.
-
-However, when creating modules that reference additional module imports, it is important to use the Module Import Template to do so. This is available in the file at: "Help/ModuleTemplate.js"
-
-For example, the props object is required to be passed down to all imported modules to ensure that deferred callbacks can be queued correctly when chained together. This is a powerful feature, and allows for shared props to be passed between external modules when loaded dynamically for custom behavior configurations.
-
-For more information regarding props, view the help file at: "Help/$A API/Import and Fetch APIs/Props"
 
 <!----><a name="reactjs" tabindex="-1"></a>
 ## ReactJS Disambiguation
