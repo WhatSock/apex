@@ -49,6 +49,9 @@ Configuration
 
 {
 
+// Unique ID for the dialog instance
+id: "UniqueId",
+
 // Specify the role name for the dialog that will be conveyed to screen reader users.
 role: "Dialog Purpose",
 

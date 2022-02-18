@@ -74,6 +74,9 @@ Configuration
 
 {
 
+// Unique ID for the tooltip instance
+id: "UniqueId",
+
 // Optionally specify the tooltip container element within the same document.
 // May be a DOM node or CSS selector.
 // Not necessary if data-tooltip or data-error is set on the triggering element.

@@ -48,6 +48,9 @@ Configuration
 
 {
 
+// Unique ID for the popup instance
+id: "UniqueId",
+
 // Specify the role name for the popup that will be conveyed to screen reader users. E.G. "Movie Details"
 role: "Popup Purpose",
 
