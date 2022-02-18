@@ -46,6 +46,11 @@
     <script type="text/javascript" src="4X/Standard/Modules/Straylight.js"></script>
 
     <style type="text/css">
+        a.templatesLink {
+            padding: 5px;
+            font-size: 1.3em;
+        }
+
         div.tooltip {
             position: absolute;
             width: auto;
@@ -59,57 +64,84 @@
         }
     </style>
 
-    <script type="text/javascript">
-        $A(function() {
-            $A.setTooltip("a.templatesLink", {
-                content: '<b>WOW!</b>',
-                className: "tooltip",
-                delay: 1000,
-                delayTimeout: 3000,
-                style: {
-                    display: "none"
-                },
-                animate: {
-                    onRender: function(dc, wrapper, next) {
-                        Velocity(wrapper, "transition.fadeIn", {
-                            complete: function() {
-                                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
-                                next();
-                            }
-                        });
-                    },
-                    onRemove: function(dc, wrapper, next) {
-                        Velocity(wrapper, "transition.fadeOut", {
-                            complete: function() {
-                                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
-                                next();
-                            }
-                        });
-                    }
-                }
-            });
-        });
-    </script>
-
 </head>
 
 <body>
     <div class="outer-wrapper">
         <header class="header">
             <div class="logo">
-                <a href="/WhatSock/">
-                    <img alt="WhatSock : Changing the world one step at a time" src="/Templates/_common/_doc_files/img/whatsock.svg" />
+                <a href="WhatSock/index.htm">
+                    <img alt="WhatSock : Changing the world one step at a time" src="Templates/_common/_doc_files/img/whatsock.svg" />
                 </a>
             </div>
             <nav class="navigation--parent">
                 <ul>
-                    <li><a class="templatesLink" href="/Templates/index.htm">Widget Templates</a></li>
+                    <li><a href="Templates/index.htm">Widget Templates</a></li>
                 </ul>
             </nav>
         </header>
         <div class="wrapper">
             <main id="main" class="main">
                 <h1><strong>Apex 4X</strong> </h1>
+                <div>
+                    <a id="templatesLink" class="templatesLink" href="Templates/index.htm">Browse Accessible Widget Templates</a>
+                </div>
+                <h2>Test 4X</h2>
+                <div>
+                    <button class="testBtn">Test Script</button>
+                </div>
+                <div>
+                    <textarea style="min-width: 90%;" id="testScript">
+// Experiment with 4X
+
+// Create a tooltip for the link "Browse Accessible Widget Templates"
+var tooltip = $A.setTooltip("#templatesLink", {
+    id: "uniqueTooltipId",
+    content: '<b>WOW!</b>',
+    className: "tooltip",
+    delay: 1000,
+    delayTimeout: 3000,
+    style: {
+        display: "none" // Prep for animation.
+    },
+    animate: {
+        onRender: function(dc, wrapper, next) {
+Velocity(wrapper, "transition.fadeIn", {
+    complete: function() {
+        /* Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes. */
+        next();
+    }
+});
+        },
+        onRemove: function(dc, wrapper, next) {
+Velocity(wrapper, "transition.fadeOut", {
+    complete: function() {
+        /* Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes. */
+        next();
+    }
+});
+        }
+    }
+});
+</textarea>
+                </div>
+                <div>
+                    <button class="testBtn">Test Script</button>
+                    <script type="text/javascript" src="Templates/_common/_doc_files/autosize.js"></script>
+                    <script type="text/javascript">
+                        autosize(document.querySelectorAll("textarea"));
+                        $A.on("button.testBtn", "click", function(ev) {
+                            var code = $A.text($A.get("testScript"));
+                            try {
+                                var f = new Function("window,document,$A", code);
+                                f.call(window, window, document, $A);
+                                $A.beep();
+                            } catch (e) {
+                                throw e;
+                            }
+                        });
+                    </script>
+                </div>
                 <p class="dark--bg">
                     All available ARIA widget templates are available for immediate use. None require any prior knowledge of ARIA to implement.
                 </p>
