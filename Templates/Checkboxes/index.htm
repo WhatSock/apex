@@ -53,7 +53,16 @@
 
                     <ul>
                         <li> data-check : May be set to "false", "true", or "mixed" to set the current state of a checkable control when rendered.</li>
+                        <li> aria-disabled : When set to "true" on the triggering element, will automatically disable associated functionality.</li>
                     </ul>
+
+                    <p>Note: When dynamically disabling a triggering element, the 4X setDisabled() function should be used to set the disabled state of the triggering element. This will ensure proper background mapping.</p>
+
+                    <div>
+                        <pre><code class="language-javascript">
+$A.setDisabled(triggeringElement, boolean);
+</code></pre>
+                    </div>
 
                     <h2>HTML syntax</h2>
 

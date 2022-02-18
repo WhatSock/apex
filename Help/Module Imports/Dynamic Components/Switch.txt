@@ -14,6 +14,11 @@ The following attributes are handled automatically by the Switch module:
 Available attributes for switch elements:
 
 • data-switch : May be set to "false" or "true" to set the current state of a switchable control when rendered.
+• aria-disabled : When set to "true" on the triggering element, will automatically disable associated functionality.
+
+Note: When dynamically disabling a triggering element, the 4X setDisabled() function should be used to set the disabled state of the triggering element. This will ensure proper background mapping.
+
+$A.setDisabled(triggeringElement, boolean);
 
 HTML syntax:
 

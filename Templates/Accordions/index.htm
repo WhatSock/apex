@@ -67,7 +67,16 @@
                         <li> data-controls : The resource path and pointer to the ID attribute of the accordion container element.</li>
                         <li> data-root : The ID attribute of the container element where the accordion content will be inserted when rendered. (This must not be inside the triggering element)</li>
                         <li> data-active : Specifies that the referenced accordion node will open automatically. Only one accordion node per group should include this attribute.</li>
+                        <li> aria-disabled : When set to "true" on the triggering element, will automatically disable associated functionality.</li>
                     </ul>
+
+                    <p>Note: When dynamically disabling a triggering element, the 4X setDisabled() function should be used to set the disabled state of the triggering element. This will ensure proper background mapping.</p>
+
+                    <div>
+                        <pre><code class="language-javascript">
+$A.setDisabled(triggeringElement, boolean);
+</code></pre>
+                    </div>
 
                     <h2>HTML syntax</h2>
 
