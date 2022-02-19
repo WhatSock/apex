@@ -1,3 +1,14 @@
+/**********************************************
+Common Dialog Colours - update in colors.css
+*************************************************/
+/*
+Uses custom rgba styles
+*/
+
+/**********************************************
+Common Dialog triggering element styles
+*************************************************/
+
 #triggerId {
   font: 1.2em open_sansbold, Frutiger, "Frutiger Linotype", Univers, Calibri,
     "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed",
@@ -20,7 +31,9 @@
   border-radius: 0;
 }
 
-/* Specific styles for ACCESSIBLE Dialog */
+/**********************************************
+Common Dialog styles
+*************************************************/
 
 div.modal {
   position: fixed;

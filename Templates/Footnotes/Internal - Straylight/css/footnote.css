@@ -1,4 +1,20 @@
-/* Specific styles for ARIA Footnotes */
+/**********************************************
+Common Footnote Colours - update in colors.css
+*************************************************/
+/*
+
+--globalWhite: #ffffff;
+--resetBackground: #555555;
+--elementBlack: #1f1f23;
+--footnote-aqua: #bae8d4;
+--footnote-grey: #999999;
+--whatsockBeige: #f2d3a1;
+
+*/
+
+/**********************************************
+Common Footnote styles
+*************************************************/
 
 div.demo-block > p {
   font-size: 0.95em;
@@ -9,8 +25,8 @@ div.demo-block > p + p {
 }
 
 div.content {
-  color: #555;
-  background: #fff;
+  color: var(--resetBackground);
+  background: var(--globalWhite);
   padding: 1rem;
   margin-bottom: 2rem;
 }
@@ -20,9 +36,9 @@ div.content p:last-child {
 }
 
 .aria-footnote {
-  color: #000;
-  background: #bae8d4;
-  text-shadow: 0 1px 0 #999;
+  color: var(--elementBlack);
+  background: var(--footnote-aqua);
+  text-shadow: 0 1px 0 var(--footnote-grey);
   padding: 0 0 0 0.2em;
 }
 
@@ -42,7 +58,7 @@ div.content p:last-child {
 }
 .aria-footnote a:hover {
   text-decoration: none;
-  background: #f2d3a1;
+  background: var(--whatsockBeige);
 }
 
 #footnotes {
@@ -56,7 +72,7 @@ div.content p:last-child {
   content: "";
   width: 60%;
   height: 4px;
-  background: #000;
+  background: var(--elementBlack);
 }
 
 #footnotes p {

@@ -2,21 +2,127 @@
 Common Combobox Colours - update in colors.css
 *************************************************/
 /*
---globalWhite: #ffffff;
+--globalWhite; #ffffff;
+--bodyText; #262626;
+--elementBlack; #1f1f23;
+--listbox-darkGrey; #333333;
+--combobox-midGrey; #777777;
 */
 
 /**********************************************
-Common Button styles
+Common Combobox styles
 *************************************************/
 
-/***Overwrite the auto positioning***/
+.select--container {
+  position: relative;
+}
+
+.form--container {
+  border-radius: 3px;
+  list-style-type: none;
+  max-width: 38em;
+  padding: 0;
+}
+
+@media (min-width: 33em) {
+  .form--container p input {
+    min-width: 15em;
+  }
+}
+
+.form--container p input[type="submit"] {
+  border-radius: 0.5em;
+  flex: none;
+  min-width: 6em;
+}
+
+.form--container p img {
+  margin: auto;
+}
 
 ul.listbox {
   position: relative;
   overflow-y: scroll;
   margin-left: 0;
   height: 10em;
+  background-color: var(--globalWhite);
 }
+
+#ctryIcon,
+#mobileCloseIcon {
+  height: 25px;
+  width: auto;
+  padding-left: 0.5em;
+  margin: auto;
+}
+
+#mobileCloseIcon {
+  vertical-align: middle;
+}
+
+li.option {
+  margin-bottom: 0.3em;
+  padding-right: 1em;
+}
+
+li.option a,
+li.option a:visited {
+  text-decoration: none;
+  color: var(--bodyText);
+  padding: 0.3em;
+}
+
+li.option a:hover,
+li.option a:focus,
+li.option.active a,
+li.option.active a:visited {
+  color: var(--globalWhite);
+  background: var(--elementBlack);
+}
+
+li [role="option"][aria-checked="false"] {
+  background: url("../img/unchecked.svg");
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+li [role="option"][aria-checked="true"] {
+  background: url("../img/checked.svg");
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+div.toplevel-div {
+  border: 1px solid var(--listbox-darkGrey);
+  position: absolute;
+  -webkit-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  -moz-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  padding: 0.3em;
+  padding-bottom: 0;
+  padding-right: 0;
+  z-index: 1;
+}
+
+#frm p {
+  display: inline;
+}
+
+span.aria-combobox[aria-expanded="false"] sup:before {
+  content: "\2193";
+}
+
+span.aria-combobox[aria-expanded="true"] sup:before {
+  content: "\2191";
+}
+
+.button span {
+  font-weight: bold;
+}
+
+/**********************************************
+Overwrite the auto positioning
+*************************************************/
 
 .form--container.editable-readonly .toplevel-div {
   background: var(--globalWhite);

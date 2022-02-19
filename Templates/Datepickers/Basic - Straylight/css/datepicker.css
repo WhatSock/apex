@@ -1,0 +1,216 @@
+/**********************************************
+Common Datepicker Colours - update in colors.css
+*************************************************/
+/*
+
+--combobox-midGrey; #777777;
+--combobox-lightGrey2; #e0e0e0;
+--datepicker-lmGrey; #bdbdbd;
+--datepicker-darkGrey; #49182e;
+--datepicker-mmGrey; #c2c2c2;
+--datepicket-dGrey; #3d4043;
+--globalWhite; #ffffff;
+--elementBlack; #1f1f23;
+--bodyText; #262626;
+--whatsock-blue; #63b7c2;
+--whatsock-red; #c13836;
+--datepicker-pink; #db7093;
+--datepicker-dayInMonth; #e6e6e6;
+--datepicker-day; #e2a037;
+
+*/
+
+/**********************************************
+Common Datepicker styles
+*************************************************/
+
+.dateField {
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    position: relative;
+  }
+  
+  .dateField .dateField--flex-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .accCalendar {
+    background: none;
+    border: none;
+  }
+  
+  #datepicker-demo {
+    background: var(--combobox-lightGrey2);
+    padding: 1em;
+    margin: 1em 0 2em;
+  }
+  
+  #datepicker-demo em {
+    display: block;
+    font-size: 90%;
+  }
+  
+  a.accCalendar {
+    display: inline-block;
+    background: transparent;
+  }
+  
+  div.calendar {
+    text-align: center;
+    color: var(--globalWhite);
+    background: var(--elementBlack);
+    padding: 0.5em;
+    border-radius: 0.3em;
+    -webkit-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+    -moz-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+    box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+    position: absolute;
+    left: 4em;
+    top: 3em;
+    z-index: 10;
+  }
+  
+  table.calendar {
+    border-collapse: separate;
+    border-spacing: 1px;
+  }
+  
+  table.calendar td,
+  table.calendar th {
+    padding: 0.3em 0.5em;
+    border-radius: 0.15em;
+  }
+  
+  td.empty {
+    background: rgba(255, 255, 255, 0.07);
+  }
+  
+  th.week {
+  }
+  
+  td.nav,
+  td.day {
+  }
+  
+  td.day {
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    color: var(--bodyText);
+    background: var(--whatsock-blue);
+  }
+  
+  td.dayToday {
+    color: var(--bodyText);
+    background: var(--datepicker-pink);
+  }
+  
+  td.dayInPrevMonth,
+  td.dayInNextMonth {
+    color: var(--bodyText);
+    background: var(--datepicker-dayInMonth);
+  }
+  
+  td.day:hover {
+    background: var(--datepicker-day);
+  }
+  
+  td[aria-current="date"] {
+    background: var(--datepicker-day);
+  }
+  
+  div.calendar *:focus,
+  div.commentAdd *:focus {
+    outline: var(--whatsock-red) 3px solid;
+  }
+  
+  td.month {
+    font-weight: 600;
+    color: var(--whatsock-blue);
+    text-shadow: 0 1px 0 var(--bodyText);
+  }
+  
+  td.comment {
+    position: relative;
+  }
+  td.comment span::after {
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    top: 0.2em;
+    right: 0.2em;
+    content: "";
+    background: var(--datepicker-darkGrey);
+    border-radius: 7px;
+  }
+  
+  td.comment.selected {
+    background: var(--datepicker-day);
+  }
+  
+  td.disabled,
+  td.disabled:hover {
+    color: var(--datepicker-darkGrey);
+    background: var(--datepicker-lmGrey);
+  }
+  
+  td.disabled.selected {
+    background: var(--datepicker-mmGrey);
+  }
+  
+  div.commentTooltip {
+    width: 271px;
+    padding: 0.5em;
+    color: var(--globalWhite);
+    background: var(--datepicket-dGrey);
+    font-size: 0.8em;
+    font-weight: bold;
+    max-height: 50px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    word-wrap: break-word;
+    text-align: left;
+  }
+  
+  div.commentAdd {
+    background: var(--elementBlack);
+    border-radius: 0.3em;
+    top: 22.9em;
+    z-index: 10;
+  }
+  
+  div.commentAdd button {
+    text-transform: uppercase;
+    color: var(--globalWhite);
+    background: var(--elementBlack);
+    padding: 0.5em;
+    margin-top: -5px;
+    border: none;
+    border-bottom-left-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+    -webkit-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+    -moz-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+    box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  }
+  
+  div.commentAdd textarea {
+    width: 270px;
+    height: 2em;
+    overflow: auto;
+    word-wrap: break-word;
+    text-align: left;
+    padding: 0.2em;
+    margin: 0.5em 0.5em 0;
+  }
+  
+  div.monthMessage {
+    padding-top: 0.5em;
+  }
+  
+  div.monthMessage p {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+  }

@@ -1,6 +1,0 @@
-/************************
-! Force CSS top as the auto position makes the calendar jump down the page
-**************************/
-div.calendar {
-  top: 3em !important;
-}

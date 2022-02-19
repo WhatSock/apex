@@ -1,3 +1,14 @@
+/**********************************************
+Common Dialog Colours - update in colors.css
+*************************************************/
+/*
+Uses custom rgba styles
+*/
+
+/**********************************************
+Common Dialog triggering element styles
+*************************************************/
+
 #triggerId {
   font: 1.2em open_sansbold, Frutiger, "Frutiger Linotype", Univers, Calibri,
     "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed",
@@ -20,7 +31,9 @@
   border-radius: 0;
 }
 
-/* Specific styles for ACCESSIBLE Dialog */
+/**********************************************
+Common Dialog styles
+*************************************************/
 
 div.modal {
   position: fixed;
@@ -33,13 +46,11 @@ div.modal {
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
   border-radius: 2px;
   z-index: 1000;
-  text-align: center;
 }
 
 div#lightbox1 .buttons-bar {
   text-align: left;
 }
-
 .modalBackdrop {
   background-color: #000;
   -moz-opacity: 0.7;

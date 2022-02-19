@@ -1,8 +1,48 @@
-/* Specific styles for ARIA Calendar. Moved to common forms.css*/
-/*.accCalendar{
-  background:none;
-  border:none;
+/**********************************************
+Common Datepicker Colours - update in colors.css
+*************************************************/
+/*
+
+--combobox-midGrey; #777777;
+--combobox-lightGrey2; #e0e0e0;
+--datepicker-lmGrey; #bdbdbd;
+--datepicker-darkGrey; #49182e;
+--datepicker-mmGrey; #c2c2c2;
+--datepicket-dGrey; #3d4043;
+--globalWhite; #ffffff;
+--elementBlack; #1f1f23;
+--bodyText; #262626;
+--whatsock-blue; #63b7c2;
+--whatsock-red; #c13836;
+--datepicker-pink; #db7093;
+--datepicker-dayInMonth; #e6e6e6;
+--datepicker-day; #e2a037;
+
+*/
+
+/**********************************************
+Common Datepicker styles
+*************************************************/
+
+.dateField {
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  position: relative;
 }
+
+.dateField .dateField--flex-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.accCalendar {
+  background: none;
+  border: none;
+}
+
 #datepicker-demo {
   background: var(--combobox-lightGrey2);
   padding: 1em;
@@ -12,13 +52,6 @@
 #datepicker-demo em {
   display: block;
   font-size: 90%;
-}
-
-#dateId,
-#party {
-  width: 90%;
-  max-width: 25em;
-  vertical-align: 20px;
 }
 
 a.accCalendar {
@@ -32,10 +65,13 @@ div.calendar {
   background: var(--elementBlack);
   padding: 0.5em;
   border-radius: 0.3em;
-  max-width:16.5em;
   -webkit-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
   -moz-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
   box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  position: absolute;
+  left: 4em;
+  top: 3em;
+  z-index: 10;
 }
 
 table.calendar {
@@ -58,7 +94,6 @@ th.week {
 
 td.nav,
 td.day {
-  cursor: pointer;
 }
 
 td.day {
@@ -88,7 +123,7 @@ td[aria-current="date"] {
 
 div.calendar *:focus,
 div.commentAdd *:focus {
-  outline: blue 2px inset;
+  outline: var(--whatsock-red) 3px solid;
 }
 
 td.month {
@@ -118,9 +153,8 @@ td.comment.selected {
 
 td.disabled,
 td.disabled:hover {
-  color: var(--datepicker-lightGrey);
+  color: var(--datepicker-darkGrey);
   background: var(--datepicker-lmGrey);
-  cursor: auto;
 }
 
 td.disabled.selected {
@@ -144,10 +178,11 @@ div.commentTooltip {
 div.commentAdd {
   background: var(--elementBlack);
   border-radius: 0.3em;
+  top: 22.9em;
+  z-index: 10;
 }
 
 div.commentAdd button {
-  font-size: 100%;
   text-transform: uppercase;
   color: var(--globalWhite);
   background: var(--elementBlack);
@@ -172,8 +207,17 @@ div.commentAdd textarea {
 }
 
 div.monthMessage {
-  border: 1px solid var(--bodyText);
-  margin: 20px 10px 10px 10px;
-  padding: 10px;
+  padding-top: 0.5em;
 }
-*/
+
+div.monthMessage p {
+  font-size: 0.8rem;
+  margin-bottom: 0;
+}
+
+/************************
+! Force CSS top as the auto position makes the calendar jump down the page
+**************************/
+div.calendar {
+  top: 3em !important;
+}
