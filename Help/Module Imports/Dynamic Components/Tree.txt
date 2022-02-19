@@ -65,6 +65,8 @@ HTML syntax:
 
 IMPORTANT: An ARIA Tree must never include any other active elements other than those specified as tree items. Otherwise, all such additional active elements will be undiscoverable and inaccessible to non-sighted screen reader users.
 
+Whenever a hidden checkbox is embedded within a checkable tree item element, it will automatically reflect the toggled state of the parent element. This makes it possible to implement custom toggle controls that can be submitted in the same manner as native form controls. This, however, is optional, and may be removed without having any negative impact on the functionality of the simulated toggle control.
+
 JavaScript syntax:
 
 var myTreeDC = $A.setTree( DOM-Node-or-CSS-Selector-forRoot-Container, {
