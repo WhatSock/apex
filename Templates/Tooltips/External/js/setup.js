@@ -1,5 +1,6 @@
 $A.import(["Animate", "Tooltip"], { defer: true }, function() {
   var helpTooltipDC = $A.setTooltip("a.aria-tooltip.helpIcon", {
+    id: "helpTooltipId",
     fetch: {
       url: "files/tooltips.htm",
       data: {
@@ -31,6 +32,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
   });
 
   var constraintTooltipDC = $A.setTooltip('input[type="password"]', {
+    id: "constraintTooltipId",
     fetch: {
       url: "files/tooltips.htm",
       data: {
@@ -62,6 +64,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
   });
 
   var hoverTooltipDC = $A.setTooltip("button.action-btn", {
+    id: "hoverTooltipId",
     fetch: {
       url: "files/tooltips.htm",
       data: {

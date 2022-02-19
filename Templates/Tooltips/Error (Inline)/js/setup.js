@@ -1,6 +1,7 @@
 $A.import(["Animate", "Tooltip"], { defer: true }, function() {
   var inputs = document.querySelectorAll("input.has-error-tooltip");
   $A.setTooltip(inputs, {
+    // No id is specified since this will be dynamically set to match the id attribute of each triggering element.
     onValidate: function(dc) {
       var isValid = true;
       $A.loop(inputs, function(i, o) {

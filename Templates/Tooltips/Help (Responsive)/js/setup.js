@@ -2,6 +2,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
   var answer = "Terra";
 
   var helpDC = $A.setTooltip("input.has-help-tooltip", {
+    id: "helpTooltipId",
     isResponsive: true,
     validate: function(dc, target) {
       var val = (target.value || "").toLowerCase(),
@@ -53,6 +54,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
   });
 
   var errorTooltip = $A.setTooltip("input.has-help-tooltip", {
+    id: "errorTooltipId",
     isError: true,
     role: "Error",
     content: "A correct answer to this question is required to proceed.",

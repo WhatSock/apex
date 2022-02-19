@@ -1,5 +1,6 @@
 $A.import(["Animate", "Tooltip"], { defer: true }, function() {
   var helpTooltipDC = $A.setTooltip("a.aria-tooltip.helpIcon", {
+    id: "helpTooltipId",
     isManualOpen: true,
     className: "tooltip manual-click",
     delay: 0,
@@ -25,6 +26,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
   });
 
   var constraintTooltipDC = $A.setTooltip('input[type="password"]', {
+    id: "constraintTooltipId",
     isFocusOnly: true,
     className: "tooltip on-focus",
     delay: 1000,
@@ -50,6 +52,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
   });
 
   var hoverTooltipDC = $A.setTooltip("button.action-btn", {
+    id: "hoverTooltipId",
     content: '<div id="hover-tooltip"><p>Wow, look at that!</p></div>',
     className: "tooltip on-hover",
     delay: 600,
