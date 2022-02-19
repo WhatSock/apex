@@ -1,5 +1,5 @@
 /*@license
-Apex 4X: The Comprehensive ARIA Development Suite ( Diamond Age - 2022.2.16 )
+Apex 4X: The Comprehensive ARIA Development Suite ( Diamond Age - 2022.2.18 )
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -7,7 +7,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 
 (function() {
   var moduleFolder = "/4X/Modules/",
-    Version = "2022.2.16",
+    Version = "2022.2.18",
     BN = {};
   (function() {
     var $A = function(dc, dcA, dcI, onReady, disableAsync) {
@@ -1580,7 +1580,7 @@ error: function(error, promise){}
                         var dc =
                           $A.getDC($A.data(o, "SavedEventParameters")) ||
                           $A.data(o, "DC");
-                        if ($A.isDC(dc) && $A.isArray($A.data(o, "DC-ON")))
+                        if ($A.isDC(dc) && $A.isMap($A.data(o, "DC-ON")))
                           dc.triggerNode = o;
                         if (isLoaded(q)) {
                           p.call(
@@ -1608,7 +1608,7 @@ error: function(error, promise){}
                     var dc =
                       $A.getDC($A.data(o, "SavedEventParameters")) ||
                       $A.data(o, "DC");
-                    if ($A.isDC(dc) && $A.isArray($A.data(o, "DC-ON")))
+                    if ($A.isDC(dc) && $A.isMap($A.data(o, "DC-ON")))
                       dc.triggerNode = o;
                     if (isLoaded(p)) {
                       fn.call(o, null, dc, $A.data(o, "SavedEventParameters"));
@@ -2086,12 +2086,15 @@ error: function(error, promise){}
       },
 
       _clean: function(obj, sD) {
-        var dc = $A.data(obj, "DC");
-        if ($A.isDC(dc)) {
-          a = $A.data(obj, "DC-ON");
-          if ($A.isArray(a) && a.length > 1) {
-            for (var i = a.length; i > 0; i--) a[i].bypass();
-          } else dc.bypass();
+        var dcs = $A.data(obj, "DC-ON");
+        if ($A.isMap(dcs)) {
+          $A.loop(
+            dcs,
+            function(i, dc) {
+              dc.bypass();
+            },
+            "map"
+          );
         }
         $A.detachObserver(obj);
         $A.removeData(obj);
@@ -2124,7 +2127,21 @@ error: function(error, promise){}
         return $A._XR.call(this, obj);
       },
 
-      destroy: function(id, p) {
+      destroy: function(id, p, fromBound) {
+        if (fromBound) {
+          $A.query(id, function(i, o) {
+            if ($A.isMap($A.data(o, "DC-ON"))) {
+              $A.loop(
+                $A.data(o, "DC-ON"),
+                function(i, c) {
+                  $A.destroy(c, p);
+                },
+                "map"
+              );
+            }
+          });
+          return;
+        }
         var r = null;
         if ($A.isDC(id)) r = id;
         else r = $A.reg.get(id);
@@ -4107,9 +4124,9 @@ error: function(error, promise){}
               $A.query(dc.trigger, function(i, o) {
                 if (dc.toggleHide) $A.off(o, "." + dc.fn.internalEventsId);
                 if (!dc.triggerNode) dc.triggerNode = o;
-                if ($A.isArray($A.data(o, "DC-ON")))
-                  $A.data(o, "DC-ON").push(dc);
-                else $A.data(o, "DC-ON", [dc]);
+                if (!$A.isMap($A.data(o, "DC-ON")))
+                  $A.data(o, "DC-ON", new Map());
+                $A.data(o, "DC-ON").set(dc.id, dc);
                 $A.data(o, "DC", dc);
                 if (dc.on) {
                   if ($A.isStr(dc.on)) {
@@ -4144,9 +4161,6 @@ error: function(error, promise){}
             return dc;
           },
           DCInst = function(dc) {
-            if ($A.reg.has(dc.id)) {
-              $A.destroy(dc.id);
-            }
             var f = function() {};
             f.prototype = dc;
             var nDC = new f();
@@ -4875,6 +4889,13 @@ error: function(error, promise){}
             }
             DC.fn.proto = iO;
           }
+
+          $A.query(DC.trigger, function(i, o) {
+            if ($A.isMap($A.data(o, "DC-ON")) && $A.data(o, "DC-ON").has(DC.id))
+              $A.data(o, "DC-ON")
+                .get(DC.id)
+                .unsetTrigger();
+          });
 
           DCInit(DC);
           if ($A.isDC(DC)) {

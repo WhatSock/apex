@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="4X/Standard/Modules/Dragula.css">
     <link rel="stylesheet" type="text/css" href="4X/Standard/Modules/TinySlider.css">
 
-    <script type="text/javascript" src="4X/4X.js"></script>
+    <script type="text/javascript" src="4X/4X.Max.js"></script>
 
     <script type="text/javascript" src="4X/Standard/Modules/CurrentDevice.js"></script>
     <script type="text/javascript" src="4X/Standard/Modules/Dragdealer.js"></script>
@@ -130,8 +130,9 @@ Velocity(wrapper, "transition.fadeOut", {
                     <script type="text/javascript" src="Templates/_common/_doc_files/autosize.js"></script>
                     <script type="text/javascript">
                         autosize(document.querySelectorAll("textarea"));
+                        var textarea = $A.get("testScript"); // Get element with id "testScript"
                         $A.on("button.testBtn", "click", function(ev) {
-                            var code = $A.text($A.get("testScript"));
+                            var code = textarea.value;
                             try {
                                 var f = new Function("window,document,$A", code);
                                 f.call(window, window, document, $A);

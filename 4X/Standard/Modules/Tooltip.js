@@ -1,5 +1,5 @@
 /*@license
-ARIA Tooltip Module 2.1 for Apex 4X
+ARIA Tooltip Module 2.2 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -243,7 +243,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           if ($A.hasAttr(o, "data-tooltip")) {
             var dt = $A.getAttr(o, "data-tooltip");
             tooltip = {
-              id: $A.hasDC(id) ? $A.genId() : id,
+              id: id + "T",
               target: o,
               trigger: o
             };
@@ -254,7 +254,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           if ($A.hasAttr(o, "data-error")) {
             var de = $A.getAttr(o, "data-error");
             error = {
-              id: $A.hasDC(id) ? $A.genId() : id,
+              id: id + "E",
               target: o,
               trigger: o,
               isError: true
@@ -283,7 +283,7 @@ License: MIT (https://opensource.org/licenses/MIT)
             dcArray.push(
               $A.toDC(
                 $A.extend(baseDC(o), {
-                  id: $A.hasDC(id) ? $A.genId() : id,
+                  id: id,
                   target: o,
                   trigger: o
                 })
