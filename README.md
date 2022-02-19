@@ -1,5 +1,7 @@
-# Apex 4X
-The Comprehensive ARIA Development Suite (Current version: Diamond Age - 2022.2.18)
+# Apex 4X : The Comprehensive ARIA Development Suite
+(V: Diamond Age - 2022.2.18)
+
+"Art should comfort the disturbed and disturb the comfortable.", Banksy
 
 ## Contents
 + [Introduction](#introduction)
