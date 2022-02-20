@@ -46,23 +46,25 @@
     <script type="text/javascript" src="4X/Standard/Modules/Straylight.js"></script>
 
     <style type="text/css">
-
         h2.heading--onblack {
-        color: #ffcc00;
-        font-family: Frutiger, Helvetica, Arial, sans-serif;
-        font-size: 1.2rem;
-        font-weight: 700;
-        line-height: 1.2;
-        margin-bottom: 1.2em;
-        margin-top: 1.2em;
+            color: #ffcc00;
+            font-family: Frutiger, Helvetica, Arial, sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.2em;
+            margin-top: 1.2em;
         }
+
         a.templatesLink {
             padding: 5px;
             font-size: 1.3em;
-            color:#fff;
+            color: #fff;
         }
-        a.templatesLink:focus, a.templatesLink:hover{
-            text-decoration:none;
+
+        a.templatesLink:focus,
+        a.templatesLink:hover {
+            text-decoration: none;
         }
 
         div.tooltip {
@@ -137,6 +139,8 @@ Velocity(wrapper, "transition.fadeOut", {
         }
     }
 });
+
+tooltip.render(); // Optionally render the tooltip manually using the DC.render method.
 </textarea>
                 </div>
                 <div>

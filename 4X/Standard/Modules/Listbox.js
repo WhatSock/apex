@@ -1,5 +1,5 @@
 /*@license
-ARIA Listbox Module 3.1 for Apex 4X
+ARIA Listbox Module 3.2 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -94,8 +94,9 @@ Required dependencies: RovingTabIndex.js
             DC = $A.toDC(
               $A.extend(
                 {
+                  id: ref.id,
                   content: ref,
-                  trigger: init.select,
+                  trigger: init.select.nodeType ? init.select : null,
                   on: {},
                   widgetType: "Listbox",
                   toggleHide: true,
