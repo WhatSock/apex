@@ -2936,7 +2936,9 @@ License: MIT <https://opensource.org/licenses/MIT>
         }
 
         odc.setDisabled(odc, odc.disabled);
-        $A(trigger).describedBy(targ);
+        $A(trigger)
+          .describedBy(targ)
+          .controls(targ);
 
         $A.on(
           "body",
