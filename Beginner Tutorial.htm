@@ -117,17 +117,17 @@ $A("form.shipping input").describedBy("h4.shipping");
                     <div>
                         <link rel="stylesheet" type="text/css" href="Templates/Buttons/Standard/css/buttons.css">
                         <textarea title="Example 2 markup" style="min-width: 90%;" id="example2.1">
-<span class="example2 aria-button">
-  <strong>Settings</strong>
-</span>
+<strong class="example2 aria-button">
+  <span>Settings</span>
+</strong>
 </textarea>
                     </div>
                     <div>
                         <textarea title="Example 2 JS" style="min-width: 90%;" id="example2.2">
-// Convert the span tag into a keyboard accessible button that is accessible to screen reader users.
+// Convert the strong tag into a keyboard accessible button that is accessible to screen reader users.
 // Help/ARIA Development/SetKeyboardA11Y
 
-$A.setKBA11Y("span.example2.aria-button", "button",
+$A.setKBA11Y("strong.example2.aria-button", "button",
   function(ev) {
     alert("Do something!");
   }
