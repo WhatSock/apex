@@ -81,6 +81,7 @@ h2 {
 
 h3 {
   font-family: Frutiger, Helvetica, Arial, sans-serif;
+  font-weight:700;
   color: var(--tablist-black);
   margin: 1.5em 0 0.5em;
 }
