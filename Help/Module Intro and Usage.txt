@@ -36,7 +36,7 @@ It is also possible to import any number of modules using the website script tag
 Modules can be declared for importing by appending a hash symbol ("#") to the 4X.js file path, followed by the module name to import. Multiple modules can be imported by separating each with a comma (",").
 
 ```
-<script type="text/javascript" src="/4X/4X.js#ModuleName1,ModuleName2,Etc"></script>
+<script  src="/4X/4X.js#ModuleName1,ModuleName2,Etc"></script>
 ```
 
 Creating Modules
