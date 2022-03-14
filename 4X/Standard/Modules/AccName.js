@@ -14,7 +14,7 @@ Distributed under the terms of the Open Source Initiative OSI - MIT License
     window[nameSpace] = {};
     nameSpace = window[nameSpace];
   }
-  nameSpace.getAccNameVersion = "2.57";
+  nameSpace.getAccNameVersion = "2.58";
   // AccName Computation Prototype
   nameSpace.getAccName = nameSpace.calcNames = function(
     node,
@@ -34,7 +34,11 @@ Distributed under the terms of the Open Source Initiative OSI - MIT License
       var rootNode = node;
       var rootRole = trim(node.getAttribute("role") || "");
       // Track nodes to prevent duplicate node reference parsing.
-      var nodes = [];
+      // Separating Name and Description to prevent duplicate node references from suppressing one or the other from being fully computed.
+      var nodes = {
+        name: [],
+        desc: []
+      };
       // Track aria-owns references to prevent duplicate parsing.
       var owns = [];
 
@@ -147,7 +151,12 @@ Plus roles extended for the Role Parity project.
           after: ""
         };
 
-        if (!skipTo.tag && !skipTo.role && nodes.indexOf(refNode) === -1) {
+        if (
+          !skipTo.tag &&
+          !skipTo.role &&
+          nodes[!ownedBy.computingDesc ? "name" : "desc"].indexOf(refNode) ===
+            -1
+        ) {
           // Store the before and after pseudo element 'content' values for the top level DOM node
           // Note: If the pseudo element includes block level styling, a space will be added, otherwise inline is asumed and no spacing is added.
           cssOP = getCSSText(refNode, null);
@@ -273,8 +282,13 @@ Plus roles extended for the Role Parity project.
               return result;
             }
 
-            if (!skipTo.tag && !skipTo.role && nodes.indexOf(node) === -1) {
-              nodes.push(node);
+            if (
+              !skipTo.tag &&
+              !skipTo.role &&
+              nodes[!ownedBy.computingDesc ? "name" : "desc"].indexOf(node) ===
+                -1
+            ) {
+              nodes[!ownedBy.computingDesc ? "name" : "desc"].push(node);
             } else {
               // Abort if this node has already been processed.
               return result;
@@ -291,8 +305,14 @@ Plus roles extended for the Role Parity project.
             };
 
             var parent = refNode === node ? node : node.parentNode;
-            if (!skipTo.tag && !skipTo.role && nodes.indexOf(parent) === -1) {
-              nodes.push(parent);
+            if (
+              !skipTo.tag &&
+              !skipTo.role &&
+              nodes[!ownedBy.computingDesc ? "name" : "desc"].indexOf(
+                parent
+              ) === -1
+            ) {
+              nodes[!ownedBy.computingDesc ? "name" : "desc"].push(parent);
               // Store the before and after pseudo element 'content' values for the current node container element
               // Note: If the pseudo element includes block level styling, a space will be added, otherwise inline is asumed and no spacing is added.
               cssO = getCSSText(parent, refNode);
@@ -416,7 +436,8 @@ Plus roles extended for the Role Parity project.
                     parts.push(
                       walk(element, true, false, [node], false, {
                         ref: ownedBy,
-                        top: element
+                        top: element,
+                        computingDesc: true
                       }).name
                     );
                   }
@@ -1527,10 +1548,10 @@ Plus roles extended for the Role Parity project.
       var accName = trim(accProps.name.replace(/\s+/g, " "));
       var accDesc = trim(accProps.title.replace(/\s+/g, " "));
 
-      if (accName === accDesc) {
-        // If both Name and Description properties match, then clear the Description property value.
-        accDesc = "";
-      }
+      // if (accName === accDesc) {
+      // If both Name and Description properties match, then clear the Description property value. (Ideal but not in the spec so commented out.)
+      // accDesc = "";
+      // }
 
       props.hasUpperCase =
         rootRole && rootRole !== rootRole.toLowerCase() ? true : false;
@@ -1538,7 +1559,10 @@ Plus roles extended for the Role Parity project.
       props.desc = accDesc;
 
       // Clear track variables
-      nodes = [];
+      nodes = {
+        name: [],
+        desc: []
+      };
       owns = [];
     } catch (e) {
       props.error = e;
