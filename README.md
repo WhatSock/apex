@@ -145,7 +145,7 @@ Apex 4X including all template design patterns is distributed under the terms of
 * Author and developer: Bryan Garaventa https://www.linkedin.com/in/bgaraventa
 * Website designer: Angela Ricci https://gericci.me
 * Style and markup editor: Laurence Lewis https://www.linkedin.com/in/laurence-lewis-77520365/  
-* Code contributor: Danny Allen http://dannya.com
+* Code contributor: Danny Allen https://dannya.com
 
 <!----><a name="related" tabindex="-1"></a>
 ## Related projects
