@@ -74,7 +74,7 @@ dragEnd: function(x, y, valueNow, valueMin, valueMax, sliderInstance) {
 },
 
 // Configure options for the Dragdealer instance declaration.
-// Based on DragdealerJS by Ovidiu Chereche: http://github.com/skidding/dragdealer
+// Based on DragdealerJS by Ovidiu Chereche: https://github.com/skidding/dragdealer
 
 dragdealer: {
 

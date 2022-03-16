@@ -26,7 +26,7 @@ Apex 4X provides a comprehensive suite of ARIA related processes to make develop
 
 Release article: https://www.linkedin.com/pulse/released-apex-4x-comprehensive-aria-development-suite-bryan-garaventa
 
-Homepage: http://whatsock.com
+Homepage: https://whatsock.com
 
 <!----><a name="templates" tabindex="-1"></a>
 ## Accessible Widget Templates
@@ -35,7 +35,7 @@ All of the following ARIA widget templates are available for immediate use. None
 
 Accordions, Buttons, Carousels, Checkboxes, Comboboxes, Datepickers, Dialogs, Drag and Drop, Footnotes, Grids, Listboxes, Menus, Popups, Radios, Sliders, Switches, Tabs, Tooltips, and Trees.
 
-Live demos: http://whatsock.com/Templates
+Live demos: https://whatsock.com/Templates
 
 <!----><a name="quickstart" tabindex="-1"></a>
 ## Quick Start Guide
@@ -143,7 +143,7 @@ Apex 4X including all template design patterns is distributed under the terms of
 ## Acknowledgements
 
 * Author and developer: Bryan Garaventa https://www.linkedin.com/in/bgaraventa
-* Website designer: Angela Ricci http://gericci.me
+* Website designer: Angela Ricci https://gericci.me
 * Style and markup editor: Laurence Lewis https://www.linkedin.com/in/laurence-lewis-77520365/  
 * Code contributor: Danny Allen http://dannya.com
 
