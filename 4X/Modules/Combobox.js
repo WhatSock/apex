@@ -1,5 +1,5 @@
 /*@license
-ARIA Combobox Module R3.1 for Apex 4X
+ARIA Combobox Module 3.2 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -18,6 +18,10 @@ Required dependencies: SmoothScroll.js, AccName.js
           Combobox: function(config) {
             var sel = config.select || false,
               combobox = config.input || false,
+              accName =
+                ($A.isFn(window.getAccName) &&
+                  window.getAccName(config.input).name) ||
+                "",
               child = config.childNode || false;
 
             if (!sel || !combobox) return null;
@@ -894,6 +898,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                   dc.cb.parentTag,
                   {
                     role: "listbox",
+                    "aria-label": accName,
                     id: dc.cb.baseId + dc.cb.baseInc
                   },
                   null,
