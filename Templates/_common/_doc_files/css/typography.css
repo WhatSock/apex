@@ -77,13 +77,16 @@ li li {
 }
 
 a {
+  text-decoration: underline;
+  color: var(--buttons-bar);
+}
+a:focus {
   text-decoration: none;
-  color: var(--tablist-black);
+  color: inherit;
 }
 
 a:hover {
-  text-decoration: underline;
-  background: transparent;
+  text-decoration: none;
 }
 /*Laurence note I am really not convinced this global focus is a good idea visually. I wil revisit and check against WCAG colour contrast recommendations */
 /**:focus {
@@ -139,55 +142,4 @@ kbd {
   padding: 0.1em 0.6em;
   text-shadow: 0 1px 0 var(--globalWhite);
   white-space: nowrap;
-}
-
-/***********************************
-===================================
-IE11 fallback
-===================================
-***********************************/
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  h1 strong {
-    color: #c13836;
-  }
-
-  h1.pageTitle {
-    color: #c13836;
-  }
-
-  h2 {
-    color: #c13836;
-  }
-
-  h3 {
-    color: #2e3135;
-  }
-
-  h4 {
-    color: #2e3135;
-  }
-
-  h5 {
-    color: #2e3135;
-  }
-
-  a {
-    color: #2e3135;
-    background: #f2d3a1;
-  }
-  /*Removing this on IE as it is horrible*/
-  /*  *:focus {
-    color: #2e3135;
-    background: #ffcc00;
-  }*/
-
-  code.block {
-    color: #2e3135;
-    background: #e4e4e4;
-  }
-
-  kbd {
-    background-color: #f7f7f7;
-    border: 1px solid #cccccc;
-  }
 }

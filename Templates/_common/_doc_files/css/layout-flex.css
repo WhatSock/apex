@@ -60,13 +60,3 @@ footer .flex-container-row .flex-item {
   margin: 0;
   padding: 0;
 }
-/***********************************
-===================================
-IE11 fallback
-===================================
-***********************************/
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  footer .flex-container-row .flex-item {
-    color: #fff;
-  }
-}
