@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 4.2 for Apex 4X
+ARIA Date Picker Module 4.3 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -20,6 +20,7 @@ License: MIT <https://opensource.org/licenses/MIT>
       role: function(dc) {
         return {
           role: "dialog",
+          "aria-modal": "false",
           "aria-label": dc.role
         };
       },
@@ -2440,6 +2441,7 @@ License: MIT <https://opensource.org/licenses/MIT>
               duringRender: function(dc) {
                 $A.setAttr(dc.wrapper, {
                   role: "dialog",
+                  "aria-modal": "false",
                   "aria-label": dc.role
                 });
 
