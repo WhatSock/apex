@@ -141,7 +141,7 @@
                         <div>
 
                             <textarea title="Example 5 markup" id="example5.1">
-                                  <button data-menu="settings-menu" class="aria-menu">Settings</button>
+                                  <button data-menu="settings-menu" class="aria-menu" id="menuButtonId">Settings</button>
                                   
                                   <ul hidden class="top menu" id="settings-menu">
                                     <li><a href="#" class="has-submenu">Personal</a>
@@ -179,7 +179,7 @@
                                   // Help/VelocityUI-Effects-Index
                                   // Help/Module Imports/Dynamic Components/Menu
                                   
-                                  var menu = $A.setMenu("button.aria-menu", {
+                                  var menu = $A.setMenu("#menuButtonId", {
                                   
                                     onActivate: function(ev, menuItem, RTI, boundElement, checked, set, isRadio) {
                                       RTI.DC.top.remove(function() {
