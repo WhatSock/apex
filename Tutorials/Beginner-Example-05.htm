@@ -173,7 +173,14 @@
                                   // Use the import function to load the Animate and Menu modules and execute a callback.
                                   // Help/$A API/Import and Fetch APIs/Import
                                   
-                                  $A.import(["Animate", "Menu"], function() {
+                                  $A.import(["Animate", "Menu"], {
+                                    noCache: true, // Disable internal caching
+                                    override: {
+                                      data: {
+                                        cache: "no-cache" // The cache mode you want to use for the fetch request
+                                      }
+                                    }
+                                  }, function() {
                                   
                                   // Create a menu that includes animation effects.
                                   // Help/VelocityUI-Effects-Index
