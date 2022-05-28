@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Apex 4X Beginner Tutorial | Example 5 - Menu Module (Dynamic Loading)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../Templates/_common/_doc_files/css/global.css">
+    <link rel="stylesheet" type="text/css" href="../Templates/_common/_doc_files/css/components-style.css">
+    <link rel="stylesheet" type="text/css" href="../Templates/_common/_doc_files/prism.css">
+    <link rel="stylesheet" type="text/css" href="../Templates/Menus/Internal/css/menus.css">
+    <script src="../Templates/_common/_doc_files/prism.js"></script>
+
+    <script src="../4X/4X.js"></script>
+    <script src="../4X/Standard/Modules/Beep.js"></script>
+
+    <style type="text/css">
+        a.templatesLink:focus,
+        a.templatesLink:hover {
+            text-decoration: none;
+        }
+
+        textarea {
+            min-width: 90%;
+        }
+
+        button.aria-menu {
+            color: var(--bodyText);
+            background: var(--whatsock-orange-main) url(../img/sprite.svg) right -290px no-repeat;
+            margin-bottom: 0;
+        }
+
+        ul.top.menu {
+            margin: 0;
+            margin-bottom: 1em;
+        }
+
+        ul.menu {
+            margin-left: 10.1em;
+        }
+
+        nav>ul>li>a[aria-current="page"] {
+            border-top: 2px solid var(--navLinkBackground);
+        }
+
+        .btn--example {
+            margin: 1em 0;
+            background: var(--whatsock-orange-main);
+            border: 2px solid #774b04;
+            border-radius: 0.5em;
+            padding: 0.5em 1em;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .btn--example:focus {
+            outline: 5px solid var(--whatsock-red);
+        }
+
+        .pagination .flex-container-row {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            margin: auto;
+            padding: 1em;
+        }
+
+        .pagination .flex-container-row .flex-item {
+            flex: 1 0 100%;
+        }
+
+        .pagination .flex-container-row .flex-item:nth-child(2) {
+            text-align: right;
+        }
+
+        @media (min-width: 70em) {
+            .pagination .flex-container-row .flex-item {
+                flex: 1 0 0;
+                text-align: left;
+            }
+
+            .pagination .flex-container-row .flex-item:nth-child(2) {
+                text-align: right;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="outer-wrapper">
+        <header class="header">
+            <div class="logo">
+                <a href="https://whatsock.com">
+                    <img alt="WhatSock : Changing the world one step at a time" src="../Templates/_common/_doc_files/img/whatsock.svg">
+                </a>
+            </div>
+            <nav aria-label="main" class="navigation--parent">
+
+                <ul>
+                    <li><a href="../Templates/index.htm">Widget Templates</a></li>
+                </ul>
+
+                <h2 class="parent--page">Steps</h2>
+                <ul>
+                    <li><a href="Beginner-introduction.htm">Introduction</a></li>
+                    <li><a href="Beginner-Example-01.htm">1. Form Rendering (Using Core Functions)</a></li>
+                    <li><a href="Beginner-Example-02.htm">2. ARIA Button Rendering (Using Core Functions)</a></li>
+                    <li><a href="Beginner-Example-03.htm">3. DC Objects (Converting Elements)</a></li>
+                    <li><a href="Beginner-Example-04.htm">4. Date Picker (Using Modules)</a></li>
+                    <li><a href="Beginner-Example-05.htm" aria-current="page">5. Menu Module (Dynamic Loading)</a></li>
+                    <li><a href="Beginner-Conclusion.htm">Beginner Conclusion</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="wrapper">
+            <main id="main" class="main">
+                <h1><strong>Example 5 &mdash; Menu Module (Dynamic Loading)</strong></h1>
+
+                <div class="section--instructions">
+
+                    <section class="preamble">
+                        <p> In contrast to standard loading, 4X includes the ability to automatically load modules, including all shared module dependencies without requiring any additional script tags. </p>
+                        <p>The value of importing modules dynamically is that there is no need to hardcode script tags within each webpage. Instead, the requisit modules are loaded dynamically as-needed, which is faster and more responsive when running complex web apps.</p>
+                        <p>Dynamic modularization also includes:</p>
+                        <ul>
+                            <li>On-demand imports, even within if/else statements.</li>
+                            <li>Internal caching for shared modules, increasing speed.</li>
+                            <li>Automatic queuing for sequential imports, ensuring correct load order.</li>
+                            <li>Shared props between modules within the same import scope, allowing variables to be passed between external modules.</li>
+                            <li>Optional deferment, ensuring that callbacks execute after the page finishes loading.</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Example 5 &mdash; Coding Sandbox</h2>
+                        <p>
+                            Using dynamic loading to import the Animate and Menu modules into 4X.
+                        </p>
+
+                        <div>
+
+                            <textarea title="Example 5 markup" id="example5.1">
+                                  <button data-menu="settings-menu" class="aria-menu">Settings</button>
+                                  
+                                  <ul hidden class="top menu" id="settings-menu">
+                                    <li><a href="#" class="has-submenu">Personal</a>
+                                  
+                                      <ul hidden class="menu">
+                                        <li><a href="#" class="link" id="personal-name">Name</a></li>
+                                        <li><a href="#" class="link" id="personal-interests">Interests</a></li>
+                                        <li><a href="#" class="link" id="personal-education">Education</a></li>
+                                      </ul>
+                                  
+                                    </li>
+                                    <li><a href="#" class="has-submenu">Business</a>
+                                  
+                                      <ul hidden class="menu">
+                                        <li><a href="#" class="link" id="business-name">Name</a></li>
+                                        <li><a href="#" class="link" id="business-contact">Contact</a></li>
+                                      </ul>
+                                  
+                                    </li>
+                                    <li><a href="https://google.com/" class="link" id="help">Help...</a></li>
+                                  </ul>
+                                  </textarea>
+
+                        </div>
+
+                        <div>
+
+                            <textarea title="Example 5 JS" id="example5.2">
+                                  // Use the import function to load the Animate and Menu modules and execute a callback.
+                                  // Help/$A API/Import and Fetch APIs/Import
+                                  
+                                  $A.import(["Animate", "Menu"], function() {
+                                  
+                                  // Create a menu that includes animation effects.
+                                  // Help/VelocityUI-Effects-Index
+                                  // Help/Module Imports/Dynamic Components/Menu
+                                  
+                                  var menu = $A.setMenu("button.aria-menu", {
+                                  
+                                    onActivate: function(ev, menuItem, RTI, boundElement, checked, set, isRadio) {
+                                      RTI.DC.top.remove(function() {
+                                        // Close the top level menu when a menuItem is activated and perform a callback action.
+                                        if (menuItem.href &&
+                                        menuItem.href.indexOf("https://") !== -1)
+                                          location.href = menuItem.href;
+                                        else
+                                          alert(menuItem.id);
+                                      });
+                                    },
+                                  
+                                    style: { display: "none" },
+                                    animate: {
+                                      onRender: function(dc, wrapper, next) {
+                                        Velocity(wrapper, "transition.slideUpIn", {
+                                          complete: function() {
+                                            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                            next();
+                                          }
+                                        });
+                                      },
+                                      onRemove: function(dc, wrapper, next) {
+                                        Velocity(wrapper, "transition.slideUpOut", {
+                                          complete: function() {
+                                            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                            next();
+                                          }
+                                        });
+                                      }
+                                    }
+                                  
+                                  });
+                                  
+                                  });
+                                  </textarea>
+
+                        </div>
+
+                        <div>
+                            <button class="example5 btn--example">Render Example 5</button>
+                            <div role="region" aria-label="Rendered Markup" id="example5"></div>
+                            <script>
+                                (function() {
+                                    var markup = $A.get("example5.1"),
+                                        js = $A.get("example5.2"),
+                                        div = $A.get("example5");
+                                    $A.on("button.example5", "click", function(ev) {
+                                        try {
+                                            div.innerHTML = markup.value;
+                                            var f = new Function("window,document,$A", js.value);
+                                            f.call(window, window, document, $A);
+                                            $A.beep();
+                                        } catch (e) {
+                                            throw e;
+                                        }
+                                    });
+                                })();
+                            </script>
+                        </div>
+
+                        <nav aria-label="pagination" class="pagination">
+                            <div class="flex-container-row">
+                                <div class="flex-item"><a href="Beginner-Example-04.htm">&lt;&lt; Previous example</a></div>
+                                <div class="flex-item"><a href="Beginner-Conclusion.htm">Next example &gt;&gt;</a></div>
+                            </div>
+                        </nav>
+
+                </div>
+
+        </div>
+
+        </main>
+    </div>
+    <footer class="footer">
+        <div class="flex-container-row">
+            <div class="flex-item">
+                <h2>License</h2>
+                <p>
+                    Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
+                </p>
+            </div>
+            <div class="flex-item">
+                <h2>Resources</h2>
+                <ul>
+                    <li>
+                        <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
+                    </li>
+                    <li>
+                        <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
+                    </li>
+                    <li>
+                        <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
+                    </li>
+                    <li>
+                        <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
+                    </li>
+                    <li>
+                        <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
+                    </li>
+                    <li>
+                        <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
+                    </li>
+                    <li>
+                        <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex-item">
+                <h2>Acknowledgements</h2>
+                <ul class="list--horizontal">
+                    <li>
+                        Author and developer:
+                        <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
+                    </li>
+                    <li>
+                        Website designer:
+                        <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+                    </li>
+                    <li>
+                        Style and markup editor:
+                        <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    </div>
+</body>
+
+<script async src="https://api.whatsock.com/accdc-updates.js?4x=template"></script>
+<script src="../Templates/_common/_doc_files/autosize.js"></script>
+<script>
+    autosize($A.query("textarea"));
+</script>
+
+</html>

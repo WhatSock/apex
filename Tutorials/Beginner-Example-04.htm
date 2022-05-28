@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Apex 4X Beginner Tutorial | Example 4 - Date Picker (Using Modules)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../Templates/_common/_doc_files/css/global.css">
+    <link rel="stylesheet" type="text/css" href="../Templates/_common/_doc_files/css/components-style.css">
+    <link rel="stylesheet" type="text/css" href="../Templates/_common/_doc_files/prism.css">
+    <link rel="stylesheet" type="text/css" href="../Templates/Datepickers/Basic/css/datepicker.css">
+    <script src="../Templates/_common/_doc_files/prism.js"></script>
+
+    <script src="../4X/4X.js"></script>
+    <script src="../4X/Standard/Modules/Beep.js"></script>
+    <script src="../4X/Standard/Modules/Velocity.js"></script>
+    <script src="../4X/Standard/Modules/VelocityUI.js"></script>
+    <script src="../4X/Standard/Modules/Animate.js"></script>
+    <script src="../4X/Standard/Modules/Datepicker.js"></script>
+
+    <style type="text/css">
+        a.templatesLink:focus,
+        a.templatesLink:hover {
+            text-decoration: none;
+        }
+
+        textarea {
+            min-width: 90%;
+        }
+
+        .calendar--beginner-tutorial {
+            position: relative;
+        }
+
+        .calendar--beginner-tutorial .calendar {
+            top: 2em;
+        }
+
+        div#example4 {
+            position: relative;
+        }
+
+        button#dateIcon2 {
+            top: -1.6em;
+            position: absolute;
+        }
+
+        nav>ul>li>a[aria-current="page"] {
+            border-top: 2px solid var(--navLinkBackground);
+        }
+
+        /*removing some of the Prism spacing as there is way tooo much padding amd margin space*/
+        .prism--restyling {
+            display: flex;
+        }
+
+        .prism--restyling>pre[class*="language-"] {
+            padding: 0 1em 1.5em 1em;
+        }
+
+        code[class*="language-"],
+        pre[class*="language-"] {
+            white-space: pre-line;
+        }
+
+        .prism--restyling>pre[class*="language-"] .token.punctuation {
+            opacity: 1;
+        }
+
+        p.prism--before {
+            margin-bottom: 0;
+        }
+
+        .btn--example {
+            margin: 1em 0;
+            background: var(--whatsock-orange-main);
+            border: 2px solid #774b04;
+            border-radius: 0.5em;
+            padding: 0.5em 1em;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .btn--example:focus {
+            outline: 5px solid var(--whatsock-red);
+        }
+
+        .pagination .flex-container-row {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            margin: auto;
+            padding: 1em;
+        }
+
+        .pagination .flex-container-row .flex-item {
+            flex: 1 0 100%;
+        }
+
+        .pagination .flex-container-row .flex-item:nth-child(2) {
+            text-align: right;
+        }
+
+        @media (min-width: 70em) {
+            .pagination .flex-container-row .flex-item {
+                flex: 1 0 0;
+                text-align: left;
+            }
+
+            .pagination .flex-container-row .flex-item:nth-child(2) {
+                text-align: right;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="outer-wrapper">
+        <header class="header">
+            <div class="logo">
+                <a href="https://whatsock.com">
+                    <img alt="WhatSock : Changing the world one step at a time" src="../Templates/_common/_doc_files/img/whatsock.svg">
+                </a>
+            </div>
+            <nav aria-label="main" class="navigation--parent">
+
+                <ul>
+                    <li><a href="../Templates/index.htm">Widget Templates</a></li>
+                </ul>
+
+                <h2 class="parent--page">Steps</h2>
+                <ul>
+                    <li><a href="Beginner-introduction.htm">Introduction</a></li>
+                    <li><a href="Beginner-Example-01.htm">1. Form Rendering (Using Core Functions)</a></li>
+                    <li><a href="Beginner-Example-02.htm">2. ARIA Button Rendering (Using Core Functions)</a></li>
+                    <li><a href="Beginner-Example-03.htm">3. DC Objects (Converting Elements)</a></li>
+                    <li><a href="Beginner-Example-04.htm" aria-current="page">4. Date Picker (Using Modules)</a></li>
+                    <li><a href="Beginner-Example-05.htm">5. Menu Module (Dynamic Loading)</a></li>
+                    <li><a href="Beginner-Conclusion.htm">Beginner Conclusion</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="wrapper">
+            <main id="main" class="main">
+                <h1><strong>Example 4 &mdash; Date Picker (Using Modules)</strong></h1>
+
+                <div class="section--instructions">
+
+                    <section class="preamble">
+                        <p>4X also includes the ability to load modules to extend its core functionality. No special format or syntax is needed to do this; any valid JavaScript can be loaded as a module. However, one of the benefits of using modules is that shared modules need only be loaded once, no matter how many other modules depend on that shared module to function properly.</p>
+                        <p>The standard script tag can be used to load modules into 4X. This does, however, require that shared modules be loaded in the correct order.</p>
+                        <p>All available modules that can be loaded using the standard script tag are located in the folder: <strong>"4X/Standard"</strong>.</p>
+                        <p>Whenever a module requires another shared module to be loaded in advance, these dependencies are documented at the top of the relevant module file for easy referencing.</p>
+                    </section>
+
+                    <section>
+                        <h2>Example 4 &mdash; Coding Sandbox</h2>
+                        <p>Using standard modules to import the Datepicker module into 4X.</p>
+                        <div>
+
+                            <textarea title="Example 4 markup" id="example4.1">
+                                  <label for="dateId2">Set Date:</label>
+                                  <input placeholder="MM/DD/YYYY" id="dateId2" type="text" name="date">
+                                  <button id="dateIcon2" class="accCalendar aria-date-picker">
+                                    <img src="../Templates/Datepickers/Basic/img/calendar-button.svg" alt="Calendar" title="Calendar" />
+                                  </button>
+                                  </textarea>
+
+                        </div>
+
+                        <div>
+
+                            <textarea title="Example 4 JS" id="example4.2">
+                                  // Create a datepicker that includes animation effects.
+                                  // Help/VelocityUI-Effects-Index
+                                  // Help/Module Imports/Dynamic Components/Datepicker
+                                  
+                                  var datepicker = $A.setDatepicker({
+                                  
+                                    // Unique ID for the date picker instance
+                                    // After instantiation, can be referenced using: var DC = $A("UniqueCalendarId");
+                                    id: "UniqueCalendarId",
+                                  
+                                    // Icon triggering element
+                                    toggle: $A.get("dateIcon2"),
+                                  
+                                    // Native or simulated input element
+                                    input: $A.get("dateId2"),
+                                  
+                                    style: { position: "absolute", zIndex: 1, display: "none" },
+                                    animate: {
+                                      onRender: function(dc, wrapper, next) {
+                                        Velocity(wrapper, "transition.fadeIn", {
+                                          complete: function() {
+                                            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                            next();
+                                          }
+                                        });
+                                      },
+                                      onRemove: function(dc, wrapper, next) {
+                                        Velocity(wrapper, "transition.fadeOut", {
+                                          complete: function() {
+                                            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                            next();
+                                          }
+                                        });
+                                      }
+                                    }
+                                  
+                                  });
+                                  
+                                  datepicker.render(); // Manually open the datepicker.
+                                  </textarea>
+
+                        </div>
+
+                        <div class="calendar--beginner-tutorial">
+                            <button class="example4 btn--example">Render Example 4</button>
+                            <div role="region" aria-label="Rendered Markup" id="example4"></div>
+                            <script>
+                                (function() {
+                                    var markup = $A.get("example4.1"),
+                                        js = $A.get("example4.2"),
+                                        div = $A.get("example4");
+                                    $A.on("button.example4", "click", function(ev) {
+                                        try {
+                                            div.innerHTML = markup.value;
+                                            var f = new Function("window,document,$A", js.value);
+                                            f.call(window, window, document, $A);
+                                            $A.beep();
+                                        } catch (e) {
+                                            throw e;
+                                        }
+                                    });
+                                })();
+                            </script>
+                        </div>
+
+                        <nav aria-label="pagination" class="pagination">
+                            <div class="flex-container-row">
+                                <div class="flex-item"><a href="Beginner-Example-03.htm">&lt;&lt; Previous example</a></div>
+                                <div class="flex-item"><a href="Beginner-Example-05.htm">Next example &gt;&gt;</a></div>
+                            </div>
+                        </nav>
+
+                </div>
+
+        </div>
+
+        </main>
+    </div>
+    <footer class="footer">
+        <div class="flex-container-row">
+            <div class="flex-item">
+                <h2>License</h2>
+                <p>
+                    Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
+                </p>
+            </div>
+            <div class="flex-item">
+                <h2>Resources</h2>
+                <ul>
+                    <li>
+                        <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
+                    </li>
+                    <li>
+                        <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
+                    </li>
+                    <li>
+                        <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
+                    </li>
+                    <li>
+                        <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
+                    </li>
+                    <li>
+                        <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
+                    </li>
+                    <li>
+                        <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
+                    </li>
+                    <li>
+                        <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex-item">
+                <h2>Acknowledgements</h2>
+                <ul class="list--horizontal">
+                    <li>
+                        Author and developer:
+                        <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
+                    </li>
+                    <li>
+                        Website designer:
+                        <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+                    </li>
+                    <li>
+                        Style and markup editor:
+                        <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    </div>
+</body>
+
+<script async src="https://api.whatsock.com/accdc-updates.js?4x=template"></script>
+<script src="../Templates/_common/_doc_files/autosize.js"></script>
+<script>
+    autosize($A.query("textarea"));
+</script>
+
+</html>

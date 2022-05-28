@@ -25,9 +25,9 @@ nav.parent--page > ul > li > a {
   text-decoration: none;
 }
 
-nav > ul > li > a,
-nav > ul > li > a:link,
-nav > ul > li > a:visited {
+nav a,
+nav a:link,
+nav a:visited {
   background-color: var(--navLinkBackground);
   display: block;
   text-transform: uppercase;
@@ -37,17 +37,17 @@ nav > ul > li > a:visited {
   border-top: 1px solid var(--datepicker-lightGrey);
 }
 
-nav > ul > li > a:hover {
+nav a:hover {
   color: var(--globalWhite);
   background: var(--whatsock-red);
 }
 
-nav > ul > li > a:focus {
+nav a:focus {
   color: var(--globalWhite);
   background: var(--whatsock-red);
 }
 
-nav > ul > li > a[aria-current="page"] {
+nav a[aria-current="page"] {
   color: var(--globalWhite);
   background: var(--whatsock-red);
 }

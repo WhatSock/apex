@@ -24,7 +24,7 @@ ARIA stands for Accessible Rich Internet Applications, and is a technical specif
 
 Apex 4X provides a comprehensive suite of ARIA related processes to make developing accessible technologies easier and more reliable and does not expose the accessibility layer where it can be casually changed by those who do not understand it. This makes it possible for developers who have no prior background in accessible development, to create and implement accessible web technologies for people with disabilities regardless.
 
-Release article: https://www.linkedin.com/pulse/released-apex-4x-comprehensive-aria-development-suite-bryan-garaventa
+To learn more and see a live demonstration, [view the Beginner Tutorial](https://whatsock.com/Tutorials/Beginner-Introduction.htm).
 
 Homepage: https://whatsock.com
 

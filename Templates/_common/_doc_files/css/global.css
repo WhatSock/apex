@@ -380,7 +380,8 @@ nav > ul > li > a[aria-current="true"] {
   background: var(--whatsock-red);
 }
 
-nav > ul > li > a {
+nav > ul > li > a,
+nav > p > a {
   line-height: 1.5;
   padding: 0.5em 1.2em;
   background: var(--navLinkBackground);
