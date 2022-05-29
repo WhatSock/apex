@@ -38,8 +38,10 @@ $A.import(["Animate", "Menu"], { defer: true }, function() {
           });
         }
       } else if (
-        triggerNode.href &&
-        triggerNode.href.indexOf("https://") !== -1
+        $A(triggerNode).hasAttr("href") &&
+        $A(triggerNode)
+          .getAttr("href")
+          .indexOf("https://") !== -1
       )
         RTI.DC.top.remove(function() {
           location.href = triggerNode.href;

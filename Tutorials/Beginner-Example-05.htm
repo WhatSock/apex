@@ -191,8 +191,8 @@
                                     onActivate: function(ev, menuItem, RTI, boundElement, checked, set, isRadio) {
                                       RTI.DC.top.remove(function() {
                                         // Close the top level menu when a menuItem is activated and perform a callback action.
-                                        if (menuItem.href &&
-                                        menuItem.href.indexOf("https://") !== -1)
+                                        if ($A(menuItem).hasAttr("href") &&
+                                        $A(menuItem).getAttr("href").indexOf("https://") !== -1)
                                           location.href = menuItem.href;
                                         else
                                           alert(menuItem.id);
