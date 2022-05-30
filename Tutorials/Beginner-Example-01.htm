@@ -223,12 +223,13 @@
                         <textarea title="Example 1 JS" id="example1.2">
                                   // Show the error.
                                   // Set the Description property for the form field in error and reference the associated error message, then move focus to the field.
-                                  // Help/ARIA Development/Visibility and Exposure/Show
+                                  // Help/Module Imports/Actions/Show
                                   // Help/ARIA Development/DescribedBy
                                                                     // Help/ARIA Development/Focus
 
-                                  $A("#error-01").show();
-                                  $A("#strt").describedBy("#error-01").focus();
+                                  $A("#error-01").show(function() {
+                                    $A("#strt").describedBy("#error-01").focus();
+                                  });
                                   </textarea>
                     </div>
 

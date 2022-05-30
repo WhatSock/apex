@@ -1,5 +1,5 @@
 /*@license
-Animate Module 1.0 for Apex 4X
+Animate Module 1.1 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -24,6 +24,11 @@ Required dependencies: Velocity.js, VelocityUI.js
           o = $A.morph(o);
           if ($A.isFn(config)) {
             fn = config;
+            config = null;
+          }
+          if ($A.isFn(effect)) {
+            fn = effect;
+            effect = null;
             config = null;
           }
           if ($A.isNode(o)) {
@@ -52,6 +57,11 @@ Required dependencies: Velocity.js, VelocityUI.js
           o = $A.morph(o);
           if ($A.isFn(config)) {
             fn = config;
+            config = null;
+          }
+          if ($A.isFn(effect)) {
+            fn = effect;
+            effect = null;
             config = null;
           }
           if ($A.isNode(o)) {
