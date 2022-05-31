@@ -15,7 +15,7 @@ uglifyjs 4X\/Modules\/Carousel.js --comments --compress --mangle --output 4X\/Mi
 uglifyjs 4X\/Modules\/Checkbox.js --comments --compress --mangle --output 4X\/Min\/Checkbox.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Combobox.js --comments --compress --mangle --output 4X\/Min\/Combobox.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/CurrentDevice.js --comments --compress --mangle --output 4X\/Min\/CurrentDevice.js 2>> FormatErrors.txt
-uglifyjs 4X\/Modules\/DatePicker.js --comments --compress --mangle --output 4X\/Min\/DatePicker.js 2>> FormatErrors.txt
+uglifyjs 4X\/Modules\/Datepicker.js --comments --compress --mangle --output 4X\/Min\/Datepicker.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Dialog.js --comments --compress --mangle --output 4X\/Min\/Dialog.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Drag.js --comments --compress --mangle --output 4X\/Min\/Drag.js 2>> FormatErrors.txt
 uglifyjs 4X\/Modules\/Dragdealer.js --comments --compress --mangle --output 4X\/Min\/Dragdealer.js 2>> FormatErrors.txt
@@ -46,7 +46,7 @@ uglifyjs 4X\/Standard\/Modules\/Carousel.js --comments --compress --mangle --out
 uglifyjs 4X\/Standard\/Modules\/Checkbox.js --comments --compress --mangle --output 4X\/Standard\/Min\/Checkbox.js 2>> FormatErrors.txt
 uglifyjs 4X\/Standard\/Modules\/Combobox.js --comments --compress --mangle --output 4X\/Standard\/Min\/Combobox.js 2>> FormatErrors.txt
 uglifyjs 4X\/Standard\/Modules\/CurrentDevice.js --comments --compress --mangle --output 4X\/Standard\/Min\/CurrentDevice.js 2>> FormatErrors.txt
-uglifyjs 4X\/Standard\/Modules\/DatePicker.js --comments --compress --mangle --output 4X\/Standard\/Min\/DatePicker.js 2>> FormatErrors.txt
+uglifyjs 4X\/Standard\/Modules\/Datepicker.js --comments --compress --mangle --output 4X\/Standard\/Min\/Datepicker.js 2>> FormatErrors.txt
 uglifyjs 4X\/Standard\/Modules\/Dialog.js --comments --compress --mangle --output 4X\/Standard\/Min\/Dialog.js 2>> FormatErrors.txt
 uglifyjs 4X\/Standard\/Modules\/Drag.js --comments --compress --mangle --output 4X\/Standard\/Min\/Drag.js 2>> FormatErrors.txt
 uglifyjs 4X\/Standard\/Modules\/Dragdealer.js --comments --compress --mangle --output 4X\/Standard\/Min\/Dragdealer.js 2>> FormatErrors.txt
