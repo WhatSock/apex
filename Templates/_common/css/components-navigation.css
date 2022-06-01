@@ -12,6 +12,12 @@ nav h2.parent--page {
   color: var(--globalWhite);
 }
 
+.left-aside nav > p {
+  font-family: Frutiger, Helvetica, Arial, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
 nav > ul {
   list-style: none;
 }

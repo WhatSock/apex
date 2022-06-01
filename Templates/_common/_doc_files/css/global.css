@@ -346,6 +346,9 @@ nav.navigation--parent {
   max-width: 90em;
   margin: 1em auto;
 }
+nav.navigation--parent p {
+  margin: 1.5em 0;
+}
 nav {
   text-align: center;
   max-width: 90em;
