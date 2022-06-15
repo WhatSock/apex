@@ -14,7 +14,7 @@ Distributed under the terms of the Open Source Initiative OSI - MIT License
     window[nameSpace] = {};
     nameSpace = window[nameSpace];
   }
-  nameSpace.getAccNameVersion = "2.58";
+  nameSpace.getAccNameVersion = "2.59";
   // AccName Computation Prototype
   nameSpace.getAccName = nameSpace.calcNames = function(
     node,
@@ -360,6 +360,17 @@ Plus roles extended for the Role Parity project.
               var nTitle =
                 (!skipTo.tag && !skipTo.role && node.getAttribute("title")) ||
                 "";
+
+              // Added to prevent name on generic elements.
+              // https://www.w3.org/TR/wai-aria-1.2/#generic
+              var isGeneric =
+                node === rootNode &&
+                !nRole &&
+                genericElements.indexOf(nTag) !== -1;
+              if (isGeneric) {
+                // Abort since an implicitly generic rootNode cannot have a name
+                return result;
+              }
 
               var isNativeFormField = nativeFormFields.indexOf(nTag) !== -1;
               var isNativeButton = ["input"].indexOf(nTag) !== -1;
@@ -1134,6 +1145,7 @@ Plus roles extended for the Role Parity project.
         tags: ["legend", "caption", "figcaption"]
       };
 
+      var genericElements = ["div", "span"];
       var nativeFormFields = ["button", "input", "select", "textarea"];
       var rangeWidgetRoles = ["scrollbar", "slider", "spinbutton"];
       var editWidgetRoles = ["searchbox", "textbox"];
