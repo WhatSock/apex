@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 4.3 for Apex 4X
+ARIA Date Picker Module 4.4 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -908,8 +908,19 @@ License: MIT <https://opensource.org/licenses/MIT>
                 dc.rerendering = false;
               },
               beforeRender: function(dc) {
-                if (!dc.rerendering && targ.value) {
-                  dc.presetDate(dc, new Date(targ.value));
+                var dateValue = targ.value,
+                  dateParts = targ.value.split("/");
+                if (
+                  config.inputDateFormat === "DD/MM/YYYY" &&
+                  dateParts.length === 3
+                ) {
+                  dateValue =
+                    dateParts[1] + "/" + dateParts[0] + "/" + dateParts[2];
+                } else if (config.inputDateFormat === "DD/MM/YYYY") {
+                  dateValue = new Date();
+                }
+                if (!dc.rerendering && dateValue) {
+                  dc.presetDate(dc, new Date(dateValue));
                 }
 
                 // based on config option, disable weekdays?
