@@ -908,8 +908,15 @@ License: MIT <https://opensource.org/licenses/MIT>
                 dc.rerendering = false;
               },
               beforeRender: function(dc) {
-                if (!dc.rerendering && targ.value) {
-                  dc.presetDate(dc, new Date(targ.value));
+                let dateValue = targ.value;
+                const dateParts = targ.value.split('/');
+                if (config.inputDateFormat === 'DD/MM/YYYY' && dateParts.length === 3) {
+                  dateValue = `${dateParts[1]}/${dateParts[0]}/${dateParts[2]}`;
+                } else if (config.inputDateFormat === 'DD/MM/YYYY') {
+                  dateValue = new Date();
+                }
+                if (!dc.rerendering && dateValue) {
+                  dc.presetDate(dc, new Date(dateValue));
                 }
 
                 // based on config option, disable weekdays?
