@@ -1,5 +1,5 @@
 /*@license
-Apex 4X: The Comprehensive ARIA Development Suite ( Diamond Age - 2022.2.18 )
+Apex 4X: The Comprehensive ARIA Development Suite ( Diamond Age - 2022.8.14 )
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -7,7 +7,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 
 (function() {
   var moduleFolder = "/4X/Modules/",
-    Version = "2022.2.18",
+    Version = "2022.8.14",
     BN = {};
   (function() {
     var $A = function(dc, dcA, dcI, onReady, disableAsync) {
@@ -3501,25 +3501,28 @@ error: function(error, promise){}
               w = 0,
               wt = null,
               wtA = [];
-            if (dc.widgetType && $A._widgetTypes.length) {
+            if (dc.top.widgetType && $A._widgetTypes.length) {
               for (w = 0; w < $A._widgetTypes.length; w++) {
                 wt = $A.reg.get($A._widgetTypes[w]);
                 if (
                   wt &&
-                  wt.autoCloseWidget &&
-                  wt.loaded &&
-                  wt.widgetType !== dc.widgetType
+                  wt.top.autoCloseWidget &&
+                  wt.top.loaded &&
+                  wt.top.widgetType !== dc.top.widgetType
                 ) {
-                  wt.bypass();
+                  wt.top.bypass();
                 }
               }
-              if (dc.autoCloseSameWidget && $A._regWidgets.has(dc.widgetType)) {
-                wtA = $A._regWidgets.get(dc.widgetType);
-                for (w = 0; w < wtA.length; w++) {
-                  wt = $A.reg.get(wtA[w]);
-                  if (wt && wt.loaded) {
-                    wt.bypass();
-                  }
+            }
+            if (
+              dc.top.autoCloseSameWidget &&
+              $A._regWidgets.has(dc.top.widgetType)
+            ) {
+              wtA = $A._regWidgets.get(dc.top.widgetType);
+              for (w = 0; w < wtA.length; w++) {
+                wt = $A.reg.get(wtA[w]);
+                if (wt && wt.top.loaded && wt.top !== dc.top) {
+                  wt.top.bypass();
                 }
               }
             }

@@ -1,5 +1,5 @@
 # Apex 4X : The Comprehensive ARIA Development Suite
-(V: Diamond Age - 2022.2.18)
+(V: Diamond Age - 2022.8.14)
 
 "Art should comfort the disturbed and disturb the comfortable.", Banksy
 
@@ -154,6 +154,8 @@ https://github.com/whatsock
 
 <!----><a name="changelog" tabindex="-1"></a>
 ## Change log:
+
+2022.8.14 (Diamond Age): Bug fix: Corrected the autoCloseSameWidget prop functionality to handle nested widget types like nested menus.
 
 2022.2.18 (Diamond Age): Added the ability to use $A.updateDisabled() with no arguments to map all disabled elements on the page that include aria-disabled="true". Fixed the registered DC object tracker to better handle when multiple DC objects are bound to the same triggering element.
 
