@@ -1,5 +1,5 @@
 /*@license
-4X Straylight 2.0 for Apex 4X
+4X Straylight 2.1 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -409,6 +409,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                     if (!$A.data(t, "_BoundTooltip")) {
                       $A.data(t, "_BoundTooltip", true);
                       $A.setTooltip(t, {
+                        autoCloseSameWidget: true,
                         className: "tooltip",
                         isFocusOnly: $A.getAttr(t, "data-mode") === "focus",
                         isManualOpen: $A.getAttr(t, "data-mode") === "click",
