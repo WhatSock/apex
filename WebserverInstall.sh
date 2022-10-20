@@ -1,6 +1,7 @@
 #!/bin/bash
-npm install static-server
-npm install prettier
-npm install js-beautify
-npm install uglify-js
-npm install linkinator
+npm audit fix --force
+npm -g install static-server
+npm -g install prettier
+npm -g install js-beautify
+npm -g install uglify-js
+npm -g install linkinator
