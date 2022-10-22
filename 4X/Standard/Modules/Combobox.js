@@ -1,10 +1,10 @@
 /*@license
-ARIA Combobox Module 3.3 for Apex 4X
+ARIA Combobox Module 3.4 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
 
-Required dependencies: SmoothScroll.js, AccName.js
+Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
 */
 
 (function () {
@@ -71,13 +71,11 @@ Required dependencies: SmoothScroll.js, AccName.js
                 return;
               }
 
-              $A.remAttr(dc.cb.selected, "aria-selected");
               $A.remClass(dc.cb.selected, dc.activeClass);
               dc.cb.selected = [];
               if (select) {
                 $A.setAttr(dc.triggerNode, "aria-activedescendant", o.id);
                 dc.cb.activeDescendant = true;
-                $A.setAttr(o, "aria-selected", "true");
                 $A.addClass(o, dc.activeClass);
                 dc.cb.selected.push(o);
                 that.scrollIntoView(o, dc.scrollCallback, dc);
@@ -167,7 +165,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                       '" class="' +
                       dc.optionClass +
                       '" ';
-                  if (dc.cb.multiple) o += 'aria-checked="false" ';
+                  if (dc.cb.multiple) o += 'aria-selected="false" ';
                   o +=
                     "><a><span>" +
                     name +
@@ -217,7 +215,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                     var option = dc.cb.options[value];
                     $A.setAttr(
                       option.o,
-                      "aria-checked",
+                      "aria-selected",
                       option.checked ? "true" : "false"
                     );
                   } // End for loop
@@ -443,7 +441,7 @@ Required dependencies: SmoothScroll.js, AccName.js
 
                     if (!pass) {
                       option.checked =
-                        $A.getAttr(option.o, "aria-checked") === "true";
+                        $A.getAttr(option.o, "aria-selected") === "true";
                       option.so.selected = option.checked;
                     }
 
@@ -531,7 +529,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                   {
                     touchstart: function (ev) {
                       touched = true;
-                      if (!touchDelay) handleClick.call(this, ev);
+                      if (!touchDelay && dc.loaded) handleClick.call(this, ev);
                       touchDelay = setTimeout(function () {
                         touchDelay = null;
                       }, 1000);
@@ -603,10 +601,10 @@ Required dependencies: SmoothScroll.js, AccName.js
                       ) {
                         $A.setAttr(
                           dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,
-                          "aria-checked",
+                          "aria-selected",
                           $A.getAttr(
                             dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,
-                            "aria-checked"
+                            "aria-selected"
                           ) === "true"
                             ? "false"
                             : "true"
@@ -869,6 +867,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                 role: "listbox",
                 "aria-label": accName,
                 id: dc.cb.baseId + dc.cb.baseInc,
+                "aria-multiselectable": dc.cb.multiple ? "true" : "false",
               },
               null,
               dc.listboxClass
@@ -908,8 +907,8 @@ Required dependencies: SmoothScroll.js, AccName.js
                     if (o)
                       $A.setAttr(
                         o,
-                        "aria-checked",
-                        $A.getAttr(o, "aria-checked") === "true"
+                        "aria-selected",
+                        $A.getAttr(o, "aria-selected") === "true"
                           ? "false"
                           : "true"
                       );
@@ -934,7 +933,7 @@ Required dependencies: SmoothScroll.js, AccName.js
 
             dc.cb.fn.setSize();
 
-            if ($A.isTouch)
+            if (window.device.type !== "desktop")
               setTimeout(function () {
                 $A.announce(
                   dc.cb.options[dc.cb.matches[dc.cb.sIndex]].no,
@@ -1066,11 +1065,12 @@ Required dependencies: SmoothScroll.js, AccName.js
             dc.cb.fn.render();
 
             dc.render(function () {
-              dc.cb.select(
-                dc,
-                dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,
-                true
-              );
+              if (window.device.type === "desktop")
+                dc.cb.select(
+                  dc,
+                  dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,
+                  true
+                );
             });
           }
         };
@@ -1124,7 +1124,7 @@ Required dependencies: SmoothScroll.js, AccName.js
             var option = dc.cb.options[value];
             option.so.selected = false;
             option.checked = false;
-            $A.setAttr(option.o, "aria-checked", "false");
+            $A.setAttr(option.o, "aria-selected", "false");
           } // End for loop
 
           if (dc.cb.isInput) dc.triggerNode.value = "";
