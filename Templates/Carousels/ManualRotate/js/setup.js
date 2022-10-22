@@ -1,4 +1,4 @@
-$A.import("Carousel", { defer: true }, function() {
+$A.import("Carousel", { defer: true }, function () {
   var carouselDC = $A.setCarousel({
     container: ".my-slider",
     items: 1,
@@ -9,8 +9,8 @@ $A.import("Carousel", { defer: true }, function() {
     nextButton: ".next",
     responsive: {
       800: {
-        items: 2
-      }
-    }
+        items: 2,
+      },
+    },
   });
 });

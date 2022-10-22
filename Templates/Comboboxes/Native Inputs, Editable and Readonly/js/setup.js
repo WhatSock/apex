@@ -1,4 +1,4 @@
-$A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
+$A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
   // Create a new ARIA Combobox instance
   var myStateCombobox = new $A.Combobox({
     select: $A.get("states"),
@@ -6,23 +6,23 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
     delay: 200,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, wrapper, next) {
+      onRender: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeIn", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
       },
-      onRemove: function(dc, wrapper, next) {
+      onRemove: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeOut", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
-      }
-    }
+      },
+    },
   });
 
   // Disable auto population of default value
@@ -38,7 +38,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   // Set a positive or negative top/left offset to be applied to the autoPosition property calculation
   myStateCombobox.setOffset({
     top: 5,
-    left: 10
+    left: 10,
   });
 
   // Force the highlighted value to be automatically saved when focus moves away from the Combobox
@@ -54,7 +54,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
 
   // Dynamically toggle help text for desktops that support dual touch and keyboard interaction.
   if (window.device.type === "desktop") {
-    $A.on("toggletouch", function(ev) {
+    $A.on("toggletouch", function (ev) {
       myStateCombobox.setPromptText(
         $A.isTouch
           ? ""
@@ -76,17 +76,17 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   var stateCloseIcon = $A.get("mobileCloseIcon");
 
   // Process after the suggestion window is opened
-  myStateCombobox.onOpen(function(dc) {
+  myStateCombobox.onOpen(function (dc) {
     $A.remClass(stateCloseIcon, "hidden");
   });
 
   // Process after the suggestion window is closed
-  myStateCombobox.onClose(function(dc) {
+  myStateCombobox.onClose(function (dc) {
     $A.addClass(stateCloseIcon, "hidden");
   });
 
   // Add a click handler to the Close icon
-  $A.on(stateCloseIcon, "click", function(ev) {
+  $A.on(stateCloseIcon, "click", function (ev) {
     myStateCombobox.close();
   });
 
@@ -99,37 +99,37 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
     delay: 200,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, wrapper, next) {
+      onRender: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeIn", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
       },
-      onRemove: function(dc, wrapper, next) {
+      onRemove: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeOut", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
-      }
-    }
+      },
+    },
   });
 
   myCountryCombobox.setAutoPosition(5);
 
   myCountryCombobox.setOffset({
     top: 5,
-    left: 10
+    left: 10,
   });
 
   // Specify a dedicated toggle element for the Country ARIA Combobox
   myCountryCombobox.setAltTrigger($A.get("ctryIcon"));
 
   // Add logic to process each time the toggle element state changes
-  myCountryCombobox.onTriggerChange(function(toggleObj, openState) {
+  myCountryCombobox.onTriggerChange(function (toggleObj, openState) {
     if (openState) {
       // Opened
       $A.setAttr(toggleObj, "src", "img/up.png");
@@ -151,7 +151,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
 
   // Dynamically toggle help text for desktops that support dual touch and keyboard interaction.
   if (window.device.type === "desktop") {
-    $A.on("toggletouch", function(ev) {
+    $A.on("toggletouch", function (ev) {
       myCountryCombobox.setPromptText(
         $A.isTouch ? "" : "Press the down arrow to browse available options"
       );
@@ -169,10 +169,10 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
 
   myCountryCombobox.start();
 
-  $A.on("#frm1", "submit", function(ev) {
+  $A.on("#frm1", "submit", function (ev) {
     var f = this,
       s = "";
-    $A.query('input[type="text"]', f, function(i, o) {
+    $A.query('input[type="text"]', f, function (i, o) {
       s += o.name + "=" + o.value + "\n";
     });
     alert(s);

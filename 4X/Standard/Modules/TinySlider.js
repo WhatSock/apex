@@ -13,7 +13,7 @@ var raf =
   win$1.webkitRequestAnimationFrame ||
   win$1.mozRequestAnimationFrame ||
   win$1.msRequestAnimationFrame ||
-  function(cb) {
+  function (cb) {
     return setTimeout(cb, 16);
   };
 
@@ -21,7 +21,7 @@ var win = window;
 var caf =
   win.cancelAnimationFrame ||
   win.mozCancelAnimationFrame ||
-  function(id) {
+  function (id) {
     clearTimeout(id);
   };
 
@@ -267,32 +267,32 @@ function forEach(arr, callback, scope) {
 var classListSupport = "classList" in document.createElement("_");
 
 var hasClass = classListSupport
-  ? function(el, str) {
+  ? function (el, str) {
       return el.classList.contains(str);
     }
-  : function(el, str) {
+  : function (el, str) {
       return el.className.indexOf(str) >= 0;
     };
 
 var addClass = classListSupport
-  ? function(el, str) {
+  ? function (el, str) {
       if (!hasClass(el, str)) {
         el.classList.add(str);
       }
     }
-  : function(el, str) {
+  : function (el, str) {
       if (!hasClass(el, str)) {
         el.className += " " + str;
       }
     };
 
 var removeClass = classListSupport
-  ? function(el, str) {
+  ? function (el, str) {
       if (hasClass(el, str)) {
         el.classList.remove(str);
       }
     }
-  : function(el, str) {
+  : function (el, str) {
       if (hasClass(el, str)) {
         el.className = el.className.replace(str, "");
       }
@@ -368,7 +368,7 @@ function whichProperty(props) {
     var arr = [props],
       Props = props.charAt(0).toUpperCase() + props.substr(1),
       prefixes = ["Webkit", "Moz", "ms", "O"];
-    prefixes.forEach(function(prefix) {
+    prefixes.forEach(function (prefix) {
       if (prefix !== "ms" || props === "transform") {
         arr.push(prefix + Props);
       }
@@ -437,16 +437,16 @@ var supportsPassive = false;
 
 try {
   var opts = Object.defineProperty({}, "passive", {
-    get: function() {
+    get: function () {
       supportsPassive = true;
-    }
+    },
   });
   window.addEventListener("test", null, opts);
 } catch (e) {}
 
 var passiveOption = supportsPassive
   ? {
-      passive: true
+      passive: true,
     }
   : false;
 
@@ -471,11 +471,11 @@ function removeEvents(el, obj) {
 function Events() {
   return {
     topics: {},
-    on: function(eventName, fn) {
+    on: function (eventName, fn) {
       this.topics[eventName] = this.topics[eventName] || [];
       this.topics[eventName].push(fn);
     },
-    off: function(eventName, fn) {
+    off: function (eventName, fn) {
       if (this.topics[eventName]) {
         for (var i = 0; i < this.topics[eventName].length; i++) {
           if (this.topics[eventName][i] === fn) {
@@ -485,15 +485,15 @@ function Events() {
         }
       }
     },
-    emit: function(eventName, data) {
+    emit: function (eventName, data) {
       data.type = eventName;
 
       if (this.topics[eventName]) {
-        this.topics[eventName].forEach(function(fn) {
+        this.topics[eventName].forEach(function (fn) {
           fn(data, eventName);
         });
       }
-    }
+    },
   };
 }
 
@@ -525,7 +525,7 @@ function jsTransform(element, attr, prefix, postfix, to, duration, callback) {
 
 // Object.keys
 if (!Object.keys) {
-  Object.keys = function(object) {
+  Object.keys = function (object) {
     var keys = [];
 
     for (var name in object) {
@@ -539,13 +539,13 @@ if (!Object.keys) {
 } // ChildNode.remove
 
 if (!("remove" in Element.prototype)) {
-  Element.prototype.remove = function() {
+  Element.prototype.remove = function () {
     if (this.parentNode) {
       this.parentNode.removeChild(this);
     }
   };
 }
-var tns = function(options) {
+var tns = function (options) {
   options = extend(
     {
       container: ".slider",
@@ -600,7 +600,7 @@ var tns = function(options) {
       freezable: true,
       onInit: false,
       useLocalStorage: true,
-      nonce: false
+      nonce: false,
     },
     options || {}
   );
@@ -610,7 +610,7 @@ var tns = function(options) {
       ENTER: 13,
       SPACE: 32,
       LEFT: 37,
-      RIGHT: 39
+      RIGHT: 39,
     },
     tnsStorage = {},
     localStorageAccess = options.useLocalStorage;
@@ -652,8 +652,8 @@ var tns = function(options) {
           "tADu",
           "tADe",
           "tTE",
-          "tAE"
-        ].forEach(function(item) {
+          "tAE",
+        ].forEach(function (item) {
           tnsStorage.removeItem(item);
         });
       } // update browserInfo
@@ -754,10 +754,10 @@ var tns = function(options) {
       "prevButton",
       "nextButton",
       "navContainer",
-      "autoplayButton"
+      "autoplayButton",
     ],
     optionsElements = {};
-  tnsList.forEach(function(item) {
+  tnsList.forEach(function (item) {
     if (typeof options[item] === "string") {
       var str = options[item],
         el = doc.querySelector(str);
@@ -807,7 +807,7 @@ var tns = function(options) {
       val =
         typeof val === "number"
           ? {
-              items: val
+              items: val,
             }
           : val;
       responsiveTem[key] = val;
@@ -869,11 +869,11 @@ var tns = function(options) {
   // 4X MOD
   $A.loop(
     slideItems,
-    function(i, o) {
+    function (i, o) {
       $A.setAttr(o, {
         role: "region",
         "aria-roledescription": "" + (i + 1),
-        "aria-label": "Slide"
+        "aria-label": "Slide",
       });
     },
     "array"
@@ -929,15 +929,15 @@ var tns = function(options) {
     transformPrefix = "",
     transformPostfix = "",
     // index
-    getIndexMax = (function() {
+    getIndexMax = (function () {
       if (fixedWidth) {
-        return function() {
+        return function () {
           return center && !loop
             ? slideCount - 1
             : Math.ceil(-rightBoundary / (fixedWidth + gutter));
         };
       } else if (autoWidth) {
-        return function() {
+        return function () {
           for (var i = 0; i < slideCountNew; i++) {
             if (slidePositions[i] >= -rightBoundary) {
               return i;
@@ -945,7 +945,7 @@ var tns = function(options) {
           }
         };
       } else {
-        return function() {
+        return function () {
           if (center && carousel && !loop) {
             return slideCount - 1;
           } else {
@@ -977,38 +977,38 @@ var tns = function(options) {
     frozen = false,
     controlsEvents = {
       click: onControlsClick,
-      keydown: onControlsKeydown
+      keydown: onControlsKeydown,
     },
     navEvents = {
       click: onNavClick,
-      keydown: onNavKeydown
+      keydown: onNavKeydown,
     },
     // 4X MOD
     hoverEvents = {
       mouseenter: mouseoverPause,
-      mouseleave: mouseoutRestart
+      mouseleave: mouseoutRestart,
     },
     // 4X MOD
     focusEvents = {
-      focusin: focusPause
+      focusin: focusPause,
     },
     visibilityEvent = {
-      visibilitychange: onVisibilityChange
+      visibilitychange: onVisibilityChange,
     },
     docmentKeydownEvent = {
-      keydown: onDocumentKeydown
+      keydown: onDocumentKeydown,
     },
     touchEvents = {
       touchstart: onPanStart,
       touchmove: onPanMove,
       touchend: onPanEnd,
-      touchcancel: onPanEnd
+      touchcancel: onPanEnd,
     },
     dragEvents = {
       mousedown: onPanStart,
       mousemove: onPanMove,
       mouseup: onPanEnd,
-      mouseleave: onPanEnd
+      mouseleave: onPanEnd,
     },
     hasControls = hasOption("controls"),
     hasNav = hasOption("nav"),
@@ -1021,7 +1021,7 @@ var tns = function(options) {
     imgCompleteClass = "tns-complete",
     imgEvents = {
       load: onImgLoaded,
-      error: onImgFailed
+      error: onImgFailed,
     },
     imgsComplete,
     liveregionCurrent,
@@ -1063,7 +1063,7 @@ var tns = function(options) {
         : "",
       autoplayHtmlStrings = [
         "<span class='tns-visually-hidden'>",
-        " animation</span>"
+        " animation</span>",
       ],
       autoplayTimer,
       animating,
@@ -1081,10 +1081,10 @@ var tns = function(options) {
       panStart = false,
       rafIndex,
       getDist = horizontal
-        ? function(a, b) {
+        ? function (a, b) {
             return a.x - b.x;
           }
-        : function(a, b) {
+        : function (a, b) {
             return a.y - b.y;
           };
   } // disable slider when slidecount <= items
@@ -1116,7 +1116,15 @@ var tns = function(options) {
 
   function resetVariblesWhenDisable(condition) {
     if (condition) {
-      controls = nav = touch = mouseDrag = arrowKeys = autoplay = autoplayHoverPause = autoplayResetOnVisibility = false;
+      controls =
+        nav =
+        touch =
+        mouseDrag =
+        arrowKeys =
+        autoplay =
+        autoplayHoverPause =
+        autoplayResetOnVisibility =
+          false;
     }
   }
 
@@ -1445,7 +1453,7 @@ var tns = function(options) {
     innerWrapper.appendChild(container); // add id, class, aria attributes
     // before clone slides
 
-    forEach(slideItems, function(item, i) {
+    forEach(slideItems, function (item, i) {
       addClass(item, "tns-item");
 
       if (!item.id) {
@@ -1458,7 +1466,7 @@ var tns = function(options) {
 
       setAttrs(item, {
         "aria-hidden": "true",
-        tabindex: "-1"
+        tabindex: "-1",
       });
     }); // ## clone slides
     // carousel: n + slides + n
@@ -1494,7 +1502,7 @@ var tns = function(options) {
     if (hasOption("autoHeight") || autoWidth || !horizontal) {
       var imgs = container.querySelectorAll("img"); // add img load event listener
 
-      forEach(imgs, function(img) {
+      forEach(imgs, function (img) {
         var src = img.src;
 
         if (!lazyload) {
@@ -1510,8 +1518,8 @@ var tns = function(options) {
         }
       }); // set imgsComplete
 
-      raf(function() {
-        imgsLoadedCheck(arrayFromNodeList(imgs), function() {
+      raf(function () {
+        imgsLoadedCheck(arrayFromNodeList(imgs), function () {
           imgsComplete = true;
         });
       }); // reset imgs for auto height: check visible imgs only
@@ -1525,7 +1533,7 @@ var tns = function(options) {
 
       lazyload
         ? initSliderTransformStyleCheck()
-        : raf(function() {
+        : raf(function () {
             imgsLoadedCheck(
               arrayFromNodeList(imgs),
               initSliderTransformStyleCheck
@@ -1552,7 +1560,7 @@ var tns = function(options) {
         var right = slideItems[num - 1].getBoundingClientRect().right;
         Math.abs(left - right) <= 1
           ? initSliderTransformCore()
-          : setTimeout(function() {
+          : setTimeout(function () {
               stylesApplicationCheck();
             }, 16);
       })();
@@ -1625,7 +1633,7 @@ var tns = function(options) {
           getCssRulesLength(sheet)
         );
       } else if (carousel) {
-        forEach(slideItems, function(slide, i) {
+        forEach(slideItems, function (slide, i) {
           slide.style.marginLeft = getSlideMarginLeft(i);
         });
       }
@@ -1862,7 +1870,7 @@ var tns = function(options) {
 
       if (autoplayButton) {
         setAttrs(autoplayButton, {
-          "data-action": txt
+          "data-action": txt,
         });
       } else if (options.autoplayButtonOutput) {
         outerWrapper.insertAdjacentHTML(
@@ -1881,7 +1889,7 @@ var tns = function(options) {
 
       if (autoplayButton) {
         addEvents(autoplayButton, {
-          click: toggleAutoplay
+          click: toggleAutoplay,
         });
       }
 
@@ -1907,15 +1915,15 @@ var tns = function(options) {
         // 4X MOD
         setAttrs(navContainer, {
           role: "toolbar",
-          "aria-label": "Pagination"
+          "aria-label": "Pagination",
         });
         navItems = navContainer.children;
-        forEach(navItems, function(item, i) {
+        forEach(navItems, function (item, i) {
           setAttrs(item, {
             "data-nav": i,
             tabindex: "-1",
             "aria-label": navStr + (i + 1),
-            "aria-controls": slideId
+            "aria-controls": slideId,
           });
         }); // generated nav
       } else {
@@ -1974,7 +1982,7 @@ var tns = function(options) {
       setAttrs(navItems[navCurrentIndex], {
         // 4X MOD
         "aria-label": navStr + (navCurrentIndex + 1),
-        "aria-current": "true"
+        "aria-current": "true",
       });
       removeAttrs(navItems[navCurrentIndex], "tabindex");
       addClass(navItems[navCurrentIndex], navActiveClass); // add events
@@ -2020,7 +2028,7 @@ var tns = function(options) {
         (options.prevButton && options.nextButton)
       ) {
         setAttrs([prevButton, nextButton], {
-          "aria-controls": slideId
+          "aria-controls": slideId,
           // 4X MOD
           // tabindex: "-1"
         });
@@ -2031,10 +2039,10 @@ var tns = function(options) {
         (options.prevButton && options.nextButton)
       ) {
         setAttrs(prevButton, {
-          "data-controls": "prev"
+          "data-controls": "prev",
         });
         setAttrs(nextButton, {
-          "data-controls": "next"
+          "data-controls": "next",
         });
       }
 
@@ -2074,7 +2082,7 @@ var tns = function(options) {
     }
 
     if (nested === "inner") {
-      events.on("outerResized", function() {
+      events.on("outerResized", function () {
         resizeTasks();
         events.emit("innerLoaded", info());
       });
@@ -2086,7 +2094,7 @@ var tns = function(options) {
       !horizontal
     ) {
       addEvents(win, {
-        resize: onResize
+        resize: onResize,
       });
     }
 
@@ -2128,7 +2136,7 @@ var tns = function(options) {
     } // remove win event listeners
 
     removeEvents(win, {
-      resize: onResize
+      resize: onResize,
     }); // arrowKeys, controls, nav
 
     if (arrowKeys) {
@@ -2149,7 +2157,7 @@ var tns = function(options) {
 
     if (autoplayButton) {
       removeEvents(autoplayButton, {
-        click: toggleAutoplay
+        click: toggleAutoplay,
       });
     }
 
@@ -2177,9 +2185,9 @@ var tns = function(options) {
       prevButtonHTML,
       nextButtonHTML,
       navContainerHTML,
-      autoplayButtonHTML
+      autoplayButtonHTML,
     ];
-    tnsList.forEach(function(item, i) {
+    tnsList.forEach(function (item, i) {
       var el = item === "container" ? outerWrapper : options[item];
 
       if (typeof el === "object" && el) {
@@ -2195,7 +2203,123 @@ var tns = function(options) {
     }); // reset variables
 
     // 4X MOD
-    tnsList = animateIn = animateOut = animateDelay = animateNormal = horizontal = outerWrapper = innerWrapper = container = containerParent = containerHTML = slideItems = slideCount = breakpointZone = windowWidth = autoWidth = fixedWidth = edgePadding = gutter = viewport = items = slideBy = viewportMax = arrowKeys = speed = rewind = loop = autoHeight = sheet = lazyload = slidePositions = slideItemsOut = cloneCount = slideCountNew = hasRightDeadZone = rightBoundary = updateIndexBeforeTransform = transformAttr = transformPrefix = transformPostfix = getIndexMax = index = indexCached = indexMin = indexMax = swipeAngle = moveDirectionExpected = running = onInit = events = newContainerClasses = slideId = disable = disabled = freezable = freeze = frozen = controlsEvents = navEvents = hoverEvents = visibilityEvent = docmentKeydownEvent = touchEvents = dragEvents = hasControls = hasNav = navAsThumbnails = hasAutoplay = hasTouch = hasMouseDrag = slideActiveClass = imgCompleteClass = imgEvents = imgsComplete = controls = controlsText = controlsContainer = controlsContainerHTML = prevButton = nextButton = prevIsButton = nextIsButton = nav = navContainer = navContainerHTML = navItems = pages = pagesCached = navClicked = navCurrentIndex = navCurrentIndexCached = navActiveClass = navStr = autoplay = autoplayTimeout = autoplayDirection = autoplayText = autoplayHoverPause = autoplayButton = autoplayButtonHTML = autoplayResetOnVisibility = autoplayHtmlStrings = autoplayTimer = animating = autoplayHoverPaused = autoplayUserPaused = autoplayFocusPaused = autoplayVisibilityPaused = initPosition = lastPosition = translateInit = panStart = rafIndex = getDist = touch = mouseDrag = null; // check variables
+    tnsList =
+      animateIn =
+      animateOut =
+      animateDelay =
+      animateNormal =
+      horizontal =
+      outerWrapper =
+      innerWrapper =
+      container =
+      containerParent =
+      containerHTML =
+      slideItems =
+      slideCount =
+      breakpointZone =
+      windowWidth =
+      autoWidth =
+      fixedWidth =
+      edgePadding =
+      gutter =
+      viewport =
+      items =
+      slideBy =
+      viewportMax =
+      arrowKeys =
+      speed =
+      rewind =
+      loop =
+      autoHeight =
+      sheet =
+      lazyload =
+      slidePositions =
+      slideItemsOut =
+      cloneCount =
+      slideCountNew =
+      hasRightDeadZone =
+      rightBoundary =
+      updateIndexBeforeTransform =
+      transformAttr =
+      transformPrefix =
+      transformPostfix =
+      getIndexMax =
+      index =
+      indexCached =
+      indexMin =
+      indexMax =
+      swipeAngle =
+      moveDirectionExpected =
+      running =
+      onInit =
+      events =
+      newContainerClasses =
+      slideId =
+      disable =
+      disabled =
+      freezable =
+      freeze =
+      frozen =
+      controlsEvents =
+      navEvents =
+      hoverEvents =
+      visibilityEvent =
+      docmentKeydownEvent =
+      touchEvents =
+      dragEvents =
+      hasControls =
+      hasNav =
+      navAsThumbnails =
+      hasAutoplay =
+      hasTouch =
+      hasMouseDrag =
+      slideActiveClass =
+      imgCompleteClass =
+      imgEvents =
+      imgsComplete =
+      controls =
+      controlsText =
+      controlsContainer =
+      controlsContainerHTML =
+      prevButton =
+      nextButton =
+      prevIsButton =
+      nextIsButton =
+      nav =
+      navContainer =
+      navContainerHTML =
+      navItems =
+      pages =
+      pagesCached =
+      navClicked =
+      navCurrentIndex =
+      navCurrentIndexCached =
+      navActiveClass =
+      navStr =
+      autoplay =
+      autoplayTimeout =
+      autoplayDirection =
+      autoplayText =
+      autoplayHoverPause =
+      autoplayButton =
+      autoplayButtonHTML =
+      autoplayResetOnVisibility =
+      autoplayHtmlStrings =
+      autoplayTimer =
+      animating =
+      autoplayHoverPaused =
+      autoplayUserPaused =
+      autoplayFocusPaused =
+      autoplayVisibilityPaused =
+      initPosition =
+      lastPosition =
+      translateInit =
+      panStart =
+      rafIndex =
+      getDist =
+      touch =
+      mouseDrag =
+        null; // check variables
     // [animateIn, animateOut, animateDelay, animateNormal, horizontal, outerWrapper, innerWrapper, container, containerParent, containerHTML, slideItems, slideCount, breakpointZone, windowWidth, autoWidth, fixedWidth, edgePadding, gutter, viewport, items, slideBy, viewportMax, arrowKeys, speed, rewind, loop, autoHeight, sheet, lazyload, slidePositions, slideItemsOut, cloneCount, slideCountNew, hasRightDeadZone, rightBoundary, updateIndexBeforeTransform, transformAttr, transformPrefix, transformPostfix, getIndexMax, index, indexCached, indexMin, indexMax, resizeTimer, swipeAngle, moveDirectionExpected, running, onInit, events, newContainerClasses, slideId, disable, disabled, freezable, freeze, frozen, controlsEvents, navEvents, hoverEvents, visibilityEvent, docmentKeydownEvent, touchEvents, dragEvents, hasControls, hasNav, navAsThumbnails, hasAutoplay, hasTouch, hasMouseDrag, slideActiveClass, imgCompleteClass, imgEvents, imgsComplete, controls, controlsText, controlsContainer, controlsContainerHTML, prevButton, nextButton, prevIsButton, nextIsButton, nav, navContainer, navContainerHTML, navItems, pages, pagesCached, navClicked, navCurrentIndex, navCurrentIndexCached, navActiveClass, navStr, autoplay, autoplayTimeout, autoplayDirection, autoplayText, autoplayHoverPause, autoplayButton, autoplayButtonHTML, autoplayResetOnVisibility, autoplayHtmlStrings, autoplayTimer, animating, autoplayHoverPaused, autoplayUserPaused, autoplayVisibilityPaused, initPosition, lastPosition, translateInit, disX, disY, panStart, rafIndex, getDist, touch, mouseDrag ].forEach(function(item) { if (item !== null) { console.log(item); } });
 
     for (var a in this) {
@@ -2209,7 +2333,7 @@ var tns = function(options) {
   // responsive || fixedWidth || autoWidth || !horizontal
 
   function onResize(e) {
-    raf(function() {
+    raf(function () {
       resizeTasks(getEvent(e));
     });
   }
@@ -2594,10 +2718,10 @@ var tns = function(options) {
     }
   } // (slideBy, indexMin, indexMax) => index
 
-  var updateIndex = (function() {
+  var updateIndex = (function () {
     return loop
       ? carousel // loop + carousel
-        ? function() {
+        ? function () {
             var leftEdge = indexMin,
               rightEdge = indexMax;
             leftEdge += slideBy;
@@ -2621,7 +2745,7 @@ var tns = function(options) {
               }
             }
           } // loop + gallery
-        : function() {
+        : function () {
             if (index > indexMax) {
               while (index >= indexMin + slideCount) {
                 index -= slideCount;
@@ -2632,7 +2756,7 @@ var tns = function(options) {
               }
             }
           } // non-loop
-      : function() {
+      : function () {
           index = Math.max(indexMin, Math.min(indexMax, index));
         };
   })();
@@ -2866,7 +2990,7 @@ var tns = function(options) {
     // - check auto width
 
     if (autoWidth) {
-      slidePositions.forEach(function(point, i) {
+      slidePositions.forEach(function (point, i) {
         if (i < slideCountNew) {
           if ((center || edgePadding) && point <= rangestart + 0.5) {
             start = i;
@@ -2922,12 +3046,12 @@ var tns = function(options) {
     if (lazyload && !disable) {
       var arg = getVisibleSlideRange();
       arg.push(lazyloadSelector);
-      getImageArray.apply(null, arg).forEach(function(img) {
+      getImageArray.apply(null, arg).forEach(function (img) {
         if (!hasClass(img, imgCompleteClass)) {
           // stop propagation transitionend event to container
           var eve = {};
 
-          eve[TRANSITIONEND] = function(e) {
+          eve[TRANSITIONEND] = function (e) {
             e.stopPropagation();
           };
 
@@ -2980,7 +3104,7 @@ var tns = function(options) {
     }
 
     while (start <= end) {
-      forEach(slideItems[start].querySelectorAll(imgSelector), function(img) {
+      forEach(slideItems[start].querySelectorAll(imgSelector), function (img) {
         imgs.push(img);
       });
       start++;
@@ -2992,7 +3116,7 @@ var tns = function(options) {
 
   function doAutoHeight() {
     var imgs = getImageArray.apply(null, getVisibleSlideRange());
-    raf(function() {
+    raf(function () {
       imgsLoadedCheck(imgs, updateInnerWrapperHeight);
     });
   }
@@ -3003,7 +3127,7 @@ var tns = function(options) {
       return cb();
     } // check image classes
 
-    imgs.forEach(function(img, index) {
+    imgs.forEach(function (img, index) {
       if (!lazyload && img.complete) {
         imgCompleted(img);
       } // Check image.complete
@@ -3017,7 +3141,7 @@ var tns = function(options) {
       return cb();
     } // otherwise execute this functiona again
 
-    raf(function() {
+    raf(function () {
       imgsLoadedCheck(imgs, cb);
     });
   }
@@ -3071,7 +3195,7 @@ var tns = function(options) {
     var attr = horizontal ? "left" : "top",
       attr2 = horizontal ? "right" : "bottom",
       base = slideItems[0].getBoundingClientRect()[attr];
-    forEach(slideItems, function(item, i) {
+    forEach(slideItems, function (item, i) {
       // skip the first slide
       if (i) {
         slidePositions.push(item.getBoundingClientRect()[attr] - base);
@@ -3087,7 +3211,7 @@ var tns = function(options) {
     var range = getVisibleSlideRange(),
       start = range[0],
       end = range[1];
-    forEach(slideItems, function(item, i) {
+    forEach(slideItems, function (item, i) {
       // show slides
       if (i >= start && i <= end) {
         if (hasAttr(item, "aria-hidden")) {
@@ -3107,7 +3231,7 @@ var tns = function(options) {
         if (!hasAttr(item, "aria-hidden")) {
           setAttrs(item, {
             "aria-hidden": "true",
-            tabindex: "-1"
+            tabindex: "-1",
           });
           removeClass(item, slideActiveClass);
         }
@@ -3136,8 +3260,8 @@ var tns = function(options) {
       removeClass(item, animateOut);
     } // removing '.tns-moving'
 
-    setTimeout(function() {
-      forEach(slideItems, function(el) {
+    setTimeout(function () {
+      forEach(slideItems, function (el) {
         removeClass(el, "tns-moving");
       });
     }, 300);
@@ -3156,13 +3280,13 @@ var tns = function(options) {
           tabindex: "-1",
           "aria-label": navStr + (navCurrentIndexCached + 1),
           // 4X MOD
-          "aria-current": "false"
+          "aria-current": "false",
         });
         removeClass(navPrev, navActiveClass);
         setAttrs(navCurrent, {
           // 4X MOD
           "aria-label": navStr + (navCurrentIndex + 1),
-          "aria-current": "true"
+          "aria-current": "true",
         });
         removeAttrs(navCurrent, "tabindex");
         addClass(navCurrent, navActiveClass);
@@ -3349,9 +3473,9 @@ var tns = function(options) {
   // 1. change 'transform' property for mordern browsers
   // 2. change 'left' property for legacy browsers
 
-  var transformCore = (function() {
+  var transformCore = (function () {
     return carousel
-      ? function() {
+      ? function () {
           resetDuration(container, "");
 
           if (TRANSITIONDURATION || !speed) {
@@ -3380,7 +3504,7 @@ var tns = function(options) {
             updateContentWrapperHeight();
           }
         }
-      : function() {
+      : function () {
           slideItemsOut = [];
           var eve = {};
           eve[TRANSITIONEND] = eve[ANIMATIONEND] = onTransitionEnd;
@@ -3657,7 +3781,7 @@ var tns = function(options) {
   } // autoplay functions
 
   function setAutoplayTimer() {
-    autoplayTimer = setInterval(function() {
+    autoplayTimer = setInterval(function () {
       onControlsClick(null, autoplayDirection);
     }, autoplayTimeout);
     animating = true;
@@ -3670,7 +3794,7 @@ var tns = function(options) {
 
   function updateAutoplayButton(action, txt) {
     setAttrs(autoplayButton, {
-      "data-action": action
+      "data-action": action,
     });
     autoplayButton.innerHTML =
       autoplayHtmlStrings[0] + action + autoplayHtmlStrings[1] + txt;
@@ -3893,7 +4017,7 @@ var tns = function(options) {
 
       if (carousel) {
         if (!rafIndex) {
-          rafIndex = raf(function() {
+          rafIndex = raf(function () {
             panUpdate(e);
           });
         }
@@ -3925,7 +4049,7 @@ var tns = function(options) {
     caf(rafIndex);
 
     if (panStart) {
-      rafIndex = raf(function() {
+      rafIndex = raf(function () {
         panUpdate(e);
       });
     }
@@ -3989,14 +4113,14 @@ var tns = function(options) {
             click: function preventClick(e) {
               preventDefaultBehavior(e);
               removeEvents(target, {
-                click: preventClick
+                click: preventClick,
               });
-            }
+            },
           });
         }
 
         if (carousel) {
-          rafIndex = raf(function() {
+          rafIndex = raf(function () {
             if (horizontal && !autoWidth) {
               var indexMoved = (-dist * items) / (viewport + gutter);
               indexMoved =
@@ -4116,7 +4240,7 @@ var tns = function(options) {
       pagesCached: pagesCached,
       sheet: sheet,
       isOn: isOn,
-      event: e || {}
+      event: e || {},
     };
   }
 
@@ -4131,9 +4255,9 @@ var tns = function(options) {
     updateSliderHeight: updateInnerWrapperHeight,
     refresh: initSliderTransform,
     destroy: destroy,
-    rebuild: function() {
+    rebuild: function () {
       return tns(extend(options, optionsElements));
-    }
+    },
   };
 };
 $A.tns = tns;

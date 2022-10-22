@@ -7,15 +7,15 @@ License: MIT (https://opensource.org/licenses/MIT)
 Required dependencies: RovingTabIndex.js
 */
 
-(function() {
+(function () {
   if (!("setAccordion" in $A)) {
     $A.import("RovingTabIndex", {
       name: "AccordionModule",
       props: props,
       once: true,
-      call: function(props) {
+      call: function (props) {
         $A.addWidgetProfile("Accordion", {
-          configure: function(dc) {
+          configure: function (dc) {
             return {
               exposeBounds: true,
               exposeHiddenClose: false,
@@ -25,36 +25,36 @@ Required dependencies: RovingTabIndex.js
               allowMultiple: false,
               escToClose: false,
               returnFocus: false,
-              click: function(ev, dc) {
+              click: function (ev, dc) {
                 ev.stopPropagation();
               },
-              onCreate: function(dc) {
+              onCreate: function (dc) {
                 $A.setAttr(dc.trigger, "aria-expanded", "false");
               },
-              afterRender: function(dc, container) {
+              afterRender: function (dc, container) {
                 if (dc.trackPage) $A.setPage(dc.id);
-              }
+              },
             };
           },
-          role: function(dc) {
+          role: function (dc) {
             return {
-              role: "region"
+              role: "region",
             };
           },
-          duringRender: function(dc, container) {
+          duringRender: function (dc, container) {
             $A.setAttr(dc.triggerNode, "aria-expanded", "true");
             if (!dc.isToggle)
               $A.setAttr(dc.triggerNode, "aria-disabled", "true");
           },
-          beforeRemove: function(dc, container) {
+          beforeRemove: function (dc, container) {
             $A.setAttr(dc.triggerNode, "aria-expanded", "false");
             if (!dc.isToggle)
               $A.setAttr(dc.triggerNode, "aria-disabled", "false");
-          }
+          },
         });
 
         $A.extend({
-          setAccordion: function(o, config) {
+          setAccordion: function (o, config) {
             if (this._4X) {
               config = o;
               o = this._X;
@@ -75,7 +75,7 @@ Required dependencies: RovingTabIndex.js
               active = [],
               startIndex = 0;
 
-            $A.loop(triggers, function(i, o) {
+            $A.loop(triggers, function (i, o) {
               if (
                 !$A.isNative(o) &&
                 ["button", "link"].indexOf(
@@ -90,7 +90,7 @@ Required dependencies: RovingTabIndex.js
                   $A.extend(
                     {
                       widgetType: "Accordion",
-                      root: panelContainer
+                      root: panelContainer,
                     },
                     config || {}
                   )
@@ -103,7 +103,7 @@ Required dependencies: RovingTabIndex.js
             });
 
             $A.map({
-              siblings: dcArray
+              siblings: dcArray,
             });
             $A.updateDisabled(dcArray);
 
@@ -116,18 +116,18 @@ Required dependencies: RovingTabIndex.js
                     orientation: 2,
                     autoSwitch: config.autoSwitch || "full",
                     autoLoop: true,
-                    onClick: function(ev, triggerNode, RTI, DC) {
+                    onClick: function (ev, triggerNode, RTI, DC) {
                       DC.render();
                       ev.preventDefault();
                     },
-                    onSpace: function(ev, triggerNode, RTI, DC) {
+                    onSpace: function (ev, triggerNode, RTI, DC) {
                       DC.render();
                       ev.preventDefault();
                     },
-                    onEnter: function(ev, triggerNode, RTI, DC) {
+                    onEnter: function (ev, triggerNode, RTI, DC) {
                       DC.render();
                       ev.preventDefault();
-                    }
+                    },
                   },
                   config.extendRTI || {}
                 )
@@ -136,16 +136,16 @@ Required dependencies: RovingTabIndex.js
             if (!$A.hasHash(dcArray))
               $A.loop(
                 active,
-                function(i, dc) {
+                function (i, dc) {
                   dc.render();
                 },
                 "array"
               );
 
             return dcArray.length === 1 ? dcArray[0] : dcArray;
-          }
+          },
         });
-      }
+      },
     });
   }
 })();

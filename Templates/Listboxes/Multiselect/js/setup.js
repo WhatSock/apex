@@ -1,9 +1,9 @@
-$A.import("Listbox", { defer: true }, function() {
+$A.import("Listbox", { defer: true }, function () {
   var myListbox = $A.setListbox("#standardSelectId", {
     label: "Select one or more of your favorite things",
     listbox: "#listboxId",
     multiselect: true,
-    onActivate: function(ev, triggerNode, RTI, boundElement, selected, set) {
+    onActivate: function (ev, triggerNode, RTI, boundElement, selected, set) {
       // 'selected' reflects the current attribute value for the selectable item, and is always a number if applicable.
       // if 0, the selected state is "false".
       // if 1, the selected state is "true".
@@ -18,6 +18,6 @@ $A.import("Listbox", { defer: true }, function() {
     extendRTI: {
       // Interaction event Handlers to be added to each focusable role=option node.
       // See /Help/$A API/ARIA Methods/RovingTabIndex for help.
-    }
+    },
   });
 });

@@ -1,4 +1,4 @@
-$A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
+$A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
   // Create a new ARIA Combobox instance
   var myAuthorCombobox = new $A.Combobox({
     select: $A.get("authors"),
@@ -6,23 +6,23 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
     delay: 200,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, wrapper, next) {
+      onRender: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeIn", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
       },
-      onRemove: function(dc, wrapper, next) {
+      onRemove: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeOut", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
-      }
-    }
+      },
+    },
   });
 
   // Disable auto population of default value
@@ -45,11 +45,11 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   // Set a positive or negative top/left offset to be applied to the autoPosition property calculation
   myAuthorCombobox.setOffset({
     top: 7,
-    left: 30
+    left: 30,
   });
 
   // Process every time a new value is saved
-  myAuthorCombobox.onSelect(function(
+  myAuthorCombobox.onSelect(function (
     optionText,
     selectedOptionNodes,
     comboboxElement,
@@ -57,7 +57,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   ) {
     var values = [],
       insertionPoint = $A.get("insertionPoint");
-    $A.query(selectedOptionNodes, function(i, o) {
+    $A.query(selectedOptionNodes, function (i, o) {
       values.push(o.value);
     });
 
@@ -82,7 +82,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
 
   // Dynamically toggle help text for desktops that support dual touch and keyboard interaction.
   if (window.device.type === "desktop") {
-    $A.on("toggletouch", function(ev) {
+    $A.on("toggletouch", function (ev) {
       myAuthorCombobox.setPromptText(
         $A.isTouch
           ? ""
@@ -104,17 +104,17 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   var mobileCloseIcon = $A.get("mobileCloseIcon");
 
   // Process after the suggestion window is opened
-  myAuthorCombobox.onOpen(function(dc) {
+  myAuthorCombobox.onOpen(function (dc) {
     $A.remClass(mobileCloseIcon, "hidden");
   });
 
   // Process after the suggestion window is closed
-  myAuthorCombobox.onClose(function(dc) {
+  myAuthorCombobox.onClose(function (dc) {
     $A.addClass(mobileCloseIcon, "hidden");
   });
 
   // Add a click handler to the Close icon
-  $A.on(mobileCloseIcon, "click", function(ev) {
+  $A.on(mobileCloseIcon, "click", function (ev) {
     myAuthorCombobox.close();
   });
 
@@ -122,19 +122,19 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   myAuthorCombobox.start();
 
   $A.on("#clearAll", {
-    click: function(ev) {
+    click: function (ev) {
       // Clear all of the selected options.
       myAuthorCombobox.clearAll();
       $A.get("insertionPoint").innerHTML = "";
       myAuthorCombobox.combobox.focus();
       ev.preventDefault();
-    }
+    },
   });
 
-  $A.on("#authrBtn", "click", function(ev) {
+  $A.on("#authrBtn", "click", function (ev) {
     var values = [],
       selectedMatches = myAuthorCombobox.getValue();
-    $A.query(selectedMatches, function(i, o) {
+    $A.query(selectedMatches, function (i, o) {
       values.push(o.value);
     });
     alert(

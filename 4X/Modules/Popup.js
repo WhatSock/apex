@@ -5,10 +5,10 @@ Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
 */
 
-(function() {
+(function () {
   if (!("setPopup" in $A)) {
     $A.addWidgetProfile("Popup", {
-      configure: function(dc) {
+      configure: function (dc) {
         return {
           announce: true,
           isAlert: false,
@@ -25,30 +25,30 @@ License: MIT (https://opensource.org/licenses/MIT)
           className: "popup",
           escToClose: true,
           on: "click",
-          click: function(ev, dc) {
+          click: function (ev, dc) {
             ev.stopPropagation();
           },
-          onCreate: function(dc) {
+          onCreate: function (dc) {
             $A.setAttr(dc.trigger, "aria-expanded", "false");
-          }
+          },
         };
       },
-      role: function(dc) {
+      role: function (dc) {
         return {
           role: "region",
-          "aria-label": dc.role
+          "aria-label": dc.role,
         };
       },
-      afterRender: function(dc, container) {
+      afterRender: function (dc, container) {
         $A.setAttr(dc.triggerNode, "aria-expanded", "true");
       },
-      afterRemove: function(dc, container) {
+      afterRemove: function (dc, container) {
         $A.setAttr(dc.triggerNode, "aria-expanded", "false");
-      }
+      },
     });
 
     $A.extend({
-      setPopup: function(o, config) {
+      setPopup: function (o, config) {
         if (this._4X) {
           config = o;
           o = this._X;
@@ -61,13 +61,13 @@ License: MIT (https://opensource.org/licenses/MIT)
         if (!o) return null;
 
         var dcArray = [];
-        $A.query(o, config.context || document, function(i, o) {
+        $A.query(o, config.context || document, function (i, o) {
           $A.svgFix(o);
           dcArray.push(
             $A(o).toDC(
               $A.extend(
                 {
-                  widgetType: "Popup"
+                  widgetType: "Popup",
                 },
                 config || {}
               )
@@ -76,7 +76,7 @@ License: MIT (https://opensource.org/licenses/MIT)
         });
 
         return dcArray.length === 1 ? dcArray[0] : dcArray;
-      }
+      },
     });
   }
 })();

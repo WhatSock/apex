@@ -7,15 +7,15 @@ License: MIT (https://opensource.org/licenses/MIT)
 Required dependencies: RovingTabIndex.js
   */
 
-(function() {
+(function () {
   if (!("setMenu" in $A)) {
     $A.import("RovingTabIndex", {
       name: "MenuModule",
       props: props,
       once: true,
-      call: function(props) {
+      call: function (props) {
         $A.addWidgetProfile("Menu", {
-          configure: function(dc) {
+          configure: function (dc) {
             return {
               horizontalHelpTip:
                 "To move through items, press left or right arrow.",
@@ -29,21 +29,21 @@ Required dependencies: RovingTabIndex.js
               preloadCSS: true,
               className: "menu",
               escToClose: true,
-              click: function(ev, dc) {
+              click: function (ev, dc) {
                 ev.stopPropagation();
               },
-              storeData: true
+              storeData: true,
             };
           },
-          role: function(dc) {
+          role: function (dc) {
             return {
               role: "menu",
-              "aria-orientation": $A.getOrientation(dc.RTI.nodes).orientation
+              "aria-orientation": $A.getOrientation(dc.RTI.nodes).orientation,
             };
           },
-          afterRender: function(dc) {
+          afterRender: function (dc) {
             if (!$A.isTouch) {
-              setTimeout(function() {
+              setTimeout(function () {
                 $A.announce(
                   dc[
                     dc.getAttr("aria-orientation") === "horizontal"
@@ -54,21 +54,21 @@ Required dependencies: RovingTabIndex.js
               }, 1);
             }
           },
-          beforeRemove: function(dc) {
+          beforeRemove: function (dc) {
             $A.loop(
               dc.RTI.children,
-              function(i, o) {
+              function (i, o) {
                 o.DC.remove();
               },
               "map"
             );
-          }
+          },
         });
 
         var isIE = $A.isIE();
 
         $A.extend({
-          setMenu: function(o, config) {
+          setMenu: function (o, config) {
             if (this._4X) {
               config = o;
               o = this._X;
@@ -87,11 +87,11 @@ Required dependencies: RovingTabIndex.js
                 {
                   parent: "ul",
                   child: "a",
-                  parse: function(ref) {
+                  parse: function (ref) {
                     if (isIE) {
                       var mItems = [];
-                      $A.query(ref.children, function(i, o) {
-                        var c = $A.first(o, function(e) {
+                      $A.query(ref.children, function (i, o) {
+                        var c = $A.first(o, function (e) {
                           if (e.nodeName.toLowerCase() === tag.child)
                             return true;
                         });
@@ -100,11 +100,11 @@ Required dependencies: RovingTabIndex.js
                       return mItems;
                     } else
                       return ref.querySelectorAll(":scope > * > " + tag.child);
-                  }
+                  },
                 },
                 config.tag || {}
               ),
-              getState = function(
+              getState = function (
                 o,
                 attributeValue,
                 hasAttribute,
@@ -122,7 +122,7 @@ Required dependencies: RovingTabIndex.js
                     if (isRadio && $A.isArray(nodes))
                       $A.loop(
                         nodes,
-                        function(i, n) {
+                        function (i, n) {
                           if ($A.hasAttr(n, "aria-checked") && n !== o)
                             $A.setAttr(n, "aria-checked", "false");
                         },
@@ -137,12 +137,12 @@ Required dependencies: RovingTabIndex.js
                 }
                 return false;
               },
-              genMenu = function(o, p, list) {
+              genMenu = function (o, p, list) {
                 if (!$A.isNode(o)) return;
                 var ref =
                   list ||
                   $A.getAttr(o, "data-menu") ||
-                  $A.next(o, function(e) {
+                  $A.next(o, function (e) {
                     if (e.nodeName.toLowerCase() === tag.parent) return true;
                   });
                 ref = $A.morph(ref);
@@ -161,7 +161,7 @@ Required dependencies: RovingTabIndex.js
                       widgetType: "Menu",
                       autoCloseSameWidget: true,
                       toggleHide: true,
-                      getState: getState
+                      getState: getState,
                     },
                     config
                   )
@@ -169,7 +169,7 @@ Required dependencies: RovingTabIndex.js
 
                 if (p)
                   DC.map({
-                    parent: p.DC
+                    parent: p.DC,
                   });
 
                 DC.RTI = new $A.RovingTabIndex(
@@ -183,7 +183,7 @@ Required dependencies: RovingTabIndex.js
                       orientation: 2,
                       autoSwitch: config.autoSwitch || "semi",
                       autoLoop: true,
-                      onOpen: function(ev, triggerNode, RTI, DC, arrowKey) {
+                      onOpen: function (ev, triggerNode, RTI, DC, arrowKey) {
                         var that = this,
                           isDisabled = $A.isDisabled(that),
                           check = getState(triggerNode);
@@ -203,7 +203,7 @@ Required dependencies: RovingTabIndex.js
                             RTI,
                             DC || $A.boundTo(triggerNode),
                             check,
-                            function(attributeValue) {
+                            function (attributeValue) {
                               var r = $A.getAttr(triggerNode, "role"),
                                 isRadio = ["menuitemradio"].indexOf(r) !== -1,
                                 isCheckbox =
@@ -217,22 +217,22 @@ Required dependencies: RovingTabIndex.js
                                   isRadio ? RTI.nodes : null
                                 );
                             },
-                            $A.getAttr(triggerNode, "role") === "menuitemradio"
+                            $A.getAttr(triggerNode, "role") === "menuitemradio",
                           ]);
                         }
                       },
-                      onSpace: function(ev, triggerNode, RTI, DC) {
+                      onSpace: function (ev, triggerNode, RTI, DC) {
                         if ($A.isDC(DC)) DC.render();
                         ev.preventDefault();
                       },
-                      onEnter: function(ev, triggerNode, RTI, DC) {
+                      onEnter: function (ev, triggerNode, RTI, DC) {
                         if ($A.isDC(DC)) DC.render();
                         ev.preventDefault();
                       },
-                      onClose: function(ev, triggerNode, RTI, DC, arrowKey) {
+                      onClose: function (ev, triggerNode, RTI, DC, arrowKey) {
                         if ($A.isDC(RTI.DC) && RTI.parent)
-                          RTI.DC.remove(function() {
-                            setTimeout(function() {
+                          RTI.DC.remove(function () {
+                            setTimeout(function () {
                               $A.announce(
                                 RTI.parent.DC[
                                   RTI.parent.DC.getAttr("aria-orientation") ===
@@ -245,18 +245,18 @@ Required dependencies: RovingTabIndex.js
                           });
                         ev.preventDefault();
                       },
-                      onEsc: function(ev, triggerNode, RTI, DC) {
+                      onEsc: function (ev, triggerNode, RTI, DC) {
                         if ($A.isDC(RTI.DC)) RTI.DC.remove();
                         ev.preventDefault();
                       },
-                      onShiftTab: function(ev, triggerNode, RTI, DC) {
+                      onShiftTab: function (ev, triggerNode, RTI, DC) {
                         if ($A.isDC(RTI.DC)) RTI.DC.top.remove();
                         ev.preventDefault();
                       },
-                      onTab: function(ev, triggerNode, RTI, DC) {
+                      onTab: function (ev, triggerNode, RTI, DC) {
                         if ($A.isDC(RTI.DC)) RTI.DC.top.remove();
                         ev.preventDefault();
-                      }
+                      },
                     },
                     config.extendRTI || {}
                   )
@@ -264,7 +264,7 @@ Required dependencies: RovingTabIndex.js
 
                 $A.loop(
                   mItems,
-                  function(i, o) {
+                  function (i, o) {
                     genMenu(o, DC.RTI);
                     var radio = getState(
                         o,
@@ -284,7 +284,7 @@ Required dependencies: RovingTabIndex.js
                       if (n && n.checked) radio = 1;
                       $A.setAttr(o, {
                         role: "menuitemradio",
-                        "aria-checked": radio ? "true" : "false"
+                        "aria-checked": radio ? "true" : "false",
                       });
                     } else if ($A.isNum(check)) {
                       if (n && n.checked) check = 1;
@@ -293,13 +293,13 @@ Required dependencies: RovingTabIndex.js
                       else if (check === 2) c = "mixed";
                       $A.setAttr(o, {
                         role: "menuitemcheckbox",
-                        "aria-checked": c
+                        "aria-checked": c,
                       });
                     } else $A.setAttr(o, "role", "menuitem");
                     if (radio !== false || check !== false) {
                       $A(o).on(
                         "attributeChange",
-                        function(
+                        function (
                           MutationObject,
                           o,
                           attributeName,
@@ -314,11 +314,11 @@ Required dependencies: RovingTabIndex.js
                           }
                         },
                         {
-                          attributeFilter: ["aria-checked"]
+                          attributeFilter: ["aria-checked"],
                         }
                       );
                     }
-                    $A.closest(o, function(o) {
+                    $A.closest(o, function (o) {
                       if (o === ref) return true;
                       $A.setAttr(o, "role", "presentation");
                     });
@@ -333,17 +333,17 @@ Required dependencies: RovingTabIndex.js
 
             var DC = null;
 
-            $A.query(o, config.context || document, function(i, o) {
-              var gen = function(m) {
+            $A.query(o, config.context || document, function (i, o) {
+              var gen = function (m) {
                 DC = genMenu(o, null, m);
-                $A.on(window.document, "click.closemenus", function() {
+                $A.on(window.document, "click.closemenus", function () {
                   DC.top.remove();
                 });
                 if (!config.rightClick) config.leftClick = true;
                 var e;
                 if (config.leftClick) {
                   e = {
-                    keydown: function(ev, dc) {
+                    keydown: function (ev, dc) {
                       var k = $A.keyEvent(ev);
                       if (k === 40 || k === 13 || k === 32) {
                         dc.render();
@@ -351,19 +351,19 @@ Required dependencies: RovingTabIndex.js
                         ev.preventDefault();
                       }
                     },
-                    click: function(ev, dc) {
+                    click: function (ev, dc) {
                       dc.render();
                       ev.stopPropagation();
                       ev.preventDefault();
-                    }
+                    },
                   };
                 }
                 if (config.rightClick) {
                   e = {
-                    contextmenu: function(ev, dc) {
+                    contextmenu: function (ev, dc) {
                       ev.preventDefault();
                     },
-                    mouseup: function(ev, dc) {
+                    mouseup: function (ev, dc) {
                       var btn = -1;
                       if (!$A.isNum(ev.which))
                         btn = ev.button < 2 ? 1 : ev.button === 4 ? 3 : 2;
@@ -373,13 +373,13 @@ Required dependencies: RovingTabIndex.js
                         ev.preventDefault();
                       }
                     },
-                    keydown: function(ev, dc) {
+                    keydown: function (ev, dc) {
                       var k = $A.keyEvent(ev);
                       if (k === 93 || (ev.shiftKey && k === 121)) {
                         dc.render();
                         ev.preventDefault();
                       }
-                    }
+                    },
                   };
                 }
                 $A.on(o, e);
@@ -401,9 +401,9 @@ Required dependencies: RovingTabIndex.js
                   p,
                   d,
                   {
-                    selector: s
+                    selector: s,
                   },
-                  function(c) {
+                  function (c) {
                     main = c;
                     gen(main);
                   }
@@ -414,9 +414,9 @@ Required dependencies: RovingTabIndex.js
             });
 
             return $A._XR.call(this, DC);
-          }
+          },
         });
-      }
+      },
     });
   }
 })();

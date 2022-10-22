@@ -7,16 +7,16 @@ License: MIT (https://opensource.org/licenses/MIT)
 Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
 */
 
-(function() {
+(function () {
   var debug = true;
   if (!("setDrag" in $A)) {
     $A.import(["Animate", "Menu", "Dragula.css", "Dragula"], {
       name: "DragModule",
       once: true,
       props: props,
-      call: function(props) {
+      call: function (props) {
         $A.extend({
-          setDrag: function(config) {
+          setDrag: function (config) {
             config = $A.extend(
               true,
               {
@@ -24,16 +24,16 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                 sort: false,
                 dragula: {
                   revertOnSpill: true,
-                  invalid: function(el, handle) {
+                  invalid: function (el, handle) {
                     return false; // don't prevent any drags from initiating by default
                   },
-                  accepts: function(el, target, source, sibling) {
+                  accepts: function (el, target, source, sibling) {
                     if (isSort) return true;
                     return source !== target; // Prevent source from referencing itself as a drop target by default unless sortable is true.
-                  }
+                  },
                 },
                 menu: {
-                  manualDrop: function(
+                  manualDrop: function (
                     dragElement,
                     target,
                     source,
@@ -48,36 +48,31 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                     button:
                       '<a aria-label="Actions" class="aria-action-menu-button">&darr;</a>',
                     menu: '<ul hidden class="drag top menu"></ul>',
-                    move:
-                      '<li><a data-action="move" class="menu-action move">Move to %DROPNAME%</a></li>',
-                    copy:
-                      '<li><a data-action="copy" class="menu-action copy">Copy to %DROPNAME%</a></li>',
-                    up:
-                      '<li><a data-action="up" class="menu-action up">Move Up</a></li>',
-                    left:
-                      '<li><a data-action="up" class="menu-action left">Move Left</a></li>',
-                    down:
-                      '<li><a data-action="down" class="menu-action down">Move Down</a></li>',
+                    move: '<li><a data-action="move" class="menu-action move">Move to %DROPNAME%</a></li>',
+                    copy: '<li><a data-action="copy" class="menu-action copy">Copy to %DROPNAME%</a></li>',
+                    up: '<li><a data-action="up" class="menu-action up">Move Up</a></li>',
+                    left: '<li><a data-action="up" class="menu-action left">Move Left</a></li>',
+                    down: '<li><a data-action="down" class="menu-action down">Move Down</a></li>',
                     right:
                       '<li><a data-action="down" class="menu-action right">Move Right</a></li>',
                     custom: [],
                     customActivate: null,
-                    invalid: function(el, action, source, target) {
+                    invalid: function (el, action, source, target) {
                       return false;
-                    }
-                  }
-                }
+                    },
+                  },
+                },
               },
               config
             );
 
             var isCopy = config.dragula.copy || false,
               isSort = config.sort || config.dragula.copySortSource || false,
-              build = function(el, sourceContainer, containers) {
+              build = function (el, sourceContainer, containers) {
                 if ($A.isArray(el)) {
                   $A.loop(
                     el,
-                    function(i, e) {
+                    function (i, e) {
                       build(e, sourceContainer, containers);
                     },
                     "array"
@@ -96,7 +91,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                   menu: $A.morph(config.menu.tag.menu),
                   children: [],
                   dragElement: el,
-                  sourceContainer: sourceContainer
+                  sourceContainer: sourceContainer,
                 };
                 if (isSort) {
                   var orient = $A.getOrientation(sourceContainer.children),
@@ -117,7 +112,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                 }
                 $A.loop(
                   containers,
-                  function(i, o) {
+                  function (i, o) {
                     var dn = ($A.getAttr(o, "data-dropname") || "").replace(
                       /<|>/g,
                       ""
@@ -145,7 +140,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                 );
                 $A.loop(
                   config.menu.tag.custom,
-                  function(i, m) {
+                  function (i, m) {
                     var mItem = $A.morph(m);
                     if (
                       !config.menu.tag.invalid(
@@ -166,7 +161,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                 $A.setKBA11Y(actions.button, "button");
                 $A(actions.button).on(
                   "click mousedown mouseup mousemove touchstart touchend touchmove",
-                  function(ev) {
+                  function (ev) {
                     ev.stopPropagation();
                   }
                 );
@@ -176,7 +171,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                     true,
                     {
                       toggleHide: true,
-                      onActivate: function(
+                      onActivate: function (
                         ev,
                         triggerNode,
                         RTI,
@@ -189,7 +184,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                           triggerNode.parentNode,
                           "DropContainer"
                         );
-                        RTI.DC.top.remove(function() {
+                        RTI.DC.top.remove(function () {
                           var prevSibling = $A.previous(actions.dragElement),
                             nextSibling = $A.next(actions.dragElement),
                             next = nextSibling || sourceContainer,
@@ -205,7 +200,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                               dropContainer,
                               sourceContainer,
                               nextSibling,
-                              function() {
+                              function () {
                                 if (
                                   !config.menu.manualDrop(
                                     actions.dragElement,
@@ -245,7 +240,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                               dropContainer,
                               sourceContainer,
                               nextSibling,
-                              function() {
+                              function () {
                                 if (
                                   !config.menu.manualDrop(
                                     actions.dragElement,
@@ -295,44 +290,44 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                         });
                       },
                       animate: {
-                        onRender: function(dc, wrapper, next) {
+                        onRender: function (dc, wrapper, next) {
                           Velocity(wrapper, "transition.slideUpIn", {
-                            complete: function() {
+                            complete: function () {
                               // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                               next();
-                            }
+                            },
                           });
                         },
-                        onRemove: function(dc, wrapper, next) {
+                        onRemove: function (dc, wrapper, next) {
                           Velocity(wrapper, "transition.slideUpOut", {
-                            complete: function() {
+                            complete: function () {
                               // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                               next();
-                            }
+                            },
                           });
-                        }
+                        },
                       },
-                      click: function(ev, dc) {
+                      click: function (ev, dc) {
                         ev.stopPropagation();
                       },
-                      mouseDown: function(ev, dc) {
+                      mouseDown: function (ev, dc) {
                         ev.stopPropagation();
                       },
-                      mouseUp: function(ev, dc) {
+                      mouseUp: function (ev, dc) {
                         ev.stopPropagation();
                       },
-                      mouseMove: function(ev, dc) {
+                      mouseMove: function (ev, dc) {
                         ev.stopPropagation();
                       },
-                      touchStart: function(ev, dc) {
+                      touchStart: function (ev, dc) {
                         ev.stopPropagation();
                       },
-                      touchEnd: function(ev, dc) {
+                      touchEnd: function (ev, dc) {
                         ev.stopPropagation();
                       },
-                      touchMove: function(ev, dc) {
+                      touchMove: function (ev, dc) {
                         ev.stopPropagation();
-                      }
+                      },
                     },
                     config.menu
                   )
@@ -340,19 +335,19 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                 $A.data(el, "actions", actions);
               },
               drake = dragula(config.dragula)
-                .on("beforeClone", function(el) {
+                .on("beforeClone", function (el) {
                   build(el);
                 })
-                .on("drop", function(el, target, source, sibling, manual) {
+                .on("drop", function (el, target, source, sibling, manual) {
                   if ($A.isFn(manual)) manual();
                 })
-                .on("dragend", function(el) {
+                .on("dragend", function (el) {
                   generateMenus();
                 }),
-              generateMenus = function() {
+              generateMenus = function () {
                 $A.loop(
                   drake.containers,
-                  function(i, c) {
+                  function (i, c) {
                     build(c.children, c, drake.containers);
                   },
                   "array"
@@ -362,13 +357,13 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
 
             return drake;
           },
-          unsetDrag: function(drake) {
+          unsetDrag: function (drake) {
             $A.loop(
               drake.containers,
-              function(i, c) {
+              function (i, c) {
                 $A.loop(
                   c.children,
-                  function(i, el) {
+                  function (i, el) {
                     var actions = $A.data(el, "actions");
                     if (actions) {
                       $A.remove(actions.button);
@@ -382,9 +377,9 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
               "array"
             );
             drake.destroy();
-          }
+          },
         });
-      }
+      },
     });
   }
 })();

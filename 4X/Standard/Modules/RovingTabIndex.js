@@ -7,10 +7,10 @@ License: MIT (https://opensource.org/licenses/MIT)
 Required dependencies: AccName.js
 */
 
-(function() {
+(function () {
   if (!("RovingTabIndex" in $A)) {
     $A.extend({
-      RovingTabIndex: function(config) {
+      RovingTabIndex: function (config) {
         var that = this;
         that.typed = "";
         that.lastTyped = "";
@@ -40,7 +40,7 @@ Required dependencies: AccName.js
 
         $A.loop(
           config,
-          function(n, f) {
+          function (n, f) {
             if (n.slice(0, 2) === "on" && $A.isFn(f)) that[n] = f;
           },
           "object"
@@ -62,11 +62,11 @@ Required dependencies: AccName.js
             vertical:
               config.breakPoint.vertical > 1 ? config.breakPoint.vertical : 0,
             horizontalStop: config.breakPoint.horizontalStop ? true : false,
-            verticalStop: config.breakPoint.verticalStop ? true : false
+            verticalStop: config.breakPoint.verticalStop ? true : false,
           };
         } else that.breakPoint = false;
 
-        that.activate = function(i) {
+        that.activate = function (i) {
           var inst = that;
           if ($A.isNum(i)) {
             i = that.nodes[i] || null;
@@ -80,9 +80,9 @@ Required dependencies: AccName.js
           inst.index = $A.data(i, "RTI-Index");
           $A.loop(
             inst.nodes,
-            function(a, n) {
+            function (a, n) {
               $A.setAttr(n, {
-                tabindex: i === n ? 0 : -1
+                tabindex: i === n ? 0 : -1,
               });
             },
             "array"
@@ -90,7 +90,7 @@ Required dependencies: AccName.js
           return inst;
         };
 
-        that.setFocus = function(ev, instance, isClick) {
+        that.setFocus = function (ev, instance, isClick) {
           instance = instance || that;
           var l = this;
           instance.activate(l);
@@ -98,7 +98,7 @@ Required dependencies: AccName.js
           return instance;
         };
 
-        that.focus = function(i) {
+        that.focus = function (i) {
           var inst = that;
           if ($A.isNum(i)) {
             i = that.nodes[i] || null;
@@ -114,12 +114,12 @@ Required dependencies: AccName.js
           return inst;
         };
 
-        that.off = function() {
+        that.off = function () {
           $A.off(that.nodes, ".RovingTabIndex");
           return that;
         };
 
-        that.on = function() {
+        that.on = function () {
           var grid = [],
             oI = 0,
             gI = 0,
@@ -132,7 +132,7 @@ Required dependencies: AccName.js
 
           $A.loop(
             that.nodes,
-            function(i, o) {
+            function (i, o) {
               $A.data(o, "RTI", that);
               $A.data(o, "RTI-Index", i);
               $A.data(
@@ -153,7 +153,7 @@ Required dependencies: AccName.js
                 map.set(o, {
                   i: i,
                   x: oI,
-                  y: gI
+                  y: gI,
                 });
                 max = gI;
                 if (that.breakPoint.horizontal === oI) {
@@ -163,18 +163,18 @@ Required dependencies: AccName.js
               }
 
               var pressed = {},
-                changePressed = function(ev) {
+                changePressed = function (ev) {
                   pressed.alt = ev.altKey;
                   pressed.ctrl = ev.ctrlKey;
                   pressed.shift = ev.shiftKey;
                 };
 
-              var fire = function(keys, ev, o, DC, arrowKey) {
+              var fire = function (keys, ev, o, DC, arrowKey) {
                 DC = DC || $A.boundTo(o);
                 var stop = false;
                 $A.loop(
                   keys,
-                  function(i, k) {
+                  function (i, k) {
                     if ($A.isFn(that["on" + k]))
                       var cancel =
                         that["on" + k].call(
@@ -197,7 +197,7 @@ Required dependencies: AccName.js
               $A.on(
                 o,
                 {
-                  click: function(ev, DC) {
+                  click: function (ev, DC) {
                     var child = that.children.get(o),
                       dc = (child && child.DC) || DC;
                     that.index = i;
@@ -214,7 +214,7 @@ Required dependencies: AccName.js
 
                     fire(["Click", "Open"], ev, o, dc, 0);
                   },
-                  touchstart: function(ev, DC) {
+                  touchstart: function (ev, DC) {
                     var child = that.children.get(o),
                       dc = (child && child.DC) || DC;
                     that.index = i;
@@ -231,7 +231,7 @@ Required dependencies: AccName.js
 
                     fire(["TouchStart"], ev, o, dc, 0);
                   },
-                  keydown: function(ev, DC) {
+                  keydown: function (ev, DC) {
                     changePressed(ev);
 
                     if (
@@ -250,7 +250,7 @@ Required dependencies: AccName.js
                       oMap = map.get(o),
                       child = that.children.get(o),
                       dc = (child && child.DC) || DC,
-                      breakPointBack = function() {
+                      breakPointBack = function () {
                         if (
                           that.breakPoint.horizontal &&
                           k === 37 &&
@@ -280,7 +280,7 @@ Required dependencies: AccName.js
                             that.onBounds.apply(o, [ev, o, that, k]);
                         }
                       },
-                      breakPointForward = function() {
+                      breakPointForward = function () {
                         if (
                           that.breakPoint.horizontal &&
                           k === 39 &&
@@ -559,11 +559,11 @@ Required dependencies: AccName.js
                       !pressed.shift
                     ) {
                       if (that.keyReset) clearTimeout(that.keyReset);
-                      that.keyReset = setTimeout(function() {
+                      that.keyReset = setTimeout(function () {
                         that.typed = "";
                       }, 1000);
 
-                      var move = function() {
+                      var move = function () {
                         if (that.lastTyped === k)
                           that.typed = String.fromCharCode(k);
                         else that.typed += String.fromCharCode(k);
@@ -621,7 +621,7 @@ Required dependencies: AccName.js
 
                     fire(keys, ev, o, dc, arrowKey);
                   },
-                  keyup: function(ev, DC) {
+                  keyup: function (ev, DC) {
                     changePressed(ev);
                     var keys = [],
                       child = that.children.get(o),
@@ -670,20 +670,20 @@ Required dependencies: AccName.js
 
                     fire(keys, ev, o, dc, arrowKey);
                   },
-                  focus: function(ev, DC) {
+                  focus: function (ev, DC) {
                     var child = that.children.get(o),
                       dc = (child && child.DC) || DC;
 
                     that.index = i;
                     that.setFocus.apply(that.nodes[that.index], [ev, that]);
                     fire(["Focus"], ev, o, dc, 0);
-                  }
+                  },
                 },
                 ".RovingTabIndex"
               );
 
               $A.setAttr(o, {
-                tabindex: i === that.index ? 0 : -1
+                tabindex: i === that.index ? 0 : -1,
               });
             },
             "array"
@@ -692,11 +692,11 @@ Required dependencies: AccName.js
 
         if (that.isTree) {
           that.top.treeNodes = [];
-          var get = function(nodes, RTI) {
+          var get = function (nodes, RTI) {
             if (nodes.length) {
               $A.loop(
                 nodes,
-                function(i, n) {
+                function (i, n) {
                   var child = RTI.children.get(n),
                     tI = RTI.top.treeNodes.length;
                   $A.data(n, "RTI-TreeIndex", tI);
@@ -713,7 +713,7 @@ Required dependencies: AccName.js
         that.on();
 
         return that;
-      }
+      },
     });
   }
 })();

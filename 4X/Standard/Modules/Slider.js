@@ -7,10 +7,10 @@ License: MIT (https://opensource.org/licenses/MIT)
 Required dependencies: CurrentDevice.js, Dragdealer.js
 */
 
-(function() {
+(function () {
   if (!("Slider" in $A)) {
     $A.extend({
-      Slider: function(o, config) {
+      Slider: function (o, config) {
         if ($A.isPlainObject(o)) {
           config = o;
           o = config.slideBar || null;
@@ -20,15 +20,15 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
         var handle = $A.first(o);
         if (!handle) return null;
         var that = this,
-          getReverseCurrent = function(i) {
+          getReverseCurrent = function (i) {
             return config.max - ($A.isNum(i) ? i : config.current) + 1;
           };
 
-        that.getPercent = function() {
+        that.getPercent = function () {
           return Math.round((config.valueNow / config.valueMax) * 100) + "%";
         };
 
-        that.computeSteps = function() {
+        that.computeSteps = function () {
           config.min = 1;
           if (config.valueMin <= 0) {
             var os = Math.abs(config.valueMin) + 1;
@@ -41,7 +41,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
           config.current = that.getCurrent();
         };
 
-        that.getValue = function(i) {
+        that.getValue = function (i) {
           return Math.round(
             config.valueMin +
               ((config.valueReverse
@@ -53,7 +53,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
           );
         };
 
-        that.getCurrent = function() {
+        that.getCurrent = function () {
           var c = 1;
           if (config.valueMin <= 0) {
             var os = Math.abs(config.valueMin) + 1;
@@ -70,7 +70,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
           return config.valueReverse ? getReverseCurrent(c) : c;
         };
 
-        that.refreshValues = function() {
+        that.refreshValues = function () {
           var dir = config.orientation(o);
           $A.setAttr(handle, {
             "aria-orientation": dir,
@@ -82,7 +82,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
               config.valueMin,
               config.valueMax,
               that
-            )
+            ),
           });
         };
 
@@ -100,12 +100,12 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
             decreaseBtnLabel: "Decrease",
             increaseBtn: ".slider.increase.button",
             increaseBtnLabel: "Increase",
-            orientation: function(o) {
+            orientation: function (o) {
               var d = $A.width(o) > $A.height(o) ? "horizontal" : "vertical";
               config.isVertical = d === "vertical";
               return d;
             },
-            dragStart: function(
+            dragStart: function (
               x,
               y,
               valueNow,
@@ -113,7 +113,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
               valueMax,
               sliderInstance
             ) {},
-            dragging: function(
+            dragging: function (
               x,
               y,
               valueNow,
@@ -121,7 +121,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
               valueMax,
               sliderInstance
             ) {},
-            dragEnd: function(
+            dragEnd: function (
               x,
               y,
               valueNow,
@@ -129,7 +129,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
               valueMax,
               sliderInstance
             ) {},
-            valueChange: function(
+            valueChange: function (
               valueNow,
               valueMin,
               valueMax,
@@ -143,8 +143,8 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
               slide: false,
               loose: false,
               handleClass: "handle",
-              css3: true
-            }
+              css3: true,
+            },
           },
           config || {}
         );
@@ -154,7 +154,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
           "aria-description": $A.isStr(config.description)
             ? config.description
             : " ",
-          tabindex: 0
+          tabindex: 0,
         });
         if ($A.isStr(config.label))
           $A.setAttr(handle, "aria-label", config.label);
@@ -163,7 +163,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
         that.refreshValues();
 
         var init = false,
-          fn = function(c, vn) {
+          fn = function (c, vn) {
             config.valueNow = Math.round(vn);
             $A.setAttr(handle, {
               "aria-valuenow": config.valueNow,
@@ -172,7 +172,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
                 config.valueMin,
                 config.valueMax,
                 that
-              )
+              ),
             });
           },
           dd = new Dragdealer(
@@ -188,12 +188,12 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
                 bottom: 0,
                 left: 0,
                 right: 0,
-                callback: function(x, y) {
+                callback: function (x, y) {
                   var c = this.getStep()[config.isVertical ? 1 : 0],
                     vn = that.getValue(c);
                   fn(c, vn);
                 },
-                dragStartCallback: function(x, y) {
+                dragStartCallback: function (x, y) {
                   this.options.dragging = true;
                   config.dragStart.call(
                     that,
@@ -205,11 +205,10 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
                     that
                   );
                 },
-                dragStopCallback: function(x, y) {
+                dragStopCallback: function (x, y) {
                   this.options.dragging = false;
-                  var c = (config.current = this.getStep()[
-                      config.isVertical ? 1 : 0
-                    ]),
+                  var c = (config.current =
+                      this.getStep()[config.isVertical ? 1 : 0]),
                     vn = that.getValue(c);
                   fn(c, vn);
                   config.dragEnd.call(
@@ -222,7 +221,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
                     that
                   );
                 },
-                animationCallback: function(x, y) {
+                animationCallback: function (x, y) {
                   if (init && this.options.dragging) {
                     var c = this.getStep()[config.isVertical ? 1 : 0],
                       vn = that.getValue(c);
@@ -238,7 +237,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
                       that
                     );
                   }
-                }
+                },
               },
               config.dragdealer || {}
             )
@@ -247,68 +246,68 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
 
         that.dd = dd;
 
-        that.disable = function(b) {
+        that.disable = function (b) {
           dd[b ? "disable" : "enable"]();
           $A.setAttr(handle, {
             "aria-disabled": b ? "true" : "false",
-            tabindex: b ? -1 : 0
+            tabindex: b ? -1 : 0,
           });
         };
 
-        that.setMin = function(i) {
+        that.setMin = function (i) {
           if ($A.isNum(i)) config.valueMin = i;
           that.computeSteps();
           that.refreshValues();
         };
 
-        that.setMax = function(i) {
+        that.setMax = function (i) {
           if ($A.isNum(i)) config.valueMax = i;
           that.computeSteps();
           that.refreshValues();
         };
 
-        that.setValue = function(i) {
+        that.setValue = function (i) {
           if ($A.isNum(i)) config.valueNow = Math.round(i);
           config.current = that.getCurrent();
           if (config.isVertical) dd.setStep(1, config.current);
           else dd.setStep(config.current, 1);
         };
 
-        that.setCurrent = function(i) {
+        that.setCurrent = function (i) {
           if ($A.isNum(i)) config.current = Math.round(i);
           config.valueNow = that.getValue();
           if (config.isVertical) dd.setStep(1, config.current);
           else dd.setStep(config.current, 1);
         };
 
-        that.setValueChange = function(f) {
+        that.setValueChange = function (f) {
           if ($A.isFn(f)) config.valueChange = f;
           that.refreshValues();
         };
 
-        that.back = function(m) {
+        that.back = function (m) {
           if (config.current > config.min) that.setCurrent(config.current - 1);
         };
 
-        that.next = function(m) {
+        that.next = function (m) {
           if (config.current < config.max) that.setCurrent(config.current + 1);
         };
 
-        that.home = function(m) {
+        that.home = function (m) {
           that.setCurrent(config.min);
         };
 
-        that.end = function(m) {
+        that.end = function (m) {
           that.setCurrent(config.max);
         };
 
-        that.pageDown = function(m) {
+        that.pageDown = function (m) {
           var r = config.current - Math.round(config.max * 0.1);
           config.current = r < config.min ? config.min : r;
           that.setCurrent(config.current);
         };
 
-        that.pageUp = function(m) {
+        that.pageUp = function (m) {
           var r = config.current + Math.round(config.max * 0.1);
           config.current = r > config.max ? config.max : r;
           that.setCurrent(config.current);
@@ -317,7 +316,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
         $A.on(
           handle,
           {
-            keydown: function(ev) {
+            keydown: function (ev) {
               var k = $A.keyEvent(ev);
               if ((k >= 37 && k <= 40) || (k >= 33 && k <= 36)) {
                 dd.options.kb = true;
@@ -340,10 +339,10 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
                 ev.preventDefault();
               }
             },
-            keyup: function(ev) {},
-            touchstart: function(ev) {
+            keyup: function (ev) {},
+            touchstart: function (ev) {
               dd.options.touched = true;
-            }
+            },
           },
           ".ariaslider"
         );
@@ -356,7 +355,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
           $A(config.slideBar.parentNode.querySelector(config.decreaseBtn))
             .on(
               "click",
-              function(ev) {
+              function (ev) {
                 that.back();
                 ev.stopPropagation();
                 ev.preventDefault();
@@ -366,13 +365,13 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
             .setAttr({
               role: "button",
               "aria-label": config.decreaseBtnLabel,
-              "aria-description": config.label
+              "aria-description": config.label,
             });
 
           $A(config.slideBar.parentNode.querySelector(config.increaseBtn))
             .on(
               "click",
-              function(ev) {
+              function (ev) {
                 that.next();
                 ev.stopPropagation();
                 ev.preventDefault();
@@ -382,7 +381,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
             .setAttr({
               role: "button",
               "aria-label": config.increaseBtnLabel,
-              "aria-description": config.label
+              "aria-description": config.label,
             });
         }
 
@@ -392,7 +391,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
           that.disable(true);
 
         return that;
-      }
+      },
     });
   }
 })();

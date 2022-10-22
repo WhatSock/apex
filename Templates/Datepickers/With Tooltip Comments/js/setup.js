@@ -1,4 +1,4 @@
-$A.import(["Animate", "Datepicker"], { defer: true }, function() {
+$A.import(["Animate", "Datepicker"], { defer: true }, function () {
   var bc = $A.setDatepicker({
     // Unique ID for the date picker instance
     // After instantiation, can be referenced using: var DC = $A("UniqueCalendarId");
@@ -13,25 +13,25 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function() {
     style: {
       position: "absolute",
       zIndex: 1,
-      display: "none"
+      display: "none",
     },
     animate: {
-      onRender: function(dc, wrapper, next) {
+      onRender: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeIn", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
       },
-      onRemove: function(dc, wrapper, next) {
+      onRemove: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeOut", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
-      }
+      },
     },
 
     // Set class for the calendar container
@@ -50,28 +50,28 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function() {
         offsetLeft: 0,
         style: { position: "absolute", zIndex: 1, display: "none" },
         animate: {
-          onRender: function(dc, wrapper, next) {
+          onRender: function (dc, wrapper, next) {
             Velocity(wrapper, "transition.fadeIn", {
-              complete: function() {
+              complete: function () {
                 // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                 next();
-              }
+              },
             });
           },
-          onRemove: function(dc, wrapper, next) {
+          onRemove: function (dc, wrapper, next) {
             Velocity(wrapper, "transition.fadeOut", {
-              complete: function() {
+              complete: function () {
                 // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                 next();
-              }
+              },
             });
-          }
+          },
         },
-        beforeRender: function(dc) {
+        beforeRender: function (dc) {
           // dc.style.width = dc.parent.css('width');
-        }
-      }
-    }
+        },
+      },
+    },
   });
 
   // Set Tooltip Comments for the newly created Calendar DC object
@@ -79,19 +79,19 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function() {
   // Set comments for dates in January. (Change '*' to a year such as 2013 to localize date ranges)
 
   bc.range[0].comments["*"] = {
-    1: "Happy New Year!"
+    1: "Happy New Year!",
   };
 
   // Set comments for dates in July. (Change '*' to a year such as 2013 to localize date ranges)
 
   bc.range[6].comments["*"] = {
-    4: "Happy 4th of July!"
+    4: "Happy 4th of July!",
   };
 
   // Set comments for dates in October. (Change '*' to a year such as 2013 to localize date ranges)
 
   bc.range[9].comments["*"] = {
-    31: "Happy Halloween!"
+    31: "Happy Halloween!",
   };
 
   // Set comments for dates in December. (Change '*' to a year such as 2013 to localize date ranges)
@@ -99,6 +99,6 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function() {
   bc.range[11].comments["*"] = {
     24: "Happy Christmas Eve!",
     25: "Merry Christmas!",
-    31: "Happy New Year's Eve!"
+    31: "Happy New Year's Eve!",
   };
 });

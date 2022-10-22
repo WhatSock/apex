@@ -1,4 +1,4 @@
-$A.import(["Animate", "Dialog"], { defer: true }, function() {
+$A.import(["Animate", "Dialog"], { defer: true }, function () {
   var myDialogDC = $A.setDialog("#dialog-login", {
     role: "Login",
     trigger: "#triggerId",
@@ -7,26 +7,26 @@ $A.import(["Animate", "Dialog"], { defer: true }, function() {
     isAlert: true,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, wrapper, next) {
+      onRender: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.slideDownIn", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
       },
-      onRemove: function(dc, wrapper, next) {
+      onRemove: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.slideDownOut", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
-      }
+      },
     },
-    afterRender: function(dc) {
+    afterRender: function (dc) {
       var frm = $A.get("lbForm");
-      $A(frm).on("submit", function(ev) {
+      $A(frm).on("submit", function (ev) {
         if (!frm.uname.value) {
           alert("Woops! You forgot your username...");
           frm.uname.focus();
@@ -39,6 +39,6 @@ $A.import(["Animate", "Dialog"], { defer: true }, function() {
         }
         ev.preventDefault();
       });
-    }
+    },
   });
 });

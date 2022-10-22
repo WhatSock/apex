@@ -1,6 +1,6 @@
-$A.import(["Animate", "Radio"], { defer: true }, function() {
+$A.import(["Animate", "Radio"], { defer: true }, function () {
   $A.setRadio(".aria-radio.future", {
-    onActivate: function(ev, triggerNode, boundRadio, checked, set) {
+    onActivate: function (ev, triggerNode, boundRadio, checked, set) {
       // 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
       // if 0, the checked state is "false".
       // if 1, the checked state is "true".
@@ -8,6 +8,6 @@ $A.import(["Animate", "Radio"], { defer: true }, function() {
       // The new value must be a string consisting of "false" or "true".
       set("true");
       ev.preventDefault();
-    }
+    },
   });
 });

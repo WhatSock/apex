@@ -10,20 +10,20 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
 
 */
 
-(function() {
+(function () {
   if (!("straylight" in $A))
     $A.extend({
-      straylight: function(context) {
+      straylight: function (context) {
         context = $A.isNode(context, null, document, 11) ? context : document;
 
-        (function() {
+        (function () {
           // ARIA Accordions
           // Search and recognise accordion triggering elements with the class "aria-accordion-trigger" plus a valid data-name attribute for shared control groups.
           var map = new Map();
           $A.query(
             "button[data-controls][data-name].aria-accordion-trigger, a[data-controls][data-name].aria-accordion-trigger",
             context,
-            function(i, o) {
+            function (i, o) {
               if (!$A.data(o, "_isBoundAccordion")) {
                 $A.data(o, "_isBoundAccordion", true);
                 var name = $A.getAttr(o, "data-name");
@@ -34,7 +34,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
           );
           $A.loop(
             map,
-            function(i, o) {
+            function (i, o) {
               $A.setAccordion(o, {
                 isToggle: true,
                 allowMultiple: false,
@@ -86,18 +86,18 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
 
                 toggleClassName: "open",
 
-                context: context
+                context: context,
               });
             },
             "map"
           );
         })();
 
-        (function() {
+        (function () {
           // ARIA Tabs
           // Search and recognise tablist grouping containers with the class "aria-tablist"
           var groups = [];
-          $A.query("*.aria-tablist", context, function(i, o) {
+          $A.query("*.aria-tablist", context, function (i, o) {
             if (!$A.data(o, "_isBoundTabList")) {
               $A.data(o, "_isBoundTabList", true);
               groups.push(o);
@@ -106,7 +106,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
           if (groups.length)
             $A.loop(
               groups,
-              function(i, list) {
+              function (i, list) {
                 $A.setTab(
                   list.querySelectorAll(
                     "button[data-controls].aria-tab, a[data-controls].aria-tab"
@@ -119,7 +119,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                     // For more details, view: Help/ARIA Development/Browser History and Permalinks
                     // Plus: Help/DC API/DC Object Configuration/Behaviors
                     trackPage: true,
-                    afterRender: function(dc) {
+                    afterRender: function (dc) {
                       $A.setPage(
                         dc.id,
                         $A.getText(dc.triggerNode) +
@@ -158,7 +158,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
 */
 
                     isToggle: false,
-                    toggleClassName: "active"
+                    toggleClassName: "active",
                   }
                 );
               },
@@ -166,7 +166,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
             );
         })();
 
-        (function() {
+        (function () {
           // ARIA Date Pickers
           // Parse all A and button tags that include the class 'aria-date-picker'
           // An Input element with type=text is specified as the return recipient by matching the data-controls attribute of the A/Button with the Input element's id attribute.
@@ -174,7 +174,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
           $A.query(
             "a.aria-date-picker, button.aria-date-picker",
             context,
-            function(i, o) {
+            function (i, o) {
               var tdc = $A.getDC(o.id);
               if (tdc && tdc.loaded) {
                 tdc.returnFocus = false;
@@ -201,33 +201,33 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                     style: {
                       position: "absolute",
                       zIndex: 1,
-                      display: "none"
+                      display: "none",
                     },
                     animate: {
-                      onRender: function(dc, wrapper, next) {
+                      onRender: function (dc, wrapper, next) {
                         Velocity(wrapper, "transition.fadeIn", {
-                          complete: function() {
+                          complete: function () {
                             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                             next();
-                          }
+                          },
                         });
                       },
-                      onRemove: function(dc, wrapper, next) {
+                      onRemove: function (dc, wrapper, next) {
                         Velocity(wrapper, "transition.fadeOut", {
-                          complete: function() {
+                          complete: function () {
                             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                             next();
-                          }
+                          },
                         });
-                      }
-                    }
+                      },
+                    },
                   });
               }
             }
           );
         })();
 
-        (function() {
+        (function () {
           // ARIA Dialogs
           // Search and recognise dialog triggering elements with the class "aria-dialog"
           var triggers = context.querySelectorAll(
@@ -237,7 +237,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
           if (triggers.length)
             $A.loop(
               triggers,
-              function(i, t) {
+              function (i, t) {
                 if (!$A.data(t, "_BoundDialog")) {
                   $A.data(t, "_BoundDialog", true);
                   var role = $A.getAttr(t, "data-role") || "";
@@ -249,23 +249,23 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
 
                     style: { display: "none" },
                     animate: {
-                      onRender: function(dc, wrapper, next) {
+                      onRender: function (dc, wrapper, next) {
                         Velocity(wrapper, "transition.slideDownIn", {
-                          complete: function() {
+                          complete: function () {
                             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                             next();
-                          }
+                          },
                         });
                       },
-                      onRemove: function(dc, wrapper, next) {
+                      onRemove: function (dc, wrapper, next) {
                         Velocity(wrapper, "transition.slideDownOut", {
-                          complete: function() {
+                          complete: function () {
                             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                             next();
-                          }
+                          },
                         });
-                      }
-                    }
+                      },
+                    },
                   });
                 }
               },
@@ -273,7 +273,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
             );
         })();
 
-        (function() {
+        (function () {
           // ARIA Footnotes
           // Search and recognise footnote triggering elements with the class "aria-footnote"
           // In this case, the link is embedded within a span with class="aria-footnote".
@@ -282,12 +282,12 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
             $A.setFootnotes(fnSelector, {
               override: {
                 duration: 700,
-                easing: "ease-in"
-              }
+                easing: "ease-in",
+              },
             });
         })();
 
-        (function() {
+        (function () {
           // ARIA Popups
           // Search and recognise popup triggering elements with the class "aria-popup"
           var triggers = context.querySelectorAll(
@@ -297,7 +297,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
           if (triggers.length)
             $A.loop(
               triggers,
-              function(i, t) {
+              function (i, t) {
                 if (!$A.data(t, "_BoundPopup")) {
                   $A.data(t, "_BoundPopup", true);
                   var role = $A.getAttr(t, "data-role") || "Popup";
@@ -309,26 +309,26 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
 
                     style: { display: "none" },
                     animate: {
-                      onRender: function(dc, wrapper, next) {
+                      onRender: function (dc, wrapper, next) {
                         Velocity(wrapper, "transition.fadeIn", {
-                          complete: function() {
+                          complete: function () {
                             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                             next();
-                          }
+                          },
                         });
                       },
-                      onRemove: function(dc, wrapper, next) {
+                      onRemove: function (dc, wrapper, next) {
                         Velocity(wrapper, "transition.fadeOut", {
-                          complete: function() {
+                          complete: function () {
                             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                             next();
-                          }
+                          },
                         });
-                      }
+                      },
                     },
-                    afterRender: function(dc) {
+                    afterRender: function (dc) {
                       // Do something after the popup is rendered.
-                    }
+                    },
                   });
                 }
               },
@@ -336,7 +336,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
             );
         })();
 
-        (function() {
+        (function () {
           // ARIA Tooltips
           // Search and recognise tooltip triggering elements with the class "aria-tooltip"
           var triggers = context.querySelectorAll("*.aria-tooltip");
@@ -344,7 +344,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
           if (triggers.length)
             $A.loop(
               triggers,
-              function(i, t) {
+              function (i, t) {
                 if (!$A.data(t, "_BoundTooltip")) {
                   $A.data(t, "_BoundTooltip", true);
                   $A.setTooltip(t, {
@@ -356,23 +356,23 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                     delayTimeout: parseInt($A.getAttr(t, "data-timeout")) || 0,
                     style: { display: "none" },
                     animate: {
-                      onRender: function(dc, wrapper, next) {
+                      onRender: function (dc, wrapper, next) {
                         Velocity(wrapper, "transition.fadeIn", {
-                          complete: function() {
+                          complete: function () {
                             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                             next();
-                          }
+                          },
                         });
                       },
-                      onRemove: function(dc, wrapper, next) {
+                      onRemove: function (dc, wrapper, next) {
                         Velocity(wrapper, "transition.fadeOut", {
-                          complete: function() {
+                          complete: function () {
                             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                             next();
-                          }
+                          },
                         });
-                      }
-                    }
+                      },
+                    },
                   });
                 }
               },
@@ -380,7 +380,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
             );
         })();
 
-        (function() {
+        (function () {
           // ARIA Menus
           // Search and recognise menu triggering elements with the class "aria-menu"
           var triggers = context.querySelectorAll("*[data-menu].aria-menu");
@@ -388,11 +388,11 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
           if (triggers.length)
             $A.loop(
               triggers,
-              function(i, t) {
+              function (i, t) {
                 if (!$A.data(t, "_BoundMenu")) {
                   $A.data(t, "_BoundMenu", true);
                   $A.setMenu(t, {
-                    onActivate: function(
+                    onActivate: function (
                       ev,
                       triggerNode,
                       RTI,
@@ -410,7 +410,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                         // The new value must be a string consisting of "false", "true", or "mixed".
                         if (checked === 0 || isRadio) {
                           check("true");
-                          RTI.DC.top.remove(function() {
+                          RTI.DC.top.remove(function () {
                             alert(
                               "The new checked state for " +
                                 triggerNode.id +
@@ -419,7 +419,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                           });
                         } else if (checked === 1) {
                           check("mixed");
-                          RTI.DC.top.remove(function() {
+                          RTI.DC.top.remove(function () {
                             alert(
                               "The new checked state for " +
                                 triggerNode.id +
@@ -428,7 +428,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                           });
                         } else if (checked === 2) {
                           check("false");
-                          RTI.DC.top.remove(function() {
+                          RTI.DC.top.remove(function () {
                             alert(
                               "The new checked state for " +
                                 triggerNode.id +
@@ -438,37 +438,36 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                         }
                       } else if (
                         $A(triggerNode).hasAttr("href") &&
-                        $A(triggerNode)
-                          .getAttr("href")
-                          .indexOf("https://") !== -1
+                        $A(triggerNode).getAttr("href").indexOf("https://") !==
+                          -1
                       )
-                        RTI.DC.top.remove(function() {
+                        RTI.DC.top.remove(function () {
                           location.href = triggerNode.href;
                         });
                       else
-                        RTI.DC.top.remove(function() {
+                        RTI.DC.top.remove(function () {
                           alert(triggerNode.id);
                         });
                     },
                     style: { display: "none" },
                     animate: {
-                      onRender: function(dc, wrapper, next) {
+                      onRender: function (dc, wrapper, next) {
                         Velocity(wrapper, "transition.slideUpIn", {
-                          complete: function() {
+                          complete: function () {
                             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                             next();
-                          }
+                          },
                         });
                       },
-                      onRemove: function(dc, wrapper, next) {
+                      onRemove: function (dc, wrapper, next) {
                         Velocity(wrapper, "transition.slideUpOut", {
-                          complete: function() {
+                          complete: function () {
                             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                             next();
-                          }
+                          },
                         });
-                      }
-                    }
+                      },
+                    },
                   });
                 }
               },
@@ -476,14 +475,14 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
             );
         })();
 
-        (function() {
+        (function () {
           // ARIA Listboxes
           // Search and recognise native select elements with the class "aria-listbox-root"
           var lbs = context.querySelectorAll("select.aria-listbox-root");
           if (lbs.length) {
             $A.loop(
               lbs,
-              function(i, s) {
+              function (i, s) {
                 $A.setListbox(s, {
                   // Additional configuration options.
                 });
@@ -492,12 +491,12 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
             );
           }
         })();
-      }
+      },
     });
 
   $A.on(
     "load",
-    function() {
+    function () {
       $A.straylight(document);
     },
     ".straylight"

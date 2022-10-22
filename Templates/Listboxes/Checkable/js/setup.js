@@ -1,7 +1,7 @@
-$A.import("Listbox", { defer: true }, function() {
+$A.import("Listbox", { defer: true }, function () {
   var myListbox = $A.setListbox("#listboxId", {
     label: "Toggle checkable options",
-    onActivate: function(ev, triggerNode, RTI, boundElement, checked, set) {
+    onActivate: function (ev, triggerNode, RTI, boundElement, checked, set) {
       // 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
       // if 0, the checked state is "false".
       // if 1, the checked state is "true".
@@ -17,6 +17,6 @@ $A.import("Listbox", { defer: true }, function() {
     extendRTI: {
       // Interaction event Handlers to be added to each focusable role=option node.
       // See /Help/$A API/ARIA Methods/RovingTabIndex for help.
-    }
+    },
   });
 });

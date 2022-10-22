@@ -7,15 +7,15 @@ License: MIT (https://opensource.org/licenses/MIT)
 Required dependencies: SmoothScroll.js
 */
 
-(function() {
+(function () {
   if (!("setFootnotes" in $A)) {
     $A.import("SmoothScroll", {
       name: "FootnoteModule",
       props: props,
       once: true,
-      call: function(props) {
+      call: function (props) {
         $A.extend({
-          setFootnotes: function(o, config) {
+          setFootnotes: function (o, config) {
             if (this._4X) {
               config = o;
               o = this._X;
@@ -25,15 +25,15 @@ Required dependencies: SmoothScroll.js
               o = config.footnotes || null;
             }
             if (!o) return null;
-            $A.query(o, config.context || document, function(i, o) {
+            $A.query(o, config.context || document, function (i, o) {
               $A(o).flowsTo($A.getAttr(o, "href"));
               $A.svgFix(o);
             });
             o = $A.setSkipLink(o, config);
             return $A._XR.call(this, o);
-          }
+          },
         });
-      }
+      },
     });
   }
 })();

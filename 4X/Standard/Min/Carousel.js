@@ -6,4 +6,4 @@ License: MIT (https://opensource.org/licenses/MIT)
 
 Required dependencies: TinySlider.css, TinySlider.js
 */
-"setCarousel"in $A||$A.extend({setCarousel:function(e){var n=$A.morph(e.container),t=$A.toDC(n.parentNode),r=$A.tns(e);return t.tns=r,t}});
+"setCarousel"in $A||$A.extend({setCarousel:function(e){var n=$A.morph(e.container),n=$A.toDC(n.parentNode),e=$A.tns(e);return n.tns=e,n}});

@@ -1,6 +1,6 @@
-$A.import(["Animate", "Tree"], { defer: true }, function() {
+$A.import(["Animate", "Tree"], { defer: true }, function () {
   $A.setTree("ul.top.tree", {
-    onActivate: function(ev, triggerNode, RTI, boundElement, checked, set) {
+    onActivate: function (ev, triggerNode, RTI, boundElement, checked, set) {
       var tree = RTI.DC.top;
       // 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
       // if 0, the checked state is "false".
@@ -17,30 +17,30 @@ $A.import(["Animate", "Tree"], { defer: true }, function() {
     },
     style: { display: "none" },
     animate: {
-      onRender: function(dc, wrapper, next) {
+      onRender: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.slideLeftIn", {
           container: document.querySelector("div.treeview"),
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
       },
-      onRemove: function(dc, wrapper, next) {
+      onRemove: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.slideLeftOut", {
           container: document.querySelector("div.treeview"),
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
-      }
-    }
+      },
+    },
   });
 
-  var generateReadingList = function(tree) {
+  var generateReadingList = function (tree) {
     var list = [];
-    $A.query('a[aria-checked="true"]', tree, function(i, treeItem) {
+    $A.query('a[aria-checked="true"]', tree, function (i, treeItem) {
       list.push(
         $A.getText(treeItem) + ", by " + $A.getAttr(treeItem, "data-author")
       );

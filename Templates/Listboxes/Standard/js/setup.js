@@ -1,3 +1,3 @@
-$A.import("Listbox", { defer: true }, function() {
+$A.import("Listbox", { defer: true }, function () {
   var myListbox = $A.setListbox("#standardSelectId");
 });

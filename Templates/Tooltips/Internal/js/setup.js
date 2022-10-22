@@ -1,4 +1,4 @@
-$A.import(["Animate", "Tooltip"], { defer: true }, function() {
+$A.import(["Animate", "Tooltip"], { defer: true }, function () {
   var helpTooltipDC = $A.setTooltip("a.aria-tooltip.helpIcon", {
     id: "helpTooltipId",
     autoCloseSameWidget: true,
@@ -7,23 +7,23 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
     delay: 0,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, wrapper, next) {
+      onRender: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeIn", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
       },
-      onRemove: function(dc, wrapper, next) {
+      onRemove: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeOut", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
-      }
-    }
+      },
+    },
   });
 
   var constraintTooltipDC = $A.setTooltip('input[type="password"]', {
@@ -34,23 +34,23 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
     delay: 1000,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, wrapper, next) {
+      onRender: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.swoopIn", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
       },
-      onRemove: function(dc, wrapper, next) {
+      onRemove: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.swoopOut", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
-      }
-    }
+      },
+    },
   });
 
   var hoverTooltipDC = $A.setTooltip("button.action-btn", {
@@ -62,22 +62,22 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
     delayTimeout: 3000,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, wrapper, next) {
+      onRender: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.bounceLeftIn", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
       },
-      onRemove: function(dc, wrapper, next) {
+      onRemove: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.bounceRightOut", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
-      }
-    }
+      },
+    },
   });
 });

@@ -6,32 +6,32 @@ https://github.com/whatsock/apex
 License: MIT <https://opensource.org/licenses/MIT>
 */
 
-(function() {
+(function () {
   if (!("setDatepicker" in $A)) {
     $A.addWidgetProfile("Datepicker", {
-      configure: function(dc) {
+      configure: function (dc) {
         return {
           returnFocus: false,
           allowRerender: true,
           exposeBounds: true,
-          exposeHiddenClose: false
+          exposeHiddenClose: false,
         };
       },
-      role: function(dc) {
+      role: function (dc) {
         return {
           role: "dialog",
           "aria-modal": "false",
-          "aria-label": dc.role
+          "aria-label": dc.role,
         };
       },
-      innerRole: function(dc) {
+      innerRole: function (dc) {
         return {
-          role: "application"
+          role: "application",
         };
-      }
+      },
     });
     $A.extend({
-      setDatepicker: function(config) {
+      setDatepicker: function (config) {
         var config = config || {},
           helpTextShort = config.helpTextShort
             ? config.helpTextShort
@@ -52,7 +52,7 @@ License: MIT <https://opensource.org/licenses/MIT>
           // Control the behavior of date selection clicks
           handleClick = $A.isFn(config.onActivate)
             ? config.onActivate
-            : function(ev, dc) {
+            : function (ev, dc) {
                 // format selected calendar value and set into input field
                 targ.value = dc.formatDate(dc);
 
@@ -63,7 +63,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 dc.triggerClicked = false;
               },
           pressed = {},
-          changePressed = function(ev) {
+          changePressed = function (ev) {
             pressed.alt = ev.altKey;
             pressed.ctrl = ev.ctrlKey;
             pressed.shift = ev.shiftKey;
@@ -156,7 +156,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   disabled: {},
                   disabledWDays: [],
                   comments: {},
-                  message: {}
+                  message: {},
                 },
                 1: {
                   name:
@@ -168,7 +168,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   disabled: {},
                   disabledWDays: [],
                   comments: {},
-                  message: {}
+                  message: {},
                 },
                 2: {
                   name:
@@ -180,7 +180,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   disabled: {},
                   disabledWDays: [],
                   comments: {},
-                  message: {}
+                  message: {},
                 },
                 3: {
                   name:
@@ -192,7 +192,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   disabled: {},
                   disabledWDays: [],
                   comments: {},
-                  message: {}
+                  message: {},
                 },
                 4: {
                   name:
@@ -204,7 +204,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   disabled: {},
                   disabledWDays: [],
                   comments: {},
-                  message: {}
+                  message: {},
                 },
                 5: {
                   name:
@@ -216,7 +216,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   disabled: {},
                   disabledWDays: [],
                   comments: {},
-                  message: {}
+                  message: {},
                 },
                 6: {
                   name:
@@ -228,7 +228,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   disabled: {},
                   disabledWDays: [],
                   comments: {},
-                  message: {}
+                  message: {},
                 },
                 7: {
                   name:
@@ -240,7 +240,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   disabled: {},
                   disabledWDays: [],
                   comments: {},
-                  message: {}
+                  message: {},
                 },
                 8: {
                   name:
@@ -252,7 +252,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   disabled: {},
                   disabledWDays: [],
                   comments: {},
-                  message: {}
+                  message: {},
                 },
                 9: {
                   name:
@@ -264,7 +264,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   disabled: {},
                   disabledWDays: [],
                   comments: {},
-                  message: {}
+                  message: {},
                 },
                 10: {
                   name:
@@ -276,7 +276,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   disabled: {},
                   disabledWDays: [],
                   comments: {},
-                  message: {}
+                  message: {},
                 },
                 11: {
                   name:
@@ -288,7 +288,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   disabled: {},
                   disabledWDays: [],
                   comments: {},
-                  message: {}
+                  message: {},
                 },
                 wDays: [
                   {
@@ -297,7 +297,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                     lng:
                       config.days && config.days[0]
                         ? config.days[0].l
-                        : "Sunday"
+                        : "Sunday",
                   },
                   {
                     shrt:
@@ -305,7 +305,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                     lng:
                       config.days && config.days[1]
                         ? config.days[1].l
-                        : "Monday"
+                        : "Monday",
                   },
                   {
                     shrt:
@@ -313,7 +313,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                     lng:
                       config.days && config.days[2]
                         ? config.days[2].l
-                        : "Tuesday"
+                        : "Tuesday",
                   },
                   {
                     shrt:
@@ -321,7 +321,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                     lng:
                       config.days && config.days[3]
                         ? config.days[3].l
-                        : "Wednesday"
+                        : "Wednesday",
                   },
                   {
                     shrt:
@@ -329,7 +329,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                     lng:
                       config.days && config.days[4]
                         ? config.days[4].l
-                        : "Thursday"
+                        : "Thursday",
                   },
                   {
                     shrt:
@@ -337,7 +337,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                     lng:
                       config.days && config.days[5]
                         ? config.days[5].l
-                        : "Friday"
+                        : "Friday",
                   },
                   {
                     shrt:
@@ -345,13 +345,13 @@ License: MIT <https://opensource.org/licenses/MIT>
                     lng:
                       config.days && config.days[6]
                         ? config.days[6].l
-                        : "Saturday"
-                  }
+                        : "Saturday",
+                  },
                 ],
                 // Change the week day offset for the calendar display
-                wdOffset: isNaN(config.wdOffset) ? 0 : config.wdOffset
+                wdOffset: isNaN(config.wdOffset) ? 0 : config.wdOffset,
               },
-              getWDay: function(dc, d, r) {
+              getWDay: function (dc, d, r) {
                 var d = $A.isNum(d) ? d : dc.range.current.wDay,
                   o = dc.range.wdOffset;
 
@@ -361,7 +361,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 if (r) d = 6 - d;
                 return d;
               },
-              getDateOrdinalSuffix: function(i) {
+              getDateOrdinalSuffix: function (i) {
                 var j = i % 10,
                   k = i % 100;
 
@@ -379,7 +379,7 @@ License: MIT <https://opensource.org/licenses/MIT>
 
                 return i + "th";
               },
-              formatDate: function(dc, dateFormatTokens, dateFormat) {
+              formatDate: function (dc, dateFormatTokens, dateFormat) {
                 if (!dateFormatTokens)
                   dateFormatTokens = {
                     YYYY: dc.range.current.year,
@@ -389,7 +389,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                     DD: ("00" + dc.range.current.mDay).slice(-2),
                     Do: dc.getDateOrdinalSuffix(dc.range.current.mDay),
                     M: dc.range.current.month + 1,
-                    D: dc.range.current.mDay
+                    D: dc.range.current.mDay,
                   };
 
                 // if dateFormat is not specified, use component default
@@ -400,11 +400,11 @@ License: MIT <https://opensource.org/licenses/MIT>
                   "gi"
                 );
 
-                return dateFormat.replace(re, function(matched) {
+                return dateFormat.replace(re, function (matched) {
                   return dateFormatTokens[matched];
                 });
               },
-              modifyDateValues: function(values, modifications) {
+              modifyDateValues: function (values, modifications) {
                 // Note: Months are zero based
                 for (var key in modifications) {
                   var modification = modifications[key];
@@ -436,15 +436,15 @@ License: MIT <https://opensource.org/licenses/MIT>
 
                 return values;
               },
-              setFocus: function(o, p, s) {
+              setFocus: function (o, p, s) {
                 var dc = this;
 
                 if (!o) return false;
 
                 dc.current = o;
-                dc.query("td.dayInMonth.selected", function(i, p) {
+                dc.query("td.dayInMonth.selected", function (i, p) {
                   $A.setAttr(p, {
-                    tabindex: "-1"
+                    tabindex: "-1",
                   });
 
                   $A.remClass(p, "selected");
@@ -453,13 +453,13 @@ License: MIT <https://opensource.org/licenses/MIT>
                 $A.addClass(o, "selected");
                 $A.data(o, "_Selected", true);
                 $A.setAttr(o, {
-                  tabindex: "0"
+                  tabindex: "0",
                 });
 
                 if (!s) {
                   if (dc.navBtn === "PM") {
                     dc.buttons.pM.focus();
-                    setTimeout(function() {
+                    setTimeout(function () {
                       $A.announce(
                         dc.range[dc.range.current.month].name,
                         false,
@@ -469,7 +469,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                     dc.navBtnS = true;
                   } else if (dc.navBtn === "NM") {
                     dc.buttons.nM.focus();
-                    setTimeout(function() {
+                    setTimeout(function () {
                       $A.announce(
                         dc.range[dc.range.current.month].name,
                         false,
@@ -479,7 +479,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                     dc.navBtnS = true;
                   } else if (dc.navBtn === "PY") {
                     dc.buttons.pY.focus();
-                    setTimeout(function() {
+                    setTimeout(function () {
                       $A.announce(
                         dc.range.current.year.toString(),
                         false,
@@ -489,7 +489,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                     dc.navBtnS = true;
                   } else if (dc.navBtn === "NY") {
                     dc.buttons.nY.focus();
-                    setTimeout(function() {
+                    setTimeout(function () {
                       $A.announce(
                         dc.range.current.year.toString(),
                         false,
@@ -512,17 +512,17 @@ License: MIT <https://opensource.org/licenses/MIT>
 
                 return true;
               },
-              setCurrent: function(dc) {
+              setCurrent: function (dc) {
                 if (dc.date instanceof Date) {
                   dc.range.current = {
                     mDay: dc.date.getDate(),
                     month: dc.date.getMonth(),
                     year: dc.date.getFullYear(),
-                    wDay: dc.date.getDay()
+                    wDay: dc.date.getDay(),
                   };
                 }
               },
-              setDayMarked: function(dc, dateObj, isMarked) {
+              setDayMarked: function (dc, dateObj, isMarked) {
                 var year = dateObj.getFullYear(),
                   month = dateObj.getMonth(),
                   day = dateObj.getDate();
@@ -546,12 +546,12 @@ License: MIT <https://opensource.org/licenses/MIT>
                   }
                 }
               },
-              clearAllMarked: function(dc) {
+              clearAllMarked: function (dc) {
                 for (var month in dc.range) {
                   dc.range[month].marked = {};
                 }
               },
-              setDayDisabled: function(dc, dateObj, isDisabled) {
+              setDayDisabled: function (dc, dateObj, isDisabled) {
                 var year = dateObj.getFullYear(),
                   month = dateObj.getMonth(),
                   day = dateObj.getDate();
@@ -575,7 +575,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   }
                 }
               },
-              setMonthDisabled: function(dc, dateObj, isDisabled) {
+              setMonthDisabled: function (dc, dateObj, isDisabled) {
                 var year = dateObj.getFullYear(),
                   month = dateObj.getMonth();
 
@@ -592,7 +592,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   dc.range[month].disabled[year] = [];
                 }
               },
-              setDayOfWeekDisabled: function(
+              setDayOfWeekDisabled: function (
                 dc,
                 dateObj,
                 daysOfWeek,
@@ -626,7 +626,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   }
                 }
               },
-              setWeekdaysDisabled: function(dc, dateObj, isDisabled) {
+              setWeekdaysDisabled: function (dc, dateObj, isDisabled) {
                 // 0 = Sunday, 6 = Saturday
                 dc.setDayOfWeekDisabled(
                   dc,
@@ -635,16 +635,16 @@ License: MIT <https://opensource.org/licenses/MIT>
                   isDisabled
                 );
               },
-              setWeekendsDisabled: function(dc, dateObj, isDisabled) {
+              setWeekendsDisabled: function (dc, dateObj, isDisabled) {
                 // 0 = Sunday, 6 = Saturday, which are the days we are not setting
                 dc.setDayOfWeekDisabled(dc, dateObj, [0, 6], isDisabled);
               },
-              clearAllDisabled: function(dc) {
+              clearAllDisabled: function (dc) {
                 for (var month in dc.range) {
                   dc.range[month].disabled = {};
                 }
               },
-              setMonthMessage: function(dc, dateObj, message) {
+              setMonthMessage: function (dc, dateObj, message) {
                 var year = dateObj.getFullYear(),
                   month = dateObj.getMonth();
 
@@ -656,12 +656,12 @@ License: MIT <https://opensource.org/licenses/MIT>
                   delete dc.range[month].message[year];
                 }
               },
-              clearAllMessage: function(dc) {
+              clearAllMessage: function (dc) {
                 for (var month in dc.range) {
                   dc.range[month].message = {};
                 }
               },
-              isDisabledDate: function(dc, counter, dateObj, cmpObj) {
+              isDisabledDate: function (dc, counter, dateObj, cmpObj) {
                 if (!cmpObj) {
                   cmpObj = dc.range.current;
                 }
@@ -683,7 +683,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   dc.isOutsideDateRange(dateObj)
                 );
               },
-              isOutsideDateRange: function(dateObj) {
+              isOutsideDateRange: function (dateObj) {
                 var dateCmp = this.createDateComparisonValue(dateObj);
 
                 return (
@@ -693,7 +693,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                     dateCmp > this.maxDateComparisonValue)
                 );
               },
-              createDayCell: function(
+              createDayCell: function (
                 i,
                 cellDateObj,
                 cssClasses,
@@ -741,7 +741,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   DD: ("00" + i).slice(-2),
                   Do: dc.getDateOrdinalSuffix(i),
                   M: month + 1,
-                  D: i
+                  D: i,
                 };
 
                 // set audible date value
@@ -750,7 +750,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   "gi"
                 );
 
-                cell += dc.audibleDateFormat.replace(re, function(matched) {
+                cell += dc.audibleDateFormat.replace(re, function (matched) {
                   return dateFormatTokens[matched];
                 });
 
@@ -809,7 +809,7 @@ License: MIT <https://opensource.org/licenses/MIT>
 
                 return cell;
               },
-              createDateComparisonValue: function(dateObj) {
+              createDateComparisonValue: function (dateObj) {
                 return parseInt(
                   dateObj.getFullYear() +
                     ("00" + dateObj.getMonth()).slice(-2) +
@@ -817,7 +817,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   10
                 );
               },
-              presetDate: function(dc, initialDate, minDate, maxDate) {
+              presetDate: function (dc, initialDate, minDate, maxDate) {
                 dc = dc || this;
                 dc.initialDate = initialDate || dc.initialDate || new Date();
                 dc.minDate = minDate || dc.minDate || null;
@@ -828,7 +828,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 dc.fn.current = {};
                 $A.extend(true, dc.fn.current, dc.range.current);
               },
-              setDate: function(dc, dateObj) {
+              setDate: function (dc, dateObj) {
                 // if dateObj is not specified, set to an initial value...
                 if (dateObj === undefined) {
                   // ensure initialDate value is within any set date range
@@ -853,7 +853,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 dc.fn.current = {};
                 $A.extend(true, dc.fn.current, dc.range.current);
               },
-              setDateComparisons: function(dc) {
+              setDateComparisons: function (dc) {
                 // If we have minDate / maxDate set, ensure they don't have time precision, and create comparison value
                 if (dc.minDate instanceof Date) {
                   dc.minDate.setHours(0, 0, 0, 0);
@@ -877,14 +877,14 @@ License: MIT <https://opensource.org/licenses/MIT>
                   dc.currentDate
                 );
               },
-              storeCurrentDate: function(dc) {
+              storeCurrentDate: function (dc) {
                 dc.date = new Date(
                   dc.range.current.year,
                   dc.range.current.month,
                   dc.range.current.mDay
                 );
               },
-              setDisabled: function(dc, s) {
+              setDisabled: function (dc, s) {
                 if (typeof dc === "boolean") {
                   s = dc;
                   dc = this;
@@ -893,13 +893,13 @@ License: MIT <https://opensource.org/licenses/MIT>
                 $A.setAttr([targ, trigger], "disabled", dc.disabled);
                 if (!dc.disabled) $A.remAttr([targ, trigger], "disabled");
               },
-              onceBeforeRender: function(dc) {
+              onceBeforeRender: function (dc) {
                 if (!(dc.date instanceof Date)) {
                   dc.setDateComparisons(dc);
                   dc.setDate(dc);
                 }
               },
-              rerenderTable: function(dc) {
+              rerenderTable: function (dc) {
                 dc.rerendering = true;
                 dc.afterRemove(dc);
                 dc.beforeRender(dc);
@@ -907,7 +907,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 dc.afterRender(dc);
                 dc.rerendering = false;
               },
-              beforeRender: function(dc) {
+              beforeRender: function (dc) {
                 var dateValue = targ.value,
                   dateParts = targ.value.split("/");
                 if (
@@ -941,7 +941,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   dc.configureLoading = dc.cancel = true;
                   dc.fn.navBtn = dc.navBtn;
                   if (config.configure.apply(dc, [dc]) === true) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                       dc.render();
                     }, 1);
                   }
@@ -961,10 +961,10 @@ License: MIT <https://opensource.org/licenses/MIT>
                 var prevDateValues = dc.modifyDateValues(
                   {
                     month: dc.range.current.month,
-                    year: dc.range.current.year
+                    year: dc.range.current.year,
                   },
                   {
-                    month: -1
+                    month: -1,
                   }
                 );
 
@@ -975,10 +975,10 @@ License: MIT <https://opensource.org/licenses/MIT>
                 var nextDateValues = dc.modifyDateValues(
                   {
                     month: dc.range.current.month,
-                    year: dc.range.current.year
+                    year: dc.range.current.year,
                   },
                   {
-                    month: 1
+                    month: 1,
                   }
                 );
 
@@ -1240,7 +1240,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   dc.messageContainer = $A.create(
                     "div",
                     {
-                      id: dc.messageContainerId
+                      id: dc.messageContainerId,
                     },
                     {},
                     "monthMessage"
@@ -1285,23 +1285,23 @@ License: MIT <https://opensource.org/licenses/MIT>
                     "</button>";
                 }
               },
-              mouseEnter: function(ev, dc) {
+              mouseEnter: function (ev, dc) {
                 dc.mouseWithin = true;
               },
-              mouseLeave: function(ev, dc) {
+              mouseLeave: function (ev, dc) {
                 dc.mouseWithin = false;
               },
-              click: function(ev, dc) {
+              click: function (ev, dc) {
                 ev.stopPropagation();
               },
-              keyDown: function(ev, dc) {
+              keyDown: function (ev, dc) {
                 var k = $A.keyEvent(ev);
 
                 if (k === 112) {
                   $A.remAttr(dc.container, "aria-labelledby");
                   dc.container.appendChild(dc.messageContainer);
                   $A.setAttr(dc.messageContainer, {
-                    role: "alert"
+                    role: "alert",
                   });
                   if (!triggeredByTouch)
                     dc.messageContainer.innerHTML =
@@ -1310,26 +1310,26 @@ License: MIT <https://opensource.org/licenses/MIT>
                   ev.stopPropagation();
                 }
               },
-              updateDisabled: function() {
+              updateDisabled: function () {
                 var dc = this;
-                dc.query('td[aria-disabled="true"]', function(i, o) {
+                dc.query('td[aria-disabled="true"]', function (i, o) {
                   $A.data(o, "disabled", true);
                 });
               },
-              updateCommented: function() {
+              updateCommented: function () {
                 var dc = this;
-                dc.query("td.comment", function(i, o) {
+                dc.query("td.comment", function (i, o) {
                   $A.data(o, "_HasComment", true);
                 });
               },
-              duringRender: function(dc) {
+              duringRender: function (dc) {
                 if (dc.rerendering) {
                   dc.container.innerHTML = dc.content;
                 } else {
                   dc.datepickerLoaded = false;
 
                   dc.setAttr({
-                    title: !triggeredByTouch ? dc.helpTextShort : ""
+                    title: !triggeredByTouch ? dc.helpTextShort : "",
                   });
                 }
 
@@ -1337,7 +1337,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   dc.container.appendChild(dc.messageContainer);
                 }
               },
-              afterRender: function(dc) {
+              afterRender: function (dc) {
                 if (dc.showEscBtn) {
                   dc.escBtn = dc.container.querySelector("button.esc-button");
                 }
@@ -1346,7 +1346,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   pY: config.condenseYear ? null : $A.get(dc.prevBtnId + "Y"),
                   nY: config.condenseYear ? null : $A.get(dc.nextBtnId + "Y"),
                   pM: $A.get(dc.prevBtnId),
-                  nM: $A.get(dc.nextBtnId)
+                  nM: $A.get(dc.nextBtnId),
                 };
 
                 if (!config.condenseYear && dc.disableNavPrevYearBtn)
@@ -1367,7 +1367,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 dc.updateDisabled();
                 dc.updateCommented();
 
-                var nMonth = function() {
+                var nMonth = function () {
                     if (
                       dc.disableNavNextMonthBtn &&
                       $A.data(dc.buttons.nM, "disabled")
@@ -1379,10 +1379,10 @@ License: MIT <https://opensource.org/licenses/MIT>
                     var dateValues = dc.modifyDateValues(
                       {
                         month: dc.range.current.month,
-                        year: dc.range.current.year
+                        year: dc.range.current.year,
                       },
                       {
-                        month: 1
+                        month: 1,
                       }
                     );
 
@@ -1414,7 +1414,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                     dc.setCurrent(dc);
                     dc.rerenderTable(dc);
                   },
-                  pMonth = function() {
+                  pMonth = function () {
                     if (
                       dc.disableNavPrevMonthBtn &&
                       $A.data(dc.buttons.pM, "disabled")
@@ -1426,10 +1426,10 @@ License: MIT <https://opensource.org/licenses/MIT>
                     var dateValues = dc.modifyDateValues(
                       {
                         month: dc.range.current.month,
-                        year: dc.range.current.year
+                        year: dc.range.current.year,
                       },
                       {
-                        month: -1
+                        month: -1,
                       }
                     );
 
@@ -1465,7 +1465,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                     dc.setCurrent(dc);
                     dc.rerenderTable(dc);
                   },
-                  gYear = function(forward) {
+                  gYear = function (forward) {
                     if (
                       !forward &&
                       ((!config.condenseYear &&
@@ -1510,7 +1510,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 $A.on(
                   "#" + dc.containerId + " td.day",
                   {
-                    focus: function(ev) {
+                    focus: function (ev) {
                       if ($A.data(this, "_HasComment")) {
                         var year =
                             dc.range[dc.range.current.month].comments[
@@ -1527,7 +1527,7 @@ License: MIT <https://opensource.org/licenses/MIT>
 
                         if (comm) {
                           commentDC.content = comm;
-                          commentDC.rerender(function() {
+                          commentDC.rerender(function () {
                             if (formDC.openEditor) {
                               formDC.openEditor = false;
 
@@ -1539,16 +1539,16 @@ License: MIT <https://opensource.org/licenses/MIT>
                         commentDC.remove();
                       }
                     },
-                    click: function(ev) {
+                    click: function (ev) {
                       // If items from a previous / next month are selected, modify the date accordingly
                       if ($A.hasClass(this, "dayInPrevMonth")) {
                         var prevDateValues = dc.modifyDateValues(
                           {
                             month: dc.range.current.month,
-                            year: dc.range.current.year
+                            year: dc.range.current.year,
                           },
                           {
-                            month: -1
+                            month: -1,
                           }
                         );
 
@@ -1561,10 +1561,10 @@ License: MIT <https://opensource.org/licenses/MIT>
                         var nextDateValues = dc.modifyDateValues(
                           {
                             month: dc.range.current.month,
-                            year: dc.range.current.year
+                            year: dc.range.current.year,
                           },
                           {
-                            month: 1
+                            month: 1,
                           }
                         );
 
@@ -1598,7 +1598,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       } else dc.setFocus(this);
                       ev.preventDefault();
                     },
-                    keydown: function(ev) {
+                    keydown: function (ev) {
                       changePressed(ev);
                       var k = $A.keyEvent(ev);
                       if (k === 13) {
@@ -1650,10 +1650,10 @@ License: MIT <https://opensource.org/licenses/MIT>
                             var dateValues = dc.modifyDateValues(
                               {
                                 month: dc.range.current.month,
-                                year: dc.range.current.year
+                                year: dc.range.current.year,
                               },
                               {
-                                month: -1
+                                month: -1,
                               }
                             );
 
@@ -1697,10 +1697,10 @@ License: MIT <https://opensource.org/licenses/MIT>
                             var dateValues = dc.modifyDateValues(
                               {
                                 month: dc.range.current.month,
-                                year: dc.range.current.year
+                                year: dc.range.current.year,
                               },
                               {
-                                month: 1
+                                month: 1,
                               }
                             );
 
@@ -1728,10 +1728,10 @@ License: MIT <https://opensource.org/licenses/MIT>
                             var dateValues = dc.modifyDateValues(
                               {
                                 month: dc.range.current.month,
-                                year: dc.range.current.year
+                                year: dc.range.current.year,
                               },
                               {
-                                month: -1
+                                month: -1,
                               }
                             );
 
@@ -1779,10 +1779,10 @@ License: MIT <https://opensource.org/licenses/MIT>
                             var dateValues = dc.modifyDateValues(
                               {
                                 month: dc.range.current.month,
-                                year: dc.range.current.year
+                                year: dc.range.current.year,
                               },
                               {
-                                month: 1
+                                month: 1,
                               }
                             );
 
@@ -1948,7 +1948,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                         ev.preventDefault();
                       }
                     },
-                    keyup: function(ev) {
+                    keyup: function (ev) {
                       changePressed(ev);
                       var k = $A.keyEvent(ev);
 
@@ -1969,7 +1969,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       }
 
                       isKP = dc.setFocus.firstOpen = dc.isAdd = false;
-                    }
+                    },
                   },
                   "." + baseId
                 );
@@ -1979,14 +1979,14 @@ License: MIT <https://opensource.org/licenses/MIT>
                   $A.on(
                     dc.escBtn,
                     {
-                      click: function(ev) {
+                      click: function (ev) {
                         dc.remove();
                         onFocusInit = false;
                         onFocusTraverse = true;
                         $A.focus(targ);
                         ev.preventDefault();
                       },
-                      keydown: function(ev) {
+                      keydown: function (ev) {
                         changePressed(ev);
                         var k = $A.keyEvent(ev);
 
@@ -2031,11 +2031,11 @@ License: MIT <https://opensource.org/licenses/MIT>
                           }
                         }
                       },
-                      keyup: function(ev) {
+                      keyup: function (ev) {
                         changePressed(ev);
                       },
-                      focus: function(ev) {},
-                      blur: function(ev) {}
+                      focus: function (ev) {},
+                      blur: function (ev) {},
                     },
                     "." + baseId
                   );
@@ -2044,12 +2044,12 @@ License: MIT <https://opensource.org/licenses/MIT>
                 $A.on(
                   dc.buttons.pM,
                   {
-                    click: function(ev) {
+                    click: function (ev) {
                       dc.navBtn = "PM";
                       pMonth();
                       ev.preventDefault();
                     },
-                    keydown: function(ev) {
+                    keydown: function (ev) {
                       changePressed(ev);
                       var k = $A.keyEvent(ev);
 
@@ -2117,21 +2117,21 @@ License: MIT <https://opensource.org/licenses/MIT>
                         }
                       }
                     },
-                    keyup: function(ev) {
+                    keyup: function (ev) {
                       changePressed(ev);
-                    }
+                    },
                   },
                   "." + baseId
                 );
                 $A.on(
                   dc.buttons.nM,
                   {
-                    click: function(ev) {
+                    click: function (ev) {
                       dc.navBtn = "NM";
                       nMonth();
                       ev.preventDefault();
                     },
-                    keydown: function(ev) {
+                    keydown: function (ev) {
                       changePressed(ev);
                       var k = $A.keyEvent(ev);
 
@@ -2199,9 +2199,9 @@ License: MIT <https://opensource.org/licenses/MIT>
                         }
                       }
                     },
-                    keyup: function(ev) {
+                    keyup: function (ev) {
                       changePressed(ev);
-                    }
+                    },
                   },
                   "." + baseId
                 );
@@ -2210,12 +2210,12 @@ License: MIT <https://opensource.org/licenses/MIT>
                   $A.on(
                     dc.buttons.pY,
                     {
-                      click: function(ev) {
+                      click: function (ev) {
                         dc.navBtn = "PY";
                         gYear();
                         ev.preventDefault();
                       },
-                      keydown: function(ev) {
+                      keydown: function (ev) {
                         changePressed(ev);
                         var k = $A.keyEvent(ev);
 
@@ -2272,9 +2272,9 @@ License: MIT <https://opensource.org/licenses/MIT>
                           }
                         }
                       },
-                      keyup: function(ev) {
+                      keyup: function (ev) {
                         changePressed(ev);
-                      }
+                      },
                     },
                     "." + baseId
                   );
@@ -2283,12 +2283,12 @@ License: MIT <https://opensource.org/licenses/MIT>
                   $A.on(
                     dc.buttons.nY,
                     {
-                      click: function(ev) {
+                      click: function (ev) {
                         dc.navBtn = "NY";
                         gYear(true);
                         ev.preventDefault();
                       },
-                      keydown: function(ev) {
+                      keydown: function (ev) {
                         changePressed(ev);
                         var k = $A.keyEvent(ev);
 
@@ -2349,9 +2349,9 @@ License: MIT <https://opensource.org/licenses/MIT>
                           }
                         }
                       },
-                      keyup: function(ev) {
+                      keyup: function (ev) {
                         changePressed(ev);
-                      }
+                      },
                     },
                     "." + baseId
                   );
@@ -2367,14 +2367,14 @@ License: MIT <https://opensource.org/licenses/MIT>
 
                   if (dc.openOnFocus) $A.setAttr(targ, "aria-expanded", "true");
                   $A.setAttr(dc.triggerNode, "aria-expanded", "true");
-                  setTimeout(function() {
+                  setTimeout(function () {
                     dc.datepickerLoaded = true;
                   }, 750);
                 }
               },
               helpTextShort: helpTextShort,
               helpText: helpText,
-              afterRemove: function(dc) {
+              afterRemove: function (dc) {
                 if (!dc.rerendering) {
                   if (config.resetCurrent) {
                     dc.date = new Date();
@@ -2394,8 +2394,8 @@ License: MIT <https://opensource.org/licenses/MIT>
 
                 if ($A.isFn(config.configure))
                   dc.lock = dc.configureLoading = false;
-              }
-            }
+              },
+            },
           ],
           config
         )[0];
@@ -2413,10 +2413,10 @@ License: MIT <https://opensource.org/licenses/MIT>
               className:
                 (config.comments && config.comments.className) ||
                 "commentTooltip",
-              beforeRender: function(dc) {
+              beforeRender: function (dc) {
                 dc.targetNode = dc.parent.wrapper;
-              }
-            }
+              },
+            },
           ],
           (config.comments && config.comments.config) || {}
         )[0];
@@ -2443,22 +2443,22 @@ License: MIT <https://opensource.org/licenses/MIT>
                 '" class="commentBtn">' +
                 ((config.editor && config.editor.role) || "Edit") +
                 "</button>",
-              beforeRender: function(dc) {
+              beforeRender: function (dc) {
                 dc.targetNode = dc.parent.wrapper;
               },
-              click: function(ev, dc) {
+              click: function (ev, dc) {
                 ev.stopPropagation();
               },
-              duringRender: function(dc) {
+              duringRender: function (dc) {
                 $A.setAttr(dc.wrapper, {
                   role: "dialog",
                   "aria-modal": "false",
-                  "aria-label": dc.role
+                  "aria-label": dc.role,
                 });
 
                 $A.setAttr(dc.container, "role", "application");
               },
-              add: function(dc) {
+              add: function (dc) {
                 var comm = $A.trim(dc.textarea.value.replace(/<|>|\n/g, " "));
 
                 if (!dc.comments[dc.parent.range.current.year])
@@ -2509,29 +2509,29 @@ License: MIT <https://opensource.org/licenses/MIT>
                 lbl = pre + lbl;
                 $A.setAttr(dc.parent.current, {
                   title: $A.trim(pre),
-                  "aria-label": lbl + " " + comm.replace(/\"/g, '"')
+                  "aria-label": lbl + " " + comm.replace(/\"/g, '"'),
                 });
               },
-              reset: function() {
+              reset: function () {
                 var dc = this;
 
                 if (dc.loaded) {
                   if (dc.openEditor) {
                     if (!dc.textarea)
-                      dc.textarea = dc.query("textarea", function() {
+                      dc.textarea = dc.query("textarea", function () {
                         $A.css(this, {
                           visibility: "",
-                          display: ""
+                          display: "",
                         });
 
                         dc.css("left", dc.parent.wrapper.offsetLeft);
                         $A.on(
                           this,
                           {
-                            focus: function(ev) {
+                            focus: function (ev) {
                               if (commentDC.loaded) commentDC.remove();
                             },
-                            keydown: function(ev) {
+                            keydown: function (ev) {
                               var k = $A.keyEvent(ev);
 
                               if (this.value.length > 800)
@@ -2550,7 +2550,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                                 dc.reset();
                                 ev.preventDefault();
                               }
-                            }
+                            },
                           },
                           "." + baseId
                         );
@@ -2558,7 +2558,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                     else {
                       $A.css(dc.textarea, {
                         visibility: "",
-                        display: ""
+                        display: "",
                       });
 
                       dc.css("left", dc.parent.wrapper.offsetLeft);
@@ -2572,7 +2572,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                         " " +
                         dc.parent.range[dc.parent.range.current.month].name +
                         " " +
-                        dc.parent.range.current.year
+                        dc.parent.range.current.year,
                     }).focus();
 
                     dc.comments =
@@ -2591,7 +2591,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       title:
                         ((config.editor && config.editor.action1) || "Save") +
                         " " +
-                        commentDC.role
+                        commentDC.role,
                     }).innerHTML =
                       (config.editor && config.editor.action1) || "Save";
                   } else {
@@ -2599,7 +2599,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       dc.textarea.value = "";
                       $A.css(dc.textarea, {
                         visibility: "hidden",
-                        display: "none"
+                        display: "none",
                       });
                     }
 
@@ -2613,23 +2613,23 @@ License: MIT <https://opensource.org/licenses/MIT>
                       title:
                         ((config.editor && config.editor.role) || "Edit") +
                         " " +
-                        commentDC.role
+                        commentDC.role,
                     }).innerHTML =
                       (config.editor && config.editor.role) || "Edit";
                   }
                 }
               },
-              afterRender: function(dc) {
+              afterRender: function (dc) {
                 dc.textarea = dc.container.querySelector("textarea");
                 dc.commentBtn = dc.container.querySelector("button");
 
                 $A.on(
                   dc.commentBtn,
                   {
-                    focus: function(ev) {
+                    focus: function (ev) {
                       if (commentDC.loaded) commentDC.remove();
                     },
-                    click: function(ev) {
+                    click: function (ev) {
                       if (dc.openEditor) {
                         dc.parent.isAdd = true;
                         dc.add.apply(dc.commentBtn, [dc]);
@@ -2642,7 +2642,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       }
                       ev.preventDefault();
                     },
-                    keydown: function(ev) {
+                    keydown: function (ev) {
                       var k = $A.keyEvent(ev);
 
                       if (k === 27) {
@@ -2677,7 +2677,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                           dc.parent.buttons.nM.focus();
                         ev.preventDefault();
                       }
-                    }
+                    },
                   },
                   "." + baseId
                 );
@@ -2688,7 +2688,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 $A.on(
                   dc.textarea,
                   "keydown",
-                  function(ev) {
+                  function (ev) {
                     var k = $A.keyEvent(ev);
 
                     if (k === 27) {
@@ -2715,7 +2715,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   "." + baseId
                 );
               },
-              beforeRemove: function(dc) {
+              beforeRemove: function (dc) {
                 dc.openEditor = false;
                 dc.textarea = null;
                 dc.parent.setFocus.firstOpen = true;
@@ -2723,8 +2723,8 @@ License: MIT <https://opensource.org/licenses/MIT>
               lock:
                 commentsEnabled && config.editor && config.editor.show
                   ? false
-                  : true
-            }
+                  : true,
+            },
           ],
           (config.editor && config.editor.config) || {}
         )[0];
@@ -2733,7 +2733,7 @@ License: MIT <https://opensource.org/licenses/MIT>
         $A.on(
           window,
           "resize",
-          function(ev) {
+          function (ev) {
             mainDC.setPosition();
             commentDC.setPosition();
             formDC.setPosition();
@@ -2747,10 +2747,10 @@ License: MIT <https://opensource.org/licenses/MIT>
         // Toggles for openOnFocus support.
         var odc = mainDC,
           odcDel = false,
-          odcDelFn = function() {
+          odcDelFn = function () {
             odcDel = false;
           },
-          odcFn = function() {
+          odcFn = function () {
             if (!odcDel && !odc.loaded && !odc.disabled) {
               odcDel = true;
               // Toggles for openOnFocus support.
@@ -2772,11 +2772,11 @@ License: MIT <https://opensource.org/licenses/MIT>
         $A.on(
           trigger,
           {
-            click: function(ev) {
+            click: function (ev) {
               odcFn.call(this);
               ev.preventDefault();
             },
-            keydown: function(ev) {
+            keydown: function (ev) {
               var k = $A.keyEvent(ev);
 
               if (k === 32) {
@@ -2784,7 +2784,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 ev.preventDefault();
                 ev.stopPropagation();
               }
-            }
+            },
           },
           "." + baseId
         );
@@ -2798,7 +2798,7 @@ License: MIT <https://opensource.org/licenses/MIT>
           $A.on(
             targ,
             {
-              touchstart: function(ev) {
+              touchstart: function (ev) {
                 triggeredByTouch = true;
                 if (
                   !odcDel &&
@@ -2813,7 +2813,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   setTimeout(odcDelFn, 1000);
                 }
               },
-              focus: function(ev) {
+              focus: function (ev) {
                 if (
                   triggeredByTouch &&
                   !odcDel &&
@@ -2834,7 +2834,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   odcDel = true;
                   $A.trigger(trigger, "opendatepicker");
                   if (!triggeredByTouch)
-                    setTimeout(function() {
+                    setTimeout(function () {
                       $A.announce(odc.openOnFocusHelpText);
                     }, 1);
                   setTimeout(odcDelFn, 1000);
@@ -2842,12 +2842,12 @@ License: MIT <https://opensource.org/licenses/MIT>
                 onFocusInit = true;
                 onFocusTraverse = false;
               },
-              mousedown: function(ev) {
+              mousedown: function (ev) {
                 this.blur();
                 onFocusInit = onFocusTraverse = false;
                 this.focus();
               },
-              blur: function(ev) {
+              blur: function (ev) {
                 if (
                   odc.loaded &&
                   onFocusInit &&
@@ -2858,7 +2858,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 }
                 onFocusInit = false;
               },
-              keydown: function(ev) {
+              keydown: function (ev) {
                 var k = $A.keyEvent(ev);
 
                 if (k === 40 && onFocusInit && !onFocusTraverse && odc.loaded) {
@@ -2914,22 +2914,22 @@ License: MIT <https://opensource.org/licenses/MIT>
                   onFocusInit = false;
                   onFocusTraverse = true;
                   odc.setFocus(odc.range.index[odc.range.current.mDay - 1]);
-                  setTimeout(function() {
+                  setTimeout(function () {
                     $A.announce(odc.helpTextShort);
                   }, 1);
                   ev.preventDefault();
                   ev.stopPropagation();
                 }
-              }
+              },
             },
             "." + baseId
           );
         } else {
           $A.on(targ, {
-            touchstart: function(ev) {
+            touchstart: function (ev) {
               triggeredByTouch = true;
             },
-            focus: function(ev) {
+            focus: function (ev) {
               if (
                 triggeredByTouch &&
                 !odcDel &&
@@ -2944,26 +2944,24 @@ License: MIT <https://opensource.org/licenses/MIT>
 
               onFocusInit = true;
               onFocusTraverse = false;
-            }
+            },
           });
         }
 
         odc.setDisabled(odc, odc.disabled);
-        $A(trigger)
-          .describedBy(targ)
-          .controls(targ);
+        $A(trigger).describedBy(targ).controls(targ);
 
         $A.on(
           "body",
           "click",
-          function(ev) {
+          function (ev) {
             if (mainDC.datepickerLoaded) mainDC.remove();
           },
           "." + baseId
         );
 
         return mainDC;
-      }
+      },
     });
   }
 })();

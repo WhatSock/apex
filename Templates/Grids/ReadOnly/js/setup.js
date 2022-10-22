@@ -1,4 +1,4 @@
-$A.import("Grid", { defer: true }, function() {
+$A.import("Grid", { defer: true }, function () {
   var grid = new $A.Grid("dataGridId");
 
   // set accessible text for screen reader users
@@ -13,40 +13,40 @@ $A.import("Grid", { defer: true }, function() {
     editLinkAction: "Editable",
     dblClickTitle: "Click to activate",
     // Set the title text for the edit field
-    editFieldTitle: "Press Enter to save, or Escape to cancel."
+    editFieldTitle: "Press Enter to save, or Escape to cancel.",
   });
 
   grid.mapColumnNames([
     {
       id: "row-id",
       lbl: "ID",
-      colClass: "gridcell-col1"
+      colClass: "gridcell-col1",
     },
     {
       id: "personal-name",
       lbl: "Name",
-      colClass: "gridcell-col2"
+      colClass: "gridcell-col2",
     },
     {
       id: "personal-email",
       lbl: "Email",
-      colClass: "gridcell-col3"
+      colClass: "gridcell-col3",
     },
     {
       id: "personal-city",
       lbl: "Residence",
-      colClass: "gridcell-col4"
+      colClass: "gridcell-col4",
     },
     {
       id: "personal-university",
       lbl: "University",
-      colClass: "gridcell-col5"
+      colClass: "gridcell-col5",
     },
     {
       id: "personal-status",
       lbl: "Attendance",
-      colClass: "gridcell-col6"
-    }
+      colClass: "gridcell-col6",
+    },
   ]);
 
   grid.enableRowHeaders(true, "row-id");
@@ -62,7 +62,7 @@ $A.import("Grid", { defer: true }, function() {
     lastBtn = $A.get("btnLast"),
     pgn = $A.get("pgn");
 
-  grid.setPageIndexChangeListener(function(
+  grid.setPageIndexChangeListener(function (
     currentPage,
     totalPages,
     gridInstance
@@ -86,13 +86,13 @@ $A.import("Grid", { defer: true }, function() {
   });
 
   // Fires every time a grid object is opened in the DOM
-  grid.setOpenListener(function(container, dc, gridInstance) {
+  grid.setOpenListener(function (container, dc, gridInstance) {
     pgn.hidden = false;
     pageHeaderSpan.innerHTML = "Page " + pageCurrent + " of " + pageTotal;
   });
 
   // Fires every time a grid object is closed in the DOM
-  grid.setCloseListener(function(container, dc, gridInstance) {
+  grid.setCloseListener(function (container, dc, gridInstance) {
     pageHeaderSpan.innerHTML = "";
     pgn.hidden = true;
   });
@@ -110,7 +110,7 @@ $A.import("Grid", { defer: true }, function() {
       cells: {
         "row-id": {
           readonly: true,
-          value: tIndex
+          value: tIndex,
         },
         "personal-name": {
           value:
@@ -118,7 +118,7 @@ $A.import("Grid", { defer: true }, function() {
               ? "Rincewind"
               : spin === 1
               ? "Ponder Stibbons"
-              : "Hrun the Barbarian"
+              : "Hrun the Barbarian",
         },
         "personal-email": {
           value:
@@ -126,20 +126,20 @@ $A.import("Grid", { defer: true }, function() {
               ? "wizzard@whatsock.com"
               : spin === 1
               ? "ponder@whatsock.com"
-              : "aarg@whatsock.com"
+              : "aarg@whatsock.com",
         },
         "personal-city": {
-          value: "Ankh-Morpork"
+          value: "Ankh-Morpork",
         },
         "personal-university": {
-          value: spin === 2 || spin === 1 ? "Unseen University" : "Gruntings"
+          value: spin === 2 || spin === 1 ? "Unseen University" : "Gruntings",
         },
         "personal-status": {
           type: "toggle",
           name: "Active",
-          value: spin === 2 ? false : true
-        }
-      }
+          value: spin === 2 ? false : true,
+        },
+      },
     });
 
     if (!spin) spin = 2;
@@ -151,7 +151,7 @@ $A.import("Grid", { defer: true }, function() {
   grid.openPage(1);
 
   // Set pagination bindings
-  $A.on("button.paginate", "click", function(ev) {
+  $A.on("button.paginate", "click", function (ev) {
     var o = this,
       open = false;
 
@@ -182,7 +182,7 @@ $A.import("Grid", { defer: true }, function() {
     }
     ev.preventDefault();
   });
-  $A.on(pageEdit, "keydown", function(ev) {
+  $A.on(pageEdit, "keydown", function (ev) {
     var k = ev.which || ev.keyCode;
 
     if (k == 13) {
@@ -191,7 +191,7 @@ $A.import("Grid", { defer: true }, function() {
     }
   });
 
-  $A.on("#buv", "click", function(ev) {
+  $A.on("#buv", "click", function (ev) {
     // Programmatically update a value anywhere within the grid using it's rowID/colID index
     grid.setValue(5, "personal-email", "HOOAH@whatsock.com");
     "Cell Updated".announce();

@@ -7,15 +7,15 @@ License: MIT (https://opensource.org/licenses/MIT)
 Required dependencies: Button.js
 */
 
-(function() {
+(function () {
   if (!("setCheckbox" in $A)) {
     $A.import("Button", {
       name: "CheckboxModule",
       props: props,
       once: true,
-      call: function(props) {
+      call: function (props) {
         // The Checkbox module is an alias of the Button module.
-      }
+      },
     });
   }
 })();

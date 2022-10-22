@@ -1,5 +1,5 @@
-$A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
-  var search = function(s) {
+$A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
+  var search = function (s) {
     if (!s) return;
 
     s = "https://www.google.com/search?q=" + encodeURIComponent(s);
@@ -13,23 +13,23 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
     delay: 200,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, wrapper, next) {
+      onRender: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeIn", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
       },
-      onRemove: function(dc, wrapper, next) {
+      onRemove: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeOut", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
-      }
-    }
+      },
+    },
   });
 
   // Disable auto population of default value
@@ -39,7 +39,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   myHardwareCombobox.setWordMatch(true);
 
   // Process every time a new value is saved
-  myHardwareCombobox.onSelect(function(
+  myHardwareCombobox.onSelect(function (
     optionText,
     optionValue,
     comboboxElement,
@@ -61,7 +61,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
 
   // Dynamically toggle help text for desktops that support dual touch and keyboard interaction.
   if (window.device.type === "desktop") {
-    $A.on("toggletouch", function(ev) {
+    $A.on("toggletouch", function (ev) {
       myHardwareCombobox.setPromptText(
         $A.isTouch
           ? ""
@@ -89,7 +89,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function() {
   // Now fire up the newly instantiated ARIA Combobox
   myHardwareCombobox.start();
 
-  $A.on("#hardwareBtn", "click", function(ev) {
+  $A.on("#hardwareBtn", "click", function (ev) {
     search(myHardwareCombobox.combobox.value);
     ev.preventDefault();
   });

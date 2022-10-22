@@ -1,10 +1,10 @@
-$A.import(["Animate", "Tooltip"], { defer: true }, function() {
+$A.import(["Animate", "Tooltip"], { defer: true }, function () {
   var answer = "Terra";
 
   var helpDC = $A.setTooltip("input.has-help-tooltip", {
     id: "helpTooltipId",
     isResponsive: true,
-    validate: function(dc, target) {
+    validate: function (dc, target) {
       var val = (target.value || "").toLowerCase(),
         i = val.length,
         ans = answer.toLowerCase().slice(0, i),
@@ -26,7 +26,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
       else if (i > answer.length) return "Wo, hold on there cowboy!";
       else if (dc.isValid) return "That's correct, you've got it!";
     },
-    onValidate: function(dc) {
+    onValidate: function (dc) {
       document.querySelector('input[type="submit"]').disabled = !dc.isValid;
     },
     className: "help-tooltip",
@@ -34,23 +34,23 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
     delayTimeout: 3000,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, wrapper, next) {
+      onRender: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeIn", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
       },
-      onRemove: function(dc, wrapper, next) {
+      onRemove: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeOut", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
-      }
-    }
+      },
+    },
   });
 
   var errorTooltip = $A.setTooltip("input.has-help-tooltip", {
@@ -58,7 +58,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
     isError: true,
     role: "Error",
     content: "A correct answer to this question is required to proceed.",
-    validate: function(dc, target) {
+    validate: function (dc, target) {
       if (target.value.toLowerCase() !== answer.toLowerCase())
         return dc.content;
     },
@@ -67,22 +67,22 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function() {
     delayTimeout: 0,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, wrapper, next) {
+      onRender: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeIn", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
       },
-      onRemove: function(dc, wrapper, next) {
+      onRemove: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeOut", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
-      }
-    }
+      },
+    },
   });
 });

@@ -1,14 +1,14 @@
-(function(global, factory) {
+(function (global, factory) {
   typeof exports === "object" && typeof module !== "undefined"
     ? (module.exports = factory())
     : typeof define === "function" && define.amd
     ? define(factory)
     : ((global = global || self), (global.autosize = factory()));
-})(this, function() {
+})(this, function () {
   var map =
     typeof Map === "function"
       ? new Map()
-      : (function() {
+      : (function () {
           var keys = [];
           var values = [];
           return {
@@ -31,13 +31,13 @@
                 keys.splice(index, 1);
                 values.splice(index, 1);
               }
-            }
+            },
           };
         })();
 
   var createEvent = function createEvent(name) {
     return new Event(name, {
-      bubbles: true
+      bubbles: true,
     });
   };
 
@@ -106,7 +106,7 @@
         if (el.parentNode.scrollTop) {
           arr.push({
             node: el.parentNode,
-            scrollTop: el.parentNode.scrollTop
+            scrollTop: el.parentNode.scrollTop,
           });
         }
 
@@ -131,7 +131,7 @@
 
       clientWidth = ta.clientWidth; // prevents scroll-position jumping
 
-      overflows.forEach(function(el) {
+      overflows.forEach(function (el) {
         el.node.scrollTop = el.scrollTop;
       });
 
@@ -191,13 +191,13 @@
       }
     };
 
-    var destroy = function(style) {
+    var destroy = function (style) {
       window.removeEventListener("resize", pageResize, false);
       ta.removeEventListener("input", update, false);
       ta.removeEventListener("keyup", update, false);
       ta.removeEventListener("autosize:destroy", destroy, false);
       ta.removeEventListener("autosize:update", update, false);
-      Object.keys(style).forEach(function(key) {
+      Object.keys(style).forEach(function (key) {
         ta.style[key] = style[key];
       });
       map["delete"](ta);
@@ -206,7 +206,7 @@
       resize: ta.style.resize,
       overflowY: ta.style.overflowY,
       overflowX: ta.style.overflowX,
-      wordWrap: ta.style.wordWrap
+      wordWrap: ta.style.wordWrap,
     });
 
     ta.addEventListener("autosize:destroy", destroy, false); // IE9 does not fire onpropertychange or oninput for deletions,
@@ -224,7 +224,7 @@
     ta.style.wordWrap = "break-word";
     map.set(ta, {
       destroy: destroy,
-      update: update
+      update: update,
     });
     init();
   }
@@ -255,17 +255,17 @@
       return el;
     };
 
-    autosize.destroy = function(el) {
+    autosize.destroy = function (el) {
       return el;
     };
 
-    autosize.update = function(el) {
+    autosize.update = function (el) {
       return el;
     };
   } else {
     autosize = function autosize(el, options) {
       if (el) {
-        Array.prototype.forEach.call(el.length ? el : [el], function(x) {
+        Array.prototype.forEach.call(el.length ? el : [el], function (x) {
           return assign(x);
         });
       }
@@ -273,7 +273,7 @@
       return el;
     };
 
-    autosize.destroy = function(el) {
+    autosize.destroy = function (el) {
       if (el) {
         Array.prototype.forEach.call(el.length ? el : [el], destroy);
       }
@@ -281,7 +281,7 @@
       return el;
     };
 
-    autosize.update = function(el) {
+    autosize.update = function (el) {
       if (el) {
         Array.prototype.forEach.call(el.length ? el : [el], update);
       }

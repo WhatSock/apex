@@ -5,17 +5,17 @@ Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
 */
 
-(function() {
+(function () {
   var baseId = "grid" + $A.genId(),
     gridInc = 1;
 
   if (!("Grid" in $A))
     $A.extend({
-      Grid: function(container) {
+      Grid: function (container) {
         var that = this,
           container =
             typeof container === "string" ? $A.get(container) : container,
-          isArray = function(v) {
+          isArray = function (v) {
             return (
               v &&
               typeof v === "object" &&
@@ -40,11 +40,11 @@ License: MIT (https://opensource.org/licenses/MIT)
             editFieldClass: "data-grid-cell-link-edit",
             edit: false,
             colHeaders: {
-              map: []
+              map: [],
             },
             rowHeaders: {
               enabled: false,
-              id: null
+              id: null,
             },
             page: {
               row: {
@@ -55,7 +55,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 toggleButtonState: "Pressed",
                 disabledText: "Disabled",
                 editLinkAction: "Editable",
-                build: function(rowObject) {
+                build: function (rowObject) {
                   gridInc++;
                   var bid = baseId + "tr" + gridInc;
                   rowObject.rowNodeId = bid;
@@ -63,7 +63,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     "tr",
                     {
                       role: "row",
-                      id: bid
+                      id: bid,
                     },
                     null,
                     config.gridRowClass
@@ -78,7 +78,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     rowObject.cells[id].cellNode = $A.create(
                       "td",
                       {
-                        id: cid
+                        id: cid,
                       },
                       null,
                       config.gridCellClass
@@ -93,7 +93,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     rowObject.cells[id].cellNodeA = $A.create(
                       "strong",
                       {
-                        id: cid + "a"
+                        id: cid + "a",
                       },
                       null,
                       rowObject.cells[id].type == "toggle"
@@ -129,20 +129,20 @@ License: MIT (https://opensource.org/licenses/MIT)
                       rowId: rowObject.id,
                       rowNodeId: rowObject.rowNodeId,
                       cellId: id,
-                      cellNodeId: rowObject.cells[id].cellNodeId
+                      cellNodeId: rowObject.cells[id].cellNodeId,
                     });
                   }
 
                   $A.data(rowObject.rowNode, "rowdata", {
                     rowId: rowObject.id,
-                    rowNodeId: rowObject.rowNodeId
+                    rowNodeId: rowObject.rowNodeId,
                   });
                 },
                 trackPos: {
                   row: 0,
-                  col: 0
+                  col: 0,
                 },
-                resetPos: function(cellNode) {
+                resetPos: function (cellNode) {
                   var d = $A.data(cellNode, "celldata");
                   config.page.row.trackPos.row =
                     $A.inArray(d.rowId, config.page.rendered) || 0;
@@ -157,11 +157,11 @@ License: MIT (https://opensource.org/licenses/MIT)
                 },
                 dblClickTitle: "Click to activate",
                 editFieldTitle: "Press Enter to save, or Escape to cancel.",
-                cellOffset: function(cellObject) {
+                cellOffset: function (cellObject) {
                   return $A.offset(cellObject.cellNodeA);
                 },
-                bindCell: function(cellObject, cellNode, rowObject, rowNode) {
-                  var trigger = function() {
+                bindCell: function (cellObject, cellNode, rowObject, rowNode) {
+                  var trigger = function () {
                       cellNode = cellObject.cellNode;
                       rowObject = cellObject.rowObject;
                       rowNode = cellObject.rowObject.rowNode;
@@ -177,7 +177,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                           if (config.page.row.editFieldActive) clearEdit();
                           config.page.row.editFieldActive = cellObject;
                           $A.on(config.page.row.editField, {
-                            "keydown.gridcontrol": function(ev) {
+                            "keydown.gridcontrol": function (ev) {
                               var k = ev.which || ev.keyCode;
 
                               if (k == 13 || k == 27 || k == 9) {
@@ -193,18 +193,18 @@ License: MIT (https://opensource.org/licenses/MIT)
                                 clearEdit(true);
                               }
                             },
-                            "blur.gridcontrol": function(ev) {
+                            "blur.gridcontrol": function (ev) {
                               ev.preventDefault();
-                            }
+                            },
                           });
                           config.page.row.editField.value = cellObject.value;
                           $A.setAttr(config.page.row.editField, {
-                            title: config.page.row.editFieldTitle
+                            title: config.page.row.editFieldTitle,
                           });
 
                           $A.loop(
                             document.body.children,
-                            function(i, o) {
+                            function (i, o) {
                               $A.setAttr(o, "aria-hidden", "true");
                             },
                             "array"
@@ -240,7 +240,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                           $A.announce(cellObject.cellNode);
                       }
                     },
-                    nav = function(k, ev) {
+                    nav = function (k, ev) {
                       cellNode = cellObject.cellNode;
                       rowObject = cellObject.rowObject;
                       rowNode = cellObject.rowObject.rowNode;
@@ -367,7 +367,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                             cellId:
                               config.colHeaders.map[
                                 config.page.row.trackPos.col
-                              ].id
+                              ].id,
                           });
                         }
                       }
@@ -375,11 +375,11 @@ License: MIT (https://opensource.org/licenses/MIT)
 
                   var pressed = {
                     ctrl: false,
-                    alt: false
+                    alt: false,
                   };
 
                   $A.on(cellNode, {
-                    "click.gridcontrol": function(ev) {
+                    "click.gridcontrol": function (ev) {
                       var t = ev.srcElement || ev.target;
 
                       if (t != this || this != config.page.row.focusedCell)
@@ -395,7 +395,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                       }
                       ev.preventDefault();
                     },
-                    "dblclick.gridcontrol": function(ev) {
+                    "dblclick.gridcontrol": function (ev) {
                       if (useDblClick) {
                         if (this != config.page.row.focusedCell)
                           config.page.row.move(config.page.row.resetPos(this));
@@ -414,7 +414,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         ev.preventDefault();
                       }
                     },
-                    "mouseup.gridcontrol": function(ev) {
+                    "mouseup.gridcontrol": function (ev) {
                       if (!useDblClick) {
                         if (!ev.which && ev.button && ev.button & 1)
                           ev.which = 1;
@@ -440,7 +440,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         }
                       }
                     },
-                    "keydown.gridcontrol": function(ev) {
+                    "keydown.gridcontrol": function (ev) {
                       var k = ev.which || ev.keyCode;
                       pressed.ctrl = ev.ctrlKey;
                       pressed.alt = ev.altKey;
@@ -487,11 +487,11 @@ License: MIT (https://opensource.org/licenses/MIT)
                         ev.preventDefault();
                       }
                     },
-                    "keyup.gridcontrol": function(ev) {
+                    "keyup.gridcontrol": function (ev) {
                       pressed.ctrl = false;
                       pressed.alt = false;
                     },
-                    "focus.gridcontrol": function(ev) {
+                    "focus.gridcontrol": function (ev) {
                       cellObject = getCellObject(this);
                       $A.addClass(this, config.gridCellFocusedClass);
                       $A.addClass(
@@ -505,14 +505,14 @@ License: MIT (https://opensource.org/licenses/MIT)
                           true
                         );
                     },
-                    "blur.gridcontrol": function(ev) {
+                    "blur.gridcontrol": function (ev) {
                       $A.query(
                         "tr." +
                           config.gridRowFocusedClass +
                           ", td." +
                           config.gridCellFocusedClass,
                         config.dc.container,
-                        function(i, o) {
+                        function (i, o) {
                           $A.remClass(
                             o,
                             config.gridRowFocusedClass +
@@ -521,14 +521,14 @@ License: MIT (https://opensource.org/licenses/MIT)
                           );
                         }
                       );
-                    }
+                    },
                   });
                 },
-                clean: function(rowObject, keepData) {
+                clean: function (rowObject, keepData) {
                   $A.remAttr(rowObject.rowNode, [
                     "title",
                     "aria-selected",
-                    "aria-rowindex"
+                    "aria-rowindex",
                   ]);
 
                   $A.remClass(
@@ -548,7 +548,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                       "tabindex",
                       "aria-colindex",
                       "aria-selected",
-                      "aria-readonly"
+                      "aria-readonly",
                     ]);
 
                     $A.remClass(
@@ -565,7 +565,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                       "title",
                       "role",
                       "aria-pressed",
-                      "aria-disabled"
+                      "aria-disabled",
                     ]);
 
                     rowObject.cells[n].cellNodeS1.innerHTML = "";
@@ -576,7 +576,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                       $A.removeData(rowObject.cells[n].cellNode, "celldata");
                   }
                 },
-                changed: function(cellNode, cellObject, val) {
+                changed: function (cellNode, cellObject, val) {
                   var ret =
                     config.page.row.changed.cb &&
                     typeof config.page.row.changed.cb === "function"
@@ -584,7 +584,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                           cellObject,
                           val,
                           cellObject.rowObject,
-                          that
+                          that,
                         ])
                       : true;
 
@@ -605,7 +605,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 preserveSelect: false,
                 ariaSelect: true,
                 selected: [],
-                select: function(cellObject, sv) {
+                select: function (cellObject, sv) {
                   var newVal =
                       sv || (cellObject.rowObject.selected ? false : true),
                     ret =
@@ -617,7 +617,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                               cellObject.rowObject,
                               newVal,
                               config.page.row.selected,
-                              that
+                              that,
                             ]
                           )
                         : true;
@@ -703,7 +703,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     }
                   }
                 },
-                unselectAll: function() {
+                unselectAll: function () {
                   for (
                     var i = config.page.row.selected.length - 1;
                     i >= 0;
@@ -719,7 +719,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     config.page.row.selected.splice(i, 1);
                   }
                 },
-                selectAll: function() {
+                selectAll: function () {
                   if (
                     config.page.row.selectEnabled &&
                     config.page.row.multiSelect
@@ -738,7 +738,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 },
                 deleteRow: {
                   enabled: false,
-                  callback: function(ids) {
+                  callback: function (ids) {
                     var rt =
                       config.page.row.deleteRow.callback.runBefore &&
                       typeof config.page.row.deleteRow.callback.runBefore ===
@@ -833,9 +833,9 @@ License: MIT (https://opensource.org/licenses/MIT)
                       return true;
                     }
                     return false;
-                  }
+                  },
                 },
-                update: function(rowId, cellId, val, silent) {
+                update: function (rowId, cellId, val, silent) {
                   if (
                     !config.page.row.collection[rowId] ||
                     !config.page.row.collection[rowId].cells[cellId]
@@ -860,7 +860,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                             "aria-describedby"
                           ),
                           role: "button",
-                          "aria-pressed": "true"
+                          "aria-pressed": "true",
                         });
 
                         $A.addClass(
@@ -878,7 +878,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                             "aria-describedby"
                           ),
                           role: "button",
-                          "aria-pressed": "false"
+                          "aria-pressed": "false",
                         });
 
                         $A.remClass(
@@ -910,9 +910,9 @@ License: MIT (https://opensource.org/licenses/MIT)
                   }
                 },
                 focusedCell: null,
-                move: function(o, s) {
+                move: function (o, s) {
                   if (!o && config.page.row.focusedCell) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                       config.page.row.focusedCell.focus();
                     }, 1);
                     return;
@@ -938,14 +938,14 @@ License: MIT (https://opensource.org/licenses/MIT)
                       newCell,
                       oldCell,
                       config.dc,
-                      that
+                      that,
                     ]);
-                }
+                },
               },
               pageRole: "Page",
               current: 1,
               total: 1,
-              sync: function(n) {
+              sync: function (n) {
                 var prevC = config.page.current,
                   prevT = config.page.total;
 
@@ -1000,7 +1000,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     config.page.indexChanged.apply(that, [
                       config.page.current,
                       config.page.total,
-                      that
+                      that,
                     ]);
                 }
 
@@ -1011,9 +1011,9 @@ License: MIT (https://opensource.org/licenses/MIT)
                 close: null,
                 change: null,
                 add: null,
-                rem: null
+                rem: null,
               },
-              open: function(n, reOpen) {
+              open: function (n, reOpen) {
                 if (config.page.row.editFieldActive) clearEdit(true, true);
 
                 if (isNaN(n) || n < 1) n = 1;
@@ -1032,10 +1032,10 @@ License: MIT (https://opensource.org/licenses/MIT)
                   config.page.on.open.apply(container, [
                     container,
                     config.dc,
-                    that
+                    that,
                   ]);
               },
-              close: function() {
+              close: function () {
                 if (config.page.row.editFieldActive) clearEdit(true, true);
 
                 if (
@@ -1045,7 +1045,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                   config.page.on.close.apply(container, [
                     container,
                     config.dc,
-                    that
+                    that,
                   ]);
 
                 config.page.row.unselectAll();
@@ -1053,7 +1053,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 config.dc.remove();
               },
               rendered: [],
-              removeRendered: function() {
+              removeRendered: function () {
                 if (!config.page.row.preserveSelect)
                   config.page.row.unselectAll();
 
@@ -1069,7 +1069,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     config.page.on.rem.apply(rowObject.rowNode, [
                       rowObject,
                       config.dc,
-                      that
+                      that,
                     ]);
 
                   for (var n in rowObject.cells) {
@@ -1082,7 +1082,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 }
                 config.page.rendered = [];
               },
-              render: function(ids) {
+              render: function (ids) {
                 if (config.page.row.editFieldActive) clearEdit(true, true);
 
                 if (config.page.row.selectEnabled && config.edit)
@@ -1108,12 +1108,12 @@ License: MIT (https://opensource.org/licenses/MIT)
 
                   if (config.page.row.selectEnabled) {
                     $A.setAttr(tr, {
-                      title: altTxt + config.page.row.dblClickTitle
+                      title: altTxt + config.page.row.dblClickTitle,
                     });
 
                     if (config.page.row.ariaSelect)
                       $A.setAttr(tr, {
-                        "aria-selected": selected ? "true" : "false"
+                        "aria-selected": selected ? "true" : "false",
                       });
 
                     if (selected) {
@@ -1156,7 +1156,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                             " " +
                             o.thId
                           : o.thId,
-                      tabindex: "-1"
+                      tabindex: "-1",
                     });
 
                     if (
@@ -1164,7 +1164,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                       (config.edit && !cellObject.readonly)
                     )
                       $A.setAttr(cellObject.cellNode, {
-                        "aria-activedescendant": cellObject.cellNodeId + "a"
+                        "aria-activedescendant": cellObject.cellNodeId + "a",
                       });
 
                     if (
@@ -1174,7 +1174,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     )
                       $A.setAttr(cellObject.cellNode, {
                         role: "rowheader",
-                        scope: "row"
+                        scope: "row",
                       });
 
                     if (config.page.row.selectEnabled) {
@@ -1244,7 +1244,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     )
                       initPos = {
                         rowId: ids[h],
-                        cellId: o.id
+                        cellId: o.id,
                       };
 
                     if (cellObject.readonly || config.page.row.selectEnabled) {
@@ -1269,7 +1269,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                             "aria-describedby"
                           ),
                           role: "button",
-                          "aria-pressed": "true"
+                          "aria-pressed": "true",
                         });
 
                         $A.addClass(
@@ -1287,7 +1287,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                             "aria-describedby"
                           ),
                           role: "button",
-                          "aria-pressed": "false"
+                          "aria-pressed": "false",
                         });
 
                         $A.remClass(
@@ -1320,7 +1320,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                             cellObject.cellNode,
                             "aria-describedby"
                           ),
-                          role: "button"
+                          role: "button",
                         });
 
                         var accText =
@@ -1349,14 +1349,14 @@ License: MIT (https://opensource.org/licenses/MIT)
                     config.page.on.add.apply(tr, [
                       config.page.row.collection[ids[h]],
                       config.dc,
-                      that
+                      that,
                     ]);
                 }
 
                 if ("rowId" in initPos && "cellId" in initPos)
                   config.page.row.move(initPos, true);
               },
-              prev: function(cellObject, rowObject, byArrow) {
+              prev: function (cellObject, rowObject, byArrow) {
                 if (config.page.current > 1) {
                   config.page.render(config.page.sync(config.page.current - 1));
                   config.page.row.move({
@@ -1364,7 +1364,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                       config.page.rendered[
                         byArrow ? config.page.rendered.length - 1 : 0
                       ],
-                    cellId: cellObject.id
+                    cellId: cellObject.id,
                   });
 
                   $A.announce(config.page.pageRole + " " + config.page.current);
@@ -1376,16 +1376,16 @@ License: MIT (https://opensource.org/licenses/MIT)
                     config.page.on.change.apply(container, [
                       config.page.current,
                       config.page.total,
-                      that
+                      that,
                     ]);
                 }
               },
-              next: function(cellObject, rowObject) {
+              next: function (cellObject, rowObject) {
                 if (config.page.current < config.page.total) {
                   config.page.render(config.page.sync(config.page.current + 1));
                   config.page.row.move({
                     rowId: config.page.rendered[0],
-                    cellId: cellObject.id
+                    cellId: cellObject.id,
                   });
 
                   $A.announce(config.page.pageRole + " " + config.page.current);
@@ -1397,16 +1397,16 @@ License: MIT (https://opensource.org/licenses/MIT)
                     config.page.on.change.apply(container, [
                       config.page.current,
                       config.page.total,
-                      that
+                      that,
                     ]);
                 }
               },
-              first: function(cellObject, rowObject) {
+              first: function (cellObject, rowObject) {
                 if (config.page.current > 1) {
                   config.page.render(config.page.sync(1));
                   config.page.row.move({
                     rowId: config.page.rendered[0],
-                    cellId: cellObject.id
+                    cellId: cellObject.id,
                   });
 
                   $A.announce(config.page.pageRole + " " + config.page.current);
@@ -1418,18 +1418,18 @@ License: MIT (https://opensource.org/licenses/MIT)
                     config.page.on.change.apply(container, [
                       config.page.current,
                       config.page.total,
-                      that
+                      that,
                     ]);
                 }
               },
-              last: function(cellObject, rowObject, lr) {
+              last: function (cellObject, rowObject, lr) {
                 if (config.page.current < config.page.total) {
                   config.page.render(config.page.sync(config.page.total));
                   config.page.row.move({
                     rowId: lr
                       ? config.page.rendered[config.page.rendered.length - 1]
                       : config.page.rendered[0],
-                    cellId: cellObject.id
+                    cellId: cellObject.id,
                   });
 
                   $A.announce(config.page.pageRole + " " + config.page.current);
@@ -1441,16 +1441,16 @@ License: MIT (https://opensource.org/licenses/MIT)
                     config.page.on.change.apply(container, [
                       config.page.current,
                       config.page.total,
-                      that
+                      that,
                     ]);
                 }
-              }
-            }
+              },
+            },
           };
 
         gridInc++;
         var uId = baseId + "u" + gridInc,
-          getCellObject = function(cellNode) {
+          getCellObject = function (cellNode) {
             var o = $A.data(
               cellNode || config.page.row.focusedCell,
               "celldata"
@@ -1462,7 +1462,7 @@ License: MIT (https://opensource.org/licenses/MIT)
         config.page.row.editFieldDiv = $A.create(
           "div",
           {
-            role: "application"
+            role: "application",
           },
           null,
           config.editFieldClass
@@ -1472,14 +1472,14 @@ License: MIT (https://opensource.org/licenses/MIT)
           "input",
           {
             type: "text",
-            maxlength: config.page.row.editMaxLength
+            maxlength: config.page.row.editMaxLength,
           },
           null,
           config.editFieldClass
         );
 
         config.page.row.editFieldDiv.appendChild(config.page.row.editField);
-        $A.on(window, "resize." + uId, function() {
+        $A.on(window, "resize." + uId, function () {
           if (config.page.row.editFieldActive) {
             $A.css(
               config.page.row.editFieldDiv,
@@ -1488,7 +1488,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           }
         });
 
-        var clearEdit = function(ret, sk) {
+        var clearEdit = function (ret, sk) {
           config.page.row.editField.value = "";
           $A.off(config.page.row.editField, ".gridcontrol");
           $A.remove(config.page.row.editFieldDiv);
@@ -1497,7 +1497,7 @@ License: MIT (https://opensource.org/licenses/MIT)
             config.page.row.editFieldActive = null;
             $A.loop(
               document.body.children,
-              function(i, o) {
+              function (i, o) {
                 $A.setAttr(o, "aria-hidden", "false");
                 $A.remAttr(o, "aria-hidden");
               },
@@ -1514,7 +1514,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           exposeBounds: false,
           contentOnly: false,
           root: container,
-          afterRender: function(dc) {
+          afterRender: function (dc) {
             gridInc++;
             dc.tableId = baseId + "t" + gridInc;
             dc.theadId = baseId + "tth" + gridInc;
@@ -1525,7 +1525,7 @@ License: MIT (https://opensource.org/licenses/MIT)
               "table",
               {
                 role: "grid",
-                id: dc.tableId
+                id: dc.tableId,
               },
               null,
               config.gridClass
@@ -1544,19 +1544,19 @@ License: MIT (https://opensource.org/licenses/MIT)
 
             dc.thead = $A.create("thead", {
               role: "rowgroup",
-              id: dc.theadId
+              id: dc.theadId,
             });
 
             dc.tbody = $A.create("tbody", {
               role: "rowgroup",
-              id: dc.tbodyId
+              id: dc.tbodyId,
             });
 
             dc.tr = $A.create(
               "tr",
               {
                 role: "row",
-                id: dc.trId
+                id: dc.trId,
               },
               null,
               config.gridRowClass
@@ -1578,7 +1578,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     id: baseId + "th" + gridInc,
                     scope: "col",
                     "aria-labelledby": baseId + "th" + gridInc + "s",
-                    tabindex: "-1"
+                    tabindex: "-1",
                   },
                   null,
                   config.gridCellClass
@@ -1590,7 +1590,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 
               if (o.colClass) $A.addClass(th, o.colClass);
 
-              $A.on(th, "click", function(ev) {
+              $A.on(th, "click", function (ev) {
                 config.page.row.move();
               });
               th.innerHTML =
@@ -1607,21 +1607,21 @@ License: MIT (https://opensource.org/licenses/MIT)
 
             dc.container.appendChild(dc.table);
           },
-          beforeRemove: function(dc) {
+          beforeRemove: function (dc) {
             if (dc.table) $A.remove(dc.table);
             dc.table = dc.thead = dc.tbody = dc.tr = null;
-          }
+          },
         });
 
         that.id = uId;
 
-        that.getDC = function() {
+        that.getDC = function () {
           return config.dc;
         };
 
         that.container = container;
 
-        that.mapColumnNames = function(o) {
+        that.mapColumnNames = function (o) {
           if (!o || (typeof o !== "object" && !o.length)) return;
 
           config.colHeaders.map = [];
@@ -1630,12 +1630,12 @@ License: MIT (https://opensource.org/licenses/MIT)
             config.colHeaders.map.push({
               id: o[n].id,
               name: o[n].lbl,
-              colClass: o[n].colClass || ""
+              colClass: o[n].colClass || "",
             });
           }
         };
 
-        that.changeColumnOrder = function(oldVal, newVal) {
+        that.changeColumnOrder = function (oldVal, newVal) {
           if (
             isNaN(oldVal) ||
             isNaN(newVal) ||
@@ -1649,27 +1649,27 @@ License: MIT (https://opensource.org/licenses/MIT)
           [].splice.apply(config.colHeaders.map, o);
         };
 
-        that.enableRowHeaders = function(bool, colId) {
+        that.enableRowHeaders = function (bool, colId) {
           config.rowHeaders = {
             enabled: bool ? true : false,
-            id: colId
+            id: colId,
           };
         };
 
-        that.setRowMax = function(n) {
+        that.setRowMax = function (n) {
           config.page.row.max = isNaN(n) ? 0 : n;
         };
 
-        that.editable = function(bool) {
+        that.editable = function (bool) {
           config.edit = bool ? true : false;
         };
 
-        that.add = function(rows) {
+        that.add = function (rows) {
           if (!isArray(rows)) rows = [rows];
 
           $A.loop(
             rows,
-            function(ri, row) {
+            function (ri, row) {
               if (!(!row || (isNaN(row.id) && !row.id) || !row.cells)) {
                 if (row.id in config.page.row.collection) {
                   var pos = $A.inArray(row.id, config.page.row.selected);
@@ -1692,36 +1692,36 @@ License: MIT (https://opensource.org/licenses/MIT)
           );
         };
 
-        that.setChangeListener = function(fn) {
+        that.setChangeListener = function (fn) {
           if (typeof fn !== "function") return;
 
           config.page.row.changed.cb = fn;
         };
 
-        that.setPageChangeListener = function(fn) {
+        that.setPageChangeListener = function (fn) {
           if (typeof fn !== "function") return;
 
           config.page.on.change = fn;
         };
 
-        that.setEditMaxLength = function(n) {
+        that.setEditMaxLength = function (n) {
           if (isNaN(n)) n = 0;
           config.page.row.editMaxLength = n;
         };
 
-        that.setEditLoadListener = function(fn) {
+        that.setEditLoadListener = function (fn) {
           if (typeof fn !== "function") return;
 
           config.page.row.editLoad = fn;
         };
 
-        that.setPageIndexChangeListener = function(fn) {
+        that.setPageIndexChangeListener = function (fn) {
           if (typeof fn !== "function") return;
 
           config.page.indexChanged = fn;
         };
 
-        that.setSelect = function(o, undefined) {
+        that.setSelect = function (o, undefined) {
           if (!o || typeof o !== "object") return;
 
           if ("enable" in o)
@@ -1744,15 +1744,15 @@ License: MIT (https://opensource.org/licenses/MIT)
               typeof o.callback === "function" ? o.callback : null;
         };
 
-        that.unselectAll = function() {
+        that.unselectAll = function () {
           config.page.row.unselectAll();
         };
 
-        that.selectAll = function() {
+        that.selectAll = function () {
           config.page.row.selectAll();
         };
 
-        that.getSelected = function() {
+        that.getSelected = function () {
           var ret = [];
 
           for (var i = 0; i < config.page.row.selected.length; i++)
@@ -1760,7 +1760,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           return ret;
         };
 
-        that.select = function(ids) {
+        that.select = function (ids) {
           if (!isArray(ids)) ids = [ids];
 
           for (var i = 0; i < ids.length; i++) {
@@ -1780,7 +1780,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           }
         };
 
-        that.setDelete = function(o) {
+        that.setDelete = function (o) {
           if (!o || typeof o !== "object") return;
 
           if ("enable" in o)
@@ -1799,7 +1799,7 @@ License: MIT (https://opensource.org/licenses/MIT)
               typeof o.runAfter === "function" ? o.runAfter : null;
         };
 
-        that.deleteRows = function(ids) {
+        that.deleteRows = function (ids) {
           if (config.page.row.deleteRow.enabled) {
             if (ids && ids.length)
               return config.page.row.deleteRow.callback(ids);
@@ -1809,7 +1809,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           return false;
         };
 
-        that.deleteAllRows = function() {
+        that.deleteAllRows = function () {
           if (config.page.row.deleteRow.enabled) {
             return config.page.row.deleteRow.callback(
               config.page.row.collectionMap
@@ -1818,7 +1818,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           return false;
         };
 
-        that.setAccessibleText = function(o) {
+        that.setAccessibleText = function (o) {
           if (!o || typeof o !== "object") return;
 
           if ("toggleButtonRole" in o)
@@ -1844,7 +1844,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           if ("selectState" in o) config.page.row.selectState = o.selectState;
         };
 
-        that.setStaticClasses = function(o) {
+        that.setStaticClasses = function (o) {
           if (!o || typeof o !== "object") return;
 
           if ("gridClass" in o) config.gridClass = o.gridClass;
@@ -1883,73 +1883,73 @@ License: MIT (https://opensource.org/licenses/MIT)
           if ("editFieldClass" in o) config.editFieldClass = o.editFieldClass;
         };
 
-        that.currentPage = function() {
+        that.currentPage = function () {
           return config.page.current;
         };
 
-        that.totalPages = function() {
+        that.totalPages = function () {
           return config.page.total;
         };
 
-        that.totalRows = function() {
+        that.totalRows = function () {
           return config.page.row.collectionMap.length;
         };
 
-        that.openPage = function(n, reOpen) {
+        that.openPage = function (n, reOpen) {
           if (isNaN(n) || n < 1) return;
 
           config.page.open(n, reOpen);
         };
 
-        that.prevPage = function() {
+        that.prevPage = function () {
           if (!config.dc.loaded) return;
 
           var cellObject = getCellObject();
           config.page.prev(cellObject, cellObject.rowObject);
         };
 
-        that.nextPage = function() {
+        that.nextPage = function () {
           if (!config.dc.loaded) return;
 
           var cellObject = getCellObject();
           config.page.next(cellObject, cellObject.rowObject);
         };
 
-        that.firstPage = function() {
+        that.firstPage = function () {
           if (!config.dc.loaded) return;
 
           var cellObject = getCellObject();
           config.page.first(cellObject, cellObject.rowObject);
         };
 
-        that.lastPage = function() {
+        that.lastPage = function () {
           if (!config.dc.loaded) return;
 
           var cellObject = getCellObject();
           config.page.last(cellObject, cellObject.rowObject);
         };
 
-        that.setOpenListener = function(f) {
+        that.setOpenListener = function (f) {
           if (f && typeof f === "function") config.page.on.open = f;
         };
 
-        that.setCloseListener = function(f) {
+        that.setCloseListener = function (f) {
           if (f && typeof f === "function") config.page.on.close = f;
         };
 
-        that.setAddListener = function(f) {
+        that.setAddListener = function (f) {
           if (f && typeof f === "function") config.page.on.add = f;
         };
 
-        that.setRemoveListener = function(f) {
+        that.setRemoveListener = function (f) {
           if (f && typeof f === "function") config.page.on.rem = f;
         };
 
-        that.setMoveListener = function(f) {
+        that.setMoveListener = function (f) {
           if (f && typeof f === "function") config.page.row.move.cb = f;
         };
 
-        that.getData = function(rowId, cellId, keyName) {
+        that.getData = function (rowId, cellId, keyName) {
           if (
             !rowId ||
             !cellId ||
@@ -1962,7 +1962,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           return config.page.row.collection[rowId].cells[cellId].data[keyName];
         };
 
-        that.setData = function(rowId, cellId, keyName, data) {
+        that.setData = function (rowId, cellId, keyName, data) {
           if (
             !rowId ||
             !cellId ||
@@ -1975,7 +1975,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           config.page.row.collection[rowId].cells[cellId].data[keyName] = data;
         };
 
-        that.getValue = function(rowId, cellId) {
+        that.getValue = function (rowId, cellId) {
           if (
             !rowId ||
             !cellId ||
@@ -1987,37 +1987,37 @@ License: MIT (https://opensource.org/licenses/MIT)
           return config.page.row.collection[rowId].cells[cellId].value;
         };
 
-        that.setValue = function(rowId, cellId, value) {
+        that.setValue = function (rowId, cellId, value) {
           config.page.row.update(rowId, cellId, value, true);
         };
 
-        that.setEditOffset = function(f) {
+        that.setEditOffset = function (f) {
           if (f && typeof f === "function") config.page.row.cellOffset = f;
         };
 
-        that.open = function(n) {
+        that.open = function (n) {
           config.page.open(n, true);
         };
 
-        that.close = function() {
+        that.close = function () {
           config.page.close();
         };
 
-        that.focus = function() {
+        that.focus = function () {
           config.page.row.move();
         };
 
         var useDblClick = false;
 
-        that.useDblClick = function(b) {
+        that.useDblClick = function (b) {
           useDblClick = b ? true : false;
         };
 
         return that;
-      }
+      },
     });
 
-  var formatStr = function(s, q) {
+  var formatStr = function (s, q) {
     var str = "";
 
     if (typeof s === "number") str = s.toString();

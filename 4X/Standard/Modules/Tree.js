@@ -7,10 +7,10 @@ License: MIT (https://opensource.org/licenses/MIT)
 Required dependencies: RovingTabIndex.js
   */
 
-(function() {
+(function () {
   if (!("setTree" in $A)) {
     $A.addWidgetProfile("Tree", {
-      configure: function(dc) {
+      configure: function (dc) {
         return {
           toggleHide: true,
           preload: true,
@@ -18,18 +18,18 @@ Required dependencies: RovingTabIndex.js
           preloadCSS: true,
           className: "tree",
           escToClose: true,
-          click: function(ev, dc) {
+          click: function (ev, dc) {
             ev.stopPropagation();
           },
-          storeData: true
+          storeData: true,
         };
       },
-      afterRender: function(dc) {
+      afterRender: function (dc) {
         $A.setAttr(dc.triggerNode, "aria-expanded", "true");
         $A.data(dc.triggerNode, "expanded", true);
         $A.loop(
           dc.RTI.nodes,
-          function(i, o) {
+          function (i, o) {
             dc.getState(
               o,
               $A.getAttr(o, "aria-checked"),
@@ -41,25 +41,25 @@ Required dependencies: RovingTabIndex.js
           "array"
         );
       },
-      beforeRemove: function(dc) {
+      beforeRemove: function (dc) {
         $A.loop(
           dc.RTI.children,
-          function(i, o) {
+          function (i, o) {
             o.DC.remove();
           },
           "map"
         );
       },
-      afterRemove: function(dc) {
+      afterRemove: function (dc) {
         $A.setAttr(dc.triggerNode, "aria-expanded", "false");
         $A.data(dc.triggerNode, "expanded", false);
-      }
+      },
     });
 
     var isIE = $A.isIE();
 
     $A.extend({
-      setTree: function(o, config) {
+      setTree: function (o, config) {
         if (this._4X) {
           config = o;
           o = this._X;
@@ -78,22 +78,22 @@ Required dependencies: RovingTabIndex.js
             {
               parent: "ul",
               child: "a",
-              parse: function(ref) {
+              parse: function (ref) {
                 if (isIE) {
                   var mItems = [];
-                  $A.query(ref.children, function(i, o) {
-                    var c = $A.first(o, function(e) {
+                  $A.query(ref.children, function (i, o) {
+                    var c = $A.first(o, function (e) {
                       if (e.nodeName.toLowerCase() === tag.child) return true;
                     });
                     if ($A.isNode(c)) mItems.push(c);
                   });
                   return mItems;
                 } else return ref.querySelectorAll(":scope > * > " + tag.child);
-              }
+              },
             },
             config.tag || {}
           ),
-          getState = function(o, attributeValue, hasAttribute, write, nodes) {
+          getState = function (o, attributeValue, hasAttribute, write, nodes) {
             if (hasAttribute) {
               var c = 0;
               if (attributeValue === "true") c = 1;
@@ -109,12 +109,12 @@ Required dependencies: RovingTabIndex.js
             }
             return false;
           },
-          genTree = function(o, p, list, top, level, triggerIndex) {
+          genTree = function (o, p, list, top, level, triggerIndex) {
             var ref =
               list ||
               ($A.isNode(o) &&
                 ($A.getAttr(o, "data-controls") ||
-                  $A.next(o, function(e) {
+                  $A.next(o, function (e) {
                     if (e.nodeName.toLowerCase() === tag.parent) return true;
                   })));
             if (ref) ref = $A.morph(ref);
@@ -139,7 +139,7 @@ Required dependencies: RovingTabIndex.js
                   on: "opentree",
                   widgetType: "Tree",
                   toggleHide: true,
-                  getState: getState
+                  getState: getState,
                 },
                 config
               )
@@ -147,7 +147,7 @@ Required dependencies: RovingTabIndex.js
 
             if (p)
               DC.map({
-                parent: p.DC
+                parent: p.DC,
               });
 
             DC.RTI = new $A.RovingTabIndex(
@@ -162,7 +162,7 @@ Required dependencies: RovingTabIndex.js
                   autoSwitch: config.autoSwitch || "semi",
                   autoLoop: false,
                   isTree: true,
-                  onClick: function(ev, triggerNode, RTI, DC) {
+                  onClick: function (ev, triggerNode, RTI, DC) {
                     var that = this,
                       isDisabled = $A.isDisabled(that),
                       check = getState(triggerNode);
@@ -177,7 +177,7 @@ Required dependencies: RovingTabIndex.js
                         RTI,
                         DC || $A.boundTo(that),
                         check,
-                        function(attributeValue) {
+                        function (attributeValue) {
                           getState(
                             triggerNode,
                             attributeValue,
@@ -185,33 +185,37 @@ Required dependencies: RovingTabIndex.js
                             true,
                             RTI.nodes
                           );
-                        }
+                        },
                       ]);
                     }
                     ev.preventDefault();
                   },
-                  onSpace: function(ev, triggerNode, RTI, DC) {
+                  onSpace: function (ev, triggerNode, RTI, DC) {
                     RTI.onClick.apply(this, arguments);
                     ev.preventDefault();
                   },
-                  onEnter: function(ev, triggerNode, RTI, DC) {
+                  onEnter: function (ev, triggerNode, RTI, DC) {
                     RTI.onClick.apply(this, arguments);
                     ev.preventDefault();
                   },
-                  onFocus: function(ev, triggerNode, RTI, DC) {
-                    $A.query('*[tabindex="0"]', main, function(i, o) {
+                  onFocus: function (ev, triggerNode, RTI, DC) {
+                    $A.query('*[tabindex="0"]', main, function (i, o) {
                       if (o !== triggerNode) $A.setAttr(o, "tabindex", -1);
                     });
                     if (!$A.isTouch && !multiselect) {
-                      $A.query('*[aria-selected="true"]', main, function(i, o) {
-                        if (o !== triggerNode)
-                          $A.setAttr(o, "aria-selected", "false");
-                      });
+                      $A.query(
+                        '*[aria-selected="true"]',
+                        main,
+                        function (i, o) {
+                          if (o !== triggerNode)
+                            $A.setAttr(o, "aria-selected", "false");
+                        }
+                      );
                       $A.setAttr(triggerNode, "aria-selected", "true");
                     }
                     ev.stopPropagation();
                   },
-                  onRight: function(
+                  onRight: function (
                     ev,
                     triggerNode,
                     RTI,
@@ -231,7 +235,7 @@ Required dependencies: RovingTabIndex.js
                     }
                     ev.preventDefault();
                   },
-                  onUp: function(
+                  onUp: function (
                     ev,
                     triggerNode,
                     RTI,
@@ -240,7 +244,7 @@ Required dependencies: RovingTabIndex.js
                     isTop,
                     isBottom
                   ) {
-                    var get = function(RTI, trigger) {
+                    var get = function (RTI, trigger) {
                         var r = RTI.children.get(trigger) || {};
                         if (
                           $A.isDC(r.DC) &&
@@ -263,7 +267,7 @@ Required dependencies: RovingTabIndex.js
                       return false;
                     }
                   },
-                  onLeft: function(
+                  onLeft: function (
                     ev,
                     triggerNode,
                     RTI,
@@ -276,7 +280,7 @@ Required dependencies: RovingTabIndex.js
                     else if (RTI.parent) RTI.parent.focus(RTI.trigger);
                     ev.preventDefault();
                   },
-                  onCtrlLeft: function(
+                  onCtrlLeft: function (
                     ev,
                     triggerNode,
                     RTI,
@@ -291,7 +295,7 @@ Required dependencies: RovingTabIndex.js
                     } else {
                       $A.loop(
                         RTI.children,
-                        function(i, c) {
+                        function (i, c) {
                           if ($A.isDC(c.DC)) c.DC.remove();
                         },
                         "map"
@@ -299,7 +303,7 @@ Required dependencies: RovingTabIndex.js
                     }
                     ev.preventDefault();
                   },
-                  onCtrlRight: function(
+                  onCtrlRight: function (
                     ev,
                     triggerNode,
                     RTI,
@@ -308,12 +312,12 @@ Required dependencies: RovingTabIndex.js
                     isTop,
                     isBottom
                   ) {
-                    var get = function(r) {
+                    var get = function (r) {
                       $A.loop(
                         r.children,
-                        function(i, c) {
+                        function (i, c) {
                           if ($A.isDC(c.DC))
-                            c.DC.render(function() {
+                            c.DC.render(function () {
                               get(c);
                             });
                         },
@@ -323,7 +327,7 @@ Required dependencies: RovingTabIndex.js
                     get(RTI);
                     ev.preventDefault();
                   },
-                  onDown: function(
+                  onDown: function (
                     ev,
                     triggerNode,
                     RTI,
@@ -337,7 +341,7 @@ Required dependencies: RovingTabIndex.js
                       return false;
                     } else if (isBottom) {
                       var r = RTI,
-                        get = function(p) {
+                        get = function (p) {
                           if (!p.parent) {
                             r = null;
                             return -1;
@@ -356,14 +360,14 @@ Required dependencies: RovingTabIndex.js
                       return false;
                     }
                   },
-                  onEsc: function(ev, triggerNode, RTI, DC) {
+                  onEsc: function (ev, triggerNode, RTI, DC) {
                     if (RTI.parent) {
                       RTI.DC.remove();
                       RTI.parent.focus(RTI.parent.index);
                     } else {
                       $A.loop(
                         RTI.children,
-                        function(i, c) {
+                        function (i, c) {
                           if ($A.isDC(c.DC)) c.DC.remove();
                         },
                         "map"
@@ -371,7 +375,7 @@ Required dependencies: RovingTabIndex.js
                     }
                     ev.preventDefault();
                   },
-                  onHome: function(
+                  onHome: function (
                     ev,
                     triggerNode,
                     RTI,
@@ -383,7 +387,7 @@ Required dependencies: RovingTabIndex.js
                     RTI.top.focus(0);
                     return false;
                   },
-                  onEnd: function(
+                  onEnd: function (
                     ev,
                     triggerNode,
                     RTI,
@@ -392,7 +396,7 @@ Required dependencies: RovingTabIndex.js
                     isTop,
                     isBottom
                   ) {
-                    var get = function(RTI, trigger) {
+                    var get = function (RTI, trigger) {
                         var r = RTI.children.get(trigger) || {};
                         if (
                           $A.isDC(r.DC) &&
@@ -413,7 +417,7 @@ Required dependencies: RovingTabIndex.js
                     }
 
                     return false;
-                  }
+                  },
                 },
                 config.extendRTI || {}
               )
@@ -421,7 +425,7 @@ Required dependencies: RovingTabIndex.js
 
             $A.loop(
               mItems,
-              function(i, o) {
+              function (i, o) {
                 genTree(o, DC.RTI, null, false, level + 1, i);
                 var check = getState(
                     o,
@@ -437,18 +441,18 @@ Required dependencies: RovingTabIndex.js
                 }
                 $A.setAttr(o, {
                   role: "treeitem",
-                  "aria-level": level
+                  "aria-level": level,
                 });
                 if ($A.isNum(check)) {
                   var c = "false";
                   if (check === 1) c = "true";
                   else if (check === 2) c = "mixed";
                   $A.setAttr(o, {
-                    "aria-checked": c
+                    "aria-checked": c,
                   });
                   $A(o).on(
                     "attributeChange",
-                    function(
+                    function (
                       MutationObject,
                       o,
                       attributeName,
@@ -463,11 +467,11 @@ Required dependencies: RovingTabIndex.js
                       }
                     },
                     {
-                      attributeFilter: ["aria-checked"]
+                      attributeFilter: ["aria-checked"],
                     }
                   );
                 }
-                $A.closest(o, function(o) {
+                $A.closest(o, function (o) {
                   if (o === ref) return true;
                   $A.setAttr(o, "role", "presentation");
                 });
@@ -501,11 +505,11 @@ Required dependencies: RovingTabIndex.js
         o = $A.morph(o);
         main = o;
 
-        var gen = function(l, i) {
+        var gen = function (l, i) {
           DC = genTree(null, null, l, true, 1, i);
           $A(main)
             .setAttr("tabindex", "0")
-            .on("focus click", function(ev) {
+            .on("focus click", function (ev) {
               if (DC.RTI.nodes.length) {
                 DC.RTI.focus();
                 $A.setAttr(main, "tabindex", "-1");
@@ -524,9 +528,9 @@ Required dependencies: RovingTabIndex.js
             p,
             config.root,
             {
-              selector: s
+              selector: s,
             },
-            function(c) {
+            function (c) {
               main = c;
               gen(main);
             }
@@ -536,7 +540,7 @@ Required dependencies: RovingTabIndex.js
         }
 
         return $A._XR.call(this, DC);
-      }
+      },
     });
   }
 })();

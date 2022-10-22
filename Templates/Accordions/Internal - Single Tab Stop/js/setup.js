@@ -1,4 +1,4 @@
-$A.import(["Animate", "Accordion"], { defer: true }, function() {
+$A.import(["Animate", "Accordion"], { defer: true }, function () {
   $A.setAccordion(".aria-accordion-trigger", {
     singleTabStop: true,
     toggleHide: true,
@@ -46,6 +46,6 @@ $A.import(["Animate", "Accordion"], { defer: true }, function() {
     },
 */
 
-    toggleClassName: "open"
+    toggleClassName: "open",
   });
 });

@@ -1,5 +1,5 @@
 /*@license
-ARIA Combobox Module 3.2 for Apex 4X
+ARIA Combobox Module 3.3 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -7,15 +7,15 @@ License: MIT (https://opensource.org/licenses/MIT)
 Required dependencies: SmoothScroll.js, AccName.js
 */
 
-(function() {
+(function () {
   if (!("Combobox" in $A)) {
     $A.import(["SmoothScroll", "AccName"], {
       name: "ComboboxModule",
       props: props,
       once: true,
-      call: function(props) {
+      call: function (props) {
         $A.extend({
-          Combobox: function(config) {
+          Combobox: function (config) {
             var sel = config.select || false,
               combobox = config.input || false,
               accName =
@@ -36,7 +36,7 @@ Required dependencies: SmoothScroll.js, AccName.js
               role: "combobox",
               "aria-expanded": "false",
               "aria-autocomplete": "list",
-              "aria-haspopup": "listbox"
+              "aria-haspopup": "listbox",
             });
 
             var baseId = $A.genId(),
@@ -67,11 +67,11 @@ Required dependencies: SmoothScroll.js, AccName.js
               autoCloseSameWidget: true,
               cb: {
                 selected: [],
-                select: function(dc, o, select) {
+                select: function (dc, o, select) {
                   if (!$A.isNode(o) || !o.id) {
                     $A.remAttr(dc.triggerNode, [
                       "aria-activedescendant",
-                      "aria-controls"
+                      "aria-controls",
                     ]);
                     dc.cb.activeDescendant = false;
                     return;
@@ -90,7 +90,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                   } else {
                     $A.remAttr(dc.triggerNode, [
                       "aria-activedescendant",
-                      "aria-controls"
+                      "aria-controls",
                     ]);
                     dc.cb.activeDescendant = false;
                   }
@@ -105,7 +105,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                 readonly: false,
                 multiple: false,
                 checked: false,
-                multipleDivider: function(values) {
+                multipleDivider: function (values) {
                   return values.join("");
                 },
                 required: false,
@@ -128,7 +128,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                 setDefault: true,
                 bound: false,
                 fn: {
-                  update: function() {
+                  update: function () {
                     var dc = this.dc;
                     that.close();
                     dc.cb.options = {};
@@ -188,7 +188,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                         checked: dc.cb.optionNodes[i].selected,
                         no: name,
                         v: dc.cb.optionNodes[i].value,
-                        i: i
+                        i: i,
                       };
 
                       dc.cb.names.push(name);
@@ -214,10 +214,10 @@ Required dependencies: SmoothScroll.js, AccName.js
 
                     if (dc.cb.required && dc.cb.isInput)
                       $A.setAttr(dc.triggerNode, {
-                        "aria-required": "true"
+                        "aria-required": "true",
                       });
                   },
-                  render: function(pass, scroll, noRecheck) {
+                  render: function (pass, scroll, noRecheck) {
                     var dc = this.dc;
 
                     if (dc.cb.multiple && !noRecheck) {
@@ -245,7 +245,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                       dc.cb.sIndex = dc.cb.sel.selectedIndex;
                       dc.cb.matches = [];
                       if (dc.loaded) {
-                        that.close(function() {
+                        that.close(function () {
                           that.open(true);
                         });
                         return dc;
@@ -368,27 +368,27 @@ Required dependencies: SmoothScroll.js, AccName.js
                     }
                     return false;
                   },
-                  setAltTrigger: function(o) {
+                  setAltTrigger: function (o) {
                     if (!o || o.nodeType !== 1) return;
                     var dc = this.dc;
 
                     $A.setAttr(o, {
                       role: "button",
-                      "aria-expanded": "false"
+                      "aria-expanded": "false",
                     });
 
                     $A.setAttr(o, {
                       "aria-label":
                         ($A.isFn(window.getAccName) &&
                           window.getAccName(dc.triggerNode).name) ||
-                        $A.getText(dc.triggerNode)
+                        $A.getText(dc.triggerNode),
                     });
 
                     dc.cb.altClicked = false;
 
                     $A.off(o, "click");
 
-                    $A.on(o, "click", function(ev) {
+                    $A.on(o, "click", function (ev) {
                       if (!dc.cb.altClicked) {
                         dc.cb.altClicked = true;
 
@@ -402,7 +402,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                           that.close();
                         }
                         dc.triggerNode.focus();
-                        setTimeout(function() {
+                        setTimeout(function () {
                           dc.cb.altClicked = false;
                         }, 300);
                       }
@@ -411,7 +411,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                     });
                     dc.cb.altTrigger = o;
                   },
-                  setValue: function(option, pass, manual) {
+                  setValue: function (option, pass, manual) {
                     var dc = this.dc;
 
                     if (option && !dc.cb.multiple) {
@@ -429,7 +429,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                           option.no,
                           option.v,
                           dc.triggerNode,
-                          dc.cb.sel
+                          dc.cb.sel,
                         ]);
 
                         if (nv || $A.isStr(nv)) dc.cb.value = nv;
@@ -461,12 +461,8 @@ Required dependencies: SmoothScroll.js, AccName.js
 
                         if (!pass) {
                           option.checked =
-                            $A.getAttr(option.o, "aria-checked") === "true"
-                              ? true
-                              : false;
-                          option.so.selected = option.checked
-                            ? "selected"
-                            : false;
+                            $A.getAttr(option.o, "aria-checked") === "true";
+                          option.so.selected = option.checked;
                         }
 
                         if (option.checked) {
@@ -487,7 +483,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                           dc.cb.value,
                           soNodes,
                           dc.triggerNode,
-                          dc.cb.sel
+                          dc.cb.sel,
                         ]);
 
                         if (nv || $A.isStr(nv)) dc.cb.value = nv;
@@ -503,7 +499,7 @@ Required dependencies: SmoothScroll.js, AccName.js
 
                     dc.cb.pValue = dc.cb.value;
                   },
-                  checkValue: function(v) {
+                  checkValue: function (v) {
                     var dc = this.dc;
 
                     if (!(v && v.length >= dc.cb.charMin)) return -1;
@@ -519,7 +515,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                     }
                     return -1;
                   },
-                  unsetValue: function(pass) {
+                  unsetValue: function (pass) {
                     var dc = this.dc;
 
                     if (!pass && dc.cb.sel.selectedIndex >= 0)
@@ -534,7 +530,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                       dc.cb.value = $A.getText(dc.cb.child);
                     }
                   },
-                  bind: function() {
+                  bind: function () {
                     var dc = this.dc;
 
                     if (dc.cb.bound) return;
@@ -542,7 +538,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                     $A.off(dc.triggerNode, ".4XCombobox");
                     var touched = false,
                       touchDelay = null,
-                      handleClick = function(ev) {
+                      handleClick = function (ev) {
                         if (!dc.cb.altTrigger) {
                           if (!dc.loaded) {
                             that.open();
@@ -553,22 +549,22 @@ Required dependencies: SmoothScroll.js, AccName.js
                     $A.on(
                       dc.triggerNode,
                       {
-                        touchstart: function(ev) {
+                        touchstart: function (ev) {
                           touched = true;
                           if (!touchDelay) handleClick.call(this, ev);
-                          touchDelay = setTimeout(function() {
+                          touchDelay = setTimeout(function () {
                             touchDelay = null;
                           }, 1000);
                         },
-                        mousedown: function(ev) {
+                        mousedown: function (ev) {
                           // if (dc.cb.isInput) handleClick.call(this, ev);
                           ev.stopPropagation();
                         },
-                        click: function(ev) {
+                        click: function (ev) {
                           if (!dc.cb.isInput) handleClick.call(this, ev);
                           ev.stopPropagation();
                         },
-                        keydown: function(ev) {
+                        keydown: function (ev) {
                           var e = this,
                             k = $A.keyEvent(ev);
                           ev.stopPropagation();
@@ -652,12 +648,12 @@ Required dependencies: SmoothScroll.js, AccName.js
                             dc.cb.fn.render(false, true, true);
 
                             if (dc.cb.keyReset) clearTimeout(dc.cb.keyReset);
-                            dc.cb.keyReset = setTimeout(function() {
+                            dc.cb.keyReset = setTimeout(function () {
                               dc.cb.key = "";
                             }, 1500);
                           }
                         },
-                        keyup: function(ev) {
+                        keyup: function (ev) {
                           var e = this,
                             k = $A.keyEvent(ev);
 
@@ -810,10 +806,10 @@ Required dependencies: SmoothScroll.js, AccName.js
                             }
                           }
                         },
-                        focus: function(ev) {},
-                        blur: function(ev) {
+                        focus: function (ev) {},
+                        blur: function (ev) {
                           if (!touched && !dc.cb.multiple) {
-                            setTimeout(function() {
+                            setTimeout(function () {
                               if (!dc.cb.altClicked) {
                                 if (dc.loaded) {
                                   if (
@@ -834,18 +830,18 @@ Required dependencies: SmoothScroll.js, AccName.js
                               }
                             }, 150);
                           }
-                        }
+                        },
                       },
                       null,
                       ".4XCombobox"
                     );
                     dc.cb.bound = true;
                   },
-                  set: function() {
+                  set: function () {
                     var dc = this.dc;
                     dc.cb.select(dc);
                     $A.setAttr(dc.triggerNode, {
-                      "aria-expanded": "false"
+                      "aria-expanded": "false",
                     });
 
                     if (!dc.cb.isInput) {
@@ -854,7 +850,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                       if (!dc.cb.child.id)
                         $A.setAttr(dc.cb.child, {
                           tabindex: "-1",
-                          id: dc.cb.baseId + dc.cb.baseInc
+                          id: dc.cb.baseId + dc.cb.baseInc,
                         });
 
                       $A.addIdRef(
@@ -868,7 +864,7 @@ Required dependencies: SmoothScroll.js, AccName.js
                   onOpen: null,
                   onClose: null,
                   onTriggerChange: null,
-                  setSize: function() {
+                  setSize: function () {
                     var dc = this.dc,
                       s =
                         (dc.cb.size || 5) <= dc.cb.matches.length
@@ -884,13 +880,13 @@ Required dependencies: SmoothScroll.js, AccName.js
                       (parseInt($A.css(dc.content, "padding-top"), 10) +
                         parseInt($A.css(dc.content, "padding-bottom"), 10));
                     $A.css(dc.content, "height", h);
-                  }
-                }
+                  },
+                },
               },
-              click: function(ev, dc) {
+              click: function (ev, dc) {
                 ev.stopPropagation();
               },
-              beforeRender: function(dc) {
+              beforeRender: function (dc) {
                 if (!dc.cb.matches.length) return (dc.cancel = true);
                 dc.fn.matches = dc.cb.matches;
                 dc.cb.baseInc++;
@@ -899,34 +895,35 @@ Required dependencies: SmoothScroll.js, AccName.js
                   {
                     role: "listbox",
                     "aria-label": accName,
-                    id: dc.cb.baseId + dc.cb.baseInc
+                    id: dc.cb.baseId + dc.cb.baseInc,
                   },
                   null,
                   dc.listboxClass
                 );
 
                 for (var i = 0; i < dc.cb.matches.length; i++) {
-                  dc.cb.options[dc.cb.matches[i]].o = $A.toNode(
-                    dc.cb.options[dc.cb.matches[i]].content,
-                    true
-                  );
+                  if (!$A.isNode(dc.cb.options[dc.cb.matches[i]].o))
+                    dc.cb.options[dc.cb.matches[i]].o = $A.toNode(
+                      dc.cb.options[dc.cb.matches[i]].content,
+                      true
+                    );
                   dc.content.appendChild(dc.cb.options[dc.cb.matches[i]].o);
                 }
               },
-              duringRender: function(dc) {
+              duringRender: function (dc) {
                 $A.addClass(dc.container, dc.middleClass);
               },
-              afterRender: function(dc) {
+              afterRender: function (dc) {
                 $A.setAttr(that.combobox, "aria-controls", that.listboxNode.id);
                 if (dc.cb.matches !== dc.fn.matches) {
                   dc.beforeRender(dc);
                   dc.insert(dc.content);
                 }
-                $A.query(dc.cb.matches, function(i, v) {
+                $A.query(dc.cb.matches, function (i, v) {
                   $A.off(dc.cb.options[v].o, "click");
 
                   $A.on(dc.cb.options[v].o, {
-                    click: function(ev) {
+                    click: function (ev) {
                       if (!dc.cb.multiple) {
                         dc.cb.fn.setValue(dc.cb.options[v], false, true);
                         dc.cb.clicked = true;
@@ -948,7 +945,7 @@ Required dependencies: SmoothScroll.js, AccName.js
 
                       ev.preventDefault();
                     },
-                    focus: function(ev) {}
+                    focus: function (ev) {},
                   });
                 });
 
@@ -964,12 +961,13 @@ Required dependencies: SmoothScroll.js, AccName.js
 
                 dc.cb.fn.setSize();
 
-                setTimeout(function() {
-                  $A.announce(
-                    dc.cb.options[dc.cb.matches[dc.cb.sIndex]].no,
-                    true
-                  );
-                }, 1);
+                if ($A.isTouch)
+                  setTimeout(function () {
+                    $A.announce(
+                      dc.cb.options[dc.cb.matches[dc.cb.sIndex]].no,
+                      false
+                    );
+                  }, 1);
 
                 $A.setAttr(dc.triggerNode, "aria-expanded", "true");
 
@@ -983,32 +981,32 @@ Required dependencies: SmoothScroll.js, AccName.js
                   )
                     dc.cb.fn.onTriggerChange.apply(dc.cb.altTrigger, [
                       dc.cb.altTrigger,
-                      dc.loaded
+                      dc.loaded,
                     ]);
                 }
 
                 if (dc.cb.fn.onOpen && $A.isFn(dc.cb.fn.onOpen))
                   dc.cb.fn.onOpen.apply(dc.triggerNode, [dc]);
               },
-              beforeRemove: function(dc) {
+              beforeRemove: function (dc) {
                 if (dc.loaded) {
                   if (dc.cb.multiple && dc.cb.mClicked) {
                     dc.cb.fn.setValue(false, false, true);
                   }
                 }
               },
-              afterRemove: function(dc) {
+              afterRemove: function (dc) {
                 dc.cb.mClicked = false;
                 dc.cb.select(dc);
                 $A.setAttr(dc.triggerNode, {
-                  "aria-expanded": "false"
+                  "aria-expanded": "false",
                 });
 
                 if (dc.cb.altTrigger && dc.cb.altTrigger.nodeType === 1) {
                   $A.remClass(dc.cb.altTrigger, dc.toggleClassName);
 
                   $A.setAttr(dc.cb.altTrigger, {
-                    "aria-expanded": "false"
+                    "aria-expanded": "false",
                   });
 
                   if (
@@ -1017,18 +1015,18 @@ Required dependencies: SmoothScroll.js, AccName.js
                   )
                     dc.cb.fn.onTriggerChange.apply(dc.cb.altTrigger, [
                       dc.cb.altTrigger,
-                      dc.loaded
+                      dc.loaded,
                     ]);
                 }
 
                 if (dc.cb.fn.onClose && $A.isFn(dc.cb.fn.onClose))
                   dc.cb.fn.onClose.apply(dc.triggerNode, [dc]);
               },
-              onCreate: function(dc) {
+              onCreate: function (dc) {
                 that.combobox = dc.triggerNode;
                 that.select = dc.cb.sel;
               },
-              scrollConfig: config.scrollConfig || {}
+              scrollConfig: config.scrollConfig || {},
             };
             $A.extend(options, config.override || {});
 
@@ -1038,9 +1036,9 @@ Required dependencies: SmoothScroll.js, AccName.js
             dc.cb.sel = sel;
             dc.cb.child = child;
 
-            var announceVal = function() {
+            var announceVal = function () {
               if (!(dc.cb.fn.onSelect && $A.isFn(dc.cb.fn.onSelect))) {
-                setTimeout(function() {
+                setTimeout(function () {
                   if (!dc.cb.multiple || dc.cb.isInput) {
                     $A.announce(dc.cb.value.toString(), false, true);
                   } else if (dc.cb.child) {
@@ -1050,89 +1048,87 @@ Required dependencies: SmoothScroll.js, AccName.js
               }
             };
 
-            that.setCharMin = function(v) {
+            that.setCharMin = function (v) {
               if ($A.isNum(v) && v >= 0) dc.cb.charMin = v;
             };
 
-            that.setShowAll = function(v) {
+            that.setShowAll = function (v) {
               dc.cb.showAll = dc.fn.showAll = v ? true : false;
             };
 
-            that.setShowAllIfEmpty = function(v) {
+            that.setShowAllIfEmpty = function (v) {
               dc.cb.showAllIfEmpty = v ? true : false;
             };
 
-            that.setAutoSaveIfChecked = function(v) {
+            that.setAutoSaveIfChecked = function (v) {
               dc.cb.autoSaveIfChecked = v ? true : false;
             };
 
-            that.setSubstringMatch = function(v) {
+            that.setSubstringMatch = function (v) {
               dc.cb.substringMatch = v ? true : false;
             };
 
-            that.setWordMatch = function(v) {
+            that.setWordMatch = function (v) {
               dc.cb.wordMatch = v ? true : false;
             };
 
-            that.setTags = function(o) {
+            that.setTags = function (o) {
               if (o.parentTag) dc.cb.parentTag = o.parentTag;
 
               if (o.childTag) dc.cb.childTag = o.childTag;
             };
 
-            that.setOffset = function(o) {
+            that.setOffset = function (o) {
               if (!isNaN(o.left)) dc.offsetLeft = o.left;
 
               if (!isNaN(o.top)) dc.offsetTop = o.top;
             };
 
-            that.setAutoComplete = function(v) {
+            that.setAutoComplete = function (v) {
               dc.cb.autoComplete = v ? true : false;
             };
 
-            that.close = function(f) {
+            that.close = function (f) {
               dc.remove(f);
             };
 
-            that.open = function(passive) {
+            that.open = function (passive) {
               if (dc.loaded) return;
 
               if (start) {
                 dc.cb.fn.render();
 
-                dc.render(function() {
-                  if (!passive) {
-                    dc.cb.select(
-                      dc,
-                      dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,
-                      true
-                    );
-                  }
+                dc.render(function () {
+                  dc.cb.select(
+                    dc,
+                    dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,
+                    true
+                  );
                 });
               }
             };
 
-            that.setAltTrigger = function(o) {
+            that.setAltTrigger = function (o) {
               dc.cb.fn.setAltTrigger(o);
             };
 
-            that.setAutoPosition = function(n) {
+            that.setAutoPosition = function (n) {
               if (!isNaN(n) && n < 10) dc.autoPosition = n;
             };
 
-            that.setSize = function(n) {
+            that.setSize = function (n) {
               if (!isNaN(n) && n > 0) dc.cb.size = n;
             };
 
-            that.setPosAnchor = function(o) {
+            that.setPosAnchor = function (o) {
               dc.posAnchor = o;
             };
 
-            that.setTargetNode = function(o) {
+            that.setTargetNode = function (o) {
               dc.targetNode = o;
             };
 
-            that.setClassNames = function(o) {
+            that.setClassNames = function (o) {
               if (o.toplevelClass) dc.className = o.toplevelClass;
 
               if (o.middleClass) dc.middleClass = o.middleClass;
@@ -1146,15 +1142,15 @@ Required dependencies: SmoothScroll.js, AccName.js
               if (o.toggleClass) dc.toggleClassName = o.toggleClass;
             };
 
-            that.setDefault = function(v) {
+            that.setDefault = function (v) {
               dc.cb.setDefault = v ? true : false;
             };
 
-            that.setMultipleDivider = function(fn) {
+            that.setMultipleDivider = function (fn) {
               if (fn && $A.isFn(fn)) dc.cb.multipleDivider = fn;
             };
 
-            that.clearAll = function() {
+            that.clearAll = function () {
               that.close();
 
               for (var value in dc.cb.options) {
@@ -1171,11 +1167,11 @@ Required dependencies: SmoothScroll.js, AccName.js
               }
             };
 
-            that.update = function() {
+            that.update = function () {
               dc.cb.fn.update();
             };
 
-            that.start = function() {
+            that.start = function () {
               start = true;
               dc.cb.fn.bind();
               dc.cb.fn.update();
@@ -1188,32 +1184,32 @@ Required dependencies: SmoothScroll.js, AccName.js
               }
             };
 
-            that.stop = function() {
+            that.stop = function () {
               start = false;
               that.close();
             };
 
-            that.onSelect = function(fn) {
+            that.onSelect = function (fn) {
               if (fn && $A.isFn(fn)) dc.cb.fn.onSelect = fn;
             };
 
-            that.onOpen = function(fn) {
+            that.onOpen = function (fn) {
               if (fn && $A.isFn(fn)) dc.cb.fn.onOpen = fn;
             };
 
-            that.onClose = function(fn) {
+            that.onClose = function (fn) {
               if (fn && $A.isFn(fn)) dc.cb.fn.onClose = fn;
             };
 
-            that.onTriggerChange = function(fn) {
+            that.onTriggerChange = function (fn) {
               if (fn && $A.isFn(fn)) dc.cb.fn.onTriggerChange = fn;
             };
 
-            that.setPromptText = function(s) {
+            that.setPromptText = function (s) {
               $A.setAttr(combobox, "aria-description", s);
             };
 
-            that.setCloseText = function(s) {
+            that.setCloseText = function (s) {
               if (!s) {
                 dc.exposeHiddenClose = false;
               } else {
@@ -1222,23 +1218,23 @@ Required dependencies: SmoothScroll.js, AccName.js
               }
             };
 
-            that.scrollIntoView = function(o, cb, dc) {
+            that.scrollIntoView = function (o, cb, dc) {
               $A.scrollTo(
                 o,
                 $A.extend(
                   {
                     duration: 100,
                     container: that.listboxNode,
-                    complete: function() {
+                    complete: function () {
                       if ($A.isFn(cb)) cb.call(o, o);
-                    }
+                    },
                   },
                   dc.scrollConfig || {}
                 )
               );
             };
 
-            that.getValue = function() {
+            that.getValue = function () {
               if (!dc.cb.multiple) return dc.cb.sel.value;
               else {
                 var r = [];
@@ -1252,14 +1248,14 @@ Required dependencies: SmoothScroll.js, AccName.js
               }
             };
 
-            $A.on(window, "resize." + baseId, function() {
+            $A.on(window, "resize." + baseId, function () {
               if (dc && dc.loaded) {
                 dc.setPosition();
                 dc.cb.fn.setSize();
               }
             });
 
-            $A(combobox).on("remove", function(mutation, node) {
+            $A(combobox).on("remove", function (mutation, node) {
               $A.off(window, "." + baseId);
             });
 
@@ -1271,9 +1267,9 @@ Required dependencies: SmoothScroll.js, AccName.js
             $A.remAttr(dc.triggerNode, ["data-controls"]);
 
             return that;
-          }
+          },
         });
-      }
+      },
     });
   }
 })();

@@ -1,6 +1,6 @@
-$A.import(["Animate", "Menu"], { defer: true }, function() {
+$A.import(["Animate", "Menu"], { defer: true }, function () {
   $A.setMenu("button.aria-menu", {
-    onActivate: function(
+    onActivate: function (
       ev,
       triggerNode,
       RTI,
@@ -18,19 +18,19 @@ $A.import(["Animate", "Menu"], { defer: true }, function() {
       if ($A.isNum(checked)) {
         if (checked === 0 || isRadio) {
           set("true");
-          RTI.DC.top.remove(function() {
+          RTI.DC.top.remove(function () {
             alert("The new checked state for " + triggerNode.id + " is 'true'");
           });
         } else if (checked === 1) {
           set("mixed");
-          RTI.DC.top.remove(function() {
+          RTI.DC.top.remove(function () {
             alert(
               "The new checked state for " + triggerNode.id + " is 'mixed'"
             );
           });
         } else if (checked === 2) {
           set("false");
-          RTI.DC.top.remove(function() {
+          RTI.DC.top.remove(function () {
             alert(
               "The new checked state for " + triggerNode.id + " is 'false'"
             );
@@ -38,36 +38,34 @@ $A.import(["Animate", "Menu"], { defer: true }, function() {
         }
       } else if (
         $A(triggerNode).hasAttr("href") &&
-        $A(triggerNode)
-          .getAttr("href")
-          .indexOf("https://") !== -1
+        $A(triggerNode).getAttr("href").indexOf("https://") !== -1
       )
-        RTI.DC.top.remove(function() {
+        RTI.DC.top.remove(function () {
           location.href = triggerNode.href;
         });
       else
-        RTI.DC.top.remove(function() {
+        RTI.DC.top.remove(function () {
           alert(triggerNode.id);
         });
     },
     style: { display: "none" },
     animate: {
-      onRender: function(dc, wrapper, next) {
+      onRender: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.slideUpIn", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
       },
-      onRemove: function(dc, wrapper, next) {
+      onRemove: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.slideUpOut", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
-      }
-    }
+      },
+    },
   });
 });

@@ -7,30 +7,30 @@ License: MIT (https://opensource.org/licenses/MIT)
 Required dependencies: RovingTabIndex.js
   */
 
-(function() {
+(function () {
   if (!("setListbox" in $A)) {
     $A.import("RovingTabIndex", {
       name: "ListboxModule",
       props: props,
       once: true,
-      call: function(props) {
+      call: function (props) {
         var isIE = $A.isIE();
 
         $A.addWidgetProfile("Listbox", {
-          configure: function(dc) {
+          configure: function (dc) {
             return {
               preload: true,
               preloadImages: true,
               preloadCSS: true,
               className: "aria-listbox",
-              storeData: true
+              storeData: true,
             };
           },
-          afterRender: function(dc) {
+          afterRender: function (dc) {
             dc.update();
             $A.loop(
               dc.RTI.nodes,
-              function(i, o) {
+              function (i, o) {
                 dc.getState(
                   o,
                   $A.getAttr(o, "aria-checked"),
@@ -41,11 +41,11 @@ Required dependencies: RovingTabIndex.js
               },
               "array"
             );
-          }
+          },
         });
 
         $A.extend({
-          setListbox: function(o, config) {
+          setListbox: function (o, config) {
             if (this._4X) {
               config = o;
               o = this._X;
@@ -62,18 +62,18 @@ Required dependencies: RovingTabIndex.js
                 {
                   parent: "ul",
                   child: "button",
-                  parse: function(ref) {
+                  parse: function (ref) {
                     return ref.querySelectorAll(tag.child);
                   },
                   build: {
                     parent: '<ul class="aria-listbox"></ul>',
                     child:
-                      '<li><button class="option"><span class="lbl">{OPTION-TEXT}</span></button></li>'
-                  }
+                      '<li><button class="option"><span class="lbl">{OPTION-TEXT}</span></button></li>',
+                  },
                 },
                 config.tag || {}
               ),
-              getState = function(
+              getState = function (
                 o,
                 attributeValue,
                 hasAttribute,
@@ -96,7 +96,7 @@ Required dependencies: RovingTabIndex.js
                 }
                 return false;
               },
-              genListbox = function(ref) {
+              genListbox = function (ref) {
                 if (!$A.isNode(ref)) return;
                 if (!ref.id) ref.id = $A.genId();
 
@@ -111,7 +111,7 @@ Required dependencies: RovingTabIndex.js
                       on: {},
                       widgetType: "Listbox",
                       toggleHide: true,
-                      getState: getState
+                      getState: getState,
                     },
                     config
                   )
@@ -121,7 +121,7 @@ Required dependencies: RovingTabIndex.js
               },
               DC = null,
               init = {
-                update: function() {
+                update: function () {
                   init.optionNodes = init.select.nodeType
                     ? init.select.querySelectorAll("option")
                     : [];
@@ -130,7 +130,7 @@ Required dependencies: RovingTabIndex.js
                     $A.empty(init.listbox);
                     $A.loop(
                       init.optionNodes,
-                      function(i, o) {
+                      function (i, o) {
                         var name = $A.getText(o),
                           c = tag.build.child.replace("{OPTION-TEXT}", name);
                         c = $A.toNode(c, true);
@@ -143,11 +143,11 @@ Required dependencies: RovingTabIndex.js
                       },
                       "array"
                     );
-                    $A.on(init.select, "change", function(ev) {
+                    $A.on(init.select, "change", function (ev) {
                       var ix = -1;
                       $A.loop(
                         init.optionNodes,
-                        function(i, o) {
+                        function (i, o) {
                           init.toggleSelect(
                             $A.boundTo(o),
                             o.selected ? true : false,
@@ -164,7 +164,7 @@ Required dependencies: RovingTabIndex.js
                   } else init.options = tag.parse(init.listbox);
                   $A.loop(
                     init.options,
-                    function(i, o) {
+                    function (i, o) {
                       var check = getState(
                           o,
                           $A.getAttr(o, "data-check"),
@@ -186,7 +186,7 @@ Required dependencies: RovingTabIndex.js
                         if (check === 1) c = "true";
                         else if (check === 2) c = "mixed";
                         $A.setAttr(o, {
-                          "aria-checked": c
+                          "aria-checked": c,
                         });
                       }
                       var select =
@@ -194,14 +194,14 @@ Required dependencies: RovingTabIndex.js
                         ($A.isNode($A.boundTo(o)) && $A.boundTo(o).selected);
                       $A.setAttr(o, "aria-selected", select ? "true" : "false");
                       $A.data(o, "_Selected", select);
-                      $A.closest(o, function(o) {
+                      $A.closest(o, function (o) {
                         if (o === init.listbox) return true;
                         $A.setAttr(o, "role", "presentation");
                       });
                       $A.on(
                         o,
                         "attributeChange",
-                        function(
+                        function (
                           MutationObject,
                           o,
                           attributeName,
@@ -227,7 +227,7 @@ Required dependencies: RovingTabIndex.js
                           }
                         },
                         {
-                          attributeFilter: ["aria-checked", "aria-selected"]
+                          attributeFilter: ["aria-checked", "aria-selected"],
                         }
                       );
                     },
@@ -240,7 +240,7 @@ Required dependencies: RovingTabIndex.js
                   init.setEvents();
                   init.setSelected();
                 },
-                setFlags: function() {
+                setFlags: function () {
                   var select = init.select.nodeType ? init.select : config;
                   init.multiple = select.multiple
                     ? true
@@ -256,7 +256,7 @@ Required dependencies: RovingTabIndex.js
                   if (init.sortable) init.multiple = init.checkable = false;
                   if (init.checkable) init.multiple = false;
                 },
-                setListbox: function() {
+                setListbox: function () {
                   if (init.multiple)
                     $A.setAttr(init.listbox, "aria-multiselectable", "true");
                   if (init.required)
@@ -282,7 +282,7 @@ Required dependencies: RovingTabIndex.js
                         : "")
                   );
                 },
-                setRoles: function() {
+                setRoles: function () {
                   $A.remAttr(
                     init.listbox.querySelectorAll(
                       '*[role="listbox"], *[role="option"]'
@@ -293,11 +293,11 @@ Required dependencies: RovingTabIndex.js
                   $A.setAttr(init.options, "role", "option");
                   init.setGrab();
                 },
-                setSelected: function() {
+                setSelected: function () {
                   if (init.select.nodeType) {
                     $A.loop(
                       init.optionNodes,
-                      function(i, o) {
+                      function (i, o) {
                         init.toggleSelect(
                           $A.boundTo(o),
                           o.selected ? true : false,
@@ -310,7 +310,7 @@ Required dependencies: RovingTabIndex.js
                     );
                   }
                 },
-                setEvents: function() {
+                setEvents: function () {
                   if (DC.RTI) DC.RTI.off();
                   if (DC.disabled) return;
                   var x = 0,
@@ -334,7 +334,7 @@ Required dependencies: RovingTabIndex.js
                         startIndex: x,
                         DC: DC,
 
-                        onShiftUp: function(
+                        onShiftUp: function (
                           ev,
                           option,
                           RTI,
@@ -348,7 +348,7 @@ Required dependencies: RovingTabIndex.js
                           }
                           ev.preventDefault();
                         },
-                        onShiftDown: function(
+                        onShiftDown: function (
                           ev,
                           option,
                           RTI,
@@ -363,7 +363,7 @@ Required dependencies: RovingTabIndex.js
                           ev.preventDefault();
                         },
 
-                        onCtrlShiftUp: function(
+                        onCtrlShiftUp: function (
                           ev,
                           option,
                           RTI,
@@ -384,7 +384,7 @@ Required dependencies: RovingTabIndex.js
                           );
                           ev.preventDefault();
                         },
-                        onCtrlShiftDown: function(
+                        onCtrlShiftDown: function (
                           ev,
                           option,
                           RTI,
@@ -406,7 +406,7 @@ Required dependencies: RovingTabIndex.js
                           ev.preventDefault();
                         },
 
-                        onShiftEnd: function(
+                        onShiftEnd: function (
                           ev,
                           option,
                           RTI,
@@ -419,7 +419,7 @@ Required dependencies: RovingTabIndex.js
                             var s = init.options.slice(RTI.index);
                             $A.loop(
                               s,
-                              function(i, o) {
+                              function (i, o) {
                                 init.toggleSelect(o, true);
                               },
                               "array"
@@ -427,7 +427,7 @@ Required dependencies: RovingTabIndex.js
                           }
                           ev.preventDefault();
                         },
-                        onShiftHome: function(
+                        onShiftHome: function (
                           ev,
                           option,
                           RTI,
@@ -440,7 +440,7 @@ Required dependencies: RovingTabIndex.js
                             var s = init.options.slice(0, RTI.index + 1);
                             $A.loop(
                               s,
-                              function(i, o) {
+                              function (i, o) {
                                 init.toggleSelect(o, true);
                               },
                               "array"
@@ -449,7 +449,7 @@ Required dependencies: RovingTabIndex.js
                           ev.preventDefault();
                         },
 
-                        onCtrlShiftEnd: function(
+                        onCtrlShiftEnd: function (
                           ev,
                           option,
                           RTI,
@@ -470,7 +470,7 @@ Required dependencies: RovingTabIndex.js
                           );
                           ev.preventDefault();
                         },
-                        onCtrlShiftHome: function(
+                        onCtrlShiftHome: function (
                           ev,
                           option,
                           RTI,
@@ -492,7 +492,7 @@ Required dependencies: RovingTabIndex.js
                           ev.preventDefault();
                         },
 
-                        onPageUp: function(
+                        onPageUp: function (
                           ev,
                           option,
                           RTI,
@@ -508,7 +508,7 @@ Required dependencies: RovingTabIndex.js
                           RTI.focus(i);
                           ev.preventDefault();
                         },
-                        onPageDown: function(
+                        onPageDown: function (
                           ev,
                           option,
                           RTI,
@@ -526,7 +526,7 @@ Required dependencies: RovingTabIndex.js
                           ev.preventDefault();
                         },
 
-                        onSpace: function(
+                        onSpace: function (
                           ev,
                           option,
                           RTI,
@@ -538,7 +538,7 @@ Required dependencies: RovingTabIndex.js
                           if (init.sortable) init.toggleGrab(option);
                           else RTI.onClick.apply(option, arguments);
                           if (isIE) {
-                            setTimeout(function() {
+                            setTimeout(function () {
                               $A.announce(
                                 $A.getAttr(option, "aria-description")
                               );
@@ -546,7 +546,7 @@ Required dependencies: RovingTabIndex.js
                           }
                           ev.preventDefault();
                         },
-                        onCtrlSpace: function(
+                        onCtrlSpace: function (
                           ev,
                           option,
                           RTI,
@@ -558,7 +558,7 @@ Required dependencies: RovingTabIndex.js
                           if (init.sortable) init.toggleGrab(option);
                           else RTI.onClick.apply(option, arguments);
                           if (isIE) {
-                            setTimeout(function() {
+                            setTimeout(function () {
                               $A.announce(
                                 $A.getAttr(option, "aria-description")
                               );
@@ -566,7 +566,7 @@ Required dependencies: RovingTabIndex.js
                           }
                           ev.preventDefault();
                         },
-                        onCtrlShiftSpace: function(
+                        onCtrlShiftSpace: function (
                           ev,
                           option,
                           RTI,
@@ -577,7 +577,7 @@ Required dependencies: RovingTabIndex.js
                         ) {
                           $A.loop(
                             init.options,
-                            function(i, o) {
+                            function (i, o) {
                               init.toggleSelect(o, false);
                             },
                             "array"
@@ -588,7 +588,7 @@ Required dependencies: RovingTabIndex.js
                             init.setGrab();
                           }
                           if (isIE) {
-                            setTimeout(function() {
+                            setTimeout(function () {
                               $A.announce(
                                 $A.getAttr(option, "aria-description")
                               );
@@ -597,13 +597,13 @@ Required dependencies: RovingTabIndex.js
                           ev.preventDefault();
                         },
 
-                        onEsc: function(ev, option, RTI, DC) {
+                        onEsc: function (ev, option, RTI, DC) {
                           if (init.sortable) {
                             init.toggleGrab.grabbed = undefined;
                             init.setGrab();
                           }
                           if (isIE) {
-                            setTimeout(function() {
+                            setTimeout(function () {
                               $A.announce(
                                 $A.getAttr(option, "aria-description")
                               );
@@ -612,11 +612,11 @@ Required dependencies: RovingTabIndex.js
                           ev.preventDefault();
                         },
 
-                        onFocus: function(ev, option, RTI, DC) {
+                        onFocus: function (ev, option, RTI, DC) {
                           init.index = RTI.index;
                           if (!init.multiple) init.toggleSelect(option, true);
                           if (isIE) {
-                            setTimeout(function() {
+                            setTimeout(function () {
                               $A.announce(
                                 $A.getAttr(option, "aria-description")
                               );
@@ -625,7 +625,7 @@ Required dependencies: RovingTabIndex.js
                           ev.stopPropagation();
                         },
 
-                        onClick: function(
+                        onClick: function (
                           ev,
                           option,
                           RTI,
@@ -649,7 +649,7 @@ Required dependencies: RovingTabIndex.js
                               RTI,
                               DC || $A.boundTo(that),
                               check,
-                              function(attributeValue) {
+                              function (attributeValue) {
                                 if ($A.hasAttr(option, "aria-checked"))
                                   getState(
                                     option,
@@ -664,13 +664,13 @@ Required dependencies: RovingTabIndex.js
                                     "aria-selected",
                                     attributeValue === "true" ? "true" : "false"
                                   );
-                              }
+                              },
                             ]);
                           }
                           ev.preventDefault();
                         },
 
-                        onSelectAll: function(
+                        onSelectAll: function (
                           ev,
                           option,
                           RTI,
@@ -682,14 +682,14 @@ Required dependencies: RovingTabIndex.js
                           if (init.multiple) {
                             $A.loop(
                               init.options,
-                              function(i, o) {
+                              function (i, o) {
                                 init.toggleSelect(o, true);
                               },
                               "array"
                             );
                           }
                           ev.preventDefault();
-                        }
+                        },
                       },
                       config.extendRTI || {}
                     )
@@ -697,7 +697,7 @@ Required dependencies: RovingTabIndex.js
 
                   $A(init.listbox)
                     .setAttr("tabindex", "0")
-                    .on("focus click", function(ev) {
+                    .on("focus click", function (ev) {
                       if (init.options.length) {
                         if (!$A.isTouch) DC.RTI.focus();
                         $A.setAttr(init.listbox, "tabindex", "-1");
@@ -707,13 +707,13 @@ Required dependencies: RovingTabIndex.js
                 toggleClassName: "selected",
                 selectText: "Selected",
                 unselectText: "Not Selected",
-                toggleSelect: function(o, state, skip, recur, fromOption) {
+                toggleSelect: function (o, state, skip, recur, fromOption) {
                   if (!recur && !init.multiple) {
                     $A.loop(
                       init.listbox.querySelectorAll(
                         '*[role="option"][aria-selected="true"]'
                       ),
-                      function(i, O) {
+                      function (i, O) {
                         if (O !== o) init.toggleSelect(O, false, false, true);
                       },
                       "array"
@@ -726,38 +726,41 @@ Required dependencies: RovingTabIndex.js
                     DC.RTI.activate(o);
                   }
                   $A.setAttr(o, "aria-selected", state ? "true" : "false");
-                  $A.toggleClass(o, init.toggleClassName, state, function(
-                    state
-                  ) {});
+                  $A.toggleClass(
+                    o,
+                    init.toggleClassName,
+                    state,
+                    function (state) {}
+                  );
                 },
                 grabText: "Grabbable",
                 grabbedText: "Grabbed",
                 dropText: "Droppable",
-                setGrab: function(skip) {
+                setGrab: function (skip) {
                   if (init.sortable) {
                     $A.remAttr(init.options, [
                       "aria-grabbed",
                       "aria-dropeffect",
-                      "aria-description"
+                      "aria-description",
                     ]);
                     if (!skip)
                       $A.setAttr(init.options, {
-                        "aria-grabbed": "false"
+                        "aria-grabbed": "false",
                       });
                     if (isIE)
                       $A.setAttr(init.options, {
-                        "aria-description": init.grabText
+                        "aria-description": init.grabText,
                       });
                   }
                 },
-                toggleGrab: function(o) {
+                toggleGrab: function (o) {
                   if (init.sortable) {
                     init.setGrab(true);
                     if (!init.toggleGrab.grabbed) {
                       init.toggleGrab.grabbed = o;
                       $A.loop(
                         init.options,
-                        function(i, n) {
+                        function (i, n) {
                           var a = {};
                           if (n === o) {
                             a["aria-grabbed"] = "true";
@@ -784,10 +787,10 @@ Required dependencies: RovingTabIndex.js
                     }
                   }
                 },
-                check: function(o, v) {
+                check: function (o, v) {
                   getState(o, v, true, true, DC.RTI.nodes);
                 },
-                value: function(o) {
+                value: function (o) {
                   var checked = init.listbox.querySelectorAll(
                     '*[role="option"][aria-checked="true"]'
                   );
@@ -799,11 +802,11 @@ Required dependencies: RovingTabIndex.js
                     return init.listbox.querySelectorAll(
                       '*[role="option"][aria-selected="true"]'
                     );
-                }
+                },
               };
             o = $A.morph(o);
 
-            var gen = function(o) {
+            var gen = function (o) {
               if ($A.isNative(o)) init.select = o;
               else if (config.select && $A.isNative($A.morph(config.select)))
                 init.select = $A.morph(config.select);
@@ -836,18 +839,18 @@ Required dependencies: RovingTabIndex.js
                 p,
                 config.root,
                 {
-                  selector: s
+                  selector: s,
                 },
-                function(c) {
+                function (c) {
                   gen(c);
                 }
               );
             } else gen(o);
 
             return $A._XR.call(this, DC);
-          }
+          },
         });
-      }
+      },
     });
   }
 })();

@@ -1,6 +1,6 @@
-$A.import(["Animate", "Checkbox"], { defer: true }, function() {
+$A.import(["Animate", "Checkbox"], { defer: true }, function () {
   $A.setCheckbox(".aria-checkbox.agree", {
-    onActivate: function(ev, triggerNode, boundCheckbox, checked, set) {
+    onActivate: function (ev, triggerNode, boundCheckbox, checked, set) {
       // 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
       // if 0, the checked state is "false".
       // if 1, the checked state is "true".
@@ -13,11 +13,11 @@ $A.import(["Animate", "Checkbox"], { defer: true }, function() {
         set("true");
       }
       ev.preventDefault();
-    }
+    },
   });
 
   $A.setCheckbox(".aria-checkbox.subscribe", {
-    onActivate: function(ev, triggerNode, boundCheckbox, checked, set) {
+    onActivate: function (ev, triggerNode, boundCheckbox, checked, set) {
       // 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
       // if 0, the checked state is "false".
       // if 1, the checked state is "true".
@@ -30,11 +30,11 @@ $A.import(["Animate", "Checkbox"], { defer: true }, function() {
         set("true");
       }
       ev.preventDefault();
-    }
+    },
   });
 
   $A.setCheckbox(".aria-checkbox.happy", {
-    onActivate: function(ev, triggerNode, boundCheckbox, checked, set) {
+    onActivate: function (ev, triggerNode, boundCheckbox, checked, set) {
       // 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
       // if 0, the checked state is "false".
       // if 1, the checked state is "true".
@@ -53,6 +53,6 @@ $A.import(["Animate", "Checkbox"], { defer: true }, function() {
         set("false");
       }
       ev.preventDefault();
-    }
+    },
   });
 });

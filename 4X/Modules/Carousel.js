@@ -7,23 +7,23 @@ License: MIT (https://opensource.org/licenses/MIT)
 Required dependencies: TinySlider.css, TinySlider.js
 */
 
-(function() {
+(function () {
   if (!("setCarousel" in $A)) {
     $A.import(["TinySlider.css", "TinySlider"], {
       name: "CarouselModule",
       once: true,
       props: props,
-      call: function(props) {
+      call: function (props) {
         $A.extend({
-          setCarousel: function(config) {
+          setCarousel: function (config) {
             var container = $A.morph(config.container),
               dc = $A.toDC(container.parentNode),
               TS = $A.tns(config);
             dc.tns = TS;
             return dc;
-          }
+          },
         });
-      }
+      },
     });
   }
 })();

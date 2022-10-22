@@ -7,15 +7,15 @@ License: MIT (https://opensource.org/licenses/MIT)
 Required dependencies: RovingTabIndex.js
 */
 
-(function() {
+(function () {
   if (!("setButton" in $A)) {
     $A.import("RovingTabIndex", {
       name: "ButtonModule",
       props: props,
       once: true,
-      call: function(props) {
+      call: function (props) {
         $A.extend({
-          setButton: function(o, config) {
+          setButton: function (o, config) {
             if (this._4X) {
               config = o;
               o = this._X;
@@ -26,7 +26,7 @@ Required dependencies: RovingTabIndex.js
               o = config.trigger || null;
             }
 
-            var getState = function(
+            var getState = function (
                 o,
                 attributeValue,
                 hasAttribute,
@@ -53,7 +53,7 @@ Required dependencies: RovingTabIndex.js
                     if (isRadio && $A.isArray(nodes))
                       $A.loop(
                         nodes,
-                        function(i, n) {
+                        function (i, n) {
                           if (n !== o) $A.setAttr(n, "aria-checked", "false");
                         },
                         "array"
@@ -92,7 +92,7 @@ Required dependencies: RovingTabIndex.js
               },
               btns = [];
 
-            $A.query(o, config.context || document, function(i, o) {
+            $A.query(o, config.context || document, function (i, o) {
               var r =
                   ($A.isNode(o) &&
                     (($A.hasAttr(o, "data-controls") &&
@@ -140,7 +140,7 @@ Required dependencies: RovingTabIndex.js
                 if ($A.isNum(radio)) {
                   $A.setAttr(s, {
                     role: "radio",
-                    "aria-checked": radio ? "true" : "false"
+                    "aria-checked": radio ? "true" : "false",
                   });
                   btns.push(s);
                 } else if ($A.isNum(check)) {
@@ -149,13 +149,13 @@ Required dependencies: RovingTabIndex.js
                     if (!x.id) x.id = $A.genId();
                     $A.setAttr(s, {
                       "aria-flowto": x.id,
-                      "aria-controls": x.id
+                      "aria-controls": x.id,
                     });
                   }
                   var c = "false";
                   if (check === 1) c = "true";
                   else if (check === 2) c = "mixed";
-                  $A.setKBA11Y(s, "checkbox", function(ev, dc) {
+                  $A.setKBA11Y(s, "checkbox", function (ev, dc) {
                     var o = this,
                       isDisabled = $A.isDisabled(o),
                       check = getState(
@@ -169,13 +169,13 @@ Required dependencies: RovingTabIndex.js
                         o,
                         dc || n,
                         check,
-                        function(attributeValue) {
+                        function (attributeValue) {
                           getState(o, attributeValue, true, true);
-                        }
+                        },
                       ]);
                   });
                   $A.setAttr(s, {
-                    "aria-checked": c
+                    "aria-checked": c,
                   });
                 } else if ($A.isNum(swich)) {
                   if ($A.isNode(n) && n.checked) swich = 1;
@@ -183,12 +183,12 @@ Required dependencies: RovingTabIndex.js
                     if (!x.id) x.id = $A.genId();
                     $A.setAttr(s, {
                       "aria-flowto": x.id,
-                      "aria-controls": x.id
+                      "aria-controls": x.id,
                     });
                   }
                   var c = "false";
                   if (swich === 1) c = "true";
-                  $A.setKBA11Y(s, "switch", function(ev, dc) {
+                  $A.setKBA11Y(s, "switch", function (ev, dc) {
                     var o = this,
                       isDisabled = $A.isDisabled(o),
                       swich = getState(
@@ -202,13 +202,13 @@ Required dependencies: RovingTabIndex.js
                         o,
                         dc || n,
                         swich,
-                        function(attributeValue) {
+                        function (attributeValue) {
                           getState(o, attributeValue, true, true);
-                        }
+                        },
                       ]);
                   });
                   $A.setAttr(s, {
-                    "aria-checked": c
+                    "aria-checked": c,
                   });
                 } else {
                   if (press !== false) {
@@ -217,11 +217,11 @@ Required dependencies: RovingTabIndex.js
                       if (!x.id) x.id = $A.genId();
                       $A.setAttr(s, {
                         "aria-flowto": x.id,
-                        "aria-controls": x.id
+                        "aria-controls": x.id,
                       });
                     }
                   }
-                  $A.setKBA11Y(s, "button", function(ev, dc) {
+                  $A.setKBA11Y(s, "button", function (ev, dc) {
                     var o = this,
                       isDisabled = $A.isDisabled(o),
                       press = getState(
@@ -236,9 +236,9 @@ Required dependencies: RovingTabIndex.js
                               o,
                               dc || x,
                               press,
-                              function(attributeValue) {
+                              function (attributeValue) {
                                 getState(o, attributeValue, true, true);
-                              }
+                              },
                             ]
                           : [ev, o, dc || x];
                     if (!isDisabled && $A.isFn(config.onActivate))
@@ -254,7 +254,7 @@ Required dependencies: RovingTabIndex.js
                   $A.on(
                     s,
                     "attributeChange",
-                    function(
+                    function (
                       MutationObject,
                       o,
                       attributeName,
@@ -269,7 +269,7 @@ Required dependencies: RovingTabIndex.js
                       }
                     },
                     {
-                      attributeFilter: ["aria-checked", "aria-pressed"]
+                      attributeFilter: ["aria-checked", "aria-pressed"],
                     }
                   );
                 }
@@ -298,19 +298,19 @@ Required dependencies: RovingTabIndex.js
             if (btns.length) {
               var container =
                 (config.container && $A.morph(config.container)) ||
-                $A.closest(btns[0], function(n) {
+                $A.closest(btns[0], function (n) {
                   if ($A.getAttr(n, "role") === "radiogroup") return true;
                 });
 
               if (!$A.isNode(container)) {
-                (function(triggers) {
+                (function (triggers) {
                   var f = [],
                     l = [];
-                  $A.closest(triggers[0], function(n) {
+                  $A.closest(triggers[0], function (n) {
                     if ($A.isNode(n)) f.push(n);
                     if (n === document.body) return true;
                   });
-                  $A.closest(triggers[triggers.length - 1], function(n) {
+                  $A.closest(triggers[triggers.length - 1], function (n) {
                     if ($A.isNode(n)) l.push(n);
                     if (n === document.body) return true;
                   });
@@ -333,7 +333,7 @@ Required dependencies: RovingTabIndex.js
                     startIndex: 0,
                     orientation: 0,
                     autoLoop: true,
-                    onClick: function(ev, radio, RTI, nativeInput) {
+                    onClick: function (ev, radio, RTI, nativeInput) {
                       var o = radio,
                         isDisabled = $A.isDisabled(o),
                         check = getState(
@@ -347,18 +347,18 @@ Required dependencies: RovingTabIndex.js
                           o,
                           nativeInput,
                           check,
-                          function(attributeValue) {
+                          function (attributeValue) {
                             getState(o, attributeValue, true, true, RTI.nodes);
-                          }
+                          },
                         ]);
                     },
-                    onSpace: function(ev, radio, RTI, nativeInput) {
+                    onSpace: function (ev, radio, RTI, nativeInput) {
                       RTI.onClick.apply(radio, arguments);
                     },
-                    onFocus: function(ev, radio, RTI, nativeInput) {
+                    onFocus: function (ev, radio, RTI, nativeInput) {
                       if (RTI.arrowPressed && !$A.isTouch)
                         RTI.onClick.apply(radio, arguments);
-                    }
+                    },
                   },
                   config.extendRTI || {}
                 )
@@ -366,16 +366,16 @@ Required dependencies: RovingTabIndex.js
             }
 
             return $A._XR.call(this, o);
-          }
+          },
         });
 
         // Set related module aliases
         $A.extend({
           setCheckbox: $A["setButton"],
           setRadio: $A["setButton"],
-          setSwitch: $A["setButton"]
+          setSwitch: $A["setButton"],
         });
-      }
+      },
     });
   }
 })();

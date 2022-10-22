@@ -7,15 +7,15 @@ License: MIT (https://opensource.org/licenses/MIT)
 Required dependencies: Button.js
 */
 
-(function() {
+(function () {
   if (!("setSwitch" in $A)) {
     $A.import("Button", {
       name: "SwitchModule",
       props: props,
       once: true,
-      call: function(props) {
+      call: function (props) {
         // The Switch module is an alias of the Button module.
-      }
+      },
     });
   }
 })();

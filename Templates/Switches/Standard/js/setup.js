@@ -1,8 +1,8 @@
-$A.import(["Animate", "Switch"], { defer: true }, function() {
+$A.import(["Animate", "Switch"], { defer: true }, function () {
   $A.setSwitch(
     ".aria-switch.thermostat, .aria-switch.security, .aria-switch.lights",
     {
-      onActivate: function(ev, triggerNode, boundCheckbox, on, set) {
+      onActivate: function (ev, triggerNode, boundCheckbox, on, set) {
         // 'on' reflects the current attribute value for the checkable item, and is always a number if applicable.
         // if 0, the toggle state is "false".
         // if 1, the toggle state is "true".
@@ -15,7 +15,7 @@ $A.import(["Animate", "Switch"], { defer: true }, function() {
           // Velocity(triggerNode, "callout.bounce");
         }
         ev.preventDefault();
-      }
+      },
     }
   );
 });

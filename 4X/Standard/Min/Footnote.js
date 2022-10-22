@@ -6,4 +6,4 @@ License: MIT (https://opensource.org/licenses/MIT)
 
 Required dependencies: SmoothScroll.js
 */
-"setFootnotes"in $A||$A.extend({setFootnotes:function(t,n){return this._4X&&(n=t,t=this._X),$A.isPlainObject(t)&&(t=(n=t).footnotes||null),t?($A.query(t,n.context||document,function(t,n){$A(n).flowsTo($A.getAttr(n,"href")),$A.svgFix(n)}),t=$A.setSkipLink(t,n),$A._XR.call(this,t)):null}});
+"setFootnotes"in $A||$A.extend({setFootnotes:function(t,n){return this._4X&&(n=t,t=this._X),(t=$A.isPlainObject(t)?(n=t).footnotes||null:t)?($A.query(t,n.context||document,function(t,n){$A(n).flowsTo($A.getAttr(n,"href")),$A.svgFix(n)}),t=$A.setSkipLink(t,n),$A._XR.call(this,t)):null}});

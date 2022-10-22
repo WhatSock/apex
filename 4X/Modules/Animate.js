@@ -7,14 +7,14 @@ License: MIT (https://opensource.org/licenses/MIT)
 Required dependencies: Velocity.js, VelocityUI.js
 */
 
-(function() {
+(function () {
   $A.import(["Velocity", "VelocityUI"], {
     name: "AnimateModule",
     once: true,
     props: props,
-    call: function(props) {
+    call: function (props) {
       $A.extend({
-        hide: function(o, effect, config, fn) {
+        hide: function (o, effect, config, fn) {
           if (this._4X) {
             fn = config;
             config = effect;
@@ -37,9 +37,9 @@ Required dependencies: Velocity.js, VelocityUI.js
               effect || "transition.fadeOut",
               $A.extend(
                 {
-                  complete: function() {
+                  complete: function () {
                     if ($A.isFn(fn)) fn.call(o, o);
-                  }
+                  },
                 },
                 config || {}
               )
@@ -47,7 +47,7 @@ Required dependencies: Velocity.js, VelocityUI.js
           }
           return $A._XR.call(this, o);
         },
-        show: function(o, effect, config, fn) {
+        show: function (o, effect, config, fn) {
           if (this._4X) {
             fn = config;
             config = effect;
@@ -70,17 +70,17 @@ Required dependencies: Velocity.js, VelocityUI.js
               effect || "transition.fadeIn",
               $A.extend(
                 {
-                  complete: function() {
+                  complete: function () {
                     if ($A.isFn(fn)) fn.call(o, o);
-                  }
+                  },
                 },
                 config || {}
               )
             );
           }
           return $A._XR.call(this, o);
-        }
+        },
       });
-    }
+    },
   });
 })();

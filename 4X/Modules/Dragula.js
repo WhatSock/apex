@@ -5,7 +5,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag module.
 */
 
-(function(f) {
+(function (f) {
   if (typeof exports === "object" && typeof module !== "undefined") {
     module.exports = f();
   } else if (typeof define === "function" && define.amd) {
@@ -23,9 +23,9 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
     }
     g.dragula = f();
   }
-})(function() {
+})(function () {
   var define, module, exports;
-  return (function() {
+  return (function () {
     function r(e, n, t) {
       function o(i, f) {
         if (!n[i]) {
@@ -39,7 +39,7 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
           var p = (n[i] = { exports: {} });
           e[i][0].call(
             p.exports,
-            function(r) {
+            function (r) {
               var n = e[i][1][r];
               return o(n || r);
             },
@@ -65,7 +65,7 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
   })()(
     {
       1: [
-        function(require, module, exports) {
+        function (require, module, exports) {
           "use strict";
 
           var cache = {};
@@ -102,14 +102,14 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
 
           module.exports = {
             add: addClass,
-            rm: rmClass
+            rm: rmClass,
           };
         },
-        {}
+        {},
       ],
       2: [
-        function(require, module, exports) {
-          (function(global) {
+        function (require, module, exports) {
+          (function (global) {
             "use strict";
 
             var emitter = require("contra/emitter");
@@ -184,7 +184,7 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
                 remove: remove,
                 destroy: destroy,
                 canMove: canMove,
-                dragging: false
+                dragging: false,
               });
 
               if (o.removeOnSpill === true) {
@@ -339,7 +339,7 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
 
                 return {
                   item: item,
-                  source: source
+                  source: source,
                 };
               }
 
@@ -487,7 +487,14 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
                   drake.emit("out", item, _lastDropTarget, _source);
                 }
                 drake.emit("dragend", item);
-                _source = _item = _copy = _initialSibling = _currentSibling = _renderTimer = _lastDropTarget = null;
+                _source =
+                  _item =
+                  _copy =
+                  _initialSibling =
+                  _currentSibling =
+                  _renderTimer =
+                  _lastDropTarget =
+                    null;
               }
 
               function isInitialPlacement(target, s) {
@@ -716,17 +723,17 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
               var touch = {
                 mouseup: "touchend",
                 mousedown: "touchstart",
-                mousemove: "touchmove"
+                mousemove: "touchmove",
               };
               var pointers = {
                 mouseup: "pointerup",
                 mousedown: "pointerdown",
-                mousemove: "pointermove"
+                mousemove: "pointermove",
               };
               var microsoft = {
                 mouseup: "MSPointerUp",
                 mousedown: "MSPointerDown",
-                mousemove: "MSPointerMove"
+                mousemove: "MSPointerMove",
               };
               if (global.navigator.pointerEnabled) {
                 crossvent[op](el, pointers[type], fn);
@@ -759,7 +766,7 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
               var rect = el.getBoundingClientRect();
               return {
                 left: rect.left + getScroll("scrollLeft", "pageXOffset"),
-                top: rect.top + getScroll("scrollTop", "pageYOffset")
+                top: rect.top + getScroll("scrollTop", "pageYOffset"),
               };
             }
 
@@ -847,7 +854,7 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
               var host = getEventHost(e);
               var missMap = {
                 pageX: "clientX", // IE8
-                pageY: "clientY" // IE8
+                pageY: "clientY", // IE8
               };
               if (
                 coord in missMap &&
@@ -871,18 +878,18 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
               : {}
           ));
         },
-        { "./classes": 1, "contra/emitter": 5, crossvent: 6 }
+        { "./classes": 1, "contra/emitter": 5, crossvent: 6 },
       ],
       3: [
-        function(require, module, exports) {
+        function (require, module, exports) {
           module.exports = function atoa(a, n) {
             return Array.prototype.slice.call(a, n);
           };
         },
-        {}
+        {},
       ],
       4: [
-        function(require, module, exports) {
+        function (require, module, exports) {
           "use strict";
 
           var ticky = require("ticky");
@@ -896,10 +903,10 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
             });
           };
         },
-        { ticky: 10 }
+        { ticky: 10 },
       ],
       5: [
-        function(require, module, exports) {
+        function (require, module, exports) {
           "use strict";
 
           var atoa = require("atoa");
@@ -911,7 +918,7 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
             if (thing === undefined) {
               thing = {};
             }
-            thing.on = function(type, fn) {
+            thing.on = function (type, fn) {
               if (!evt[type]) {
                 evt[type] = [fn];
               } else {
@@ -919,12 +926,12 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
               }
               return thing;
             };
-            thing.once = function(type, fn) {
+            thing.once = function (type, fn) {
               fn._once = true; // thing.off(fn) still works!
               thing.on(type, fn);
               return thing;
             };
-            thing.off = function(type, fn) {
+            thing.off = function (type, fn) {
               var c = arguments.length;
               if (c === 1) {
                 delete evt[type];
@@ -939,13 +946,13 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
               }
               return thing;
             };
-            thing.emit = function() {
+            thing.emit = function () {
               var args = atoa(arguments);
               return thing.emitterSnapshot(args.shift()).apply(this, args);
             };
-            thing.emitterSnapshot = function(type) {
+            thing.emitterSnapshot = function (type) {
               var et = (evt[type] || []).slice(0);
-              return function() {
+              return function () {
                 var args = atoa(arguments);
                 var ctx = this || thing;
                 if (type === "error" && opts.throws !== false && !et.length) {
@@ -967,11 +974,11 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
             return thing;
           };
         },
-        { "./debounce": 4, atoa: 3 }
+        { "./debounce": 4, atoa: 3 },
       ],
       6: [
-        function(require, module, exports) {
-          (function(global) {
+        function (require, module, exports) {
+          (function (global) {
             "use strict";
 
             var customEvent = require("custom-event");
@@ -989,7 +996,7 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
             module.exports = {
               add: addEvent,
               remove: removeEvent,
-              fabricate: fabricateEvent
+              fabricate: fabricateEvent,
             };
 
             function addEventEasy(el, type, fn, capturing) {
@@ -1062,7 +1069,7 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
                 wrapper: wrapper,
                 element: el,
                 type: type,
-                fn: fn
+                fn: fn,
               });
               return wrapper;
             }
@@ -1100,11 +1107,11 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
               : {}
           ));
         },
-        { "./eventmap": 7, "custom-event": 8 }
+        { "./eventmap": 7, "custom-event": 8 },
       ],
       7: [
-        function(require, module, exports) {
-          (function(global) {
+        function (require, module, exports) {
+          (function (global) {
             "use strict";
 
             var eventmap = [];
@@ -1129,17 +1136,17 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
               : {}
           ));
         },
-        {}
+        {},
       ],
       8: [
-        function(require, module, exports) {
-          (function(global) {
+        function (require, module, exports) {
+          (function (global) {
             var NativeCustomEvent = global.CustomEvent;
 
             function useNative() {
               try {
                 var p = new NativeCustomEvent("cat", {
-                  detail: { foo: "bar" }
+                  detail: { foo: "bar" },
                 });
                 return "cat" === p.type && "bar" === p.detail.foo;
               } catch (e) {}
@@ -1199,10 +1206,10 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
               : {}
           ));
         },
-        {}
+        {},
       ],
       9: [
-        function(require, module, exports) {
+        function (require, module, exports) {
           // shim for using process in browser
           var process = (module.exports = {});
 
@@ -1220,7 +1227,7 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
           function defaultClearTimeout() {
             throw new Error("clearTimeout has not been defined");
           }
-          (function() {
+          (function () {
             try {
               if (typeof setTimeout === "function") {
                 cachedSetTimeout = setTimeout;
@@ -1338,7 +1345,7 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
             runClearTimeout(timeout);
           }
 
-          process.nextTick = function(fun) {
+          process.nextTick = function (fun) {
             var args = new Array(arguments.length - 1);
             if (arguments.length > 1) {
               for (var i = 1; i < arguments.length; i++) {
@@ -1356,7 +1363,7 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
             this.fun = fun;
             this.array = array;
           }
-          Item.prototype.run = function() {
+          Item.prototype.run = function () {
             this.fun.apply(null, this.array);
           };
           process.title = "browser";
@@ -1378,37 +1385,37 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
           process.prependListener = noop;
           process.prependOnceListener = noop;
 
-          process.listeners = function(name) {
+          process.listeners = function (name) {
             return [];
           };
 
-          process.binding = function(name) {
+          process.binding = function (name) {
             throw new Error("process.binding is not supported");
           };
 
-          process.cwd = function() {
+          process.cwd = function () {
             return "/";
           };
-          process.chdir = function(dir) {
+          process.chdir = function (dir) {
             throw new Error("process.chdir is not supported");
           };
-          process.umask = function() {
+          process.umask = function () {
             return 0;
           };
         },
-        {}
+        {},
       ],
       10: [
-        function(require, module, exports) {
-          (function(setImmediate) {
+        function (require, module, exports) {
+          (function (setImmediate) {
             var si = typeof setImmediate === "function",
               tick;
             if (si) {
-              tick = function(fn) {
+              tick = function (fn) {
                 setImmediate(fn);
               };
             } else {
-              tick = function(fn) {
+              tick = function (fn) {
                 setTimeout(fn, 0);
               };
             }
@@ -1416,11 +1423,11 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
             module.exports = tick;
           }.call(this, require("timers").setImmediate));
         },
-        { timers: 11 }
+        { timers: 11 },
       ],
       11: [
-        function(require, module, exports) {
-          (function(setImmediate, clearImmediate) {
+        function (require, module, exports) {
+          (function (setImmediate, clearImmediate) {
             var nextTick = require("process/browser.js").nextTick;
             var apply = Function.prototype.apply;
             var slice = Array.prototype.slice;
@@ -1429,19 +1436,19 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
 
             // DOM APIs, for completeness
 
-            exports.setTimeout = function() {
+            exports.setTimeout = function () {
               return new Timeout(
                 apply.call(setTimeout, window, arguments),
                 clearTimeout
               );
             };
-            exports.setInterval = function() {
+            exports.setInterval = function () {
               return new Timeout(
                 apply.call(setInterval, window, arguments),
                 clearInterval
               );
             };
-            exports.clearTimeout = exports.clearInterval = function(timeout) {
+            exports.clearTimeout = exports.clearInterval = function (timeout) {
               timeout.close();
             };
 
@@ -1449,23 +1456,23 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
               this._id = id;
               this._clearFn = clearFn;
             }
-            Timeout.prototype.unref = Timeout.prototype.ref = function() {};
-            Timeout.prototype.close = function() {
+            Timeout.prototype.unref = Timeout.prototype.ref = function () {};
+            Timeout.prototype.close = function () {
               this._clearFn.call(window, this._id);
             };
 
             // Does not start the time, just sets up the members needed.
-            exports.enroll = function(item, msecs) {
+            exports.enroll = function (item, msecs) {
               clearTimeout(item._idleTimeoutId);
               item._idleTimeout = msecs;
             };
 
-            exports.unenroll = function(item) {
+            exports.unenroll = function (item) {
               clearTimeout(item._idleTimeoutId);
               item._idleTimeout = -1;
             };
 
-            exports._unrefActive = exports.active = function(item) {
+            exports._unrefActive = exports.active = function (item) {
               clearTimeout(item._idleTimeoutId);
 
               var msecs = item._idleTimeout;
@@ -1480,7 +1487,7 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
             exports.setImmediate =
               typeof setImmediate === "function"
                 ? setImmediate
-                : function(fn) {
+                : function (fn) {
                     var id = nextImmediateId++;
                     var args =
                       arguments.length < 2 ? false : slice.call(arguments, 1);
@@ -1507,7 +1514,7 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
             exports.clearImmediate =
               typeof clearImmediate === "function"
                 ? clearImmediate
-                : function(id) {
+                : function (id) {
                     delete immediateIds[id];
                   };
           }.call(
@@ -1516,8 +1523,8 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
             require("timers").clearImmediate
           ));
         },
-        { "process/browser.js": 9, timers: 11 }
-      ]
+        { "process/browser.js": 9, timers: 11 },
+      ],
     },
     {},
     [2]

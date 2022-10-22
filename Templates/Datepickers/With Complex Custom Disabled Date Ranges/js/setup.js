@@ -1,4 +1,4 @@
-$A.import(["Animate", "Datepicker"], { defer: true }, function() {
+$A.import(["Animate", "Datepicker"], { defer: true }, function () {
   $A.setDatepicker({
     // Unique ID for the date picker instance
     // After instantiation, can be referenced using: var DC = $A("UniqueCalendarId");
@@ -12,26 +12,26 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function() {
 
     style: { position: "absolute", zIndex: 1, display: "none" },
     animate: {
-      onRender: function(dc, wrapper, next) {
+      onRender: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeIn", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
       },
-      onRemove: function(dc, wrapper, next) {
+      onRemove: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeOut", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
-      }
+      },
     },
 
     // Configure complex disabled date ranges using the configure method.
-    configure: function(dc) {
+    configure: function (dc) {
       // Run before the datepicker renders
 
       if (!dc.firstResetDate) {
@@ -54,7 +54,7 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function() {
           day: cur.getDate(),
           month: cur.getMonth(),
           year: cur.getFullYear(),
-          weekDay: cur.getDay()
+          weekDay: cur.getDay(),
         };
 
         // Now adjust the default date that the date picker first opens with using the previously set date object
@@ -72,7 +72,7 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function() {
           day: cur.getDate(),
           month: cur.getMonth(),
           year: cur.getFullYear(),
-          weekDay: cur.getDay()
+          weekDay: cur.getDay(),
         };
       }
 
@@ -155,18 +155,17 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function() {
         dc.range[dc.range.current.month].disabled[dc.range.current.year] &&
         dc.range[dc.range.current.month].disabled[dc.range.current.year].length
       )
-        dc.range[dc.range.current.month].disabled[
-          dc.range.current.year
-        ] = dc.range[dc.range.current.month].disabled[
-          dc.range.current.year
-        ].filter(function(o, i, a) {
-          return a.indexOf(o) === i;
-        });
+        dc.range[dc.range.current.month].disabled[dc.range.current.year] =
+          dc.range[dc.range.current.month].disabled[
+            dc.range.current.year
+          ].filter(function (o, i, a) {
+            return a.indexOf(o) === i;
+          });
 
       // Prevent configure from running again.
       dc.stopConfigure = true;
 
       return true;
-    }
+    },
   });
 });

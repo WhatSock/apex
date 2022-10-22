@@ -1,11 +1,11 @@
-$A.import(["Animate", "Popup"], { defer: true }, function() {
+$A.import(["Animate", "Popup"], { defer: true }, function () {
   var myPopupDC = $A.setPopup("#triggerId", {
     role: "Hamlet Excerpt",
     fetch: {
       url: "files/popup-excerpt.htm",
       data: {
-        selector: "#popupId"
-      }
+        selector: "#popupId",
+      },
     },
     className: "popup",
     isAlert: false,
@@ -14,25 +14,25 @@ $A.import(["Animate", "Popup"], { defer: true }, function() {
     circularTabbing: true,
     style: { display: "none" },
     animate: {
-      onRender: function(dc, wrapper, next) {
+      onRender: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeIn", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
       },
-      onRemove: function(dc, wrapper, next) {
+      onRemove: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.fadeOut", {
-          complete: function() {
+          complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
-          }
+          },
         });
-      }
+      },
     },
-    afterRender: function(dc) {
+    afterRender: function (dc) {
       // Do something after the popup is rendered.
-    }
+    },
   });
 });

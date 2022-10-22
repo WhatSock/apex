@@ -5,11 +5,11 @@ Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
 */
 
-(function() {
+(function () {
   if (!("setDialog" in $A)) {
     $A.addWidgetProfile("Dialog", {
       track: [],
-      configure: function(dc) {
+      configure: function (dc) {
         var that = this,
           pos = {};
         if (dc.isModal && that.track.length) {
@@ -35,31 +35,31 @@ License: MIT (https://opensource.org/licenses/MIT)
           append: true,
           escToClose: true,
           on: "click",
-          click: function(ev, dc) {
+          click: function (ev, dc) {
             ev.stopPropagation();
-          }
+          },
         };
       },
-      role: function(dc) {
+      role: function (dc) {
         var r = {};
         r.role = dc.isAlert ? "alertdialog" : "dialog";
         r["aria-modal"] = dc.isModal ? "true" : "false";
         return r;
       },
-      beforeRender: function(dc, container) {
+      beforeRender: function (dc, container) {
         var that = this;
         if (dc.isModal) {
           dc.backdrop = $A(that.backdrop)
             .on({
-              click: function(ev) {
+              click: function (ev) {
                 dc.remove();
                 ev.stopPropagation();
-              }
+              },
             })
             .css(
               $A.isNum(dc.style["z-index"]) && dc.style["z-index"] > 1
                 ? {
-                    zIndex: dc.style["z-index"] - 1
+                    zIndex: dc.style["z-index"] - 1,
                   }
                 : {}
             )
@@ -67,13 +67,13 @@ License: MIT (https://opensource.org/licenses/MIT)
             .return();
         }
       },
-      afterRender: function(dc, container) {
+      afterRender: function (dc, container) {
         var that = this;
         that.track.push(dc);
         $A.hideBackground(dc.wrapper);
         dc.announce = dc.isAlert === true;
       },
-      afterRemove: function(dc, container) {
+      afterRemove: function (dc, container) {
         var that = this;
         that.track.splice(that.track.length - 1, 1);
         if (that.track.length) {
@@ -86,11 +86,11 @@ License: MIT (https://opensource.org/licenses/MIT)
         if (dc.isModal && $A.isNode(dc.backdrop, null, null, 11))
           $A.remove(dc.backdrop);
       },
-      backdrop: '<div class="modalBackdrop"></div>'
+      backdrop: '<div class="modalBackdrop"></div>',
     });
 
     $A.extend({
-      setDialog: function(o, config) {
+      setDialog: function (o, config) {
         if (this._4X) {
           config = o;
           o = this._X;
@@ -102,13 +102,13 @@ License: MIT (https://opensource.org/licenses/MIT)
         }
 
         var dcArray = [],
-          toDC = function(o) {
+          toDC = function (o) {
             dcArray.push(
               $A.toDC(
                 o,
                 $A.extend(
                   {
-                    widgetType: "Dialog"
+                    widgetType: "Dialog",
                   },
                   config || {}
                 )
@@ -117,13 +117,13 @@ License: MIT (https://opensource.org/licenses/MIT)
           };
 
         if (o)
-          $A.query(o, config.context || document, function(i, o) {
+          $A.query(o, config.context || document, function (i, o) {
             toDC(o);
           });
         else toDC();
 
         return dcArray.length === 1 ? dcArray[0] : dcArray;
-      }
+      },
     });
   }
 })();

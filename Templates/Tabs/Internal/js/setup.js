@@ -1,4 +1,4 @@
-$A.import(["Animate", "Tab"], { defer: true }, function() {
+$A.import(["Animate", "Tab"], { defer: true }, function () {
   $A.setTab("button.aria-tab", {
     // Enable auto-rendering when the page loads.
     // When true, the hash tag in the URL will automatically open the associated DC object.
@@ -7,7 +7,7 @@ $A.import(["Animate", "Tab"], { defer: true }, function() {
     // For more details, view: Help/ARIA Development/Browser History and Permalinks
     // Plus: Help/DC API/DC Object Configuration/Behaviors
     trackPage: true,
-    afterRender: function(dc) {
+    afterRender: function (dc) {
       $A.setPage(
         dc.id,
         $A.getText(dc.triggerNode) + " ARIA Tab - Apex 4X Technical Style Guide"
@@ -41,6 +41,6 @@ $A.import(["Animate", "Tab"], { defer: true }, function() {
 
     isToggle: false,
     toggleClassName: "active",
-    toggleHide: true
+    toggleHide: true,
   });
 });

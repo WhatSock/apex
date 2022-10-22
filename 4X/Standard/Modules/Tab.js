@@ -7,10 +7,10 @@ License: MIT (https://opensource.org/licenses/MIT)
 Required dependencies: RovingTabIndex.js
 */
 
-(function() {
+(function () {
   if (!("setTab" in $A)) {
     $A.addWidgetProfile("Tab", {
-      configure: function(dc) {
+      configure: function (dc) {
         return {
           exposeBounds: true,
           isTab: true,
@@ -21,41 +21,41 @@ Required dependencies: RovingTabIndex.js
           isFocusable: true,
           returnFocus: false,
           on: "activatetab",
-          click: function(ev, dc) {
+          click: function (ev, dc) {
             ev.stopPropagation();
           },
-          afterRender: function(dc, container) {
+          afterRender: function (dc, container) {
             if (dc.trackPage) $A.setPage(dc.id);
-          }
+          },
         };
       },
-      role: function(dc) {
+      role: function (dc) {
         return {
-          role: "tabpanel"
+          role: "tabpanel",
         };
       },
-      duringRender: function(dc, container) {
+      duringRender: function (dc, container) {
         $A.setAttr(dc.triggerNode, {
           "aria-expanded": "true",
-          "aria-selected": "true"
+          "aria-selected": "true",
         });
       },
-      afterRender: function(dc, container) {
+      afterRender: function (dc, container) {
         $A.setAttr(dc.triggerNode, {
-          "aria-describedby": dc.containerId
+          "aria-describedby": dc.containerId,
         });
       },
-      afterRemove: function(dc, container) {
+      afterRemove: function (dc, container) {
         $A.setAttr(dc.triggerNode, {
           "aria-expanded": "false",
-          "aria-selected": "false"
+          "aria-selected": "false",
         });
         $A.remAttr(dc.triggerNode, "aria-describedby");
-      }
+      },
     });
 
     $A.extend({
-      setTab: function(o, config) {
+      setTab: function (o, config) {
         if (this._4X) {
           config = o;
           o = this._X;
@@ -75,19 +75,19 @@ Required dependencies: RovingTabIndex.js
 
         var container =
           (config.container && $A.morph(config.container)) ||
-          $A.closest(triggers[0], function(n) {
+          $A.closest(triggers[0], function (n) {
             if ($A.getAttr(n, "role") === "tablist") return true;
           });
 
         if (!$A.isNode(container)) {
-          (function() {
+          (function () {
             var f = [],
               l = [];
-            $A.closest(triggers[0], function(n) {
+            $A.closest(triggers[0], function (n) {
               if ($A.isNode(n)) f.push(n);
               if (n === document.body) return true;
             });
-            $A.closest(triggers[triggers.length - 1], function(n) {
+            $A.closest(triggers[triggers.length - 1], function (n) {
               if ($A.isNode(n)) l.push(n);
               if (n === document.body) return true;
             });
@@ -109,11 +109,11 @@ Required dependencies: RovingTabIndex.js
 
         $A.loop(
           triggers,
-          function(i, o) {
+          function (i, o) {
             $A.svgFix(o);
             var tree = [];
             if ($A.isNode(container))
-              $A.closest(o, function(n) {
+              $A.closest(o, function (n) {
                 if (n === container) return true;
                 tree.push(n);
               });
@@ -127,7 +127,7 @@ Required dependencies: RovingTabIndex.js
             $A.setAttr(o, {
               role: "tab",
               "aria-expanded": "false",
-              "aria-selected": "false"
+              "aria-selected": "false",
             });
             var panelContainer = $A.get($A.getAttr(o, "data-root")),
               dc = $A.toDC(
@@ -136,7 +136,7 @@ Required dependencies: RovingTabIndex.js
                   {
                     widgetType: "Tab",
                     root: panelContainer,
-                    append: true
+                    append: true,
                   },
                   config || {}
                 )
@@ -151,7 +151,7 @@ Required dependencies: RovingTabIndex.js
         );
 
         $A.map({
-          siblings: dcArray
+          siblings: dcArray,
         });
 
         var RTI = new $A.RovingTabIndex(
@@ -162,18 +162,18 @@ Required dependencies: RovingTabIndex.js
               orientation: 1,
               autoSwitch: config.autoSwitch || "full",
               autoLoop: true,
-              onClick: function(ev, tabNode, RTI, DC) {
+              onClick: function (ev, tabNode, RTI, DC) {
                 DC.render();
                 ev.preventDefault();
               },
-              onSpace: function(ev, tabNode, RTI, DC) {
+              onSpace: function (ev, tabNode, RTI, DC) {
                 RTI.onClick.apply(tabNode, arguments);
                 ev.preventDefault();
               },
-              onEnter: function(ev, tabNode, RTI, DC) {
+              onEnter: function (ev, tabNode, RTI, DC) {
                 RTI.onClick.apply(tabNode, arguments);
                 ev.preventDefault();
-              }
+              },
             },
             config.extendRTI || {}
           )
@@ -184,7 +184,7 @@ Required dependencies: RovingTabIndex.js
         if (!$A.hasHash(dcArray) && $A.isDC(active)) active.render();
 
         return dcArray.length === 1 ? dcArray[0] : dcArray;
-      }
+      },
     });
   }
 })();
