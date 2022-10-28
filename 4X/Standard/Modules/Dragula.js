@@ -2,7 +2,7 @@
 Dragula https://github.com/bevacqua/dragula
 Author: Nicolas Bevacqua
 License: MIT (https://opensource.org/licenses/MIT)
-Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag module.
+Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex 4X ARIA Drag module.
 */
 
 (function (f) {
@@ -117,6 +117,15 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
             var classes = require("./classes");
             var doc = document;
             var documentElement = doc.documentElement;
+
+            // Mod4X
+            var scrollable = true,
+              scrollListener = function (e) {
+                if (!scrollable) e.preventDefault();
+              };
+            doc.addEventListener("touchmove", scrollListener, {
+              passive: false,
+            });
 
             function dragula(initialContainers, options) {
               var len = arguments.length;
@@ -256,6 +265,7 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
                     e.preventDefault(); // fixes https://github.com/bevacqua/dragula/issues/155
                   }
                 }
+                scrollable = false; // Mod4X
               }
 
               function startBecauseMouseMoved(e) {
@@ -386,6 +396,7 @@ Includes modifications by Bryan Garaventa for use within the Apex 4X ARIA Drag m
                 _grabbed = false;
                 eventualMovements(true);
                 movements(true);
+                scrollable = true; // Mod4X
               }
 
               function release(e) {
