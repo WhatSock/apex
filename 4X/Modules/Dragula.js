@@ -119,13 +119,31 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
             var documentElement = doc.documentElement;
 
             // Mod4X
+            var passiveSupported = false;
+            try {
+              var options = {
+                get passive() {
+                  passiveSupported = true;
+                  return false;
+                },
+              };
+              window.addEventListener("test", null, options);
+              window.removeEventListener("test", null, options);
+            } catch (err) {}
+
             var scrollable = true,
               scrollListener = function (e) {
                 if (!scrollable) e.preventDefault();
               };
-            doc.addEventListener("touchmove", scrollListener, {
-              passive: false,
-            });
+            doc.addEventListener(
+              "touchmove",
+              scrollListener,
+              passiveSupported
+                ? {
+                    passive: false,
+                  }
+                : false
+            );
 
             function dragula(initialContainers, options) {
               var len = arguments.length;
@@ -202,6 +220,15 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
 
               events();
 
+              // Mod4X To prevent scroll when touch is used to drag on iOS
+              drake
+                .on("drag", function (dragElement, source) {
+                  scrollable = false;
+                })
+                .on("dragend", function (dragElement) {
+                  scrollable = true;
+                });
+
               return drake;
 
               function isContainer(el) {
@@ -265,7 +292,6 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
                     e.preventDefault(); // fixes https://github.com/bevacqua/dragula/issues/155
                   }
                 }
-                scrollable = false; // Mod4X
               }
 
               function startBecauseMouseMoved(e) {
@@ -396,7 +422,6 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
                 _grabbed = false;
                 eventualMovements(true);
                 movements(true);
-                scrollable = true; // Mod4X
               }
 
               function release(e) {
