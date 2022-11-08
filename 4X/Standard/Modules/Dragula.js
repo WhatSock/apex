@@ -587,6 +587,19 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
                 var x = clientX - _offsetX;
                 var y = clientY - _offsetY;
 
+                // Mod4X Correct position:fixed placement on iOS for pinch zoom
+                var rect = _mirror.getBoundingClientRect(),
+                  tolerance = 2;
+                if (
+                  rect.y < y - tolerance ||
+                  rect.y > y + tolerance ||
+                  rect.x < x - tolerance ||
+                  rect.x > x + tolerance
+                ) {
+                  x += x - rect.x;
+                  y += y - rect.y;
+                }
+
                 _mirror.style.left = x + "px";
                 _mirror.style.top = y + "px";
 
