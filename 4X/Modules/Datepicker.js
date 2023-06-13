@@ -2823,7 +2823,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 ) {
                   ev.preventDefault();
                   this.blur();
-                  if (trigger) $A.setFocus(trigger);
+                  if (trigger) $A.focus(trigger);
                 } else if (
                   !odcDel &&
                   !odc.loaded &&
@@ -2939,7 +2939,7 @@ License: MIT <https://opensource.org/licenses/MIT>
               ) {
                 ev.preventDefault();
                 this.blur();
-                if (trigger) $A.setFocus(trigger);
+                if (trigger) $A.focus(trigger);
               }
 
               onFocusInit = true;
