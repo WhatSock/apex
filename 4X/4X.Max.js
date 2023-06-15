@@ -1,5 +1,5 @@
 /*@license
-Apex 4X: The Comprehensive ARIA Development Suite ( Diamond Age - 2022.8.14 )
+Apex 4X: The Comprehensive ARIA Development Suite ( Blade Runner - 2023.6.14 )
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -7,7 +7,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 
 (function () {
   var moduleFolder = "/4X/Modules/",
-    Version = "2022.8.14",
+    Version = "2023.6.14",
     BN = {};
   (function () {
     var $A = function (dc, dcA, dcI, onReady, disableAsync) {
@@ -3803,6 +3803,7 @@ error: function(error, promise){}
             }
 
             var complete = function () {
+              $A.isAnimating = false;
               if (dc.isFocusable)
                 dc.setAttr({
                   tabindex: "0",
@@ -3933,6 +3934,7 @@ error: function(error, promise){}
               dc.animate &&
               $A.isFn(dc.animate.onRender)
             ) {
+              $A.isAnimating = true;
               dc.animate.onRender.call(dc.wrapper, dc, dc.wrapper, complete);
             } else complete();
 
@@ -3953,6 +3955,7 @@ error: function(error, promise){}
               dc.loaded = false;
 
               var complete = function () {
+                $A.isAnimating = false;
                 if (!dc.storeData) $A._cleanAll(dc.container, true);
                 if (dc.fn.style) $A.remove(dc.fn.style);
                 if (dc.fn.closeLink) $A.remove(dc.fn.closeLink);
@@ -3993,6 +3996,7 @@ error: function(error, promise){}
               };
 
               if (dc.animate && $A.isFn(dc.animate.onRemove)) {
+                $A.isAnimating = true;
                 dc.animate.onRemove.call(dc.wrapper, dc, dc.wrapper, complete);
               } else complete();
             });

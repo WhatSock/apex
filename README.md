@@ -1,5 +1,5 @@
 # Apex 4X : The Comprehensive ARIA Development Suite
-(V: Diamond Age - 2022.8.14)
+(V: Blade Runner - 2023.6.14)
 
 "Art should comfort the disturbed and disturb the comfortable.", Banksy
 
@@ -154,6 +154,8 @@ https://github.com/whatsock
 
 <!----><a name="changelog" tabindex="-1"></a>
 ## Change log:
+
+2023.6.14 (Blade Runner): Added the $A.isAnimating flag to identify when a Velocity animation is currently running.
 
 2022.8.14 (Diamond Age): Bug fix: Corrected the autoCloseSameWidget prop functionality to handle nested widget types like nested menus.
 

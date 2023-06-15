@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 4.4 for Apex 4X
+ARIA Date Picker Module 4.5 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -2751,21 +2751,23 @@ License: MIT <https://opensource.org/licenses/MIT>
             odcDel = false;
           },
           odcFn = function () {
-            if (!odcDel && !odc.loaded && !odc.disabled) {
-              odcDel = true;
-              // Toggles for openOnFocus support.
-              onFocusInit = false;
-              onFocusTraverse = true;
+            if (!$A.isAnimating) {
+              if (!odcDel && !odc.loaded && !odc.disabled) {
+                odcDel = true;
+                // Toggles for openOnFocus support.
+                onFocusInit = false;
+                onFocusTraverse = true;
 
-              $A.trigger(this, "opendatepicker");
-              setTimeout(odcDelFn, 1000);
-            } else if (!odcDel && odc.loaded) {
-              odcDel = true;
-              odc.remove();
-              // Toggles for openOnFocus support.
-              onFocusInit = false;
-              onFocusTraverse = false;
-              setTimeout(odcDelFn, 1000);
+                $A.trigger(this, "opendatepicker");
+                setTimeout(odcDelFn, 1000);
+              } else if (!odcDel && odc.loaded) {
+                odcDel = true;
+                odc.remove();
+                // Toggles for openOnFocus support.
+                onFocusInit = false;
+                onFocusTraverse = false;
+                setTimeout(odcDelFn, 1000);
+              }
             }
           };
 
