@@ -918,7 +918,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
             }
 
             module.exports = dragula;
-          }.call(
+          }).call(
             this,
             typeof global !== "undefined"
               ? global
@@ -927,7 +927,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
               : typeof window !== "undefined"
               ? window
               : {}
-          ));
+          );
         },
         { "./classes": 1, "contra/emitter": 5, crossvent: 6 },
       ],
@@ -1147,7 +1147,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
                 }
               }
             }
-          }.call(
+          }).call(
             this,
             typeof global !== "undefined"
               ? global
@@ -1156,7 +1156,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
               : typeof window !== "undefined"
               ? window
               : {}
-          ));
+          );
         },
         { "./eventmap": 7, "custom-event": 8 },
       ],
@@ -1176,7 +1176,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
             }
 
             module.exports = eventmap;
-          }.call(
+          }).call(
             this,
             typeof global !== "undefined"
               ? global
@@ -1185,7 +1185,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
               : typeof window !== "undefined"
               ? window
               : {}
-          ));
+          );
         },
         {},
       ],
@@ -1246,7 +1246,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
                   }
                   return e;
                 };
-          }.call(
+          }).call(
             this,
             typeof global !== "undefined"
               ? global
@@ -1255,7 +1255,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
               : typeof window !== "undefined"
               ? window
               : {}
-          ));
+          );
         },
         {},
       ],
@@ -1472,7 +1472,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
             }
 
             module.exports = tick;
-          }.call(this, require("timers").setImmediate));
+          }).call(this, require("timers").setImmediate);
         },
         { timers: 11 },
       ],
@@ -1568,11 +1568,11 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
                 : function (id) {
                     delete immediateIds[id];
                   };
-          }.call(
+          }).call(
             this,
             require("timers").setImmediate,
             require("timers").clearImmediate
-          ));
+          );
         },
         { "process/browser.js": 9, timers: 11 },
       ],

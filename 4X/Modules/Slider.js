@@ -1,5 +1,5 @@
 /*@license
-ARIA Slider Module 1.2 for Apex 4X
+ARIA Slider Module 1.3 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -183,7 +183,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
                   ),
                 });
               },
-              dd = new Dragdealer(
+              dd = new $A.Dragdealer(
                 o,
                 $A.extend(
                   {

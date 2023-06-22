@@ -1,9 +1,61 @@
 {
-  "dependencies": {
-    "js-beautify": "^1.14.6",
-    "linkinator": "^4.1.0",
-    "prettier": "^2.7.1",
-    "static-server": "^2.2.1",
-    "uglify-js": "^3.17.3"
-  }
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "rollup": "^2.79.1",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-terser": "^7.0.2"
+  },
+  "name": "apex4x",
+  "description": "The Comprehensive ARIA Development Suite",
+  "version": "2023.6.14",
+  "main": "Bundle/4X.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whatsock/apex.git"
+  },
+  "keywords": [
+    "a11y",
+    "accessibility",
+    "apex",
+    "4x",
+    "whatsock",
+    "accdc",
+    "library",
+    "widgets",
+    "frontend",
+    "web",
+    "aria",
+    "w3c",
+    "accordion",
+    "button",
+    "carousel",
+    "checkbox",
+    "combobox",
+    "datepicker",
+    "dialog",
+    "dragdrop",
+    "footnote",
+    "grid",
+    "listbox",
+    "menu",
+    "menubar",
+    "popup",
+    "overlay",
+    "radiobutton",
+    "slider",
+    "switch",
+    "tab",
+    "tablist",
+    "tooltip",
+    "tree"
+  ],
+  "author": "Bryan Garaventa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whatsock/apex/issues"
+  },
+  "homepage": "https://whatsock.com"
 }

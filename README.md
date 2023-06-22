@@ -3,6 +3,8 @@
 
 "Art should comfort the disturbed and disturb the comfortable.", Banksy
 
+NEW: Apex 4X can now be installed into any project using the NPM statement: `npm install apex4x`
+
 ## Contents
 + [Introduction](#introduction)
 + [Accessible Widget Templates](#templates)

@@ -6,20 +6,7 @@
  * http://skidding.mit-license.org
  */
 
-(function (root, factory) {
-  if (typeof define === "function" && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(factory);
-  } else if (typeof module === "object" && module.exports) {
-    // Node. Does not work with strict CommonJS, but
-    // only CommonJS-like enviroments that support module.exports,
-    // like Node.
-    module.exports.Dragdealer = factory();
-  } else {
-    // Browser globals
-    root.Dragdealer = factory();
-  }
-})(this, function () {
+(function () {
   var Dragdealer = function (wrapper, options) {
     /**
      * Drag-based component that works around two basic DOM elements.
@@ -1023,5 +1010,5 @@
     cancelAnimationFrame = clearTimeout;
   }
 
-  return Dragdealer;
-});
+  $A.Dragdealer = Dragdealer;
+})();

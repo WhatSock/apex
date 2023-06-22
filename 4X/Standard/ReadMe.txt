@@ -6,8 +6,6 @@ delete the module scripts that you don't wish to use,
 and change the href and src attribute paths to point to the correct modules within the 4X/Standard folder.
 Then a simple setup script can be loaded to configure all desired functionality.
 
-Note: For testing purposes, all of the below declarations have been added to the index.htm file at the root of this archive.
-
     <link rel="stylesheet" type="text/css" href="4X/Standard/Modules/Dragula.css">
     <link rel="stylesheet" type="text/css" href="4X/Standard/Modules/TinySlider.css">
 
