@@ -195,7 +195,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                     dc.cb.options[
                       dc.cb.optionNodes[dc.cb.sel.selectedIndex].value
                     ],
-                    true
+                    true,
                   );
                 else {
                   dc.cb.autoComplete = true;
@@ -216,7 +216,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                     $A.setAttr(
                       option.o,
                       "aria-selected",
-                      option.checked ? "true" : "false"
+                      option.checked ? "true" : "false",
                     );
                   } // End for loop
                 }
@@ -322,13 +322,13 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                           !dc.cb.substringMatch &&
                           $A.inArray(
                             dc.cb.value.toLowerCase(),
-                            dc.cb.names[i].toLowerCase()
+                            dc.cb.names[i].toLowerCase(),
                           ) === 0) ||
                         (!dc.cb.wordMatch &&
                           dc.cb.substringMatch &&
                           $A.inArray(
                             dc.cb.value.toLowerCase(),
-                            dc.cb.names[i].toLowerCase()
+                            dc.cb.names[i].toLowerCase(),
                           ) !== -1)
                       )
                         dc.cb.matches.push(dc.cb.values[i]);
@@ -554,7 +554,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                               dc.cb.fn.setValue(
                                 dc.cb.options[dc.cb.matches[dc.cb.sIndex]],
                                 false,
-                                true
+                                true,
                               );
                             else dc.cb.fn.setValue(false, false, true);
                           }
@@ -577,7 +577,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                         dc.cb.fn.setValue(
                           dc.cb.options[dc.cb.matches[dc.cb.sIndex]],
                           false,
-                          true
+                          true,
                         );
                         that.close();
                         announceVal();
@@ -604,10 +604,10 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                           "aria-selected",
                           $A.getAttr(
                             dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,
-                            "aria-selected"
+                            "aria-selected",
                           ) === "true"
                             ? "false"
-                            : "true"
+                            : "true",
                         );
                         if (dc.cb.autoSaveIfChecked) {
                           dc.cb.fn.setValue(false, false, true);
@@ -686,7 +686,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                         dc.cb.select(
                           dc,
                           dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,
-                          true
+                          true,
                         );
                         ev.preventDefault();
                       } else if (
@@ -700,7 +700,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                         dc.cb.select(
                           dc,
                           dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,
-                          true
+                          true,
                         );
                         ev.preventDefault();
                       } else if (
@@ -713,7 +713,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                           dc.cb.fn.setValue(
                             dc.cb.options[dc.cb.matches[dc.cb.sIndex]],
                             false,
-                            true
+                            true,
                           );
                         else dc.cb.fn.setValue(false, false, true);
                         that.close();
@@ -730,7 +730,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                         dc.cb.select(
                           dc,
                           dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,
-                          true
+                          true,
                         );
                         ev.preventDefault();
                       } else if (k === 27 || k === 37 || k === 39) {
@@ -793,7 +793,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                                 dc.cb.fn.setValue(
                                   dc.cb.options[dc.cb.matches[dc.cb.sIndex]],
                                   false,
-                                  true
+                                  true,
                                 );
                               that.close();
                             }
@@ -804,7 +804,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                     },
                   },
                   null,
-                  ".4XCombobox"
+                  ".4XCombobox",
                 );
                 dc.cb.bound = true;
               },
@@ -827,7 +827,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                   $A.addIdRef(
                     dc.triggerNode,
                     "aria-labelledby",
-                    dc.cb.child.id
+                    dc.cb.child.id,
                   );
                 }
               },
@@ -870,14 +870,14 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                 "aria-multiselectable": dc.cb.multiple ? "true" : "false",
               },
               null,
-              dc.listboxClass
+              dc.listboxClass,
             );
 
             for (var i = 0; i < dc.cb.matches.length; i++) {
               if (!$A.isNode(dc.cb.options[dc.cb.matches[i]].o))
                 dc.cb.options[dc.cb.matches[i]].o = $A.toNode(
                   dc.cb.options[dc.cb.matches[i]].content,
-                  true
+                  true,
                 );
               dc.content.appendChild(dc.cb.options[dc.cb.matches[i]].o);
             }
@@ -910,7 +910,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                         "aria-selected",
                         $A.getAttr(o, "aria-selected") === "true"
                           ? "false"
-                          : "true"
+                          : "true",
                       );
                     dc.cb.mClicked = true;
                   }
@@ -927,7 +927,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
               dc.cb.select(
                 dc,
                 dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,
-                true
+                true,
               );
             }
 
@@ -937,7 +937,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
               setTimeout(function () {
                 $A.announce(
                   dc.cb.options[dc.cb.matches[dc.cb.sIndex]].no,
-                  false
+                  false,
                 );
               }, 1);
 
@@ -1069,7 +1069,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                 dc.cb.select(
                   dc,
                   dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,
-                  true
+                  true,
                 );
             });
           }
@@ -1196,8 +1196,8 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                   if ($A.isFn(cb)) cb.call(o, o);
                 },
               },
-              dc.scrollConfig || {}
-            )
+              dc.scrollConfig || {},
+            ),
           );
         };
 

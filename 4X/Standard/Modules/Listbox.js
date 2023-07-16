@@ -31,10 +31,10 @@ Required dependencies: RovingTabIndex.js
               $A.getAttr(o, "aria-checked"),
               $A.hasAttr(o, "aria-checked"),
               false,
-              dc.RTI.nodes
+              dc.RTI.nodes,
             );
           },
-          "array"
+          "array",
         );
       },
     });
@@ -66,7 +66,7 @@ Required dependencies: RovingTabIndex.js
                   '<li><button class="option"><span class="lbl">{OPTION-TEXT}</span></button></li>',
               },
             },
-            config.tag || {}
+            config.tag || {},
           ),
           getState = function (o, attributeValue, hasAttribute, write, nodes) {
             if (hasAttribute) {
@@ -102,8 +102,8 @@ Required dependencies: RovingTabIndex.js
                   toggleHide: true,
                   getState: getState,
                 },
-                config
-              )
+                config,
+              ),
             );
 
             init.update();
@@ -130,7 +130,7 @@ Required dependencies: RovingTabIndex.js
                       $A.append(c, init.listbox);
                     }
                   },
-                  "array"
+                  "array",
                 );
                 $A.on(init.select, "change", function (ev) {
                   var ix = -1;
@@ -142,11 +142,11 @@ Required dependencies: RovingTabIndex.js
                         o.selected ? true : false,
                         false,
                         init.multiple,
-                        true
+                        true,
                       );
                       if (ix < 0 && o.selected) ix = i;
                     },
-                    "array"
+                    "array",
                   );
                   DC.RTI.activate(ix >= 0 ? ix : 0);
                 });
@@ -157,7 +157,7 @@ Required dependencies: RovingTabIndex.js
                   var check = getState(
                       o,
                       $A.getAttr(o, "data-check"),
-                      init.checkable || $A.hasAttr(o, "data-check")
+                      init.checkable || $A.hasAttr(o, "data-check"),
                     ),
                     n =
                       ($A.hasAttr(o, "data-controls") &&
@@ -196,7 +196,7 @@ Required dependencies: RovingTabIndex.js
                       attributeValue,
                       attributePriorValue,
                       boundNode,
-                      SavedData
+                      SavedData,
                     ) {
                       if (attributeName === "aria-checked") {
                         if ($A.isNode(n)) {
@@ -216,10 +216,10 @@ Required dependencies: RovingTabIndex.js
                     },
                     {
                       attributeFilter: ["aria-checked", "aria-selected"],
-                    }
+                    },
                   );
                 },
-                "array"
+                "array",
               );
               $A.updateDisabled(init.options);
               init.setFlags();
@@ -267,15 +267,15 @@ Required dependencies: RovingTabIndex.js
                     ? $A.isFn(window.getAccName)
                       ? window.getAccName(init.select).name
                       : ""
-                    : "")
+                    : ""),
               );
             },
             setRoles: function () {
               $A.remAttr(
                 init.listbox.querySelectorAll(
-                  '*[role="listbox"], *[role="option"]'
+                  '*[role="listbox"], *[role="option"]',
                 ),
-                "role"
+                "role",
               );
               $A.setAttr(init.listbox, "role", "listbox");
               $A.setAttr(init.options, "role", "option");
@@ -291,10 +291,10 @@ Required dependencies: RovingTabIndex.js
                       o.selected ? true : false,
                       false,
                       init.multiple,
-                      true
+                      true,
                     );
                   },
-                  "array"
+                  "array",
                 );
               }
             },
@@ -303,7 +303,7 @@ Required dependencies: RovingTabIndex.js
               if (DC.disabled) return;
               var x = 0,
                 n = init.listbox.querySelector(
-                  '*[role="option"][aria-selected="true"]'
+                  '*[role="option"][aria-selected="true"]',
                 );
               if ($A.isNode(n)) x = $A.inArray(n, init.options) || 0;
               DC.RTI = new $A.RovingTabIndex(
@@ -329,7 +329,7 @@ Required dependencies: RovingTabIndex.js
                       DC,
                       arrowKeyCode,
                       isTop,
-                      isBottom
+                      isBottom,
                     ) {
                       if (init.multiple) {
                         init.toggleSelect(option, true);
@@ -343,7 +343,7 @@ Required dependencies: RovingTabIndex.js
                       DC,
                       arrowKeyCode,
                       isTop,
-                      isBottom
+                      isBottom,
                     ) {
                       if (init.multiple) {
                         init.toggleSelect(option, true);
@@ -358,7 +358,7 @@ Required dependencies: RovingTabIndex.js
                       DC,
                       arrowKeyCode,
                       isTop,
-                      isBottom
+                      isBottom,
                     ) {
                       RTI["onShiftUp"].call(
                         this,
@@ -368,7 +368,7 @@ Required dependencies: RovingTabIndex.js
                         DC,
                         arrowKeyCode,
                         isTop,
-                        isBottom
+                        isBottom,
                       );
                       ev.preventDefault();
                     },
@@ -379,7 +379,7 @@ Required dependencies: RovingTabIndex.js
                       DC,
                       arrowKeyCode,
                       isTop,
-                      isBottom
+                      isBottom,
                     ) {
                       RTI["onShiftDown"].call(
                         this,
@@ -389,7 +389,7 @@ Required dependencies: RovingTabIndex.js
                         DC,
                         arrowKeyCode,
                         isTop,
-                        isBottom
+                        isBottom,
                       );
                       ev.preventDefault();
                     },
@@ -401,7 +401,7 @@ Required dependencies: RovingTabIndex.js
                       DC,
                       arrowKeyCode,
                       isTop,
-                      isBottom
+                      isBottom,
                     ) {
                       if (init.multiple) {
                         var s = init.options.slice(RTI.index);
@@ -410,7 +410,7 @@ Required dependencies: RovingTabIndex.js
                           function (i, o) {
                             init.toggleSelect(o, true);
                           },
-                          "array"
+                          "array",
                         );
                       }
                       ev.preventDefault();
@@ -422,7 +422,7 @@ Required dependencies: RovingTabIndex.js
                       DC,
                       arrowKeyCode,
                       isTop,
-                      isBottom
+                      isBottom,
                     ) {
                       if (init.multiple) {
                         var s = init.options.slice(0, RTI.index + 1);
@@ -431,7 +431,7 @@ Required dependencies: RovingTabIndex.js
                           function (i, o) {
                             init.toggleSelect(o, true);
                           },
-                          "array"
+                          "array",
                         );
                       }
                       ev.preventDefault();
@@ -444,7 +444,7 @@ Required dependencies: RovingTabIndex.js
                       DC,
                       arrowKeyCode,
                       isTop,
-                      isBottom
+                      isBottom,
                     ) {
                       RTI["onShiftEnd"].call(
                         this,
@@ -454,7 +454,7 @@ Required dependencies: RovingTabIndex.js
                         DC,
                         arrowKeyCode,
                         isTop,
-                        isBottom
+                        isBottom,
                       );
                       ev.preventDefault();
                     },
@@ -465,7 +465,7 @@ Required dependencies: RovingTabIndex.js
                       DC,
                       arrowKeyCode,
                       isTop,
-                      isBottom
+                      isBottom,
                     ) {
                       RTI["onShiftHome"].call(
                         this,
@@ -475,7 +475,7 @@ Required dependencies: RovingTabIndex.js
                         DC,
                         arrowKeyCode,
                         isTop,
-                        isBottom
+                        isBottom,
                       );
                       ev.preventDefault();
                     },
@@ -487,7 +487,7 @@ Required dependencies: RovingTabIndex.js
                       DC,
                       arrowKeyCode,
                       isTop,
-                      isBottom
+                      isBottom,
                     ) {
                       var d = Math.round(init.options.length * 0.1);
                       if (!d) d = 1;
@@ -503,7 +503,7 @@ Required dependencies: RovingTabIndex.js
                       DC,
                       arrowKeyCode,
                       isTop,
-                      isBottom
+                      isBottom,
                     ) {
                       var d = Math.round(init.options.length * 0.1);
                       if (!d) d = 1;
@@ -520,7 +520,7 @@ Required dependencies: RovingTabIndex.js
                       DC,
                       arrowKeyCode,
                       isTop,
-                      isBottom
+                      isBottom,
                     ) {
                       if (init.sortable) init.toggleGrab(option);
                       else RTI.onClick.apply(option, arguments);
@@ -538,7 +538,7 @@ Required dependencies: RovingTabIndex.js
                       DC,
                       arrowKeyCode,
                       isTop,
-                      isBottom
+                      isBottom,
                     ) {
                       if (init.sortable) init.toggleGrab(option);
                       else RTI.onClick.apply(option, arguments);
@@ -556,14 +556,14 @@ Required dependencies: RovingTabIndex.js
                       DC,
                       arrowKeyCode,
                       isTop,
-                      isBottom
+                      isBottom,
                     ) {
                       $A.loop(
                         init.options,
                         function (i, o) {
                           init.toggleSelect(o, false);
                         },
-                        "array"
+                        "array",
                       );
                       if (init.checkable) init.check(init.options, "false");
                       if (init.sortable) {
@@ -609,7 +609,7 @@ Required dependencies: RovingTabIndex.js
                       DC,
                       arrowKeyCode,
                       isTop,
-                      isBottom
+                      isBottom,
                     ) {
                       var that = option,
                         isDisabled = $A.isDisabled(that),
@@ -631,13 +631,13 @@ Required dependencies: RovingTabIndex.js
                                 attributeValue,
                                 true,
                                 true,
-                                RTI.nodes
+                                RTI.nodes,
                               );
                             else if (attributeValue)
                               $A.setAttr(
                                 option,
                                 "aria-selected",
-                                attributeValue === "true" ? "true" : "false"
+                                attributeValue === "true" ? "true" : "false",
                               );
                           },
                         ]);
@@ -652,7 +652,7 @@ Required dependencies: RovingTabIndex.js
                       DC,
                       arrowKeyCode,
                       isTop,
-                      isBottom
+                      isBottom,
                     ) {
                       if (init.multiple) {
                         $A.loop(
@@ -660,14 +660,14 @@ Required dependencies: RovingTabIndex.js
                           function (i, o) {
                             init.toggleSelect(o, true);
                           },
-                          "array"
+                          "array",
                         );
                       }
                       ev.preventDefault();
                     },
                   },
-                  config.extendRTI || {}
-                )
+                  config.extendRTI || {},
+                ),
               );
 
               $A(init.listbox)
@@ -686,12 +686,12 @@ Required dependencies: RovingTabIndex.js
               if (!recur && !init.multiple) {
                 $A.loop(
                   init.listbox.querySelectorAll(
-                    '*[role="option"][aria-selected="true"]'
+                    '*[role="option"][aria-selected="true"]',
                   ),
                   function (i, O) {
                     if (O !== o) init.toggleSelect(O, false, false, true);
                   },
-                  "array"
+                  "array",
                 );
               }
               if (!$A.isBool(state))
@@ -705,7 +705,7 @@ Required dependencies: RovingTabIndex.js
                 o,
                 init.toggleClassName,
                 state,
-                function (state) {}
+                function (state) {},
               );
             },
             grabText: "Grabbable",
@@ -746,14 +746,14 @@ Required dependencies: RovingTabIndex.js
                       }
                       $A.setAttr(n, a);
                     },
-                    "array"
+                    "array",
                   );
                 } else {
                   var x = $A.inArray(o, DC.RTI.nodes) || 0;
                   if (init.select.nodeType)
                     $A.before(
                       $A.boundTo(init.toggleGrab.grabbed),
-                      $A.boundTo(o)
+                      $A.boundTo(o),
                     );
                   else $A.before(init.toggleGrab.grabbed, o);
                   init.update();
@@ -767,7 +767,7 @@ Required dependencies: RovingTabIndex.js
             },
             value: function (o) {
               var checked = init.listbox.querySelectorAll(
-                '*[role="option"][aria-checked="true"]'
+                '*[role="option"][aria-checked="true"]',
               );
               if (checked && checked.length) return checked;
               else if (init.select.nodeType) {
@@ -775,7 +775,7 @@ Required dependencies: RovingTabIndex.js
                 else return init.select.value;
               } else
                 return init.listbox.querySelectorAll(
-                  '*[role="option"][aria-selected="true"]'
+                  '*[role="option"][aria-selected="true"]',
                 );
             },
           };
@@ -816,7 +816,7 @@ Required dependencies: RovingTabIndex.js
             },
             function (c) {
               gen(c);
-            }
+            },
           );
         } else gen(o);
 

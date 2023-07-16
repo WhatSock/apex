@@ -27,7 +27,7 @@
     if (!Velocity || !Velocity.Utilities) {
       if (window.console) {
         console.log(
-          "Velocity UI Pack: Velocity must be loaded first. Aborting."
+          "Velocity UI Pack: Velocity must be loaded first. Aborting.",
         );
       }
       return;
@@ -74,14 +74,14 @@
     /* Note: RegisterUI is a legacy name. */
     Velocity.RegisterEffect = Velocity.RegisterUI = function (
       effectName,
-      properties
+      properties,
     ) {
       /* Animate the expansion/contraction of the elements' parent's height for In/Out effects. */
       function animateParentHeight(
         elements,
         direction,
         totalDuration,
-        stagger
+        stagger,
       ) {
         var totalHeightDelta = 0,
           parentNode;
@@ -116,10 +116,10 @@
 
             $.each(propertiesToSum, function (i, property) {
               totalHeightDelta += parseFloat(
-                Velocity.CSS.getPropertyValue(element, property)
+                Velocity.CSS.getPropertyValue(element, property),
               );
             });
-          }
+          },
         );
 
         /* Animate the parent element's height adjustment (with a varying duration multiplier for aesthetic benefits). */
@@ -130,7 +130,7 @@
             queue: false,
             easing: "ease-in-out",
             duration: totalDuration * (direction === "In" ? 0.6 : 1),
-          }
+          },
         );
       }
 
@@ -142,7 +142,7 @@
         elementsSize,
         elements,
         promiseData,
-        loop
+        loop,
       ) {
         var finalElement = elementsIndex === elementsSize - 1,
           totalDuration = 0;
@@ -151,7 +151,7 @@
         if (typeof properties.defaultDuration === "function") {
           properties.defaultDuration = properties.defaultDuration.call(
             elements,
-            elements
+            elements,
           );
         } else {
           properties.defaultDuration = parseFloat(properties.defaultDuration);
@@ -227,7 +227,7 @@
                     elements.nodeType ? [elements] : elements,
                     function (i, element) {
                       Velocity.CSS.setPropertyValue(element, "opacity", 0);
-                    }
+                    },
                   );
                 }
 
@@ -237,7 +237,7 @@
                     elements,
                     direction[0],
                     redirectDuration + opts.delay,
-                    redirectOptions.stagger
+                    redirectOptions.stagger,
                   );
                 }
               };
@@ -280,7 +280,7 @@
                   elements.nodeType ? [elements] : elements,
                   function (i, element) {
                     Velocity.CSS.setPropertyValue(element, "display", "none");
-                  }
+                  },
                 );
               }
               if (redirectOptions.complete) {
@@ -300,7 +300,7 @@
                   elementsSize,
                   elements,
                   promiseData,
-                  loop === true ? true : Math.max(0, loop - 1)
+                  loop === true ? true : Math.max(0, loop - 1),
                 );
               }
               if (properties.reset) {
@@ -1049,7 +1049,7 @@
       if (Velocity.RegisterEffect.packagedEffects.hasOwnProperty(effectName)) {
         Velocity.RegisterEffect(
           effectName,
-          Velocity.RegisterEffect.packagedEffects[effectName]
+          Velocity.RegisterEffect.packagedEffects[effectName],
         );
       }
     }
@@ -1108,6 +1108,6 @@
   })(
     window.jQuery || window.Zepto || window,
     window,
-    window ? window.document : undefined
+    window ? window.document : undefined,
   );
 });

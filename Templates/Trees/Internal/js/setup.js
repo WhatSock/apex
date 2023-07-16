@@ -42,12 +42,12 @@ $A.import(["Animate", "Tree"], { defer: true }, function () {
     var list = [];
     $A.query('a[aria-checked="true"]', tree, function (i, treeItem) {
       list.push(
-        $A.getText(treeItem) + ", by " + $A.getAttr(treeItem, "data-author")
+        $A.getText(treeItem) + ", by " + $A.getAttr(treeItem, "data-author"),
       );
     });
     if (list.length)
       $A((list = "<li>" + list.join("</li><li>") + "</li>")).insertWithin(
-        "#readingList"
+        "#readingList",
       );
     else $A.empty("#readingList");
   };

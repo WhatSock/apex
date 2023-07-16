@@ -10,10 +10,25 @@ Common Dialog triggering element styles
 *************************************************/
 
 #triggerId {
-  font: 1.2em open_sansbold, Frutiger, "Frutiger Linotype", Univers, Calibri,
-    "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed",
-    "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue",
-    Helvetica, Arial, sans-serif;
+  font:
+    1.2em open_sansbold,
+    Frutiger,
+    "Frutiger Linotype",
+    Univers,
+    Calibri,
+    "Gill Sans",
+    "Gill Sans MT",
+    "Myriad Pro",
+    Myriad,
+    "DejaVu Sans Condensed",
+    "Liberation Sans",
+    "Nimbus Sans L",
+    Tahoma,
+    Geneva,
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
   text-transform: uppercase;
   color: #fff;
   background: #286278;

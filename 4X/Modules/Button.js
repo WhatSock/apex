@@ -31,7 +31,7 @@ Required dependencies: RovingTabIndex.js
                 attributeValue,
                 hasAttribute,
                 write,
-                nodes
+                nodes,
               ) {
                 if (hasAttribute) {
                   var role = $A.getAttr(o, "role"),
@@ -56,33 +56,33 @@ Required dependencies: RovingTabIndex.js
                         function (i, n) {
                           if (n !== o) $A.setAttr(n, "aria-checked", "false");
                         },
-                        "array"
+                        "array",
                       );
                     $A.setAttr(
                       o,
                       isToggle ? "aria-pressed" : "aria-checked",
-                      attributeValue
+                      attributeValue,
                     );
                     if (attributeValue === "mixed") {
                       $A.remClass(
                         o,
-                        config.toggleClassName || "pressed checked"
+                        config.toggleClassName || "pressed checked",
                       );
                       $A.toggleClass(
                         o,
                         config.partialClassName || "partially-checked",
-                        true
+                        true,
                       );
                     } else {
                       $A.remClass(
                         o,
-                        config.partialClassName || "partially-checked"
+                        config.partialClassName || "partially-checked",
                       );
                       $A.toggleClass(
                         o,
                         config.toggleClassName ||
                           (isToggle ? "pressed" : "checked"),
-                        attributeValue === "true"
+                        attributeValue === "true",
                       );
                     }
                   }
@@ -115,25 +115,25 @@ Required dependencies: RovingTabIndex.js
                     s,
                     $A.getAttr(s, "data-radio"),
                     $A.hasAttr(s, "data-radio"),
-                    true
+                    true,
                   ),
                   check = getState(
                     s,
                     $A.getAttr(s, "data-check"),
                     $A.hasAttr(s, "data-check"),
-                    true
+                    true,
                   ),
                   press = getState(
                     s,
                     $A.getAttr(s, "data-toggle"),
                     $A.hasAttr(s, "data-toggle"),
-                    true
+                    true,
                   ),
                   swich = getState(
                     s,
                     $A.getAttr(s, "data-switch"),
                     $A.hasAttr(s, "data-switch"),
-                    true
+                    true,
                   ),
                   isRequired = $A.hasAttr(s, "data-required"),
                   isDisabled = $A.hasAttr(s, "data-disabled");
@@ -161,7 +161,7 @@ Required dependencies: RovingTabIndex.js
                       check = getState(
                         o,
                         $A.getAttr(o, "aria-checked"),
-                        $A.hasAttr(o, "aria-checked")
+                        $A.hasAttr(o, "aria-checked"),
                       );
                     if (!isDisabled && $A.isFn(config.onActivate))
                       config.onActivate.apply(o, [
@@ -194,7 +194,7 @@ Required dependencies: RovingTabIndex.js
                       swich = getState(
                         o,
                         $A.getAttr(o, "aria-checked"),
-                        $A.hasAttr(o, "aria-checked")
+                        $A.hasAttr(o, "aria-checked"),
                       );
                     if (!isDisabled && $A.isFn(config.onActivate))
                       config.onActivate.apply(o, [
@@ -227,7 +227,7 @@ Required dependencies: RovingTabIndex.js
                       press = getState(
                         o,
                         $A.getAttr(o, "aria-pressed"),
-                        $A.hasAttr(o, "aria-pressed")
+                        $A.hasAttr(o, "aria-pressed"),
                       ),
                       args =
                         press !== false
@@ -261,7 +261,7 @@ Required dependencies: RovingTabIndex.js
                       attributeValue,
                       attributePriorValue,
                       DC,
-                      SavedData
+                      SavedData,
                     ) {
                       if ($A.isNode(n)) {
                         var check = getState(o, attributeValue, true);
@@ -270,7 +270,7 @@ Required dependencies: RovingTabIndex.js
                     },
                     {
                       attributeFilter: ["aria-checked", "aria-pressed"],
-                    }
+                    },
                   );
                 }
                 $A.svgFix(s);
@@ -339,7 +339,7 @@ Required dependencies: RovingTabIndex.js
                         check = getState(
                           o,
                           $A.getAttr(o, "aria-checked"),
-                          $A.hasAttr(o, "aria-checked")
+                          $A.hasAttr(o, "aria-checked"),
                         );
                       if (!isDisabled && $A.isFn(config.onActivate))
                         config.onActivate.apply(o, [
@@ -360,8 +360,8 @@ Required dependencies: RovingTabIndex.js
                         RTI.onClick.apply(radio, arguments);
                     },
                   },
-                  config.extendRTI || {}
-                )
+                  config.extendRTI || {},
+                ),
               );
             }
 

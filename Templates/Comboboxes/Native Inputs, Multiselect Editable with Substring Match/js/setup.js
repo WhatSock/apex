@@ -49,34 +49,31 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
   });
 
   // Process every time a new value is saved
-  myAuthorCombobox.onSelect(function (
-    optionText,
-    selectedOptionNodes,
-    comboboxElement,
-    selectElement
-  ) {
-    var values = [],
-      insertionPoint = $A.get("insertionPoint");
-    $A.query(selectedOptionNodes, function (i, o) {
-      values.push(o.value);
-    });
+  myAuthorCombobox.onSelect(
+    function (optionText, selectedOptionNodes, comboboxElement, selectElement) {
+      var values = [],
+        insertionPoint = $A.get("insertionPoint");
+      $A.query(selectedOptionNodes, function (i, o) {
+        values.push(o.value);
+      });
 
-    if (values.length) {
-      insertionPoint.innerHTML =
-        "<ul><li>" + values.join("</li><li>") + "</li></ul>";
-      $A.announce(insertionPoint, true, true);
-    } else insertionPoint.innerHTML = "";
+      if (values.length) {
+        insertionPoint.innerHTML =
+          "<ul><li>" + values.join("</li><li>") + "</li></ul>";
+        $A.announce(insertionPoint, true, true);
+      } else insertionPoint.innerHTML = "";
 
-    comboboxElement.value = "";
-    // Return the modified value so that the combobox doesn't open again instantly.
-    return "";
-  });
+      comboboxElement.value = "";
+      // Return the modified value so that the combobox doesn't open again instantly.
+      return "";
+    },
+  );
 
   // Logic to distinguish between touch screen devices
   if (!$A.isTouch) {
     // For non-touch devices, add screen reader accessible keyboard instructions
     myAuthorCombobox.setPromptText(
-      "Type and press the down arrow to browse available matches"
+      "Type and press the down arrow to browse available matches",
     );
   }
 
@@ -86,7 +83,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
       myAuthorCombobox.setPromptText(
         $A.isTouch
           ? ""
-          : "First type then press the down arrow to browse available matches"
+          : "First type then press the down arrow to browse available matches",
       );
     });
   }
@@ -97,7 +94,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
       ? 3
       : window.device.type === "tablet"
       ? 5
-      : 7
+      : 7,
   );
 
   // Get the Close icon triggering element for sighted mouse and touch device users
@@ -142,7 +139,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
         selectedMatches.length +
         "\n" +
         "Selected values " +
-        values.toString()
+        values.toString(),
     );
     ev.preventDefault();
   });

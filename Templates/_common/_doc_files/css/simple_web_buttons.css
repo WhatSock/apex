@@ -16,7 +16,9 @@
 .button {
   display: inline-block;
   text-decoration: none;
-  font: bold 12px/12px HelveticaNeue, Arial;
+  font:
+    bold 12px/12px HelveticaNeue,
+    Arial;
   padding: 8px 11px;
   color: #555;
   border: 1px solid #dedede;
@@ -39,9 +41,15 @@
   border-color: #000;
   color: #000;
   text-shadow: 0 1px 0 #fff;
-  -webkit-box-shadow: 0 1px 1px #eaeaea, inset 0 1px 0 #fbfbfb;
-  -moz-box-shadow: 0 1px 1px #eaeaea, inset 0 1px 0 #fbfbfb;
-  box-shadow: 0 1px 1px #eaeaea, inset 0 1px 0 #fbfbfb;
+  -webkit-box-shadow:
+    0 1px 1px #eaeaea,
+    inset 0 1px 0 #fbfbfb;
+  -moz-box-shadow:
+    0 1px 1px #eaeaea,
+    inset 0 1px 0 #fbfbfb;
+  box-shadow:
+    0 1px 1px #eaeaea,
+    inset 0 1px 0 #fbfbfb;
 }
 .button.white.pressed {
   background: #f4f4f4;
@@ -56,9 +64,15 @@
   background: -moz-linear-gradient(top, #efefef, #f8f8f8);
   border-color: #c7c7c7 #c3c3c3 #bebebe;
   text-shadow: 0 1px 0 #fdfdfd;
-  -webkit-box-shadow: 0 1px 1px #ebebeb, inset 0 1px 0 #f3f3f3;
-  -moz-box-shadow: 0 1px 1px #ebebeb, inset 0 1px 0 #f3f3f3;
-  box-shadow: 0 1px 1px #ebebeb, inset 0 1px 0 #f3f3f3;
+  -webkit-box-shadow:
+    0 1px 1px #ebebeb,
+    inset 0 1px 0 #f3f3f3;
+  -moz-box-shadow:
+    0 1px 1px #ebebeb,
+    inset 0 1px 0 #f3f3f3;
+  box-shadow:
+    0 1px 1px #ebebeb,
+    inset 0 1px 0 #f3f3f3;
 }
 
 .button.grey {
@@ -75,9 +89,15 @@
   border-color: #000;
   color: #000;
   text-shadow: 0 1px 0 #d4d4d4;
-  -webkit-box-shadow: 0 1px 1px #c9c9c9, inset 0 1px 0 #d7d7d7;
-  -moz-box-shadow: 0 1px 1px #c9c9c9, inset 0 1px 0 #d7d7d7;
-  box-shadow: 0 1px 1px #c9c9c9, inset 0 1px 0 #d7d7d7;
+  -webkit-box-shadow:
+    0 1px 1px #c9c9c9,
+    inset 0 1px 0 #d7d7d7;
+  -moz-box-shadow:
+    0 1px 1px #c9c9c9,
+    inset 0 1px 0 #d7d7d7;
+  box-shadow:
+    0 1px 1px #c9c9c9,
+    inset 0 1px 0 #d7d7d7;
 }
 .button.grey.pressed {
   background: #c2c2c2;
@@ -92,9 +112,15 @@
   background: -moz-linear-gradient(top, #bcbcbc, #c2c2c2);
   border-color: #989898 #8e8e8e #878787;
   text-shadow: 0 1px 0 #dadada;
-  -webkit-box-shadow: 0 1px 1px #cdcdcd, inset 0 1px 0 #ccc;
-  -moz-box-shadow: 0 1px 1px #cdcdcd, inset 0 1px 0 #ccc;
-  box-shadow: 0 1px 1px #cdcdcd, inset 0 1px 0 #ccc;
+  -webkit-box-shadow:
+    0 1px 1px #cdcdcd,
+    inset 0 1px 0 #ccc;
+  -moz-box-shadow:
+    0 1px 1px #cdcdcd,
+    inset 0 1px 0 #ccc;
+  box-shadow:
+    0 1px 1px #cdcdcd,
+    inset 0 1px 0 #ccc;
 }
 
 .button.pink {
@@ -111,9 +137,15 @@
   border-color: #df6f8b #da5f75 #d55061;
   color: #913944;
   text-shadow: 0 1px 0 #f89ca9;
-  -webkit-box-shadow: 0 1px 1px #c1c1c1, inset 0 1px 0 #f9a1b1;
-  -moz-box-shadow: 0 1px 1px #c1c1c1, inset 0 1px 0 #f9a1b1;
-  box-shadow: 0 1px 1px #c1c1c1, inset 0 1px 0 #f9a1b1;
+  -webkit-box-shadow:
+    0 1px 1px #c1c1c1,
+    inset 0 1px 0 #f9a1b1;
+  -moz-box-shadow:
+    0 1px 1px #c1c1c1,
+    inset 0 1px 0 #f9a1b1;
+  box-shadow:
+    0 1px 1px #c1c1c1,
+    inset 0 1px 0 #f9a1b1;
 }
 .button.pink.pressed {
   background: #f67c90;
@@ -128,9 +160,15 @@
   background: -moz-linear-gradient(top, #f56c7e, #f78297);
   border-color: #c36079 #c25669 #c14e5c;
   text-shadow: 0 1px 0 #f9a6b4;
-  -webkit-box-shadow: 0 1px 1px #c3c3c3, inset 0 1px 0 #f8909e;
-  -moz-box-shadow: 0 1px 1px #c3c3c3, inset 0 1px 0 #f8909e;
-  box-shadow: 0 1px 1px #c3c3c3, inset 0 1px 0 #f8909e;
+  -webkit-box-shadow:
+    0 1px 1px #c3c3c3,
+    inset 0 1px 0 #f8909e;
+  -moz-box-shadow:
+    0 1px 1px #c3c3c3,
+    inset 0 1px 0 #f8909e;
+  box-shadow:
+    0 1px 1px #c3c3c3,
+    inset 0 1px 0 #f8909e;
 }
 
 .button.orange {
@@ -147,9 +185,15 @@
   border-color: #f5b74e #e5a73e #d6982f;
   color: #996633;
   text-shadow: 0 1px 0 #fedd9b;
-  -webkit-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #fee395;
-  -moz-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #fee395;
-  box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #fee395;
+  -webkit-box-shadow:
+    0 1px 1px #d3d3d3,
+    inset 0 1px 0 #fee395;
+  -moz-box-shadow:
+    0 1px 1px #d3d3d3,
+    inset 0 1px 0 #fee395;
+  box-shadow:
+    0 1px 1px #d3d3d3,
+    inset 0 1px 0 #fee395;
 }
 .button.orange.pressed {
   background: #fecb5e;
@@ -164,9 +208,15 @@
   background: -moz-linear-gradient(top, #fec354, #fecd61);
   border-color: #d29a3a #cc9436 #c89133;
   text-shadow: 0 1px 0 #fee1a0;
-  -webkit-box-shadow: 0 1px 1px #d4d4d4, inset 0 1px 0 #fed17e;
-  -moz-box-shadow: 0 1px 1px #d4d4d4, inset 0 1px 0 #fed17e;
-  box-shadow: 0 1px 1px #d4d4d4, inset 0 1px 0 #fed17e;
+  -webkit-box-shadow:
+    0 1px 1px #d4d4d4,
+    inset 0 1px 0 #fed17e;
+  -moz-box-shadow:
+    0 1px 1px #d4d4d4,
+    inset 0 1px 0 #fed17e;
+  box-shadow:
+    0 1px 1px #d4d4d4,
+    inset 0 1px 0 #fed17e;
 }
 
 .button.green {
@@ -183,9 +233,15 @@
   border-color: #000;
   color: #000;
   text-shadow: 0 1px 0 #cfe5a4;
-  -webkit-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #d7e9a4;
-  -moz-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #d7e9a4;
-  box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #d7e9a4;
+  -webkit-box-shadow:
+    0 1px 1px #d3d3d3,
+    inset 0 1px 0 #d7e9a4;
+  -moz-box-shadow:
+    0 1px 1px #d3d3d3,
+    inset 0 1px 0 #d7e9a4;
+  box-shadow:
+    0 1px 1px #d3d3d3,
+    inset 0 1px 0 #d7e9a4;
 }
 .button.green.pressed {
   background: #b9d972;
@@ -200,9 +256,15 @@
   background: -moz-linear-gradient(top, #b8d872, #b9d972);
   border-color: #8bb14d #83a648 #7d9e45;
   text-shadow: 0 1px 0 #d5e8aa;
-  -webkit-box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #cae295;
-  -moz-box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #cae295;
-  box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #cae295;
+  -webkit-box-shadow:
+    0 1px 1px #d5d5d5,
+    inset 0 1px 0 #cae295;
+  -moz-box-shadow:
+    0 1px 1px #d5d5d5,
+    inset 0 1px 0 #cae295;
+  box-shadow:
+    0 1px 1px #d5d5d5,
+    inset 0 1px 0 #cae295;
 }
 
 .button.blue {
@@ -219,17 +281,29 @@
   border-color: #000;
   color: #000;
   text-shadow: 0 1px 0 #b6e6f9;
-  -webkit-box-shadow: 0 1px 1px #d6d6d6, inset 0 1px 0 #c0ebfa;
-  -moz-box-shadow: 0 1px 1px #d6d6d6, inset 0 1px 0 #c0ebfa;
-  box-shadow: 0 1px 1px #d6d6d6, inset 0 1px 0 #c0ebfa;
+  -webkit-box-shadow:
+    0 1px 1px #d6d6d6,
+    inset 0 1px 0 #c0ebfa;
+  -moz-box-shadow:
+    0 1px 1px #d6d6d6,
+    inset 0 1px 0 #c0ebfa;
+  box-shadow:
+    0 1px 1px #d6d6d6,
+    inset 0 1px 0 #c0ebfa;
 }
 .button.blue.pressed {
   background: #92dbf6;
   border-color: #7caec0 #68a3ba #5a9cb5;
   text-shadow: 0 1px 0 #bee9fa;
-  -webkit-box-shadow: 0 1px 1px #d6d6d6, inset 0 1px 0 #ade4f8;
-  -moz-box-shadow: 0 1px 1px #d6d6d6, inset 0 1px 0 #ade4f8;
-  box-shadow: 0 1px 1px #d6d6d6, inset 0 1px 0 #ade4f8;
+  -webkit-box-shadow:
+    0 1px 1px #d6d6d6,
+    inset 0 1px 0 #ade4f8;
+  -moz-box-shadow:
+    0 1px 1px #d6d6d6,
+    inset 0 1px 0 #ade4f8;
+  box-shadow:
+    0 1px 1px #d6d6d6,
+    inset 0 1px 0 #ade4f8;
 }
 
 .button.purple {
@@ -246,9 +320,15 @@
   border-color: #bc9db9 #ad89aa #a1799d;
   color: #7b5777;
   text-shadow: 0 1px 0 #eacae6;
-  -webkit-box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #eed3eb;
-  -moz-box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #eed3eb;
-  box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #eed3eb;
+  -webkit-box-shadow:
+    0 1px 1px #d5d5d5,
+    inset 0 1px 0 #eed3eb;
+  -moz-box-shadow:
+    0 1px 1px #d5d5d5,
+    inset 0 1px 0 #eed3eb;
+  box-shadow:
+    0 1px 1px #d5d5d5,
+    inset 0 1px 0 #eed3eb;
 }
 .button.purple.pressed {
   background: #e0b1db;
@@ -263,9 +343,15 @@
   background: -moz-linear-gradient(top, #deabd9, #e0b1db);
   border-color: #a482a0 #9b7897 #947090;
   text-shadow: 0 1px 0 #ecd0e9;
-  -webkit-box-shadow: 0 1px 1px #cdcdcd, inset 0 1px 0 #ccc;
-  -moz-box-shadow: 0 1px 1px #cdcdcd, inset 0 1px 0 #ccc;
-  box-shadow: 0 1px 1px #cdcdcd, inset 0 1px 0 #ccc;
+  -webkit-box-shadow:
+    0 1px 1px #cdcdcd,
+    inset 0 1px 0 #ccc;
+  -moz-box-shadow:
+    0 1px 1px #cdcdcd,
+    inset 0 1px 0 #ccc;
+  box-shadow:
+    0 1px 1px #cdcdcd,
+    inset 0 1px 0 #ccc;
 }
 
 .button.teal {
@@ -282,17 +368,29 @@
   border-color: #90c6c8 #78bdc0 #65b6ba;
   color: #437b7d;
   text-shadow: 0 1px 0 #bef3f5;
-  -webkit-box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #c9f5f7;
-  -moz-box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #c9f5f7;
-  box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #c9f5f7;
+  -webkit-box-shadow:
+    0 1px 1px #d5d5d5,
+    inset 0 1px 0 #c9f5f7;
+  -moz-box-shadow:
+    0 1px 1px #d5d5d5,
+    inset 0 1px 0 #c9f5f7;
+  box-shadow:
+    0 1px 1px #d5d5d5,
+    inset 0 1px 0 #c9f5f7;
 }
 .button.teal.pressed {
   background: #9fedf0;
   border-color: #7db9bb #6bb2b5 #5dacaf;
   text-shadow: 0 1px 0 #c5f4f6;
-  -webkit-box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #b7f2f4;
-  -moz-box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #b7f2f4;
-  box-shadow: 0 1px 1px #d5d5d5, inset 0 1px 0 #b7f2f4;
+  -webkit-box-shadow:
+    0 1px 1px #d5d5d5,
+    inset 0 1px 0 #b7f2f4;
+  -moz-box-shadow:
+    0 1px 1px #d5d5d5,
+    inset 0 1px 0 #b7f2f4;
+  box-shadow:
+    0 1px 1px #d5d5d5,
+    inset 0 1px 0 #b7f2f4;
 }
 
 .button.darkblue {
@@ -309,17 +407,29 @@
   border-color: #000;
   color: #000;
   text-shadow: 0 1px 0 #c4d0d9;
-  -webkit-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #ced8e0;
-  -moz-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #ced8e0;
-  box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #ced8e0;
+  -webkit-box-shadow:
+    0 1px 1px #d3d3d3,
+    inset 0 1px 0 #ced8e0;
+  -moz-box-shadow:
+    0 1px 1px #d3d3d3,
+    inset 0 1px 0 #ced8e0;
+  box-shadow:
+    0 1px 1px #d3d3d3,
+    inset 0 1px 0 #ced8e0;
 }
 .button.darkblue.pressed {
   background: #adbfcb;
   border-color: #8996a0 #798791 #6c7a85;
   text-shadow: 0 1px 0 #ced9e0;
-  -webkit-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #c2cfd8;
-  -moz-box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #c2cfd8;
-  box-shadow: 0 1px 1px #d3d3d3, inset 0 1px 0 #c2cfd8;
+  -webkit-box-shadow:
+    0 1px 1px #d3d3d3,
+    inset 0 1px 0 #c2cfd8;
+  -moz-box-shadow:
+    0 1px 1px #d3d3d3,
+    inset 0 1px 0 #c2cfd8;
+  box-shadow:
+    0 1px 1px #d3d3d3,
+    inset 0 1px 0 #c2cfd8;
 }
 
 .button.black {
@@ -336,15 +446,27 @@
   border-color: #4c4c4c #313131 #1f1f1f;
   color: #fff;
   text-shadow: 0 1px 0 #2e2e2e;
-  -webkit-box-shadow: 0 1px 1px #afafaf, inset 0 1px 0 #868686;
-  -moz-box-shadow: 0 1px 1px #afafaf, inset 0 1px 0 #868686;
-  box-shadow: 0 1px 1px #afafaf, inset 0 1px 0 #868686;
+  -webkit-box-shadow:
+    0 1px 1px #afafaf,
+    inset 0 1px 0 #868686;
+  -moz-box-shadow:
+    0 1px 1px #afafaf,
+    inset 0 1px 0 #868686;
+  box-shadow:
+    0 1px 1px #afafaf,
+    inset 0 1px 0 #868686;
 }
 .button.black.pressed {
   background: #5a5a5a;
   border-color: #2c2c2c #1c1c1c #101010;
   text-shadow: 0 1px 0 #363636;
-  -webkit-box-shadow: 0 1px 1px #b1b1b1, inset 0 1px 0 #838383;
-  -moz-box-shadow: 0 1px 1px #b1b1b1, inset 0 1px 0 #838383;
-  box-shadow: 0 1px 1px #b1b1b1, inset 0 1px 0 #838383;
+  -webkit-box-shadow:
+    0 1px 1px #b1b1b1,
+    inset 0 1px 0 #838383;
+  -moz-box-shadow:
+    0 1px 1px #b1b1b1,
+    inset 0 1px 0 #838383;
+  box-shadow:
+    0 1px 1px #b1b1b1,
+    inset 0 1px 0 #838383;
 }

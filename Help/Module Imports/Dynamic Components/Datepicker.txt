@@ -48,6 +48,10 @@ toggle: "#dateCalendarIconId",
 // Native input element where the saved date value will be set.
 input: "#dateInputId",
 
+// Optionally specify a DOM node to return focus to after the datepicker calendar is removed.
+// By default, this will set focus back to the associated input field where the date is saved, but it can be overridden if needed using the following property.
+returnFocusTo: $A.get('elementId'),
+
 // Set initial inline styling properties for the dynamically rendered calendar.
 style: {
 position: 'absolute',

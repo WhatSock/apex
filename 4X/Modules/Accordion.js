@@ -79,7 +79,7 @@ Required dependencies: RovingTabIndex.js
               if (
                 !$A.isNative(o) &&
                 ["button", "link"].indexOf(
-                  $A.getAttr(o, "role").toLowerCase() || "false"
+                  $A.getAttr(o, "role").toLowerCase() || "false",
                 ) === -1
               )
                 $A.setAttr(o, "role", "button");
@@ -92,8 +92,8 @@ Required dependencies: RovingTabIndex.js
                       widgetType: "Accordion",
                       root: panelContainer,
                     },
-                    config || {}
-                  )
+                    config || {},
+                  ),
                 );
               dcArray.push(dc);
               if ($A.hasAttr(o, "data-active")) {
@@ -129,8 +129,8 @@ Required dependencies: RovingTabIndex.js
                       ev.preventDefault();
                     },
                   },
-                  config.extendRTI || {}
-                )
+                  config.extendRTI || {},
+                ),
               );
 
             if (!$A.hasHash(dcArray))
@@ -139,7 +139,7 @@ Required dependencies: RovingTabIndex.js
                 function (i, dc) {
                   dc.render();
                 },
-                "array"
+                "array",
               );
 
             return dcArray.length === 1 ? dcArray[0] : dcArray;

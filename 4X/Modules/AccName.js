@@ -20,7 +20,7 @@ Distributed under the terms of the Open Source Initiative OSI - MIT License
     node,
     fnc,
     preventVisualARIASelfCSSRef,
-    overrides
+    overrides,
   ) {
     overrides = overrides || {};
     var docO = overrides.document || document;
@@ -50,7 +50,7 @@ Distributed under the terms of the Open Source Initiative OSI - MIT License
         nodesToIgnoreValues,
         skipAbort,
         ownedBy,
-        skipTo
+        skipTo,
       ) {
         skipTo = skipTo || {};
         skipTo.tag = skipTo.tag || false;
@@ -309,7 +309,7 @@ Plus roles extended for the Role Parity project.
               !skipTo.tag &&
               !skipTo.role &&
               nodes[!ownedBy.computingDesc ? "name" : "desc"].indexOf(
-                parent
+                parent,
               ) === -1
             ) {
               nodes[!ownedBy.computingDesc ? "name" : "desc"].push(parent);
@@ -424,7 +424,7 @@ Plus roles extended for the Role Parity project.
                     walk(element, true, skip, [node], element === refNode, {
                       ref: ownedBy,
                       top: element,
-                    }).name
+                    }).name,
                   );
                 }
                 // Check for blank value, since whitespace chars alone are not valid as a name
@@ -459,7 +459,7 @@ Plus roles extended for the Role Parity project.
                         ref: ownedBy,
                         top: element,
                         computingDesc: true,
-                      }).name
+                      }).name,
                     );
                   }
                   // Check for blank value, since whitespace chars alone are not valid as a name
@@ -533,7 +533,7 @@ Plus roles extended for the Role Parity project.
                         walk(labels[i], true, skip, [node], false, {
                           ref: ownedBy,
                           top: labels[i],
-                        }).name
+                        }).name,
                       );
                     }
                   }
@@ -691,7 +691,7 @@ Plus roles extended for the Role Parity project.
                       walk(fChild, stop, false, [], false, {
                         ref: ownedBy,
                         top: fChild,
-                      }).name
+                      }).name,
                     );
                   }
                   if (trim(name)) {
@@ -716,7 +716,7 @@ Plus roles extended for the Role Parity project.
                       walk(fChild, stop, false, [], false, {
                         ref: ownedBy,
                         top: fChild,
-                      }).name
+                      }).name,
                     );
                   }
                   if (trim(name)) {
@@ -735,7 +735,7 @@ Plus roles extended for the Role Parity project.
                       walk(svgT, true, false, [], false, {
                         ref: ownedBy,
                         top: svgT,
-                      }).name
+                      }).name,
                     );
                   }
                   if (!hasDesc && svgD) {
@@ -743,7 +743,7 @@ Plus roles extended for the Role Parity project.
                       walk(svgD, true, false, [], false, {
                         ref: ownedBy,
                         top: svgD,
-                      }).name
+                      }).name,
                     );
                     if (trim(dE)) {
                       result.desc = dE;
@@ -788,7 +788,7 @@ Plus roles extended for the Role Parity project.
                       false,
                       false,
                       false,
-                      true
+                      true,
                     );
                   } else if (
                     isNativeFormField &&
@@ -803,7 +803,7 @@ Plus roles extended for the Role Parity project.
                       false,
                       false,
                       true,
-                      true
+                      true,
                     );
                   }
 
@@ -848,7 +848,7 @@ Plus roles extended for the Role Parity project.
                         ].indexOf(nType) !== -1)))) &&
                 trim(
                   node.getAttribute("placeholder") ||
-                    node.getAttribute("aria-placeholder")
+                    node.getAttribute("aria-placeholder"),
                 );
 
               if (placeholder) {
@@ -865,7 +865,7 @@ Plus roles extended for the Role Parity project.
                   walk(node, stop, false, [], false, {
                     ref: ownedBy,
                     top: node,
-                  }).name
+                  }).name,
                 );
                 if (trim(name)) {
                   skip = true;
@@ -894,7 +894,7 @@ Plus roles extended for the Role Parity project.
                     };
                     if (!isParentHidden(element, docO.body, true)) {
                       parts.push(
-                        walk(element, true, skip, [], false, oBy).name
+                        walk(element, true, skip, [], false, oBy).name,
                       );
                     }
                   }
@@ -925,7 +925,7 @@ Plus roles extended for the Role Parity project.
 
             return result;
           },
-          refNode
+          refNode,
         );
 
         if (!hasLabel) {
@@ -1338,7 +1338,7 @@ Plus roles extended for the Role Parity project.
               styleObject[prop] &&
               ((values[i].indexOf("!") === 0 &&
                 [values[i].slice(1), "inherit", "initial", "unset"].indexOf(
-                  styleObject[prop]
+                  styleObject[prop],
                 ) === -1) ||
                 styleObject[prop].indexOf(values[i]) === 0)
             ) {
@@ -1427,7 +1427,7 @@ Plus roles extended for the Role Parity project.
         isRange,
         isEdit,
         isSelect,
-        isNative
+        isNative,
       ) {
         var val = "";
         var bypass = false;
@@ -1454,7 +1454,7 @@ Plus roles extended for the Role Parity project.
             node,
             node.querySelectorAll('*[aria-selected="true"]'),
             false,
-            childRoles
+            childRoles,
           );
           bypass = true;
         }
@@ -1467,7 +1467,7 @@ Plus roles extended for the Role Parity project.
             val = joinSelectedParts(
               node,
               node.querySelectorAll("option[selected]"),
-              true
+              true,
             );
           } else {
             val = node.value;
@@ -1493,7 +1493,7 @@ Plus roles extended for the Role Parity project.
             parts.push(
               isNative
                 ? getText(nOA[i])
-                : walk(nOA[i], true, false, [], false, { top: nOA[i] }).name
+                : walk(nOA[i], true, false, [], false, { top: nOA[i] }).name,
             );
           }
         }
@@ -1580,7 +1580,7 @@ Plus roles extended for the Role Parity project.
         node,
         refNode,
         ownedBy,
-        ignoreHidden
+        ignoreHidden,
       ) {
         var trackNodes = [];
         while (node && node !== refNode) {
@@ -1613,7 +1613,7 @@ Plus roles extended for the Role Parity project.
           node,
           docO.body,
           true,
-          !!(node && node.nodeName && node.nodeName.toLowerCase() === "area")
+          !!(node && node.nodeName && node.nodeName.toLowerCase() === "area"),
         )
       ) {
         return props;

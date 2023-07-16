@@ -21,7 +21,7 @@ $A.import(["Beep", "Drag"], { defer: true }, function () {
             source,
             action,
             actionsObject,
-            next
+            next,
           ) {
             if (action === "remove") {
               $A.remove(dragElement);
@@ -42,7 +42,7 @@ $A.import(["Beep", "Drag"], { defer: true }, function () {
           source,
           action,
           actionsObject,
-          nextSibling
+          nextSibling,
         ) {
           if (action === "moveToCart") {
             $A(dragElement).appendTo("#selections");

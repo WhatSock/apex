@@ -2,11 +2,22 @@ Quick Start Guide
 
 Everything that is needed for 4X to run properly is included within the 4X folder. This can be copied into any other project to begin using it.
 
+Alternatively, the bundled package of 4X can be loaded instead, which already includes all modules in the correct order.
+E.G.    <script  src="Bundle/4X.js"></script>
+
+If using NPM, the bundled 4X package can be installed as a project dependency by doing the following:
+1. Using git, navigate to the project folder.
+2. Enter: npm install apex4x
+3. Within the js file for the project, add the line: import "apex4x";
+4. Access all functionality using: window.$A
+
+File Descriptions
+
 • The primary script files, 4X.js and 4X.Max.js comprise all the core functionality of Apex 4X.
 • The module files within the folders 4X/Min and 4X/Modules are meant to be used with dynamic imports.
 • The module files within the 4X/Standard folder, in contrast, are meant to be used with standard script tags.
 
-There are two ways to implement 4X and its accompanying modules, using dynamic module imports, or using a standard script tag for each module as desired.
+There are two ways to implement 4X and its accompanying modules, using dynamic module imports, or using a standard script tag.
 
 Using Dynamic Module Imports
 
@@ -33,8 +44,6 @@ Simply copy and paste the below list into the head tag of your webpage,
 delete the module scripts that you don't wish to use,
 and change the href and src attribute paths to point to the correct modules within the 4X/Standard folder.
 Then a simple setup script can be loaded to configure all desired functionality.
-
-Note: For testing purposes, all of the below declarations have been added to the index.htm file at the root of this archive.
 
     <link rel="stylesheet" type="text/css" href="4X/Standard/Modules/Dragula.css">
     <link rel="stylesheet" type="text/css" href="4X/Standard/Modules/TinySlider.css">

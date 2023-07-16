@@ -163,7 +163,7 @@ function percentageLayout() {
   supported =
     Math.abs(
       wrapper.getBoundingClientRect().left -
-        outer.children[count - perPage].getBoundingClientRect().left
+        outer.children[count - perPage].getBoundingClientRect().left,
     ) < 2;
   body.fake ? resetFakeBody(body, docOverflow) : wrapper.remove();
   return supported;
@@ -505,7 +505,7 @@ function jsTransform(element, attr, prefix, postfix, to, duration, callback) {
       element.style[attr]
         .replace(prefix, "")
         .replace(postfix, "")
-        .replace(unit, "")
+        .replace(unit, ""),
     ),
     positionTick = ((to - from) / duration) * tick;
   setTimeout(moveElement, tick);
@@ -602,7 +602,7 @@ var tns = function (options) {
       useLocalStorage: true,
       nonce: false,
     },
-    options || {}
+    options || {},
   );
   var doc = document,
     win = window,
@@ -671,7 +671,7 @@ var tns = function (options) {
           tnsStorage,
           "tPL",
           percentageLayout(),
-          localStorageAccess
+          localStorageAccess,
         ),
     CSSMQ = tnsStorage["tMQ"]
       ? checkStorageValue(tnsStorage["tMQ"])
@@ -679,7 +679,7 @@ var tns = function (options) {
           tnsStorage,
           "tMQ",
           mediaquerySupport(),
-          localStorageAccess
+          localStorageAccess,
         ),
     TRANSFORM = tnsStorage["tTf"]
       ? checkStorageValue(tnsStorage["tTf"])
@@ -687,7 +687,7 @@ var tns = function (options) {
           tnsStorage,
           "tTf",
           whichProperty("transform"),
-          localStorageAccess
+          localStorageAccess,
         ),
     HAS3DTRANSFORMS = tnsStorage["t3D"]
       ? checkStorageValue(tnsStorage["t3D"])
@@ -695,7 +695,7 @@ var tns = function (options) {
           tnsStorage,
           "t3D",
           has3DTransforms(TRANSFORM),
-          localStorageAccess
+          localStorageAccess,
         ),
     TRANSITIONDURATION = tnsStorage["tTDu"]
       ? checkStorageValue(tnsStorage["tTDu"])
@@ -703,7 +703,7 @@ var tns = function (options) {
           tnsStorage,
           "tTDu",
           whichProperty("transitionDuration"),
-          localStorageAccess
+          localStorageAccess,
         ),
     TRANSITIONDELAY = tnsStorage["tTDe"]
       ? checkStorageValue(tnsStorage["tTDe"])
@@ -711,7 +711,7 @@ var tns = function (options) {
           tnsStorage,
           "tTDe",
           whichProperty("transitionDelay"),
-          localStorageAccess
+          localStorageAccess,
         ),
     ANIMATIONDURATION = tnsStorage["tADu"]
       ? checkStorageValue(tnsStorage["tADu"])
@@ -719,7 +719,7 @@ var tns = function (options) {
           tnsStorage,
           "tADu",
           whichProperty("animationDuration"),
-          localStorageAccess
+          localStorageAccess,
         ),
     ANIMATIONDELAY = tnsStorage["tADe"]
       ? checkStorageValue(tnsStorage["tADe"])
@@ -727,7 +727,7 @@ var tns = function (options) {
           tnsStorage,
           "tADe",
           whichProperty("animationDelay"),
-          localStorageAccess
+          localStorageAccess,
         ),
     TRANSITIONEND = tnsStorage["tTE"]
       ? checkStorageValue(tnsStorage["tTE"])
@@ -735,7 +735,7 @@ var tns = function (options) {
           tnsStorage,
           "tTE",
           getEndProperty(TRANSITIONDURATION, "Transition"),
-          localStorageAccess
+          localStorageAccess,
         ),
     ANIMATIONEND = tnsStorage["tAE"]
       ? checkStorageValue(tnsStorage["tAE"])
@@ -743,7 +743,7 @@ var tns = function (options) {
           tnsStorage,
           "tAE",
           getEndProperty(ANIMATIONDURATION, "Animation"),
-          localStorageAccess
+          localStorageAccess,
         ); // get element nodes from selectors
 
   var supportConsoleWarn =
@@ -876,7 +876,7 @@ var tns = function (options) {
         "aria-label": "Slide",
       });
     },
-    "array"
+    "array",
   );
 
   if (responsive) {
@@ -1206,7 +1206,7 @@ var tns = function (options) {
       return Math.ceil(
         fixedWidth
           ? viewportMax / Math.min.apply(null, arr)
-          : Math.max.apply(null, arr)
+          : Math.max.apply(null, arr),
       );
     }
   }
@@ -1313,7 +1313,7 @@ var tns = function (options) {
     gutterTem,
     fixedWidthTem,
     speedTem,
-    autoHeightBP
+    autoHeightBP,
   ) {
     var str = "";
 
@@ -1527,7 +1527,7 @@ var tns = function (options) {
       if (hasOption("autoHeight")) {
         imgs = getImageArray(
           index,
-          Math.min(index + items - 1, slideCountNew - 1)
+          Math.min(index + items - 1, slideCountNew - 1),
         );
       }
 
@@ -1536,7 +1536,7 @@ var tns = function (options) {
         : raf(function () {
             imgsLoadedCheck(
               arrayFromNodeList(imgs),
-              initSliderTransformStyleCheck
+              initSliderTransformStyleCheck,
             );
           });
     } else {
@@ -1624,13 +1624,13 @@ var tns = function (options) {
           sheet,
           "#" + slideId + " > .tns-item",
           "font-size:" + win.getComputedStyle(slideItems[0]).fontSize + ";",
-          getCssRulesLength(sheet)
+          getCssRulesLength(sheet),
         );
         addCSSRule(
           sheet,
           "#" + slideId,
           "font-size:0;",
-          getCssRulesLength(sheet)
+          getCssRulesLength(sheet),
         );
       } else if (carousel) {
         forEach(slideItems, function (slide, i) {
@@ -1654,7 +1654,7 @@ var tns = function (options) {
         options.gutter,
         options.fixedWidth,
         options.speed,
-        options.autoHeight
+        options.autoHeight,
       );
       addCSSRule(sheet, "#" + slideId + "-iw", str, getCssRulesLength(sheet)); // container styles
 
@@ -1665,7 +1665,7 @@ var tns = function (options) {
               getContainerWidth(
                 options.fixedWidth,
                 options.gutter,
-                options.items
+                options.items,
               ) +
               ";"
             : "";
@@ -1682,7 +1682,7 @@ var tns = function (options) {
           ? getSlideWidthStyle(
               options.fixedWidth,
               options.gutter,
-              options.items
+              options.items,
             )
           : "";
 
@@ -1705,7 +1705,7 @@ var tns = function (options) {
           sheet,
           "#" + slideId + " > .tns-item",
           str,
-          getCssRulesLength(sheet)
+          getCssRulesLength(sheet),
         );
       } // non CSS mediaqueries: IE8
       // ## update inner wrapper, container, slides if needed
@@ -1719,7 +1719,7 @@ var tns = function (options) {
         edgePadding,
         gutter,
         fixedWidth,
-        autoHeight
+        autoHeight,
       ); // container styles
 
       if (carousel && horizontal && !autoWidth) {
@@ -1740,7 +1740,7 @@ var tns = function (options) {
           sheet,
           "#" + slideId + " > .tns-item",
           str,
-          getCssRulesLength(sheet)
+          getCssRulesLength(sheet),
         );
       }
     } // ## MEDIAQUERIES
@@ -1782,7 +1782,7 @@ var tns = function (options) {
               gutterBP,
               fixedWidthBP,
               speedBP,
-              autoHeightBP
+              autoHeightBP,
             ) +
             "}";
         } // container string
@@ -1838,7 +1838,7 @@ var tns = function (options) {
         if (str) {
           sheet.insertRule(
             "@media (min-width: " + bp / 16 + "em) {" + str + "}",
-            sheet.cssRules.length
+            sheet.cssRules.length,
           );
         }
       }
@@ -1859,7 +1859,7 @@ var tns = function (options) {
         getLiveRegionStr() +
         "</span> of " +
         slideCount +
-        "</div>"
+        "</div>",
     );
     liveregionCurrent = outerWrapper.querySelector(".tns-liveregion .current");
 
@@ -1882,7 +1882,7 @@ var tns = function (options) {
             txt +
             autoplayHtmlStrings[1] +
             autoplayText[0] +
-            "</button>"
+            "</button>",
         );
         autoplayButton = outerWrapper.querySelector("[data-action]");
       } // add event
@@ -1952,7 +1952,7 @@ var tns = function (options) {
           "</div>";
         outerWrapper.insertAdjacentHTML(
           getInsertPosition(options.navPosition),
-          navHtml
+          navHtml,
         );
         navContainer = outerWrapper.querySelector(".tns-nav");
         navItems = navContainer.children;
@@ -1963,7 +1963,7 @@ var tns = function (options) {
       if (TRANSITIONDURATION) {
         var prefix = TRANSITIONDURATION.substring(
             0,
-            TRANSITIONDURATION.length - 18
+            TRANSITIONDURATION.length - 18,
           ).toLowerCase(),
           str = "transition: all " + speed / 1000 + "s";
 
@@ -1975,7 +1975,7 @@ var tns = function (options) {
           sheet,
           "[aria-controls^=" + slideId + "-item]",
           str,
-          getCssRulesLength(sheet)
+          getCssRulesLength(sheet),
         );
       }
 
@@ -2003,7 +2003,7 @@ var tns = function (options) {
             slideId +
             '">' +
             controlsText[1] +
-            "</button></div>"
+            "</button></div>",
         );
         controlsContainer = outerWrapper.querySelector(".tns-controls");
       }
@@ -2640,7 +2640,7 @@ var tns = function (options) {
             gutter,
             fixedWidth,
             speed,
-            autoHeight
+            autoHeight,
           );
         }
 
@@ -2650,7 +2650,7 @@ var tns = function (options) {
             container.style.width = getContainerWidth(
               fixedWidth,
               gutter,
-              items
+              items,
             );
           } // slide styles
 
@@ -2664,7 +2664,7 @@ var tns = function (options) {
             sheet,
             "#" + slideId + " > .tns-item",
             str,
-            getCssRulesLength(sheet)
+            getCssRulesLength(sheet),
           );
         }
       } // auto height
@@ -2868,7 +2868,7 @@ var tns = function (options) {
     sheet.disabled = true;
     container.className = container.className.replace(
       newContainerClasses.substring(1),
-      ""
+      "",
     );
     removeAttrs(container, ["style"]);
 
@@ -3496,7 +3496,7 @@ var tns = function (options) {
               transformPostfix,
               getContainerTransformValue(),
               speed,
-              onTransitionEnd
+              onTransitionEnd,
             );
           }
 
@@ -3919,7 +3919,7 @@ var tns = function (options) {
     } // var code = e.keyCode,
 
     var keyIndex = [KEYS.LEFT, KEYS.RIGHT, KEYS.ENTER, KEYS.SPACE].indexOf(
-        e.keyCode
+        e.keyCode,
       ),
       navIndex = Number(getAttr(curElement, "data-nav"));
 
@@ -3961,9 +3961,9 @@ var tns = function (options) {
       getTouchDirection(
         toDegree(
           lastPosition.y - initPosition.y,
-          lastPosition.x - initPosition.x
+          lastPosition.x - initPosition.x,
         ),
-        swipeAngle
+        swipeAngle,
       ) === options.axis
     );
   }
@@ -4003,7 +4003,7 @@ var tns = function (options) {
 
     if (carousel) {
       translateInit = parseFloat(
-        container.style[transformAttr].replace(transformPrefix, "")
+        container.style[transformAttr].replace(transformPrefix, ""),
       );
       resetDuration(container, "0s");
     }

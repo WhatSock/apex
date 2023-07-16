@@ -97,7 +97,8 @@ body {
 @font-face {
   font-family: "open_sansregular";
   src: url("OpenSans-Regular-webfont.eot");
-  src: url("OpenSans-Regular-webfont.eot?#iefix") format("embedded-opentype"),
+  src:
+    url("OpenSans-Regular-webfont.eot?#iefix") format("embedded-opentype"),
     url("OpenSans-Regular-webfont.woff") format("woff"),
     url("OpenSans-Regular-webfont.ttf") format("truetype"),
     url("OpenSans-Regular-webfont.svg#open_sansregular") format("svg");
@@ -108,7 +109,8 @@ body {
 @font-face {
   font-family: "open_sanslight";
   src: url("OpenSans-Light-webfont.eot");
-  src: url("OpenSans-Light-webfont.eot?#iefix") format("embedded-opentype"),
+  src:
+    url("OpenSans-Light-webfont.eot?#iefix") format("embedded-opentype"),
     url("OpenSans-Light-webfont.woff") format("woff"),
     url("OpenSans-Light-webfont.ttf") format("truetype"),
     url("OpenSans-Light-webfont.svg#open_sanslight") format("svg");
@@ -119,7 +121,8 @@ body {
 @font-face {
   font-family: "open_sansitalic";
   src: url("OpenSans-Italic-webfont.eot");
-  src: url("OpenSans-Italic-webfont.eot?#iefix") format("embedded-opentype"),
+  src:
+    url("OpenSans-Italic-webfont.eot?#iefix") format("embedded-opentype"),
     url("OpenSans-Italic-webfont.woff") format("woff"),
     url("OpenSans-Italic-webfont.ttf") format("truetype"),
     url("OpenSans-Italic-webfont.svg#open_sansitalic") format("svg");
@@ -130,7 +133,8 @@ body {
 @font-face {
   font-family: "open_sansbold";
   src: url("OpenSans-Bold-webfont.eot");
-  src: url("OpenSans-Bold-webfont.eot?#iefix") format("embedded-opentype"),
+  src:
+    url("OpenSans-Bold-webfont.eot?#iefix") format("embedded-opentype"),
     url("OpenSans-Bold-webfont.woff") format("woff"),
     url("OpenSans-Bold-webfont.ttf") format("truetype"),
     url("OpenSans-Bold-webfont.svg#open_sansbold") format("svg");
@@ -141,7 +145,8 @@ body {
 @font-face {
   font-family: "antonregular";
   src: url("anton-webfont.eot");
-  src: url("anton-webfont.eot?#iefix") format("embedded-opentype"),
+  src:
+    url("anton-webfont.eot?#iefix") format("embedded-opentype"),
     url("anton-webfont.woff") format("woff"),
     url("anton-webfont.ttf") format("truetype"),
     url("anton-webfont.svg#antonregular") format("svg");
@@ -154,18 +159,48 @@ body {
 /* --------------------------------------------------------------------------- */
 
 body {
-  font: 100%/1 open_sansregular, Frutiger, "Frutiger Linotype", Univers, Calibri,
-    "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed",
-    "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue",
-    Helvetica, Arial, sans-serif;
+  font:
+    100%/1 open_sansregular,
+    Frutiger,
+    "Frutiger Linotype",
+    Univers,
+    Calibri,
+    "Gill Sans",
+    "Gill Sans MT",
+    "Myriad Pro",
+    Myriad,
+    "DejaVu Sans Condensed",
+    "Liberation Sans",
+    "Nimbus Sans L",
+    Tahoma,
+    Geneva,
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
   background-color: #2e3135;
 }
 
 h1 {
-  font: normal 1em/1.2 antonregular, Frutiger, "Frutiger Linotype", Univers,
-    Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad,
-    "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva,
-    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font:
+    normal 1em/1.2 antonregular,
+    Frutiger,
+    "Frutiger Linotype",
+    Univers,
+    Calibri,
+    "Gill Sans",
+    "Gill Sans MT",
+    "Myriad Pro",
+    Myriad,
+    "DejaVu Sans Condensed",
+    "Liberation Sans",
+    "Nimbus Sans L",
+    Tahoma,
+    Geneva,
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
   text-transform: capitalize;
   text-align: left;
   color: #b8b7ab;
@@ -176,19 +211,49 @@ h1 strong {
   display: block;
   position: relative;
   top: 0.2em;
-  font: normal 235%/1.05 antonregular, Frutiger, "Frutiger Linotype", Univers,
-    Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad,
-    "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva,
-    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font:
+    normal 235%/1.05 antonregular,
+    Frutiger,
+    "Frutiger Linotype",
+    Univers,
+    Calibri,
+    "Gill Sans",
+    "Gill Sans MT",
+    "Myriad Pro",
+    Myriad,
+    "DejaVu Sans Condensed",
+    "Liberation Sans",
+    "Nimbus Sans L",
+    Tahoma,
+    Geneva,
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
   color: #63b7c2;
   margin-bottom: 0.5rem;
 }
 
 h2 {
-  font: normal 2.5em/1.3 antonregular, Frutiger, "Frutiger Linotype", Univers,
-    Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad,
-    "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva,
-    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font:
+    normal 2.5em/1.3 antonregular,
+    Frutiger,
+    "Frutiger Linotype",
+    Univers,
+    Calibri,
+    "Gill Sans",
+    "Gill Sans MT",
+    "Myriad Pro",
+    Myriad,
+    "DejaVu Sans Condensed",
+    "Liberation Sans",
+    "Nimbus Sans L",
+    Tahoma,
+    Geneva,
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
   text-transform: uppercase;
   color: #2e3135;
   margin: 0 0 0.5em 0;
@@ -203,10 +268,25 @@ main > .hd h2 {
 }
 
 h3 {
-  font: normal 1.8em/1.3 antonregular, Frutiger, "Frutiger Linotype", Univers,
-    Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad,
-    "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva,
-    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font:
+    normal 1.8em/1.3 antonregular,
+    Frutiger,
+    "Frutiger Linotype",
+    Univers,
+    Calibri,
+    "Gill Sans",
+    "Gill Sans MT",
+    "Myriad Pro",
+    Myriad,
+    "DejaVu Sans Condensed",
+    "Liberation Sans",
+    "Nimbus Sans L",
+    Tahoma,
+    Geneva,
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
   text-transform: uppercase;
   color: #2e3135;
   margin: 1.5em 0 0.5em;
@@ -216,10 +296,25 @@ aside section h3 {
 }
 
 h4 {
-  font: normal 1.3em/1.3 open_sansbold, Frutiger, "Frutiger Linotype", Univers,
-    Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad,
-    "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva,
-    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font:
+    normal 1.3em/1.3 open_sansbold,
+    Frutiger,
+    "Frutiger Linotype",
+    Univers,
+    Calibri,
+    "Gill Sans",
+    "Gill Sans MT",
+    "Myriad Pro",
+    Myriad,
+    "DejaVu Sans Condensed",
+    "Liberation Sans",
+    "Nimbus Sans L",
+    Tahoma,
+    Geneva,
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
   color: #2e3135;
   margin: 1.5em 0 0.5em;
 }
@@ -353,10 +448,25 @@ nav a:link,
 nav a:visited {
   display: block;
   width: 100%;
-  font: normal 1.2em open_sansbold, Frutiger, "Frutiger Linotype", Univers,
-    Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad,
-    "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva,
-    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font:
+    normal 1.2em open_sansbold,
+    Frutiger,
+    "Frutiger Linotype",
+    Univers,
+    Calibri,
+    "Gill Sans",
+    "Gill Sans MT",
+    "Myriad Pro",
+    Myriad,
+    "DejaVu Sans Condensed",
+    "Liberation Sans",
+    "Nimbus Sans L",
+    Tahoma,
+    Geneva,
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
   text-transform: uppercase;
   text-decoration: none;
   color: #fff;
@@ -420,10 +530,25 @@ section li {
 /* FIGURES */
 
 figcaption {
-  font: 0.8em open_sansitalic, Frutiger, "Frutiger Linotype", Univers, Calibri,
-    "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed",
-    "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue",
-    Helvetica, Arial, sans-serif;
+  font:
+    0.8em open_sansitalic,
+    Frutiger,
+    "Frutiger Linotype",
+    Univers,
+    Calibri,
+    "Gill Sans",
+    "Gill Sans MT",
+    "Myriad Pro",
+    Myriad,
+    "DejaVu Sans Condensed",
+    "Liberation Sans",
+    "Nimbus Sans L",
+    Tahoma,
+    Geneva,
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
   text-align: right;
   margin: 0.3em 1rem;
 }
@@ -431,10 +556,25 @@ figcaption {
 /* Notes */
 
 .note {
-  font: 0.9em open_sansitalic, Frutiger, "Frutiger Linotype", Univers, Calibri,
-    "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed",
-    "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue",
-    Helvetica, Arial, sans-serif;
+  font:
+    0.9em open_sansitalic,
+    Frutiger,
+    "Frutiger Linotype",
+    Univers,
+    Calibri,
+    "Gill Sans",
+    "Gill Sans MT",
+    "Myriad Pro",
+    Myriad,
+    "DejaVu Sans Condensed",
+    "Liberation Sans",
+    "Nimbus Sans L",
+    Tahoma,
+    Geneva,
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
   padding-top: 2rem;
   margin-top: 2rem;
   border-top: 1px dotted #2e3135;

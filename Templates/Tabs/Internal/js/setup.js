@@ -10,7 +10,8 @@ $A.import(["Animate", "Tab"], { defer: true }, function () {
     afterRender: function (dc) {
       $A.setPage(
         dc.id,
-        $A.getText(dc.triggerNode) + " ARIA Tab - Apex 4X Technical Style Guide"
+        $A.getText(dc.triggerNode) +
+          " ARIA Tab - Apex 4X Technical Style Guide",
       );
     },
 

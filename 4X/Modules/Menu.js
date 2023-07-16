@@ -49,7 +49,7 @@ Required dependencies: RovingTabIndex.js
                     dc.getAttr("aria-orientation") === "horizontal"
                       ? "horizontalHelpTip"
                       : "verticalHelpTip"
-                  ]
+                  ],
                 );
               }, 1);
             }
@@ -60,7 +60,7 @@ Required dependencies: RovingTabIndex.js
               function (i, o) {
                 o.DC.remove();
               },
-              "map"
+              "map",
             );
           },
         });
@@ -102,14 +102,14 @@ Required dependencies: RovingTabIndex.js
                       return ref.querySelectorAll(":scope > * > " + tag.child);
                   },
                 },
-                config.tag || {}
+                config.tag || {},
               ),
               getState = function (
                 o,
                 attributeValue,
                 hasAttribute,
                 write,
-                nodes
+                nodes,
               ) {
                 if (hasAttribute) {
                   var isRadio = $A.getAttr(o, "role") === "menuitemradio",
@@ -126,7 +126,7 @@ Required dependencies: RovingTabIndex.js
                           if ($A.hasAttr(n, "aria-checked") && n !== o)
                             $A.setAttr(n, "aria-checked", "false");
                         },
-                        "array"
+                        "array",
                       );
                     $A.setAttr(o, "aria-checked", attributeValue);
                   }
@@ -163,8 +163,8 @@ Required dependencies: RovingTabIndex.js
                       toggleHide: true,
                       getState: getState,
                     },
-                    config
-                  )
+                    config,
+                  ),
                 );
 
                 if (p)
@@ -214,7 +214,7 @@ Required dependencies: RovingTabIndex.js
                                   attributeValue,
                                   true,
                                   true,
-                                  isRadio ? RTI.nodes : null
+                                  isRadio ? RTI.nodes : null,
                                 );
                             },
                             $A.getAttr(triggerNode, "role") === "menuitemradio",
@@ -239,7 +239,7 @@ Required dependencies: RovingTabIndex.js
                                   "horizontal"
                                     ? "horizontalHelpTip"
                                     : "verticalHelpTip"
-                                ]
+                                ],
                               );
                             }, 1);
                           });
@@ -258,8 +258,8 @@ Required dependencies: RovingTabIndex.js
                         ev.preventDefault();
                       },
                     },
-                    config.extendRTI || {}
-                  )
+                    config.extendRTI || {},
+                  ),
                 );
 
                 $A.loop(
@@ -269,12 +269,12 @@ Required dependencies: RovingTabIndex.js
                     var radio = getState(
                         o,
                         $A.getAttr(o, "data-radio"),
-                        $A.hasAttr(o, "data-radio")
+                        $A.hasAttr(o, "data-radio"),
                       ),
                       check = getState(
                         o,
                         $A.getAttr(o, "data-check"),
-                        $A.hasAttr(o, "data-check")
+                        $A.hasAttr(o, "data-check"),
                       ),
                       n =
                         ($A.isFn(o.querySelector) &&
@@ -306,7 +306,7 @@ Required dependencies: RovingTabIndex.js
                           attributeValue,
                           attributePriorValue,
                           DC,
-                          SavedData
+                          SavedData,
                         ) {
                           if ($A.isNode(n)) {
                             var check = getState(o, attributeValue, true);
@@ -315,7 +315,7 @@ Required dependencies: RovingTabIndex.js
                         },
                         {
                           attributeFilter: ["aria-checked"],
-                        }
+                        },
                       );
                     }
                     $A.closest(o, function (o) {
@@ -323,7 +323,7 @@ Required dependencies: RovingTabIndex.js
                       $A.setAttr(o, "role", "presentation");
                     });
                   },
-                  "array"
+                  "array",
                 );
 
                 $A.updateDisabled(mItems);
@@ -406,7 +406,7 @@ Required dependencies: RovingTabIndex.js
                   function (c) {
                     main = c;
                     gen(main);
-                  }
+                  },
                 );
               } else {
                 gen(main);

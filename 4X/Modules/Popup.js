@@ -69,9 +69,9 @@ License: MIT (https://opensource.org/licenses/MIT)
                 {
                   widgetType: "Popup",
                 },
-                config || {}
-              )
-            )
+                config || {},
+              ),
+            ),
           );
         });
 

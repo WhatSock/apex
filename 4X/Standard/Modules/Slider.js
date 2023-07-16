@@ -49,7 +49,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
                 : $A.isNum(i)
                 ? i
                 : config.current) -
-                1)
+                1),
           );
         };
 
@@ -81,7 +81,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
               config.valueNow,
               config.valueMin,
               config.valueMax,
-              that
+              that,
             ),
           });
         };
@@ -111,7 +111,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
               valueNow,
               valueMin,
               valueMax,
-              sliderInstance
+              sliderInstance,
             ) {},
             dragging: function (
               x,
@@ -119,7 +119,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
               valueNow,
               valueMin,
               valueMax,
-              sliderInstance
+              sliderInstance,
             ) {},
             dragEnd: function (
               x,
@@ -127,13 +127,13 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
               valueNow,
               valueMin,
               valueMax,
-              sliderInstance
+              sliderInstance,
             ) {},
             valueChange: function (
               valueNow,
               valueMin,
               valueMax,
-              sliderInstance
+              sliderInstance,
             ) {
               return sliderInstance.getPercent();
             },
@@ -146,7 +146,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
               css3: true,
             },
           },
-          config || {}
+          config || {},
         );
 
         $A.setAttr(handle, {
@@ -171,7 +171,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
                 config.valueNow,
                 config.valueMin,
                 config.valueMax,
-                that
+                that,
               ),
             });
           },
@@ -202,7 +202,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
                     that.getValue(this.getStep()[config.isVertical ? 1 : 0]),
                     config.valueMin,
                     config.valueMax,
-                    that
+                    that,
                   );
                 },
                 dragStopCallback: function (x, y) {
@@ -218,7 +218,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
                     vn,
                     config.valueMin,
                     config.valueMax,
-                    that
+                    that,
                   );
                 },
                 animationCallback: function (x, y) {
@@ -234,13 +234,13 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
                       vn,
                       config.valueMin,
                       config.valueMax,
-                      that
+                      that,
                     );
                   }
                 },
               },
-              config.dragdealer || {}
-            )
+              config.dragdealer || {},
+            ),
           );
         init = true;
 
@@ -344,7 +344,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
               dd.options.touched = true;
             },
           },
-          ".ariaslider"
+          ".ariaslider",
         );
 
         if (
@@ -360,7 +360,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
                 ev.stopPropagation();
                 ev.preventDefault();
               },
-              ".ariaslider"
+              ".ariaslider",
             )
             .setAttr({
               role: "button",
@@ -376,7 +376,7 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
                 ev.stopPropagation();
                 ev.preventDefault();
               },
-              ".ariaslider"
+              ".ariaslider",
             )
             .setAttr({
               role: "button",

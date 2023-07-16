@@ -41,7 +41,7 @@ $A.import("Grid", { defer: true }, function () {
           rowObject,
           state,
           prevSelectedRowsArray,
-          gridInstance
+          gridInstance,
         ) {
           // rowObject is the activated row object.
           // rowObject.rowNode is the DOM node for the toggled row.
@@ -69,40 +69,37 @@ $A.import("Grid", { defer: true }, function () {
     return $A.offset(cellObject.cellNode, true);
   });
 
-  grid.setChangeListener(function (
-    originalCellObject,
-    newValue,
-    rowObject,
-    gridInstance
-  ) {
-    // rowObject reflects the same object passed to grid.add
-    // so that rowObject.id reflects the original row ID.
-    // originalCellObject reflects the cell object instance passed within 'cells' when passed to grid.add
-    // making it easy to validate the data by comparing originalCellObject.value with newValue
-    // To prevent rendering the changed input or new toggle state, simply return false
-    if (typeof newValue !== "boolean" && !newValue) return false;
+  grid.setChangeListener(
+    function (originalCellObject, newValue, rowObject, gridInstance) {
+      // rowObject reflects the same object passed to grid.add
+      // so that rowObject.id reflects the original row ID.
+      // originalCellObject reflects the cell object instance passed within 'cells' when passed to grid.add
+      // making it easy to validate the data by comparing originalCellObject.value with newValue
+      // To prevent rendering the changed input or new toggle state, simply return false
+      if (typeof newValue !== "boolean" && !newValue) return false;
 
-    var val =
-        typeof newValue === "boolean"
-          ? newValue
-            ? "true"
-            : "false"
-          : formatStr(newValue),
-      str =
-        '<span>Update DB row "' +
-        rowObject.id +
-        '" field "' +
-        originalCellObject.id +
-        '" with <br />value: "' +
-        val +
-        '"</span>',
-      popup = $A.get("popupId");
-    popup.hidden = false;
-    popup.innerHTML = str.announce();
-    setTimeout(function () {
-      popup.hidden = true;
-    }, 4000);
-  });
+      var val =
+          typeof newValue === "boolean"
+            ? newValue
+              ? "true"
+              : "false"
+            : formatStr(newValue),
+        str =
+          '<span>Update DB row "' +
+          rowObject.id +
+          '" field "' +
+          originalCellObject.id +
+          '" with <br />value: "' +
+          val +
+          '"</span>',
+        popup = $A.get("popupId");
+      popup.hidden = false;
+      popup.innerHTML = str.announce();
+      setTimeout(function () {
+        popup.hidden = true;
+      }, 4000);
+    },
+  );
 
   // set accessible text for screen reader users
   grid.setAccessibleText({
@@ -166,28 +163,26 @@ $A.import("Grid", { defer: true }, function () {
     lastBtn = $A.get("btnLast"),
     pgn = $A.get("pgn");
 
-  grid.setPageIndexChangeListener(function (
-    currentPage,
-    totalPages,
-    gridInstance
-  ) {
-    if (pageCurrent != currentPage) {
-      if (currentPage === 1) {
-        firstBtn.disabled = prevBtn.disabled = true;
-      } else {
-        firstBtn.disabled = prevBtn.disabled = false;
-      }
+  grid.setPageIndexChangeListener(
+    function (currentPage, totalPages, gridInstance) {
+      if (pageCurrent != currentPage) {
+        if (currentPage === 1) {
+          firstBtn.disabled = prevBtn.disabled = true;
+        } else {
+          firstBtn.disabled = prevBtn.disabled = false;
+        }
 
-      if (currentPage === totalPages) {
-        nextBtn.disabled = lastBtn.disabled = true;
-      } else {
-        nextBtn.disabled = lastBtn.disabled = false;
+        if (currentPage === totalPages) {
+          nextBtn.disabled = lastBtn.disabled = true;
+        } else {
+          nextBtn.disabled = lastBtn.disabled = false;
+        }
       }
-    }
-    pageTotal = totalPages;
-    pageHeaderSpan.innerHTML = "Page " + currentPage + " of " + totalPages;
-    pageEdit.value = pageCurrent = currentPage;
-  });
+      pageTotal = totalPages;
+      pageHeaderSpan.innerHTML = "Page " + currentPage + " of " + totalPages;
+      pageEdit.value = pageCurrent = currentPage;
+    },
+  );
 
   // Fires every time a grid object is opened in the DOM
   grid.setOpenListener(function (container, dc, gridInstance) {
@@ -349,7 +344,7 @@ $A.import("Grid", { defer: true }, function () {
                 i +
                 " row" +
                 s +
-                " from the grid?"
+                " from the grid?",
             );
           else return false;
         },

@@ -36,8 +36,8 @@ Required dependencies: Animate.js
                   if ($A.isFn(fn)) fn.call(o, o, fn.target);
                 },
               },
-              config || {}
-            )
+              config || {},
+            ),
           );
         }
         return $A._XR.call(this, o);
@@ -56,7 +56,7 @@ Required dependencies: Animate.js
             fn ||
               function (o) {
                 $A.focus(o);
-              }
+              },
           );
         }
         return $A._XR.call(this, o);
@@ -79,8 +79,8 @@ Required dependencies: Animate.js
                 skipReturn: true,
                 callback: fn,
               },
-              config || {}
-            )
+              config || {},
+            ),
           );
         }
         return $A._XR.call(this, o);

@@ -66,7 +66,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                       id: bid,
                     },
                     null,
-                    config.gridRowClass
+                    config.gridRowClass,
                   );
 
                   for (id in rowObject.cells) {
@@ -81,14 +81,14 @@ License: MIT (https://opensource.org/licenses/MIT)
                         id: cid,
                       },
                       null,
-                      config.gridCellClass
+                      config.gridCellClass,
                     );
 
                     config.page.row.bindCell(
                       rowObject.cells[id],
                       rowObject.cells[id].cellNode,
                       rowObject,
-                      rowObject.rowNode
+                      rowObject.rowNode,
                     );
                     rowObject.cells[id].cellNodeA = $A.create(
                       "strong",
@@ -98,31 +98,31 @@ License: MIT (https://opensource.org/licenses/MIT)
                       null,
                       rowObject.cells[id].type == "toggle"
                         ? config.gridCellToggleClass
-                        : config.gridCellLinkClass
+                        : config.gridCellLinkClass,
                     );
 
                     rowObject.cells[id].cellNodeS1 = $A.create("span");
                     rowObject.cells[id].cellNodeS2 = $A.create(
                       "span",
                       null,
-                      $A.sraCSS
+                      $A.sraCSS,
                     );
                     rowObject.cells[id].cellNodeS3 = $A.create(
                       "span",
                       null,
-                      $A.sraCSS
+                      $A.sraCSS,
                     );
                     rowObject.cells[id].cellNode.appendChild(
-                      rowObject.cells[id].cellNodeA
+                      rowObject.cells[id].cellNodeA,
                     );
                     rowObject.cells[id].cellNodeA.appendChild(
-                      rowObject.cells[id].cellNodeS1
+                      rowObject.cells[id].cellNodeS1,
                     );
                     rowObject.cells[id].cellNodeA.appendChild(
-                      rowObject.cells[id].cellNodeS2
+                      rowObject.cells[id].cellNodeS2,
                     );
                     rowObject.cells[id].cellNodeA.appendChild(
-                      rowObject.cells[id].cellNodeS3
+                      rowObject.cells[id].cellNodeS3,
                     );
                     rowObject.cells[id].rowObject = rowObject;
                     $A.data(rowObject.cells[id].cellNode, "celldata", {
@@ -171,7 +171,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                           config.page.row.changed(
                             cellNode,
                             cellObject,
-                            cellObject.value ? false : true
+                            cellObject.value ? false : true,
                           );
                         } else {
                           if (config.page.row.editFieldActive) clearEdit();
@@ -188,7 +188,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                                   config.page.row.changed(
                                     cellNode,
                                     config.page.row.editFieldActive,
-                                    this.value
+                                    this.value,
                                   );
                                 clearEdit(true);
                               }
@@ -207,14 +207,14 @@ License: MIT (https://opensource.org/licenses/MIT)
                             function (i, o) {
                               $A.setAttr(o, "aria-hidden", "true");
                             },
-                            "array"
+                            "array",
                           );
                           document.body.appendChild(
-                            config.page.row.editFieldDiv
+                            config.page.row.editFieldDiv,
                           );
                           $A.css(
                             config.page.row.editFieldDiv,
-                            config.page.row.cellOffset(cellObject)
+                            config.page.row.cellOffset(cellObject),
                           );
                           config.page.row.editField.focus();
 
@@ -224,7 +224,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                           )
                             config.page.row.editLoad.apply(
                               config.page.row.editField,
-                              [config.page.row.editField, cellObject]
+                              [config.page.row.editField, cellObject],
                             );
                         }
                       } else if (config.page.row.selectEnabled) {
@@ -422,7 +422,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         if (ev.which === 1) {
                           if (this != config.page.row.focusedCell)
                             config.page.row.move(
-                              config.page.row.resetPos(this)
+                              config.page.row.resetPos(this),
                             );
 
                           if (
@@ -466,7 +466,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                               var o = config.colHeaders.map[i];
                               str +=
                                 $A.getText(
-                                  cellObject.rowObject.cells[o.id].cellNode
+                                  cellObject.rowObject.cells[o.id].cellNode,
                                 ) + ", ";
                             }
                             $A.announce(str);
@@ -496,13 +496,13 @@ License: MIT (https://opensource.org/licenses/MIT)
                       $A.addClass(this, config.gridCellFocusedClass);
                       $A.addClass(
                         cellObject.rowObject.rowNode,
-                        config.gridRowFocusedClass
+                        config.gridRowFocusedClass,
                       );
 
                       if (this != config.page.row.focusedCell)
                         config.page.row.move(
                           config.page.row.resetPos(this),
-                          true
+                          true,
                         );
                     },
                     "blur.gridcontrol": function (ev) {
@@ -517,9 +517,9 @@ License: MIT (https://opensource.org/licenses/MIT)
                             o,
                             config.gridRowFocusedClass +
                               " " +
-                              config.gridCellFocusedClass
+                              config.gridCellFocusedClass,
                           );
-                        }
+                        },
                       );
                     },
                   });
@@ -535,7 +535,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     rowObject.rowNode,
                     config.gridRowFocusedClass +
                       " " +
-                      config.page.row.selectClass
+                      config.page.row.selectClass,
                   );
 
                   if (!keepData) $A.removeData(rowObject.rowNode, "rowdata");
@@ -558,7 +558,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         config.gridCellFocusedClass +
                         " " +
                         (rowObject.cells[n].toggleClass ||
-                          config.gridCellTogglePressedClass)
+                          config.gridCellTogglePressedClass),
                     );
 
                     $A.remAttr(rowObject.cells[n].cellNodeA, [
@@ -594,7 +594,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     config.page.row.update(
                       cellObject.rowObject.id,
                       cellObject.id,
-                      val
+                      val,
                     );
                   }
                 },
@@ -618,7 +618,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                               newVal,
                               config.page.row.selected,
                               that,
-                            ]
+                            ],
                           )
                         : true;
 
@@ -652,7 +652,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     var isR =
                       $A.inArray(
                         cellObject.rowObject.id,
-                        config.page.rendered
+                        config.page.rendered,
                       ) !== -1;
 
                     if (isR) {
@@ -661,7 +661,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                       if (cellObject.rowObject.selected) {
                         $A.addClass(
                           cellObject.rowObject.rowNode,
-                          config.page.row.selectClass
+                          config.page.row.selectClass,
                         );
                         altTxt = config.page.row.selectState
                           ? config.page.row.selectState + ". "
@@ -669,7 +669,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                       } else {
                         $A.remClass(
                           cellObject.rowObject.rowNode,
-                          config.page.row.selectClass
+                          config.page.row.selectClass,
                         );
                       }
                       altTxt += config.page.row.dblClickTitle;
@@ -679,7 +679,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         $A.setAttr(
                           cellObject.rowObject.rowNode,
                           "aria-selected",
-                          cellObject.rowObject.selected ? "true" : "false"
+                          cellObject.rowObject.selected ? "true" : "false",
                         );
 
                       for (var i = 0; i < config.colHeaders.map.length; i++) {
@@ -689,7 +689,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                               config.colHeaders.map[i].id
                             ].cellNode,
                             "aria-selected",
-                            cellObject.rowObject.selected ? "true" : "false"
+                            cellObject.rowObject.selected ? "true" : "false",
                           );
                         else
                           cellObject.rowObject.cells[
@@ -714,7 +714,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                       config.page.row.collection[rowId].cells[
                         config.colHeaders.map[0].id
                       ],
-                      false
+                      false,
                     );
                     config.page.row.selected.splice(i, 1);
                   }
@@ -731,7 +731,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                       config.page.row.select(
                         config.page.row.collection[config.page.rendered[i]]
                           .cells[config.colHeaders.map[0].id],
-                        true
+                        true,
                       );
                     }
                   }
@@ -745,7 +745,11 @@ License: MIT (https://opensource.org/licenses/MIT)
                         "function"
                         ? config.page.row.deleteRow.callback.runBefore.apply(
                             that,
-                            [ids && ids.length ? ids : config.page.row.selected]
+                            [
+                              ids && ids.length
+                                ? ids
+                                : config.page.row.selected,
+                            ],
                           )
                         : true;
 
@@ -779,7 +783,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                           ],
                         pos = $A.inArray(
                           rowObject.id,
-                          config.page.row.collectionMap
+                          config.page.row.collectionMap,
                         );
 
                       if (pos !== -1) {
@@ -789,7 +793,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                             "function"
                             ? config.page.row.deleteRow.callback.cb.apply(
                                 rowObject.rowNode,
-                                [rowObject, that]
+                                [rowObject, that],
                               )
                             : true;
 
@@ -805,7 +809,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                           $A.remove(rowObject.rowNode);
                           var isR = $A.inArray(
                             rowObject.id,
-                            config.page.rendered
+                            config.page.rendered,
                           );
 
                           if (isR !== -1) config.page.rendered.splice(isR, 1);
@@ -828,7 +832,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                       )
                         config.page.row.deleteRow.callback.runAfter.apply(
                           that,
-                          [deleted]
+                          [deleted],
                         );
                       return true;
                     }
@@ -857,7 +861,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         $A.setAttr(cellObject.cellNodeA, {
                           "aria-describedby": $A.getAttr(
                             cellObject.cellNode,
-                            "aria-describedby"
+                            "aria-describedby",
                           ),
                           role: "button",
                           "aria-pressed": "true",
@@ -866,7 +870,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         $A.addClass(
                           cellObject.cellNodeA,
                           cellObject.toggleClass ||
-                            config.gridCellTogglePressedClass
+                            config.gridCellTogglePressedClass,
                         );
                         accText +=
                           "&nbsp;" +
@@ -875,7 +879,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         $A.setAttr(cellObject.cellNodeA, {
                           "aria-describedby": $A.getAttr(
                             cellObject.cellNode,
-                            "aria-describedby"
+                            "aria-describedby",
                           ),
                           role: "button",
                           "aria-pressed": "false",
@@ -884,7 +888,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         $A.remClass(
                           cellObject.cellNodeA,
                           cellObject.toggleClass ||
-                            config.gridCellTogglePressedClass
+                            config.gridCellTogglePressedClass,
                         );
                       }
 
@@ -897,7 +901,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         $A.setAttr(
                           cellObject.cellNodeA,
                           "aria-disabled",
-                          "true"
+                          "true",
                         );
 
                       // cellObject.cellNodeS2.innerHTML = '<span>' + accText + '</span>';
@@ -1075,7 +1079,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                   for (var n in rowObject.cells) {
                     if (rowObject.cells[n].cellNode.parentNode)
                       rowObject.cells[n].cellNode.parentNode.removeChild(
-                        rowObject.cells[n].cellNode
+                        rowObject.cells[n].cellNode,
                       );
                   }
                   rowObject.rowNode.parentNode.removeChild(rowObject.rowNode);
@@ -1124,7 +1128,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                   $A.setAttr(
                     tr,
                     "aria-rowindex",
-                    config.page.row.collection[ids[h]].rowIndex
+                    config.page.row.collection[ids[h]].rowIndex,
                   );
 
                   var aoIds2 = [];
@@ -1195,7 +1199,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         $A.setAttr(
                           cellObject.cellNode,
                           "aria-selected",
-                          selected ? "true" : "false"
+                          selected ? "true" : "false",
                         );
                       else if (selected)
                         cellObject.cellNodeS3.innerHTML = selected
@@ -1223,7 +1227,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                       $A.setAttr(
                         cellObject.cellNodeA,
                         "title",
-                        altTxt + config.page.row.dblClickTitle
+                        altTxt + config.page.row.dblClickTitle,
                       );
                     } else if (
                       cellObject.type == "toggle" &&
@@ -1251,7 +1255,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                       $A.setAttr(cellObject.cellNode, "aria-readonly", "true");
                       $A.addClass(
                         cellObject.cellNode,
-                        config.cellReadOnlyClass
+                        config.cellReadOnlyClass,
                       );
                     }
 
@@ -1266,7 +1270,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         $A.setAttr(cellObject.cellNodeA, {
                           "aria-describedby": $A.getAttr(
                             cellObject.cellNode,
-                            "aria-describedby"
+                            "aria-describedby",
                           ),
                           role: "button",
                           "aria-pressed": "true",
@@ -1275,7 +1279,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         $A.addClass(
                           cellObject.cellNodeA,
                           cellObject.toggleClass ||
-                            config.gridCellTogglePressedClass
+                            config.gridCellTogglePressedClass,
                         );
                         accText +=
                           "&nbsp;" +
@@ -1284,7 +1288,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         $A.setAttr(cellObject.cellNodeA, {
                           "aria-describedby": $A.getAttr(
                             cellObject.cellNode,
-                            "aria-describedby"
+                            "aria-describedby",
                           ),
                           role: "button",
                           "aria-pressed": "false",
@@ -1293,7 +1297,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         $A.remClass(
                           cellObject.cellNodeA,
                           cellObject.toggleClass ||
-                            config.gridCellTogglePressedClass
+                            config.gridCellTogglePressedClass,
                         );
                       }
 
@@ -1306,7 +1310,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         $A.setAttr(
                           cellObject.cellNodeA,
                           "aria-disabled",
-                          "true"
+                          "true",
                         );
 
                       // cellObject.cellNodeS2.innerHTML = '<span>' + accText + '</span>';
@@ -1318,7 +1322,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         $A.setAttr(cellObject.cellNodeA, {
                           "aria-describedby": $A.getAttr(
                             cellObject.cellNode,
-                            "aria-describedby"
+                            "aria-describedby",
                           ),
                           role: "button",
                         });
@@ -1332,7 +1336,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                         $A.setAttr(
                           cellObject.cellNodeA,
                           "role",
-                          "presentation"
+                          "presentation",
                         );
                       }
                     }
@@ -1453,7 +1457,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           getCellObject = function (cellNode) {
             var o = $A.data(
               cellNode || config.page.row.focusedCell,
-              "celldata"
+              "celldata",
             );
             return config.page.row.collection[o.rowId].cells[o.cellId];
           };
@@ -1465,7 +1469,7 @@ License: MIT (https://opensource.org/licenses/MIT)
             role: "application",
           },
           null,
-          config.editFieldClass
+          config.editFieldClass,
         );
 
         config.page.row.editField = $A.create(
@@ -1475,7 +1479,7 @@ License: MIT (https://opensource.org/licenses/MIT)
             maxlength: config.page.row.editMaxLength,
           },
           null,
-          config.editFieldClass
+          config.editFieldClass,
         );
 
         config.page.row.editFieldDiv.appendChild(config.page.row.editField);
@@ -1483,7 +1487,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           if (config.page.row.editFieldActive) {
             $A.css(
               config.page.row.editFieldDiv,
-              config.page.row.cellOffset(config.page.row.editFieldActive)
+              config.page.row.cellOffset(config.page.row.editFieldActive),
             );
           }
         });
@@ -1501,7 +1505,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 $A.setAttr(o, "aria-hidden", "false");
                 $A.remAttr(o, "aria-hidden");
               },
-              "array"
+              "array",
             );
 
             if (!sk) config.page.row.move();
@@ -1528,7 +1532,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 id: dc.tableId,
               },
               null,
-              config.gridClass
+              config.gridClass,
             );
 
             if (config.edit) $A.addClass(dc.table, config.gridEditableClass);
@@ -1559,7 +1563,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 id: dc.trId,
               },
               null,
-              config.gridRowClass
+              config.gridRowClass,
             );
 
             dc.table.appendChild(dc.thead);
@@ -1581,7 +1585,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                     tabindex: "-1",
                   },
                   null,
-                  config.gridCellClass
+                  config.gridCellClass,
                 );
 
               config.colHeaders.map[i].thId = baseId + "th" + gridInc;
@@ -1688,7 +1692,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 config.page.sync();
               }
             },
-            "array"
+            "array",
           );
         };
 
@@ -1774,7 +1778,7 @@ License: MIT (https://opensource.org/licenses/MIT)
             ) {
               config.page.row.select(
                 rowObject.cells[config.colHeaders.map[0].id],
-                true
+                true,
               );
             }
           }
@@ -1812,7 +1816,7 @@ License: MIT (https://opensource.org/licenses/MIT)
         that.deleteAllRows = function () {
           if (config.page.row.deleteRow.enabled) {
             return config.page.row.deleteRow.callback(
-              config.page.row.collectionMap
+              config.page.row.collectionMap,
             );
           }
           return false;

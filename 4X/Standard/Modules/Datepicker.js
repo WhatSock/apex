@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 4.5 for Apex 4X
+ARIA Date Picker Module 4.6 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -58,8 +58,8 @@ License: MIT <https://opensource.org/licenses/MIT>
 
                 dc.remove();
 
-                if (!dc.triggerClicked) targ.focus();
-                else trigger.focus();
+                if (!dc.triggerClicked) $A.focus(config.returnFocusTo || targ);
+                else $A.focus(config.returnFocusTo || trigger);
                 dc.triggerClicked = false;
               },
           pressed = {},
@@ -121,8 +121,8 @@ License: MIT <https://opensource.org/licenses/MIT>
                     ? config.minDate
                     : new Date(
                         new Date().setDate(
-                          new Date().getDate() + config.minDate
-                        )
+                          new Date().getDate() + config.minDate,
+                        ),
                       )
                   : undefined,
               maxDate:
@@ -131,8 +131,8 @@ License: MIT <https://opensource.org/licenses/MIT>
                     ? config.maxDate
                     : new Date(
                         new Date().setDate(
-                          new Date().getDate() + config.maxDate
-                        )
+                          new Date().getDate() + config.maxDate,
+                        ),
                       )
                   : undefined,
               disableWeekdays:
@@ -397,7 +397,7 @@ License: MIT <https://opensource.org/licenses/MIT>
 
                 var re = new RegExp(
                   Object.keys(dateFormatTokens).join("|"),
-                  "gi"
+                  "gi",
                 );
 
                 return dateFormat.replace(re, function (matched) {
@@ -463,7 +463,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       $A.announce(
                         dc.range[dc.range.current.month].name,
                         false,
-                        true
+                        true,
                       );
                     }, 1);
                     dc.navBtnS = true;
@@ -473,7 +473,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       $A.announce(
                         dc.range[dc.range.current.month].name,
                         false,
-                        true
+                        true,
                       );
                     }, 1);
                     dc.navBtnS = true;
@@ -483,7 +483,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       $A.announce(
                         dc.range.current.year.toString(),
                         false,
-                        true
+                        true,
                       );
                     }, 1);
                     dc.navBtnS = true;
@@ -493,7 +493,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       $A.announce(
                         dc.range.current.year.toString(),
                         false,
-                        true
+                        true,
                       );
                     }, 1);
                     dc.navBtnS = true;
@@ -596,7 +596,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 dc,
                 dateObj,
                 daysOfWeek,
-                isDisabled
+                isDisabled,
               ) {
                 var year = dateObj.getFullYear(),
                   month = dateObj.getMonth();
@@ -632,7 +632,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   dc,
                   dateObj,
                   [1, 2, 3, 4, 5],
-                  isDisabled
+                  isDisabled,
                 );
               },
               setWeekendsDisabled: function (dc, dateObj, isDisabled) {
@@ -698,7 +698,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 cellDateObj,
                 cssClasses,
                 isDisabled,
-                isSelected
+                isSelected,
               ) {
                 var dc = this,
                   cell = "<td ",
@@ -747,7 +747,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 // set audible date value
                 var re = new RegExp(
                   Object.keys(dateFormatTokens).join("|"),
-                  "gi"
+                  "gi",
                 );
 
                 cell += dc.audibleDateFormat.replace(re, function (matched) {
@@ -814,7 +814,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   dateObj.getFullYear() +
                     ("00" + dateObj.getMonth()).slice(-2) +
                     ("00" + dateObj.getDate()).slice(-2),
-                  10
+                  10,
                 );
               },
               presetDate: function (dc, initialDate, minDate, maxDate) {
@@ -858,13 +858,13 @@ License: MIT <https://opensource.org/licenses/MIT>
                 if (dc.minDate instanceof Date) {
                   dc.minDate.setHours(0, 0, 0, 0);
                   dc.minDateComparisonValue = dc.createDateComparisonValue(
-                    dc.minDate
+                    dc.minDate,
                   );
                 }
                 if (dc.maxDate instanceof Date) {
                   dc.maxDate.setHours(0, 0, 0, 0);
                   dc.maxDateComparisonValue = dc.createDateComparisonValue(
-                    dc.maxDate
+                    dc.maxDate,
                   );
                 }
                 if (dc.initialDate instanceof Date) {
@@ -874,14 +874,14 @@ License: MIT <https://opensource.org/licenses/MIT>
                 }
                 // Cache current date for comparison
                 dc.currentDateComparisonValue = dc.createDateComparisonValue(
-                  dc.currentDate
+                  dc.currentDate,
                 );
               },
               storeCurrentDate: function (dc) {
                 dc.date = new Date(
                   dc.range.current.year,
                   dc.range.current.month,
-                  dc.range.current.mDay
+                  dc.range.current.mDay,
                 );
               },
               setDisabled: function (dc, s) {
@@ -898,6 +898,9 @@ License: MIT <https://opensource.org/licenses/MIT>
                   dc.setDateComparisons(dc);
                   dc.setDate(dc);
                 }
+              },
+              beforeRender: function (dc) {
+                dc.cancel = $A.isAnimating;
               },
               rerenderTable: function (dc) {
                 dc.rerendering = true;
@@ -965,7 +968,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   },
                   {
                     month: -1,
-                  }
+                  },
                 );
 
                 var prevMonth = new Date();
@@ -979,7 +982,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   },
                   {
                     month: 1,
-                  }
+                  },
                 );
 
                 var nextMonth = new Date();
@@ -991,10 +994,10 @@ License: MIT <https://opensource.org/licenses/MIT>
 
                 if (!config.condenseYear) {
                   var hasPrevYear = !dc.isOutsideDateRange(
-                      new Date(dc.range.current.year - 1, 0, 1)
+                      new Date(dc.range.current.year - 1, 0, 1),
                     ),
                     hasNextYear = !dc.isOutsideDateRange(
-                      new Date(dc.range.current.year + 1, 0, 1)
+                      new Date(dc.range.current.year + 1, 0, 1),
                     );
 
                   yearSelector =
@@ -1049,11 +1052,11 @@ License: MIT <https://opensource.org/licenses/MIT>
                     new Date(
                       prevDateValues.year,
                       prevDateValues.month,
-                      dc.range[prevDateValues.month].max
-                    )
+                      dc.range[prevDateValues.month].max,
+                    ),
                   ),
                   hasNextMonth = !dc.isOutsideDateRange(
-                    new Date(nextDateValues.year, nextDateValues.month, 1)
+                    new Date(nextDateValues.year, nextDateValues.month, 1),
                   );
 
                 var monthSelector =
@@ -1149,14 +1152,14 @@ License: MIT <https://opensource.org/licenses/MIT>
                   var daysInMonth = new Date(
                       prevDateValues.year,
                       prevDateValues.month + 1,
-                      0
+                      0,
                     ).getDate(),
                     counter =
                       daysInMonth -
                       new Date(
                         dc.range.current.year,
                         dc.range.current.month,
-                        0
+                        0,
                       ).getDay() +
                       dc.range.wdOffset;
                 }
@@ -1170,7 +1173,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       counter,
                       prevMonth,
                       "dayInPrevMonth",
-                      dc.isDisabledDate(dc, counter, prevMonth)
+                      dc.isDisabledDate(dc, counter, prevMonth),
                     );
                     ++counter;
                   } else {
@@ -1203,7 +1206,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                     m,
                     "dayInMonth",
                     dc.isDisabledDate(dc, i, m),
-                    isSelected
+                    isSelected,
                   );
 
                   var w = m.getDay();
@@ -1225,7 +1228,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       counter,
                       nextMonth,
                       "dayInNextMonth",
-                      dc.isDisabledDate(dc, counter, nextMonth)
+                      dc.isDisabledDate(dc, counter, nextMonth),
                     );
                     ++counter;
                   } else {
@@ -1243,7 +1246,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       id: dc.messageContainerId,
                     },
                     {},
-                    "monthMessage"
+                    "monthMessage",
                   );
                 }
 
@@ -1262,7 +1265,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   $A.setAttr(
                     dc.container,
                     "aria-labelledby",
-                    dc.messageContainerId
+                    dc.messageContainerId,
                   );
                 } else {
                   if (!triggeredByTouch)
@@ -1383,13 +1386,13 @@ License: MIT <https://opensource.org/licenses/MIT>
                       },
                       {
                         month: 1,
-                      }
+                      },
                     );
 
                     // Only change to next month if its first day is inside the valid date range
                     if (
                       !dc.isOutsideDateRange(
-                        new Date(dateValues.year, dateValues.month, 1)
+                        new Date(dateValues.year, dateValues.month, 1),
                       )
                     ) {
                       var day =
@@ -1399,7 +1402,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                         intendedDate = new Date(
                           dateValues.year,
                           dateValues.month,
-                          day
+                          day,
                         );
 
                       // If intended selected date one month ahead is outside of date range, set
@@ -1430,7 +1433,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       },
                       {
                         month: -1,
-                      }
+                      },
                     );
 
                     // Only change to previous month if its last day is inside the valid date range
@@ -1439,8 +1442,8 @@ License: MIT <https://opensource.org/licenses/MIT>
                         new Date(
                           dateValues.year,
                           dateValues.month,
-                          dc.range[dateValues.month].max
-                        )
+                          dc.range[dateValues.month].max,
+                        ),
                       )
                     ) {
                       var day =
@@ -1450,7 +1453,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                         intendedDate = new Date(
                           dateValues.year,
                           dateValues.month,
-                          day
+                          day,
                         );
 
                       // If intended selected date one month previously is outside of date range, set
@@ -1549,13 +1552,13 @@ License: MIT <https://opensource.org/licenses/MIT>
                           },
                           {
                             month: -1,
-                          }
+                          },
                         );
 
                         dc.date = new Date(
                           prevDateValues.year,
                           prevDateValues.month,
-                          dc.range.track[this.id]
+                          dc.range.track[this.id],
                         );
                       } else if ($A.hasClass(this, "dayInNextMonth")) {
                         var nextDateValues = dc.modifyDateValues(
@@ -1565,13 +1568,13 @@ License: MIT <https://opensource.org/licenses/MIT>
                           },
                           {
                             month: 1,
-                          }
+                          },
                         );
 
                         dc.date = new Date(
                           nextDateValues.year,
                           nextDateValues.month,
-                          dc.range.track[this.id]
+                          dc.range.track[this.id],
                         );
                       } else {
                         // Selection in current month, just adjust the date
@@ -1641,7 +1644,7 @@ License: MIT <https://opensource.org/licenses/MIT>
 
                             dc.setFocus(
                               dc.range.index[dc.range.current.mDay - 1],
-                              this
+                              this,
                             );
                           } else if (
                             dc.range.current.mDay === 1 &&
@@ -1654,7 +1657,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                               },
                               {
                                 month: -1,
-                              }
+                              },
                             );
 
                             var day = dc.range[dateValues.month].max;
@@ -1669,7 +1672,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                             dc.date = new Date(
                               dateValues.year,
                               dateValues.month,
-                              day
+                              day,
                             );
                             dc.setCurrent(dc);
                             dc.rerenderTable(dc);
@@ -1687,7 +1690,7 @@ License: MIT <https://opensource.org/licenses/MIT>
 
                             dc.setFocus(
                               dc.range.index[dc.range.current.mDay - 1],
-                              this
+                              this,
                             );
                           } else if (
                             dc.range.current.mDay ==
@@ -1701,13 +1704,13 @@ License: MIT <https://opensource.org/licenses/MIT>
                               },
                               {
                                 month: 1,
-                              }
+                              },
                             );
 
                             dc.date = new Date(
                               dateValues.year,
                               dateValues.month,
-                              1
+                              1,
                             );
                             dc.setCurrent(dc);
                             dc.rerenderTable(dc);
@@ -1721,7 +1724,7 @@ License: MIT <https://opensource.org/licenses/MIT>
 
                             dc.setFocus(
                               dc.range.index[dc.range.current.mDay - 1],
-                              this
+                              this,
                             );
                           } else if (!$A.data(dc.buttons.pM, "disabled")) {
                             // Go to previous month
@@ -1732,7 +1735,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                               },
                               {
                                 month: -1,
-                              }
+                              },
                             );
 
                             if (
@@ -1749,7 +1752,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                               intendedDate = new Date(
                                 dateValues.year,
                                 dateValues.month,
-                                day
+                                day,
                               );
 
                             // If intended selected date one month previous is outside of date range, do not attempt
@@ -1772,7 +1775,7 @@ License: MIT <https://opensource.org/licenses/MIT>
 
                             dc.setFocus(
                               dc.range.index[dc.range.current.mDay - 1],
-                              this
+                              this,
                             );
                           } else if (!$A.data(dc.buttons.nM, "disabled")) {
                             // Go to next month
@@ -1783,7 +1786,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                               },
                               {
                                 month: 1,
-                              }
+                              },
                             );
 
                             var day =
@@ -1793,7 +1796,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                               intendedDate = new Date(
                                 dateValues.year,
                                 dateValues.month,
-                                day
+                                day,
                               );
 
                             // If intended selected date one month ahead is outside of date range, do not attempt
@@ -1810,7 +1813,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                           // Toggles for openOnFocus support.
                           onFocusInit = false;
                           onFocusTraverse = true;
-                          $A.focus(targ);
+                          $A.focus(config.returnFocusTo || targ);
                         } else if (k === 33) {
                           // PageUp key
                           $A.extend(true, dc.prevCurrent, dc.range.current);
@@ -1862,7 +1865,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                             }
                             dc.setFocus(
                               dc.range.index[dc.range.current.mDay - 1],
-                              this
+                              this,
                             );
                           }
                         } else if (k === 35) {
@@ -1886,7 +1889,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                             }
                             dc.setFocus(
                               dc.range.index[dc.range.current.mDay - 1],
-                              this
+                              this,
                             );
                           }
                         }
@@ -1971,7 +1974,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       isKP = dc.setFocus.firstOpen = dc.isAdd = false;
                     },
                   },
-                  "." + baseId
+                  "." + baseId,
                 );
 
                 // Reconfigured for Esc btn processing
@@ -1983,7 +1986,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                         dc.remove();
                         onFocusInit = false;
                         onFocusTraverse = true;
-                        $A.focus(targ);
+                        $A.focus(config.returnFocusTo || targ);
                         ev.preventDefault();
                       },
                       keydown: function (ev) {
@@ -1994,7 +1997,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                           dc.remove();
                           onFocusInit = false;
                           onFocusTraverse = true;
-                          $A.focus(targ);
+                          $A.focus(config.returnFocusTo || targ);
                         } else if (
                           k === 9 &&
                           !pressed.alt &&
@@ -2037,7 +2040,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       focus: function (ev) {},
                       blur: function (ev) {},
                     },
-                    "." + baseId
+                    "." + baseId,
                   );
                 }
 
@@ -2062,7 +2065,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                         // Toggles for openOnFocus support.
                         onFocusInit = false;
                         onFocusTraverse = true;
-                        $A.focus(targ);
+                        $A.focus(config.returnFocusTo || targ);
                         ev.preventDefault();
                       } else if (!config.condenseYear && k === 38) {
                         dc.buttons.pY.focus();
@@ -2121,7 +2124,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       changePressed(ev);
                     },
                   },
-                  "." + baseId
+                  "." + baseId,
                 );
                 $A.on(
                   dc.buttons.nM,
@@ -2144,7 +2147,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                         // Toggles for openOnFocus support.
                         onFocusInit = false;
                         onFocusTraverse = true;
-                        $A.focus(targ);
+                        $A.focus(config.returnFocusTo || targ);
                         ev.preventDefault();
                       } else if (!config.condenseYear && k === 38) {
                         dc.buttons.nY.focus();
@@ -2203,7 +2206,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       changePressed(ev);
                     },
                   },
-                  "." + baseId
+                  "." + baseId,
                 );
 
                 if (!config.condenseYear)
@@ -2228,7 +2231,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                           // Toggles for openOnFocus support.
                           onFocusInit = false;
                           onFocusTraverse = true;
-                          $A.focus(targ);
+                          $A.focus(config.returnFocusTo || targ);
                           ev.preventDefault();
                         } else if (k === 39) {
                           dc.buttons.nY.focus();
@@ -2276,7 +2279,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                         changePressed(ev);
                       },
                     },
-                    "." + baseId
+                    "." + baseId,
                   );
 
                 if (!config.condenseYear)
@@ -2301,7 +2304,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                           // Toggles for openOnFocus support.
                           onFocusInit = false;
                           onFocusTraverse = true;
-                          $A.focus(targ);
+                          $A.focus(config.returnFocusTo || targ);
                           ev.preventDefault();
                         } else if (k === 37) {
                           dc.buttons.pY.focus();
@@ -2353,7 +2356,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                         changePressed(ev);
                       },
                     },
-                    "." + baseId
+                    "." + baseId,
                   );
 
                 dc.range.index = dc.container.querySelectorAll("td.dayInMonth");
@@ -2397,7 +2400,7 @@ License: MIT <https://opensource.org/licenses/MIT>
               },
             },
           ],
-          config
+          config,
         )[0];
         // Calendar object declaration end
 
@@ -2418,7 +2421,7 @@ License: MIT <https://opensource.org/licenses/MIT>
               },
             },
           ],
-          (config.comments && config.comments.config) || {}
+          (config.comments && config.comments.config) || {},
         )[0];
         // Comment object declaration end
 
@@ -2484,7 +2487,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       dc.parent.range.current.mDay,
                       dc.parent.range[dc.parent.range.current.month].disabled[
                         dc.parent.range.current.year
-                      ]
+                      ],
                     ) !== -1) ||
                   (dc.parent.range[dc.parent.range.current.month].disabled[
                     "*"
@@ -2493,7 +2496,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       dc.parent.range.current.mDay,
                       dc.parent.range[dc.parent.range.current.month].disabled[
                         "*"
-                      ]
+                      ],
                     ) !== -1)
                 )
                   pre += dc.parent.disabledTxt.replace(/<|>|\"/g, "") + " ";
@@ -2552,7 +2555,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                               }
                             },
                           },
-                          "." + baseId
+                          "." + baseId,
                         );
                       })[0];
                     else {
@@ -2607,7 +2610,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       "left",
                       dc.parent.wrapper.offsetLeft +
                         dc.parent.wrapper.offsetWidth -
-                        dc.wrapper.offsetWidth
+                        dc.wrapper.offsetWidth,
                     );
                     $A.setAttr(dc.commentBtn, {
                       title:
@@ -2679,7 +2682,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       }
                     },
                   },
-                  "." + baseId
+                  "." + baseId,
                 );
 
                 dc.reset();
@@ -2712,7 +2715,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                       ev.preventDefault();
                     }
                   },
-                  "." + baseId
+                  "." + baseId,
                 );
               },
               beforeRemove: function (dc) {
@@ -2726,7 +2729,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   : true,
             },
           ],
-          (config.editor && config.editor.config) || {}
+          (config.editor && config.editor.config) || {},
         )[0];
         // Form object declaration end
 
@@ -2739,7 +2742,7 @@ License: MIT <https://opensource.org/licenses/MIT>
             formDC.setPosition();
             formDC.reset();
           },
-          "." + baseId
+          "." + baseId,
         );
 
         $A.setAttr(trigger, "aria-expanded", "false");
@@ -2751,23 +2754,21 @@ License: MIT <https://opensource.org/licenses/MIT>
             odcDel = false;
           },
           odcFn = function () {
-            if (!$A.isAnimating) {
-              if (!odcDel && !odc.loaded && !odc.disabled) {
-                odcDel = true;
-                // Toggles for openOnFocus support.
-                onFocusInit = false;
-                onFocusTraverse = true;
+            if (!odcDel && !odc.loaded && !odc.disabled) {
+              odcDel = true;
+              // Toggles for openOnFocus support.
+              onFocusInit = false;
+              onFocusTraverse = true;
 
-                $A.trigger(this, "opendatepicker");
-                setTimeout(odcDelFn, 1000);
-              } else if (!odcDel && odc.loaded) {
-                odcDel = true;
-                odc.remove();
-                // Toggles for openOnFocus support.
-                onFocusInit = false;
-                onFocusTraverse = false;
-                setTimeout(odcDelFn, 1000);
-              }
+              $A.trigger(this, "opendatepicker");
+              setTimeout(odcDelFn, 1000);
+            } else if (!odcDel && odc.loaded) {
+              odcDel = true;
+              odc.remove();
+              // Toggles for openOnFocus support.
+              onFocusInit = false;
+              onFocusTraverse = false;
+              setTimeout(odcDelFn, 1000);
             }
           };
 
@@ -2788,7 +2789,7 @@ License: MIT <https://opensource.org/licenses/MIT>
               }
             },
           },
-          "." + baseId
+          "." + baseId,
         );
 
         var triggeredByTouch = false;
@@ -2825,7 +2826,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 ) {
                   ev.preventDefault();
                   this.blur();
-                  if (trigger) $A.focus(trigger);
+                  if (trigger) $A.focus(config.returnFocusTo || trigger);
                 } else if (
                   !odcDel &&
                   !odc.loaded &&
@@ -2924,7 +2925,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 }
               },
             },
-            "." + baseId
+            "." + baseId,
           );
         } else {
           $A.on(targ, {
@@ -2941,7 +2942,7 @@ License: MIT <https://opensource.org/licenses/MIT>
               ) {
                 ev.preventDefault();
                 this.blur();
-                if (trigger) $A.focus(trigger);
+                if (trigger) $A.focus(config.returnFocusTo || trigger);
               }
 
               onFocusInit = true;
@@ -2959,7 +2960,7 @@ License: MIT <https://opensource.org/licenses/MIT>
           function (ev) {
             if (mainDC.datepickerLoaded) mainDC.remove();
           },
-          "." + baseId
+          "." + baseId,
         );
 
         return mainDC;

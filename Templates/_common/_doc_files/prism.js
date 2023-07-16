@@ -147,12 +147,11 @@ var Prism = (function (_self) {
             clone = [];
             visited[id] = clone;
 
-            /** @type {Array} */ /** @type {any} */ (o).forEach(function (
-              v,
-              i
-            ) {
-              clone[i] = deepClone(v, visited);
-            });
+            /** @type {Array} */ /** @type {any} */ (o).forEach(
+              function (v, i) {
+                clone[i] = deepClone(v, visited);
+              },
+            );
 
             return /** @type {any} */ (clone);
 
@@ -494,7 +493,7 @@ var Prism = (function (_self) {
       _.hooks.run("before-highlightall", env);
 
       env.elements = Array.prototype.slice.apply(
-        env.container.querySelectorAll(env.selector)
+        env.container.querySelectorAll(env.selector),
       );
 
       _.hooks.run("before-all-elements-highlight", env);
@@ -610,7 +609,7 @@ var Prism = (function (_self) {
             language: env.language,
             code: env.code,
             immediateClose: true,
-          })
+          }),
         );
       } else {
         insertHighlightedCode(_.highlight(env.code, env.grammar, env.language));
@@ -917,7 +916,7 @@ var Prism = (function (_self) {
     grammar,
     startNode,
     startPos,
-    rematch
+    rematch,
   ) {
     for (var token in grammar) {
       if (!grammar.hasOwnProperty(token) || !grammar[token]) {
@@ -1041,7 +1040,7 @@ var Prism = (function (_self) {
             token,
             inside ? _.tokenize(matchStr, inside) : matchStr,
             alias,
-            matchStr
+            matchStr,
           );
           currentNode = addAfter(tokenList, removeFrom, wrapped);
 
@@ -1064,7 +1063,7 @@ var Prism = (function (_self) {
               grammar,
               currentNode.prev,
               pos,
-              nestedRematch
+              nestedRematch,
             );
 
             // the reach might have been extended because of the rematching
@@ -1175,7 +1174,7 @@ var Prism = (function (_self) {
             _self.close();
           }
         },
-        false
+        false,
       );
     }
 
@@ -1213,7 +1212,7 @@ var Prism = (function (_self) {
     ) {
       document.addEventListener(
         "DOMContentLoaded",
-        highlightAutomaticallyCallback
+        highlightAutomaticallyCallback,
       );
     } else {
       if (window.requestAnimationFrame) {
@@ -1403,9 +1402,9 @@ Object.defineProperty(Prism.languages.markup.tag, "addInlined", {
           /__/g,
           function () {
             return tagName;
-          }
+          },
         ),
-        "i"
+        "i",
       ),
       lookbehind: true,
       greedy: true,
@@ -1435,7 +1434,7 @@ Object.defineProperty(Prism.languages.markup.tag, "addAttribute", {
           attrName +
           ")" +
           /\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))/.source,
-        "i"
+        "i",
       ),
       lookbehind: true,
       inside: {
@@ -1502,7 +1501,7 @@ Prism.languages.rss = Prism.languages.xml;
           "|" +
           /(?:[^\\\r\n()"']|\\[\s\S])*/.source +
           ")\\)",
-        "i"
+        "i",
       ),
       greedy: true,
       inside: {
@@ -1517,7 +1516,7 @@ Prism.languages.rss = Prism.languages.xml;
     selector: RegExp(
       "[^{}\\s](?:[^{};\"'\\s]|\\s+(?![\\s{])|" +
         string.source +
-        ")*(?=\\s*\\{)"
+        ")*(?=\\s*\\{)",
     ),
     string: {
       pattern: string,
@@ -1694,7 +1693,7 @@ if (Prism.languages.markup) {
   Prism.languages.markup.tag.addAttribute(
     /on(?:abort|blur|change|click|composition(?:end|start|update)|dblclick|error|focus(?:in|out)?|key(?:down|up)|load|mouse(?:down|enter|leave|move|out|over|up)|reset|resize|scroll|select|slotchange|submit|unload|wheel)/
       .source,
-    "javascript"
+    "javascript",
   );
 }
 

@@ -61,7 +61,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 ? {
                     zIndex: dc.style["z-index"] - 1,
                   }
-                : {}
+                : {},
             )
             .appendTo("body")
             .return();
@@ -110,9 +110,9 @@ License: MIT (https://opensource.org/licenses/MIT)
                   {
                     widgetType: "Dialog",
                   },
-                  config || {}
-                )
-              )
+                  config || {},
+                ),
+              ),
             );
           };
 

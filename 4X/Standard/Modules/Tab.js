@@ -138,8 +138,8 @@ Required dependencies: RovingTabIndex.js
                     root: panelContainer,
                     append: true,
                   },
-                  config || {}
-                )
+                  config || {},
+                ),
               );
             dcArray.push(dc);
             if ($A.hasAttr(o, "data-active")) {
@@ -147,7 +147,7 @@ Required dependencies: RovingTabIndex.js
               startIndex = i;
             }
           },
-          "array"
+          "array",
         );
 
         $A.map({
@@ -175,8 +175,8 @@ Required dependencies: RovingTabIndex.js
                 ev.preventDefault();
               },
             },
-            config.extendRTI || {}
-          )
+            config.extendRTI || {},
+          ),
         );
 
         $A.updateDisabled(RTI.nodes);

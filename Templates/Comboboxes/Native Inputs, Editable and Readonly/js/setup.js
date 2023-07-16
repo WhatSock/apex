@@ -48,7 +48,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
   if (!$A.isTouch) {
     // For non-touch devices, add screen reader accessible keyboard instructions
     myStateCombobox.setPromptText(
-      "First type then press the down arrow to browse available matches"
+      "First type then press the down arrow to browse available matches",
     );
   }
 
@@ -58,7 +58,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
       myStateCombobox.setPromptText(
         $A.isTouch
           ? ""
-          : "First type then press the down arrow to browse available matches"
+          : "First type then press the down arrow to browse available matches",
       );
     });
   }
@@ -69,7 +69,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
       ? 3
       : window.device.type === "tablet"
       ? 5
-      : 7
+      : 7,
   );
 
   // Get the Close icon triggering element for sighted mouse and touch device users
@@ -145,7 +145,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
   if (!$A.isTouch) {
     // For non-touch devices, add screen reader accessible keyboard instructions
     myCountryCombobox.setPromptText(
-      "Press the down arrow to browse available options"
+      "Press the down arrow to browse available options",
     );
   }
 
@@ -153,7 +153,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
   if (window.device.type === "desktop") {
     $A.on("toggletouch", function (ev) {
       myCountryCombobox.setPromptText(
-        $A.isTouch ? "" : "Press the down arrow to browse available options"
+        $A.isTouch ? "" : "Press the down arrow to browse available options",
       );
     });
   }
@@ -164,7 +164,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
       ? 3
       : window.device.type === "tablet"
       ? 5
-      : 7
+      : 7,
   );
 
   myCountryCombobox.start();

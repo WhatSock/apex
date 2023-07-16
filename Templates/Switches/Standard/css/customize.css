@@ -49,7 +49,9 @@ ul.switch--container {
   position: absolute;
   right: 0;
   top: 0.5em;
-  transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition:
+    border 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
   width: 3em;
 }
 
@@ -68,8 +70,12 @@ ul.switch--container {
   position: absolute;
   right: 0em;
   top: 0em;
-  transition: border-color 0.2s ease-in-out, bottom 0.2s ease-in-out,
-    left 0.2s ease-in-out, right 0.2s ease-in-out, top 0.2s ease-in-out;
+  transition:
+    border-color 0.2s ease-in-out,
+    bottom 0.2s ease-in-out,
+    left 0.2s ease-in-out,
+    right 0.2s ease-in-out,
+    top 0.2s ease-in-out;
 }
 
 .aria-switch:focus .aria-switch__button:before {

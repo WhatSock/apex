@@ -36,8 +36,8 @@ Required dependencies: Velocity.js, VelocityUI.js
                 if ($A.isFn(fn)) fn.call(o, o);
               },
             },
-            config || {}
-          )
+            config || {},
+          ),
         );
       }
       return $A._XR.call(this, o);
@@ -69,8 +69,8 @@ Required dependencies: Velocity.js, VelocityUI.js
                 if ($A.isFn(fn)) fn.call(o, o);
               },
             },
-            config || {}
-          )
+            config || {},
+          ),
         );
       }
       return $A._XR.call(this, o);

@@ -722,7 +722,7 @@
 
     if (IE <= 8 && !isJQuery) {
       throw new Error(
-        "Velocity: IE8 and below require jQuery to be loaded before Velocity."
+        "Velocity: IE8 and below require jQuery to be loaded before Velocity.",
       );
     } else if (IE <= 7) {
       /* Revert to jQuery's $.animate(), and lose Velocity's extra features. */
@@ -749,7 +749,7 @@
         /* Detect mobile devices to determine if mobileHA should be turned on. */
         isMobile:
           /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-            window.navigator.userAgent
+            window.navigator.userAgent,
           ),
         /* The mobileHA option's behavior changes on older Android devices (Gingerbread, versions 2.3.3-2.3.7). */
         isAndroid: /Android/i.test(window.navigator.userAgent),
@@ -941,7 +941,7 @@
         data.delayPaused = false;
         data.delayTimer.setTimeout = setTimeout(
           data.delayTimer.next,
-          data.delayRemaining
+          data.delayRemaining,
         );
       }
     }
@@ -1045,7 +1045,10 @@
           } else {
             aA = currentT;
           }
-        } while (Math.abs(currentX) > SUBDIVISION_PRECISION && ++i < SUBDIVISION_MAX_ITERATIONS);
+        } while (
+          Math.abs(currentX) > SUBDIVISION_PRECISION &&
+          ++i < SUBDIVISION_MAX_ITERATIONS
+        );
 
         return currentT;
       }
@@ -1079,7 +1082,7 @@
           return binarySubdivide(
             aX,
             intervalStart,
-            intervalStart + kSampleStepSize
+            intervalStart + kSampleStepSize,
           );
         }
       }
@@ -1268,9 +1271,9 @@
       function (i, easingArray) {
         Velocity.Easings[easingArray[0]] = generateBezier.apply(
           null,
-          easingArray[1]
+          easingArray[1],
         );
-      }
+      },
     );
 
     /* Determine the appropriate easing type given an easing input. */
@@ -1668,7 +1671,7 @@
                 );
               }
               return $1 + $2;
-            }
+            },
           );
         },
         /* Convert any rootPropertyValue, null or otherwise, into a space-delimited list of hook values so that
@@ -1677,7 +1680,7 @@
           /* If the rootPropertyValue is wrapped with "rgb()", "clip()", etc., remove the wrapping to normalize the value before manipulation. */
           if (CSS.RegEx.valueUnwrap.test(rootPropertyValue)) {
             rootPropertyValue = rootPropertyValue.match(
-              CSS.RegEx.valueUnwrap
+              CSS.RegEx.valueUnwrap,
             )[1];
           }
 
@@ -1701,7 +1704,7 @@
 
             rootPropertyValue = CSS.Hooks.cleanRootPropertyValue(
               hookRoot,
-              rootPropertyValue
+              rootPropertyValue,
             );
 
             /* Split rootPropertyValue into its constituent hook values then grab the desired hook at its standard position. */
@@ -1726,7 +1729,7 @@
 
             rootPropertyValue = CSS.Hooks.cleanRootPropertyValue(
               hookRoot,
-              rootPropertyValue
+              rootPropertyValue,
             );
 
             /* Split rootPropertyValue into its individual hook values, replace the targeted value with hookValue,
@@ -1895,7 +1898,7 @@
             /* Note: Since the standalone CSS "perspective" property and the CSS transform "perspective" subproperty
              share the same name, the latter is given a unique token within Velocity: "transformPerspective". */
             CSS.Lists.transformsBase = CSS.Lists.transformsBase.concat(
-              CSS.Lists.transforms3D
+              CSS.Lists.transforms3D,
             );
           }
 
@@ -1908,7 +1911,7 @@
               CSS.Normalizations.registered[transformName] = function (
                 type,
                 element,
-                propertyValue
+                propertyValue,
               ) {
                 switch (type) {
                   /* The normalized property name is the parent "transform" property -- the property that is actually set in CSS. */
@@ -1928,7 +1931,7 @@
                     }
                     return Data(element).transformCache[transformName].replace(
                       /[()]/g,
-                      ""
+                      "",
                     );
                   case "inject":
                     var invalid = false;
@@ -1940,7 +1943,7 @@
                       /* Whitelist unit types for each transform. */
                       case "translate":
                         invalid = !/(%|px|em|rem|vw|vh|\d)$/i.test(
-                          propertyValue
+                          propertyValue,
                         );
                         break;
                       /* Since an axis-free "scale" property is supported as well, a little hack is used here to detect it by chopping off its last letter. */
@@ -1997,7 +2000,7 @@
               CSS.Normalizations.registered[colorName] = function (
                 type,
                 element,
-                propertyValue
+                propertyValue,
               ) {
                 switch (type) {
                   case "name":
@@ -2143,11 +2146,11 @@
           }
           CSS.Normalizations.registered.innerWidth = getDimension(
             "width",
-            true
+            true,
           );
           CSS.Normalizations.registered.innerHeight = getDimension(
             "height",
-            true
+            true,
           );
           CSS.Normalizations.registered.outerWidth = getDimension("width");
           CSS.Normalizations.registered.outerHeight = getDimension("height");
@@ -2207,7 +2210,7 @@
               /* Check if the browser supports this property as prefixed. */
               if (
                 Type.isString(
-                  Velocity.State.prefixElement.style[propertyPrefixed]
+                  Velocity.State.prefixElement.style[propertyPrefixed],
                 )
               ) {
                 /* Cache the match. */
@@ -2264,7 +2267,7 @@
             return "deg";
           } else if (
             /(^(scale|scaleX|scaleY|scaleZ|alpha|flexGrow|flexHeight|zIndex|fontWeight)$)|((opacity|red|green|blue|alpha)$)/i.test(
-              property
+              property,
             )
           ) {
             /* The above properties are unitless. */
@@ -2281,7 +2284,7 @@
 
           if (
             /^(b|big|i|small|tt|abbr|acronym|cite|code|dfn|em|kbd|strong|samp|var|a|bdo|br|img|map|object|q|script|span|sub|sup|button|input|label|select|textarea)$/i.test(
-              tagName
+              tagName,
             )
           ) {
             return "inline";
@@ -2314,7 +2317,7 @@
 
               element.setAttribute(
                 "class",
-                currentClass + (currentClass ? " " : "") + className
+                currentClass + (currentClass ? " " : "") + className,
               );
             }
           }
@@ -2331,9 +2334,9 @@
                 .replace(
                   new RegExp(
                     "(^|\\s)" + className.split(" ").join("|") + "(\\s|$)",
-                    "gi"
+                    "gi",
                   ),
-                  " "
+                  " ",
                 );
             } else {
               // Work around for IE strict mode animating SVG - and anything else that doesn't behave correctly - the same way jQuery does it
@@ -2345,10 +2348,10 @@
                 currentClass.replace(
                   new RegExp(
                     "(^|s)" + className.split(" ").join("|") + "(s|$)",
-                    "gi"
+                    "gi",
                   ),
-                  " "
-                )
+                  " ",
+                ),
               );
             }
           }
@@ -2363,7 +2366,7 @@
         element,
         property,
         rootPropertyValue,
-        forceStyleLookup
+        forceStyleLookup,
       ) {
         /* Get an element's computed property value. */
         /* Note: Retrieving the value of a CSS property cannot simply be performed by checking an element's
@@ -2397,7 +2400,7 @@
               CSS.setPropertyValue(
                 element,
                 "display",
-                CSS.Values.getDisplayType(element)
+                CSS.Values.getDisplayType(element),
               );
             }
 
@@ -2417,10 +2420,10 @@
                 var contentBoxHeight =
                   element.offsetHeight -
                   (parseFloat(
-                    CSS.getPropertyValue(element, "borderTopWidth")
+                    CSS.getPropertyValue(element, "borderTopWidth"),
                   ) || 0) -
                   (parseFloat(
-                    CSS.getPropertyValue(element, "borderBottomWidth")
+                    CSS.getPropertyValue(element, "borderBottomWidth"),
                   ) || 0) -
                   (parseFloat(CSS.getPropertyValue(element, "paddingTop")) ||
                     0) -
@@ -2438,10 +2441,10 @@
                 var contentBoxWidth =
                   element.offsetWidth -
                   (parseFloat(
-                    CSS.getPropertyValue(element, "borderLeftWidth")
+                    CSS.getPropertyValue(element, "borderLeftWidth"),
                   ) || 0) -
                   (parseFloat(
-                    CSS.getPropertyValue(element, "borderRightWidth")
+                    CSS.getPropertyValue(element, "borderRightWidth"),
                   ) || 0) -
                   (parseFloat(CSS.getPropertyValue(element, "paddingLeft")) ||
                     0) -
@@ -2535,7 +2538,7 @@
             /* Since the browser is now being directly queried, use the official post-prefixing property name for this lookup. */
             rootPropertyValue = CSS.getPropertyValue(
               element,
-              CSS.Names.prefixCheck(hookRoot)[0]
+              CSS.Names.prefixCheck(hookRoot)[0],
             ); /* GET */
           }
 
@@ -2544,7 +2547,7 @@
             rootPropertyValue = CSS.Normalizations.registered[hookRoot](
               "extract",
               element,
-              rootPropertyValue
+              rootPropertyValue,
             );
           }
 
@@ -2560,7 +2563,7 @@
 
           normalizedPropertyName = CSS.Normalizations.registered[property](
             "name",
-            element
+            element,
           );
 
           /* Transform values are calculated via normalization extraction (see below), which checks against the element's transformCache.
@@ -2570,7 +2573,7 @@
           if (normalizedPropertyName !== "transform") {
             normalizedPropertyValue = computePropertyValue(
               element,
-              CSS.Names.prefixCheck(normalizedPropertyName)[0]
+              CSS.Names.prefixCheck(normalizedPropertyName)[0],
             ); /* GET */
 
             /* If the value is a CSS null-value and this property has a hook template, use that zero-value template so that hooks can be extracted from it. */
@@ -2585,7 +2588,7 @@
           propertyValue = CSS.Normalizations.registered[property](
             "extract",
             element,
-            normalizedPropertyValue
+            normalizedPropertyValue,
           );
         }
 
@@ -2612,7 +2615,7 @@
           } else {
             propertyValue = computePropertyValue(
               element,
-              CSS.Names.prefixCheck(property)[0]
+              CSS.Names.prefixCheck(property)[0],
             ); /* GET */
           }
         }
@@ -2635,7 +2638,7 @@
         property,
         propertyValue,
         rootPropertyValue,
-        scrollData
+        scrollData,
       ) {
         var propertyName = property;
 
@@ -2666,7 +2669,7 @@
             CSS.Normalizations.registered[property](
               "inject",
               element,
-              propertyValue
+              propertyValue,
             );
 
             propertyName = "transform";
@@ -2685,7 +2688,7 @@
               propertyValue = CSS.Hooks.injectValue(
                 hookName,
                 propertyValue,
-                rootPropertyValue
+                rootPropertyValue,
               );
               property = hookRoot;
             }
@@ -2695,11 +2698,11 @@
               propertyValue = CSS.Normalizations.registered[property](
                 "inject",
                 element,
-                propertyValue
+                propertyValue,
               );
               property = CSS.Normalizations.registered[property](
                 "name",
-                element
+                element,
               );
             }
 
@@ -2718,7 +2721,7 @@
                       propertyValue +
                       "] for [" +
                       propertyName +
-                      "]"
+                      "]",
                   );
                 }
               }
@@ -2738,7 +2741,7 @@
 
             if (Velocity.debug >= 2) {
               console.log(
-                "Set " + property + " (" + propertyName + "): " + propertyValue
+                "Set " + property + " (" + propertyName + "): " + propertyValue,
               );
             }
           }
@@ -3215,7 +3218,7 @@
                   if (Type.isFunction(item)) {
                     item();
                   }
-                }
+                },
               );
 
               /* Clearing the $.queue() array is achieved by resetting it to []. */
@@ -3273,14 +3276,14 @@
                            (Specifically, the queue will resolve the call's associated promise then abort.)  */
                             item(null, true);
                           }
-                        }
+                        },
                       );
 
                       /* Clearing the $.queue() array is achieved by resetting it to []. */
                       $.queue(
                         element,
                         Type.isString(options) ? options : "",
-                        []
+                        [],
                       );
                     }
 
@@ -3389,7 +3392,7 @@
                       ? 1 - elementIndex / elementsLength
                       : (elementIndex + 1) / elementsLength),
                   opts.duration * 0.75,
-                  200
+                  200,
                 );
               }
 
@@ -3402,7 +3405,7 @@
                 elementIndex,
                 elementsLength,
                 elements,
-                promiseData.promise ? promiseData : undefined
+                promiseData.promise ? promiseData : undefined,
               );
             });
 
@@ -3733,7 +3736,7 @@
               console.log(
                 "tweensContainer (scroll): ",
                 tweensContainer.scroll,
-                element
+                element,
               );
             }
 
@@ -3804,7 +3807,7 @@
               lastTweensContainer = $.extend(
                 true,
                 {},
-                data ? data.tweensContainer : null
+                data ? data.tweensContainer : null,
               );
 
               /* Manipulate the previous tweensContainer by replacing its end values and currentValues with its start values. */
@@ -3835,7 +3838,7 @@
                         lastTween +
                         "): " +
                         JSON.stringify(lastTweensContainer[lastTween]),
-                      element
+                      element,
                     );
                   }
                 }
@@ -3886,7 +3889,7 @@
                 valueData = valueData.call(
                   element,
                   elementArrayIndex,
-                  elementsLength
+                  elementsLength,
                 );
               }
 
@@ -3938,7 +3941,7 @@
                 endValue = endValue.call(
                   element,
                   elementArrayIndex,
-                  elementsLength
+                  elementsLength,
                 );
               }
 
@@ -3946,7 +3949,7 @@
                 startValue = startValue.call(
                   element,
                   elementArrayIndex,
-                  elementsLength
+                  elementsLength,
                 );
               }
 
@@ -3983,7 +3986,7 @@
                   console.log(
                     "Skipping [" +
                       rootProperty +
-                      "] due to a lack of browser support."
+                      "] due to a lack of browser support.",
                   );
                 }
                 return;
@@ -4030,14 +4033,14 @@
                   if (startValue === undefined) {
                     rootPropertyValue = CSS.getPropertyValue(
                       element,
-                      rootProperty
+                      rootProperty,
                     ); /* GET */
                     /* Note: The following getPropertyValue() call does not actually trigger a DOM query;
                      getPropertyValue() will extract the hook from rootPropertyValue. */
                     startValue = CSS.getPropertyValue(
                       element,
                       property,
-                      rootPropertyValue
+                      rootPropertyValue,
                     );
                     /* If startValue is already defined via forcefeeding, do not query the DOM for the root property's value;
                      just grab rootProperty's zero-value template from CSS.Hooks. This overwrites the element's actual
@@ -4051,7 +4054,7 @@
                 } else if (startValue === undefined) {
                   startValue = CSS.getPropertyValue(
                     element,
-                    property
+                    property,
                   ); /* GET */
                 }
               }
@@ -4240,7 +4243,7 @@
                         endValue +
                         '", "' +
                         startValue +
-                        '"]'
+                        '"]',
                     );
                   }
                   pattern = undefined;
@@ -4252,7 +4255,7 @@
                         'Pattern found "' + pattern + '" -> ',
                         aStart,
                         aEnd,
-                        "[" + startValue + "," + endValue + "]"
+                        "[" + startValue + "," + endValue + "]",
                       );
                     }
                     startValue = aStart;
@@ -4279,7 +4282,7 @@
 
                     /* Strip the operator off of the value. */
                     return "";
-                  }
+                  },
                 );
                 endValueUnitType = separatedValue[1];
 
@@ -4340,11 +4343,11 @@
                     myParent: element.parentNode || document.body /* GET */,
                     position: CSS.getPropertyValue(
                       element,
-                      "position"
+                      "position",
                     ) /* GET */,
                     fontSize: CSS.getPropertyValue(
                       element,
-                      "fontSize"
+                      "fontSize",
                     ) /* GET */,
                   },
                   /* Determine if the same % ratio can be used. % is based on the element's position value and its parent's width and height dimensions. */
@@ -4380,7 +4383,7 @@
                     data && data.isSVG
                       ? document.createElementNS(
                           "http://www.w3.org/2000/svg",
-                          "rect"
+                          "rect",
                         )
                       : document.createElement("div");
 
@@ -4394,22 +4397,22 @@
                     ["overflow", "overflowX", "overflowY"],
                     function (i, property) {
                       Velocity.CSS.setPropertyValue(dummy, property, "hidden");
-                    }
+                    },
                   );
                   Velocity.CSS.setPropertyValue(
                     dummy,
                     "position",
-                    sameRatioIndicators.position
+                    sameRatioIndicators.position,
                   );
                   Velocity.CSS.setPropertyValue(
                     dummy,
                     "fontSize",
-                    sameRatioIndicators.fontSize
+                    sameRatioIndicators.fontSize,
                   );
                   Velocity.CSS.setPropertyValue(
                     dummy,
                     "boxSizing",
-                    "content-box"
+                    "content-box",
                   );
 
                   /* width and height act as our proxy properties for measuring the horizontal and vertical % ratios. */
@@ -4426,27 +4429,27 @@
                       Velocity.CSS.setPropertyValue(
                         dummy,
                         property,
-                        measurement + "%"
+                        measurement + "%",
                       );
-                    }
+                    },
                   );
                   /* paddingLeft arbitrarily acts as our proxy property for the em ratio. */
                   Velocity.CSS.setPropertyValue(
                     dummy,
                     "paddingLeft",
-                    measurement + "em"
+                    measurement + "em",
                   );
 
                   /* Divide the returned value by the measurement to get the ratio between 1% and 1px. Default to 1 since working with 0 can produce Infinite. */
                   unitRatios.percentToPxWidth =
                     callUnitConversionData.lastPercentToPxWidth =
                       (parseFloat(
-                        CSS.getPropertyValue(dummy, "width", null, true)
+                        CSS.getPropertyValue(dummy, "width", null, true),
                       ) || 1) / measurement; /* GET */
                   unitRatios.percentToPxHeight =
                     callUnitConversionData.lastPercentToPxHeight =
                       (parseFloat(
-                        CSS.getPropertyValue(dummy, "height", null, true)
+                        CSS.getPropertyValue(dummy, "height", null, true),
                       ) || 1) / measurement; /* GET */
                   unitRatios.emToPx = callUnitConversionData.lastEmToPx =
                     (parseFloat(CSS.getPropertyValue(dummy, "paddingLeft")) ||
@@ -4473,7 +4476,7 @@
                   /* Default to browsers' default fontSize of 16px in the case of 0. */
                   callUnitConversionData.remToPx =
                     parseFloat(
-                      CSS.getPropertyValue(document.body, "fontSize")
+                      CSS.getPropertyValue(document.body, "fontSize"),
                     ) || 16; /* GET */
                 }
 
@@ -4492,7 +4495,7 @@
                 if (Velocity.debug >= 1) {
                   console.log(
                     "Unit ratios: " + JSON.stringify(unitRatios),
-                    element
+                    element,
                   );
                 }
                 return unitRatios;
@@ -4530,7 +4533,7 @@
                   /* Note: W3C spec mandates that all of margin and padding's properties (even top and bottom) are %-relative to the *width* of the parent element. */
                   var axis =
                     /margin|padding|left|right|width|text|word|letter/i.test(
-                      property
+                      property,
                     ) ||
                     /X$/.test(property) ||
                     property === "x"
@@ -4630,7 +4633,7 @@
                     property +
                     "): " +
                     JSON.stringify(tweensContainer[property]),
-                  element
+                  element,
                 );
               }
             };
@@ -4675,7 +4678,7 @@
 
                     fixPropertyValue(
                       propertyName + colorComponents[i],
-                      dataArray
+                      dataArray,
                     );
                   }
                   /* If we have replaced a shortcut color value then don't update the standard property name */
@@ -4986,7 +4989,7 @@
             if (pauseObject.resume === true) {
               /* Update the time start to accomodate the paused completion amount */
               timeStart = callContainer[3] = Math.round(
-                timeCurrent - millisecondsEllapsed - 16
+                timeCurrent - millisecondsEllapsed - 16,
               );
 
               /* Remove pause object after processing */
@@ -5003,7 +5006,7 @@
            Accordingly, we ensure that percentComplete does not exceed 1. */
           var percentComplete = Math.min(
             millisecondsEllapsed / opts.duration,
-            1
+            1,
           );
 
           /**********************
@@ -5099,7 +5102,7 @@
 
                   currentValue = tween.pattern.replace(
                     /{(\d+)(!)?}/g,
-                    patternReplace
+                    patternReplace,
                   );
                 } else if (percentComplete === 1) {
                   /* If this is the last tick pass (if we've reached 100% completion for this tween),
@@ -5160,7 +5163,7 @@
                         ? ""
                         : tween.unitType),
                     tween.rootPropertyValue,
-                    tween.scrollData
+                    tween.scrollData,
                   );
 
                   /*******************
@@ -5175,7 +5178,7 @@
                         CSS.Normalizations.registered[hookRoot](
                           "extract",
                           null,
-                          adjustedSetData[1]
+                          adjustedSetData[1],
                         );
                     } else {
                       Data(element).rootPropertyValueCache[hookRoot] =
@@ -5233,7 +5236,7 @@
               percentComplete,
               Math.max(0, timeStart + opts.duration - timeCurrent),
               timeStart,
-              tweenDummyValue
+              tweenDummyValue,
             );
           }
 
@@ -5473,7 +5476,7 @@
         elementsIndex,
         elementsSize,
         elements,
-        promiseData
+        promiseData,
       ) {
         var opts = $.extend({}, options),
           begin = opts.begin,
@@ -5554,7 +5557,7 @@
         elementsIndex,
         elementsSize,
         elements,
-        promiseData
+        promiseData,
       ) {
         var opts = $.extend({}, options),
           complete = opts.complete,
@@ -5592,7 +5595,7 @@
   })(
     window.jQuery || window.Zepto || window,
     window,
-    window ? window.document : undefined
+    window ? window.document : undefined,
   );
 });
 

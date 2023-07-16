@@ -145,7 +145,9 @@ kbd {
   background-color: var(--offWhite);
   border: 1px solid var(--datepicker-lightGrey);
   border-radius: 3px;
-  box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px var(--globalWhite) inset;
+  box-shadow:
+    0 1px 0px rgba(0, 0, 0, 0.2),
+    0 0 0 2px var(--globalWhite) inset;
   color: var(--listbox-darkGrey);
   display: inline-block;
   margin: 0 0.1em;

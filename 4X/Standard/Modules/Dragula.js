@@ -48,7 +48,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
             r,
             e,
             n,
-            t
+            t,
           );
         }
         return n[i].exports;
@@ -79,7 +79,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
             } else {
               cache[className] = cached = new RegExp(
                 start + className + end,
-                "g"
+                "g",
               );
             }
             return cached;
@@ -142,7 +142,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
                 ? {
                     passive: false,
                   }
-                : false
+                : false,
             );
 
             function dragula(initialContainers, options) {
@@ -247,7 +247,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
                   documentElement,
                   op,
                   "mousemove",
-                  startBecauseMouseMoved
+                  startBecauseMouseMoved,
                 );
               }
 
@@ -318,7 +318,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
                   var clientY = getCoord("clientY", e) || 0;
                   var elementBehindCursor = doc.elementFromPoint(
                     clientX,
-                    clientY
+                    clientY,
                   );
                   if (isInput(elementBehindCursor)) {
                     return;
@@ -436,12 +436,12 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
                 var elementBehindCursor = getElementBehindPoint(
                   _mirror,
                   clientX,
-                  clientY
+                  clientY,
                 );
                 var dropTarget = findDropTarget(
                   elementBehindCursor,
                   clientX,
-                  clientY
+                  clientY,
                 );
                 if (
                   dropTarget &&
@@ -560,13 +560,13 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
 
                   var immediate = getImmediateChild(
                     target,
-                    elementBehindCursor
+                    elementBehindCursor,
                   );
                   var reference = getReference(
                     target,
                     immediate,
                     clientX,
-                    clientY
+                    clientY,
                   );
                   var initial = isInitialPlacement(target, reference);
                   if (initial) {
@@ -609,12 +609,12 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
                 var elementBehindCursor = getElementBehindPoint(
                   _mirror,
                   clientX,
-                  clientY
+                  clientY,
                 );
                 var dropTarget = findDropTarget(
                   elementBehindCursor,
                   clientX,
-                  clientY
+                  clientY,
                 );
                 var changed =
                   dropTarget !== null && dropTarget !== _lastDropTarget;
@@ -633,14 +633,14 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
                 var reference;
                 var immediate = getImmediateChild(
                   dropTarget,
-                  elementBehindCursor
+                  elementBehindCursor,
                 );
                 if (immediate !== null) {
                   reference = getReference(
                     dropTarget,
                     immediate,
                     clientX,
-                    clientY
+                    clientY,
                   );
                 } else if (o.revertOnSpill === true && !_copy) {
                   reference = _initialSibling;
@@ -926,7 +926,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
               ? self
               : typeof window !== "undefined"
               ? window
-              : {}
+              : {},
           );
         },
         { "./classes": 1, "contra/emitter": 5, crossvent: 6 },
@@ -1155,7 +1155,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
               ? self
               : typeof window !== "undefined"
               ? window
-              : {}
+              : {},
           );
         },
         { "./eventmap": 7, "custom-event": 8 },
@@ -1184,7 +1184,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
               ? self
               : typeof window !== "undefined"
               ? window
-              : {}
+              : {},
           );
         },
         {},
@@ -1224,7 +1224,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
                       type,
                       params.bubbles,
                       params.cancelable,
-                      params.detail
+                      params.detail,
                     );
                   } else {
                     e.initCustomEvent(type, false, false, void 0);
@@ -1254,7 +1254,7 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
               ? self
               : typeof window !== "undefined"
               ? window
-              : {}
+              : {},
           );
         },
         {},
@@ -1490,13 +1490,13 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
             exports.setTimeout = function () {
               return new Timeout(
                 apply.call(setTimeout, window, arguments),
-                clearTimeout
+                clearTimeout,
               );
             };
             exports.setInterval = function () {
               return new Timeout(
                 apply.call(setInterval, window, arguments),
-                clearInterval
+                clearInterval,
               );
             };
             exports.clearTimeout = exports.clearInterval = function (timeout) {
@@ -1571,14 +1571,14 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
           }).call(
             this,
             require("timers").setImmediate,
-            require("timers").clearImmediate
+            require("timers").clearImmediate,
           );
         },
         { "process/browser.js": 9, timers: 11 },
       ],
     },
     {},
-    [2]
+    [2],
   )(2);
 });
 

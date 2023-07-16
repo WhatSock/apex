@@ -331,7 +331,7 @@
       if (typeof this.options.customRequestAnimationFrame === "function") {
         this.requestAnimationFrame = bind(
           this.options.customRequestAnimationFrame,
-          window
+          window,
         );
       } else {
         this.requestAnimationFrame = bind(requestAnimationFrame, window);
@@ -339,14 +339,14 @@
       if (typeof this.options.customCancelAnimationFrame === "function") {
         this.cancelAnimationFrame = bind(
           this.options.customCancelAnimationFrame,
-          window
+          window,
         );
       } else {
         this.cancelAnimationFrame = bind(cancelAnimationFrame, window);
       }
       this.animateWithRequestAnimationFrame = bind(
         this.animateWithRequestAnimationFrame,
-        this
+        this,
       );
       this.animate = bind(this.animate, this);
       this.onHandleMouseDown = bind(this.onHandleMouseDown, this);
@@ -379,7 +379,7 @@
 
       this.animate(false, true);
       this.interval = this.requestAnimationFrame(
-        this.animateWithRequestAnimationFrame
+        this.animateWithRequestAnimationFrame,
       );
     },
     unbindEventListeners: function () {
@@ -505,7 +505,7 @@
       this.setValue(
         this.options.steps && x > 1 ? (x - 1) / (this.options.steps - 1) : 0,
         this.options.steps && y > 1 ? (y - 1) / (this.options.steps - 1) : 0,
-        snap
+        snap,
       );
     },
     setValue: function (x, y, snap) {
@@ -540,7 +540,7 @@
         this.setValue(
           this.getClosestStep(cursorXRatio),
           this.getClosestStep(cursorYRatio),
-          true
+          true,
         );
       } else {
         this.setTargetValueByOffset([
@@ -598,7 +598,7 @@
       this.setTargetValue(target);
       this.wrapper.className = this.wrapper.className.replace(
         " " + this.options.activeClass,
-        ""
+        "",
       );
       this.callDragStopCallback(delta);
     },
@@ -619,7 +619,7 @@
         this.options.callback.call(
           this,
           this.value.target[0],
-          this.value.target[1]
+          this.value.target[1],
         );
       }
     },
@@ -628,7 +628,7 @@
         this.options.dragStartCallback.call(
           this,
           this.value.target[0],
-          this.value.target[1]
+          this.value.target[1],
         );
       }
     },
@@ -638,7 +638,7 @@
           this,
           this.value.target[0],
           this.value.target[1],
-          delta
+          delta,
         );
       }
     },
@@ -653,7 +653,7 @@
       }
       this.animate();
       this.interval = this.requestAnimationFrame(
-        this.animateWithRequestAnimationFrame
+        this.animateWithRequestAnimationFrame,
       );
     },
     animate: function (direct, first) {
@@ -708,7 +708,7 @@
         this.offset.current = this.getOffsetsByRatios(this.value.current);
       } else {
         this.offset.current = this.getOffsetsByRatios(
-          this.getClosestSteps(this.value.current)
+          this.getClosestSteps(this.value.current),
         );
       }
       if (!this.groupCompare(this.offset.current, this.offset.prev)) {
@@ -782,12 +782,12 @@
         this.getRatioByOffset(
           group[0],
           this.bounds.availWidth,
-          this.bounds.left
+          this.bounds.left,
         ),
         this.getRatioByOffset(
           group[1],
           this.bounds.availHeight,
-          this.bounds.top
+          this.bounds.top,
         ),
       ];
     },
@@ -799,12 +799,12 @@
         this.getOffsetByRatio(
           group[0],
           this.bounds.availWidth,
-          this.bounds.left
+          this.bounds.left,
         ),
         this.getOffsetByRatio(
           group[1],
           this.bounds.availHeight,
-          this.bounds.top
+          this.bounds.top,
         ),
       ];
     },

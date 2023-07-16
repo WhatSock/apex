@@ -43,7 +43,7 @@ Required dependencies: AccName.js
           function (n, f) {
             if (n.slice(0, 2) === "on" && $A.isFn(f)) that[n] = f;
           },
-          "object"
+          "object",
         );
         that.isTree = config.isTree === true;
 
@@ -85,7 +85,7 @@ Required dependencies: AccName.js
                 tabindex: i === n ? 0 : -1,
               });
             },
-            "array"
+            "array",
           );
           return inst;
         };
@@ -141,9 +141,9 @@ Required dependencies: AccName.js
                 $A
                   .trim(
                     ($A.isFn(window.getAccName) && window.getAccName(o).name) ||
-                      $A.getText(o)
+                      $A.getText(o),
                   )
-                  .toLowerCase()
+                  .toLowerCase(),
               );
 
               if (that.breakPoint) {
@@ -185,11 +185,11 @@ Required dependencies: AccName.js
                           DC,
                           arrowKey,
                           that.index === 0,
-                          that.index === that.nodes.length - 1
+                          that.index === that.nodes.length - 1,
                         ) === false;
                     if (cancel) stop = true;
                   },
-                  "array"
+                  "array",
                 );
                 return stop;
               };
@@ -529,7 +529,7 @@ Required dependencies: AccName.js
                         keys.push(k === 33 ? "ShiftPageUp" : "ShiftPageDown");
                       else if (!pressed.alt && pressed.ctrl && pressed.shift)
                         keys.push(
-                          k === 33 ? "CtrlShiftPageUp" : "CtrlShiftPageDown"
+                          k === 33 ? "CtrlShiftPageUp" : "CtrlShiftPageDown",
                         );
                     } else if (k === 13 || k === 32) {
                       if (k === 13) {
@@ -679,14 +679,14 @@ Required dependencies: AccName.js
                     fire(["Focus"], ev, o, dc, 0);
                   },
                 },
-                ".RovingTabIndex"
+                ".RovingTabIndex",
               );
 
               $A.setAttr(o, {
                 tabindex: i === that.index ? 0 : -1,
               });
             },
-            "array"
+            "array",
           );
         };
 
@@ -703,7 +703,7 @@ Required dependencies: AccName.js
                   RTI.top.treeNodes[tI] = n;
                   if (child && $A.isArray(child.nodes)) get(child.nodes, child);
                 },
-                "array"
+                "array",
               );
             }
           };

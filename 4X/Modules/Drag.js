@@ -39,7 +39,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                     source,
                     action,
                     actionsObject,
-                    nextSibling
+                    nextSibling,
                   ) {
                     return false;
                   },
@@ -63,7 +63,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                   },
                 },
               },
-              config
+              config,
             );
 
             var isCopy = config.dragula.copy || false,
@@ -75,7 +75,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                     function (i, e) {
                       build(e, sourceContainer, containers);
                     },
-                    "array"
+                    "array",
                   );
                   return;
                 }
@@ -104,7 +104,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                   }
                   if ($A.next(el)) {
                     var down = $A.morph(
-                      config.menu.tag[isHor ? "right" : "down"]
+                      config.menu.tag[isHor ? "right" : "down"],
                     );
                     actions.children.push(down);
                     actions.menu.appendChild(down);
@@ -115,14 +115,14 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                   function (i, o) {
                     var dn = ($A.getAttr(o, "data-dropname") || "").replace(
                       /<|>/g,
-                      ""
+                      "",
                     );
                     if (dn) {
                       var mItem = $A.morph(
                         config.menu.tag[isCopy ? "copy" : "move"].replace(
                           "%DROPNAME%",
-                          dn
-                        )
+                          dn,
+                        ),
                       );
                       if (
                         config.dragula.accepts(el, o, sourceContainer) &&
@@ -136,7 +136,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                       throw "The drop-zone container element is missing a unique and informative data-dropname attribute.";
                     }
                   },
-                  "array"
+                  "array",
                 );
                 $A.loop(
                   config.menu.tag.custom,
@@ -146,14 +146,14 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                       !config.menu.tag.invalid(
                         el,
                         $A.getAttr(mItem.firstChild, "data-action"),
-                        sourceContainer
+                        sourceContainer,
                       )
                     ) {
                       actions.children.push(mItem);
                       actions.menu.appendChild(mItem);
                     }
                   },
-                  "array"
+                  "array",
                 );
                 $A[config.menu.tag.render](actions.button, el);
                 $A.after(actions.menu, actions.button);
@@ -163,7 +163,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                   "click mousedown mouseup mousemove touchstart touchend touchmove",
                   function (ev) {
                     ev.stopPropagation();
-                  }
+                  },
                 );
                 actions.DC = $A.setMenu(
                   actions.button,
@@ -178,11 +178,11 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                         boundElement,
                         checked,
                         set,
-                        isRadio
+                        isRadio,
                       ) {
                         var dropContainer = $A.data(
                           triggerNode.parentNode,
-                          "DropContainer"
+                          "DropContainer",
                         );
                         RTI.DC.top.remove(function () {
                           var prevSibling = $A.previous(actions.dragElement),
@@ -208,7 +208,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                                     sourceContainer,
                                     action,
                                     actions,
-                                    next
+                                    next,
                                   )
                                 ) {
                                   if (action === "up") {
@@ -217,7 +217,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                                     if ($A.data(actions.dragElement, "actions"))
                                       next = $A.data(
                                         actions.dragElement,
-                                        "actions"
+                                        "actions",
                                       ).button;
                                     $A.focus(next);
                                   } else if (action === "down") {
@@ -226,12 +226,12 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                                     if ($A.data(actions.dragElement, "actions"))
                                       next = $A.data(
                                         actions.dragElement,
-                                        "actions"
+                                        "actions",
                                       ).button;
                                     $A.focus(next);
                                   }
                                 }
-                              }
+                              },
                             );
                           } else if (dropContainer) {
                             drake.emit(
@@ -248,20 +248,20 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                                     sourceContainer,
                                     action,
                                     actions,
-                                    next
+                                    next,
                                   )
                                 )
                                   $A[config.render](
                                     isCopy
                                       ? actions.dragElement.cloneNode(true)
                                       : actions.dragElement,
-                                    dropContainer
+                                    dropContainer,
                                   );
                                 drake.emit("dragend", actions.dragElement);
                                 if ($A.data(nextSibling, "actions"))
                                   next = $A.data(nextSibling, "actions").button;
                                 $A.focus(next);
-                              }
+                              },
                             );
                           } else if ($A.isFn(config.menu.tag.customActivate)) {
                             if (
@@ -271,7 +271,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                                 sourceContainer,
                                 action,
                                 actions,
-                                nextSibling
+                                nextSibling,
                               )
                             )
                               config.menu.tag.customActivate(
@@ -280,7 +280,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                                 sourceContainer,
                                 action,
                                 actions,
-                                next
+                                next,
                               );
                             drake.emit("dragend", actions.dragElement);
                             if ($A.data(nextSibling, "actions"))
@@ -329,8 +329,8 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                         ev.stopPropagation();
                       },
                     },
-                    config.menu
-                  )
+                    config.menu,
+                  ),
                 );
                 $A.data(el, "actions", actions);
               },
@@ -350,7 +350,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                   function (i, c) {
                     build(c.children, c, drake.containers);
                   },
-                  "array"
+                  "array",
                 );
               };
             generateMenus();
@@ -371,10 +371,10 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                       $A.destroy(actions.DC);
                     }
                   },
-                  "array"
+                  "array",
                 );
               },
-              "array"
+              "array",
             );
             drake.destroy();
           },

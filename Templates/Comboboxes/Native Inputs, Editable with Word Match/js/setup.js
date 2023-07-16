@@ -39,23 +39,20 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
   myHardwareCombobox.setWordMatch(true);
 
   // Process every time a new value is saved
-  myHardwareCombobox.onSelect(function (
-    optionText,
-    optionValue,
-    comboboxElement,
-    selectElement
-  ) {
-    comboboxElement.value = optionText;
-    myHardwareCombobox.close();
-    // Return the value so that the combobox doesn't open again instantly.
-    return optionText;
-  });
+  myHardwareCombobox.onSelect(
+    function (optionText, optionValue, comboboxElement, selectElement) {
+      comboboxElement.value = optionText;
+      myHardwareCombobox.close();
+      // Return the value so that the combobox doesn't open again instantly.
+      return optionText;
+    },
+  );
 
   // Logic to distinguish between touch screen devices
   if (!$A.isTouch) {
     // For non-touch devices, add screen reader accessible keyboard instructions
     myHardwareCombobox.setPromptText(
-      "Type keywords and press the down arrow to browse available matches"
+      "Type keywords and press the down arrow to browse available matches",
     );
   }
 
@@ -65,7 +62,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
       myHardwareCombobox.setPromptText(
         $A.isTouch
           ? ""
-          : "First type then press the down arrow to browse available matches"
+          : "First type then press the down arrow to browse available matches",
       );
     });
   }
@@ -76,7 +73,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
       ? 3
       : window.device.type === "tablet"
       ? 5
-      : 7
+      : 7,
   );
 
   // Disable the offscreen Close link for mobile touch screen users

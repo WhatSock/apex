@@ -13,7 +13,7 @@ $A.import(["Animate", "Menu"], { defer: true }, function () {
       boundElement,
       checked,
       set,
-      isRadio
+      isRadio,
     ) {
       // 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
       // if 0, the checked state is "false".
@@ -31,14 +31,14 @@ $A.import(["Animate", "Menu"], { defer: true }, function () {
           set("mixed");
           RTI.DC.top.remove(function () {
             alert(
-              "The new checked state for " + triggerNode.id + " is 'mixed'"
+              "The new checked state for " + triggerNode.id + " is 'mixed'",
             );
           });
         } else if (checked === 2) {
           set("false");
           RTI.DC.top.remove(function () {
             alert(
-              "The new checked state for " + triggerNode.id + " is 'false'"
+              "The new checked state for " + triggerNode.id + " is 'false'",
             );
           });
         }

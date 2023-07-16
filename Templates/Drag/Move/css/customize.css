@@ -50,7 +50,9 @@ div.chosenBooks,
 div.wishlist {
   background-image: linear-gradient(90deg, transparent 80%, #e0e0e0 20%),
     linear-gradient(transparent 80%, #e0e0e0 20%);
-  background-size: 15px 15px, 15px 15px;
+  background-size:
+    15px 15px,
+    15px 15px;
 }
 
 div.totals {

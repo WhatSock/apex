@@ -16,6 +16,6 @@ $A.import(["Animate", "Switch"], { defer: true }, function () {
         }
         ev.preventDefault();
       },
-    }
+    },
   );
 });

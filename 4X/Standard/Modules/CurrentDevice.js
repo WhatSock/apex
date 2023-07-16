@@ -32,7 +32,7 @@
         module.exports,
         module,
         module.exports,
-        __webpack_require__
+        __webpack_require__,
       ); // Flag the module as loaded
       /******/
       /******/ /******/ module.l = true; // Return the exports of the module
@@ -92,7 +92,7 @@
               key,
               function (key) {
                 return value[key];
-              }.bind(null, key)
+              }.bind(null, key),
             );
         /******/ return ns;
         /******/
@@ -371,7 +371,7 @@
           if (!hasClass(className)) {
             currentClassNames = documentElement.className.replace(
               /^\s+|\s+$/g,
-              ""
+              "",
             );
             documentElement.className = currentClassNames + " " + className;
           }
@@ -382,7 +382,7 @@
           if (hasClass(className)) {
             documentElement.className = documentElement.className.replace(
               " " + className,
-              ""
+              "",
             );
           }
         }
@@ -529,6 +529,6 @@
         /***/
       },
       /******/
-    ]
+    ],
   )["default"];
 });

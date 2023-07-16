@@ -1,5 +1,5 @@
 /*@license
-Apex 4X: The Comprehensive ARIA Development Suite ( Blade Runner - 2023.6.14 )
+Apex 4X: The Comprehensive ARIA Development Suite ( Blade Runner - 2023.7.14 )
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -7,7 +7,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 
 (function () {
   var moduleFolder = "/4X/Modules/",
-    Version = "2023.6.14",
+    Version = "2023.7.14",
     BN = {};
   (function () {
     var $A = function (dc, dcA, dcI, onReady, disableAsync) {
@@ -96,7 +96,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                   function (e) {
                     dc.isLoading = false;
                     $A.parseDebug(e);
-                  }
+                  },
                 );
                 dc.mode = 0;
               } else if (dc.preloadImages && !dc.mode && dc.content)
@@ -401,7 +401,7 @@ License: MIT (https://opensource.org/licenses/MIT)
             function (i, f) {
               rn(f, f.toLowerCase().indexOf("once") !== -1, mDC);
             },
-            "array"
+            "array",
           );
         };
 
@@ -418,7 +418,7 @@ License: MIT (https://opensource.org/licenses/MIT)
             function (i, r) {
               r(dc, dc.container);
             },
-            "array"
+            "array",
           );
         };
 
@@ -442,7 +442,7 @@ License: MIT (https://opensource.org/licenses/MIT)
         window.history.pushState(
           { html: document.html, pageTitle: id },
           "",
-          "./#" + id
+          "./#" + id,
         );
       },
 
@@ -483,7 +483,7 @@ License: MIT (https://opensource.org/licenses/MIT)
               fetch: $A.toFetch(o),
               autoRender: true,
             },
-            config
+            config,
           );
           o = null;
         }
@@ -551,7 +551,7 @@ License: MIT (https://opensource.org/licenses/MIT)
               },
               on: "click",
             },
-            config
+            config,
           ),
         ])[0];
 
@@ -605,7 +605,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           try {
             s = $A._store(
               document.createRange().createContextualFragment(s),
-              arrayOnly
+              arrayOnly,
             );
           } catch (e) {
             var f = document.createDocumentFragment();
@@ -623,7 +623,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 if (n && n.nodeType === 11) loop(n);
                 else if ($A.isNode(n)) f.appendChild(n);
               },
-              "array"
+              "array",
             );
           };
           loop(s);
@@ -970,7 +970,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 if (fn.call(dc, dc) !== false) dcs.push(dc);
               }
             },
-            "array"
+            "array",
           );
         else
           $A.loop(
@@ -980,7 +980,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                 if (!fn.call(dc, dc)) dcs.push(dc);
               }
             },
-            "map"
+            "map",
           );
         return dcs;
       },
@@ -1028,7 +1028,7 @@ error: function(error, promise){}
                   // text or html or xml
                   if (
                     ["html", "text", "xml"].indexOf(
-                      options.returnType.toLowerCase()
+                      options.returnType.toLowerCase(),
                     ) >= 0
                   )
                     response.text().then(function (content) {
@@ -1160,7 +1160,7 @@ error: function(error, promise){}
               if ((config.callOnAll || i === m) && $A.isFn(config.call))
                 config.call.call(context, config.props, r);
             },
-            "array"
+            "array",
           );
         } else {
           if ($A.isFn(config.call)) {
@@ -1181,7 +1181,7 @@ error: function(error, promise){}
               if (!nC && isCSS && $A._cssCache[u]) {
                 if (!$A.get($A._cssCache[u].id))
                   (context || document.head || document.body).appendChild(
-                    $A._cssCache[u].cloneNode(true)
+                    $A._cssCache[u].cloneNode(true),
                   );
                 if ($A.isFn(config.call) && (config.callOnAll || i === m)) {
                   config.call.call(window, config.call["_props"]);
@@ -1201,7 +1201,7 @@ error: function(error, promise){}
                       document,
                       $A,
                       config.props,
-                      config.props.DC
+                      config.props.DC,
                     );
                   } catch (e) {
                     $A.parseDebug(e);
@@ -1245,7 +1245,7 @@ error: function(error, promise){}
                                 $A._jsCache[u] ||
                                 new Function(
                                   "window,document,$A,props,DC",
-                                  content
+                                  content,
                                 );
                               rs =
                                 $A._jsCache[u] && $A._jsCache[u].once
@@ -1256,7 +1256,7 @@ error: function(error, promise){}
                                       document,
                                       $A,
                                       config.props,
-                                      config.props.DC
+                                      config.props.DC,
                                     );
                               if (!nC && config.once) f.once = true;
                               f._ImpId = impId;
@@ -1280,11 +1280,11 @@ error: function(error, promise){}
                         }
                       },
                     },
-                    config.override || {}
-                  )
+                    config.override || {},
+                  ),
                 );
             },
-            "array"
+            "array",
           );
           $A.Get(refs);
         }
@@ -1311,7 +1311,7 @@ error: function(error, promise){}
               });
             (context || document.head || document.body).appendChild(t);
           },
-          "array"
+          "array",
         );
       },
 
@@ -1380,7 +1380,7 @@ error: function(error, promise){}
         e = e.toLowerCase();
         if (
           ",remove,add,attributechange,subtreechange,contentchange,".indexOf(
-            "," + e + ","
+            "," + e + ",",
           ) === -1
         )
           return false;
@@ -1455,7 +1455,7 @@ error: function(error, promise){}
                     $A.data(MT, "_CurrentText"),
                     $A.data(MT, "_OldText"),
                     BO,
-                    SP
+                    SP,
                   );
                 }
               } else if (M.type === "attributes") {
@@ -1468,7 +1468,7 @@ error: function(error, promise){}
                     $A.getAttr(MT, M.attributeName),
                     M.oldValue,
                     BO,
-                    SP
+                    SP,
                   );
                 }
               } else if (M.type === "characterData") {
@@ -1482,7 +1482,7 @@ error: function(error, promise){}
                     $A.data(MT, "_CurrentText"),
                     $A.data(MT, "_OldText"),
                     BO,
-                    SP
+                    SP,
                   );
                 }
               }
@@ -1587,7 +1587,7 @@ error: function(error, promise){}
                             o,
                             null,
                             dc,
-                            $A.data(o, "SavedEventParameters")
+                            $A.data(o, "SavedEventParameters"),
                           );
                         } else if (
                           !$A.observer(o, q, p, attributeFilter, override)
@@ -1597,12 +1597,12 @@ error: function(error, promise){}
                               o,
                               ev,
                               dc,
-                              $A.data(o, "SavedEventParameters")
+                              $A.data(o, "SavedEventParameters"),
                             );
                           });
                         }
                       },
-                      "array"
+                      "array",
                     );
                   } else if ($A.isStr(p) && $A.isFn(fn)) {
                     var dc =
@@ -1621,11 +1621,11 @@ error: function(error, promise){}
                     }
                   }
                 },
-                $A.isArray(e) ? "array" : "object"
+                $A.isArray(e) ? "array" : "object",
               );
             }
           },
-          "array"
+          "array",
         );
         return $A._XR.call(this, ta);
       },
@@ -1659,12 +1659,12 @@ error: function(error, promise){}
                       $A.event.off(o, p);
                     }
                   },
-                  $A.isArray(events) ? "array" : "object"
+                  $A.isArray(events) ? "array" : "object",
                 );
               }
             }
           },
-          "array"
+          "array",
         );
         return $A._XR.call(this, ta);
       },
@@ -1689,11 +1689,11 @@ error: function(error, promise){}
                 function (j, p) {
                   if ($A.isStr(p)) $A.event.fire(o, p);
                 },
-                "array"
+                "array",
               );
             }
           },
-          "array"
+          "array",
         );
         return $A._XR.call(this, ta);
       },
@@ -1707,7 +1707,7 @@ error: function(error, promise){}
           href = $A.hasAttr(node, "href");
         return (nodeName === "a" && href) ||
           ["button", "input", "select", "textarea", "details"].indexOf(
-            nodeName
+            nodeName,
           ) !== -1
           ? true
           : false;
@@ -1720,7 +1720,7 @@ error: function(error, promise){}
           c,
           function (i, o) {
             if (onlyFocusable) return $A.isFocusable(o);
-          }
+          },
         );
       },
 
@@ -1750,7 +1750,7 @@ error: function(error, promise){}
                 ev.preventDefault();
               }
             },
-            ".circularTabbing"
+            ".circularTabbing",
           );
           $A.on(
             l,
@@ -1762,7 +1762,7 @@ error: function(error, promise){}
                 ev.preventDefault();
               }
             },
-            ".circularTabbing"
+            ".circularTabbing",
           );
         }
         return $A._XR.call(this, activeElements);
@@ -2093,7 +2093,7 @@ error: function(error, promise){}
             function (i, dc) {
               dc.bypass();
             },
-            "map"
+            "map",
           );
         }
         $A.detachObserver(obj);
@@ -2136,7 +2136,7 @@ error: function(error, promise){}
                 function (i, c) {
                   $A.destroy(c, p);
                 },
-                "map"
+                "map",
               );
             }
           });
@@ -2324,7 +2324,7 @@ error: function(error, promise){}
                     ? value
                     : o[x].getAttribute(name)
                     ? false
-                    : true
+                    : true,
                 );
             } else if (typeof name === "object") {
               for (var n in name) {
@@ -2338,7 +2338,7 @@ error: function(error, promise){}
                       ? name[n]
                       : o[x].getAttribute(n)
                       ? false
-                      : true
+                      : true,
                   );
               }
             }
@@ -2420,7 +2420,7 @@ error: function(error, promise){}
         if (!$A.isNode(e)) return 0;
         if (!e.id) e.id = $A.genId();
         var els = (context || document).querySelectorAll(
-            'h1, h2, h3, h4, h5, h6, *[role="heading"], #' + e.id
+            'h1, h2, h3, h4, h5, h6, *[role="heading"], #' + e.id,
           ),
           h = null;
         $A.loop(
@@ -2428,7 +2428,7 @@ error: function(error, promise){}
           function (i, o) {
             if (e === o) h = els[i - 1] || null;
           },
-          "array"
+          "array",
         );
         if (!$A.isNode(h)) return 0;
         var l = 0,
@@ -2972,12 +2972,12 @@ error: function(error, promise){}
               var id = t.id;
               if (
                 ["input", "img", "progress", "iframe", "hr"].indexOf(
-                  o.nodeName.toLowerCase()
+                  o.nodeName.toLowerCase(),
                 ) === -1
               )
                 $A.addIdRef(o, "aria-owns", id);
             },
-            "array"
+            "array",
           );
         }
         return $A._XR.call(this, o);
@@ -3050,10 +3050,10 @@ error: function(error, promise){}
                 }
                 $A.setAttr(o, attr, ds.join(" "));
               },
-              "array"
+              "array",
             );
           },
-          "array"
+          "array",
         );
         return $A._XR.call(this, obj);
       },
@@ -3081,10 +3081,10 @@ error: function(error, promise){}
                 }
                 $A.setAttr(o, attr, n.join(" "));
               },
-              "array"
+              "array",
             );
           },
-          "array"
+          "array",
         );
         return $A._XR.call(this, obj);
       },
@@ -3173,7 +3173,7 @@ error: function(error, promise){}
             nt.push(o.top);
             nl.push(o.left);
           },
-          "array"
+          "array",
         );
         var max = function (a, b) {
             return Math.max(a, b);
@@ -3294,7 +3294,7 @@ error: function(error, promise){}
                 if (m) $A.remAttr(o, "aria-hidden");
               }
             },
-            "array"
+            "array",
           );
         }
         return $A._XR.call(this, n);
@@ -3316,7 +3316,7 @@ error: function(error, promise){}
                 $A.remAttr(o, "aria-hidden");
               }
             },
-            "array"
+            "array",
           );
         }
         return $A._XR.call(this, n);
@@ -3384,7 +3384,7 @@ error: function(error, promise){}
                   }
                 },
               },
-              ".kba11y"
+              ".kba11y",
             );
             return true;
           }
@@ -3466,7 +3466,7 @@ error: function(error, promise){}
               if (isD) $A.data(e, "disabled", true);
             });
           },
-          "array"
+          "array",
         );
         return $A._XR.call(this, o);
       },
@@ -3604,7 +3604,7 @@ error: function(error, promise){}
                     dc.isLoading = false;
                     dc.fetch.error(errorMsg, promise, dc);
                     $A.parseDebug(errorMsg);
-                  }
+                  },
                 );
                 break;
               case 2:
@@ -3685,12 +3685,12 @@ error: function(error, promise){}
                     } else {
                       if (!$A.isArray(dc.embeddedJS)) dc.embeddedJS = [];
                       dc.embeddedJS.push(
-                        new Function("window,document,$A,DC,dc", s.innerHTML)
+                        new Function("window,document,$A,DC,dc", s.innerHTML),
                       );
                     }
                     s.parentNode.removeChild(s);
                   },
-                  "array"
+                  "array",
                 );
               }
 
@@ -3718,7 +3718,7 @@ error: function(error, promise){}
             )
               $A.setAttr(
                 dc.container,
-                $A.module[dc.widgetType].innerRole.call(dc, dc)
+                $A.module[dc.widgetType].innerRole.call(dc, dc),
               );
 
             if (dc.ariaLabelledby && dc.triggerNode) {
@@ -3803,7 +3803,7 @@ error: function(error, promise){}
             }
 
             var complete = function () {
-              $A.isAnimating = false;
+              $A.isAnimating = dc.isAnimating = false;
               if (dc.isFocusable)
                 dc.setAttr({
                   tabindex: "0",
@@ -3824,7 +3824,7 @@ error: function(error, promise){}
                     href: "#close",
                   },
                   $A.sraCSS,
-                  dc.closeClassName
+                  dc.closeClassName,
                 );
                 dc.fn.closeLink.innerHTML = dc.hiddenCloseName;
                 $A.append(dc.fn.closeLink, dc.wrapper);
@@ -3884,7 +3884,7 @@ error: function(error, promise){}
                     };
                   }
                 },
-                "array"
+                "array",
               );
               if (dc.toggleHide) $A.off(dc.wrapper, ".extradchandlers4x");
               $A.on(dc.wrapper, toBind, dc.id, ".extradchandlers4x");
@@ -3898,7 +3898,7 @@ error: function(error, promise){}
                   function (i, f) {
                     f.call(dc.container, window, document, $A, dc, dc);
                   },
-                  "array"
+                  "array",
                 );
               }
               $A.getModule(dc, "afterRender", dc.container);
@@ -3934,7 +3934,7 @@ error: function(error, promise){}
               dc.animate &&
               $A.isFn(dc.animate.onRender)
             ) {
-              $A.isAnimating = true;
+              $A.isAnimating = dc.isAnimating = true;
               dc.animate.onRender.call(dc.wrapper, dc, dc.wrapper, complete);
             } else complete();
 
@@ -3963,7 +3963,7 @@ error: function(error, promise){}
                   if (dc.contentOnly) {
                     if (dc.container.parentNode)
                       dc.content = dc.container.parentNode.removeChild(
-                        dc.container
+                        dc.container,
                       );
                     dc.wrapper = dc.container = null;
                   } else dc.content = $A.extractNodes(dc.container);
@@ -4013,7 +4013,7 @@ error: function(error, promise){}
                 function (e, f) {
                   events.push(e);
                 },
-                "object"
+                "object",
               );
             } else if ($A.isStr(dc.on)) {
               events = dc.on.split(/\s+/);
@@ -4145,7 +4145,7 @@ error: function(error, promise){}
                         ev.preventDefault();
                       },
                       dc.id,
-                      "." + dc.fn.internalEventsId
+                      "." + dc.fn.internalEventsId,
                     );
                   } else if ($A.isPlainObject(dc.on)) {
                     $A.on(o, dc.on, dc.id, "." + dc.fn.internalEventsId);
@@ -4162,7 +4162,7 @@ error: function(error, promise){}
                         ev.stopPropagation();
                       }
                     },
-                    "." + dc.fn.internalEventsId
+                    "." + dc.fn.internalEventsId,
                   );
               });
             return dc;
@@ -4250,7 +4250,7 @@ error: function(error, promise){}
               dc.wrapper,
               forceAbsolute,
               forceRelative,
-              returnTopLeftOnly
+              returnTopLeftOnly,
             );
           },
 
@@ -4374,7 +4374,7 @@ error: function(error, promise){}
                 !dc.activeElements.length ||
                 !$A.isNode(dc.first)
                 ? dc.container
-                : dc.first
+                : dc.first,
             );
             return dc;
           },
@@ -4422,7 +4422,7 @@ error: function(error, promise){}
               function (e) {
                 dc.isLoading = false;
                 $A.parseDebug(e);
-              }
+              },
             );
             return dc;
           },
@@ -4497,7 +4497,7 @@ error: function(error, promise){}
               {
                 root: node,
               },
-              conf || {}
+              conf || {},
             );
             return dc.bypass(function () {
               DCR1(dc);
@@ -4513,7 +4513,7 @@ error: function(error, promise){}
                 root: node,
                 before: true,
               },
-              conf || {}
+              conf || {},
             );
             return dc.bypass(function () {
               DCR1(dc);
@@ -4529,7 +4529,7 @@ error: function(error, promise){}
                 root: node,
                 prepend: true,
               },
-              conf || {}
+              conf || {},
             );
             return dc.bypass(function () {
               DCR1(dc);
@@ -4545,7 +4545,7 @@ error: function(error, promise){}
                 root: node,
                 append: true,
               },
-              conf || {}
+              conf || {},
             );
             return dc.bypass(function () {
               DCR1(dc);
@@ -4561,7 +4561,7 @@ error: function(error, promise){}
                 root: node,
                 after: true,
               },
-              conf || {}
+              conf || {},
             );
             return dc.bypass(function () {
               DCR1(dc);
@@ -4881,7 +4881,7 @@ error: function(error, promise){}
             $A.extend(
               true,
               DC,
-              $A.module[aO.widgetType].configure.call(DC, DC) || {}
+              $A.module[aO.widgetType].configure.call(DC, DC) || {},
             );
 
           $A.extend(true, DC, $A.fn.globalDC);
@@ -5019,7 +5019,7 @@ error: function(error, promise){}
               stringAnnounce.baseDelay +
               stringAnnounce.iterate(
                 stringAnnounce.alertMsgs[0],
-                /\s|,|\.|:|;|!|\(|\)|\/|\?|@|#|\$|%|\^|&|\*|\\|-|_|\+|=/g
+                /\s|,|\.|:|;|!|\(|\)|\/|\?|@|#|\$|%|\^|&|\*|\\|-|_|\+|=/g,
               ) *
                 stringAnnounce.charMultiplier;
             if (
@@ -5029,12 +5029,12 @@ error: function(error, promise){}
               if (aggr)
                 $A.insertMarkup(
                   stringAnnounce.alertMsgs[0],
-                  stringAnnounce.placeHolder2
+                  stringAnnounce.placeHolder2,
                 );
               else
                 $A.insertMarkup(
                   stringAnnounce.alertMsgs[0],
-                  stringAnnounce.placeHolder
+                  stringAnnounce.placeHolder,
                 );
             }
             stringAnnounce.alertTO = setTimeout(function () {
@@ -5115,14 +5115,14 @@ error: function(error, promise){}
             {
               "aria-live": "polite",
             },
-            $A.sraCSS
+            $A.sraCSS,
           );
           stringAnnounce.placeHolder2 = $A.create(
             "div",
             {
               role: "alert",
             },
-            $A.sraCSS
+            $A.sraCSS,
           );
         }
         stringAnnounce.loaded = true;
@@ -5179,7 +5179,7 @@ error: function(error, promise){}
                   // @ts-ignore
                   return constructor.reject(reason);
                 });
-              }
+              },
             );
           }
 
@@ -5235,7 +5235,7 @@ error: function(error, promise){}
               if (cb === null) {
                 (self._state === 1 ? resolve : reject)(
                   deferred.promise,
-                  self._value
+                  self._value,
                 );
                 return;
               }
@@ -5255,7 +5255,7 @@ error: function(error, promise){}
               // Promise Resolution Procedure: https://github.com/promises-aplus/promises-spec#the-promise-resolution-procedure
               if (newValue === self)
                 throw new TypeError(
-                  "A promise cannot be resolved with itself."
+                  "A promise cannot be resolved with itself.",
                 );
               if (
                 newValue &&
@@ -5331,7 +5331,7 @@ error: function(error, promise){}
                   if (done) return;
                   done = true;
                   reject(self, reason);
-                }
+                },
               );
             } catch (ex) {
               if (done) return;
@@ -5377,7 +5377,7 @@ error: function(error, promise){}
                         function (val) {
                           res(i, val);
                         },
-                        reject
+                        reject,
                       );
                       return;
                     }
@@ -5745,7 +5745,7 @@ error: function(error, promise){}
               ) {
                 this.headers.set(
                   "content-type",
-                  "application/x-www-form-urlencoded;charset=UTF-8"
+                  "application/x-www-form-urlencoded;charset=UTF-8",
                 );
               }
             }
@@ -5788,7 +5788,7 @@ error: function(error, promise){}
               return readBlobAsText(this._bodyBlob);
             } else if (this._bodyArrayBuffer) {
               return Promise.resolve(
-                readArrayBufferAsText(this._bodyArrayBuffer)
+                readArrayBufferAsText(this._bodyArrayBuffer),
               );
             } else if (this._bodyFormData) {
               throw new Error("could not read FormData body as text");
@@ -5874,7 +5874,7 @@ error: function(error, promise){}
                 var value = split.join("=").replace(/\+/g, " ");
                 form.append(
                   decodeURIComponent(name),
-                  decodeURIComponent(value)
+                  decodeURIComponent(value),
                 );
               }
             });
@@ -6054,7 +6054,7 @@ error: function(error, promise){}
             xhr.send(
               typeof request._bodyInit === "undefined"
                 ? null
-                : request._bodyInit
+                : request._bodyInit,
             );
           });
         }
@@ -6143,7 +6143,9 @@ error: function(error, promise){}
               return hash;
             })(
               {},
-              str2arr(standardNativeEvents + (W3C_MODEL ? w3cNativeEvents : ""))
+              str2arr(
+                standardNativeEvents + (W3C_MODEL ? w3cNativeEvents : ""),
+              ),
             ),
             // custom events are events that we *fake*, they are not provided natively but
             // we can use native events to generate them
@@ -6199,29 +6201,31 @@ error: function(error, promise){}
               var commonProps = str2arr(
                   "altKey attrChange attrName bubbles cancelable ctrlKey currentTarget " +
                     "detail eventPhase getModifierState isTrusted metaKey relatedNode relatedTarget shiftKey " +
-                    "srcElement target timeStamp type view which propertyName"
+                    "srcElement target timeStamp type view which propertyName",
                 ),
                 mouseProps = commonProps.concat(
                   str2arr(
                     "button buttons clientX clientY dataTransfer " +
-                      "fromElement offsetX offsetY pageX pageY screenX screenY toElement"
-                  )
+                      "fromElement offsetX offsetY pageX pageY screenX screenY toElement",
+                  ),
                 ),
                 mouseWheelProps = mouseProps.concat(
-                  str2arr("WLDelta WLDeltaX WLDeltaY WLDeltaZ " + "axis")
+                  str2arr("WLDelta WLDeltaX WLDeltaY WLDeltaZ " + "axis"),
                 ), // 'axis' is FF specific
                 keyProps = commonProps.concat(
                   str2arr(
                     "char charCode key keyCode keyIdentifier " +
-                      "keyLocation location"
-                  )
+                      "keyLocation location",
+                  ),
                 ),
                 textProps = commonProps.concat(str2arr("data")),
                 touchProps = commonProps.concat(
-                  str2arr("touches targetTouches changedTouches scale rotation")
+                  str2arr(
+                    "touches targetTouches changedTouches scale rotation",
+                  ),
                 ),
                 messageProps = commonProps.concat(
-                  str2arr("data origin source")
+                  str2arr("data origin source"),
                 ),
                 stateProps = commonProps.concat(str2arr("state")),
                 overOutRegex = /over|out/,
@@ -6418,7 +6422,7 @@ error: function(error, promise){}
                         element,
                         args
                           ? slice.call(eargs, event ? 0 : 1).concat(args)
-                          : eargs
+                          : eargs,
                       );
                     },
                     findTarget = function (event, eventElement) {
@@ -6449,7 +6453,7 @@ error: function(error, promise){}
                   original,
                   namespaces,
                   args,
-                  root
+                  root,
                 ) {
                   var customType = customEvents[type],
                     isNative;
@@ -6461,7 +6465,7 @@ error: function(error, promise){}
                       element,
                       type,
                       handler,
-                      original
+                      original,
                     );
                   }
 
@@ -6471,7 +6475,7 @@ error: function(error, promise){}
                         element,
                         handler,
                         customType.condition,
-                        args
+                        args,
                       );
                     }
                     type = customType.base || type;
@@ -6511,7 +6515,7 @@ error: function(error, promise){}
               RegEntry.prototype.matches = function (
                 checkElement,
                 checkOriginal,
-                checkHandler
+                checkHandler,
               ) {
                 return (
                   this.element === checkElement &&
@@ -6542,7 +6546,7 @@ error: function(error, promise){}
                           original,
                           handler,
                           root,
-                          fn
+                          fn,
                         );
                       }
                     }
@@ -6605,7 +6609,7 @@ error: function(error, promise){}
                       if (list.length === 0)
                         delete map[(entry.root ? "r" : "$") + entry.type];
                       return false;
-                    }
+                    },
                   );
                 },
                 // dump all entries, used for onunload
@@ -6657,7 +6661,7 @@ error: function(error, promise){}
                   this,
                   type || event.type,
                   null,
-                  false
+                  false,
                 ),
                 l = listeners.length,
                 i = 0;
@@ -6679,7 +6683,7 @@ error: function(error, promise){}
                   element[add ? addEvent : removeEvent](
                     type,
                     rootListener,
-                    false
+                    false,
                   );
                 }
               : function (element, type, add, custom) {
@@ -6698,26 +6702,26 @@ error: function(error, promise){}
                         rootListener,
                         null,
                         null,
-                        true // is root
-                      ))
+                        true, // is root
+                      )),
                     );
                     if (custom && element["_on" + custom] === null)
                       element["_on" + custom] = 0;
                     entry.target.attachEvent(
                       "on" + entry.eventType,
-                      entry.handler
+                      entry.handler,
                     );
                   } else {
                     entry = registry.get(
                       element,
                       custom || type,
                       rootListener,
-                      true
+                      true,
                     )[0];
                     if (entry) {
                       entry.target.detachEvent(
                         "on" + entry.eventType,
-                        entry.handler
+                        entry.handler,
                       );
                       registry.del(entry);
                     }
@@ -6801,14 +6805,14 @@ error: function(error, promise){}
               ? function (isNative, type, element) {
                   // modern browsers, do a proper dispatchEvent()
                   var evt = doc.createEvent(
-                    isNative ? "HTMLEvents" : "UIEvents"
+                    isNative ? "HTMLEvents" : "UIEvents",
                   );
                   evt[isNative ? "initEvent" : "initUIEvent"](
                     type,
                     true,
                     true,
                     win,
-                    1
+                    1,
                   );
                   element.dispatchEvent(evt);
                 }
@@ -6907,8 +6911,8 @@ error: function(error, promise){}
                     originalFn,
                     str2arr(types[i].replace(namespaceRegex, ""), "."), // namespaces
                     args,
-                    false // not root
-                  ))
+                    false, // not root
+                  )),
                 );
                 if (entry[eventSupport] && first) {
                   // first event of this type on this element, add root listener
@@ -6929,8 +6933,8 @@ error: function(error, promise){}
                 !isString(fn)
                   ? slice.call(arguments)
                   : [element, fn, events, delfn].concat(
-                      arguments.length > 3 ? slice.call(arguments, 5) : []
-                    )
+                      arguments.length > 3 ? slice.call(arguments, 5) : [],
+                    ),
               );
             },
             /**
@@ -7033,6 +7037,6 @@ error: function(error, promise){}
           return bean;
         });
       })();
-    })()
+    })(),
   );
 })();

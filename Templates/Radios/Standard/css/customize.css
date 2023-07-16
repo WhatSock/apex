@@ -16,8 +16,12 @@
   background: #fff;
   top: 5px;
   border: 1px solid transparent;
-  box-shadow: 0 0 0 2px rgb(193 56 77), inset 0 0 0 0px rgb(193 56 77 / 0%);
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-shadow:
+    0 0 0 2px rgb(193 56 77),
+    inset 0 0 0 0px rgb(193 56 77 / 0%);
+  transition:
+    border-color 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
 }
 
 [role="radio"]::before,
@@ -29,5 +33,7 @@
 }
 [role="radio"][aria-checked="true"]::before {
   border-color: #fff;
-  box-shadow: 0 0 0 2px rgb(34 139 236), inset 0 0 0 6px rgb(193 56 77);
+  box-shadow:
+    0 0 0 2px rgb(34 139 236),
+    inset 0 0 0 6px rgb(193 56 77);
 }

@@ -30,7 +30,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                 if (!map.has(name)) map.set(name, []);
                 map.get(name).push(o);
               }
-            }
+            },
           );
           $A.loop(
             map,
@@ -98,7 +98,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                 },
               });
             },
-            "map"
+            "map",
           );
         })();
 
@@ -125,7 +125,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                   function (i, list) {
                     $A.setTab(
                       list.querySelectorAll(
-                        "button[data-controls].aria-tab, a[data-controls].aria-tab"
+                        "button[data-controls].aria-tab, a[data-controls].aria-tab",
                       ),
                       {
                         // Enable auto-rendering when the page loads.
@@ -139,7 +139,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                           $A.setPage(
                             dc.id,
                             $A.getText(dc.triggerNode) +
-                              " ARIA Tab - Apex 4X Technical Style Guide"
+                              " ARIA Tab - Apex 4X Technical Style Guide",
                           );
                         },
 
@@ -175,10 +175,10 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
 
                         isToggle: false,
                         toggleClassName: "active",
-                      }
+                      },
                     );
                   },
-                  "array"
+                  "array",
                 );
               },
             });
@@ -252,7 +252,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                     },
                   });
               }
-            }
+            },
           );
         })();
 
@@ -260,7 +260,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
           // ARIA Dialogs
           // Search and recognise dialog triggering elements with the class "aria-dialog"
           var triggers = context.querySelectorAll(
-            "a[href][data-controls].aria-dialog, button[data-controls].aria-dialog"
+            "a[href][data-controls].aria-dialog, button[data-controls].aria-dialog",
           );
 
           if (triggers.length)
@@ -305,7 +305,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                       });
                     }
                   },
-                  "array"
+                  "array",
                 );
               },
             });
@@ -336,7 +336,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
           // ARIA Popups
           // Search and recognise popup triggering elements with the class "aria-popup"
           var triggers = context.querySelectorAll(
-            "a[href][data-controls].aria-popup, button[data-controls].aria-popup"
+            "a[href][data-controls].aria-popup, button[data-controls].aria-popup",
           );
 
           if (triggers.length)
@@ -384,7 +384,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                       });
                     }
                   },
-                  "array"
+                  "array",
                 );
               },
             });
@@ -438,7 +438,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                       });
                     }
                   },
-                  "array"
+                  "array",
                 );
               },
             });
@@ -470,7 +470,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                           boundElement,
                           checked,
                           check,
-                          isRadio
+                          isRadio,
                         ) {
                           if ($A.isNum(checked)) {
                             // 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
@@ -485,7 +485,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                                 alert(
                                   "The new checked state for " +
                                     triggerNode.id +
-                                    " is 'true'"
+                                    " is 'true'",
                                 );
                               });
                             } else if (checked === 1) {
@@ -494,7 +494,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                                 alert(
                                   "The new checked state for " +
                                     triggerNode.id +
-                                    " is 'mixed'"
+                                    " is 'mixed'",
                                 );
                               });
                             } else if (checked === 2) {
@@ -503,7 +503,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                                 alert(
                                   "The new checked state for " +
                                     triggerNode.id +
-                                    " is 'false'"
+                                    " is 'false'",
                                 );
                               });
                             }
@@ -543,7 +543,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                       });
                     }
                   },
-                  "array"
+                  "array",
                 );
               },
             });
@@ -568,7 +568,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                       // Additional configuration options.
                     });
                   },
-                  "array"
+                  "array",
                 );
               },
             });
@@ -582,6 +582,6 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
     function () {
       $A.straylight(document);
     },
-    ".straylight"
+    ".straylight",
   );
 })();

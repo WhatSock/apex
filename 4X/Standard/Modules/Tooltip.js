@@ -71,7 +71,7 @@ License: MIT (https://opensource.org/licenses/MIT)
           $A.setAttr(
             dc.target,
             "aria-description",
-            $A.getText($A.morph(container))
+            $A.getText($A.morph(container)),
           );
         }
       },
@@ -228,7 +228,7 @@ License: MIT (https://opensource.org/licenses/MIT)
                   },
                 },
               },
-              config || {}
+              config || {},
             );
           },
           dcArray = [];
@@ -286,8 +286,8 @@ License: MIT (https://opensource.org/licenses/MIT)
                   id: id,
                   target: o,
                   trigger: o,
-                })
-              )
+                }),
+              ),
             );
             if (
               config.content &&
@@ -301,7 +301,7 @@ License: MIT (https://opensource.org/licenses/MIT)
               $A.setAttr(
                 o,
                 "aria-description",
-                $A.getText($A.morph(config.content))
+                $A.getText($A.morph(config.content)),
               );
           }
         });

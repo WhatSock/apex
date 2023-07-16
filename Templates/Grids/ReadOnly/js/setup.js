@@ -62,28 +62,26 @@ $A.import("Grid", { defer: true }, function () {
     lastBtn = $A.get("btnLast"),
     pgn = $A.get("pgn");
 
-  grid.setPageIndexChangeListener(function (
-    currentPage,
-    totalPages,
-    gridInstance
-  ) {
-    if (pageCurrent != currentPage) {
-      if (currentPage === 1) {
-        firstBtn.disabled = prevBtn.disabled = true;
-      } else {
-        firstBtn.disabled = prevBtn.disabled = false;
-      }
+  grid.setPageIndexChangeListener(
+    function (currentPage, totalPages, gridInstance) {
+      if (pageCurrent != currentPage) {
+        if (currentPage === 1) {
+          firstBtn.disabled = prevBtn.disabled = true;
+        } else {
+          firstBtn.disabled = prevBtn.disabled = false;
+        }
 
-      if (currentPage === totalPages) {
-        nextBtn.disabled = lastBtn.disabled = true;
-      } else {
-        nextBtn.disabled = lastBtn.disabled = false;
+        if (currentPage === totalPages) {
+          nextBtn.disabled = lastBtn.disabled = true;
+        } else {
+          nextBtn.disabled = lastBtn.disabled = false;
+        }
       }
-    }
-    pageTotal = totalPages;
-    pageHeaderSpan.innerHTML = "Page " + currentPage + " of " + totalPages;
-    pageEdit.value = pageCurrent = currentPage;
-  });
+      pageTotal = totalPages;
+      pageHeaderSpan.innerHTML = "Page " + currentPage + " of " + totalPages;
+      pageEdit.value = pageCurrent = currentPage;
+    },
+  );
 
   // Fires every time a grid object is opened in the DOM
   grid.setOpenListener(function (container, dc, gridInstance) {

@@ -35,10 +35,10 @@ Required dependencies: RovingTabIndex.js
               $A.getAttr(o, "aria-checked"),
               $A.hasAttr(o, "aria-checked"),
               false,
-              dc.RTI.nodes
+              dc.RTI.nodes,
             );
           },
-          "array"
+          "array",
         );
       },
       beforeRemove: function (dc) {
@@ -47,7 +47,7 @@ Required dependencies: RovingTabIndex.js
           function (i, o) {
             o.DC.remove();
           },
-          "map"
+          "map",
         );
       },
       afterRemove: function (dc) {
@@ -91,7 +91,7 @@ Required dependencies: RovingTabIndex.js
                 } else return ref.querySelectorAll(":scope > * > " + tag.child);
               },
             },
-            config.tag || {}
+            config.tag || {},
           ),
           getState = function (o, attributeValue, hasAttribute, write, nodes) {
             if (hasAttribute) {
@@ -141,8 +141,8 @@ Required dependencies: RovingTabIndex.js
                   toggleHide: true,
                   getState: getState,
                 },
-                config
-              )
+                config,
+              ),
             );
 
             if (p)
@@ -183,7 +183,7 @@ Required dependencies: RovingTabIndex.js
                             attributeValue,
                             true,
                             true,
-                            RTI.nodes
+                            RTI.nodes,
                           );
                         },
                       ]);
@@ -209,7 +209,7 @@ Required dependencies: RovingTabIndex.js
                         function (i, o) {
                           if (o !== triggerNode)
                             $A.setAttr(o, "aria-selected", "false");
-                        }
+                        },
                       );
                       $A.setAttr(triggerNode, "aria-selected", "true");
                     }
@@ -222,7 +222,7 @@ Required dependencies: RovingTabIndex.js
                     DC,
                     arrowKey,
                     isTop,
-                    isBottom
+                    isBottom,
                   ) {
                     var that = this,
                       isDisabled = $A.isDisabled(that);
@@ -242,7 +242,7 @@ Required dependencies: RovingTabIndex.js
                     DC,
                     arrowKey,
                     isTop,
-                    isBottom
+                    isBottom,
                   ) {
                     var get = function (RTI, trigger) {
                         var r = RTI.children.get(trigger) || {};
@@ -274,7 +274,7 @@ Required dependencies: RovingTabIndex.js
                     DC,
                     arrowKey,
                     isTop,
-                    isBottom
+                    isBottom,
                   ) {
                     if ($A.isDC(DC) && DC.loaded) DC.remove();
                     else if (RTI.parent) RTI.parent.focus(RTI.trigger);
@@ -287,7 +287,7 @@ Required dependencies: RovingTabIndex.js
                     DC,
                     arrowKey,
                     isTop,
-                    isBottom
+                    isBottom,
                   ) {
                     if (RTI.parent) {
                       RTI.DC.remove();
@@ -298,7 +298,7 @@ Required dependencies: RovingTabIndex.js
                         function (i, c) {
                           if ($A.isDC(c.DC)) c.DC.remove();
                         },
-                        "map"
+                        "map",
                       );
                     }
                     ev.preventDefault();
@@ -310,7 +310,7 @@ Required dependencies: RovingTabIndex.js
                     DC,
                     arrowKey,
                     isTop,
-                    isBottom
+                    isBottom,
                   ) {
                     var get = function (r) {
                       $A.loop(
@@ -321,7 +321,7 @@ Required dependencies: RovingTabIndex.js
                               get(c);
                             });
                         },
-                        "map"
+                        "map",
                       );
                     };
                     get(RTI);
@@ -334,7 +334,7 @@ Required dependencies: RovingTabIndex.js
                     DC,
                     arrowKey,
                     isTop,
-                    isBottom
+                    isBottom,
                   ) {
                     if ($A.isDC(DC) && DC.loaded) {
                       DC.RTI.focus(0);
@@ -370,7 +370,7 @@ Required dependencies: RovingTabIndex.js
                         function (i, c) {
                           if ($A.isDC(c.DC)) c.DC.remove();
                         },
-                        "map"
+                        "map",
                       );
                     }
                     ev.preventDefault();
@@ -382,7 +382,7 @@ Required dependencies: RovingTabIndex.js
                     DC,
                     arrowKey,
                     isTop,
-                    isBottom
+                    isBottom,
                   ) {
                     RTI.top.focus(0);
                     return false;
@@ -394,7 +394,7 @@ Required dependencies: RovingTabIndex.js
                     DC,
                     arrowKey,
                     isTop,
-                    isBottom
+                    isBottom,
                   ) {
                     var get = function (RTI, trigger) {
                         var r = RTI.children.get(trigger) || {};
@@ -419,8 +419,8 @@ Required dependencies: RovingTabIndex.js
                     return false;
                   },
                 },
-                config.extendRTI || {}
-              )
+                config.extendRTI || {},
+              ),
             );
 
             $A.loop(
@@ -430,7 +430,7 @@ Required dependencies: RovingTabIndex.js
                 var check = getState(
                     o,
                     $A.getAttr(o, "data-check"),
-                    $A.hasAttr(o, "data-check")
+                    $A.hasAttr(o, "data-check"),
                   ),
                   n =
                     ($A.isFn(o.querySelector) && o.querySelector("input")) ||
@@ -459,7 +459,7 @@ Required dependencies: RovingTabIndex.js
                       attributeValue,
                       attributePriorValue,
                       DC,
-                      SavedData
+                      SavedData,
                     ) {
                       if ($A.isNode(n)) {
                         var check = getState(o, attributeValue, true);
@@ -468,7 +468,7 @@ Required dependencies: RovingTabIndex.js
                     },
                     {
                       attributeFilter: ["aria-checked"],
-                    }
+                    },
                   );
                 }
                 $A.closest(o, function (o) {
@@ -476,7 +476,7 @@ Required dependencies: RovingTabIndex.js
                   $A.setAttr(o, "role", "presentation");
                 });
               },
-              "array"
+              "array",
             );
 
             $A.updateDisabled(mItems);
@@ -492,7 +492,7 @@ Required dependencies: RovingTabIndex.js
               else {
                 var a = $A.inArray(
                   ref.querySelector('*[aria-selected="true"]'),
-                  mItems
+                  mItems,
                 );
                 if (a >= 0) DC.RTI.activate(a);
               }
@@ -533,7 +533,7 @@ Required dependencies: RovingTabIndex.js
             function (c) {
               main = c;
               gen(main);
-            }
+            },
           );
         } else {
           gen(main);

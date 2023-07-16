@@ -53,7 +53,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
   if (window.device.type === "desktop") {
     $A.on("toggletouch", function (ev) {
       myLangCB.setPromptText(
-        $A.isTouch ? "" : "Press the down arrow to browse available options"
+        $A.isTouch ? "" : "Press the down arrow to browse available options",
       );
     });
   }
@@ -64,7 +64,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
       ? 3
       : window.device.type === "tablet"
       ? 5
-      : 7
+      : 7,
   );
 
   // Set specific text for the hidden Close link encountered by screen reader users
@@ -105,7 +105,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
         selectedMatches.length +
         "\n" +
         "Selected values " +
-        values.toString()
+        values.toString(),
     );
     ev.preventDefault();
   });

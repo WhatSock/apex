@@ -54,23 +54,20 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
   });
 
   // Process every time a new value is saved
-  myAuthorCombobox.onSelect(function (
-    optionText,
-    optionValue,
-    comboboxElement,
-    selectElement
-  ) {
-    comboboxElement.value = optionValue;
-    myAuthorCombobox.close();
-    // Return the modified value so that the combobox doesn't open again instantly.
-    return optionValue;
-  });
+  myAuthorCombobox.onSelect(
+    function (optionText, optionValue, comboboxElement, selectElement) {
+      comboboxElement.value = optionValue;
+      myAuthorCombobox.close();
+      // Return the modified value so that the combobox doesn't open again instantly.
+      return optionValue;
+    },
+  );
 
   // Logic to distinguish between touch screen devices
   if (!$A.isTouch) {
     // For non-touch devices, add screen reader accessible keyboard instructions
     myAuthorCombobox.setPromptText(
-      "Type and press the down arrow to browse available matches"
+      "Type and press the down arrow to browse available matches",
     );
   }
 
@@ -80,7 +77,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
       myAuthorCombobox.setPromptText(
         $A.isTouch
           ? ""
-          : "First type then press the down arrow to browse available matches"
+          : "First type then press the down arrow to browse available matches",
       );
     });
   }
@@ -91,7 +88,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
       ? 3
       : window.device.type === "tablet"
       ? 5
-      : 7
+      : 7,
   );
 
   // Get the Close icon triggering element for sighted mouse and touch device users

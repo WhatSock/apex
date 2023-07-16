@@ -132,7 +132,7 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function () {
 
         for (var day = 1; day < current.day; day++) {
           dc.range[dc.range.current.month].disabled[dc.range.current.year].push(
-            day
+            day,
           );
         }
       }
@@ -146,7 +146,7 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function () {
         if (!dc.range[dc.range.current.month].disabled[dc.range.current.year])
           dc.range[dc.range.current.month].disabled[dc.range.current.year] = [];
         dc.range[dc.range.current.month].disabled[dc.range.current.year].push(
-          31
+          31,
         );
       }
 
