@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 4.6 for Apex 4X
+ARIA Date Picker Module 4.7 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -899,9 +899,6 @@ License: MIT <https://opensource.org/licenses/MIT>
                   dc.setDate(dc);
                 }
               },
-              beforeRender: function (dc) {
-                dc.cancel = $A.isAnimating;
-              },
               rerenderTable: function (dc) {
                 dc.rerendering = true;
                 dc.afterRemove(dc);
@@ -911,6 +908,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 dc.rerendering = false;
               },
               beforeRender: function (dc) {
+                dc.cancel = $A.isAnimating;
                 var dateValue = targ.value,
                   dateParts = targ.value.split("/");
                 if (
