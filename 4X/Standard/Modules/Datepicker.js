@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 4.7 for Apex 4X
+ARIA Date Picker Module 4.8 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -497,6 +497,10 @@ License: MIT <https://opensource.org/licenses/MIT>
                       );
                     }, 1);
                     dc.navBtnS = true;
+                  } else if (dc.navBtn === "CY") {
+                    dc.buttons.cY.focus();
+                  } else if (dc.navBtn === "CM") {
+                    dc.buttons.cM.focus();
                   } else {
                     // Toggles for openOnFocus support.
                     if (
@@ -955,8 +959,8 @@ License: MIT <https://opensource.org/licenses/MIT>
                       : 28;
                 dc.baseId = baseId;
                 dc.prevBtnId = dc.baseId + "p";
+                dc.currentBtnId = dc.baseId + "c";
                 dc.nextBtnId = dc.baseId + "n";
-                dc.monthCellId = dc.baseId + "YC";
 
                 // Calculate prev/next month date values, and whether they are within the allowed date range
                 var prevDateValues = dc.modifyDateValues(
@@ -1019,11 +1023,46 @@ License: MIT <https://opensource.org/licenses/MIT>
                     'Y"><span aria-hidden="true">' +
                     dc.leftButtonYearText +
                     "</span></td>" +
-                    '<td title="' +
+                    '<td colspan="5" class="year" role="presentation" title="' +
                     dc.tooltipTxt.replace(/<|>|\"/g, "") +
-                    '" colspan="5" class="year" role="presentation"><span>' +
-                    dc.range.current.year +
-                    "</span></td>" +
+                    '">' +
+                    // Add year select field if enabled.
+                    (config.yearSelect
+                      ? '<select hidden class="nav current select year" id="' +
+                        dc.currentBtnId +
+                        'Y" title="' +
+                        dc.yearTxt.replace(/<|>|\"/g, "") +
+                        '" aria-label="' +
+                        dc.yearTxt.replace(/<|>|\"/g, "") +
+                        '">' +
+                        (function () {
+                          var min =
+                              config.yearSelectMin || dc.range.current.year,
+                            max = config.yearSelectMax || dc.range.current.year,
+                            s = "";
+                          while (min <= max) {
+                            s +=
+                              "<option" +
+                              (min === dc.range.current.year
+                                ? ' selected="selected"'
+                                : "") +
+                              " value=" +
+                              min +
+                              ">" +
+                              min +
+                              "</option>";
+                            min++;
+                          }
+                          return s;
+                        })() +
+                        "</select>" +
+                        '<span class="nav current btn year" tabindex="0" role="button" id="' +
+                        dc.currentBtnId +
+                        'YB">' +
+                        dc.range.current.year +
+                        "</span>"
+                      : "<span>" + dc.range.current.year + "</span>") +
+                    "</td>" +
                     '<td class="nav next btn year' +
                     (!hasNextYear ? " disabled" : "") +
                     '" accesskey="2" title="' +
@@ -1078,12 +1117,47 @@ License: MIT <https://opensource.org/licenses/MIT>
                   '"><span aria-hidden="true">' +
                   dc.leftButtonMonthText +
                   "</span></td>" +
-                  '<td colspan="5" class="month" id="' +
-                  dc.monthCellId +
-                  '" role="presentation"><span>' +
-                  dc.range[dc.range.current.month].name +
-                  (!config.condenseYear ? "" : " " + dc.range.current.year) +
-                  "</span></td>" +
+                  '<td colspan="5" class="month" role="presentation">' +
+                  // Add month select field if enabled.
+                  (config.monthSelect
+                    ? '<select hidden class="nav current select month" id="' +
+                      dc.currentBtnId +
+                      'M" title="' +
+                      dc.monthTxt.replace(/<|>|\"/g, "") +
+                      '" aria-label="' +
+                      dc.monthTxt.replace(/<|>|\"/g, "") +
+                      '">' +
+                      (function () {
+                        var s = "";
+                        for (var i = 0; i < 12; i++) {
+                          s +=
+                            "<option value=" +
+                            i +
+                            (i === dc.range.current.month
+                              ? ' selected="selected"'
+                              : "") +
+                            ">" +
+                            dc.range[i].name +
+                            (!config.condenseYear
+                              ? ""
+                              : " " + dc.range.current.year) +
+                            "</option>";
+                        }
+                        return s;
+                      })() +
+                      "</select>" +
+                      '<span class="nav current btn month" tabindex="0" role="button" id="' +
+                      dc.currentBtnId +
+                      'MB">' +
+                      dc.range[dc.range.current.month].name +
+                      "</span>"
+                    : "<span>" +
+                      dc.range[dc.range.current.month].name +
+                      (!config.condenseYear
+                        ? ""
+                        : " " + dc.range.current.year) +
+                      "</span>") +
+                  "</td>" +
                   '<td class="nav next btn month' +
                   (!hasNextMonth ? " disabled" : "") +
                   '" accesskey="4" title="' +
@@ -1508,6 +1582,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                     dc.rerenderTable(dc);
                   };
                 var isKP = false;
+
                 $A.on(
                   "#" + dc.containerId + " td.day",
                   {
@@ -1910,6 +1985,8 @@ License: MIT <https://opensource.org/licenses/MIT>
                             !$A.data(dc.buttons.pY, "disabled")
                           )
                             dc.buttons.pY.focus();
+                          else if (!config.condenseYear && dc.buttons.cY)
+                            dc.buttons.cY.focus();
                           else if (
                             !config.condenseYear &&
                             !$A.data(dc.buttons.nY, "disabled")
@@ -1917,6 +1994,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                             dc.buttons.nY.focus();
                           else if (!$A.data(dc.buttons.pM, "disabled"))
                             dc.buttons.pM.focus();
+                          else if (dc.buttons.cM) dc.buttons.cM.focus();
                           else if (!$A.data(dc.buttons.nM, "disabled"))
                             dc.buttons.nM.focus();
 
@@ -1933,6 +2011,7 @@ License: MIT <https://opensource.org/licenses/MIT>
 
                         if (!$A.data(dc.buttons.nM, "disabled"))
                           dc.buttons.nM.focus();
+                        else if (dc.buttons.cM) dc.buttons.cM.focus();
                         else if (!$A.data(dc.buttons.pM, "disabled"))
                           dc.buttons.pM.focus();
                         else if (
@@ -1940,6 +2019,8 @@ License: MIT <https://opensource.org/licenses/MIT>
                           !$A.data(dc.buttons.nY, "disabled")
                         )
                           dc.buttons.nY.focus();
+                        else if (!config.condenseYear && dc.buttons.cY)
+                          dc.buttons.cY.focus();
                         else if (
                           !config.condenseYear &&
                           !$A.data(dc.buttons.pY, "disabled")
@@ -2009,6 +2090,8 @@ License: MIT <https://opensource.org/licenses/MIT>
                             !$A.data(dc.buttons.pY, "disabled")
                           )
                             dc.buttons.pY.focus();
+                          else if (!config.condenseYear && dc.buttons.cY)
+                            dc.buttons.cY.focus();
                           else if (
                             !config.condenseYear &&
                             !$A.data(dc.buttons.nY, "disabled")
@@ -2016,6 +2099,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                             dc.buttons.nY.focus();
                           else if (!$A.data(dc.buttons.pM, "disabled"))
                             dc.buttons.pM.focus();
+                          else if (dc.buttons.cM) dc.buttons.cM.focus();
                           else if (!$A.data(dc.buttons.nM, "disabled"))
                             dc.buttons.nM.focus();
                           else mainDC.current.focus();
@@ -2035,12 +2119,255 @@ License: MIT <https://opensource.org/licenses/MIT>
                       keyup: function (ev) {
                         changePressed(ev);
                       },
-                      focus: function (ev) {},
-                      blur: function (ev) {},
                     },
                     "." + baseId,
                   );
                 }
+
+                if (config.yearSelect) {
+                  (function () {
+                    var ySel = $A.get("#" + dc.currentBtnId + "Y"),
+                      os = ySel.querySelectorAll("option"),
+                      ySelHandle = function (ev) {
+                        var year = (function () {
+                          for (var i = 0; i < os.length; i++) {
+                            if (os[i].selected)
+                              return parseInt($A.getAttr(os[i], "value"));
+                          }
+                          return dc.range.current.year;
+                        })();
+
+                        dc.buttons.cYS.hidden = true;
+                        dc.buttons.cY.hidden = false;
+                        if (year !== dc.range.current.year) {
+                          dc.setDate(
+                            dc,
+                            new Date(
+                              year,
+                              dc.range.current.month,
+                              dc.range.current.mDay,
+                            ),
+                          );
+                          dc.rerenderTable(dc);
+                        } else {
+                          dc.buttons.cY.focus();
+                        }
+                      };
+                    dc.buttons.cYS = ySel;
+                    dc.buttons.cY = $A.get("#" + dc.currentBtnId + "YB");
+                    $A.on(
+                      ySel,
+                      {
+                        keydown: function (ev) {
+                          changePressed(ev);
+                          var k = $A.keyEvent(ev);
+                          if (k === 27) {
+                            dc.buttons.cYS.hidden = true;
+                            dc.buttons.cY.hidden = false;
+                            dc.buttons.cY.focus();
+                            ev.stopPropagation();
+                            ev.preventDefault();
+                          }
+                        },
+                        keyup: function (ev) {
+                          changePressed(ev);
+                        },
+                        blur: function (ev) {
+                          dc.navBtn = "CY";
+                          ySelHandle(ev);
+                        },
+                        change: function (ev) {
+                          dc.navBtn = "CY";
+                          ySelHandle(ev);
+                        },
+                      },
+                      "." + baseId,
+                    );
+                  })();
+                }
+
+                if (config.monthSelect) {
+                  (function () {
+                    var mSel = $A.get("#" + dc.currentBtnId + "M"),
+                      os = mSel.querySelectorAll("option"),
+                      mSelHandle = function (ev) {
+                        var month = (function () {
+                          for (var i = 0; i < os.length; i++) {
+                            if (os[i].selected)
+                              return parseInt($A.getAttr(os[i], "value"));
+                          }
+                          return dc.range.current.month;
+                        })();
+
+                        dc.buttons.cMS.hidden = true;
+                        dc.buttons.cM.hidden = false;
+                        if (month !== dc.range.current.month) {
+                          dc.setDate(
+                            dc,
+                            new Date(
+                              dc.range.current.year,
+                              month,
+                              dc.range.current.mDay,
+                            ),
+                          );
+                          dc.rerenderTable(dc);
+                        } else {
+                          dc.buttons.cM.focus();
+                        }
+                      };
+                    dc.buttons.cMS = mSel;
+                    dc.buttons.cM = $A.get("#" + dc.currentBtnId + "MB");
+                    $A.on(
+                      mSel,
+                      {
+                        keydown: function (ev) {
+                          changePressed(ev);
+                          var k = $A.keyEvent(ev);
+                          if (k === 27) {
+                            dc.buttons.cMS.hidden = true;
+                            dc.buttons.cM.hidden = false;
+                            dc.buttons.cM.focus();
+                            ev.stopPropagation();
+                            ev.preventDefault();
+                          }
+                        },
+                        keyup: function (ev) {
+                          changePressed(ev);
+                        },
+                        blur: function (ev) {
+                          dc.navBtn = "CM";
+                          mSelHandle(ev);
+                        },
+                        change: function (ev) {
+                          dc.navBtn = "CM";
+                          mSelHandle(ev);
+                        },
+                      },
+                      "." + baseId,
+                    );
+                  })();
+                }
+
+                $A.on(
+                  dc.buttons.cY,
+                  {
+                    click: function (ev) {
+                      dc.buttons.cY.hidden = true;
+                      dc.buttons.cYS.hidden = false;
+                      dc.buttons.cYS.focus();
+                      ev.preventDefault();
+                    },
+                    keydown: function (ev) {
+                      changePressed(ev);
+                      var k = $A.keyEvent(ev);
+                      if (k === 13 || k === 32) {
+                        dc.buttons.cY.hidden = true;
+                        dc.buttons.cYS.hidden = false;
+                        dc.buttons.cYS.focus();
+                        ev.preventDefault();
+                      } else if (k === 27) {
+                        dc.remove();
+                        onFocusInit = false;
+                        onFocusTraverse = true;
+                        $A.focus(config.returnFocusTo || targ);
+                      } else if (
+                        k === 9 &&
+                        !pressed.alt &&
+                        !pressed.ctrl &&
+                        !pressed.shift
+                      ) {
+                        if (!$A.data(dc.buttons.nY, "disabled"))
+                          dc.buttons.nY.focus();
+                        else if (!$A.data(dc.buttons.pM, "disabled"))
+                          dc.buttons.pM.focus();
+                        else if (dc.buttons.cM) dc.buttons.cM.focus();
+                        else if (!$A.data(dc.buttons.nM, "disabled"))
+                          dc.buttons.nM.focus();
+                        else mainDC.current.focus();
+                        ev.preventDefault();
+                      } else if (
+                        k === 9 &&
+                        !pressed.alt &&
+                        !pressed.ctrl &&
+                        pressed.shift
+                      ) {
+                        if (!$A.data(dc.buttons.pY, "disabled"))
+                          dc.buttons.pY.focus();
+                        else if (dc.showEscBtn) dc.escBtn.focus();
+                        else mainDC.current.focus();
+                        ev.preventDefault();
+                      }
+                    },
+                    keyup: function (ev) {
+                      changePressed(ev);
+                    },
+                  },
+                  "." + baseId,
+                );
+
+                $A.on(
+                  dc.buttons.cM,
+                  {
+                    click: function (ev) {
+                      dc.buttons.cM.hidden = true;
+                      dc.buttons.cMS.hidden = false;
+                      dc.buttons.cMS.focus();
+                      ev.preventDefault();
+                    },
+                    keydown: function (ev) {
+                      changePressed(ev);
+                      var k = $A.keyEvent(ev);
+                      if (k === 13 || k === 32) {
+                        dc.buttons.cM.hidden = true;
+                        dc.buttons.cMS.hidden = false;
+                        dc.buttons.cMS.focus();
+                        ev.preventDefault();
+                      } else if (k === 27) {
+                        dc.remove();
+                        onFocusInit = false;
+                        onFocusTraverse = true;
+                        $A.focus(config.returnFocusTo || targ);
+                      } else if (
+                        k === 9 &&
+                        !pressed.alt &&
+                        !pressed.ctrl &&
+                        !pressed.shift
+                      ) {
+                        if (!$A.data(dc.buttons.nM, "disabled"))
+                          dc.buttons.nM.focus();
+                        else mainDC.current.focus();
+                        ev.preventDefault();
+                      } else if (
+                        k === 9 &&
+                        !pressed.alt &&
+                        !pressed.ctrl &&
+                        pressed.shift
+                      ) {
+                        if (!$A.data(dc.buttons.pM, "disabled"))
+                          dc.buttons.pM.focus();
+                        else if (
+                          !config.condenseYear &&
+                          !$A.data(dc.buttons.nY, "disabled")
+                        )
+                          dc.buttons.nY.focus();
+                        else if (!config.condenseYear && dc.buttons.cY)
+                          dc.buttons.cY.focus();
+                        else if (
+                          !config.condenseYear &&
+                          !$A.data(dc.buttons.pY, "disabled")
+                        )
+                          dc.buttons.pY.focus();
+                        else if (dc.showEscBtn) dc.escBtn.focus();
+                        else mainDC.current.focus();
+                        ev.preventDefault();
+                      }
+                    },
+                    keyup: function (ev) {
+                      changePressed(ev);
+                    },
+                  },
+                  "." + baseId,
+                );
 
                 $A.on(
                   dc.buttons.pM,
@@ -2079,7 +2406,8 @@ License: MIT <https://opensource.org/licenses/MIT>
                         !pressed.ctrl &&
                         !pressed.shift
                       ) {
-                        if (!$A.data(dc.buttons.nM, "disabled"))
+                        if (dc.buttons.cM) dc.buttons.cM.focus();
+                        else if (!$A.data(dc.buttons.nM, "disabled"))
                           dc.buttons.nM.focus();
                         else mainDC.current.focus();
 
@@ -2095,27 +2423,25 @@ License: MIT <https://opensource.org/licenses/MIT>
                           !$A.data(dc.buttons.nY, "disabled")
                         ) {
                           dc.buttons.nY.focus();
-                          ev.preventDefault();
+                        } else if (!config.condenseYear && dc.buttons.cY) {
+                          dc.buttons.cY.focus();
                         } else if (
                           !config.condenseYear &&
                           !$A.data(dc.buttons.pY, "disabled")
                         ) {
                           dc.buttons.pY.focus();
-                          ev.preventDefault();
                         } else {
-                          //: PM
                           if (dc.showEscBtn) {
                             dc.escBtn.focus();
-                            ev.preventDefault();
                           } else if (commentsEnabled && formDC.loaded) {
                             if (!formDC.textarea.hidden)
                               formDC.textarea.focus();
                             else formDC.commentBtn.focus();
                           } else {
                             mainDC.current.focus();
-                            ev.preventDefault();
                           }
                         }
+                        ev.preventDefault();
                       }
                     },
                     keyup: function (ev) {
@@ -2124,6 +2450,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                   },
                   "." + baseId,
                 );
+
                 $A.on(
                   dc.buttons.nM,
                   {
@@ -2169,35 +2496,34 @@ License: MIT <https://opensource.org/licenses/MIT>
                         !pressed.ctrl &&
                         pressed.shift
                       ) {
-                        if (!$A.data(dc.buttons.pM, "disabled")) {
+                        if (dc.buttons.cM) {
+                          dc.buttons.cM.focus();
+                        } else if (!$A.data(dc.buttons.pM, "disabled")) {
                           dc.buttons.pM.focus();
-                          ev.preventDefault();
                         } else if (
                           !config.condenseYear &&
                           !$A.data(dc.buttons.nY, "disabled")
                         ) {
                           dc.buttons.nY.focus();
-                          ev.preventDefault();
+                        } else if (!config.condenseYear && dc.buttons.cY) {
+                          dc.buttons.cY.focus();
                         } else if (
                           !config.condenseYear &&
                           !$A.data(dc.buttons.pY, "disabled")
                         ) {
                           dc.buttons.pY.focus();
-                          ev.preventDefault();
                         } else {
-                          //: NM
                           if (dc.showEscBtn) {
                             dc.escBtn.focus();
-                            ev.preventDefault();
                           } else if (commentsEnabled && formDC.loaded) {
                             if (!formDC.textarea.hidden)
                               formDC.textarea.focus();
                             else formDC.commentBtn.focus();
                           } else {
                             mainDC.current.focus();
-                            ev.preventDefault();
                           }
                         }
+                        ev.preventDefault();
                       }
                     },
                     keyup: function (ev) {
@@ -2245,10 +2571,12 @@ License: MIT <https://opensource.org/licenses/MIT>
                           !pressed.ctrl &&
                           !pressed.shift
                         ) {
-                          if (!$A.data(dc.buttons.nY, "disabled"))
+                          if (dc.buttons.cY) dc.buttons.cY.focus();
+                          else if (!$A.data(dc.buttons.nY, "disabled"))
                             dc.buttons.nY.focus();
                           else if (!$A.data(dc.buttons.pM, "disabled"))
                             dc.buttons.pM.focus();
+                          else if (dc.buttons.cM) dc.buttons.cM.focus();
                           else if (!$A.data(dc.buttons.nM, "disabled"))
                             dc.buttons.nM.focus();
                           else mainDC.current.focus();
@@ -2260,17 +2588,14 @@ License: MIT <https://opensource.org/licenses/MIT>
                           !pressed.ctrl &&
                           pressed.shift
                         ) {
-                          //: PY
                           if (dc.showEscBtn) {
                             dc.escBtn.focus();
-                            ev.preventDefault();
                           } else if (commentsEnabled && formDC.loaded) {
                             formDC.commentBtn.focus();
-                            ev.preventDefault();
                           } else {
                             mainDC.current.focus();
-                            ev.preventDefault();
                           }
+                          ev.preventDefault();
                         }
                       },
                       keyup: function (ev) {
@@ -2320,6 +2645,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                         ) {
                           if (!$A.data(dc.buttons.pM, "disabled"))
                             dc.buttons.pM.focus();
+                          else if (dc.buttons.cM) dc.buttons.cM.focus();
                           else if (!$A.data(dc.buttons.nM, "disabled"))
                             dc.buttons.nM.focus();
                           else mainDC.current.focus();
@@ -2331,23 +2657,21 @@ License: MIT <https://opensource.org/licenses/MIT>
                           !pressed.ctrl &&
                           pressed.shift
                         ) {
-                          if (!$A.data(dc.buttons.pY, "disabled")) {
+                          if (dc.buttons.cY) dc.buttons.cY.focus();
+                          else if (!$A.data(dc.buttons.pY, "disabled")) {
                             dc.buttons.pY.focus();
-                            ev.preventDefault();
                           } else {
-                            //: NY
                             if (dc.showEscBtn) {
                               dc.escBtn.focus();
-                              ev.preventDefault();
                             } else if (commentsEnabled && formDC.loaded) {
                               if (!formDC.textarea.hidden)
                                 formDC.textarea.focus();
                               else formDC.commentBtn.focus();
                             } else {
                               mainDC.current.focus();
-                              ev.preventDefault();
                             }
                           }
+                          ev.preventDefault();
                         }
                       },
                       keyup: function (ev) {

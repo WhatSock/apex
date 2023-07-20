@@ -112,6 +112,13 @@ input: "#dateInputId",
 // By default, this will set focus back to the associated input field where the date is saved, but it can be overridden if needed using the following property.
 returnFocusTo: $A.get('elementId'),
 
+// Optionally convert the static year field into a year selector dropdown.
+yearSelect: true,
+yearSelectMin: 1900,
+yearSelectMax: 2030,
+// Optionally convert the static month field into a month selector dropdown.
+monthSelect: true,
+
 // Set initial inline styling properties for the dynamically rendered calendar.
 style: {
 position: 'absolute',

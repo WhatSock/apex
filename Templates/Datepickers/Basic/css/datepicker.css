@@ -214,3 +214,53 @@ div.monthMessage p {
   font-size: 0.8rem;
   margin-bottom: 0;
 }
+
+select.nav.current.select.year {
+  color: var(--globalWhite);
+  background: var(--button-blueGrey) right -290px no-repeat;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  border-radius: 2px;
+}
+
+span.nav.current.btn.year {
+  color: var(--globalWhite);
+  background: var(--button-blueGrey) right -290px no-repeat;
+  padding: 3px 5px;
+  border: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+span.nav.current.btn.year:hover,
+span.nav.current.btn.year:focus {
+  color: var(--globalWhite);
+  background-color: var(--whatsock-red);
+  box-shadow: none;
+  border-radius: 0;
+}
+
+select.nav.current.select.month {
+  color: var(--globalWhite);
+  background: var(--button-blueGrey) right -290px no-repeat;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  border-radius: 2px;
+}
+
+span.nav.current.btn.month {
+  color: var(--globalWhite);
+  background: var(--button-blueGrey) right -290px no-repeat;
+  padding: 3px 5px;
+  border: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+span.nav.current.btn.month:hover,
+span.nav.current.btn.month:focus {
+  color: var(--globalWhite);
+  background-color: var(--whatsock-red);
+  box-shadow: none;
+  border-radius: 0;
+}
