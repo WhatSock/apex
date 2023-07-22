@@ -10,6 +10,13 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function () {
     // Native or simulated input element
     input: $A.get("date"),
 
+    // Optionally convert the static year field into a year selector dropdown.
+    yearSelect: true,
+    yearSelectMin: 1900,
+    yearSelectMax: 2030,
+    // Optionally convert the static month field into a month selector dropdown.
+    monthSelect: true,
+
     style: {
       position: "absolute",
       zIndex: 1,

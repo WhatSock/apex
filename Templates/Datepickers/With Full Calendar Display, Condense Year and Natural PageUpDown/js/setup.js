@@ -10,6 +10,9 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function () {
     // Native or simulated input element
     input: $A.get("date"),
 
+    // Optionally convert the static month field into a month selector dropdown.
+    monthSelect: true,
+
     style: { position: "absolute", zIndex: 1, display: "none" },
     animate: {
       onRender: function (dc, wrapper, next) {

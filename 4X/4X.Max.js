@@ -3955,7 +3955,7 @@ error: function(error, promise){}
               dc.loaded = false;
 
               var complete = function () {
-                $A.isAnimating = false;
+                $A.isAnimating = dc.isAnimating = false;
                 if (!dc.storeData) $A._cleanAll(dc.container, true);
                 if (dc.fn.style) $A.remove(dc.fn.style);
                 if (dc.fn.closeLink) $A.remove(dc.fn.closeLink);
@@ -3996,7 +3996,7 @@ error: function(error, promise){}
               };
 
               if (dc.animate && $A.isFn(dc.animate.onRemove)) {
-                $A.isAnimating = true;
+                $A.isAnimating = dc.isAnimating = true;
                 dc.animate.onRemove.call(dc.wrapper, dc, dc.wrapper, complete);
               } else complete();
             });
