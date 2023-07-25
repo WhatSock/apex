@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 4.9 for Apex 4X
+ARIA Date Picker Module 4.10 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -79,7 +79,7 @@ License: MIT <https://opensource.org/licenses/MIT>
               role: config.role || "Calendar",
               widgetType: "Datepicker",
               //              autoCloseWidget: true,
-              //              autoCloseSameWidget: true,
+              autoCloseSameWidget: true,
               trigger: trigger,
               target: targ,
               on: "opendatepicker",
@@ -1376,7 +1376,6 @@ License: MIT <https://opensource.org/licenses/MIT>
                     dc.escBtnIcon +
                     "</button>";
                 }
-                dc.cancel = $A.isAnimating;
               },
               mouseEnter: function (ev, dc) {
                 dc.mouseWithin = true;
