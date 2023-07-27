@@ -1,5 +1,5 @@
 /*@license
-Apex 4X: The Comprehensive ARIA Development Suite ( Blade Runner - 2023.7.14 )
+Apex 4X: The Comprehensive ARIA Development Suite ( Iron Sunrise - 2023.7.27 )
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -7,7 +7,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 
 (function () {
   var moduleFolder = "/4X/Modules/",
-    Version = "2023.7.14",
+    Version = "2023.7.27",
     BN = {};
   (function () {
     var $A = function (dc, dcA, dcI, onReady, disableAsync) {
@@ -3521,8 +3521,19 @@ error: function(error, promise){}
               wtA = $A._regWidgets.get(dc.top.widgetType);
               for (w = 0; w < wtA.length; w++) {
                 wt = $A.reg.get(wtA[w]);
-                if (wt && wt.top.loaded && wt.top !== dc.top) {
+                wt.top.currentWT = wt.top === dc.top;
+                if (wt && wt.top.loaded && !wt.top.currentWT) {
                   wt.top.bypass();
+                }
+                if (
+                  wt &&
+                  wt.top.isAnimating &&
+                  wt.top.loading &&
+                  !wt.top.currentWT &&
+                  window.Velocity
+                ) {
+                  window.Velocity.animate(wt.top.wrapper, "finish");
+                  wt.top.css(wt.top.style);
                 }
               }
             }
@@ -3890,43 +3901,54 @@ error: function(error, promise){}
               $A.on(dc.wrapper, toBind, dc.id, ".extradchandlers4x");
               dc.loading = false;
               dc.loaded = true;
-              if (dc.toggleClassName)
-                $A.toggleClass(dc.triggerNode, dc.toggleClassName, true);
-              if ($A.isArray(dc.embeddedJS) && dc.embeddedJS.length) {
-                $A.loop(
-                  dc.embeddedJS,
-                  function (i, f) {
-                    f.call(dc.container, window, document, $A, dc, dc);
-                  },
-                  "array",
-                );
+              if (
+                dc.autoCloseSameWidget &&
+                $A._regWidgets.has(dc.widgetType) &&
+                !dc.currentWT
+              ) {
+                if (dc.fn.timer) clearTimeout(dc.fn.timer);
+                dc.fn.timer = setTimeout(function () {
+                  dc.remove();
+                }, 1);
+              } else {
+                if (dc.toggleClassName)
+                  $A.toggleClass(dc.triggerNode, dc.toggleClassName, true);
+                if ($A.isArray(dc.embeddedJS) && dc.embeddedJS.length) {
+                  $A.loop(
+                    dc.embeddedJS,
+                    function (i, f) {
+                      f.call(dc.container, window, document, $A, dc, dc);
+                    },
+                    "array",
+                  );
+                }
+                $A.getModule(dc, "afterRender", dc.container);
+                $A._parseDCScripts(dc, "AfterRender", function () {
+                  if (dc.scrollIntoView) {
+                    if ($A.isFn(dc.scrollIntoView))
+                      dc.scrollIntoView.call(dc.container, dc, dc.container);
+                    else
+                      dc.container.scrollIntoView({
+                        behavior: "smooth",
+                      });
+                  }
+                  $A.lastLoaded = dc;
+                  if (dc.forceFocus) dc.focus(dc);
+                  if ($A.isFn(dc.fn.renderCallback)) {
+                    dc.fn.renderCallback.call(dc, dc);
+                    dc.fn.renderCallback = null;
+                  }
+                  if (dc.announce)
+                    $A.announce(dc.container, dc.noRepeat, dc.isAlert);
+                  if ($A.straylight) $A.straylight(dc.container);
+                  if ($A.isNum(dc.delayTimeout) && dc.delayTimeout > 0) {
+                    if (dc.fn.timer) clearTimeout(dc.fn.timer);
+                    dc.fn.timer = setTimeout(function () {
+                      dc.timeout(dc);
+                    }, dc.delayTimeout);
+                  }
+                });
               }
-              $A.getModule(dc, "afterRender", dc.container);
-              $A._parseDCScripts(dc, "AfterRender", function () {
-                if (dc.scrollIntoView) {
-                  if ($A.isFn(dc.scrollIntoView))
-                    dc.scrollIntoView.call(dc.container, dc, dc.container);
-                  else
-                    dc.container.scrollIntoView({
-                      behavior: "smooth",
-                    });
-                }
-                $A.lastLoaded = dc;
-                if (dc.forceFocus) dc.focus(dc);
-                if ($A.isFn(dc.fn.renderCallback)) {
-                  dc.fn.renderCallback.call(dc, dc);
-                  dc.fn.renderCallback = null;
-                }
-                if (dc.announce)
-                  $A.announce(dc.container, dc.noRepeat, dc.isAlert);
-                if ($A.straylight) $A.straylight(dc.container);
-                if ($A.isNum(dc.delayTimeout) && dc.delayTimeout > 0) {
-                  if (dc.fn.timer) clearTimeout(dc.fn.timer);
-                  dc.fn.timer = setTimeout(function () {
-                    dc.timeout(dc);
-                  }, dc.delayTimeout);
-                }
-              });
             };
 
             if (

@@ -58,6 +58,7 @@ $A.import(["Animate", "Menu"], { defer: true }, function () {
     animate: {
       onRender: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.slideUpIn", {
+          duration: 1000,
           complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
@@ -66,6 +67,7 @@ $A.import(["Animate", "Menu"], { defer: true }, function () {
       },
       onRemove: function (dc, wrapper, next) {
         Velocity(wrapper, "transition.slideUpOut", {
+          duration: 1000,
           complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();

@@ -69,3 +69,4 @@ uglifyjs 4X\/Standard\/Modules\/Tooltip.js --comments --compress --mangle --outp
 uglifyjs 4X\/Standard\/Modules\/Tree.js --comments --compress --mangle --output 4X\/Standard\/Min\/Tree.js 2>> FormatErrors.txt
 uglifyjs 4X\/Standard\/Modules\/Velocity.js --comments --compress --mangle --output 4X\/Standard\/Min\/Velocity.js 2>> FormatErrors.txt
 uglifyjs 4X\/Standard\/Modules\/VelocityUI.js --comments --compress --mangle --output 4X\/Standard\/Min\/VelocityUI.js 2>> FormatErrors.txt
+.\/BuildBundle.sh
