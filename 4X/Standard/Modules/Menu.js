@@ -1,5 +1,5 @@
 /*@license
-ARIA Menu Module 3.3 for Apex 4X
+ARIA Menu Module 3.2 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -9,7 +9,7 @@ Required dependencies: RovingTabIndex.js
 
 (function () {
   if (!("setMenu" in $A)) {
-    var menuPfl = {
+    $A.addWidgetProfile("Menu", {
       configure: function (dc) {
         return {
           horizontalHelpTip:
@@ -58,9 +58,7 @@ Required dependencies: RovingTabIndex.js
           "map",
         );
       },
-    };
-    $A.addWidgetProfile("Menu", menuPfl);
-    $A.addWidgetProfile("SubMenu", menuPfl);
+    });
 
     var isIE = $A.isIE();
 
@@ -126,7 +124,7 @@ Required dependencies: RovingTabIndex.js
             }
             return false;
           },
-          genMenu = function (o, p, list, isTopMenu) {
+          genMenu = function (o, p, list) {
             if (!$A.isNode(o)) return;
             var ref =
               list ||
@@ -147,8 +145,8 @@ Required dependencies: RovingTabIndex.js
                   trigger: o,
                   content: ref,
                   on: "openmenu",
-                  widgetType: isTopMenu ? "Menu" : "SubMenu",
-                  autoCloseSameWidget: isTopMenu ? true : false,
+                  widgetType: "Menu",
+                  autoCloseSameWidget: false,
                   toggleHide: true,
                   getState: getState,
                 },
@@ -322,7 +320,7 @@ Required dependencies: RovingTabIndex.js
 
         $A.query(o, config.context || document, function (i, o) {
           var gen = function (m) {
-            DC = genMenu(o, null, m, true);
+            DC = genMenu(o, null, m);
             $A.on(window.document, "click.closemenus", function () {
               DC.top.remove();
             });
