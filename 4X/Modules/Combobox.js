@@ -1,5 +1,5 @@
 /*@license
-ARIA Combobox Module 3.4 for Apex 4X
+ARIA Combobox Module 3.5 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -171,7 +171,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                           '" class="' +
                           dc.optionClass +
                           '" ';
-                      if (dc.cb.multiple) o += 'aria-selected="false" ';
+                      if (dc.cb.multiple) o += 'aria-checked="false" ';
                       o +=
                         "><a><span>" +
                         name +
@@ -223,7 +223,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                         var option = dc.cb.options[value];
                         $A.setAttr(
                           option.o,
-                          "aria-selected",
+                          "aria-checked",
                           option.checked ? "true" : "false",
                         );
                       } // End for loop
@@ -459,7 +459,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
 
                         if (!pass) {
                           option.checked =
-                            $A.getAttr(option.o, "aria-selected") === "true";
+                            $A.getAttr(option.o, "aria-checked") === "true";
                           option.so.selected = option.checked;
                         }
 
@@ -625,10 +625,10 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                           ) {
                             $A.setAttr(
                               dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,
-                              "aria-selected",
+                              "aria-checked",
                               $A.getAttr(
                                 dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,
-                                "aria-selected",
+                                "aria-checked",
                               ) === "true"
                                 ? "false"
                                 : "true",
@@ -636,8 +636,6 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                             if (dc.cb.autoSaveIfChecked) {
                               dc.cb.fn.setValue(false, false, true);
                             }
-                            ev.preventDefault();
-                          } else if (k === 38 || k === 40) {
                             ev.preventDefault();
                           } else if (
                             dc.cb.readonly &&
@@ -651,10 +649,6 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                               dc.cb.key = "";
                             }, 1500);
                           }
-                        },
-                        keyup: function (ev) {
-                          var e = this,
-                            k = $A.keyEvent(ev);
 
                           if (dc.cb.showAllIfEmpty && e.value) {
                             dc.cb.showAll = dc.fn.showAll;
@@ -761,7 +755,12 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                             dc.cb.select(dc);
 
                             if (k === 27) that.close();
-                          } else if (!dc.cb.readonly && k !== 9) {
+                          }
+                        },
+                        keyup: function (ev) {
+                          var e = this,
+                            k = $A.keyEvent(ev);
+                          if (!dc.cb.readonly && k !== 9) {
                             if (dc.cb.isInput) dc.cb.value = e.value;
                             var x = dc.cb.fn.checkValue(dc.cb.value);
 
@@ -799,7 +798,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                                   dc.cb.fn.render();
                                   that.open(true);
                                 }
-                              } else if (!(dc.cb.multiple && k === 32)) {
+                              } else if (!dc.cb.multiple) {
                                 that.close();
                               }
                             }
@@ -895,7 +894,6 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                     role: "listbox",
                     "aria-label": accName,
                     id: dc.cb.baseId + dc.cb.baseInc,
-                    "aria-multiselectable": dc.cb.multiple ? "true" : "false",
                   },
                   null,
                   dc.listboxClass,
@@ -935,8 +933,8 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                         if (o)
                           $A.setAttr(
                             o,
-                            "aria-selected",
-                            $A.getAttr(o, "aria-selected") === "true"
+                            "aria-checked",
+                            $A.getAttr(o, "aria-checked") === "true"
                               ? "false"
                               : "true",
                           );
@@ -1158,7 +1156,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                 var option = dc.cb.options[value];
                 option.so.selected = false;
                 option.checked = false;
-                $A.setAttr(option.o, "aria-selected", "false");
+                $A.setAttr(option.o, "aria-checked", "false");
               } // End for loop
 
               if (dc.cb.isInput) dc.triggerNode.value = "";
