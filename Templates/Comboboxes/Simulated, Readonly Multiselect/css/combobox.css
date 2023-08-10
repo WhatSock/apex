@@ -80,13 +80,13 @@ li.option.active a:visited {
   background: var(--elementBlack);
 }
 
-li [role="option"][aria-checked="false"] {
+li [role="option"][aria-selected="false"] {
   background: url("../img/unchecked.svg");
   background-repeat: no-repeat;
   background-position: right;
 }
 
-li [role="option"][aria-checked="true"] {
+li [role="option"][aria-selected="true"] {
   background: url("../img/checked.svg");
   background-repeat: no-repeat;
   background-position: right;

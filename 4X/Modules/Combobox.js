@@ -1,5 +1,5 @@
 /*@license
-ARIA Combobox Module 3.5 for Apex 4X
+ARIA Combobox Module 3.6 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -171,7 +171,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                           '" class="' +
                           dc.optionClass +
                           '" ';
-                      if (dc.cb.multiple) o += 'aria-checked="false" ';
+                      if (dc.cb.multiple) o += 'aria-selected="false" ';
                       o +=
                         "><a><span>" +
                         name +
@@ -223,7 +223,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                         var option = dc.cb.options[value];
                         $A.setAttr(
                           option.o,
-                          "aria-checked",
+                          "aria-selected",
                           option.checked ? "true" : "false",
                         );
                       } // End for loop
@@ -459,7 +459,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
 
                         if (!pass) {
                           option.checked =
-                            $A.getAttr(option.o, "aria-checked") === "true";
+                            $A.getAttr(option.o, "aria-selected") === "true";
                           option.so.selected = option.checked;
                         }
 
@@ -625,10 +625,10 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                           ) {
                             $A.setAttr(
                               dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,
-                              "aria-checked",
+                              "aria-selected",
                               $A.getAttr(
                                 dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,
-                                "aria-checked",
+                                "aria-selected",
                               ) === "true"
                                 ? "false"
                                 : "true",
@@ -894,6 +894,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                     role: "listbox",
                     "aria-label": accName,
                     id: dc.cb.baseId + dc.cb.baseInc,
+                    "aria-multiselectable": dc.cb.multiple ? "true" : "false",
                   },
                   null,
                   dc.listboxClass,
@@ -933,8 +934,8 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                         if (o)
                           $A.setAttr(
                             o,
-                            "aria-checked",
-                            $A.getAttr(o, "aria-checked") === "true"
+                            "aria-selected",
+                            $A.getAttr(o, "aria-selected") === "true"
                               ? "false"
                               : "true",
                           );
@@ -1156,7 +1157,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                 var option = dc.cb.options[value];
                 option.so.selected = false;
                 option.checked = false;
-                $A.setAttr(option.o, "aria-checked", "false");
+                $A.setAttr(option.o, "aria-selected", "false");
               } // End for loop
 
               if (dc.cb.isInput) dc.triggerNode.value = "";
