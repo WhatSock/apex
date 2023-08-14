@@ -1,5 +1,5 @@
 # Apex 4X : The Comprehensive ARIA Development Suite
-(Version: Iron Sunrise - 2023.7.27)
+(Version: Iron Sunrise - 2023.8.12)
 
 "Art should comfort the disturbed and disturb the comfortable.", Banksy
 
@@ -157,7 +157,7 @@ https://github.com/whatsock
 <!----><a name="changelog" tabindex="-1"></a>
 ## Change log:
 
-2023.7.27 (Iron Sunrise): Updated the DC lifecycle process within core 4X to automatically detect when a Velocity animation is running so that it can be properly reversed when autoCloseSameWidget is true. Updated modules: Datepicker, Menu, Straylight.
+2023.8.12 (Iron Sunrise): Updated the DC lifecycle process within core 4X to automatically detect when a Velocity animation is running so that it can be properly reversed when autoCloseSameWidget is true. Updated modules: Datepicker, Menu, Straylight. Added DC.abortLoad within core 4X.
 
 2023.7.14 (Blade Runner): Added the global $A.isAnimating flag to identify when a Velocity animation is currently running, plus the DC.isAnimating flag to indicate when a specific DC object is running an animation.
 

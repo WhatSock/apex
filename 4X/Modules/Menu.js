@@ -1,5 +1,5 @@
 /*@license
-ARIA Menu Module 3.2 for Apex 4X
+ARIA Menu Module 3.3 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -14,6 +14,7 @@ Required dependencies: RovingTabIndex.js
       props: props,
       once: true,
       call: function (props) {
+        $A.dcMenus = [];
         $A.addWidgetProfile("Menu", {
           configure: function (dc) {
             return {
@@ -40,6 +41,21 @@ Required dependencies: RovingTabIndex.js
               role: "menu",
               "aria-orientation": $A.getOrientation(dc.RTI.nodes).orientation,
             };
+          },
+          beforeRender: function (dc) {
+            if (dc.isTopMenu) {
+              for (var i = 0; i < $A.dcMenus.length; i++) {
+                var mDC = $A.dcMenus[i];
+                if (mDC && dc !== mDC) {
+                  if (mDC.loaded) mDC.bypass();
+                  else if (mDC.isAnimating && mDC.loading && window.Velocity) {
+                    mDC.abortLoad = true;
+                    window.Velocity.animate(mDC.wrapper, "finish");
+                    mDC.css(mDC.style);
+                  }
+                }
+              }
+            }
           },
           afterRender: function (dc) {
             if (!$A.isTouch) {
@@ -137,7 +153,7 @@ Required dependencies: RovingTabIndex.js
                 }
                 return false;
               },
-              genMenu = function (o, p, list) {
+              genMenu = function (o, p, list, isTop) {
                 if (!$A.isNode(o)) return;
                 var ref =
                   list ||
@@ -159,6 +175,7 @@ Required dependencies: RovingTabIndex.js
                       content: ref,
                       on: "openmenu",
                       widgetType: "Menu",
+                      isTopMenu: isTop,
                       autoCloseSameWidget: false,
                       toggleHide: true,
                       getState: getState,
@@ -335,7 +352,9 @@ Required dependencies: RovingTabIndex.js
 
             $A.query(o, config.context || document, function (i, o) {
               var gen = function (m) {
-                DC = genMenu(o, null, m);
+                DC = genMenu(o, null, m, true);
+                if ($A.isDC(DC.top) && $A.inArray(DC.top, $A.dcMenus) === -1)
+                  $A.dcMenus.push(DC.top);
                 $A.on(window.document, "click.closemenus", function () {
                   DC.top.remove();
                 });

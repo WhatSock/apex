@@ -7,7 +7,7 @@
   },
   "name": "apex4x",
   "description": "The Comprehensive ARIA Development Suite",
-  "version": "2023.7.27.5",
+  "version": "2023.8.12.0",
   "main": "Bundle/4X.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,5 +1,5 @@
 /*@license
-Apex 4X: The Comprehensive ARIA Development Suite ( Iron Sunrise - 2023.7.27 )
+Apex 4X: The Comprehensive ARIA Development Suite ( Iron Sunrise - 2023.8.12 )
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -7,7 +7,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 
 (function () {
   var moduleFolder = "/4X/Modules/",
-    Version = "2023.7.27",
+    Version = "2023.8.12",
     BN = {};
   (function () {
     var $A = function (dc, dcA, dcI, onReady, disableAsync) {
@@ -3902,10 +3902,12 @@ error: function(error, promise){}
               dc.loading = false;
               dc.loaded = true;
               if (
-                dc.autoCloseSameWidget &&
-                $A._regWidgets.has(dc.widgetType) &&
-                !dc.currentWT
+                dc.abortLoad ||
+                (dc.autoCloseSameWidget &&
+                  $A._regWidgets.has(dc.widgetType) &&
+                  !dc.currentWT)
               ) {
+                dc.abortLoad = false;
                 if (dc.fn.timer) clearTimeout(dc.fn.timer);
                 dc.fn.timer = setTimeout(function () {
                   dc.remove();
