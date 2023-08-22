@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 4.11 for Apex 4X
+ARIA Date Picker Module 4.12 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -840,7 +840,13 @@ License: MIT <https://opensource.org/licenses/MIT>
                 dc.minDate = minDate || dc.minDate || null;
                 dc.maxDate = maxDate || dc.maxDate || null;
                 dc.setDateComparisons(dc);
-                dc.date = dc.initialDate;
+                dc.date = !dc.isDisabledDate(
+                  dc,
+                  dc.initialDate.getDate(),
+                  dc.initialDate,
+                )
+                  ? dc.initialDate
+                  : new Date();
                 dc.setCurrent(dc);
                 dc.fn.current = {};
                 $A.extend(true, dc.fn.current, dc.range.current);
