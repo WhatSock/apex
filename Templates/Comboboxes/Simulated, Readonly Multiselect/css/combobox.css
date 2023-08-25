@@ -7,6 +7,7 @@ Common Combobox Colours - update in colors.css
 --elementBlack; #1f1f23;
 --listbox-darkGrey; #333333;
 --combobox-midGrey; #777777;
+var(--button-blue--light)
 */
 
 /**********************************************
@@ -80,17 +81,16 @@ li.option.active a:visited {
   background: var(--elementBlack);
 }
 
-li [role="option"][aria-selected="false"] {
-  background: url("../img/unchecked.svg");
-  background-repeat: no-repeat;
-  background-position: right;
-}
-
-li [role="option"][aria-selected="true"] {
+li.option[aria-selected="true"] {
   background: url("../img/checked.svg");
   background-repeat: no-repeat;
-  background-position: right;
+  background-position: right 0.3em center; /* moves the SVG 0.3em to the left */
+  border: 2px solid var(--apexDarkGreen);
+  padding: 0.3em 0 0.3em;
+  margin-right: 0.3em;
+  font-weight: 700;
 }
+
 
 div.toplevel-div {
   border: 1px solid var(--listbox-darkGrey);
