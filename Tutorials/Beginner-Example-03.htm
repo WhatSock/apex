@@ -37,7 +37,13 @@
             border-radius: 0.5em;
             padding: 0.5em 1em;
             font-weight: 700;
+            font-size: 1rem;
+        }
+
+        @media (min-width: 400px) {
+            .btn--example {
             font-size: 1.2rem;
+            }
         }
 
         .btn--example:focus {
@@ -68,7 +74,7 @@
         }
 
         .pagination .flex-container-row .flex-item {
-            flex: 1 0 100%;
+            flex: 1 0 auto;
         }
 
         .pagination .flex-container-row .flex-item:nth-child(2) {
