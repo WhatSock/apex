@@ -363,7 +363,6 @@ nav.navigation--parent p {
   margin: 1.5em 0;
 }
 nav {
-  text-align: center;
   max-width: 90em;
   margin: auto;
   margin-bottom: 1em;
@@ -379,7 +378,7 @@ nav li {
   list-style-type: none;
   font-size: 1rem;
   display: inline;
-  height: 3em;
+  margin-top: 0.3em;
 }
 
 nav button:hover,
@@ -399,7 +398,6 @@ nav > ul > li > a[aria-current="true"] {
 nav > ul > li > a,
 nav > p > a {
   line-height: 1.5;
-  padding: 0.5em 1.2em;
   background: var(--navLinkBackground);
   color: var(--globalWhite);
   border-top: 2px solid var(--whatsock-orange-main);
