@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 4.12 for Apex 4X
+ARIA Date Picker Module 4.13 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -931,9 +931,21 @@ License: MIT <https://opensource.org/licenses/MIT>
                 dc.rerendering = false;
               },
               beforeRender: function (dc) {
-                var dateValue = targ.value,
-                  dateParts = targ.value.split("/");
+                function isValidDateString(dateString) {
+                  var regex_mmddyyyy =
+                      /^(0?[1-9]|1[0-2])\/(0?[1-9]|[12][0-9]|3[01])\/\d{4}$/,
+                    regex_ddmmyyyy =
+                      /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[0-2])\/\d{4}$/;
+                  return (
+                    regex_mmddyyyy.test(dateString) ||
+                    regex_ddmmyyyy.test(dateString)
+                  );
+                }
+                var dateValue = targ.value.replace(/\.|\-/g, "/"),
+                  isValid = isValidDateString(dateValue),
+                  dateParts = isValid && targ.value.split("/");
                 if (
+                  isValid &&
                   config.inputDateFormat === "DD/MM/YYYY" &&
                   dateParts.length === 3
                 ) {
@@ -942,7 +954,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 } else if (config.inputDateFormat === "DD/MM/YYYY") {
                   dateValue = new Date();
                 }
-                if (!dc.rerendering && dateValue) {
+                if (!dc.rerendering && isValid && dateValue) {
                   dc.presetDate(dc, new Date(dateValue));
                 }
 

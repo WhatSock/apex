@@ -91,7 +91,6 @@ li.option[aria-selected="true"] {
   font-weight: 700;
 }
 
-
 div.toplevel-div {
   border: 1px solid var(--listbox-darkGrey);
   position: absolute;
