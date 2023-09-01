@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 4.13 for Apex 4X
+ARIA Date Picker Module 4.14 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -952,9 +952,14 @@ License: MIT <https://opensource.org/licenses/MIT>
                   dateValue =
                     dateParts[1] + "/" + dateParts[0] + "/" + dateParts[2];
                 } else if (config.inputDateFormat === "DD/MM/YYYY") {
-                  dateValue = new Date();
+                  dateValue = dc.initialDate;
                 }
-                if (!dc.rerendering && isValid && dateValue) {
+                if (
+                  !dc.rerendering &&
+                  isValid &&
+                  dateValue &&
+                  !dc.isOutsideDateRange(new Date(dateValue))
+                ) {
                   dc.presetDate(dc, new Date(dateValue));
                 }
 
