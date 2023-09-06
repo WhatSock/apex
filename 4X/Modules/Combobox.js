@@ -1,5 +1,5 @@
 /*@license
-ARIA Combobox Module 3.6 for Apex 4X
+ARIA Combobox Module 3.7 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -798,7 +798,9 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                                   dc.cb.fn.render();
                                   that.open(true);
                                 }
-                              } else if (!dc.cb.multiple) {
+                              } else if (
+                                !(dc.cb.multiple || k === 38 || k === 40)
+                              ) {
                                 that.close();
                               }
                             }
