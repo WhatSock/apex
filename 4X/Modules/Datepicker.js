@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 4.14 for Apex 4X
+ARIA Date Picker Module 5.0 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -1453,11 +1453,10 @@ License: MIT <https://opensource.org/licenses/MIT>
                 }
               },
               afterRender: function (dc) {
-                if (dc.showEscBtn) {
-                  dc.escBtn = dc.container.querySelector("button.esc-button");
-                }
-
                 dc.buttons = {
+                  esc: !dc.showEscBtn
+                    ? null
+                    : dc.container.querySelector("button.esc-button"),
                   pY: config.condenseYear ? null : $A.get(dc.prevBtnId + "Y"),
                   nY: config.condenseYear ? null : $A.get(dc.nextBtnId + "Y"),
                   pM: $A.get(dc.prevBtnId),
@@ -2017,29 +2016,16 @@ License: MIT <https://opensource.org/licenses/MIT>
                         $A.extend(true, dc.prevCurrent, dc.range.current);
 
                         if (commentsEnabled && formDC.loaded) {
-                          if (!formDC.textarea.hidden) formDC.textarea.focus();
-                          else formDC.commentBtn.focus();
-                        } else if (!dc.showEscBtn) {
-                          if (
-                            !config.condenseYear &&
-                            !$A.data(dc.buttons.pY, "disabled")
-                          )
-                            dc.buttons.pY.focus();
-                          else if (!config.condenseYear && dc.buttons.cY)
-                            dc.buttons.cY.focus();
-                          else if (
-                            !config.condenseYear &&
-                            !$A.data(dc.buttons.nY, "disabled")
-                          )
-                            dc.buttons.nY.focus();
-                          else if (!$A.data(dc.buttons.pM, "disabled"))
-                            dc.buttons.pM.focus();
-                          else if (dc.buttons.cM) dc.buttons.cM.focus();
-                          else if (!$A.data(dc.buttons.nM, "disabled"))
-                            dc.buttons.nM.focus();
-
-                          ev.preventDefault();
+                          if (!$A.isHidden(formDC.textarea)) {
+                            formDC.textarea.focus();
+                          } else {
+                            formDC.commentBtn.focus();
+                          }
+                        } else {
+                          var navX = dc.nav[0];
+                          if ($A.isNode(navX)) navX.focus();
                         }
+                        ev.preventDefault();
                       } else if (
                         k === 9 &&
                         !pressed.alt &&
@@ -2049,24 +2035,12 @@ License: MIT <https://opensource.org/licenses/MIT>
                         // Tab key (with simultaneous Shift modifier)
                         $A.extend(true, dc.prevCurrent, dc.range.current);
 
-                        if (!$A.data(dc.buttons.nM, "disabled"))
-                          dc.buttons.nM.focus();
-                        else if (dc.buttons.cM) dc.buttons.cM.focus();
-                        else if (!$A.data(dc.buttons.pM, "disabled"))
-                          dc.buttons.pM.focus();
-                        else if (
-                          !config.condenseYear &&
-                          !$A.data(dc.buttons.nY, "disabled")
-                        )
-                          dc.buttons.nY.focus();
-                        else if (!config.condenseYear && dc.buttons.cY)
-                          dc.buttons.cY.focus();
-                        else if (
-                          !config.condenseYear &&
-                          !$A.data(dc.buttons.pY, "disabled")
-                        )
-                          dc.buttons.pY.focus();
-
+                        var navX = dc.nav[dc.nav.length - 1];
+                        if ($A.isNode(navX)) {
+                          navX.focus();
+                        } else if (commentsEnabled && formDC.loaded) {
+                          formDC.commentBtn.focus();
+                        }
                         ev.preventDefault();
                       }
                     },
@@ -2099,7 +2073,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 // Reconfigured for Esc btn processing
                 if (dc.showEscBtn) {
                   $A.on(
-                    dc.escBtn,
+                    dc.buttons.esc,
                     {
                       click: function (ev) {
                         dc.remove();
@@ -2125,23 +2099,8 @@ License: MIT <https://opensource.org/licenses/MIT>
                         ) {
                           // Tab key (without any simultaneous modifiers Alt / Ctrl / Shift)
 
-                          if (
-                            !config.condenseYear &&
-                            !$A.data(dc.buttons.pY, "disabled")
-                          )
-                            dc.buttons.pY.focus();
-                          else if (!config.condenseYear && dc.buttons.cY)
-                            dc.buttons.cY.focus();
-                          else if (
-                            !config.condenseYear &&
-                            !$A.data(dc.buttons.nY, "disabled")
-                          )
-                            dc.buttons.nY.focus();
-                          else if (!$A.data(dc.buttons.pM, "disabled"))
-                            dc.buttons.pM.focus();
-                          else if (dc.buttons.cM) dc.buttons.cM.focus();
-                          else if (!$A.data(dc.buttons.nM, "disabled"))
-                            dc.buttons.nM.focus();
+                          var navX = dc.navTo(this, 1);
+                          if ($A.isNode(navX)) navX.focus();
                           else mainDC.current.focus();
 
                           ev.preventDefault();
@@ -2151,9 +2110,15 @@ License: MIT <https://opensource.org/licenses/MIT>
                           !pressed.ctrl &&
                           pressed.shift
                         ) {
-                          if (commentsEnabled && formDC.loaded) {
+                          var navX = dc.navTo(this, 0);
+                          if ($A.isNode(navX)) {
+                            navX.focus();
+                          } else if (commentsEnabled && formDC.loaded) {
                             formDC.commentBtn.focus();
+                          } else {
+                            mainDC.current.focus();
                           }
+                          ev.preventDefault();
                         }
                       },
                       keyup: function (ev) {
@@ -2250,13 +2215,8 @@ License: MIT <https://opensource.org/licenses/MIT>
                           !pressed.ctrl &&
                           !pressed.shift
                         ) {
-                          if (!$A.data(dc.buttons.nY, "disabled"))
-                            dc.buttons.nY.focus();
-                          else if (!$A.data(dc.buttons.pM, "disabled"))
-                            dc.buttons.pM.focus();
-                          else if (dc.buttons.cM) dc.buttons.cM.focus();
-                          else if (!$A.data(dc.buttons.nM, "disabled"))
-                            dc.buttons.nM.focus();
+                          var navX = dc.navTo(this, 1);
+                          if ($A.isNode(navX)) navX.focus();
                           else mainDC.current.focus();
                           ev.preventDefault();
                         } else if (
@@ -2265,10 +2225,14 @@ License: MIT <https://opensource.org/licenses/MIT>
                           !pressed.ctrl &&
                           pressed.shift
                         ) {
-                          if (!$A.data(dc.buttons.pY, "disabled"))
-                            dc.buttons.pY.focus();
-                          else if (dc.showEscBtn) dc.escBtn.focus();
-                          else mainDC.current.focus();
+                          var navX = dc.navTo(this, 0);
+                          if ($A.isNode(navX)) {
+                            navX.focus();
+                          } else if (commentsEnabled && formDC.loaded) {
+                            formDC.commentBtn.focus();
+                          } else {
+                            mainDC.current.focus();
+                          }
                           ev.preventDefault();
                         }
                       },
@@ -2366,8 +2330,8 @@ License: MIT <https://opensource.org/licenses/MIT>
                           !pressed.ctrl &&
                           !pressed.shift
                         ) {
-                          if (!$A.data(dc.buttons.nM, "disabled"))
-                            dc.buttons.nM.focus();
+                          var navX = dc.navTo(this, 1);
+                          if ($A.isNode(navX)) navX.focus();
                           else mainDC.current.focus();
                           ev.preventDefault();
                         } else if (
@@ -2376,22 +2340,14 @@ License: MIT <https://opensource.org/licenses/MIT>
                           !pressed.ctrl &&
                           pressed.shift
                         ) {
-                          if (!$A.data(dc.buttons.pM, "disabled"))
-                            dc.buttons.pM.focus();
-                          else if (
-                            !config.condenseYear &&
-                            !$A.data(dc.buttons.nY, "disabled")
-                          )
-                            dc.buttons.nY.focus();
-                          else if (!config.condenseYear && dc.buttons.cY)
-                            dc.buttons.cY.focus();
-                          else if (
-                            !config.condenseYear &&
-                            !$A.data(dc.buttons.pY, "disabled")
-                          )
-                            dc.buttons.pY.focus();
-                          else if (dc.showEscBtn) dc.escBtn.focus();
-                          else mainDC.current.focus();
+                          var navX = dc.navTo(this, 0);
+                          if ($A.isNode(navX)) {
+                            navX.focus();
+                          } else if (commentsEnabled && formDC.loaded) {
+                            formDC.commentBtn.focus();
+                          } else {
+                            mainDC.current.focus();
+                          }
                           ev.preventDefault();
                         }
                       },
@@ -2440,11 +2396,9 @@ License: MIT <https://opensource.org/licenses/MIT>
                         !pressed.ctrl &&
                         !pressed.shift
                       ) {
-                        if (dc.buttons.cM) dc.buttons.cM.focus();
-                        else if (!$A.data(dc.buttons.nM, "disabled"))
-                          dc.buttons.nM.focus();
+                        var navX = dc.navTo(this, 1);
+                        if ($A.isNode(navX)) navX.focus();
                         else mainDC.current.focus();
-
                         ev.preventDefault();
                       } else if (
                         k === 9 &&
@@ -2452,28 +2406,13 @@ License: MIT <https://opensource.org/licenses/MIT>
                         !pressed.ctrl &&
                         pressed.shift
                       ) {
-                        if (
-                          !config.condenseYear &&
-                          !$A.data(dc.buttons.nY, "disabled")
-                        ) {
-                          dc.buttons.nY.focus();
-                        } else if (!config.condenseYear && dc.buttons.cY) {
-                          dc.buttons.cY.focus();
-                        } else if (
-                          !config.condenseYear &&
-                          !$A.data(dc.buttons.pY, "disabled")
-                        ) {
-                          dc.buttons.pY.focus();
+                        var navX = dc.navTo(this, 0);
+                        if ($A.isNode(navX)) {
+                          navX.focus();
+                        } else if (commentsEnabled && formDC.loaded) {
+                          formDC.commentBtn.focus();
                         } else {
-                          if (dc.showEscBtn) {
-                            dc.escBtn.focus();
-                          } else if (commentsEnabled && formDC.loaded) {
-                            if (!formDC.textarea.hidden)
-                              formDC.textarea.focus();
-                            else formDC.commentBtn.focus();
-                          } else {
-                            mainDC.current.focus();
-                          }
+                          mainDC.current.focus();
                         }
                         ev.preventDefault();
                       }
@@ -2530,32 +2469,13 @@ License: MIT <https://opensource.org/licenses/MIT>
                         !pressed.ctrl &&
                         pressed.shift
                       ) {
-                        if (dc.buttons.cM) {
-                          dc.buttons.cM.focus();
-                        } else if (!$A.data(dc.buttons.pM, "disabled")) {
-                          dc.buttons.pM.focus();
-                        } else if (
-                          !config.condenseYear &&
-                          !$A.data(dc.buttons.nY, "disabled")
-                        ) {
-                          dc.buttons.nY.focus();
-                        } else if (!config.condenseYear && dc.buttons.cY) {
-                          dc.buttons.cY.focus();
-                        } else if (
-                          !config.condenseYear &&
-                          !$A.data(dc.buttons.pY, "disabled")
-                        ) {
-                          dc.buttons.pY.focus();
+                        var navX = dc.navTo(this, 0);
+                        if ($A.isNode(navX)) {
+                          navX.focus();
+                        } else if (commentsEnabled && formDC.loaded) {
+                          formDC.commentBtn.focus();
                         } else {
-                          if (dc.showEscBtn) {
-                            dc.escBtn.focus();
-                          } else if (commentsEnabled && formDC.loaded) {
-                            if (!formDC.textarea.hidden)
-                              formDC.textarea.focus();
-                            else formDC.commentBtn.focus();
-                          } else {
-                            mainDC.current.focus();
-                          }
+                          mainDC.current.focus();
                         }
                         ev.preventDefault();
                       }
@@ -2605,16 +2525,9 @@ License: MIT <https://opensource.org/licenses/MIT>
                           !pressed.ctrl &&
                           !pressed.shift
                         ) {
-                          if (dc.buttons.cY) dc.buttons.cY.focus();
-                          else if (!$A.data(dc.buttons.nY, "disabled"))
-                            dc.buttons.nY.focus();
-                          else if (!$A.data(dc.buttons.pM, "disabled"))
-                            dc.buttons.pM.focus();
-                          else if (dc.buttons.cM) dc.buttons.cM.focus();
-                          else if (!$A.data(dc.buttons.nM, "disabled"))
-                            dc.buttons.nM.focus();
+                          var navX = dc.navTo(this, 1);
+                          if ($A.isNode(navX)) navX.focus();
                           else mainDC.current.focus();
-
                           ev.preventDefault();
                         } else if (
                           k === 9 &&
@@ -2622,8 +2535,9 @@ License: MIT <https://opensource.org/licenses/MIT>
                           !pressed.ctrl &&
                           pressed.shift
                         ) {
-                          if (dc.showEscBtn) {
-                            dc.escBtn.focus();
+                          var navX = dc.navTo(this, 0);
+                          if ($A.isNode(navX)) {
+                            navX.focus();
                           } else if (commentsEnabled && formDC.loaded) {
                             formDC.commentBtn.focus();
                           } else {
@@ -2677,13 +2591,9 @@ License: MIT <https://opensource.org/licenses/MIT>
                           !pressed.ctrl &&
                           !pressed.shift
                         ) {
-                          if (!$A.data(dc.buttons.pM, "disabled"))
-                            dc.buttons.pM.focus();
-                          else if (dc.buttons.cM) dc.buttons.cM.focus();
-                          else if (!$A.data(dc.buttons.nM, "disabled"))
-                            dc.buttons.nM.focus();
+                          var navX = dc.navTo(this, 1);
+                          if ($A.isNode(navX)) navX.focus();
                           else mainDC.current.focus();
-
                           ev.preventDefault();
                         } else if (
                           k === 9 &&
@@ -2691,19 +2601,13 @@ License: MIT <https://opensource.org/licenses/MIT>
                           !pressed.ctrl &&
                           pressed.shift
                         ) {
-                          if (dc.buttons.cY) dc.buttons.cY.focus();
-                          else if (!$A.data(dc.buttons.pY, "disabled")) {
-                            dc.buttons.pY.focus();
+                          var navX = dc.navTo(this, 0);
+                          if ($A.isNode(navX)) {
+                            navX.focus();
+                          } else if (commentsEnabled && formDC.loaded) {
+                            formDC.commentBtn.focus();
                           } else {
-                            if (dc.showEscBtn) {
-                              dc.escBtn.focus();
-                            } else if (commentsEnabled && formDC.loaded) {
-                              if (!formDC.textarea.hidden)
-                                formDC.textarea.focus();
-                              else formDC.commentBtn.focus();
-                            } else {
-                              mainDC.current.focus();
-                            }
+                            mainDC.current.focus();
                           }
                           ev.preventDefault();
                         }
@@ -2714,6 +2618,28 @@ License: MIT <https://opensource.org/licenses/MIT>
                     },
                     "." + baseId,
                   );
+
+                (function () {
+                  dc.nav = [];
+                  var btns = ["esc", "pY", "cY", "nY", "pM", "cM", "nM"];
+                  for (var iB = 0; iB < btns.length; iB++) {
+                    var b = dc.buttons[btns[iB]];
+                    if (b && !$A.isDisabled(b) && $A.isFocusable(b))
+                      dc.nav.push(b);
+                  }
+                  dc.navTo = function (cur, forward) {
+                    if (
+                      !dc.nav.length ||
+                      (cur === dc.nav[0] && !forward) ||
+                      (cur === dc.nav[dc.nav.length - 1] && forward)
+                    )
+                      return null;
+                    return (
+                      dc.nav[$A.inArray(cur, dc.nav) + (forward ? 1 : -1)] ||
+                      null
+                    );
+                  };
+                })();
 
                 dc.range.index = dc.container.querySelectorAll("td.dayInMonth");
                 dc.setFocus.firstOpen = true;
@@ -3018,22 +2944,21 @@ License: MIT <https://opensource.org/licenses/MIT>
                         !ev.shiftKey &&
                         !ev.ctrlKey
                       ) {
-                        if (dc.parent.showEscBtn) {
-                          dc.escBtn.focus();
-                        } else if (
-                          !config.condenseYear &&
-                          !$A.data(dc.parent.buttons.pY, "disabled")
-                        )
-                          dc.parent.buttons.pY.focus();
-                        else if (
-                          !config.condenseYear &&
-                          !$A.data(dc.parent.buttons.nY, "disabled")
-                        )
-                          dc.parent.buttons.nY.focus();
-                        else if (!$A.data(dc.parent.buttons.pM, "disabled"))
-                          dc.parent.buttons.pM.focus();
-                        else if (!$A.data(dc.parent.buttons.nM, "disabled"))
-                          dc.parent.buttons.nM.focus();
+                        var navX = dc.parent.nav[0];
+                        if ($A.isNode(navX)) navX.focus();
+                        else mainDC.current.focus();
+                        ev.preventDefault();
+                      } else if (
+                        k === 9 &&
+                        !pressed.alt &&
+                        !pressed.ctrl &&
+                        pressed.shift
+                      ) {
+                        if (!$A.isHidden(formDC.textarea)) {
+                          formDC.textarea.focus();
+                        } else {
+                          mainDC.current.focus();
+                        }
                         ev.preventDefault();
                       }
                     },
