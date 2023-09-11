@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 5.0 for Apex 4X
+ARIA Date Picker Module 5.1 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -1063,7 +1063,9 @@ License: MIT <https://opensource.org/licenses/MIT>
                     '">' +
                     // Add year select field if enabled.
                     (config.yearSelect
-                      ? '<select hidden class="nav current select year" id="' +
+                      ? "<select " +
+                        (config.forceSelect ? "" : "hidden ") +
+                        'class="nav current select year" id="' +
                         dc.currentBtnId +
                         'Y" title="' +
                         dc.yearTxt.replace(/<|>|\"/g, "") +
@@ -1092,7 +1094,9 @@ License: MIT <https://opensource.org/licenses/MIT>
                           return s;
                         })() +
                         "</select>" +
-                        '<span class="nav current btn year" tabindex="0" role="button" id="' +
+                        "<span " +
+                        (config.forceSelect ? "hidden " : "") +
+                        'class="nav current btn year" tabindex="0" role="button" id="' +
                         dc.currentBtnId +
                         'YB">' +
                         dc.range.current.year +
@@ -1156,7 +1160,9 @@ License: MIT <https://opensource.org/licenses/MIT>
                   '<td colspan="5" class="month" role="presentation">' +
                   // Add month select field if enabled.
                   (config.monthSelect
-                    ? '<select hidden class="nav current select month" id="' +
+                    ? "<select " +
+                      (config.forceSelect ? "" : "hidden ") +
+                      'class="nav current select month" id="' +
                       dc.currentBtnId +
                       'M" title="' +
                       dc.monthTxt.replace(/<|>|\"/g, "") +
@@ -1183,7 +1189,9 @@ License: MIT <https://opensource.org/licenses/MIT>
                         return s;
                       })() +
                       "</select>" +
-                      '<span class="nav current btn month" tabindex="0" role="button" id="' +
+                      "<span " +
+                      (config.forceSelect ? "hidden " : "") +
+                      'class="nav current btn month" tabindex="0" role="button" id="' +
                       dc.currentBtnId +
                       'MB">' +
                       dc.range[dc.range.current.month].name +
@@ -2142,8 +2150,10 @@ License: MIT <https://opensource.org/licenses/MIT>
                           return dc.range.current.year;
                         })();
 
-                        dc.buttons.cYS.hidden = true;
-                        dc.buttons.cY.hidden = false;
+                        if (!config.forceSelect) {
+                          dc.buttons.cYS.hidden = true;
+                          dc.buttons.cY.hidden = false;
+                        }
                         if (year !== dc.range.current.year) {
                           dc.initialDate = new Date(
                             year,
@@ -2153,7 +2163,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                           dc.setDate(dc);
                           dc.rerenderTable(dc);
                         } else {
-                          dc.buttons.cY.focus();
+                          dc.buttons[config.forceSelect ? "cYS" : "cY"].focus();
                         }
                       };
                     dc.buttons.cYS = ySel;
@@ -2165,22 +2175,54 @@ License: MIT <https://opensource.org/licenses/MIT>
                           changePressed(ev);
                           var k = $A.keyEvent(ev);
                           if (k === 27) {
-                            dc.buttons.cYS.hidden = true;
-                            dc.buttons.cY.hidden = false;
-                            dc.buttons.cY.focus();
+                            if (!config.forceSelect) {
+                              dc.buttons.cYS.hidden = true;
+                              dc.buttons.cY.hidden = false;
+                              dc.buttons.cY.focus();
+                            } else {
+                              dc.remove();
+                              onFocusInit = false;
+                              onFocusTraverse = true;
+                              $A.focus(config.returnFocusTo || targ);
+                            }
                             ev.stopPropagation();
                             ev.preventDefault();
+                          } else if (
+                            k === 9 &&
+                            !pressed.alt &&
+                            !pressed.ctrl &&
+                            !pressed.shift
+                          ) {
+                            if (config.forceSelect) {
+                              var navX = dc.navTo(this, 1);
+                              if ($A.isNode(navX)) navX.focus();
+                              else mainDC.current.focus();
+                              ev.preventDefault();
+                            }
+                          } else if (
+                            k === 9 &&
+                            !pressed.alt &&
+                            !pressed.ctrl &&
+                            pressed.shift
+                          ) {
+                            if (config.forceSelect) {
+                              var navX = dc.navTo(this, 0);
+                              if ($A.isNode(navX)) {
+                                navX.focus();
+                              } else if (commentsEnabled && formDC.loaded) {
+                                formDC.commentBtn.focus();
+                              } else {
+                                mainDC.current.focus();
+                              }
+                              ev.preventDefault();
+                            }
                           }
                         },
                         keyup: function (ev) {
                           changePressed(ev);
                         },
-                        blur: function (ev) {
-                          dc.navBtn = "CY";
-                          ySelHandle(ev);
-                        },
                         change: function (ev) {
-                          dc.navBtn = "CY";
+                          dc.navBtn = config.forceSelect ? "cYS" : "CY";
                           ySelHandle(ev);
                         },
                       },
@@ -2191,18 +2233,22 @@ License: MIT <https://opensource.org/licenses/MIT>
                     dc.buttons.cY,
                     {
                       click: function (ev) {
-                        dc.buttons.cY.hidden = true;
-                        dc.buttons.cYS.hidden = false;
-                        dc.buttons.cYS.focus();
+                        if (!config.forceSelect) {
+                          dc.buttons.cY.hidden = true;
+                          dc.buttons.cYS.hidden = false;
+                          dc.buttons.cYS.focus();
+                        }
                         ev.preventDefault();
                       },
                       keydown: function (ev) {
                         changePressed(ev);
                         var k = $A.keyEvent(ev);
                         if (k === 13 || k === 32) {
-                          dc.buttons.cY.hidden = true;
-                          dc.buttons.cYS.hidden = false;
-                          dc.buttons.cYS.focus();
+                          if (!config.forceSelect) {
+                            dc.buttons.cY.hidden = true;
+                            dc.buttons.cYS.hidden = false;
+                            dc.buttons.cYS.focus();
+                          }
                           ev.preventDefault();
                         } else if (k === 27) {
                           dc.remove();
@@ -2257,8 +2303,10 @@ License: MIT <https://opensource.org/licenses/MIT>
                           return dc.range.current.month;
                         })();
 
-                        dc.buttons.cMS.hidden = true;
-                        dc.buttons.cM.hidden = false;
+                        if (!config.forceSelect) {
+                          dc.buttons.cMS.hidden = true;
+                          dc.buttons.cM.hidden = false;
+                        }
                         if (month !== dc.range.current.month) {
                           dc.initialDate = new Date(
                             dc.range.current.year,
@@ -2268,7 +2316,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                           dc.setDate(dc);
                           dc.rerenderTable(dc);
                         } else {
-                          dc.buttons.cM.focus();
+                          dc.buttons[config.forceSelect ? "cMS" : "cM"].focus();
                         }
                       };
                     dc.buttons.cMS = mSel;
@@ -2280,22 +2328,54 @@ License: MIT <https://opensource.org/licenses/MIT>
                           changePressed(ev);
                           var k = $A.keyEvent(ev);
                           if (k === 27) {
-                            dc.buttons.cMS.hidden = true;
-                            dc.buttons.cM.hidden = false;
-                            dc.buttons.cM.focus();
+                            if (!config.forceSelect) {
+                              dc.buttons.cMS.hidden = true;
+                              dc.buttons.cM.hidden = false;
+                              dc.buttons.cM.focus();
+                            } else {
+                              dc.remove();
+                              onFocusInit = false;
+                              onFocusTraverse = true;
+                              $A.focus(config.returnFocusTo || targ);
+                            }
                             ev.stopPropagation();
                             ev.preventDefault();
+                          } else if (
+                            k === 9 &&
+                            !pressed.alt &&
+                            !pressed.ctrl &&
+                            !pressed.shift
+                          ) {
+                            if (config.forceSelect) {
+                              var navX = dc.navTo(this, 1);
+                              if ($A.isNode(navX)) navX.focus();
+                              else mainDC.current.focus();
+                              ev.preventDefault();
+                            }
+                          } else if (
+                            k === 9 &&
+                            !pressed.alt &&
+                            !pressed.ctrl &&
+                            pressed.shift
+                          ) {
+                            if (config.forceSelect) {
+                              var navX = dc.navTo(this, 0);
+                              if ($A.isNode(navX)) {
+                                navX.focus();
+                              } else if (commentsEnabled && formDC.loaded) {
+                                formDC.commentBtn.focus();
+                              } else {
+                                mainDC.current.focus();
+                              }
+                              ev.preventDefault();
+                            }
                           }
                         },
                         keyup: function (ev) {
                           changePressed(ev);
                         },
-                        blur: function (ev) {
-                          dc.navBtn = "CM";
-                          mSelHandle(ev);
-                        },
                         change: function (ev) {
-                          dc.navBtn = "CM";
+                          dc.navBtn = config.forceSelect ? "cMS" : "cM";
                           mSelHandle(ev);
                         },
                       },
@@ -2306,18 +2386,22 @@ License: MIT <https://opensource.org/licenses/MIT>
                     dc.buttons.cM,
                     {
                       click: function (ev) {
-                        dc.buttons.cM.hidden = true;
-                        dc.buttons.cMS.hidden = false;
-                        dc.buttons.cMS.focus();
+                        if (!config.forceSelect) {
+                          dc.buttons.cM.hidden = true;
+                          dc.buttons.cMS.hidden = false;
+                          dc.buttons.cMS.focus();
+                        }
                         ev.preventDefault();
                       },
                       keydown: function (ev) {
                         changePressed(ev);
                         var k = $A.keyEvent(ev);
                         if (k === 13 || k === 32) {
-                          dc.buttons.cM.hidden = true;
-                          dc.buttons.cMS.hidden = false;
-                          dc.buttons.cMS.focus();
+                          if (!config.forceSelect) {
+                            dc.buttons.cM.hidden = true;
+                            dc.buttons.cMS.hidden = false;
+                            dc.buttons.cMS.focus();
+                          }
                           ev.preventDefault();
                         } else if (k === 27) {
                           dc.remove();
@@ -2621,10 +2705,25 @@ License: MIT <https://opensource.org/licenses/MIT>
 
                 (function () {
                   dc.nav = [];
-                  var btns = ["esc", "pY", "cY", "nY", "pM", "cM", "nM"];
+                  var btns = [
+                    "esc",
+                    "pY",
+                    "cY",
+                    "cYS",
+                    "nY",
+                    "pM",
+                    "cM",
+                    "cMS",
+                    "nM",
+                  ];
                   for (var iB = 0; iB < btns.length; iB++) {
                     var b = dc.buttons[btns[iB]];
-                    if (b && !$A.isDisabled(b) && $A.isFocusable(b))
+                    if (
+                      b &&
+                      !$A.isDisabled(b) &&
+                      !$A.isHidden(b) &&
+                      $A.isFocusable(b)
+                    )
                       dc.nav.push(b);
                   }
                   dc.navTo = function (cur, forward) {

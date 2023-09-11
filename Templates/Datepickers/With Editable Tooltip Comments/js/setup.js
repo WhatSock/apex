@@ -13,9 +13,11 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function () {
     // Optionally convert the static year field into a year selector dropdown.
     yearSelect: true,
     yearSelectMin: 1900,
-    yearSelectMax: 2030,
+    yearSelectMax: new Date().getFullYear() + 5,
     // Optionally convert the static month field into a month selector dropdown.
     monthSelect: true,
+    // Force the month/year select dropdown to render instead of a button.
+    forceSelect: false,
 
     style: { position: "absolute", zIndex: 1, display: "none" },
     animate: {
