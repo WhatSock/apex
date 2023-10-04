@@ -1,5 +1,5 @@
 /*@license
-ARIA Menu Module 3.3 for Apex 4X
+ARIA Menu Module 3.4 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -64,6 +64,7 @@ Required dependencies: RovingTabIndex.js
             );
           }, 1);
         }
+        if (!dc.isTopMenu) $A.setAttr(dc.triggerNode, "aria-expanded", "true");
       },
       beforeRemove: function (dc) {
         $A.loop(
@@ -73,6 +74,9 @@ Required dependencies: RovingTabIndex.js
           },
           "map",
         );
+      },
+      afterRemove: function (dc) {
+        if (!dc.isTopMenu) $A.setAttr(dc.triggerNode, "aria-expanded", "false");
       },
     });
 
@@ -151,6 +155,7 @@ Required dependencies: RovingTabIndex.js
             ref = $A.morph(ref);
             if (!$A.isNode(ref)) return;
             $A.setAttr(o, "aria-haspopup", "true");
+            if (!isTop) $A.setAttr(o, "aria-expanded", "false");
             var mItems = tag.parse(ref);
 
             $A.svgFix(ref);
