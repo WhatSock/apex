@@ -381,7 +381,7 @@ nav > p > a {
   border-top: 2px solid var(--whatsock-orange-main);
   margin: 0 2px;
   text-decoration: none;
-  padding: .5em 1em;
+  padding: 0.5em 1em;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -393,8 +393,8 @@ nav > p > a {
   }
   nav > ul > li > a,
   nav > p > a {
-    max-width: 300px;  /* Set maximum width */
-    display: inline-block;  /* Required for max-width to work */
+    max-width: 300px; /* Set maximum width */
+    display: inline-block; /* Required for max-width to work */
   }
 }
 

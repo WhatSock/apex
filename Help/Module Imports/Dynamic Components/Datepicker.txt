@@ -221,6 +221,11 @@ rightButtonMonthText: '&gt;',
 openOnFocus: false,
 openOnFocusHelpText: 'Press Down arrow to browse the calendar, or Escape to close.',
 
+// Specify that only the year and month selector will be rendered, and no individual dates.
+// Set inputDateFormat to return the correct string value when the datepicker closes. For example:
+// inputDateFormat: 'MM/YYYY',
+monthOnly: false,
+
 // Display a Close button
 showEscBtn: true,
 escBtnName: 'Close',

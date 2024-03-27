@@ -17,7 +17,7 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function () {
     // Optionally convert the static month field into a month selector dropdown.
     monthSelect: true,
     // Force the month/year select dropdown to render instead of a button.
-    forceSelect: false,
+    forceSelect: true,
 
     style: { position: "absolute", zIndex: 1, display: "none" },
     animate: {
