@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 5.3 for Apex 4X
+ARIA Date Picker Module 5.4 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -386,6 +386,7 @@ License: MIT <https://opensource.org/licenses/MIT>
               formatDate: function (dc, dateFormatTokens, dateFormat) {
                 if (!dateFormatTokens)
                   dateFormatTokens = {
+                    yy: ("0" + dc.range.current.year).slice(-2),
                     YYYY: dc.range.current.year,
                     MMMM: dc.range[dc.range.current.month].name,
                     dddd: dc.range.wDays[dc.range.current.wDay].lng,
