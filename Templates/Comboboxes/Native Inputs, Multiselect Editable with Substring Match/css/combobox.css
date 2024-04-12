@@ -48,12 +48,18 @@ ul.listbox {
   background-color: var(--globalWhite);
 }
 
-#ctryIcon,
-#mobileCloseIcon {
+#ctryIcon {
   height: 25px;
   width: auto;
   padding-left: 0.5em;
   margin: auto;
+}
+
+#mobileCloseIcon {
+  /* height: 25px;
+  width: auto;
+  padding-left: 0.5em;
+  margin: auto; */
 }
 
 #mobileCloseIcon {
@@ -134,4 +140,40 @@ ul.listbox {
   left: 71px !important;
   top: 35px !important;
   width: 17em;
+}
+
+/****************
+New activate / collapse icon
+*******************/
+/* Basic styles for the button */
+#mobileCloseIcon {
+  background: none;
+  border: none;
+  padding: 0;
+  /* display: inline-block; */
+}
+
+/* Styles for the SVG itself */
+#mobileCloseIcon svg {
+  width: 35px;
+  height: 35px;
+}
+
+/* Focus-visible styles */
+#mobileCloseIcon:focus-visible {
+  outline: 3px solid #ffcc00; /* Bright outline color for high visibility */
+  outline-offset: 2px; /* Space between the outline and the element */
+}
+
+/* Styles for the SVG rectangle */
+#mobileCloseIcon svg rect {
+  fill: #2e3135; /* Dark fill color for the rectangle */
+}
+
+/* Styles for the SVG path */
+#mobileCloseIcon svg path {
+  stroke: #ffcc00; /* Bright stroke color for the chevron */
+  stroke-width: 8; /* Width of the stroke */
+  stroke-linecap: round; /* Rounded ends of the stroke */
+  fill: none; /* No fill for the path */
 }
