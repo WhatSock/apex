@@ -10,9 +10,13 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function () {
     // Native or simulated input element
     input: $A.get("dateId"),
 
+    // Optionally hide individual dates to render month / year selector only.
+    monthOnly: true,
+    inputDateFormat: "MM/YY",
+
     // Optionally convert the static year field into a year selector dropdown.
     yearSelect: true,
-    yearSelectMin: 1900,
+    yearSelectMin: new Date().getFullYear(),
     yearSelectMax: new Date().getFullYear() + 5,
     // Optionally convert the static month field into a month selector dropdown.
     monthSelect: true,
