@@ -24,7 +24,7 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function () {
     forceSelect: true,
 
     helpText:
-      "Press the Spacebar on the Month selector to open available options, use the Up and Down arrow keys to navigate, and Enter to save the current selection.",
+      "Press the Spacebar on the Year or Month selector to open available options, use the Up and Down arrow keys to navigate, and Enter to save the current selection and close the calendar.",
 
     style: { position: "absolute", zIndex: 1, display: "none" },
     animate: {
