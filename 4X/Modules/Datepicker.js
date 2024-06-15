@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 5.5 for Apex 4X
+ARIA Date Picker Module 5.6 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -512,8 +512,8 @@ License: MIT <https://opensource.org/licenses/MIT>
                     dc.navBtn === "CM" ||
                     (monthOnly && (!dc.openOnFocus || triggered))
                   ) {
-                    if (!dc.buttons.cMS.hidden) dc.buttons.cMS.focus();
-                    else if (!dc.buttons.cM.hidden) dc.buttons.cM.focus();
+                    if (!dc.buttons.cYS.hidden) dc.buttons.cYS.focus();
+                    else if (!dc.buttons.cY.hidden) dc.buttons.cY.focus();
                   } else {
                     // Toggles for openOnFocus support.
                     if (

@@ -23,6 +23,9 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function () {
     // Force the month/year select dropdown to render instead of a button.
     forceSelect: true,
 
+    helpText:
+      "Press the Spacebar on the Month selector to open available options, use the Up and Down arrow keys to navigate, and Enter to save the current selection.",
+
     style: { position: "absolute", zIndex: 1, display: "none" },
     animate: {
       onRender: function (dc, wrapper, next) {
