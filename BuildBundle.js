@@ -1,4 +1,4 @@
-import "./4X/4X.Max.js";
+import "./4X/4X.Max.Export.js";
 import "./4X/Standard/Modules/CurrentDevice.js";
 import "./4X/Standard/Modules/Dragdealer.js";
 import "./4X/Standard/Modules/Dragula.js";
