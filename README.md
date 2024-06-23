@@ -3,14 +3,13 @@
 
 "Art should comfort the disturbed and disturb the comfortable.", Banksy
 
-NEW: Apex 4X can now be installed into any project using the NPM statement: `npm install apex4x`
-
 ## Contents
 + [Introduction](#introduction)
 + [Accessible Widget Templates](#templates)
 + [Quick Start Guide](#quickstart)
 + [Using Dynamic Module Imports](#dynamicimports)
 + [Using Standard Script Tags](#standardscripttags)
++ [Using NPM Install](#npm)
 + [ReactJS Disambiguation](#reactjs)
 + [License](#license)
 + [Acknowledgements](#acknowledgements)
@@ -78,8 +77,6 @@ delete the module scripts that you don't wish to use,
 and change the href and src attribute paths to point to the correct modules within the 4X/Standard folder.
 Then a simple setup script can be loaded to configure all desired functionality.
 
-Note: For testing purposes, all of the below declarations have been added to the index.htm file at the root of this archive.
-
 ```
     <link rel="stylesheet" type="text/css" href="4X/Standard/Modules/Dragula.css">
     <link rel="stylesheet" type="text/css" href="4X/Standard/Modules/TinySlider.css">
@@ -117,6 +114,28 @@ Note: For testing purposes, all of the below declarations have been added to the
     <script  src="4X/Standard/Modules/Tree.js"></script>
 
     <script  src="4X/Standard/Modules/Straylight.js"></script>
+```
+
+<!----><a name="npm" tabindex="-1"></a>
+### Using NPM Install
+
+Apex 4X can be installed into any project using the NPM statement: `npm install apex4x`
+
+4X can then be imported into any JavaScript module.
+
+```
+// Option 1: Import using bundled 4X build
+import "./node_modules/apex4x/Bundle/4X.js"; // Runs latest bundled 4X build.
+```
+
+To recompile a new bundled 4X build and customize the module imports that are included, edit the file `BuildBundle.js` then run the build script `BuildBundle.sh`.
+
+```
+// Option 2: Import 4X core plus desired modules.
+import "./node_modules/apex4x/4X/4X.js"; // Runs latest minified 4X core.
+import "./node_modules/apex4x/4X/Standard/Modules/Velocity.js";
+import "./node_modules/apex4x/4X/Standard/Modules/VelocityUI.js";
+import "./node_modules/apex4x/4X/Standard/Modules/Datepicker.js";
 ```
 
 <!----><a name="reactjs" tabindex="-1"></a>

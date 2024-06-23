@@ -8,8 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="Templates/_common/_doc_files/css/global.css">
 
-    <script src="Bundle/4X.js"></script>
-
     <style type="text/css">
         h2.heading--onblack {
             color: #ffcc00;
@@ -58,7 +56,8 @@
         </header>
         <div class="wrapper">
             <main id="main" class="main">
-                <h1><strong>Apex 4X</strong> </h1>
+                <h1><strong>Apex 4X</strong></h1>
+<h2 class="heading--onblack">Version: <strong id="version"></strong></h2>
                 <nav class="navigation--parent">
                     <ul>
                         <li><a href="Tutorials/Beginner-Introduction.htm">Start Beginner Tutorial</a></li>
@@ -108,21 +107,6 @@ tooltip.render(); // Optionally render the tooltip manually using the DC.render 
                 </div>
                 <div>
                     <button class="testBtn">Test Script</button>
-                    <script src="Templates/_common/_doc_files/autosize.js"></script>
-                    <script>
-                        autosize(document.querySelectorAll("textarea"));
-                        var textarea = $A.get("testScript"); // Get element with id "testScript"
-                        $A.on("button.testBtn", "click", function(ev) {
-                            var code = textarea.value;
-                            try {
-                                var f = new Function("window,document,$A", code);
-                                f.call(window, window, document, $A);
-                                $A.beep();
-                            } catch (e) {
-                                throw e;
-                            }
-                        });
-                    </script>
                 </div>
                 <p class="dark--bg">
                     All available ARIA widget templates are available for immediate use. None require any prior knowledge of ARIA to implement.
@@ -183,6 +167,7 @@ tooltip.render(); // Optionally render the tooltip manually using the DC.render 
             </div>
         </footer>
     </div>
+    <script type="module" src="/index.js"></script>
 </body>
 
 </html>

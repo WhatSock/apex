@@ -59,5 +59,8 @@
   "bugs": {
     "url": "https://github.com/whatsock/apex/issues"
   },
-  "homepage": "https://whatsock.com"
+  "homepage": "https://whatsock.com",
+  "dependencies": {
+    "apex4x": "^2023.8.1-2.15"
+  }
 }
