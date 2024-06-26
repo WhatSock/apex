@@ -1,54 +1,90 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>ARIA Carousels - Apex 4X Technical Style Guide</title>
-    <meta name="description" content="Scalable ARIA Components">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/global.css">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/prism.css">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/components-style.css">
+    <meta name="description" content="Scalable ARIA Components" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/css/global.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/prism.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/css/components-style.css"
+    />
     <script src="../_common/_doc_files/prism.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="outer-wrapper">
-        <header class="header">
-            <div class="logo">
-                <a href="https://whatsock.com">
-                    <img alt="WhatSock : Changing the world one step at a time" src="/Templates/_common/_doc_files/img/whatsock.svg">
-                </a>
-            </div>
-        </header>
-        <div class="wrapper">
-            <main id="main" class="main">
-                <h1><strong>ARIA Carousels</strong> </h1>
-                <nav class="navigation--parent">
-                    <p><a href="/Tutorials/Beginner-Introduction.htm">Beginner Tutorial</a></p>
-                    <h2 class="parent--page">Template Examples</h2>
-                    <ul>
-                        <li><a href="../index.htm">Back to Components</a></li>
-                        <li><a href="AutoRotate/index.htm">AutoRotate</a></li>
-                        <li><a href="ManualRotate/index.htm">ManualRotate</a></li>
-                        <li><a href="Slideshow/index.htm">Slideshow</a></li>
-                    </ul>
-                </nav>
+      <header class="header">
+        <div class="logo">
+          <a href="https://whatsock.com">
+            <img
+              alt="WhatSock : Changing the world one step at a time"
+              src="/Templates/_common/_doc_files/img/whatsock.svg"
+            />
+          </a>
+        </div>
+      </header>
+      <div class="wrapper">
+        <main id="main" class="main">
+          <h1><strong>ARIA Carousels</strong></h1>
+          <nav class="navigation--parent">
+            <p>
+              <a href="/Tutorials/Beginner-Introduction.htm"
+                >Beginner Tutorial</a
+              >
+            </p>
+            <h2 class="parent--page">Template Examples</h2>
+            <ul>
+              <li><a href="../index.htm">Back to Components</a></li>
+              <li><a href="AutoRotate/index.htm">AutoRotate</a></li>
+              <li><a href="ManualRotate/index.htm">ManualRotate</a></li>
+              <li><a href="Slideshow/index.htm">Slideshow</a></li>
+            </ul>
+          </nav>
 
-                <section class="section--instructions">
+          <section class="section--instructions">
+            <h2>Expected behaviors</h2>
 
-                    <h2>Expected behaviors</h2>
+            <p>
+              The beginning and ending boundaries of the region should be
+              conveyed to screen reader users, content changes should be
+              announced to screen reader users only when a navigation button is
+              manually activated and not when auto-rotate is enabled, all
+              navigation buttons should be keyboard accessible, auto-rotation
+              should stop when an element within the carousel receives focus to
+              ensure accessibility for keyboard-only users, and auto-rotation
+              should stop when the mouse is moved over the carousel region to
+              ensure accessibility for low vision users.
+            </p>
 
-                    <p>The beginning and ending boundaries of the region should be conveyed to screen reader users, content changes should be announced to screen reader users only when a navigation button is manually activated and not when auto-rotate is enabled, all navigation buttons should be keyboard accessible, auto-rotation should stop when an element within the carousel receives focus to ensure accessibility for keyboard-only users, and auto-rotation should stop when the mouse is moved over the carousel region to ensure accessibility for low vision users.</p>
+            <p>
+              The 4X ARIA Carousel module automatically configures all required
+              ARIA attributes and focus handling, in strict accordance with the
+              ARIA specification.
+            </p>
 
-                    <p>The 4X ARIA Carousel module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.</p>
+            <p>
+              (A heavily modified version of Tiny-Slider.JS has been imported
+              for this purpose, originally authored by William Lin, it was
+              updated here to improve accessibility for screen reader and
+              keyboard-only users.)
+            </p>
 
-                    <p>(A heavily modified version of Tiny-Slider.JS has been imported for this purpose, originally authored by William Lin, it was updated here to improve accessibility for screen reader and keyboard-only users.)</p>
+            <h2>HTML syntax</h2>
 
-                    <h2>HTML syntax</h2>
-
-                    <div>
-                        <pre><code class="language-markup">&lt;div class="carousel-wrapper">
+            <div>
+              <pre><code class="language-markup">&lt;div class="carousel-wrapper">
 
     &lt;div class="my-slider">
         &lt;div class="slide s01">
@@ -71,408 +107,681 @@
     &lt;/div>
 
 &lt;/div></code></pre>
-                    </div>
+            </div>
 
-                    <p>NOTE: Individual slides may include any type of content, such as images, text, structural markup, links buttons and form fields, or any other. Which ever type of content is chosen, however, it is always important to ensure that such content is tested to ensure accessibility.</p>
+            <p>
+              NOTE: Individual slides may include any type of content, such as
+              images, text, structural markup, links buttons and form fields, or
+              any other. Which ever type of content is chosen, however, it is
+              always important to ensure that such content is tested to ensure
+              accessibility.
+            </p>
 
-                    <h2>JavaScript syntax</h2>
+            <h2>JavaScript syntax</h2>
 
-                    <div>
-                        <pre><code class="language-javascript">var carouselDC = $A.setCarousel({
+            <div>
+              <pre><code class="language-javascript">var carouselDC = $A.setCarousel({
 container: ".my-slider"
 // Configure functionality key / value mappings
 });</code></pre>
-                    </div>
+            </div>
 
-                    <h2>Parameters</h2>
+            <ul>
+              <li>Module file: Carousel.js</li>
+              <li>Requires: TinySlider.css, TinySlider.js.</li>
+              <li>Recommended: Velocity.js, VelocityUI.js.</li>
+            </ul>
 
-                    <ol>
-                        <li>A configuration map to customize behaviors and options</li>
-                    </ol>
+            <h2>Parameters</h2>
 
-                    <h3>Configuration</h3>
+            <ol>
+              <li>A configuration map to customize behaviors and options</li>
+            </ol>
 
-                    <p>Imported from: <a href="https://github.com/ganlanyuan/tiny-slider" target="git">https://github.com/ganlanyuan/tiny-slider</a></p>
+            <h3>Configuration</h3>
 
-                    <table>
-                        <thead>
-                            <tr>
-                                <th> Option </th>
-                                <th> Type </th>
-                                <th> Description </th>
-                            </tr>
-                        </thead>
-                        <tr>
-                            <td role="rowheader"> 'container' </td>
-                            <td> Node </td>
-                            <td> Default: ''.slider''. <br> The slider container element or selector. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'mode' </td>
-                            <td> "carousel" or "gallery" </td>
-                            <td> Default: "carousel". <br> Controls animation behaviour. <br> With 'carousel' everything slides to the side, while 'gallery' uses fade animations and changes all slides at once. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'axis' </td>
-                            <td> "horizontal" or "vertical" </td>
-                            <td> Default: "horizontal". <br> The axis of the slider. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'items' </td>
-                            <td> positive number </td>
-                            <td> Default: 1. <br> Number of slides being displayed in the viewport.<br>If slides less or equal than 'items', the slider won't be initialized. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'gutter' </td>
-                            <td> positive integer </td>
-                            <td> Default: 0. <br> Space between slides (in "px"). </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'edgePadding' </td>
-                            <td> positive integer </td>
-                            <td> Default: 0. <br> Space on the outside (in "px"). </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'fixedWidth' </td>
-                            <td> positive integer </td>
-                            <td> Default: false. <br> Controls 'width' attribute of the slides. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'autoWidth' </td>
-                            <td> Boolean </td>
-                            <td> Default: false. <br> If 'true', the width of each slide will be its natural width as a 'inline-block' box. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'viewportMax' (was 'fixedWidthViewportWidth') </td>
-                            <td> positive integer </td>
-                            <td> Default: false. <br> Maximum viewport width for 'fixedWidth'/'autoWidth'. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'slideBy' </td>
-                            <td> positive number or "page" </td>
-                            <td> Default: 1. <br> Number of slides going on one "click". </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'center' (v2.9.2+) </td>
-                            <td> Boolean </td>
-                            <td> Default: false. <br> Center the active slide in the viewport. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'controls' </td>
-                            <td> Boolean </td>
-                            <td> Default: true. <br> Controls the display and functionalities of 'controls' components (prev/next buttons). If 'true', display the 'controls' and add all functionalities. <br>For better accessibility, when a prev/next button is focused, user will be able to control the slider using left/right arrow keys.</td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'controlsPosition' </td>
-                            <td> "top" or "bottom" </td>
-                            <td> Default: "top". <br> Controls 'controls' position. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'controlsText' </td>
-                            <td> (Text Markup) or Array </td>
-                            <td> Default: ["prev", "next"]. <br> Text or markup in the prev/next buttons. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'controlsContainer' </td>
-                            <td> Node </td>
-                            <td> Default: false. <br> The container element/selector around the prev/next buttons. <br> 'controlsContainer' must have at least 2 child elements. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'prevButton' </td>
-                            <td> Node </td>
-                            <td> Default: false. <br> Customized previous buttons. <br> This option will be ignored if 'controlsContainer' is a Node element or a CSS selector. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'nextButton' </td>
-                            <td> Node </td>
-                            <td> Default: false. <br> Customized next buttons. <br> This option will be ignored if 'controlsContainer' is a Node element or a CSS selector. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'nav' </td>
-                            <td> Boolean </td>
-                            <td> Default: true. <br> Controls the display and functionalities of 'nav' components (dots). If 'true', display the 'nav' and add all functionalities. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'navPosition' </td>
-                            <td> "top" or "bottom" </td>
-                            <td> Default: "top". <br> Controls 'nav' position. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'navContainer' </td>
-                            <td> Node </td>
-                            <td> Default: false. <br> The container element/selector around the dots. <br> 'navContainer' must have at least same number of children as the slides. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'navAsThumbnails' </td>
-                            <td> Boolean </td>
-                            <td> Default: false. <br> Indicate if the dots are thumbnails. If 'true', they will always be visible even when more than 1 slides displayed in the viewport. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'arrowKeys' </td>
-                            <td> Boolean </td>
-                            <td> Default: false. <br> Allows using arrow keys to switch slides. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'speed' </td>
-                            <td> positive integer </td>
-                            <td> Default: 300. <br> Speed of the slide animation (in "ms"). </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'autoplay' </td>
-                            <td> Boolean </td>
-                            <td> Default: false. <br> Toggles the automatic change of slides. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'autoplayPosition' </td>
-                            <td> "top" or "bottom" </td>
-                            <td> Default: "top". <br> Controls 'autoplay' position. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'autoplayTimeout' </td>
-                            <td> positive integer </td>
-                            <td> Default: 5000. <br> Time between 2 'autoplay' slides change (in "ms"). </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'autoplayDirection' </td>
-                            <td> "forward" or "backward" </td>
-                            <td> Default: "forward". <br> Direction of slide movement (ascending/descending the slide index). </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'autoplayText' </td>
-                            <td> Array (Text </td>
-                            <td> Default: ["start", "stop"]. <br> Text or markup in the autoplay start/stop button. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'autoplayHoverPause' </td>
-                            <td> Boolean </td>
-                            <td> Default: false. <br> Stops sliding on mouseover. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'autoplayButton' </td>
-                            <td> Node </td>
-                            <td> Default: false. <br> The customized autoplay start/stop button or selector. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'autoplayButtonOutput' </td>
-                            <td> Boolean </td>
-                            <td> Default: true. <br> Output 'autoplayButton' markup when 'autoplay' is true but a customized 'autoplayButton' is not provided. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'autoplayResetOnVisibility' </td>
-                            <td> Boolean </td>
-                            <td> Default: true. <br> Pauses the sliding when the page is invisible and resumes it when the page becomes visible again. ([Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API)) </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'animateIn' </td>
-                            <td> String </td>
-                            <td> Default: "tns-fadeIn". <br> Name of intro animation 'class'. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'animateOut' </td>
-                            <td> String </td>
-                            <td> Default: "tns-fadeOut". <br> Name of outro animation 'class'. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'animateNormal' </td>
-                            <td> String </td>
-                            <td> Default: "tns-normal". <br> Name of default animation 'class'. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'animateDelay' </td>
-                            <td> positive integer </td>
-                            <td> Default: false. <br> Time between each 'gallery' animation (in "ms"). </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'loop' </td>
-                            <td> Boolean </td>
-                            <td> Default: true. <br> Moves throughout all the slides seamlessly. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'rewind' </td>
-                            <td> Boolean </td>
-                            <td> Default: false. <br> Moves to the opposite edge when reaching the first or last slide. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'autoHeight' </td>
-                            <td> Boolean </td>
-                            <td> Default: false. <br> Height of slider container changes according to each slide's height. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'responsive' </td>
-                            <td> Object: { <br>&emsp;breakpoint: { <br>&emsp;&emsp;key: value<br>&emsp;} <br>} </td>
-                            <td> Default: false. <br>Breakpoint: Integer.<br>Defines options for different viewport widths (see [Responsive Options]). <br> </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'lazyload' </td>
-                            <td> Boolean </td>
-                            <td> Default: false. <br> Enables lazyloading images that are currently not viewed, thus saving bandwidth . <br> NOTE: <br>+ Class '.tns-lazy-img' need to be set on every image you want to lazyload if option 'lazyloadSelector' is not specified; <br>+ 'data-src' attribute with its value of the real image 'src' is required; <br>+ 'width' attribute for every image is required for 'autoWidth' slider. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'lazyloadSelector' (v2.9.1+) </td>
-                            <td> String </td>
-                            <td> Default: ''.tns-lazy-img''. <br> The CSS selector for lazyload images. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'touch' </td>
-                            <td> Boolean </td>
-                            <td> Default: true. <br> Activates input detection for touch devices. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'mouseDrag' </td>
-                            <td> Boolean </td>
-                            <td> Default: false. <br> Changing slides by dragging them. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'swipeAngle' </td>
-                            <td> positive integer </td>
-                            <td> Default: 15. <br> Swipe or drag will not be triggered if the angle is not inside the range when set. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'preventActionWhenRunning' (v2.9.1+) </td>
-                            <td> Boolean </td>
-                            <td> Default: false. <br> Prevent next transition while slider is transforming. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'preventScrollOnTouch' (v2.9.1+) </td>
-                            <td> "auto" </td>
-                            <td> Default: false. <br> Prevent page from scrolling on 'touchmove'. If set to "auto", the slider will first check if the touch direction matches the slider axis, then decide whether prevent the page scrolling or not. If set to "force", the slider will always prevent the page scrolling. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'nested' </td>
-                            <td> "inner" or "outer" </td>
-                            <td> Default: false. <br> Define the relationship between nested sliders. <br>Make sure you run the inner slider first, otherwise the height of the inner slider container will be wrong. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'freezable' </td>
-                            <td> Boolean </td>
-                            <td> Default: true. <br> Indicate whether the slider will be frozen ('controls', 'nav', 'autoplay' and other functions will stop work) when all slides can be displayed in one page. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'disable' </td>
-                            <td> Boolean </td>
-                            <td> Default: false. <br> Disable slider. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'startIndex' </td>
-                            <td> positive integer </td>
-                            <td> Default: 0. <br> The initial 'index' of the slider. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'onInit' </td>
-                            <td> Function </td>
-                            <td> Default: false. <br> Callback to be run on initialization. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'useLocalStorage' </td>
-                            <td> Boolean </td>
-                            <td> Default: true. <br> Save browser capability variables to [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) and without detecting them everytime the slider runs if set to 'true'. </td>
-                        </tr>
-                        <tr>
-                            <td role="rowheader"> 'nonce'</td>
-                            <td> String / false </td>
-                            <td> Default: false. <br> Optional Nonce attribute for inline style tag to allow slider usage without 'unsafe-inline Content Security Policy source. </td>
-                        </tr>
-                    </table>
+            <p>
+              Imported from:
+              <a href="https://github.com/ganlanyuan/tiny-slider" target="git"
+                >https://github.com/ganlanyuan/tiny-slider</a
+              >
+            </p>
 
-                    <h3>Responsive options</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Option</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tr>
+                <td role="rowheader">'container'</td>
+                <td>Node</td>
+                <td>
+                  Default: ''.slider''. <br />
+                  The slider container element or selector.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'mode'</td>
+                <td>"carousel" or "gallery"</td>
+                <td>
+                  Default: "carousel". <br />
+                  Controls animation behaviour. <br />
+                  With 'carousel' everything slides to the side, while 'gallery'
+                  uses fade animations and changes all slides at once.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'axis'</td>
+                <td>"horizontal" or "vertical"</td>
+                <td>
+                  Default: "horizontal". <br />
+                  The axis of the slider.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'items'</td>
+                <td>positive number</td>
+                <td>
+                  Default: 1. <br />
+                  Number of slides being displayed in the viewport.<br />If
+                  slides less or equal than 'items', the slider won't be
+                  initialized.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'gutter'</td>
+                <td>positive integer</td>
+                <td>
+                  Default: 0. <br />
+                  Space between slides (in "px").
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'edgePadding'</td>
+                <td>positive integer</td>
+                <td>
+                  Default: 0. <br />
+                  Space on the outside (in "px").
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'fixedWidth'</td>
+                <td>positive integer</td>
+                <td>
+                  Default: false. <br />
+                  Controls 'width' attribute of the slides.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'autoWidth'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: false. <br />
+                  If 'true', the width of each slide will be its natural width
+                  as a 'inline-block' box.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">
+                  'viewportMax' (was 'fixedWidthViewportWidth')
+                </td>
+                <td>positive integer</td>
+                <td>
+                  Default: false. <br />
+                  Maximum viewport width for 'fixedWidth'/'autoWidth'.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'slideBy'</td>
+                <td>positive number or "page"</td>
+                <td>
+                  Default: 1. <br />
+                  Number of slides going on one "click".
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'center' (v2.9.2+)</td>
+                <td>Boolean</td>
+                <td>
+                  Default: false. <br />
+                  Center the active slide in the viewport.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'controls'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: true. <br />
+                  Controls the display and functionalities of 'controls'
+                  components (prev/next buttons). If 'true', display the
+                  'controls' and add all functionalities. <br />For better
+                  accessibility, when a prev/next button is focused, user will
+                  be able to control the slider using left/right arrow keys.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'controlsPosition'</td>
+                <td>"top" or "bottom"</td>
+                <td>
+                  Default: "top". <br />
+                  Controls 'controls' position.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'controlsText'</td>
+                <td>(Text Markup) or Array</td>
+                <td>
+                  Default: ["prev", "next"]. <br />
+                  Text or markup in the prev/next buttons.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'controlsContainer'</td>
+                <td>Node</td>
+                <td>
+                  Default: false. <br />
+                  The container element/selector around the prev/next buttons.
+                  <br />
+                  'controlsContainer' must have at least 2 child elements.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'prevButton'</td>
+                <td>Node</td>
+                <td>
+                  Default: false. <br />
+                  Customized previous buttons. <br />
+                  This option will be ignored if 'controlsContainer' is a Node
+                  element or a CSS selector.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'nextButton'</td>
+                <td>Node</td>
+                <td>
+                  Default: false. <br />
+                  Customized next buttons. <br />
+                  This option will be ignored if 'controlsContainer' is a Node
+                  element or a CSS selector.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'nav'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: true. <br />
+                  Controls the display and functionalities of 'nav' components
+                  (dots). If 'true', display the 'nav' and add all
+                  functionalities.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'navPosition'</td>
+                <td>"top" or "bottom"</td>
+                <td>
+                  Default: "top". <br />
+                  Controls 'nav' position.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'navContainer'</td>
+                <td>Node</td>
+                <td>
+                  Default: false. <br />
+                  The container element/selector around the dots. <br />
+                  'navContainer' must have at least same number of children as
+                  the slides.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'navAsThumbnails'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: false. <br />
+                  Indicate if the dots are thumbnails. If 'true', they will
+                  always be visible even when more than 1 slides displayed in
+                  the viewport.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'arrowKeys'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: false. <br />
+                  Allows using arrow keys to switch slides.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'speed'</td>
+                <td>positive integer</td>
+                <td>
+                  Default: 300. <br />
+                  Speed of the slide animation (in "ms").
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'autoplay'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: false. <br />
+                  Toggles the automatic change of slides.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'autoplayPosition'</td>
+                <td>"top" or "bottom"</td>
+                <td>
+                  Default: "top". <br />
+                  Controls 'autoplay' position.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'autoplayTimeout'</td>
+                <td>positive integer</td>
+                <td>
+                  Default: 5000. <br />
+                  Time between 2 'autoplay' slides change (in "ms").
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'autoplayDirection'</td>
+                <td>"forward" or "backward"</td>
+                <td>
+                  Default: "forward". <br />
+                  Direction of slide movement (ascending/descending the slide
+                  index).
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'autoplayText'</td>
+                <td>Array (Text</td>
+                <td>
+                  Default: ["start", "stop"]. <br />
+                  Text or markup in the autoplay start/stop button.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'autoplayHoverPause'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: false. <br />
+                  Stops sliding on mouseover.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'autoplayButton'</td>
+                <td>Node</td>
+                <td>
+                  Default: false. <br />
+                  The customized autoplay start/stop button or selector.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'autoplayButtonOutput'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: true. <br />
+                  Output 'autoplayButton' markup when 'autoplay' is true but a
+                  customized 'autoplayButton' is not provided.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'autoplayResetOnVisibility'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: true. <br />
+                  Pauses the sliding when the page is invisible and resumes it
+                  when the page becomes visible again. ([Page Visibility
+                  API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API))
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'animateIn'</td>
+                <td>String</td>
+                <td>
+                  Default: "tns-fadeIn". <br />
+                  Name of intro animation 'class'.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'animateOut'</td>
+                <td>String</td>
+                <td>
+                  Default: "tns-fadeOut". <br />
+                  Name of outro animation 'class'.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'animateNormal'</td>
+                <td>String</td>
+                <td>
+                  Default: "tns-normal". <br />
+                  Name of default animation 'class'.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'animateDelay'</td>
+                <td>positive integer</td>
+                <td>
+                  Default: false. <br />
+                  Time between each 'gallery' animation (in "ms").
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'loop'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: true. <br />
+                  Moves throughout all the slides seamlessly.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'rewind'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: false. <br />
+                  Moves to the opposite edge when reaching the first or last
+                  slide.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'autoHeight'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: false. <br />
+                  Height of slider container changes according to each slide's
+                  height.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'responsive'</td>
+                <td>
+                  Object: { <br />&emsp;breakpoint: { <br />&emsp;&emsp;key:
+                  value<br />&emsp;} <br />}
+                </td>
+                <td>
+                  Default: false. <br />Breakpoint: Integer.<br />Defines
+                  options for different viewport widths (see [Responsive
+                  Options]). <br />
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'lazyload'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: false. <br />
+                  Enables lazyloading images that are currently not viewed, thus
+                  saving bandwidth . <br />
+                  NOTE: <br />+ Class '.tns-lazy-img' need to be set on every
+                  image you want to lazyload if option 'lazyloadSelector' is not
+                  specified; <br />+ 'data-src' attribute with its value of the
+                  real image 'src' is required; <br />+ 'width' attribute for
+                  every image is required for 'autoWidth' slider.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'lazyloadSelector' (v2.9.1+)</td>
+                <td>String</td>
+                <td>
+                  Default: ''.tns-lazy-img''. <br />
+                  The CSS selector for lazyload images.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'touch'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: true. <br />
+                  Activates input detection for touch devices.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'mouseDrag'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: false. <br />
+                  Changing slides by dragging them.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'swipeAngle'</td>
+                <td>positive integer</td>
+                <td>
+                  Default: 15. <br />
+                  Swipe or drag will not be triggered if the angle is not inside
+                  the range when set.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'preventActionWhenRunning' (v2.9.1+)</td>
+                <td>Boolean</td>
+                <td>
+                  Default: false. <br />
+                  Prevent next transition while slider is transforming.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'preventScrollOnTouch' (v2.9.1+)</td>
+                <td>"auto"</td>
+                <td>
+                  Default: false. <br />
+                  Prevent page from scrolling on 'touchmove'. If set to "auto",
+                  the slider will first check if the touch direction matches the
+                  slider axis, then decide whether prevent the page scrolling or
+                  not. If set to "force", the slider will always prevent the
+                  page scrolling.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'nested'</td>
+                <td>"inner" or "outer"</td>
+                <td>
+                  Default: false. <br />
+                  Define the relationship between nested sliders. <br />Make
+                  sure you run the inner slider first, otherwise the height of
+                  the inner slider container will be wrong.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'freezable'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: true. <br />
+                  Indicate whether the slider will be frozen ('controls', 'nav',
+                  'autoplay' and other functions will stop work) when all slides
+                  can be displayed in one page.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'disable'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: false. <br />
+                  Disable slider.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'startIndex'</td>
+                <td>positive integer</td>
+                <td>
+                  Default: 0. <br />
+                  The initial 'index' of the slider.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'onInit'</td>
+                <td>Function</td>
+                <td>
+                  Default: false. <br />
+                  Callback to be run on initialization.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'useLocalStorage'</td>
+                <td>Boolean</td>
+                <td>
+                  Default: true. <br />
+                  Save browser capability variables to
+                  [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+                  and without detecting them everytime the slider runs if set to
+                  'true'.
+                </td>
+              </tr>
+              <tr>
+                <td role="rowheader">'nonce'</td>
+                <td>String / false</td>
+                <td>
+                  Default: false. <br />
+                  Optional Nonce attribute for inline style tag to allow slider
+                  usage without 'unsafe-inline Content Security Policy source.
+                </td>
+              </tr>
+            </table>
 
-                    <p>The following options can be redefined in the 'responsive' object declaration.</p>
+            <h3>Responsive options</h3>
 
-                    <ul>
-                        <li>'startIndex'</li>
-                        <li>'items'</li>
-                        <li>'slideBy'</li>
-                        <li>'speed'</li>
-                        <li>'autoHeight'</li>
-                        <li>'fixedWidth'</li>
-                        <li>'edgePadding'</li>
-                        <li>'gutter'</li>
-                        <li>'center'</li>
-                        <li>'controls'</li>
-                        <li>'controlsText'</li>
-                        <li>'nav'</li>
-                        <li>'autoplay'</li>
-                        <li>'autoplayHoverPause'</li>
-                        <li>'autoplayResetOnVisibility'</li>
-                        <li>'autoplayText'</li>
-                        <li>'autoplayTimeout'</li>
-                        <li>'touch'</li>
-                        <li>'mouseDrag'</li>
-                        <li>'arrowKeys'</li>
-                        <li>'disable'</li>
-                    </ul>
+            <p>
+              The following options can be redefined in the 'responsive' object
+              declaration.
+            </p>
 
-                    <h3>Properties and methods</h3>
+            <ul>
+              <li>'startIndex'</li>
+              <li>'items'</li>
+              <li>'slideBy'</li>
+              <li>'speed'</li>
+              <li>'autoHeight'</li>
+              <li>'fixedWidth'</li>
+              <li>'edgePadding'</li>
+              <li>'gutter'</li>
+              <li>'center'</li>
+              <li>'controls'</li>
+              <li>'controlsText'</li>
+              <li>'nav'</li>
+              <li>'autoplay'</li>
+              <li>'autoplayHoverPause'</li>
+              <li>'autoplayResetOnVisibility'</li>
+              <li>'autoplayText'</li>
+              <li>'autoplayTimeout'</li>
+              <li>'touch'</li>
+              <li>'mouseDrag'</li>
+              <li>'arrowKeys'</li>
+              <li>'disable'</li>
+            </ul>
 
-                    <p>Once initialized, the carousel DC object provides access to the tinySlider object instance to allow properties and methods to be accessed directly.</p>
+            <h3>Properties and methods</h3>
 
-                    <div>
-                        <pre><code class="language-javascript">// Reference the tinySlider object instance.
+            <p>
+              Once initialized, the carousel DC object provides access to the
+              tinySlider object instance to allow properties and methods to be
+              accessed directly.
+            </p>
+
+            <div>
+              <pre><code class="language-javascript">// Reference the tinySlider object instance.
 
 var tinySliderInstance = carouselDC.tns;</code></pre>
-                    </div>
-
-                    <p>To learn more about accessing specific properties and methods, as well as setting custom events, visit: <a href="https://github.com/ganlanyuan/tiny-slider" target="git">https://github.com/ganlanyuan/tiny-slider</a></p>
-
-                </section>
-            </main>
-        </div>
-        <footer class="footer">
-            <div class="flex-container-row">
-                <div class="flex-item">
-                    <h2>License</h2>
-                    <p>
-                        Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
-                    </p>
-                </div>
-                <div class="flex-item">
-                    <h2>Resources</h2>
-                    <ul>
-                        <li>
-                            <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex-item">
-                    <h2>Acknowledgements</h2>
-                    <ul class="list--horizontal">
-                        <li>
-                            Author and developer:
-                            <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
-                        </li>
-                        <li>
-                            Website designer:
-                            <a target="ext" href="https://gericci.me/">Angela Ricci</a>
-                        </li>
-                        <li>
-                            Style and markup editor:
-                            <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
-        </footer>
+
+            <p>
+              To learn more about accessing specific properties and methods, as
+              well as setting custom events, visit:
+              <a href="https://github.com/ganlanyuan/tiny-slider" target="git"
+                >https://github.com/ganlanyuan/tiny-slider</a
+              >
+            </p>
+          </section>
+        </main>
+      </div>
+      <footer class="footer">
+        <div class="flex-container-row">
+          <div class="flex-item">
+            <h2>License</h2>
+            <p>
+              Apex 4X including all template design patterns is distributed
+              under the terms of the Open Source Initiative OSI - MIT License,
+              and may be freely used for any purpose within any web technology.
+            </p>
+          </div>
+          <div class="flex-item">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+                <a target="ext" href="https://github.com/WhatSock/apex"
+                  >Apex 4X on GitHub</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm"
+                  >Visual ARIA Bookmarklet</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk"
+                  >Visual ARIA Chrome Extension</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/"
+                  >Visual ARIA Firefox Extension</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://github.com/AccDC/visual-aria"
+                  >Visual ARIA on GitHub</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/matrices/"
+                  >ARIA Role Conformance Matrices</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/"
+                  >Accessibility Tree Training Guide</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-item">
+            <h2>Acknowledgements</h2>
+            <ul class="list--horizontal">
+              <li>
+                Author and developer:
+                <a target="ext" href="https://www.linkedin.com/in/bgaraventa"
+                  >Bryan Garaventa</a
+                >
+              </li>
+              <li>
+                Website designer:
+                <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+              </li>
+              <li>
+                Style and markup editor:
+                <a
+                  target="ext"
+                  href="https://www.linkedin.com/in/laurence-lewis-77520365/"
+                  >Laurence Lewis</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
-</body>
+  </body>
 
-<script async src="https://api.whatsock.com/accdc-updates.js?4x=template"></script>
-
+  <script
+    async
+    src="https://api.whatsock.com/accdc-updates.js?4x=template"
+  ></script>
 </html>

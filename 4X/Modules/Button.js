@@ -105,8 +105,8 @@ Required dependencies: RovingTabIndex.js
                   $A.isNode(r) && !$A.isNative(r)
                     ? r
                     : !$A.isNative(o)
-                    ? o
-                    : null,
+                      ? o
+                      : null,
                 x = !$A.isNode(n) && $A.isNode(r) && s !== o ? r : null;
               if (x === s) s = o;
               if ($A.isNode(s)) {

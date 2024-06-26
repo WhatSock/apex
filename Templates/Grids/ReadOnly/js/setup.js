@@ -115,16 +115,16 @@ $A.import("Grid", { defer: true }, function () {
             spin === 2
               ? "Rincewind"
               : spin === 1
-              ? "Ponder Stibbons"
-              : "Hrun the Barbarian",
+                ? "Ponder Stibbons"
+                : "Hrun the Barbarian",
         },
         "personal-email": {
           value:
             spin === 2
               ? "wizzard@whatsock.com"
               : spin === 1
-              ? "ponder@whatsock.com"
-              : "aarg@whatsock.com",
+                ? "ponder@whatsock.com"
+                : "aarg@whatsock.com",
         },
         "personal-city": {
           value: "Ankh-Morpork",

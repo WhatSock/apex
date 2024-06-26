@@ -1,30 +1,30 @@
 
-ARIA Accordions
+ARIA Tabs
 
-Expected behaviors: All accordion triggering elements should be in the tab order, pressing Enter or Space should expand the desired accordion panel, the expanded state should be toggled appropriately on the triggering element, and the expanded accordion panel should be rendered directly after the triggering element in the tab order.
+Expected behaviors: The group of triggering elements should have only one tab stop, the arrow keys should move focus between each Tab in the group, pressing Enter or Space should expand the desired Tab panel, the expanded state should be toggled appropriately on the triggering element, and the expanded Tab panel should be rendered directly after the group of triggering elements in the tab order.
 
 Though similar in both concept and execution to Tab controls, accordions are not the same. A Tab control has a series of grouped triggering elements that expand and collapse, the rendered content of which is inserted directly after the triggering element group when opened. The container element insertion point for all Tab control triggering elements is shared between them. Also, the group of triggering elements in a Tab control has only one tab stop. The arrow keys are then used to switch focus between each Tab, and the Enter or Space key is used to expand the desired Tab content panel.
 
 In contrast, an Accordion has a series of triggering elements that expand and collapse, the rendered content of which is inserted directly after the triggering element when opened. The container element insertion points for Accordions are not shared. Also, all Accordion links appear in the tab order. The reason why ARIA attributes such as role="tablist" and role="tab" are not included within accordions, is because the insertion of inline content would place dynamic content sections within the same Tablist container, making it impossible to determine the order of nested Tab controls when present within the inserted content. The chosen implementation should always match the UI that it's being applied to, to prevent confusion.
 
-The 4X ARIA Accordion module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.
+The 4X ARIA Tab module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.
 
-Note: An accordion is a composite widget, meaning that it is comprised of many different ARIA roles and supporting attributes.
+The following attributes are handled automatically by the TabList module:
 
-The following attributes are handled automatically by the Accordion module:
-
-• role=button
+• role=tablist
+• role=tab
 • aria-expanded
+• aria-selected
 • aria-controls
-• role=region
+• role=tabpanel
 • aria-labelledby
 • tabindex
 
 Available attributes for the triggering element:
 
-• data-controls : The resource path and pointer to the ID attribute of the accordion container element.
-• data-root : The ID attribute of the container element where the accordion content will be inserted when rendered. (This must not be inside the triggering element)
-• data-active : Specifies that the referenced accordion node will open automatically. Only one accordion node per group should include this attribute.
+• data-controls : The resource path and pointer to the ID attribute of the tab content container element.
+• data-root : The ID attribute of the container element where the tab content will be inserted when rendered. (This must not be inside the triggering element)
+• data-active : Specifies that the referenced tab node will open automatically. Only one tab node per group should include this attribute.
 • aria-disabled : When set to "true" on the triggering element, will automatically disable associated functionality.
 
 Note: When dynamically disabling a triggering element, the 4X setDisabled() function should be used to set the disabled state of the triggering element. This will ensure proper background mapping.
@@ -33,35 +33,34 @@ $A.setDisabled(triggeringElement, boolean);
 
 HTML syntax:
 
-<h2>
-  <button data-active data-root="root-id-for-billing" data-controls="accordion-panel-id-for-billing" > BILLING </button>
-</h2>
-
-<div id="root-id-for-billing">
-  <div id="accordion-panel-id-for-billing">
-    Expandable content for the billing section here. (Content visible by default via the data-active attribute on the triggering element.)
-  </div>
+<div class="tab-list">
+  <button data-active data-root="root-container-id" data-controls="tab-panel-id-for-system" > SYSTEM </button>
+  <button data-root="root-container-id" data-controls="tab-panel-id-for-network" > NETWORK </button>
 </div>
 
-<h2>
-  <button data-root="root-id-for-shipping" data-controls="accordion-panel-id-for-shipping" > SHIPPING </button>
-</h2>
+<div id="root-container-id">
 
-<div id="root-id-for-shipping">
-  <div hidden id="accordion-panel-id-for-shipping">
-    Expandable content for the shipping section here. (Content hidden by default via the hidden attribute on the accordion panel.)
+  <div id="tab-panel-id-for-system">
+    Expandable content for the system section here. (Content visible by default via the data-active attribute on the triggering element.)
   </div>
+
+  <div hidden id="tab-panel-id-for-network">
+    Expandable content for the network section here. (Content hidden by default via the hidden attribute on the tab-panel.)
+  </div>
+
 </div>
 
 IMPORTANT: The triggering element must not include any other active elements, otherwise these will not be accessible to non-sighted screen reader users.
 
-When aria-disabled="true" is set on an accordion triggering element, functionality for that accordion panel will automatically be disabled.
+When aria-disabled="true" is set on a tab triggering element, functionality for that panel will automatically be disabled.
 
 JavaScript syntax:
 
-$A.setAccordion( DOM-NodeList-or-CSS-Selector-forTriggering-Elements , {
+$A.setTab( DOM-NodeList-or-CSS-Selector-forTriggering-Elements , {
 // Configure functionality key / value mappings
 });
+
+Module file: Tab.js - Requires AccName.js, RovingTabIndex.js.
 
 Parameters
 
@@ -73,16 +72,11 @@ Configuration
 
 {
 
-// Optionally set a single tab stop for associated accordion triggering elements.
-singleTabStop: false,
-
 // Auto configure orientation using dynamic switching based on the visual layout of focusable elements.
-// Only applicable when singleTabStop is true.
 // "off"=Inactive, "semi"=Switches between vertical and horizontal only, "full"= Switches between vertical, horizontal, and both when line-wrapping is detected.
 autoSwitch: "full",
 
 // Optionally extend the RTI instance with custom event handlers.
-// Only applicable when singleTabStop is true.
 // For available options, view the RovingTabIndex help doc at "Help/Module Imports/Actions/RovingTabIndex".
 extendRTI: {
 // Optional event handlers.
@@ -90,20 +84,14 @@ extendRTI: {
 
 // Optionally choose to track the browser history when each panel is opened.
 // May be used to automatically open the same panel after the page is bookmarked.
-// Requires that each accordion triggering element include a unique id attribute.
+// Requires that each tab triggering element include a unique id attribute.
     trackPage: false,
 
 // Toggle the specified class name on the triggering element when hidden or shown.
     toggleClassName: "open",
 
-// Optionally toggle the hidden attribute instead of inserting the accordion panel when rendered.
+// Optionally toggle the hidden attribute instead of inserting the tab panel when rendered.
     toggleHide: true,
-
-// Specify that the collection of accordion triggering elements will function like toggles, where the currently open panel can be closed.
-isToggle: false,
-
-// Specify that the collection of accordion triggering elements will function as independant objects, where multiple panels may be open at the same time.
-allowMultiple: false,
 
 // Preload markup in the background when using the Fetch API to load external content.
 preload: true,
@@ -111,12 +99,12 @@ preload: true,
 // Preload images in the background when using the Fetch API to load external content.
 preloadImages: true,
 
-// Optionally run a script after the accordion panel finishes rendering.
+// Optionally run a script after the tab panel finishes rendering.
 afterRender: function(DC) {
-// DC.container includes the rendered accordion content.
+// DC.container includes the rendered tab panel content.
 },
 
-// Optionally run a script after the accordion panel is removed.
+// Optionally run a script after the tab panel is removed.
 afterRemove: function(DC) {
 // Do something.
 },
@@ -132,15 +120,15 @@ trackPage: true,
 afterRender: function(dc) {
 $A.setPage(
 dc.id,
-$A.getText(dc.triggerNode) + " ARIA Accordion - Apex 4X Technical Style Guide"
+$A.getText(dc.triggerNode) + " ARIA Tab - Apex 4X Technical Style Guide"
 );
 },
 */
 
-// Optionally specify a render and remove animation effect for the accordion.
+// Optionally specify a render and remove animation effect for the tab panel.
 // Requires the "Animate" module import to function, which is powered by Velocity.js.
 // To ignore animation effects, delete the animate object declaration entirely from the setup script.
-// View implementations within "Templates/Accordions" for practical animation usage examples.
+// View implementations within "Templates/TabLists" for practical animation usage examples.
 
 style: { display: "none" }, // Set the initial state to hidden in prep for animation.
 
@@ -179,15 +167,15 @@ next(); // REQUIRED: next() must be executed so control is passed back to 4X for
 
 Programmatic Control
 
-// Get the DC object for the accordion using its triggering element id.
-var DC = $A("accordionTriggerId");
+// Get the DC object for the tab using its triggering element id.
+var DC = $A("tabTriggerId");
 
-// Open the accordion manually.
+// Open the tab panel manually.
 DC.render(function() {
 // Optionally do something after rendering completes.
 });
 
-// Close the accordion manually.
+// Close the tab manually.
 DC.remove(function() {
 // Optionally do something after removal completes.
 });

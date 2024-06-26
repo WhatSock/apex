@@ -923,10 +923,10 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
             typeof global !== "undefined"
               ? global
               : typeof self !== "undefined"
-              ? self
-              : typeof window !== "undefined"
-              ? window
-              : {},
+                ? self
+                : typeof window !== "undefined"
+                  ? window
+                  : {},
           );
         },
         { "./classes": 1, "contra/emitter": 5, crossvent: 6 },
@@ -1152,10 +1152,10 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
             typeof global !== "undefined"
               ? global
               : typeof self !== "undefined"
-              ? self
-              : typeof window !== "undefined"
-              ? window
-              : {},
+                ? self
+                : typeof window !== "undefined"
+                  ? window
+                  : {},
           );
         },
         { "./eventmap": 7, "custom-event": 8 },
@@ -1181,10 +1181,10 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
             typeof global !== "undefined"
               ? global
               : typeof self !== "undefined"
-              ? self
-              : typeof window !== "undefined"
-              ? window
-              : {},
+                ? self
+                : typeof window !== "undefined"
+                  ? window
+                  : {},
           );
         },
         {},
@@ -1215,46 +1215,46 @@ Includes modifications by Bryan Garaventa (WhatSock.com) for use within the Apex
             module.exports = useNative()
               ? NativeCustomEvent
               : // IE >= 9
-              "undefined" !== typeof document &&
-                "function" === typeof document.createEvent
-              ? function CustomEvent(type, params) {
-                  var e = document.createEvent("CustomEvent");
-                  if (params) {
-                    e.initCustomEvent(
-                      type,
-                      params.bubbles,
-                      params.cancelable,
-                      params.detail,
-                    );
-                  } else {
-                    e.initCustomEvent(type, false, false, void 0);
+                "undefined" !== typeof document &&
+                  "function" === typeof document.createEvent
+                ? function CustomEvent(type, params) {
+                    var e = document.createEvent("CustomEvent");
+                    if (params) {
+                      e.initCustomEvent(
+                        type,
+                        params.bubbles,
+                        params.cancelable,
+                        params.detail,
+                      );
+                    } else {
+                      e.initCustomEvent(type, false, false, void 0);
+                    }
+                    return e;
                   }
-                  return e;
-                }
-              : // IE <= 8
-                function CustomEvent(type, params) {
-                  var e = document.createEventObject();
-                  e.type = type;
-                  if (params) {
-                    e.bubbles = Boolean(params.bubbles);
-                    e.cancelable = Boolean(params.cancelable);
-                    e.detail = params.detail;
-                  } else {
-                    e.bubbles = false;
-                    e.cancelable = false;
-                    e.detail = void 0;
-                  }
-                  return e;
-                };
+                : // IE <= 8
+                  function CustomEvent(type, params) {
+                    var e = document.createEventObject();
+                    e.type = type;
+                    if (params) {
+                      e.bubbles = Boolean(params.bubbles);
+                      e.cancelable = Boolean(params.cancelable);
+                      e.detail = params.detail;
+                    } else {
+                      e.bubbles = false;
+                      e.cancelable = false;
+                      e.detail = void 0;
+                    }
+                    return e;
+                  };
           }).call(
             this,
             typeof global !== "undefined"
               ? global
               : typeof self !== "undefined"
-              ? self
-              : typeof window !== "undefined"
-              ? window
-              : {},
+                ? self
+                : typeof window !== "undefined"
+                  ? window
+                  : {},
           );
         },
         {},

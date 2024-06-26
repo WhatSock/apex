@@ -21,6 +21,8 @@ var ariaSlider = new $A.Slider(".slider.bar", {
 // Configure functionality key / value mappings
 });
 
+Module file: Slider.js - Requires CurrentDevice.js, Dragdealer.js.
+
 Parameters
 
 1: A DOM element or CSS selector to specify the slider handle's container (slideBar) element.

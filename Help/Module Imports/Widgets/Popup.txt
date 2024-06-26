@@ -38,6 +38,8 @@ var myPopupDC = $A.setPopup( "#popupTriggerId", {
   // Configure functionality key / value mappings
 });
 
+Module file: Popup.js - Has no dependencies.
+
 Parameters
 
 1: A DOM element or CSS selector to specify the triggering element.

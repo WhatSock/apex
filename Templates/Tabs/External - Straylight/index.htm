@@ -1,142 +1,229 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>ARIA Tabs (Straylight External Content) - Apex 4X Technical Style Guide</title>
-    <meta name="description" content="Scalable ARIA Components">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
-    <link rel="stylesheet" type="text/css" href="css/tabs.css">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>
+      ARIA Tabs (Straylight External Content) - Apex 4X Technical Style Guide
+    </title>
+    <meta name="description" content="Scalable ARIA Components" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../_common/css/components-style.css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/tabs.css" />
     <script src="/4X/4X.js#Straylight"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="bypass">
-        <ul class="list-unstyled">
-            <li>
-                <a class="skip--link" href="javascript:void(0);" onclick="document.getElementById('main').focus();">
-                    Skip to Main Content
-                </a>
-            </li>
-        </ul>
+      <ul class="list-unstyled">
+        <li>
+          <a
+            class="skip--link"
+            href="javascript:void(0);"
+            onclick="document.getElementById('main').focus();"
+          >
+            Skip to Main Content
+          </a>
+        </li>
+      </ul>
     </div>
     <div class="outer-wrapper">
-        <header class="header flex-container">
-            <div class="logo flex-item">
-                <a href="https://whatsock.com">
-                    <img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg"></a>
-            </div>
-            <div class="site-name flex-item">
-                <strong>Apex 4X</strong> Technical Style Guide
-            </div>
-        </header>
-        <div class="wrapper">
-            <div class="left-aside">
-                <nav>
-                    <p><a href="/Tutorials/Beginner-Introduction.htm">Beginner Tutorial</a></p>
-                    <h2>Template Examples</h2>
-                    <ul>
-                        <li><a href="../../index.htm">Back to Components</a></li>
-                        <li><a href="../index.htm">Back to Parent Widget</a></li>
-                        <li><a href="../External/index.htm">External</a></li>
-                        <li><a href="index.htm" aria-current="page">External - Straylight</a></li>
-                        <li><a href="../Internal/index.htm">Internal</a></li>
-                        <li><a href="../Internal - Straylight/index.htm">Internal - Straylight</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <main id="main" class="main" tabindex="-1">
-                <div class="demo-block flex-container">
-                    <div class="component flex-item">
-                        <h1 class="pageTitle">Tabs <small>(Straylight External Content)</small></h1>
-                        <div class="aria-tablist">
-                            <button id="Tab1Id" class="aria-tab tab1" data-controls="files/tabs.html#tab1content" data-root="tabInsertId" data-active>
-                                Name 1
-                            </button>
-                            <button id="Tab2Id" class="aria-tab tab2" data-controls="files/tabs.html#tab2content" data-root="tabInsertId">
-                                Name 2
-                            </button>
-                            <button id="Tab3Id" class="aria-tab tab3" data-controls="files/tabs.html#tab3content" data-root="tabInsertId">
-                                Name 3
-                            </button>
-                            <button id="Tab4Id" aria-disabled="true" title="Disabled" class="aria-tab tab4" data-controls="files/tabs.html#tab4content" data-root="tabInsertId">
-                                Name 4
-                            </button>
-                        </div>
-                        <div class="content" id="tabInsertId">
-                        </div>
-                    </div>
-                    <div class="keyboard flex-item">
-                        <h2>The tab controls are keyboard accessible:</h2>
-                        <ul>
-                            <li>Set focus on the tab control.</li>
-                            <li>Press the Arrow keys to move focus between tabs.</li>
-                            <li>Press <kbd>Home</kbd> or <kbd>End</kbd> to move to the first or last tab.</li>
-                            <li>Press any letter or number to jump to a tab starting with that character or digit.</li>
-                            <li>Press the <kbd>Spacebar</kbd> to open (or optionally toggle if configured) the selected tab.</li>
-                            <li>Mouse users can click the desired tab as usual.</li>
-                        </ul>
-                    </div>
-                </div>
-            </main>
+      <header class="header flex-container">
+        <div class="logo flex-item">
+          <a href="https://whatsock.com">
+            <img
+              alt="WhatSock : Changing the world one step at a time"
+              src="../../_common/img/whatsock.svg"
+          /></a>
         </div>
-        <footer class="footer">
-            <div class="flex-container-row">
-                <div class="flex-item">
-                    <h2>License</h2>
-                    <p>
-                        Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
-                    </p>
-                </div>
-                <div class="flex-item">
-                    <h2>Resources</h2>
-                    <ul>
-                        <li>
-                            <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex-item">
-                    <h2>Acknowledgements</h2>
-                    <ul class="list--horizontal">
-                        <li>
-                            Author and developer:
-                            <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
-                        </li>
-                        <li>
-                            Website designer:
-                            <a target="ext" href="https://gericci.me/">Angela Ricci</a>
-                        </li>
-                        <li>
-                            Style and markup editor:
-                            <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
-                        </li>
-                    </ul>
-                </div>
+        <div class="site-name flex-item">
+          <strong>Apex 4X</strong> Technical Style Guide
+        </div>
+      </header>
+      <div class="wrapper">
+        <div class="left-aside">
+          <nav>
+            <p>
+              <a href="/Tutorials/Beginner-Introduction.htm"
+                >Beginner Tutorial</a
+              >
+            </p>
+            <h2>Template Examples</h2>
+            <ul>
+              <li><a href="../../index.htm">Back to Components</a></li>
+              <li><a href="../index.htm">Back to Parent Widget</a></li>
+              <li><a href="../External/index.htm">External</a></li>
+              <li>
+                <a href="index.htm" aria-current="page"
+                  >External - Straylight</a
+                >
+              </li>
+              <li><a href="../Internal/index.htm">Internal</a></li>
+              <li>
+                <a href="../Internal - Straylight/index.htm"
+                  >Internal - Straylight</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <main id="main" class="main" tabindex="-1">
+          <div class="demo-block flex-container">
+            <div class="component flex-item">
+              <h1 class="pageTitle">
+                Tabs <small>(Straylight External Content)</small>
+              </h1>
+              <div class="aria-tablist">
+                <button
+                  id="Tab1Id"
+                  class="aria-tab tab1"
+                  data-controls="files/tabs.html#tab1content"
+                  data-root="tabInsertId"
+                  data-active
+                >
+                  Name 1
+                </button>
+                <button
+                  id="Tab2Id"
+                  class="aria-tab tab2"
+                  data-controls="files/tabs.html#tab2content"
+                  data-root="tabInsertId"
+                >
+                  Name 2
+                </button>
+                <button
+                  id="Tab3Id"
+                  class="aria-tab tab3"
+                  data-controls="files/tabs.html#tab3content"
+                  data-root="tabInsertId"
+                >
+                  Name 3
+                </button>
+                <button
+                  id="Tab4Id"
+                  aria-disabled="true"
+                  title="Disabled"
+                  class="aria-tab tab4"
+                  data-controls="files/tabs.html#tab4content"
+                  data-root="tabInsertId"
+                >
+                  Name 4
+                </button>
+              </div>
+              <div class="content" id="tabInsertId"></div>
             </div>
-        </footer>
+            <div class="keyboard flex-item">
+              <h2>The tab controls are keyboard accessible:</h2>
+              <ul>
+                <li>Set focus on the tab control.</li>
+                <li>Press the Arrow keys to move focus between tabs.</li>
+                <li>
+                  Press <kbd>Home</kbd> or <kbd>End</kbd> to move to the first
+                  or last tab.
+                </li>
+                <li>
+                  Press any letter or number to jump to a tab starting with that
+                  character or digit.
+                </li>
+                <li>
+                  Press the <kbd>Spacebar</kbd> to open (or optionally toggle if
+                  configured) the selected tab.
+                </li>
+                <li>Mouse users can click the desired tab as usual.</li>
+              </ul>
+            </div>
+          </div>
+        </main>
+      </div>
+      <footer class="footer">
+        <div class="flex-container-row">
+          <div class="flex-item">
+            <h2>License</h2>
+            <p>
+              Apex 4X including all template design patterns is distributed
+              under the terms of the Open Source Initiative OSI - MIT License,
+              and may be freely used for any purpose within any web technology.
+            </p>
+          </div>
+          <div class="flex-item">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+                <a target="ext" href="https://github.com/WhatSock/apex"
+                  >Apex 4X on GitHub</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm"
+                  >Visual ARIA Bookmarklet</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk"
+                  >Visual ARIA Chrome Extension</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/"
+                  >Visual ARIA Firefox Extension</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://github.com/AccDC/visual-aria"
+                  >Visual ARIA on GitHub</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/matrices/"
+                  >ARIA Role Conformance Matrices</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/"
+                  >Accessibility Tree Training Guide</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-item">
+            <h2>Acknowledgements</h2>
+            <ul class="list--horizontal">
+              <li>
+                Author and developer:
+                <a target="ext" href="https://www.linkedin.com/in/bgaraventa"
+                  >Bryan Garaventa</a
+                >
+              </li>
+              <li>
+                Website designer:
+                <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+              </li>
+              <li>
+                Style and markup editor:
+                <a
+                  target="ext"
+                  href="https://www.linkedin.com/in/laurence-lewis-77520365/"
+                  >Laurence Lewis</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
-</body>
+  </body>
 
-<script async src="https://api.whatsock.com/accdc-updates.js?4x=template"></script>
-
+  <script
+    async
+    src="https://api.whatsock.com/accdc-updates.js?4x=template"
+  ></script>
 </html>

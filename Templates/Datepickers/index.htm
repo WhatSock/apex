@@ -1,103 +1,195 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>ARIA Date Pickers - Apex 4X Technical Style Guide</title>
-    <meta name="description" content="Scalable ARIA Components">
+    <meta name="description" content="Scalable ARIA Components" />
     <meta name="Author" content="Bryan Garaventa" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/global.css">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/prism.css">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/components-style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/css/global.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/prism.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/css/components-style.css"
+    />
     <script src="../_common/_doc_files/prism.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="outer-wrapper">
-        <header class="header">
-            <div class="logo">
-                <a href="https://whatsock.com">
-                    <img alt="WhatSock : Changing the world one step at a time" src="/Templates/_common/_doc_files/img/whatsock.svg">
-                </a>
-            </div>
-        </header>
-        <div class="wrapper">
-            <main id="main" class="main">
-                <h1><strong>ARIA Datepickers</strong> </h1>
-                <nav class="navigation--parent">
-                    <p><a href="/Tutorials/Beginner-Introduction.htm">Beginner Tutorial</a></p>
-                    <h2 class="parent--page">Template Examples</h2>
-                    <ul>
-                        <li class="mobile--componentName"><a href="../index.htm">Back to Components</a></li>
-                        <li class="mobile--componentName"><a href="Basic/index.htm">Basic</a></li>
-                        <li class="mobile--componentName"><a href="Basic - Straylight/index.htm">Basic - Straylight</a></li>
-                        <li class="mobile--componentName"><a href="Basic Short/index.htm">Basic Short</a></li>
-                        <li class="mobile--componentName"><a href="Basic, Auto Open/index.htm">Basic, Auto Open</a></li>
-                        <li class="mobile--componentName"><a href="Basic, ReadOnly Auto Open plus Disabled Ranges/index.htm">Basic, ReadOnly Auto Open plus Disabled Ranges</a></li>
-                        <li class="mobile--componentName"><a href="With Absolute Disabled Date Ranges/index.htm">With Absolute Disabled Date Ranges</a></li>
-                        <li class="mobile--componentName"><a href="With Complex Custom Disabled Date Ranges/index.htm">With Complex Custom Disabled Date Ranges</a></li>
-                        <li class="mobile--componentName"><a href="With Custom Date Formats/index.htm">With Custom Date Formats</a></li>
-                        <li class="mobile--componentName"><a href="With Disabled Weekends/index.htm">With Disabled Weekends</a></li>
-                        <li class="mobile--componentName"><a href="With Editable Tooltip Comments/index.htm">With Editable Tooltip Comments</a></li>
-                        <li class="mobile--componentName extlong"><a href="With Full Calendar Display, Condense Year and Natural PageUpDown/index.htm">With Full Calendar Display, Condense Year and Natural PageUpDown</a></li>
-                        <li class="mobile--componentName"><a href="With Relative Disabled Date Ranges/index.htm">With Relative Disabled Date Ranges</a></li>
-                        <li class="mobile--componentName"><a href="With Tooltip Comments/index.htm">With Tooltip Comments</a></li>
-                    </ul>
-                </nav>
+      <header class="header">
+        <div class="logo">
+          <a href="https://whatsock.com">
+            <img
+              alt="WhatSock : Changing the world one step at a time"
+              src="/Templates/_common/_doc_files/img/whatsock.svg"
+            />
+          </a>
+        </div>
+      </header>
+      <div class="wrapper">
+        <main id="main" class="main">
+          <h1><strong>ARIA Datepickers</strong></h1>
+          <nav class="navigation--parent">
+            <p>
+              <a href="/Tutorials/Beginner-Introduction.htm"
+                >Beginner Tutorial</a
+              >
+            </p>
+            <h2 class="parent--page">Template Examples</h2>
+            <ul>
+              <li class="mobile--componentName">
+                <a href="../index.htm">Back to Components</a>
+              </li>
+              <li class="mobile--componentName">
+                <a href="Basic/index.htm">Basic</a>
+              </li>
+              <li class="mobile--componentName">
+                <a href="Basic - Straylight/index.htm">Basic - Straylight</a>
+              </li>
+              <li class="mobile--componentName">
+                <a href="Basic Short/index.htm">Basic Short</a>
+              </li>
+              <li class="mobile--componentName">
+                <a href="Basic, Auto Open/index.htm">Basic, Auto Open</a>
+              </li>
+              <li class="mobile--componentName">
+                <a
+                  href="Basic, ReadOnly Auto Open plus Disabled Ranges/index.htm"
+                  >Basic, ReadOnly Auto Open plus Disabled Ranges</a
+                >
+              </li>
+              <li class="mobile--componentName">
+                <a href="With Absolute Disabled Date Ranges/index.htm"
+                  >With Absolute Disabled Date Ranges</a
+                >
+              </li>
+              <li class="mobile--componentName">
+                <a href="With Complex Custom Disabled Date Ranges/index.htm"
+                  >With Complex Custom Disabled Date Ranges</a
+                >
+              </li>
+              <li class="mobile--componentName">
+                <a href="With Custom Date Formats/index.htm"
+                  >With Custom Date Formats</a
+                >
+              </li>
+              <li class="mobile--componentName">
+                <a href="With Disabled Weekends/index.htm"
+                  >With Disabled Weekends</a
+                >
+              </li>
+              <li class="mobile--componentName">
+                <a href="With Editable Tooltip Comments/index.htm"
+                  >With Editable Tooltip Comments</a
+                >
+              </li>
+              <li class="mobile--componentName extlong">
+                <a
+                  href="With Full Calendar Display, Condense Year and Natural PageUpDown/index.htm"
+                  >With Full Calendar Display, Condense Year and Natural
+                  PageUpDown</a
+                >
+              </li>
+              <li class="mobile--componentName">
+                <a href="With Relative Disabled Date Ranges/index.htm"
+                  >With Relative Disabled Date Ranges</a
+                >
+              </li>
+              <li class="mobile--componentName">
+                <a href="With Tooltip Comments/index.htm"
+                  >With Tooltip Comments</a
+                >
+              </li>
+            </ul>
+          </nav>
 
-                <section class="section--instructions">
+          <section class="section--instructions">
+            <h2>Expected behaviors</h2>
 
-                    <h2>Expected behaviors</h2>
+            <p>
+              An external triggering element should activate the datepicker for
+              touch support, focus should move into the datepicker when
+              selecting a date using the keyboard, the arrow keys should move
+              between calendar cells and the calendar should scroll
+              automatically between months, PageUp/PageDown should switch
+              between months, Alt+PageUp/PageDown should switch between years,
+              Enter should activate the selected date, and pressing Escape or
+              Tab should close the calendar and return focus to the triggering
+              element.
+            </p>
 
-                    <p>An external triggering element should activate the datepicker for touch support, focus should move into the datepicker when selecting a date using the keyboard, the arrow keys should move between calendar cells and the calendar should scroll automatically between months, PageUp/PageDown should switch between months, Alt+PageUp/PageDown should switch between years, Enter should activate the selected date, and pressing Escape or Tab should close the calendar and return focus to the triggering element.</p>
+            <p>
+              The 4X ARIA Datepicker module automatically configures all
+              required ARIA attributes and focus handling, in strict accordance
+              with the ARIA specification.
+            </p>
 
-                    <p>The 4X ARIA Datepicker module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.</p>
+            <p>
+              Note: A datepicker is a composite widget, meaning that it is
+              comprised of different ARIA roles and supporting attributes.
+            </p>
 
-                    <p>Note: A datepicker is a composite widget, meaning that it is comprised of different ARIA roles and supporting attributes.</p>
+            <p>
+              The following attributes are handled automatically by the
+              Datepicker module:
+            </p>
 
-                    <p>The following attributes are handled automatically by the Datepicker module:</p>
+            <ul>
+              <li>role=dialog</li>
+              <li>role=application</li>
+              <li>role=button</li>
+              <li>role=presentation</li>
+              <li>aria-hidden</li>
+              <li>aria-label</li>
+              <li>aria-disabled</li>
+              <li>aria-current</li>
+              <li>tabindex</li>
+            </ul>
 
-                    <ul>
-                        <li> role=dialog</li>
-                        <li> role=application</li>
-                        <li> role=button</li>
-                        <li> role=presentation</li>
-                        <li> aria-hidden</li>
-                        <li> aria-label</li>
-                        <li> aria-disabled</li>
-                        <li> aria-current</li>
-                        <li> tabindex</li>
-                    </ul>
+            <h2>HTML syntax</h2>
 
-                    <h2>HTML syntax</h2>
-
-                    <div>
-                        <pre><code class="language-markup">
+            <div>
+              <pre><code class="language-markup">
 &lt;label for="dateInputId"> Departure date: &lt;/label>
 &lt;input placeholder="MM/DD/YYYY" id="dateInputId" type="text">
 &lt;button title="Datepicker" id="dateCalendarIconId">&lt;!-- Calendar Icon Here -->&lt;/button>
 </code></pre>
-                    </div>
+            </div>
 
-                    <h2>JavaScript syntax</h2>
+            <h2>JavaScript syntax</h2>
 
-                    <div>
-                        <pre><code class="language-javascript">var myCalendarDC = $A.setDatepicker({
+            <div>
+              <pre><code class="language-javascript">var myCalendarDC = $A.setDatepicker({
 // Configuration key / value map
 });</code></pre>
-                    </div>
+            </div>
 
-                    <h2>Parameters</h2>
+            <ul>
+              <li>Module file: Datepicker.js</li>
+              <li>Has no dependencies.</li>
+              <li>Recommended: Velocity.js, VelocityUI.js.</li>
+            </ul>
 
-                    <ol>
-                        <li>A configuration map to customize behaviors and options</li>
-                    </ol>
+            <h2>Parameters</h2>
 
-                    <h3>Configuration</h3>
+            <ol>
+              <li>A configuration map to customize behaviors and options</li>
+            </ol>
 
-                    <div>
-                        <pre><code class="language-javascript">{
+            <h3>Configuration</h3>
+
+            <div>
+              <pre><code class="language-javascript">{
 
 // Unique ID for the datepicker instance
 // After instantiation, can be referenced using: var DC = $A("UniqueCalendarId");
@@ -363,12 +455,12 @@ configure: function(dc){
 }
 
 }</code></pre>
-                    </div>
+            </div>
 
-                    <h2>Programmatic control</h2>
+            <h2>Programmatic control</h2>
 
-                    <div>
-                        <pre><code class="language-javascript">// Get a reference to the calendar DC instance using its id.
+            <div>
+              <pre><code class="language-javascript">// Get a reference to the calendar DC instance using its id.
 var dc = $A('UniqueCalendarId');
 
 // Manually open the calendar.
@@ -402,14 +494,18 @@ dc.clearAllMessage(dc);
 dc.setDate(dc, dateObj);
 
 dc.presetDate(dc, initialDateObj, minDateObj, maxDateObj);</code></pre>
-                    </div>
+            </div>
 
-                    <h2>Implementation notes</h2>
+            <h2>Implementation notes</h2>
 
-                    <p>For more granular access to date string values that exist within each calendar object instance, you can access the internal variables like so:</p>
+            <p>
+              For more granular access to date string values that exist within
+              each calendar object instance, you can access the internal
+              variables like so:
+            </p>
 
-                    <div>
-                        <pre><code class="language-javascript">var weekday = dc.range.wDays[dc.range.current.wDay].lng; // = 'Friday'
+            <div>
+              <pre><code class="language-javascript">var weekday = dc.range.wDays[dc.range.current.wDay].lng; // = 'Friday'
 
 var monthName = dc.range[dc.range.current.month].name; // = 'November'
 
@@ -418,71 +514,100 @@ var monthDay = (dc.range.current.month+1); // = numerical month string
 var day = dc.range.current.mDay; // = '30'
 
 var year = dc.range.current.year; // = '2012'</code></pre>
-                    </div>
-
-                </section>
-            </main>
-        </div>
-        <footer class="footer">
-            <div class="flex-container-row">
-                <div class="flex-item">
-                    <h2>License</h2>
-                    <p>
-                        Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
-                    </p>
-                </div>
-                <div class="flex-item">
-                    <h2>Resources</h2>
-                    <ul>
-                        <li>
-                            <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex-item">
-                    <h2>Acknowledgements</h2>
-                    <ul class="list--horizontal">
-                        <li>
-                            Author and developer:
-                            <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
-                        </li>
-                        <li>
-                            Website designer:
-                            <a target="ext" href="https://gericci.me/">Angela Ricci</a>
-                        </li>
-                        <li>
-                            Style and markup editor:
-                            <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
-                        </li>
-                        <li>
-                            Code contributor:
-                            <a target="ext" href="https://dannya.com">Danny Allen</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
-        </footer>
+          </section>
+        </main>
+      </div>
+      <footer class="footer">
+        <div class="flex-container-row">
+          <div class="flex-item">
+            <h2>License</h2>
+            <p>
+              Apex 4X including all template design patterns is distributed
+              under the terms of the Open Source Initiative OSI - MIT License,
+              and may be freely used for any purpose within any web technology.
+            </p>
+          </div>
+          <div class="flex-item">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+                <a target="ext" href="https://github.com/WhatSock/apex"
+                  >Apex 4X on GitHub</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm"
+                  >Visual ARIA Bookmarklet</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk"
+                  >Visual ARIA Chrome Extension</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/"
+                  >Visual ARIA Firefox Extension</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://github.com/AccDC/visual-aria"
+                  >Visual ARIA on GitHub</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/matrices/"
+                  >ARIA Role Conformance Matrices</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/"
+                  >Accessibility Tree Training Guide</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-item">
+            <h2>Acknowledgements</h2>
+            <ul class="list--horizontal">
+              <li>
+                Author and developer:
+                <a target="ext" href="https://www.linkedin.com/in/bgaraventa"
+                  >Bryan Garaventa</a
+                >
+              </li>
+              <li>
+                Website designer:
+                <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+              </li>
+              <li>
+                Style and markup editor:
+                <a
+                  target="ext"
+                  href="https://www.linkedin.com/in/laurence-lewis-77520365/"
+                  >Laurence Lewis</a
+                >
+              </li>
+              <li>
+                Code contributor:
+                <a target="ext" href="https://dannya.com">Danny Allen</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
-</body>
+  </body>
 
-<script async src="https://api.whatsock.com/accdc-updates.js?4x=template"></script>
-
+  <script
+    async
+    src="https://api.whatsock.com/accdc-updates.js?4x=template"
+  ></script>
 </html>

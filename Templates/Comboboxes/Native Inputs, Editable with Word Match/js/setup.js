@@ -72,8 +72,8 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
     window.device.type === "mobile"
       ? 3
       : window.device.type === "tablet"
-      ? 5
-      : 7,
+        ? 5
+        : 7,
   );
 
   // Disable the offscreen Close link for mobile touch screen users

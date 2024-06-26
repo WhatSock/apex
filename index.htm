@@ -1,75 +1,96 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Apex 4X Technical Style Guide</title>
-    <meta name="description" content="Scalable ARIA Components">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="Templates/_common/_doc_files/css/global.css">
+    <meta name="description" content="Scalable ARIA Components" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="Templates/_common/_doc_files/css/global.css"
+    />
 
     <style type="text/css">
-        h2.heading--onblack {
-            color: #ffcc00;
-            font-family: Frutiger, Helvetica, Arial, sans-serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1.2em;
-            margin-top: 1.2em;
-        }
+      h2.heading--onblack {
+        color: #ffcc00;
+        font-family: Frutiger, Helvetica, Arial, sans-serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 1.2em;
+        margin-top: 1.2em;
+      }
 
-        a.templatesLink {
-            padding: 5px;
-            font-size: 1.3em;
-            color: #fff;
-        }
+      a.templatesLink {
+        padding: 5px;
+        font-size: 1.3em;
+        color: #fff;
+      }
 
-        a.templatesLink:focus,
-        a.templatesLink:hover {
-            text-decoration: none;
-        }
+      a.templatesLink:focus,
+      a.templatesLink:hover {
+        text-decoration: none;
+      }
 
-        div.tooltip {
-            position: absolute;
-            width: auto;
-            color: var(--globalWhite);
-            background: var(--whatsock-black);
-            padding: 0.3em 0.5em;
-            -webkit-box-shadow: 0 1px 1px #afafaf, inset 0 1px 0 var(--tooltip-boxshadow);
-            -moz-box-shadow: 0 1px 1px #afafaf, inset 0 1px 0 var(--tooltip-boxshadow);
-            box-shadow: 0 1px 1px #afafaf, inset 0 1px 0 var(--tooltip-boxshadow);
-            z-index: 100;
-        }
+      div.tooltip {
+        position: absolute;
+        width: auto;
+        color: var(--globalWhite);
+        background: var(--whatsock-black);
+        padding: 0.3em 0.5em;
+        -webkit-box-shadow:
+          0 1px 1px #afafaf,
+          inset 0 1px 0 var(--tooltip-boxshadow);
+        -moz-box-shadow:
+          0 1px 1px #afafaf,
+          inset 0 1px 0 var(--tooltip-boxshadow);
+        box-shadow:
+          0 1px 1px #afafaf,
+          inset 0 1px 0 var(--tooltip-boxshadow);
+        z-index: 100;
+      }
     </style>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <div class="outer-wrapper">
-        <header class="header">
-            <div class="logo">
-                <a href="WhatSock/index.htm">
-                    <img alt="WhatSock : Changing the world one step at a time" src="Templates/_common/_doc_files/img/whatsock.svg" />
-                </a>
-            </div>
-        </header>
-        <div class="wrapper">
-            <main id="main" class="main">
-                <h1><strong>Apex 4X</strong></h1>
-<h2 class="heading--onblack">Version: <strong id="version"></strong></h2>
-                <nav class="navigation--parent">
-                    <ul>
-                        <li><a href="Tutorials/Beginner-Introduction.htm">Start Beginner Tutorial</a></li>
-                        <li><a id="templatesLink" href="Templates/index.htm">Browse Accessible Widget Templates</a></li>
-                    </ul>
-                </nav>
-                <h2 class="heading--onblack">Test 4X</h2>
-                <div>
-                    <button class="testBtn">Test Script</button>
-                </div>
-                <div>
-                    <textarea style="min-width: 90%;" id="testScript">
+      <header class="header">
+        <div class="logo">
+          <a href="WhatSock/index.htm">
+            <img
+              alt="WhatSock : Changing the world one step at a time"
+              src="Templates/_common/_doc_files/img/whatsock.svg"
+            />
+          </a>
+        </div>
+      </header>
+      <div class="wrapper">
+        <main id="main" class="main">
+          <h1><strong>Apex 4X</strong></h1>
+          <h2 class="heading--onblack">
+            Version: <strong id="version"></strong>
+          </h2>
+          <nav class="navigation--parent">
+            <ul>
+              <li>
+                <a href="Tutorials/Beginner-Introduction.htm"
+                  >Start Beginner Tutorial</a
+                >
+              </li>
+              <li>
+                <a id="templatesLink" href="Templates/index.htm"
+                  >Browse Accessible Widget Templates</a
+                >
+              </li>
+            </ul>
+          </nav>
+          <h2 class="heading--onblack">Test 4X</h2>
+          <div>
+            <button class="testBtn">Test Script</button>
+          </div>
+          <div>
+            <textarea style="min-width: 90%" id="testScript">
 // Experiment with 4X
 
 // Create a tooltip for the link "Browse Accessible Widget Templates"
@@ -103,71 +124,100 @@ Velocity(wrapper, "transition.fadeOut", {
 });
 
 tooltip.render(); // Optionally render the tooltip manually using the DC.render method.
-</textarea>
-                </div>
-                <div>
-                    <button class="testBtn">Test Script</button>
-                </div>
-                <p class="dark--bg">
-                    All available ARIA widget templates are available for immediate use. None require any prior knowledge of ARIA to implement.
-                </p>
-            </main>
+</textarea
+            >
+          </div>
+          <div>
+            <button class="testBtn">Test Script</button>
+          </div>
+          <p class="dark--bg">
+            All available ARIA widget templates are available for immediate use.
+            None require any prior knowledge of ARIA to implement.
+          </p>
+        </main>
+      </div>
+      <footer class="footer">
+        <div class="flex-container-row">
+          <div class="flex-item">
+            <h2>License</h2>
+            <p>
+              Apex 4X including all template design patterns is distributed
+              under the terms of the Open Source Initiative OSI - MIT License,
+              and may be freely used for any purpose within any web technology.
+            </p>
+          </div>
+          <div class="flex-item">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+                <a target="ext" href="https://github.com/WhatSock/apex"
+                  >Apex 4X on GitHub</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm"
+                  >Visual ARIA Bookmarklet</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk"
+                  >Visual ARIA Chrome Extension</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/"
+                  >Visual ARIA Firefox Extension</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://github.com/AccDC/visual-aria"
+                  >Visual ARIA on GitHub</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/matrices/"
+                  >ARIA Role Conformance Matrices</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/"
+                  >Accessibility Tree Training Guide</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-item">
+            <h2>Acknowledgements</h2>
+            <ul class="list--horizontal">
+              <li>
+                Author and developer:
+                <a target="ext" href="https://www.linkedin.com/in/bgaraventa"
+                  >Bryan Garaventa</a
+                >
+              </li>
+              <li>
+                Website designer:
+                <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+              </li>
+              <li>
+                Style and markup editor:
+                <a
+                  target="ext"
+                  href="https://www.linkedin.com/in/laurence-lewis-77520365/"
+                  >Laurence Lewis</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
-        <footer class="footer">
-            <div class="flex-container-row">
-                <div class="flex-item">
-                    <h2>License</h2>
-                    <p>
-                        Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
-                    </p>
-                </div>
-                <div class="flex-item">
-                    <h2>Resources</h2>
-                    <ul>
-                        <li>
-                            <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex-item">
-                    <h2>Acknowledgements</h2>
-                    <ul class="list--horizontal">
-                        <li>
-                            Author and developer:
-                            <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
-                        </li>
-                        <li>
-                            Website designer:
-                            <a target="ext" href="https://gericci.me/">Angela Ricci</a>
-                        </li>
-                        <li>
-                            Style and markup editor:
-                            <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </footer>
+      </footer>
     </div>
     <script type="module" src="/index.js"></script>
-</body>
-
+  </body>
 </html>

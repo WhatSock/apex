@@ -39,6 +39,8 @@ var myDialogDC = $A.setDialog( domNodeOrCSSSelector, {
 // Configure functionality key / value mappings
 });
 
+Module file: Dialog.js - Has no dependencies.
+
 Parameters
 
 1: A DOM node or CSS selector to specify either the dialog container element or the dialog triggering element. If referencing a triggering element, the data-controls attribute can be used to specify the id of the associated dialog container.

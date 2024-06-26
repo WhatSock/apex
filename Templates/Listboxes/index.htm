@@ -1,116 +1,174 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>ARIA Listboxes - Apex 4X Technical Style Guide</title>
-    <meta name="description" content="Scalable ARIA Components">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/global.css">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/prism.css">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/components-style.css">
+    <meta name="description" content="Scalable ARIA Components" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/css/global.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/prism.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/css/components-style.css"
+    />
     <script src="../_common/_doc_files/prism.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="outer-wrapper">
-        <header class="header">
-            <div class="logo">
-                <a href="https://whatsock.com">
-                    <img alt="WhatSock : Changing the world one step at a time" src="/Templates/_common/_doc_files/img/whatsock.svg">
-                </a>
-            </div>
-        </header>
-        <div class="wrapper">
-            <main id="main" class="main">
-                <h1><strong>ARIA Listboxes</strong> </h1>
-                <nav class="navigation--parent">
-                    <p><a href="/Tutorials/Beginner-Introduction.htm">Beginner Tutorial</a></p>
-                    <h2 class="parent--page">Template Examples</h2>
-                    <ul>
-                        <li><a href="../index.htm">Back to Components</a></li>
-                        <li><a href="Checkable/index.htm">Checkable</a></li>
-                        <li><a href="Multiselect/index.htm">Multiselect</a></li>
-                        <li><a href="Sortable/index.htm">Sortable</a></li>
-                        <li><a href="Standard/index.htm">Standard</a></li>
-                        <li><a href="Standard%20-%20Straylight/index.htm">Standard - Straylight</a></li>
-                        <li><a href="Standard%20(External)/index.htm">Standard (External)</a></li>
-                    </ul>
-                </nav>
+      <header class="header">
+        <div class="logo">
+          <a href="https://whatsock.com">
+            <img
+              alt="WhatSock : Changing the world one step at a time"
+              src="/Templates/_common/_doc_files/img/whatsock.svg"
+            />
+          </a>
+        </div>
+      </header>
+      <div class="wrapper">
+        <main id="main" class="main">
+          <h1><strong>ARIA Listboxes</strong></h1>
+          <nav class="navigation--parent">
+            <p>
+              <a href="/Tutorials/Beginner-Introduction.htm"
+                >Beginner Tutorial</a
+              >
+            </p>
+            <h2 class="parent--page">Template Examples</h2>
+            <ul>
+              <li><a href="../index.htm">Back to Components</a></li>
+              <li><a href="Checkable/index.htm">Checkable</a></li>
+              <li><a href="Multiselect/index.htm">Multiselect</a></li>
+              <li><a href="Sortable/index.htm">Sortable</a></li>
+              <li><a href="Standard/index.htm">Standard</a></li>
+              <li>
+                <a href="Standard%20-%20Straylight/index.htm"
+                  >Standard - Straylight</a
+                >
+              </li>
+              <li>
+                <a href="Standard%20(External)/index.htm"
+                  >Standard (External)</a
+                >
+              </li>
+            </ul>
+          </nav>
 
-                <section class="section--instructions">
+          <section class="section--instructions">
+            <h2>Expected behaviors</h2>
 
-                    <h2>Expected behaviors</h2>
+            <p>
+              ARIA Listboxes should only receive one tab stop, the
+              Up/Down/Home/End keys should move focus appropriately, typing
+              letters or numbers should jump ahead to the next matching option,
+              and every listbox and option element should be explicitly labeled.
+            </p>
 
-                    <p>ARIA Listboxes should only receive one tab stop, the Up/Down/Home/End keys should move focus appropriately, typing letters or numbers should jump ahead to the next matching option, and every listbox and option element should be explicitly labeled.</p>
+            <p>
+              The 4X ARIA Listbox module automatically configures all required
+              ARIA attributes and focus handling, in strict accordance with the
+              ARIA specification.
+            </p>
 
-                    <p>The 4X ARIA Listbox module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.</p>
+            <p>
+              The following attributes are handled automatically by the Listbox
+              module:
+            </p>
 
-                    <p>The following attributes are handled automatically by the Listbox module:</p>
+            <ul>
+              <li>role=listbox</li>
+              <li>role=option</li>
+              <li>aria-checked</li>
+              <li>aria-multiselectable</li>
+              <li>aria-selected</li>
+              <li>tabindex</li>
+            </ul>
 
-                    <ul>
-                        <li> role=listbox</li>
-                        <li> role=option</li>
-                        <li> aria-checked</li>
-                        <li> aria-multiselectable</li>
-                        <li> aria-selected</li>
-                        <li> tabindex</li>
-                    </ul>
+            <p>Available attributes for listbox option elements:</p>
 
-                    <p>Available attributes for listbox option elements:</p>
+            <ul>
+              <li>
+                data-check : May be set to "false", "true", or "mixed" to set
+                the current state of a checkable option when rendered.
+              </li>
+            </ul>
 
-                    <ul>
-                        <li> data-check : May be set to "false", "true", or "mixed" to set the current state of a checkable option when rendered.</li>
-                    </ul>
+            <h2>HTML syntax</h2>
 
-                    <h2>HTML syntax</h2>
+            <h3>Standard</h3>
 
-                    <h3>Standard</h3>
-
-                    <div>
-                        <pre><code class="language-markup">&lt;ul id="listboxId">
+            <div>
+              <pre><code class="language-markup">&lt;ul id="listboxId">
   &lt;li>
     &lt;button>
       Accessible name and markup.
     &lt;/button>
   &lt;/li>
 &lt;/ul></code></pre>
-                    </div>
+            </div>
 
-                    <h3>Checkable</h3>
+            <h3>Checkable</h3>
 
-                    <div>
-                        <pre><code class="language-markup">&lt;ul id="listboxId">
+            <div>
+              <pre><code class="language-markup">&lt;ul id="listboxId">
   &lt;li>
     &lt;button data-check="false" >
       Accessible name and markup.
     &lt;/button>
   &lt;/li>
 &lt;/ul></code></pre>
-                    </div>
+            </div>
 
-                    <p>IMPORTANT: The focusable active element must not include any other active elements, otherwise these will not be accessible to non-sighted screen reader users.</p>
+            <p>
+              IMPORTANT: The focusable active element must not include any other
+              active elements, otherwise these will not be accessible to
+              non-sighted screen reader users.
+            </p>
 
-                    <p>Whenever a hidden checkbox is embedded within a checkable option control or referenced using the data-controls attribute, it will automatically reflect the toggled state of the parent element. This makes it possible to implement custom toggle controls that can be submitted in the same manner as native form controls. This, however, is optional, and may be removed without having any negative impact on the functionality of the simulated toggle control.</p>
+            <p>
+              Whenever a hidden checkbox is embedded within a checkable option
+              control or referenced using the data-controls attribute, it will
+              automatically reflect the toggled state of the parent element.
+              This makes it possible to implement custom toggle controls that
+              can be submitted in the same manner as native form controls. This,
+              however, is optional, and may be removed without having any
+              negative impact on the functionality of the simulated toggle
+              control.
+            </p>
 
-                    <h2>JavaScript syntax</h2>
+            <h2>JavaScript syntax</h2>
 
-                    <div>
-                        <pre><code class="language-javascript">var myListboxDC = $A.setListbox({
+            <div>
+              <pre><code class="language-javascript">var myListboxDC = $A.setListbox({
 // Configuration key / value mappings
 });</code></pre>
-                    </div>
+            </div>
 
-                    <h2>Parameters</h2>
+            <ul>
+              <li>Module file: Listbox.js</li>
+              <li>Requires: AccName.js, RovingTabIndex.js.</li>
+            </ul>
 
-                    <ol>
-                        <li>A configuration map to customize behaviors and options</li>
-                    </ol>
+            <h2>Parameters</h2>
 
-                    <h3>Configuration</h3>
+            <ol>
+              <li>A configuration map to customize behaviors and options</li>
+            </ol>
 
-                    <div>
-                        <pre><code class="language-javascript">{
+            <h3>Configuration</h3>
+
+            <div>
+              <pre><code class="language-javascript">{
 
 // Set an explicit name for the listbox.
 // Otherwise, if a select element is specified, the accessible name of the select element will be set as the listbox name instead.
@@ -207,26 +265,29 @@ extendRTI: {
 }
 
 }</code></pre>
-                    </div>
+            </div>
 
-                    <h2>Programmatic control</h2>
+            <h2>Programmatic control</h2>
 
-                    <p>Since the Listbox control is an instantiated object, all of the following public properties and methods are available.</p>
+            <p>
+              Since the Listbox control is an instantiated object, all of the
+              following public properties and methods are available.
+            </p>
 
-                    <h3>Properties</h3>
+            <h3>Properties</h3>
 
-                    <div>
-                        <pre><code class="language-javascript">var listboxElement = myListbox.listbox; // The Listbox DOM node for the element with role="listbox"
+            <div>
+              <pre><code class="language-javascript">var listboxElement = myListbox.listbox; // The Listbox DOM node for the element with role="listbox"
 
 var optionElementsArray = myListbox.options; // The array of list option DOM nodes that contain role="option"
 
 var optionNodesArray = myListbox.optionNodes; // The array of native select option DOM nodes</code></pre>
-                    </div>
+            </div>
 
-                    <h3>Methods</h3>
+            <h3>Methods</h3>
 
-                    <div>
-                        <pre><code class="language-javascript">// Force the listbox widget to redraw itself and recompute all child options and reset all event handlers.
+            <div>
+              <pre><code class="language-javascript">// Force the listbox widget to redraw itself and recompute all child options and reset all event handlers.
 // Only applicable when a native select element is bound to the listbox.
 // This is necessary when new options are added, removed, or reordered within the bound select element to ensure proper keyboard accessibility.
 myListbox.update();
@@ -236,67 +297,96 @@ myListbox.update();
 // Otherwise, if there is a bound select element, the value of the select element will be returned.
 // Otherwise, all selected option elements will be returned.
 var listboxValue = myListbox.value();</code></pre>
-                    </div>
-
-                </section>
-            </main>
-        </div>
-        <footer class="footer">
-            <div class="flex-container-row">
-                <div class="flex-item">
-                    <h2>License</h2>
-                    <p>
-                        Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
-                    </p>
-                </div>
-                <div class="flex-item">
-                    <h2>Resources</h2>
-                    <ul>
-                        <li>
-                            <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex-item">
-                    <h2>Acknowledgements</h2>
-                    <ul class="list--horizontal">
-                        <li>
-                            Author and developer:
-                            <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
-                        </li>
-                        <li>
-                            Website designer:
-                            <a target="ext" href="https://gericci.me/">Angela Ricci</a>
-                        </li>
-                        <li>
-                            Style and markup editor:
-                            <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
-        </footer>
+          </section>
+        </main>
+      </div>
+      <footer class="footer">
+        <div class="flex-container-row">
+          <div class="flex-item">
+            <h2>License</h2>
+            <p>
+              Apex 4X including all template design patterns is distributed
+              under the terms of the Open Source Initiative OSI - MIT License,
+              and may be freely used for any purpose within any web technology.
+            </p>
+          </div>
+          <div class="flex-item">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+                <a target="ext" href="https://github.com/WhatSock/apex"
+                  >Apex 4X on GitHub</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm"
+                  >Visual ARIA Bookmarklet</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk"
+                  >Visual ARIA Chrome Extension</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/"
+                  >Visual ARIA Firefox Extension</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://github.com/AccDC/visual-aria"
+                  >Visual ARIA on GitHub</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/matrices/"
+                  >ARIA Role Conformance Matrices</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/"
+                  >Accessibility Tree Training Guide</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-item">
+            <h2>Acknowledgements</h2>
+            <ul class="list--horizontal">
+              <li>
+                Author and developer:
+                <a target="ext" href="https://www.linkedin.com/in/bgaraventa"
+                  >Bryan Garaventa</a
+                >
+              </li>
+              <li>
+                Website designer:
+                <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+              </li>
+              <li>
+                Style and markup editor:
+                <a
+                  target="ext"
+                  href="https://www.linkedin.com/in/laurence-lewis-77520365/"
+                  >Laurence Lewis</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
-</body>
+  </body>
 
-<script async src="https://api.whatsock.com/accdc-updates.js?4x=template"></script>
-
+  <script
+    async
+    src="https://api.whatsock.com/accdc-updates.js?4x=template"
+  ></script>
 </html>

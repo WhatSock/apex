@@ -1,0 +1,35 @@
+Core: 4X.js - REQUIRED!
+
+Module file: CurrentDevice.js - Has no dependencies; is common dependency of other modules.
+Module file: Dragdealer.js - Has no dependencies; is common dependency of other modules.
+Module file: Dragula.js - Requires Dragula.css; is common dependency of other modules.
+Module file: TinySlider.js - Requires TinySlider.css; is common dependency of other modules.
+Module file: Velocity.js - Has no dependencies; is common dependency of other modules.
+Module file: VelocityUI.js - Requires Velocity.js; is common dependency of other modules.
+Module file: AccName.js - Has no dependencies; is common dependency of other modules.
+Module file: Animate.js - Requires Velocity.js, VelocityUI.js; is common dependency of other modules.
+Module file: RovingTabIndex.js - Requires AccName.js; is common dependency of other modules.
+Module file: SmoothScroll.js - Requires Velocity.js, VelocityUI.js, Animate.js; is common dependency of other modules.
+Module file: Beep.js - Has no dependencies.
+
+Module file: Accordion.js - Requires AccName.js, RovingTabIndex.js.
+Module file: Button.js - Requires AccName.js, RovingTabIndex.js.
+Module file: Carousel.js - Requires TinySlider.css, TinySlider.js.
+Module file: Combobox.js - Requires Velocity.js, VelocityUI.js, Animate.js, SmoothScroll.js, AccName.js, CurrentDevice.js.
+Module file: Datepicker.js - Has no dependencies.
+Module file: Dialog.js - Has no dependencies.
+Module file: Drag.js - Requires Dragula.css, Dragula.js, Velocity.js, VelocityUI.js, Animate.js, AccName.js, RovingTabIndex.js, Menu.js.
+Module file: Footnote.js - Requires Velocity.js, VelocityUI.js, Animate.js, SmoothScroll.js.
+Module file: Grid.js - Has no dependencies.
+Module file: Listbox.js - Requires AccName.js, RovingTabIndex.js.
+Module file: Menu.js - Requires AccName.js, RovingTabIndex.js.
+Module file: Popup.js - Has no dependencies.
+Module file: Slider.js - Requires CurrentDevice.js, Dragdealer.js.
+Module file: Tab.js - Requires AccName.js, RovingTabIndex.js.
+Module file: Tooltip.js - Has no dependencies.
+Module file: Tree.js - Requires AccName.js, RovingTabIndex.js.
+
+Module file: Straylight.js - Requires all other widget modules.
+
+Module file: Dragula.css - Requires Dragula.js.
+Module file: TinySlider.css - Requires TinySlider.js.

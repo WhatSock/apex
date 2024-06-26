@@ -1176,8 +1176,8 @@ error: function(error, promise){}
                   (isCSS
                     ? s
                     : s.slice(-3).toLowerCase() === ".js"
-                    ? s
-                    : s + ".js");
+                      ? s
+                      : s + ".js");
               if (!nC && isCSS && $A._cssCache[u]) {
                 if (!$A.get($A._cssCache[u].id))
                   (context || document.head || document.body).appendChild(
@@ -2323,8 +2323,8 @@ error: function(error, promise){}
                   $A.isBool(value)
                     ? value
                     : o[x].getAttribute(name)
-                    ? false
-                    : true,
+                      ? false
+                      : true,
                 );
             } else if (typeof name === "object") {
               for (var n in name) {
@@ -2337,8 +2337,8 @@ error: function(error, promise){}
                     $A.isBool(name[n])
                       ? name[n]
                       : o[x].getAttribute(n)
-                      ? false
-                      : true,
+                        ? false
+                        : true,
                   );
               }
             }
@@ -5180,8 +5180,8 @@ error: function(error, promise){}
           typeof exports === "object" && typeof module !== "undefined"
             ? factory()
             : typeof define === "function" && define.amd
-            ? define(factory)
-            : factory();
+              ? define(factory)
+              : factory();
         })(this, function () {
           "use strict";
 
@@ -6184,20 +6184,20 @@ error: function(error, promise){}
                         );
                       }
                     : "contains" in root
-                    ? function (element, container) {
-                        container =
-                          container.nodeType === 9 || container === window
-                            ? root
-                            : container;
-                        return (
-                          container !== element && container.contains(element)
-                        );
-                      }
-                    : function (element, container) {
-                        while ((element = element.parentNode))
-                          if (element === container) return 1;
-                        return 0;
-                      },
+                      ? function (element, container) {
+                          container =
+                            container.nodeType === 9 || container === window
+                              ? root
+                              : container;
+                          return (
+                            container !== element && container.contains(element)
+                          );
+                        }
+                      : function (element, container) {
+                          while ((element = element.parentNode))
+                            if (element === container) return 1;
+                          return 0;
+                        },
                 check = function (event) {
                   var related = event.relatedTarget;
                   return !related

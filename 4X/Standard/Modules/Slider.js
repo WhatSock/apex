@@ -47,8 +47,8 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
               ((config.valueReverse
                 ? getReverseCurrent($A.isNum(i) ? i : config.current)
                 : $A.isNum(i)
-                ? i
-                : config.current) -
+                  ? i
+                  : config.current) -
                 1),
           );
         };

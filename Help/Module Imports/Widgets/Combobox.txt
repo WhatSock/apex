@@ -69,6 +69,8 @@ var myCombobox = new $A.Combobox({
 
 myCombobox.start();
 
+Module file: Combobox.js - Requires Velocity.js, VelocityUI.js, Animate.js, SmoothScroll.js, AccName.js, CurrentDevice.js.
+
 Parameters
 
 1: A configuration map to customize behaviors and options.

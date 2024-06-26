@@ -87,8 +87,8 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
     window.device.type === "mobile"
       ? 3
       : window.device.type === "tablet"
-      ? 5
-      : 7,
+        ? 5
+        : 7,
   );
 
   // Get the Close icon triggering element for sighted mouse and touch device users

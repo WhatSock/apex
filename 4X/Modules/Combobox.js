@@ -143,8 +143,8 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                         ? true
                         : false
                       : $A.getAttr(dc.triggerNode, "aria-required") === "true"
-                      ? true
-                      : false;
+                        ? true
+                        : false;
                     dc.cb.multiple = $A.getAttr(dc.cb.sel, "multiple")
                       ? true
                       : false;
@@ -517,9 +517,8 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                     var dc = this.dc;
 
                     if (!pass && dc.cb.sel.selectedIndex >= 0)
-                      dc.cb.optionNodes[
-                        dc.cb.sel.selectedIndex
-                      ].selected = false;
+                      dc.cb.optionNodes[dc.cb.sel.selectedIndex].selected =
+                        false;
                     dc.cb.currentOption = null;
 
                     if (dc.cb.isInput) {

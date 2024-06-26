@@ -50,6 +50,8 @@ var myListboxDC = $A.setListbox({
 // Configuration key / value mappings
 });
 
+Module file: Listbox.js - Requires AccName.js, RovingTabIndex.js.
+
 Parameters
 
 1: A configuration map to customize behaviors and options.

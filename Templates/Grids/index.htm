@@ -1,87 +1,123 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>ARIA Grids - Apex 4X Technical Style Guide</title>
-    <meta name="description" content="Scalable ARIA Components">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/global.css">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/components-style.css">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/prism.css">
+    <meta name="description" content="Scalable ARIA Components" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/css/global.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/css/components-style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/prism.css"
+    />
     <script src="../_common/_doc_files/prism.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="outer-wrapper">
-        <header class="header">
-            <div class="logo">
-                <a href="https://whatsock.com">
-                    <img alt="WhatSock : Changing the world one step at a time" src="/Templates/_common/_doc_files/img/whatsock.svg">
-                </a>
+      <header class="header">
+        <div class="logo">
+          <a href="https://whatsock.com">
+            <img
+              alt="WhatSock : Changing the world one step at a time"
+              src="/Templates/_common/_doc_files/img/whatsock.svg"
+            />
+          </a>
+        </div>
+      </header>
+      <div class="wrapper">
+        <main id="main" class="main">
+          <h1><strong>ARIA Grids</strong></h1>
+          <nav class="navigation--parent">
+            <p>
+              <a href="/Tutorials/Beginner-Introduction.htm"
+                >Beginner Tutorial</a
+              >
+            </p>
+            <h2 class="parent--page">Template Examples</h2>
+            <ul>
+              <li><a href="../index.htm">Back to Components</a></li>
+              <li><a href="Dynamic/index.htm">Dynamic</a></li>
+              <li><a href="Editable/index.htm">Editable</a></li>
+              <li><a href="ReadOnly/index.htm">ReadOnly</a></li>
+              <li><a href="Selectable/index.htm">Selectable</a></li>
+            </ul>
+          </nav>
+
+          <section class="section--instructions">
+            <h2>Expected behaviors</h2>
+
+            <p>
+              An ARIA grid should have only one tab stop, the arrow keys should
+              move focus between each cell, Home and End should move focus to
+              the beginning or end of a row, PageUp and PageDown should open the
+              previous or next page of the grid, Ctrl+Home and Ctrl+End should
+              move focus to the first or last page in the grid, and Space or
+              Enter should activate the current cell or row.
+            </p>
+
+            <p>
+              The 4X ARIA Grid module automatically configures all required ARIA
+              attributes and focus handling, in strict accordance with the ARIA
+              specification.
+            </p>
+
+            <p>
+              The following attributes are handled automatically by the Grid
+              module:
+            </p>
+
+            <ul>
+              <li>role=grid/rowgroup/row/gridcell/columnheader/rowheader</li>
+              <li>aria-multiselectable</li>
+              <li>aria-selected</li>
+              <li>aria-readonly</li>
+              <li>tabindex</li>
+            </ul>
+
+            <h2>HTML syntax</h2>
+
+            <div>
+              <pre><code class="language-markup">&lt;div id="dataGridId">&lt;/div></code></pre>
             </div>
-        </header>
-        <div class="wrapper">
-            <main id="main" class="main">
-                <h1><strong>ARIA Grids</strong> </h1>
-                <nav class="navigation--parent">
-                    <p><a href="/Tutorials/Beginner-Introduction.htm">Beginner Tutorial</a></p>
-                    <h2 class="parent--page">Template Examples</h2>
-                    <ul>
-                        <li><a href="../index.htm">Back to Components</a></li>
-                        <li><a href="Dynamic/index.htm">Dynamic</a></li>
-                        <li><a href="Editable/index.htm">Editable</a></li>
-                        <li><a href="ReadOnly/index.htm">ReadOnly</a></li>
-                        <li><a href="Selectable/index.htm">Selectable</a></li>
-                    </ul>
-                </nav>
 
-                <section class="section--instructions">
+            <h2>JavaScript syntax</h2>
 
-                    <h2>Expected behaviors</h2>
-
-                    <p>An ARIA grid should have only one tab stop, the arrow keys should move focus between each cell, Home and End should move focus to the beginning or end of a row, PageUp and PageDown should open the previous or next page of the grid, Ctrl+Home and Ctrl+End should move focus to the first or last page in the grid, and Space or Enter should activate the current cell or row.</p>
-
-                    <p>The 4X ARIA Grid module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.</p>
-
-                    <p>The following attributes are handled automatically by the Grid module:</p>
-
-                    <ul>
-                        <li> role=grid/rowgroup/row/gridcell/columnheader/rowheader</li>
-                        <li> aria-multiselectable</li>
-                        <li> aria-selected</li>
-                        <li> aria-readonly</li>
-                        <li> tabindex</li>
-                    </ul>
-
-                    <h2>HTML syntax</h2>
-
-                    <div>
-                        <pre><code class="language-markup">&lt;div id="dataGridId">&lt;/div></code></pre>
-                    </div>
-
-                    <h2>JavaScript syntax</h2>
-
-                    <div>
-                        <pre><code class="language-javascript">var grid = new $A.Grid("dataGridId");
+            <div>
+              <pre><code class="language-javascript">var grid = new $A.Grid("dataGridId");
 
 // Configure settings here prior to invocation
 
 // Then invoke the Grid for auto-rendering when interacted with.
 
 grid.open();</code></pre>
-                    </div>
+            </div>
 
-                    <h2>Parameters</h2>
+            <ul>
+              <li>Module file: Grid.js</li>
+              <li>Has no dependencies.</li>
+            </ul>
 
-                    <ol>
-                        <li>An id reference pointing to the grid container element.</li>
-                    </ol>
+            <h2>Parameters</h2>
 
-                    <h3>Programmatic Control</h3>
+            <ol>
+              <li>An id reference pointing to the grid container element.</li>
+            </ol>
 
-                    <div>
-                        <pre><code class="language-javascript">// Set the registered columns including unique IDs and label text
+            <h3>Programmatic Control</h3>
+
+            <div>
+              <pre><code class="language-javascript">// Set the registered columns including unique IDs and label text
 // The order of items in the array will dictate the default column ordering when rendered
 
 grid.mapColumnNames([
@@ -477,67 +513,96 @@ var dc = getDC();
 
 // Access the container DOM node
 var myContainer = grid.container;</code></pre>
-                    </div>
-
-                </section>
-            </main>
-        </div>
-        <footer class="footer">
-            <div class="flex-container-row">
-                <div class="flex-item">
-                    <h2>License</h2>
-                    <p>
-                        Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
-                    </p>
-                </div>
-                <div class="flex-item">
-                    <h2>Resources</h2>
-                    <ul>
-                        <li>
-                            <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex-item">
-                    <h2>Acknowledgements</h2>
-                    <ul class="list--horizontal">
-                        <li>
-                            Author and developer:
-                            <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
-                        </li>
-                        <li>
-                            Website designer:
-                            <a target="ext" href="https://gericci.me/">Angela Ricci</a>
-                        </li>
-                        <li>
-                            Style and markup editor:
-                            <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
-        </footer>
+          </section>
+        </main>
+      </div>
+      <footer class="footer">
+        <div class="flex-container-row">
+          <div class="flex-item">
+            <h2>License</h2>
+            <p>
+              Apex 4X including all template design patterns is distributed
+              under the terms of the Open Source Initiative OSI - MIT License,
+              and may be freely used for any purpose within any web technology.
+            </p>
+          </div>
+          <div class="flex-item">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+                <a target="ext" href="https://github.com/WhatSock/apex"
+                  >Apex 4X on GitHub</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm"
+                  >Visual ARIA Bookmarklet</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk"
+                  >Visual ARIA Chrome Extension</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/"
+                  >Visual ARIA Firefox Extension</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://github.com/AccDC/visual-aria"
+                  >Visual ARIA on GitHub</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/matrices/"
+                  >ARIA Role Conformance Matrices</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/"
+                  >Accessibility Tree Training Guide</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-item">
+            <h2>Acknowledgements</h2>
+            <ul class="list--horizontal">
+              <li>
+                Author and developer:
+                <a target="ext" href="https://www.linkedin.com/in/bgaraventa"
+                  >Bryan Garaventa</a
+                >
+              </li>
+              <li>
+                Website designer:
+                <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+              </li>
+              <li>
+                Style and markup editor:
+                <a
+                  target="ext"
+                  href="https://www.linkedin.com/in/laurence-lewis-77520365/"
+                  >Laurence Lewis</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
-</body>
+  </body>
 
-<script async src="https://api.whatsock.com/accdc-updates.js?4x=template"></script>
-
+  <script
+    async
+    src="https://api.whatsock.com/accdc-updates.js?4x=template"
+  ></script>
 </html>

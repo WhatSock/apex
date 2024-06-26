@@ -73,6 +73,8 @@ var myTreeDC = $A.setTree( DOM-Node-or-CSS-Selector-forRoot-Container, {
 // Configure functionality key / value mappings
 });
 
+Module file: Tree.js - Requires AccName.js, RovingTabIndex.js.
+
 Parameters
 
 1: A DOM element or CSS selector to specify the top level container element of the tree structure.

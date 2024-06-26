@@ -42,6 +42,8 @@ container: ".my-slider"
 // Configure functionality key / value mappings
 });
 
+Module file: Carousel.js - Requires TinySlider.css, TinySlider.js.
+
 Parameters
 
 1: A configuration map to customize behaviors and options.

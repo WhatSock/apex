@@ -1,155 +1,231 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Dialog (Internal Content) - Apex 4X Technical Style Guide</title>
-    <meta name="description" content="Scalable ARIA Components">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
-    <link rel="stylesheet" type="text/css" href="css/dialog.css">
+    <meta name="description" content="Scalable ARIA Components" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../_common/css/components-style.css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/dialog.css" />
     <script src="/4X/4X.js"></script>
     <script src="js/setup.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="bypass">
-        <ul class="list-unstyled">
-            <li>
-                <a class="skip--link" href="javascript:void(0);" onclick="document.getElementById('main').focus();">
-                    Skip to Main Content
-                </a>
-            </li>
-        </ul>
+      <ul class="list-unstyled">
+        <li>
+          <a
+            class="skip--link"
+            href="javascript:void(0);"
+            onclick="document.getElementById('main').focus();"
+          >
+            Skip to Main Content
+          </a>
+        </li>
+      </ul>
     </div>
     <div class="outer-wrapper">
-        <header class="header flex-container">
-            <div class="logo flex-item">
-                <a href="https://whatsock.com">
-                    <img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg"></a>
-            </div>
-            <div class="site-name flex-item">
-                <strong>Apex 4X</strong> Technical Style Guide
-            </div>
-        </header>
-        <div class="wrapper">
-            <div class="left-aside">
-                <nav>
-                    <p><a href="/Tutorials/Beginner-Introduction.htm">Beginner Tutorial</a></p>
-                    <h2>Template Examples</h2>
-                    <ul>
-                        <li><a href="../../index.htm">Back to Components</a></li>
-                        <li><a href="../index.htm">Back to Parent Widget</a></li>
-                        <li><a href="../External/index.htm">External</a></li>
-                        <li><a href="../External - Alert (Session Timeout)/index.htm">External - Alert (Session Timeout)</a></li>
-                        <li><a href="../External - Straylight/index.htm">External - Straylight</a></li>
-                        <li><a href="index.htm" aria-current="page">Internal</a></li>
-                        <li><a href="../Internal - Alert/index.htm">Internal - Alert</a></li>
-                        <li><a href="../Internal - Alert (Session Timeout)/index.htm">Internal - Alert (Session Timeout)</a></li>
-                        <li><a href="../Internal - Straylight/index.htm">Internal - Straylight</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <main id="main" class="main" tabindex="-1">
-                <div class="demo-block flex-container">
-                    <div class="component flex-item">
-                        <h1 class="pageTitle">Dialog <small>Internal Content</small></h1>
-                        <p>
-                            <button id="triggerId" class="aria-dialog lightbox">
-                                Login
-                            </button>
-                        </p>
+      <header class="header flex-container">
+        <div class="logo flex-item">
+          <a href="https://whatsock.com">
+            <img
+              alt="WhatSock : Changing the world one step at a time"
+              src="../../_common/img/whatsock.svg"
+          /></a>
+        </div>
+        <div class="site-name flex-item">
+          <strong>Apex 4X</strong> Technical Style Guide
+        </div>
+      </header>
+      <div class="wrapper">
+        <div class="left-aside">
+          <nav>
+            <p>
+              <a href="/Tutorials/Beginner-Introduction.htm"
+                >Beginner Tutorial</a
+              >
+            </p>
+            <h2>Template Examples</h2>
+            <ul>
+              <li><a href="../../index.htm">Back to Components</a></li>
+              <li><a href="../index.htm">Back to Parent Widget</a></li>
+              <li><a href="../External/index.htm">External</a></li>
+              <li>
+                <a href="../External - Alert (Session Timeout)/index.htm"
+                  >External - Alert (Session Timeout)</a
+                >
+              </li>
+              <li>
+                <a href="../External - Straylight/index.htm"
+                  >External - Straylight</a
+                >
+              </li>
+              <li><a href="index.htm" aria-current="page">Internal</a></li>
+              <li>
+                <a href="../Internal - Alert/index.htm">Internal - Alert</a>
+              </li>
+              <li>
+                <a href="../Internal - Alert (Session Timeout)/index.htm"
+                  >Internal - Alert (Session Timeout)</a
+                >
+              </li>
+              <li>
+                <a href="../Internal - Straylight/index.htm"
+                  >Internal - Straylight</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <main id="main" class="main" tabindex="-1">
+          <div class="demo-block flex-container">
+            <div class="component flex-item">
+              <h1 class="pageTitle">Dialog <small>Internal Content</small></h1>
+              <p>
+                <button id="triggerId" class="aria-dialog lightbox">
+                  Login
+                </button>
+              </p>
 
-                        <!-- Important
+              <!-- Important
                      When Implementing a Close link or button, the className must match the "closeClassName" property within the script declaration.
                     Doing so will automatically bind the close methods with this element, and set keyboard focus properly when the DC object is closed. If closeClassName is not specified, the default class will be set to "CloseDC" instead.
                     -->
-                        <div hidden id="dialog-login">
-                            <form id="lbForm">
-                                <p>
-                                    <label for="uname">Username:</label>
-                                    <input type="text" id="uname" name="uname">
-                                </p>
-                                <p>
-                                    <label for="pass">Password:</label>
-                                    <input type="password" id="pass" name="pass">
-                                </p>
-                                <p class="buttons-bar">
-                                    <input type="submit" id="lbSubmit" value="OK">
-                                    <input type="reset" class="lbClose CloseDC" id="lbCancel" value="Cancel">
-                                </p>
-                            </form>
-                        </div>
-
-                    </div>
-                    <div class="keyboard flex-item">
-                        <h2>The dialog is optimized for screen reader and keyboard only users:</h2>
-                        <ul>
-                            <li>Activate the Login button to open the dialog.</li>
-                            <li>Screen reader users will be confined within the dialog content, and will
-                                not be able to see the background page content. (Confirmed in both Windows
-                                platform and iOS touch screen devices)</li>
-                            <li>Keyboard focus is automatically restricted to active elements within the dialog.</li>
-                        </ul>
-                    </div>
-            </main>
-        </div>
-        <footer class="footer">
-            <div class="flex-container-row">
-                <div class="flex-item">
-                    <h2>License</h2>
-                    <p>
-                        Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
-                    </p>
-                </div>
-                <div class="flex-item">
-                    <h2>Resources</h2>
-                    <ul>
-                        <li>
-                            <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex-item">
-                    <h2>Acknowledgements</h2>
-                    <ul class="list--horizontal">
-                        <li>
-                            Author and developer:
-                            <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
-                        </li>
-                        <li>
-                            Website designer:
-                            <a target="ext" href="https://gericci.me/">Angela Ricci</a>
-                        </li>
-                        <li>
-                            Style and markup editor:
-                            <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
-                        </li>
-                    </ul>
-                </div>
+              <div hidden id="dialog-login">
+                <form id="lbForm">
+                  <p>
+                    <label for="uname">Username:</label>
+                    <input type="text" id="uname" name="uname" />
+                  </p>
+                  <p>
+                    <label for="pass">Password:</label>
+                    <input type="password" id="pass" name="pass" />
+                  </p>
+                  <p class="buttons-bar">
+                    <input type="submit" id="lbSubmit" value="OK" />
+                    <input
+                      type="reset"
+                      class="lbClose CloseDC"
+                      id="lbCancel"
+                      value="Cancel"
+                    />
+                  </p>
+                </form>
+              </div>
             </div>
-        </footer>
+            <div class="keyboard flex-item">
+              <h2>
+                The dialog is optimized for screen reader and keyboard only
+                users:
+              </h2>
+              <ul>
+                <li>Activate the Login button to open the dialog.</li>
+                <li>
+                  Screen reader users will be confined within the dialog
+                  content, and will not be able to see the background page
+                  content. (Confirmed in both Windows platform and iOS touch
+                  screen devices)
+                </li>
+                <li>
+                  Keyboard focus is automatically restricted to active elements
+                  within the dialog.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </main>
+      </div>
+      <footer class="footer">
+        <div class="flex-container-row">
+          <div class="flex-item">
+            <h2>License</h2>
+            <p>
+              Apex 4X including all template design patterns is distributed
+              under the terms of the Open Source Initiative OSI - MIT License,
+              and may be freely used for any purpose within any web technology.
+            </p>
+          </div>
+          <div class="flex-item">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+                <a target="ext" href="https://github.com/WhatSock/apex"
+                  >Apex 4X on GitHub</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm"
+                  >Visual ARIA Bookmarklet</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk"
+                  >Visual ARIA Chrome Extension</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/"
+                  >Visual ARIA Firefox Extension</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://github.com/AccDC/visual-aria"
+                  >Visual ARIA on GitHub</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/matrices/"
+                  >ARIA Role Conformance Matrices</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/"
+                  >Accessibility Tree Training Guide</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-item">
+            <h2>Acknowledgements</h2>
+            <ul class="list--horizontal">
+              <li>
+                Author and developer:
+                <a target="ext" href="https://www.linkedin.com/in/bgaraventa"
+                  >Bryan Garaventa</a
+                >
+              </li>
+              <li>
+                Website designer:
+                <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+              </li>
+              <li>
+                Style and markup editor:
+                <a
+                  target="ext"
+                  href="https://www.linkedin.com/in/laurence-lewis-77520365/"
+                  >Laurence Lewis</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
-</body>
+  </body>
 
-<script async src="https://api.whatsock.com/accdc-updates.js?4x=template"></script>
-
+  <script
+    async
+    src="https://api.whatsock.com/accdc-updates.js?4x=template"
+  ></script>
 </html>

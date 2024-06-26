@@ -64,6 +64,8 @@ var myTooltipDC = $A.setTooltip( DOM-Node-or-CSS-Selector-forTriggering-Element 
   // Configure functionality key / value mappings
 });
 
+Module file: Tooltip.js - Has no dependencies.
+
 Parameters
 
 1: A DOM element or CSS selector to specify the triggering element.

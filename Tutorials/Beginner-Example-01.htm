@@ -1,338 +1,455 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Apex 4X Beginner Tutorial | Example 1 - Form Rendering (Using Core Functions)</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../Templates/_common/_doc_files/css/global.css">
-    <link rel="stylesheet" type="text/css" href="../Templates/_common/_doc_files/css/components-style.css">
-    <link rel="stylesheet" type="text/css" href="../Templates/Buttons/Standard/css/buttons.css">
-    <link rel="stylesheet" type="text/css" href="../Templates/_common/_doc_files/prism.css">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>
+      Apex 4X Beginner Tutorial | Example 1 - Form Rendering (Using Core
+      Functions)
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../Templates/_common/_doc_files/css/global.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../Templates/_common/_doc_files/css/components-style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../Templates/Buttons/Standard/css/buttons.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../Templates/_common/_doc_files/prism.css"
+    />
     <script src="../Templates/_common/_doc_files/prism.js"></script>
-
     <script src="../4X/4X.js"></script>
     <script src="../4X/Standard/Min/Beep.js"></script>
     <script src="../4X/Standard/Min/Velocity.js"></script>
     <script src="../4X/Standard/Min/VelocityUI.js"></script>
     <script src="../4X/Standard/Min/Animate.js"></script>
-
     <style type="text/css">
-        a.templatesLink:focus,
-        a.templatesLink:hover {
-            text-decoration: none;
-        }
+      a.templatesLink:focus,
+      a.templatesLink:hover {
+        text-decoration: none;
+      }
 
-        textarea {
-            min-width: 90%;
-        }
+      textarea {
+        min-width: 90%;
+      }
 
-        nav>ul>li>a[aria-current="page"] {
-            border-top: 2px solid var(--navLinkBackground);
-        }
+      nav > ul > li > a[aria-current="page"] {
+        border-top: 2px solid var(--navLinkBackground);
+      }
 
+      .btn--example {
+        margin: 1em 0;
+        background: var(--whatsock-orange-main);
+        border: 2px solid #774b04;
+        border-radius: 0.5em;
+        padding: 0.5em 1em;
+        font-weight: 700;
+        font-size: 1rem;
+      }
+
+      @media (min-width: 400px) {
         .btn--example {
-            margin: 1em 0;
-            background: var(--whatsock-orange-main);
-            border: 2px solid #774b04;
-            border-radius: 0.5em;
-            padding: 0.5em 1em;
-            font-weight: 700;
-            font-size: 1rem;
+          font-size: 1.2rem;
         }
+      }
 
-        @media (min-width: 400px) {
-            .btn--example {
-            font-size: 1.2rem;
-            }
-        }
+      /*Example 1 Form Styles*/
+      #frm1 form p + p {
+        margin-top: 1em;
+      }
 
-        /*Example 1 Form Styles*/
-        #frm1 form p+p {
-            margin-top: 1em;
-        }
+      #frm1 fieldset {
+        border: 2px groove threedface;
+        margin-bottom: 2em;
+        padding: 1em;
+        padding-top: 0;
+        position: relative;
+        margin-top: 2em;
+      }
 
-        #frm1 fieldset {
-            border: 2px groove threedface;
-            margin-bottom: 2em;
-            padding: 1em;
-            padding-top: 0;
-            position: relative;
-            margin-top: 2em;
-        }
+      #frm1 legend {
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 1.3rem;
+        font-weight: 400;
+        padding-bottom: 1.5em;
+        text-transform: uppercase;
+      }
 
-        #frm1 legend {
-            font-family: Helvetica, Arial, sans-serif;
-            font-size: 1.3rem;
-            font-weight: 400;
-            padding-bottom: 1.5em;
-            text-transform: uppercase;
-        }
+      .form--container {
+        border-radius: 3px;
+        list-style-type: none;
+        max-width: 38em;
+        padding: 0;
+      }
 
-        .form--container {
-            border-radius: 3px;
-            list-style-type: none;
-            max-width: 38em;
-            padding: 0;
-        }
+      .form--container p {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-end;
+        padding: 0.5em;
+      }
 
-        .form--container p {
-            display: flex;
-            flex-flow: row wrap;
-            justify-content: flex-end;
-            padding: .5em;
-        }
+      .form--container p label {
+        flex: 1;
+        padding: 0.5em 1em 0.5em 0;
+        font-weight: 700;
+      }
 
-        .form--container p label {
-            flex: 1;
-            padding: .5em 1em .5em 0;
-            font-weight: 700;
-        }
+      .form--container p input {
+        flex: 3;
+        min-width: 13em;
+        padding: 0.5em;
+        border: 1px solid #c0c0c0;
+        border-radius: 2px;
+        font-size: 100%;
+        padding: 0.5em 1em;
+      }
 
+      .form--container p input[type="submit"] {
+        border-radius: 0.5em;
+        flex: none;
+        min-width: 6em;
+      }
+
+      .form--container span.error {
+        color: #be0b0b;
+        font-size: 85%;
+      }
+
+      @media (min-width: 33em) {
         .form--container p input {
-            flex: 3;
-            min-width: 13em;
-            padding: .5em;
-            border: 1px solid #c0c0c0;
-            border-radius: 2px;
-            font-size: 100%;
-            padding: 0.5em 1em;
+          min-width: 15em;
         }
+      }
 
-        .form--container p input[type="submit"] {
-            border-radius: 0.5em;
-            flex: none;
-            min-width: 6em;
-        }
+      .pagination .flex-container-row {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        margin: auto;
+        padding: 1em;
+      }
 
-        .form--container span.error {
-            color: #be0b0b;
-            font-size: 85%;
-        }
+      .pagination .flex-container-row .flex-item {
+        flex: 1 0 auto;
+      }
 
-        @media (min-width: 33em) {
-            .form--container p input {
-                min-width: 15em;
-            }
-        }
+      .pagination .flex-container-row .flex-item:nth-child(2) {
+        text-align: right;
+      }
 
-        .pagination .flex-container-row {
-            display: flex;
-            flex-flow: row wrap;
-            justify-content: center;
-            margin: auto;
-            padding: 1em;
-        }
-
+      @media (min-width: 70em) {
         .pagination .flex-container-row .flex-item {
-            flex: 1 0 auto;
+          flex: 1 0 0;
+          text-align: left;
         }
 
         .pagination .flex-container-row .flex-item:nth-child(2) {
-            text-align: right;
+          text-align: right;
         }
-
-        @media (min-width: 70em) {
-            .pagination .flex-container-row .flex-item {
-                flex: 1 0 0;
-                text-align: left;
-            }
-
-            .pagination .flex-container-row .flex-item:nth-child(2) {
-                text-align: right;
-            }
-        }
+      }
     </style>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <div class="outer-wrapper">
-        <header class="header">
-            <div class="logo">
-                <a href="https://whatsock.com">
-                    <img alt="WhatSock : Changing the world one step at a time" src="../Templates/_common/_doc_files/img/whatsock.svg">
-                </a>
-            </div>
-            <nav aria-label="main" class="navigation--parent">
-
-                <ul>
-                    <li><a href="../Templates/index.htm">Widget Templates</a></li>
-                </ul>
-
-                <h2 class="parent--page">Steps</h2>
-                <ul>
-                    <li><a href="Beginner-Introduction.htm">Introduction</a></li>
-                    <li><a href="Beginner-Example-01.htm" aria-current="page">1. Form Rendering (Using Core Functions)</a></li>
-                    <li><a href="Beginner-Example-02.htm">2. ARIA Button Rendering (Using Core Functions)</a></li>
-                    <li><a href="Beginner-Example-03.htm">3. DC Objects (Converting Elements)</a></li>
-                    <li><a href="Beginner-Example-04.htm">4. Date Picker (Using Modules)</a></li>
-                    <li><a href="Beginner-Example-05.htm">5. Menu Module (Dynamic Loading)</a></li>
-                    <li><a href="Beginner-Conclusion.htm">Beginner Conclusion</a></li>
-                </ul>
-            </nav>
-        </header>
-        <div class="wrapper">
-            <main id="main" class="main">
-                <h1><strong>Example 1 &mdash; Form Rendering (Using Core Functions)</strong></h1>
-
-                <div class="section--instructions">
-                    <section class="preamble">
-                        <p>This first example is very basic, and demonstrates one of the core 4X methods for ARIA support.</p>
-                        <p>In this case, when a form is submitted and a dynamic inline error message is generated, 4X is used to associate the error with the field and set focus to the field in error. This will cause screen readers to automatically announce the error message when the field receives focus. This is accomplished by setting the Description property for the form field in the accessibility tree.</p>
-                        <p>Since the result of this example will not be obvious to sighted users who are not running a screen reader, it will be important to install Visual ARIA to understand what is happening. There are several options for doing this.</p>
-                        <ul>
-                            <li><a target="_blank" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk?hl=en-GB">Visual ARIA for Chrome</a></li>
-                            <li><a target="_blank" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA for Firefox</a></li>
-                            <li><a target="_blank" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA for Web</a></li>
-                        </ul>
-                        <p>You may need to restart your browser and return to this page after installing the Chrome or Firefox extension.</p>
-                        <p>After running the example code below, activate Visual ARIA and mouse over the form fields to see how 4X has dynamically set the Description property for the form field in error.</p>
-                    </section>
-
-                    <div>
-                        <section class="section--example">
-                            <h2>Example 1 &mdash; Coding Sandbox</h2>
-                            <p>
-                                Using core 4X features to add enhanced accessibility for assistive technology users.
-                            </p>
-                            <textarea title="Example 1 markup" id="example1.1">
-                                              <div class="form--container">
-                                                  <form id="frm1">
-                                                      <fieldset>
-                                                          <legend> Home Address</legend>
-                                                          <p>
-                                                              <label for="strt">Street:</label> 
-                                                              <input type="text" name="street" aria-required="true" id="strt">
-                                                              <span hidden id="error-01" class="error">Error! Required field. Please enter a Street number and name.</span>
-                                                          </p>
-                                                          <p>
-                                                              <label for="cty">City:</label> 
-                                                              <input type="text" name="city"  aria-required="true" id="cty">
-                                                          </p>
-                                                          <p>
-                                                              <label for="zp">Postcode:</label> 
-                                                              <input type="text" name="postcode"  aria-required="true" id="pc">
-                                                          </p>
-                                                          <p class="select--container">
-                                                              <label for="ctry">Country:</label>
-                                                              <input type="text" name="country-input-value"  aria-required="true" id="ctry">
-                                                          </p>
-                                                      </fieldset>
-                                                  </form>
-                                              </div>
-                                  </textarea>
-
-                    </div>
-
-                    <div>
-                        <textarea title="Example 1 JS" id="example1.2">
-                                  // Show the error.
-                                  // Set the Description property for the form field in error and reference the associated error message, then move focus to the field.
-                                  // Help/Module Imports/Actions/Show
-                                  // Help/ARIA Development/DescribedBy
-                                                                    // Help/ARIA Development/Focus
-
-                                  $A("#error-01").show(function() {
-                                    $A("#strt").describedBy("#error-01").focus();
-                                  });
-                                  </textarea>
-                    </div>
-
-                    <div>
-                        <button class="btn--example example1">Render Example 1</button>
-                        <div role="region" aria-label="Rendered Markup" id="example1"></div>
-                        <script>
-                            (function() {
-                                var markup = $A.get("example1.1"),
-                                    js = $A.get("example1.2"),
-                                    div = $A.get("example1");
-                                $A.on("button.example1", "click", function(ev) {
-                                    try {
-                                        div.innerHTML = markup.value;
-                                        var f = new Function("window,document,$A", js.value);
-                                        f.call(window, window, document, $A);
-                                        $A.beep();
-                                    } catch (e) {
-                                        throw e;
-                                    }
-                                });
-                            })();
-                        </script>
-                    </div>
-
-                    </section>
-
-                    <nav aria-label="pagination" class="pagination">
-                        <div class="flex-container-row">
-                            <div class="flex-item"><a href="Beginner-Introduction.htm">&lt;&lt; Previous example</a></div>
-                            <div class="flex-item"><a href="Beginner-Example-02.htm">Next example &gt;&gt;</a></div>
-                        </div>
-                    </nav>
-
-                </div>
-            </main>
+      <header class="header">
+        <div class="logo">
+          <a href="https://whatsock.com">
+            <img
+              alt="WhatSock : Changing the world one step at a time"
+              src="../Templates/_common/_doc_files/img/whatsock.svg"
+            />
+          </a>
         </div>
-        <footer class="footer">
-            <div class="flex-container-row">
-                <div class="flex-item">
-                    <h2>License</h2>
-                    <p>
-                        Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
-                    </p>
+        <nav aria-label="main" class="navigation--parent">
+          <ul>
+            <li><a href="../Templates/index.htm">Widget Templates</a></li>
+          </ul>
+          <h2 class="parent--page">Steps</h2>
+          <ul>
+            <li><a href="Beginner-Introduction.htm">Introduction</a></li>
+            <li>
+              <a href="Beginner-Example-01.htm" aria-current="page"
+                >1. Form Rendering (Using Core Functions)</a
+              >
+            </li>
+            <li>
+              <a href="Beginner-Example-02.htm"
+                >2. ARIA Button Rendering (Using Core Functions)</a
+              >
+            </li>
+            <li>
+              <a href="Beginner-Example-03.htm"
+                >3. DC Objects (Converting Elements)</a
+              >
+            </li>
+            <li>
+              <a href="Beginner-Example-04.htm"
+                >4. Date Picker (Using Modules)</a
+              >
+            </li>
+            <li>
+              <a href="Beginner-Example-05.htm"
+                >5. Menu Module (Dynamic Loading)</a
+              >
+            </li>
+            <li><a href="Beginner-Conclusion.htm">Beginner Conclusion</a></li>
+          </ul>
+        </nav>
+      </header>
+      <div class="wrapper">
+        <main id="main" class="main">
+          <h1>
+            <strong
+              >Example 1 &mdash; Form Rendering (Using Core Functions)</strong
+            >
+          </h1>
+          <div class="section--instructions">
+            <section class="preamble">
+              <p>
+                This first example is very basic, and demonstrates one of the
+                core 4X methods for ARIA support.
+              </p>
+              <p>
+                In this case, when a form is submitted and a dynamic inline
+                error message is generated, 4X is used to associate the error
+                with the field and set focus to the field in error. This will
+                cause screen readers to automatically announce the error message
+                when the field receives focus. This is accomplished by setting
+                the Description property for the form field in the accessibility
+                tree.
+              </p>
+              <p>
+                Since the result of this example will not be obvious to sighted
+                users who are not running a screen reader, it will be important
+                to install Visual ARIA to understand what is happening. There
+                are several options for doing this.
+              </p>
+              <ul>
+                <li>
+                  <a
+                    target="_blank"
+                    href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk?hl=en-GB"
+                    >Visual ARIA for Chrome</a
+                  >
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/"
+                    >Visual ARIA for Firefox</a
+                  >
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm"
+                    >Visual ARIA for Web</a
+                  >
+                </li>
+              </ul>
+              <p>
+                You may need to restart your browser and return to this page
+                after installing the Chrome or Firefox extension.
+              </p>
+              <p>
+                After running the example code below, activate Visual ARIA and
+                mouse over the form fields to see how 4X has dynamically set the
+                Description property for the form field in error.
+              </p>
+            </section>
+            <div>
+              <section class="section--example">
+                <h2>Example 1 &mdash; Coding Sandbox</h2>
+                <p>
+                  Using core 4X features to add enhanced accessibility for
+                  assistive technology users.
+                </p>
+                <textarea title="Example 1 markup" id="example1.1">
+                                <div class="form--container">
+                                    <form id="frm1">
+                                        <fieldset>
+                                            <legend> Home Address</legend>
+                                            <p>
+                                                <label for="strt">Street:</label>
+                                                <input type="text" name="street" aria-required="true" id="strt">
+                                                <span hidden id="error-01" class="error">Error! Required field. Please enter a Street number and name.</span>
+                                            </p>
+                                            <p>
+                                                <label for="cty">City:</label>
+                                                <input type="text" name="city" aria-required="true" id="cty">
+                                            </p>
+                                            <p>
+                                                <label for="zp">Postcode:</label>
+                                                <input type="text" name="postcode" aria-required="true" id="pc">
+                                            </p>
+                                            <p class="select--container">
+                                                <label for="ctry">Country:</label>
+                                                <input type="text" name="country-input-value" aria-required="true" id="ctry">
+                                            </p>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </textarea
+                >
+                <div>
+                  <textarea title="Example 1 JS" id="example1.2">
+                                    // Show the error.
+                                    // Set the Description property for the form field in error and reference the associated error message, then move focus to the field.
+                                    // Help/Module Imports/Actions/Show
+                                    // Help/ARIA Development/DescribedBy
+                                    // Help/ARIA Development/Focus
+                                    $A("#error-01").show(function() {
+                                        $A("#strt").describedBy("#error-01").focus();
+                                    });
+                                </textarea
+                  >
                 </div>
-                <div class="flex-item">
-                    <h2>Resources</h2>
-                    <ul>
-                        <li>
-                            <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
-                        </li>
-                    </ul>
+                <div>
+                  <button class="btn--example example1">
+                    Render Example 1
+                  </button>
+                  <div
+                    role="region"
+                    aria-label="Rendered Markup"
+                    id="example1"
+                  ></div>
+                  <script>
+                    (function () {
+                      var markup = $A.get("example1.1"),
+                        js = $A.get("example1.2"),
+                        div = $A.get("example1");
+                      $A.on("button.example1", "click", function (ev) {
+                        try {
+                          div.innerHTML = markup.value;
+                          var f = new Function("window,document,$A", js.value);
+                          f.call(window, window, document, $A);
+                          $A.beep();
+                        } catch (e) {
+                          throw e;
+                        }
+                      });
+                    })();
+                  </script>
                 </div>
-                <div class="flex-item">
-                    <h2>Acknowledgements</h2>
-                    <ul class="list--horizontal">
-                        <li>
-                            Author and developer:
-                            <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
-                        </li>
-                        <li>
-                            Website designer:
-                            <a target="ext" href="https://gericci.me/">Angela Ricci</a>
-                        </li>
-                        <li>
-                            Style and markup editor:
-                            <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
-                        </li>
-                    </ul>
+              </section>
+              <nav aria-label="pagination" class="pagination">
+                <div class="flex-container-row">
+                  <div class="flex-item">
+                    <a href="Beginner-Introduction.htm"
+                      >&lt;&lt; Previous example</a
+                    >
+                  </div>
+                  <div class="flex-item">
+                    <a href="Beginner-Example-02.htm">Next example &gt;&gt;</a>
+                  </div>
                 </div>
+              </nav>
             </div>
-        </footer>
+          </div>
+        </main>
+      </div>
+      <footer class="footer">
+        <div class="flex-container-row">
+          <div class="flex-item">
+            <h2>License</h2>
+            <p>
+              Apex 4X including all template design patterns is distributed
+              under the terms of the Open Source Initiative OSI - MIT License,
+              and may be freely used for any purpose within any web technology.
+            </p>
+          </div>
+          <div class="flex-item">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+                <a target="ext" href="https://github.com/WhatSock/apex"
+                  >Apex 4X on GitHub</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm"
+                  >Visual ARIA Bookmarklet</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk"
+                  >Visual ARIA Chrome Extension</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/"
+                  >Visual ARIA Firefox Extension</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://github.com/AccDC/visual-aria"
+                  >Visual ARIA on GitHub</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/matrices/"
+                  >ARIA Role Conformance Matrices</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/"
+                  >Accessibility Tree Training Guide</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-item">
+            <h2>Acknowledgements</h2>
+            <ul class="list--horizontal">
+              <li>
+                Author and developer:
+                <a target="ext" href="https://www.linkedin.com/in/bgaraventa"
+                  >Bryan Garaventa</a
+                >
+              </li>
+              <li>
+                Website designer:
+                <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+              </li>
+              <li>
+                Style and markup editor:
+                <a
+                  target="ext"
+                  href="https://www.linkedin.com/in/laurence-lewis-77520365/"
+                  >Laurence Lewis</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
-</body>
+  </body>
 
-<script async src="https://api.whatsock.com/accdc-updates.js?4x=template"></script>
-<script src="../Templates/_common/_doc_files/autosize.js"></script>
-<script>
+  <script
+    async
+    src="https://api.whatsock.com/accdc-updates.js?4x=template"
+  ></script>
+  <script src="../Templates/_common/_doc_files/autosize.js"></script>
+  <script>
     autosize($A.query("textarea"));
-</script>
-
+  </script>
 </html>

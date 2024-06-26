@@ -1,52 +1,78 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>ARIA Sliders - Apex 4X Technical Style Guide</title>
-    <meta name="description" content="Scalable ARIA Components">
+    <meta name="description" content="Scalable ARIA Components" />
     <meta name="Author" content="Bryan Garaventa" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/global.css">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/prism.css">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/components-style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/css/global.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/prism.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/css/components-style.css"
+    />
     <script src="../_common/_doc_files/prism.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="outer-wrapper">
-        <header class="header">
-            <div class="logo">
-                <a href="https://whatsock.com">
-                    <img alt="WhatSock : Changing the world one step at a time" src="/Templates/_common/_doc_files/img/whatsock.svg">
-                </a>
-            </div>
-        </header>
-        <div class="wrapper">
-            <main id="main" class="main">
-                <h1><strong>ARIA Sliders</strong> </h1>
-                <nav class="navigation--parent">
-                    <p><a href="/Tutorials/Beginner-Introduction.htm">Beginner Tutorial</a></p>
-                    <h2 class="parent--page">Template Examples</h2>
-                    <ul>
-                        <li><a href="../index.htm">Back to Components</a></li>
-                        <li><a href="Horizontal/index.htm">Horizontal</a></li>
-                        <li><a href="Vertical/index.htm">Vertical</a></li>
-                    </ul>
-                </nav>
+      <header class="header">
+        <div class="logo">
+          <a href="https://whatsock.com">
+            <img
+              alt="WhatSock : Changing the world one step at a time"
+              src="/Templates/_common/_doc_files/img/whatsock.svg"
+            />
+          </a>
+        </div>
+      </header>
+      <div class="wrapper">
+        <main id="main" class="main">
+          <h1><strong>ARIA Sliders</strong></h1>
+          <nav class="navigation--parent">
+            <p>
+              <a href="/Tutorials/Beginner-Introduction.htm"
+                >Beginner Tutorial</a
+              >
+            </p>
+            <h2 class="parent--page">Template Examples</h2>
+            <ul>
+              <li><a href="../index.htm">Back to Components</a></li>
+              <li><a href="Horizontal/index.htm">Horizontal</a></li>
+              <li><a href="Vertical/index.htm">Vertical</a></li>
+            </ul>
+          </nav>
 
-                <section class="section--instructions">
+          <section class="section--instructions">
+            <h2>Expected behaviors</h2>
 
-                    <h2>Expected behaviors</h2>
+            <p>
+              Set focus to the slider, press the arrow keys to move it backward
+              or forward, press Home or End to move the slider to the beginning
+              or end, press PageUp or PageDown to move it backward or forward in
+              increments of 10%.
+            </p>
 
-                    <p>Set focus to the slider, press the arrow keys to move it backward or forward, press Home or End to move the slider to the beginning or end, press PageUp or PageDown to move it backward or forward in increments of 10%.</p>
+            <p>
+              The 4X ARIA Slider module automatically configures all required
+              ARIA attributes and focus handling, in strict accordance with the
+              ARIA specification.
+            </p>
 
-                    <p>The 4X ARIA Slider module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.</p>
+            <h2>HTML syntax</h2>
 
-                    <h2>HTML syntax</h2>
-
-                    <div>
-                        <pre><code class="language-markup">
+            <div>
+              <pre><code class="language-markup">
 &lt;div class="slider wrapper">
   &lt;div class="slider decrease button">0&lt;/div>
   &lt;div class="slider bar">
@@ -55,29 +81,37 @@
   &lt;div class="slider increase button">100&lt;/div>
 &lt;/div>
 </code></pre>
-                    </div>
+            </div>
 
-                    <h2>JavaScript syntax</h2>
+            <h2>JavaScript syntax</h2>
 
-                    <div>
-                        <pre><code class="language-javascript">
+            <div>
+              <pre><code class="language-javascript">
 var ariaSlider = new $A.Slider(".slider.bar", {
 // Configure functionality key / value mappings
 });
 </code></pre>
-                    </div>
+            </div>
 
-                    <h2>Parameters</h2>
+            <ul>
+              <li>Module file: Slider.js</li>
+              <li>Requires: CurrentDevice.js, Dragdealer.js.</li>
+            </ul>
 
-                    <ol>
-                        <li>A DOM element or CSS selector to specify the slider handle's container (slideBar) element.</li>
-                        <li>A configuration map to customize behaviors and options.</li>
-                    </ol>
+            <h2>Parameters</h2>
 
-                    <h3>Configuration</h3>
+            <ol>
+              <li>
+                A DOM element or CSS selector to specify the slider handle's
+                container (slideBar) element.
+              </li>
+              <li>A configuration map to customize behaviors and options.</li>
+            </ol>
 
-                    <div>
-                        <pre><code class="language-javascript">{
+            <h3>Configuration</h3>
+
+            <div>
+              <pre><code class="language-javascript">{
 
 label: "Accessible name for the slider",
 
@@ -148,12 +182,12 @@ dragdealer: {
 }
 
 }</code></pre>
-                    </div>
+            </div>
 
-                    <h2>Slider Instance Properties and Methods</h2>
+            <h2>Slider Instance Properties and Methods</h2>
 
-                    <div>
-                        <pre><code class="language-javascript">
+            <div>
+              <pre><code class="language-javascript">
 
 // Access the Dragdealer instance object.
   ariaSlider.dd
@@ -190,67 +224,96 @@ dragdealer: {
   ariaSlider.pageDown();
 
 </code></pre>
-                    </div>
-
-                </section>
-            </main>
-        </div>
-        <footer class="footer">
-            <div class="flex-container-row">
-                <div class="flex-item">
-                    <h2>License</h2>
-                    <p>
-                        Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
-                    </p>
-                </div>
-                <div class="flex-item">
-                    <h2>Resources</h2>
-                    <ul>
-                        <li>
-                            <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex-item">
-                    <h2>Acknowledgements</h2>
-                    <ul class="list--horizontal">
-                        <li>
-                            Author and developer:
-                            <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
-                        </li>
-                        <li>
-                            Website designer:
-                            <a target="ext" href="https://gericci.me/">Angela Ricci</a>
-                        </li>
-                        <li>
-                            Style and markup editor:
-                            <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
-        </footer>
+          </section>
+        </main>
+      </div>
+      <footer class="footer">
+        <div class="flex-container-row">
+          <div class="flex-item">
+            <h2>License</h2>
+            <p>
+              Apex 4X including all template design patterns is distributed
+              under the terms of the Open Source Initiative OSI - MIT License,
+              and may be freely used for any purpose within any web technology.
+            </p>
+          </div>
+          <div class="flex-item">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+                <a target="ext" href="https://github.com/WhatSock/apex"
+                  >Apex 4X on GitHub</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm"
+                  >Visual ARIA Bookmarklet</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk"
+                  >Visual ARIA Chrome Extension</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/"
+                  >Visual ARIA Firefox Extension</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://github.com/AccDC/visual-aria"
+                  >Visual ARIA on GitHub</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/matrices/"
+                  >ARIA Role Conformance Matrices</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/"
+                  >Accessibility Tree Training Guide</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-item">
+            <h2>Acknowledgements</h2>
+            <ul class="list--horizontal">
+              <li>
+                Author and developer:
+                <a target="ext" href="https://www.linkedin.com/in/bgaraventa"
+                  >Bryan Garaventa</a
+                >
+              </li>
+              <li>
+                Website designer:
+                <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+              </li>
+              <li>
+                Style and markup editor:
+                <a
+                  target="ext"
+                  href="https://www.linkedin.com/in/laurence-lewis-77520365/"
+                  >Laurence Lewis</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
-</body>
+  </body>
 
-<script async src="https://api.whatsock.com/accdc-updates.js?4x=template"></script>
-
+  <script
+    async
+    src="https://api.whatsock.com/accdc-updates.js?4x=template"
+  ></script>
 </html>

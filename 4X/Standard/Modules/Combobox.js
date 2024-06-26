@@ -137,8 +137,8 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
                     ? true
                     : false
                   : $A.getAttr(dc.triggerNode, "aria-required") === "true"
-                  ? true
-                  : false;
+                    ? true
+                    : false;
                 dc.cb.multiple = $A.getAttr(dc.cb.sel, "multiple")
                   ? true
                   : false;

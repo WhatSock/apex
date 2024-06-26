@@ -27,6 +27,8 @@ var grid = new $A.Grid("dataGridId");
 
 grid.open();
 
+Module file: Grid.js - Has no dependencies.
+
 Parameters
 
 1: An id reference pointing to the grid container element.

@@ -86,6 +86,8 @@ var myMenuDC = $A.setMenu( DOM-Node-or-CSS-Selector-forTriggering-Element , {
 // Configure functionality key / value mappings
 });
 
+Module file: Menu.js - Requires AccName.js, RovingTabIndex.js.
+
 Parameters
 
 1: A DOM element or CSS selector to specify the triggering element.

@@ -1,96 +1,159 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>ARIA Tooltips - Apex 4X Technical Style Guide</title>
-    <meta name="description" content="Scalable ARIA Components">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/global.css">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/prism.css">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/components-style.css">
+    <meta name="description" content="Scalable ARIA Components" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/css/global.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/prism.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/css/components-style.css"
+    />
     <script src="../_common/_doc_files/prism.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="outer-wrapper">
-        <header class="header">
-            <div class="logo">
-                <a href="https://whatsock.com">
-                    <img alt="WhatSock : Changing the world one step at a time" src="/Templates/_common/_doc_files/img/whatsock.svg">
-                </a>
-            </div>
-        </header>
-        <div class="wrapper">
-            <main id="main" class="main">
-                <h1><strong>ARIA Tooltips</strong> </h1>
-                <nav class="navigation--parent">
-                    <p><a href="/Tutorials/Beginner-Introduction.htm">Beginner Tutorial</a></p>
-                    <h2 class="parent--page">Template Examples</h2>
-                    <ul>
-                        <li><a href="../index.htm">Back to Components</a></li>
-                        <li><a href="Error (External)/index.htm">Error (External)</a></li>
-                        <li><a href="Error (Inline)/index.htm">Error (Inline)</a></li>
-                        <li><a href="External/index.htm">External</a></li>
-                        <li><a href="External - Straylight/index.htm">External - Straylight</a></li>
-                        <li><a href="Help (Responsive)/index.htm">Help (Responsive)</a></li>
-                        <li><a href="Internal/index.htm">Internal</a></li>
-                        <li><a href="Internal - Straylight/index.htm">Internal - Straylight</a></li>
-                    </ul>
-                </nav>
-                <section class="section--instructions">
+      <header class="header">
+        <div class="logo">
+          <a href="https://whatsock.com">
+            <img
+              alt="WhatSock : Changing the world one step at a time"
+              src="/Templates/_common/_doc_files/img/whatsock.svg"
+            />
+          </a>
+        </div>
+      </header>
+      <div class="wrapper">
+        <main id="main" class="main">
+          <h1><strong>ARIA Tooltips</strong></h1>
+          <nav class="navigation--parent">
+            <p>
+              <a href="/Tutorials/Beginner-Introduction.htm"
+                >Beginner Tutorial</a
+              >
+            </p>
+            <h2 class="parent--page">Template Examples</h2>
+            <ul>
+              <li><a href="../index.htm">Back to Components</a></li>
+              <li><a href="Error (External)/index.htm">Error (External)</a></li>
+              <li><a href="Error (Inline)/index.htm">Error (Inline)</a></li>
+              <li><a href="External/index.htm">External</a></li>
+              <li>
+                <a href="External - Straylight/index.htm"
+                  >External - Straylight</a
+                >
+              </li>
+              <li>
+                <a href="Help (Responsive)/index.htm">Help (Responsive)</a>
+              </li>
+              <li><a href="Internal/index.htm">Internal</a></li>
+              <li>
+                <a href="Internal - Straylight/index.htm"
+                  >Internal - Straylight</a
+                >
+              </li>
+            </ul>
+          </nav>
+          <section class="section--instructions">
+            <h2>Expected behaviors</h2>
 
-                    <h2>Expected behaviors</h2>
+            <ul>
+              <li>
+                Hover tooltips appear when moused over and when the triggering
+                element receives focus, then close when the mouse moves away or
+                when focus moves to a different element.
+              </li>
+              <li>
+                Manual tooltips appear when the triggering element is activated,
+                then close when clicked again or when focus moves to a different
+                element.
+              </li>
+              <li>
+                Responsive tooltips appear when validation criteria are met when
+                typing, and close when focus moves to a different element.
+              </li>
+              <li>
+                Error tooltips appear when focus moves away from a field that
+                fails validation, then close when focus moves back to the
+                triggering element.
+              </li>
+            </ul>
 
-                    <ul>
-                        <li> Hover tooltips appear when moused over and when the triggering element receives focus, then close when the mouse moves away or when focus moves to a different element. </li>
-                        <li> Manual tooltips appear when the triggering element is activated, then close when clicked again or when focus moves to a different element. </li>
-                        <li> Responsive tooltips appear when validation criteria are met when typing, and close when focus moves to a different element. </li>
-                        <li> Error tooltips appear when focus moves away from a field that fails validation, then close when focus moves back to the triggering element.</li>
-                    </ul>
+            <p>
+              The 4X ARIA Tooltip module automatically configures all required
+              ARIA attributes and focus handling, in strict accordance with the
+              ARIA specification.
+            </p>
 
-                    <p>The 4X ARIA Tooltip module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.</p>
+            <p>
+              The following attributes are handled automatically by the Tooltip
+              module:
+            </p>
 
-                    <p>The following attributes are handled automatically by the Tooltip module:</p>
+            <ul>
+              <li>role=tooltip</li>
+              <li>aria-describedby</li>
+              <li>aria-description</li>
+              <li>role=region</li>
+              <li>aria-label</li>
+            </ul>
 
-                    <ul>
-                        <li> role=tooltip</li>
-                        <li> aria-describedby</li>
-                        <li> aria-description</li>
-                        <li> role=region</li>
-                        <li> aria-label</li>
-                    </ul>
+            <p>Available attributes for the triggering element:</p>
 
-                    <p>Available attributes for the triggering element:</p>
+            <ul>
+              <li>
+                data-tooltip : The resource path and pointer to the ID attribute
+                of the tooltip container element. May consist of a traditional
+                id reference within the same document, or a url+id reference for
+                pulling a tooltip in from an external resource, or the tooltip
+                markup and message that should be displayed visually when
+                triggered.
+              </li>
+              <li>
+                data-error : The resource path and pointer to the ID attribute
+                of the error container element. May consist of a traditional id
+                reference within the same document, or a url+id reference for
+                pulling an error tooltip in from an external resource, or the
+                error tooltip markup and message that should be displayed
+                visually when triggered.
+              </li>
+            </ul>
 
-                    <ul>
-                        <li>data-tooltip : The resource path and pointer to the ID attribute of the tooltip container element. May consist of a traditional id reference within the same document, or a url+id reference for pulling a tooltip in from an external resource, or the tooltip markup and message that should be displayed visually when triggered.</li>
-                        <li>data-error : The resource path and pointer to the ID attribute of the error container element. May consist of a traditional id reference within the same document, or a url+id reference for pulling an error tooltip in from an external resource, or the error tooltip markup and message that should be displayed visually when triggered.</li>
-                    </ul>
+            <h2>HTML syntax</h2>
 
-                    <h2>HTML syntax</h2>
+            <p>There are many options for setting the content of a tooltip.</p>
 
-                    <p>There are many options for setting the content of a tooltip.</p>
+            <h3>Using embedded markup to create a tooltip</h3>
 
-                    <h3>Using embedded markup to create a tooltip</h3>
-
-                    <div>
-                        <pre><code class="language-markup">
+            <div>
+              <pre><code class="language-markup">
 &lt;button data-tooltip='&lt;p>Your email address is required to verify your account, but will not be used for any other purpose.&lt;/p>'> Why do we need this? &lt;/button>
 </code></pre>
-                    </div>
+            </div>
 
-                    <h3>Using CSS selector to reference a tooltip</h3>
+            <h3>Using CSS selector to reference a tooltip</h3>
 
-                    <div>
-                        <pre><code class="language-markup">
+            <div>
+              <pre><code class="language-markup">
 &lt;label for="passwordId"> Password: &lt;/label>
 &lt;input data-tooltip="#passwordTooltipId" id="passwordId" type="password">
 </code></pre>
-                    </div>
+            </div>
 
-                    <div>
-                        <pre><code class="language-markup">
+            <div>
+              <pre><code class="language-markup">
 &lt;div hidden id="passwordTooltipId">
     &lt;p> Important! &lt;/p>
     &lt;ul>
@@ -100,57 +163,74 @@
     &lt;/ul>
 &lt;/div>
 </code></pre>
-                    </div>
+            </div>
 
-                    <h3>Using URL+id to reference an external tooltip</h3>
+            <h3>Using URL+id to reference an external tooltip</h3>
 
-                    <div>
-                        <pre><code class="language-markup">
+            <div>
+              <pre><code class="language-markup">
 &lt;button data-tooltip="url/tooltips.php?type=help#tooltipContainerId"> What is this? &lt;/button>
 </code></pre>
-                    </div>
+            </div>
 
-                    <h3>Using standard markup for any focusable element configured with JS setup script</h3>
+            <h3>
+              Using standard markup for any focusable element configured with JS
+              setup script
+            </h3>
 
-                    <div>
-                        <pre><code class="language-markup">
+            <div>
+              <pre><code class="language-markup">
 &lt;a class="hasTooltip" href="URL"> ONE &lt;/a>
 </code></pre>
-                    </div>
+            </div>
 
-                    <div>
-                        <pre><code class="language-markup">
+            <div>
+              <pre><code class="language-markup">
 &lt;button class="hasTooltip"> TWO &lt;/button>
 </code></pre>
-                    </div>
+            </div>
 
-                    <div>
-                        <pre><code class="language-markup">
+            <div>
+              <pre><code class="language-markup">
 &lt;input class="hasTooltip" type="text" title="THREE" >
 </code></pre>
-                    </div>
+            </div>
 
-                    <p>The data-error attribute may be implemented using the same syntax as the data-tooltip attribute, and both data-error and data-tooltip attributes are supported on the same element. However, the data-error attribute is only valid on native input elements.</p>
+            <p>
+              The data-error attribute may be implemented using the same syntax
+              as the data-tooltip attribute, and both data-error and
+              data-tooltip attributes are supported on the same element.
+              However, the data-error attribute is only valid on native input
+              elements.
+            </p>
 
-                    <h2>JavaScript syntax</h2>
+            <h2>JavaScript syntax</h2>
 
-                    <div>
-                        <pre><code class="language-javascript">var myTooltipDC = $A.setTooltip( domNodeOrCSSSelectorForTriggeringElement , {
+            <div>
+              <pre><code class="language-javascript">var myTooltipDC = $A.setTooltip( domNodeOrCSSSelectorForTriggeringElement , {
   // Configure functionality key / value mappings
 });</code></pre>
-                    </div>
+            </div>
 
-                    <h2>Parameters</h2>
+            <ul>
+              <li>Module file: Tooltip.js</li>
+              <li>Has no dependencies.</li>
+              <li>Recommended: Velocity.js, VelocityUI.js.</li>
+            </ul>
 
-                    <ol>
-                        <li>A DOM element or CSS selector to specify the triggering element</li>
-                        <li>A configuration map to customize behaviors and options</li>
-                    </ol>
+            <h2>Parameters</h2>
 
-                    <h3>Configuration</h3>
+            <ol>
+              <li>
+                A DOM element or CSS selector to specify the triggering element
+              </li>
+              <li>A configuration map to customize behaviors and options</li>
+            </ol>
 
-                    <div>
-                        <pre><code class="language-javascript">
+            <h3>Configuration</h3>
+
+            <div>
+              <pre><code class="language-javascript">
 {
 
 // Unique ID for the tooltip instance
@@ -286,12 +366,12 @@ afterRemove: function(DC) {
 
 }
 </code></pre>
-                    </div>
+            </div>
 
-                    <h2>Programmatic control</h2>
+            <h2>Programmatic control</h2>
 
-                    <div>
-                        <pre><code class="language-javascript">
+            <div>
+              <pre><code class="language-javascript">
 // Use the DC object that is returned by the $A.setTooltip() function.
 
 // Open the tooltip manually.
@@ -307,67 +387,96 @@ myTooltipDC.remove(function() {
 // Additional DC API properties and methods can be applied here as well.
 // To view available options, reference the help docs located at: "Help/DC API/DC Object Properties and Methods"
 </code></pre>
-                    </div>
-
-                </section>
-            </main>
-        </div>
-        <footer class="footer">
-            <div class="flex-container-row">
-                <div class="flex-item">
-                    <h2>License</h2>
-                    <p>
-                        Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
-                    </p>
-                </div>
-                <div class="flex-item">
-                    <h2>Resources</h2>
-                    <ul>
-                        <li>
-                            <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex-item">
-                    <h2>Acknowledgements</h2>
-                    <ul class="list--horizontal">
-                        <li>
-                            Author and developer:
-                            <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
-                        </li>
-                        <li>
-                            Website designer:
-                            <a target="ext" href="https://gericci.me/">Angela Ricci</a>
-                        </li>
-                        <li>
-                            Style and markup editor:
-                            <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
-        </footer>
+          </section>
+        </main>
+      </div>
+      <footer class="footer">
+        <div class="flex-container-row">
+          <div class="flex-item">
+            <h2>License</h2>
+            <p>
+              Apex 4X including all template design patterns is distributed
+              under the terms of the Open Source Initiative OSI - MIT License,
+              and may be freely used for any purpose within any web technology.
+            </p>
+          </div>
+          <div class="flex-item">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+                <a target="ext" href="https://github.com/WhatSock/apex"
+                  >Apex 4X on GitHub</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm"
+                  >Visual ARIA Bookmarklet</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk"
+                  >Visual ARIA Chrome Extension</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/"
+                  >Visual ARIA Firefox Extension</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://github.com/AccDC/visual-aria"
+                  >Visual ARIA on GitHub</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/matrices/"
+                  >ARIA Role Conformance Matrices</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/"
+                  >Accessibility Tree Training Guide</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-item">
+            <h2>Acknowledgements</h2>
+            <ul class="list--horizontal">
+              <li>
+                Author and developer:
+                <a target="ext" href="https://www.linkedin.com/in/bgaraventa"
+                  >Bryan Garaventa</a
+                >
+              </li>
+              <li>
+                Website designer:
+                <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+              </li>
+              <li>
+                Style and markup editor:
+                <a
+                  target="ext"
+                  href="https://www.linkedin.com/in/laurence-lewis-77520365/"
+                  >Laurence Lewis</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
-</body>
+  </body>
 
-<script async src="https://api.whatsock.com/accdc-updates.js?4x=template"></script>
-
+  <script
+    async
+    src="https://api.whatsock.com/accdc-updates.js?4x=template"
+  ></script>
 </html>

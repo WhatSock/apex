@@ -1,163 +1,252 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>ReadOnly ARIA Grid - 4X Technical Style Guide</title>
-    <meta name="description" content="Scalable ARIA Components">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
-    <link rel="stylesheet" type="text/css" href="css/extra.css">
-    <link rel="stylesheet" type="text/css" href="css/grid.css">
+    <meta name="description" content="Scalable ARIA Components" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../_common/css/components-style.css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/extra.css" />
+    <link rel="stylesheet" type="text/css" href="css/grid.css" />
     <script src="/4X/4X.js"></script>
     <script src="js/setup.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="bypass">
-        <ul class="list-unstyled">
-            <li>
-                <a class="skip--link" href="javascript:void(0);" onclick="document.getElementById('main').focus();">
-                    Skip to Main Content
-                </a>
-            </li>
-        </ul>
+      <ul class="list-unstyled">
+        <li>
+          <a
+            class="skip--link"
+            href="javascript:void(0);"
+            onclick="document.getElementById('main').focus();"
+          >
+            Skip to Main Content
+          </a>
+        </li>
+      </ul>
     </div>
     <div class="outer-wrapper">
-        <header class="header flex-container">
-            <div class="logo flex-item">
-                <a href="https://whatsock.com">
-                    <img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg"></a>
-            </div>
-            <div class="site-name flex-item">
-                <strong>Apex 4X</strong> Technical Style Guide
-            </div>
-        </header>
-        <div class="wrapper">
-            <div class="left-aside">
-                <nav>
-                    <p><a href="/Tutorials/Beginner-Introduction.htm">Beginner Tutorial</a></p>
-                    <h2>Template Examples</h2>
-                    <ul>
-                        <li><a href="../../index.htm">Back to Components</a></li>
-                        <li><a href="../index.htm">Back to Parent Widget</a></li>
-                        <li><a href="../Dynamic/index.htm">Dynamic</a></li>
-                        <li><a href="../Editable/index.htm">Editable</a></li>
-                        <li><a href="../ReadOnly/index.htm" aria-current="page">ReadOnly</a></li>
-                        <li><a href="../Selectable/index.htm">Selectable</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <main id="main" class="main" tabindex="-1">
-                <div class="demo-block wide--grid flex-container">
-                    <div class="component wide--grid flex-item">
-                        <h1 class="pageTitle">ReadOnly ARIA Grid</h1>
-                        <section class="sample-block">
-
-                            <h2>
-                                <span>Student Records</span>:
-                                <span id="pTotal"></span>
-                            </h2>
-
-                            <div id="popupId" hidden></div>
-
-                            <div class="modify clearfix" role="region" aria-label="modify">
-                                <button id="buv">
-                                    Programmatically update the value of row "5" field "personal-email" if passed via AJAX
-                                </button>
-                            </div>
-
-                            <div id="dataGridId"></div>
-
-                            <div class="h--scroll">
-
-                                <div role="region" aria-label="pagination" class="paginate clearfix" id="pgn">
-                                    <button class="paginate" id="btnFirst" title="First Page"><span aria-hidden="true">&#8656;</span></button>
-                                    <button class="paginate" id="btnPrev" title="Previous Page"><span aria-hidden="true">&#8592;</span></button>
-                                    <button class="paginate" id="btnNext" title="Next Page"><span aria-hidden="true">&#8594;</span></button>
-                                    <button class="paginate" id="btnLast" title="Last Page"><span aria-hidden="true">&#8658;</span></button>
-                                    <input title="Page" type="text" id="goTo" />
-                                    <button class="paginate" id="btnGo"><span>Go</span></button>
-                                </div>
-
-                            </div>
-
-                        </section>
-                    </div>
-                    <div class="keyboard wide--grid flex-item">
-                        <h2>The grid is optimized for screen reader and keyboard only users:</h2>
-                        <ul>
-                            <li>Set focus to the grid and enter Applications Mode if using a screen reader like JAWS or NVDA.</li>
-                            <li>Press <kbd class="up">Up</kbd> or <kbd class="down">Down</kbd> to navigate by row. (Infinite scrolling is supported)</li>
-                            <li>Press <kbd><kbd>Control</kbd>+<kbd>Spacebar</kbd></kbd> to announce the current row when using a screen reader.</li>
-                            <li>Press <kbd><kbd>Alt</kbd>+<kbd>Up</kbd></kbd> or <kbd><kbd>Alt</kbd>+<kbd>Down</kbd></kbd> to set focus to the first or last row on the current page.</li>
-                            <li>Press <kbd class="left">Left</kbd> or <kbd class="right">Right</kbd> to navigate left or right by cell.</li>
-                            <li>Press <kbd class="home">Home</kbd> or <kbd class="end">End</kbd> to move to the first or last cell on the current row.</li>
-                            <li>Press <kbd><kbd>Control</kbd>+<kbd>Home</kbd></kbd> or <kbd><kbd>Control</kbd>+<kbd>End</kbd></kbd> to move to the first row on the first page or the last row on the last page.</li>
-                            <li>Press <kbd>PageUp</kbd> or <kbd>PageDown</kbd> to open the previous or next page and set focus to the first row.</li>
-                            <li>Press Alt+PageUp or Alt+PageDown to open the first or last page and set focus to the first row.</li>
-                        </ul>
-                    </div>
-                </div>
-
-            </main>
+      <header class="header flex-container">
+        <div class="logo flex-item">
+          <a href="https://whatsock.com">
+            <img
+              alt="WhatSock : Changing the world one step at a time"
+              src="../../_common/img/whatsock.svg"
+          /></a>
         </div>
-        <footer class="footer">
-            <div class="flex-container-row">
-                <div class="flex-item">
-                    <h2>License</h2>
-                    <p>
-                        Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
-                    </p>
+        <div class="site-name flex-item">
+          <strong>Apex 4X</strong> Technical Style Guide
+        </div>
+      </header>
+      <div class="wrapper">
+        <div class="left-aside">
+          <nav>
+            <p>
+              <a href="/Tutorials/Beginner-Introduction.htm"
+                >Beginner Tutorial</a
+              >
+            </p>
+            <h2>Template Examples</h2>
+            <ul>
+              <li><a href="../../index.htm">Back to Components</a></li>
+              <li><a href="../index.htm">Back to Parent Widget</a></li>
+              <li><a href="../Dynamic/index.htm">Dynamic</a></li>
+              <li><a href="../Editable/index.htm">Editable</a></li>
+              <li>
+                <a href="../ReadOnly/index.htm" aria-current="page">ReadOnly</a>
+              </li>
+              <li><a href="../Selectable/index.htm">Selectable</a></li>
+            </ul>
+          </nav>
+        </div>
+        <main id="main" class="main" tabindex="-1">
+          <div class="demo-block wide--grid flex-container">
+            <div class="component wide--grid flex-item">
+              <h1 class="pageTitle">ReadOnly ARIA Grid</h1>
+              <section class="sample-block">
+                <h2>
+                  <span>Student Records</span>:
+                  <span id="pTotal"></span>
+                </h2>
+
+                <div id="popupId" hidden></div>
+
+                <div class="modify clearfix" role="region" aria-label="modify">
+                  <button id="buv">
+                    Programmatically update the value of row "5" field
+                    "personal-email" if passed via AJAX
+                  </button>
                 </div>
-                <div class="flex-item">
-                    <h2>Resources</h2>
-                    <ul>
-                        <li>
-                            <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
-                        </li>
-                    </ul>
+
+                <div id="dataGridId"></div>
+
+                <div class="h--scroll">
+                  <div
+                    role="region"
+                    aria-label="pagination"
+                    class="paginate clearfix"
+                    id="pgn"
+                  >
+                    <button class="paginate" id="btnFirst" title="First Page">
+                      <span aria-hidden="true">&#8656;</span>
+                    </button>
+                    <button class="paginate" id="btnPrev" title="Previous Page">
+                      <span aria-hidden="true">&#8592;</span>
+                    </button>
+                    <button class="paginate" id="btnNext" title="Next Page">
+                      <span aria-hidden="true">&#8594;</span>
+                    </button>
+                    <button class="paginate" id="btnLast" title="Last Page">
+                      <span aria-hidden="true">&#8658;</span>
+                    </button>
+                    <input title="Page" type="text" id="goTo" />
+                    <button class="paginate" id="btnGo"><span>Go</span></button>
+                  </div>
                 </div>
-                <div class="flex-item">
-                    <h2>Acknowledgements</h2>
-                    <ul class="list--horizontal">
-                        <li>
-                            Author and developer:
-                            <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
-                        </li>
-                        <li>
-                            Website designer:
-                            <a target="ext" href="https://gericci.me/">Angela Ricci</a>
-                        </li>
-                        <li>
-                            Style and markup editor:
-                            <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
-                        </li>
-                    </ul>
-                </div>
+              </section>
             </div>
-        </footer>
+            <div class="keyboard wide--grid flex-item">
+              <h2>
+                The grid is optimized for screen reader and keyboard only users:
+              </h2>
+              <ul>
+                <li>
+                  Set focus to the grid and enter Applications Mode if using a
+                  screen reader like JAWS or NVDA.
+                </li>
+                <li>
+                  Press <kbd class="up">Up</kbd> or
+                  <kbd class="down">Down</kbd> to navigate by row. (Infinite
+                  scrolling is supported)
+                </li>
+                <li>
+                  Press <kbd><kbd>Control</kbd>+<kbd>Spacebar</kbd></kbd> to
+                  announce the current row when using a screen reader.
+                </li>
+                <li>
+                  Press <kbd><kbd>Alt</kbd>+<kbd>Up</kbd></kbd> or
+                  <kbd><kbd>Alt</kbd>+<kbd>Down</kbd></kbd> to set focus to the
+                  first or last row on the current page.
+                </li>
+                <li>
+                  Press <kbd class="left">Left</kbd> or
+                  <kbd class="right">Right</kbd> to navigate left or right by
+                  cell.
+                </li>
+                <li>
+                  Press <kbd class="home">Home</kbd> or
+                  <kbd class="end">End</kbd> to move to the first or last cell
+                  on the current row.
+                </li>
+                <li>
+                  Press <kbd><kbd>Control</kbd>+<kbd>Home</kbd></kbd> or
+                  <kbd><kbd>Control</kbd>+<kbd>End</kbd></kbd> to move to the
+                  first row on the first page or the last row on the last page.
+                </li>
+                <li>
+                  Press <kbd>PageUp</kbd> or <kbd>PageDown</kbd> to open the
+                  previous or next page and set focus to the first row.
+                </li>
+                <li>
+                  Press Alt+PageUp or Alt+PageDown to open the first or last
+                  page and set focus to the first row.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </main>
+      </div>
+      <footer class="footer">
+        <div class="flex-container-row">
+          <div class="flex-item">
+            <h2>License</h2>
+            <p>
+              Apex 4X including all template design patterns is distributed
+              under the terms of the Open Source Initiative OSI - MIT License,
+              and may be freely used for any purpose within any web technology.
+            </p>
+          </div>
+          <div class="flex-item">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+                <a target="ext" href="https://github.com/WhatSock/apex"
+                  >Apex 4X on GitHub</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm"
+                  >Visual ARIA Bookmarklet</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk"
+                  >Visual ARIA Chrome Extension</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/"
+                  >Visual ARIA Firefox Extension</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://github.com/AccDC/visual-aria"
+                  >Visual ARIA on GitHub</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/matrices/"
+                  >ARIA Role Conformance Matrices</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/"
+                  >Accessibility Tree Training Guide</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-item">
+            <h2>Acknowledgements</h2>
+            <ul class="list--horizontal">
+              <li>
+                Author and developer:
+                <a target="ext" href="https://www.linkedin.com/in/bgaraventa"
+                  >Bryan Garaventa</a
+                >
+              </li>
+              <li>
+                Website designer:
+                <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+              </li>
+              <li>
+                Style and markup editor:
+                <a
+                  target="ext"
+                  href="https://www.linkedin.com/in/laurence-lewis-77520365/"
+                  >Laurence Lewis</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
-</body>
+  </body>
 
-<script async src="https://api.whatsock.com/accdc-updates.js?4x=template"></script>
-
+  <script
+    async
+    src="https://api.whatsock.com/accdc-updates.js?4x=template"
+  ></script>
 </html>

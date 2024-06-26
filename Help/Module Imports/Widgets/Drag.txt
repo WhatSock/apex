@@ -57,6 +57,8 @@ drake.on("dragend", function(dragElement) {
 // DOM element "originalDragElement" was cloned as "dragElementClone", of "type" ('mirror' or 'copy'). Fired for mirror images and when "copy: true"
 });
 
+Module file: Drag.js - Requires Dragula.css, Dragula.js, Velocity.js, VelocityUI.js, Animate.js, AccName.js, RovingTabIndex.js, Menu.js.
+
 Parameters
 
 1: A configuration map to customize behaviors and options.

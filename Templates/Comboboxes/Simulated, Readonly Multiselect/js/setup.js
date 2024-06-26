@@ -63,8 +63,8 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
     window.device.type === "mobile"
       ? 3
       : window.device.type === "tablet"
-      ? 5
-      : 7,
+        ? 5
+        : 7,
   );
 
   // Set specific text for the hidden Close link encountered by screen reader users

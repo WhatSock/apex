@@ -1,90 +1,141 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>ARIA Footnotes - Apex 4X Technical Style Guide</title>
-    <meta name="description" content="Scalable ARIA Components">
+    <meta name="description" content="Scalable ARIA Components" />
     <meta name="Author" content="Bryan Garaventa" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/global.css">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/prism.css">
-    <link rel="stylesheet" type="text/css" href="../_common/_doc_files/css/components-style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/css/global.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/prism.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../_common/_doc_files/css/components-style.css"
+    />
     <script src="../_common/_doc_files/prism.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="outer-wrapper">
-        <header class="header">
-            <div class="logo">
-                <a href="https://whatsock.com">
-                    <img alt="WhatSock : Changing the world one step at a time" src="/Templates/_common/_doc_files/img/whatsock.svg">
-                </a>
-            </div>
-        </header>
-        <div class="wrapper">
-            <main id="main" class="main">
-                <h1><strong>ARIA Footnotes</strong> </h1>
-                <nav class="navigation--parent">
-                    <p><a href="/Tutorials/Beginner-Introduction.htm">Beginner Tutorial</a></p>
-                    <h2 class="parent--page">Template Examples</h2>
-                    <ul>
-                        <li><a href="../index.htm">Back to Components</a></li>
-                        <li><a href="Internal/index.htm">Internal</a></li>
-                        <li><a href="Internal - Straylight/index.htm">Internal - Straylight</a></li>
-                    </ul>
-                </nav>
+      <header class="header">
+        <div class="logo">
+          <a href="https://whatsock.com">
+            <img
+              alt="WhatSock : Changing the world one step at a time"
+              src="/Templates/_common/_doc_files/img/whatsock.svg"
+            />
+          </a>
+        </div>
+      </header>
+      <div class="wrapper">
+        <main id="main" class="main">
+          <h1><strong>ARIA Footnotes</strong></h1>
+          <nav class="navigation--parent">
+            <p>
+              <a href="/Tutorials/Beginner-Introduction.htm"
+                >Beginner Tutorial</a
+              >
+            </p>
+            <h2 class="parent--page">Template Examples</h2>
+            <ul>
+              <li><a href="../index.htm">Back to Components</a></li>
+              <li><a href="Internal/index.htm">Internal</a></li>
+              <li>
+                <a href="Internal - Straylight/index.htm"
+                  >Internal - Straylight</a
+                >
+              </li>
+            </ul>
+          </nav>
 
-                <section class="section--instructions">
+          <section class="section--instructions">
+            <h2>Expected behaviors</h2>
 
-                    <h2>Expected behaviors</h2>
+            <p>
+              Each footnote must be actionable using both the keyboard and the
+              mouse, focus must move to the beginning of the definition when
+              activated, and focus must move back to the footnote when the back
+              link is activated.
+            </p>
 
-                    <p>Each footnote must be actionable using both the keyboard and the mouse, focus must move to the beginning of the definition when activated, and focus must move back to the footnote when the back link is activated.</p>
+            <p>
+              The 4X ARIA Footnote module automatically configures all required
+              focus handling and interaction events to ensure accessibility.
+            </p>
 
-                    <p>The 4X ARIA Footnote module automatically configures all required focus handling and interaction events to ensure accessibility.</p>
+            <p>
+              The following attributes are handled automatically by the Footnote
+              module:
+            </p>
 
-                    <p>The following attributes are handled automatically by the Footnote module:</p>
+            <ul>
+              <li>aria-controls</li>
+              <li>aria-flowto</li>
+            </ul>
 
-                    <ul>
-                        <li> aria-controls</li>
-                        <li> aria-flowto</li>
-                    </ul>
+            <h2>HTML syntax</h2>
 
-                    <h2>HTML syntax</h2>
+            <p>
+              The Footnote module utilizes traditional skip link syntax, which
+              consists of a standard link with an href attribute. The href
+              attribute includes an id reference to the associated footnote
+              definition, by pointing to a back link at the beginning of the
+              definition content.
+            </p>
 
-                    <p>The Footnote module utilizes traditional skip link syntax, which consists of a standard link with an href attribute. The href attribute includes an id reference to the associated footnote definition, by pointing to a back link at the beginning of the definition content.</p>
-
-                    <div>
-                        <pre><code class="language-markup">&lt;!-- The footnote skip link -->
+            <div>
+              <pre><code class="language-markup">&lt;!-- The footnote skip link -->
 
 [Key Word or Phrase Here] &lt;a class="aria-footnote" href="#footnoteId1">&lt;sup>1&lt;/sup>&lt;/a>
 
 &lt;!-- The footnote back link -->
 
 &lt;a id="footnoteId1" href="#" class="footnote-back-link" aria-label="Go Back" >&#8224;&lt;/a> [Definition Content Here]</code></pre>
-                    </div>
+            </div>
 
-                    <p>Multiple footnotes that reference the same definition are supported automatically.</p>
+            <p>
+              Multiple footnotes that reference the same definition are
+              supported automatically.
+            </p>
 
-                    <h2>JavaScript syntax</h2>
+            <h2>JavaScript syntax</h2>
 
-                    <div>
-                        <pre><code class="language-javascript">$A.setFootnotes( DOMNodeListOrCSSSelectorForFootnoteLinks , {
+            <div>
+              <pre><code class="language-javascript">$A.setFootnotes( DOMNodeListOrCSSSelectorForFootnoteLinks , {
 // Configuration key / value map
 });</code></pre>
-                    </div>
+            </div>
 
-                    <h2>Parameters</h2>
+            <ul>
+              <li>Module file: Footnote.js</li>
+              <li>
+                Requires: Velocity.js, VelocityUI.js, Animate.js,
+                SmoothScroll.js.
+              </li>
+            </ul>
 
-                    <ol>
-                        <li>A DOM element or CSS selector to specify the triggering element</li>
-                        <li>A configuration map to customize behaviors and options</li>
-                    </ol>
+            <h2>Parameters</h2>
 
-                    <h3>Configuration</h3>
+            <ol>
+              <li>
+                A DOM element or CSS selector to specify the triggering element
+              </li>
+              <li>A configuration map to customize behaviors and options</li>
+            </ol>
 
-                    <div>
-                        <pre><code class="language-javascript">{
+            <h3>Configuration</h3>
+
+            <div>
+              <pre><code class="language-javascript">{
 
 // Modify the smooth scrolling animation effects.
 override: {
@@ -93,67 +144,96 @@ easing: "ease-in"
 }
 
 }</code></pre>
-                    </div>
-
-                </section>
-            </main>
-        </div>
-        <footer class="footer">
-            <div class="flex-container-row">
-                <div class="flex-item">
-                    <h2>License</h2>
-                    <p>
-                        Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
-                    </p>
-                </div>
-                <div class="flex-item">
-                    <h2>Resources</h2>
-                    <ul>
-                        <li>
-                            <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex-item">
-                    <h2>Acknowledgements</h2>
-                    <ul class="list--horizontal">
-                        <li>
-                            Author and developer:
-                            <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
-                        </li>
-                        <li>
-                            Website designer:
-                            <a target="ext" href="https://gericci.me/">Angela Ricci</a>
-                        </li>
-                        <li>
-                            Style and markup editor:
-                            <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
-        </footer>
+          </section>
+        </main>
+      </div>
+      <footer class="footer">
+        <div class="flex-container-row">
+          <div class="flex-item">
+            <h2>License</h2>
+            <p>
+              Apex 4X including all template design patterns is distributed
+              under the terms of the Open Source Initiative OSI - MIT License,
+              and may be freely used for any purpose within any web technology.
+            </p>
+          </div>
+          <div class="flex-item">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+                <a target="ext" href="https://github.com/WhatSock/apex"
+                  >Apex 4X on GitHub</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm"
+                  >Visual ARIA Bookmarklet</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk"
+                  >Visual ARIA Chrome Extension</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/"
+                  >Visual ARIA Firefox Extension</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://github.com/AccDC/visual-aria"
+                  >Visual ARIA on GitHub</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/matrices/"
+                  >ARIA Role Conformance Matrices</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/"
+                  >Accessibility Tree Training Guide</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-item">
+            <h2>Acknowledgements</h2>
+            <ul class="list--horizontal">
+              <li>
+                Author and developer:
+                <a target="ext" href="https://www.linkedin.com/in/bgaraventa"
+                  >Bryan Garaventa</a
+                >
+              </li>
+              <li>
+                Website designer:
+                <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+              </li>
+              <li>
+                Style and markup editor:
+                <a
+                  target="ext"
+                  href="https://www.linkedin.com/in/laurence-lewis-77520365/"
+                  >Laurence Lewis</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
-</body>
+  </body>
 
-<script async src="https://api.whatsock.com/accdc-updates.js?4x=template"></script>
-
+  <script
+    async
+    src="https://api.whatsock.com/accdc-updates.js?4x=template"
+  ></script>
 </html>

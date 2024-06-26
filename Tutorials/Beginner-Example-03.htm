@@ -1,13 +1,24 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Apex 4X Beginner Tutorial | Example 3 - DC Objects</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../Templates/_common/_doc_files/css/global.css">
-    <link rel="stylesheet" type="text/css" href="../Templates/_common/_doc_files/css/components-style.css">
-    <link rel="stylesheet" type="text/css" href="../Templates/_common/_doc_files/prism.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../Templates/_common/_doc_files/css/global.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../Templates/_common/_doc_files/css/components-style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../Templates/_common/_doc_files/prism.css"
+    />
     <script src="../Templates/_common/_doc_files/prism.js"></script>
 
     <script src="../4X/4X.js"></script>
@@ -17,172 +28,206 @@
     <script src="../4X/Standard/Min/Animate.js"></script>
 
     <style type="text/css">
-        a.templatesLink:focus,
-        a.templatesLink:hover {
-            text-decoration: none;
-        }
+      a.templatesLink:focus,
+      a.templatesLink:hover {
+        text-decoration: none;
+      }
 
-        textarea {
-            min-width: 90%;
-        }
+      textarea {
+        min-width: 90%;
+      }
 
-        nav>ul>li>a[aria-current="page"] {
-            border-top: 2px solid var(--navLinkBackground);
-        }
+      nav > ul > li > a[aria-current="page"] {
+        border-top: 2px solid var(--navLinkBackground);
+      }
 
+      .btn--example {
+        margin: 1em 0;
+        background: var(--whatsock-orange-main);
+        border: 2px solid #774b04;
+        border-radius: 0.5em;
+        padding: 0.5em 1em;
+        font-weight: 700;
+        font-size: 1rem;
+      }
+
+      @media (min-width: 400px) {
         .btn--example {
-            margin: 1em 0;
-            background: var(--whatsock-orange-main);
-            border: 2px solid #774b04;
-            border-radius: 0.5em;
-            padding: 0.5em 1em;
-            font-weight: 700;
-            font-size: 1rem;
+          font-size: 1.2rem;
         }
+      }
 
-        @media (min-width: 400px) {
-            .btn--example {
-            font-size: 1.2rem;
-            }
-        }
+      .btn--example:focus {
+        outline: 5px solid var(--whatsock-red);
+      }
 
-        .btn--example:focus {
-            outline: 5px solid var(--whatsock-red);
-        }
+      .render--aria-button {
+        margin-top: 1em;
+        background: var(--whatsockBeige);
+        width: 10em;
+        padding: 0.5em 1.3em;
+        text-align: center;
+        font-weight: 700;
+        border: 3px solid var(--whatsock-red);
+        border-radius: 1em;
+      }
 
-        .render--aria-button {
-            margin-top: 1em;
-            background: var(--whatsockBeige);
-            width: 10em;
-            padding: 0.5em 1.3em;
-            text-align: center;
-            font-weight: 700;
-            border: 3px solid var(--whatsock-red);
-            border-radius: 1em;
-        }
+      .render--aria-button:focus {
+        outline: 4px solid #262626;
+      }
 
-        .render--aria-button:focus {
-            outline: 4px solid #262626;
-        }
+      .pagination .flex-container-row {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        margin: auto;
+        padding: 1em;
+      }
 
-        .pagination .flex-container-row {
-            display: flex;
-            flex-flow: row wrap;
-            justify-content: center;
-            margin: auto;
-            padding: 1em;
-        }
+      .pagination .flex-container-row .flex-item {
+        flex: 1 0 auto;
+      }
 
+      .pagination .flex-container-row .flex-item:nth-child(2) {
+        text-align: right;
+      }
+
+      @font-face {
+        font-family: "paint";
+        src: url("./fonts/AcylicalHand-Thick.ttf") format("truetype");
+      }
+
+      @font-face {
+        font-family: "tag";
+        src: url("./fonts/UrbanDecay.ttf") format("truetype");
+      }
+
+      .blackboard {
+        font-size: 10pt;
+        position: fixed;
+        z-index: 1;
+        top: 20%;
+        text-align: left;
+        padding: 20px 50px;
+        background-color: black;
+        border: 1px solid #286278;
+        box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
+        background-image: url("./img/BlackStoneAnthracite.jpg");
+      }
+
+      .blackboard .paint {
+        padding: 20px 20px;
+        color: #ccff15;
+        font-family: paint;
+      }
+
+      .blackboard .tag {
+        padding: 20px 20px;
+        color: #ff3131;
+        font-family: tag;
+      }
+
+      @media (min-width: 70em) {
         .pagination .flex-container-row .flex-item {
-            flex: 1 0 auto;
+          flex: 1 0 0;
+          text-align: left;
         }
 
         .pagination .flex-container-row .flex-item:nth-child(2) {
-            text-align: right;
+          text-align: right;
         }
-
-        @font-face {
-            font-family: "paint";
-            src: url("./fonts/AcylicalHand-Thick.ttf") format("truetype");
-        }
-
-        @font-face {
-            font-family: "tag";
-            src: url("./fonts/UrbanDecay.ttf") format("truetype");
-        }
-
-        .blackboard {
-            font-size: 10pt;
-            position: fixed;
-            z-index: 1;
-            top: 20%;
-            text-align: left;
-            padding: 20px 50px;
-            background-color: black;
-            border: 1px solid #286278;
-            box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
-            background-image: url("./img/BlackStoneAnthracite.jpg");
-        }
-
-        .blackboard .paint {
-            padding: 20px 20px;
-            color: #ccff15;
-            font-family: paint;
-        }
-
-        .blackboard .tag {
-            padding: 20px 20px;
-            color: #FF3131;
-            font-family: tag;
-        }
-
-        @media (min-width: 70em) {
-            .pagination .flex-container-row .flex-item {
-                flex: 1 0 0;
-                text-align: left;
-            }
-
-            .pagination .flex-container-row .flex-item:nth-child(2) {
-                text-align: right;
-            }
-        }
+      }
     </style>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <div class="outer-wrapper">
-        <header class="header">
-            <div class="logo">
-                <a href="https://whatsock.com">
-                    <img alt="WhatSock : Changing the world one step at a time" src="../Templates/_common/_doc_files/img/whatsock.svg">
-                </a>
-            </div>
-            <nav aria-label="main" class="navigation--parent">
+      <header class="header">
+        <div class="logo">
+          <a href="https://whatsock.com">
+            <img
+              alt="WhatSock : Changing the world one step at a time"
+              src="../Templates/_common/_doc_files/img/whatsock.svg"
+            />
+          </a>
+        </div>
+        <nav aria-label="main" class="navigation--parent">
+          <ul>
+            <li><a href="../Templates/index.htm">Widget Templates</a></li>
+          </ul>
 
-                <ul>
-                    <li><a href="../Templates/index.htm">Widget Templates</a></li>
-                </ul>
+          <h2 class="parent--page">Steps</h2>
+          <ul>
+            <li><a href="Beginner-Introduction.htm">Introduction</a></li>
+            <li>
+              <a href="Beginner-Example-01.htm"
+                >1. Form Rendering (Using Core Functions)</a
+              >
+            </li>
+            <li>
+              <a href="Beginner-Example-02.htm"
+                >2. ARIA Button Rendering (Using Core Functions)</a
+              >
+            </li>
+            <li>
+              <a href="Beginner-Example-03.htm" aria-current="page"
+                >3. DC Objects (Converting Elements)</a
+              >
+            </li>
+            <li>
+              <a href="Beginner-Example-04.htm"
+                >4. Date Picker (Using Modules)</a
+              >
+            </li>
+            <li>
+              <a href="Beginner-Example-05.htm"
+                >5. Menu Module (Dynamic Loading)</a
+              >
+            </li>
+            <li><a href="Beginner-Conclusion.htm">Beginner Conclusion</a></li>
+          </ul>
+        </nav>
+      </header>
+      <div class="wrapper">
+        <main id="main" class="main">
+          <h1><strong>Example 3 &mdash; DC Objects</strong></h1>
 
-                <h2 class="parent--page">Steps</h2>
-                <ul>
-                    <li><a href="Beginner-Introduction.htm">Introduction</a></li>
-                    <li><a href="Beginner-Example-01.htm">1. Form Rendering (Using Core Functions)</a></li>
-                    <li><a href="Beginner-Example-02.htm">2. ARIA Button Rendering (Using Core Functions)</a></li>
-                    <li><a href="Beginner-Example-03.htm" aria-current="page">3. DC Objects (Converting Elements)</a></li>
-                    <li><a href="Beginner-Example-04.htm">4. Date Picker (Using Modules)</a></li>
-                    <li><a href="Beginner-Example-05.htm">5. Menu Module (Dynamic Loading)</a></li>
-                    <li><a href="Beginner-Conclusion.htm">Beginner Conclusion</a></li>
-                </ul>
-            </nav>
-        </header>
-        <div class="wrapper">
-            <main id="main" class="main">
-                <h1><strong>Example 3 &mdash; DC Objects</strong></h1>
-
-                <div class="section--instructions">
-
-                    <section class="preamble">
-                        <p>This example uses a core 4X method to convert an element into a DC (Dynamic Component) object.</p>
-                        <p>This will give the element access to all of the properties and methods documented in the folder "Help/DC API/DC Object Properties and Methods", which can be used to add advanced functionality.</p>
-                        <p>DC objects can be used for any purpose; be remapped to provide parent/child/sibling relationships that are separate from the DOM order hierarchy, and remain persistent even when they don't exist in the DOM.</p>
-                    </section>
-                    <section>
-                        <h2>Example 3 &mdash; Coding Sandbox</h2>
-                        <p>
-                            Convert a standard element into a DC object and add dynamic functionality.
-                        </p>
-                        <textarea title="Example 3 markup" id="example3.1">
+          <div class="section--instructions">
+            <section class="preamble">
+              <p>
+                This example uses a core 4X method to convert an element into a
+                DC (Dynamic Component) object.
+              </p>
+              <p>
+                This will give the element access to all of the properties and
+                methods documented in the folder "Help/DC API/DC Object
+                Properties and Methods", which can be used to add advanced
+                functionality.
+              </p>
+              <p>
+                DC objects can be used for any purpose; be remapped to provide
+                parent/child/sibling relationships that are separate from the
+                DOM order hierarchy, and remain persistent even when they don't
+                exist in the DOM.
+              </p>
+            </section>
+            <section>
+              <h2>Example 3 &mdash; Coding Sandbox</h2>
+              <p>
+                Convert a standard element into a DC object and add dynamic
+                functionality.
+              </p>
+              <textarea title="Example 3 markup" id="example3.1">
                                                                     <div hidden class="blackboard">
                                                                       <div class="paint">SHE WALKS IN BEAUTY</div>
                                                                       <div class="paint">LIKE THE NIGHT</div>
                                                                       <div class="tag">BYRON</div>
                                                                     </div>
-                                  </textarea>
+                                  </textarea
+              >
 
-                        <div>
-
-                            <textarea title="Example 3 JS" id="example3.2">
+              <div>
+                <textarea title="Example 3 JS" id="example3.2">
                                                                     // Convert the div with class "blackboard" into a DC object, add configuration options, render the hidden element, then fire an alert to announce the new message to screen reader users.
 
                                                                     // Help/$A API/DC Objects/ToDC
@@ -231,106 +276,138 @@
                                                                     // Fire an alert for screen reader users to announce the content of the DC object.
                                                                     // Help/DC API/DC Object Properties and Methods/ARIA Methods/Alert
                                                                     .alert();
-                                                    </textarea>
-                        </div>
+                                                    </textarea
+                >
+              </div>
 
-                        <div>
-                            <button class="btn--example">Render Example 3</button>
-                            <div id="example3"></div>
-                            <script>
-                                (function() {
-                                    var markup = $A.get("example3.1"),
-                                        js = $A.get("example3.2"),
-                                        div = $A.get("example3");
-                                    $A.on("button.btn--example", "click", function(ev) {
-                                        try {
-                                            div.innerHTML = markup.value;
-                                            var f = new Function("window,document,$A", js.value);
-                                            f.call(window, window, document, $A);
-                                            $A.beep();
-                                        } catch (e) {
-                                            throw e;
-                                        }
-                                    });
-                                })();
-                            </script>
-                        </div>
+              <div>
+                <button class="btn--example">Render Example 3</button>
+                <div id="example3"></div>
+                <script>
+                  (function () {
+                    var markup = $A.get("example3.1"),
+                      js = $A.get("example3.2"),
+                      div = $A.get("example3");
+                    $A.on("button.btn--example", "click", function (ev) {
+                      try {
+                        div.innerHTML = markup.value;
+                        var f = new Function("window,document,$A", js.value);
+                        f.call(window, window, document, $A);
+                        $A.beep();
+                      } catch (e) {
+                        throw e;
+                      }
+                    });
+                  })();
+                </script>
+              </div>
+            </section>
 
-                    </section>
-
-                    <nav aria-label="pagination" class="pagination">
-                        <div class="flex-container-row">
-                            <div class="flex-item"><a href="Beginner-Example-02.htm">&lt;&lt; Previous example</a></div>
-                            <div class="flex-item"><a href="Beginner-Example-04.htm">Next example &gt;&gt;</a></div>
-                        </div>
-                    </nav>
-
-
+            <nav aria-label="pagination" class="pagination">
+              <div class="flex-container-row">
+                <div class="flex-item">
+                  <a href="Beginner-Example-02.htm"
+                    >&lt;&lt; Previous example</a
+                  >
                 </div>
-
-        </div>
+                <div class="flex-item">
+                  <a href="Beginner-Example-04.htm">Next example &gt;&gt;</a>
+                </div>
+              </div>
+            </nav>
+          </div>
         </main>
-    </div>
-    <footer class="footer">
+      </div>
+      <footer class="footer">
         <div class="flex-container-row">
-            <div class="flex-item">
-                <h2>License</h2>
-                <p>
-                    Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
-                </p>
-            </div>
-            <div class="flex-item">
-                <h2>Resources</h2>
-                <ul>
-                    <li>
-                        <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
-                    </li>
-                    <li>
-                        <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
-                    </li>
-                    <li>
-                        <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
-                    </li>
-                    <li>
-                        <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
-                    </li>
-                    <li>
-                        <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
-                    </li>
-                    <li>
-                        <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
-                    </li>
-                    <li>
-                        <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="flex-item">
-                <h2>Acknowledgements</h2>
-                <ul class="list--horizontal">
-                    <li>
-                        Author and developer:
-                        <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
-                    </li>
-                    <li>
-                        Website designer:
-                        <a target="ext" href="https://gericci.me/">Angela Ricci</a>
-                    </li>
-                    <li>
-                        Style and markup editor:
-                        <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
-                    </li>
-                </ul>
-            </div>
+          <div class="flex-item">
+            <h2>License</h2>
+            <p>
+              Apex 4X including all template design patterns is distributed
+              under the terms of the Open Source Initiative OSI - MIT License,
+              and may be freely used for any purpose within any web technology.
+            </p>
+          </div>
+          <div class="flex-item">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+                <a target="ext" href="https://github.com/WhatSock/apex"
+                  >Apex 4X on GitHub</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm"
+                  >Visual ARIA Bookmarklet</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk"
+                  >Visual ARIA Chrome Extension</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/"
+                  >Visual ARIA Firefox Extension</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://github.com/AccDC/visual-aria"
+                  >Visual ARIA on GitHub</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/matrices/"
+                  >ARIA Role Conformance Matrices</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/"
+                  >Accessibility Tree Training Guide</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-item">
+            <h2>Acknowledgements</h2>
+            <ul class="list--horizontal">
+              <li>
+                Author and developer:
+                <a target="ext" href="https://www.linkedin.com/in/bgaraventa"
+                  >Bryan Garaventa</a
+                >
+              </li>
+              <li>
+                Website designer:
+                <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+              </li>
+              <li>
+                Style and markup editor:
+                <a
+                  target="ext"
+                  href="https://www.linkedin.com/in/laurence-lewis-77520365/"
+                  >Laurence Lewis</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
-    </footer>
+      </footer>
     </div>
-</body>
+  </body>
 
-<script async src="https://api.whatsock.com/accdc-updates.js?4x=template"></script>
-<script src="../Templates/_common/_doc_files/autosize.js"></script>
-<script>
+  <script
+    async
+    src="https://api.whatsock.com/accdc-updates.js?4x=template"
+  ></script>
+  <script src="../Templates/_common/_doc_files/autosize.js"></script>
+  <script>
     autosize($A.query("textarea"));
-</script>
-
+  </script>
 </html>

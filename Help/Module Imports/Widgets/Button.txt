@@ -1,19 +1,19 @@
 
-ARIA Switches
+ARIA Toggle Buttons
 
-Expected behaviors: The switch should be focusable using the keyboard, and toggle its switchable state when pressing the Spacebar or Enter key.
+Expected behaviors: The toggle button should be focusable using the keyboard, and toggle its pressed state when pressing the Spacebar or Enter key.
 
-The 4X ARIA Switch module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.
+The 4X ARIA Button module automatically configures all required ARIA attributes and focus handling, in strict accordance with the ARIA specification.
 
-The following attributes are handled automatically by the Switch module:
+The following attributes are handled automatically by the Button module:
 
-• role=switch
-• aria-checked
+• role=button
+• aria-pressed
 • tabindex
 
-Available attributes for switch elements:
+Available attributes for toggle button elements:
 
-• data-switch : May be set to "false" or "true" to set the current state of a switchable control when rendered.
+• data-toggle : May be set to "false" or "true" to set the current state of a toggle button control when rendered.
 • aria-disabled : When set to "true" on the triggering element, will automatically disable associated functionality.
 
 Note: When dynamically disabling a triggering element, the 4X setDisabled() function should be used to set the disabled state of the triggering element. This will ensure proper background mapping.
@@ -22,17 +22,23 @@ $A.setDisabled(triggeringElement, boolean);
 
 HTML syntax:
 
-[Standard Off]
+[Standard Button]
 
-<div data-switch >
-  Markup with switch name
+<div class="aria-button" >
+  Markup with button name
+</div>
+
+[Standard Toggle Unpressed]
+
+<div data-toggle >
+  Markup with toggle name
   <input hidden type="checkbox" name="OptionalBoundCheckbox" />
 </div>
 
-[Standard On]
+[Standard Toggle Pressed]
 
-<div data-switch="true" >
-  Markup with switch name
+<div data-toggle="true" >
+  Markup with toggle name
   <input checked hidden type="checkbox" name="OptionalBoundCheckbox" />
 </div>
 
@@ -42,9 +48,11 @@ Whenever a hidden checkbox is embedded within the simulated control, it will aut
 
 JavaScript syntax:
 
-$A.setSwitch( DOM-Node-or-CSS-Selector-forTriggering-Element , {
+$A.setButton( DOM-Node-or-CSS-Selector-forTriggering-Element , {
 // Configure functionality key / value mappings
 });
+
+Module file: Button.js - Requires AccName.js, RovingTabIndex.js.
 
 Parameters
 
@@ -56,30 +64,30 @@ Configuration
 
 {
 
-// Set an explicit name for the switch.
-// If undefined, the accessible name will default to the text content within the switch element.
-label: "My informative switch label",
+// Set an explicit name for the button.
+// If undefined, the accessible name will default to the text content within the button element.
+label: "My informative button label",
 
-// Specify if the switch is required.
+// Specify if the toggle button is required.
 // If a native checkbox element is specified, this property will automatically be set to match the checkbox element's 'required' property.
 required: false,
 
-// Specify if the switch is disabled.
+// Specify if the toggle button is disabled.
 // If a native checkbox element is specified, this property will automatically be set to match the checkbox element's 'disabled' property.
 disabled: false,
 
-// Set the class to be applied when a switch is toggled.
-// If undefined, "checked" will be set by default.
-toggleClassName: "checked",
+// Set the class to be applied when a toggle is pressed.
+// If undefined, "pressed" will be set by default.
+toggleClassName: "pressed",
 
-// Set a custom event handler to process every time a switch is activated.
-onActivate: function(ev, triggerNode, boundCheckbox, on, set) {
-// 'on' reflects the current attribute value for the checkable item, and is always a number if applicable.
-// if 0, the toggle state is "false".
-// if 1, the toggle state is "true".
-// The 'set' argument is a function that will set the checkable item to a new state.
+// Set a custom event handler to process every time a toggle button is activated.
+onActivate: function(ev, triggerNode, boundTo, pressed, set) {
+// 'pressed' reflects the current attribute value for the toggleable item, and is always a number if applicable.
+// if 0, the pressed state is "false".
+// if 1, the pressed state is "true".
+// The 'set' argument is a function that will set the toggleable item to a new state.
 // The new value must be a string consisting of "false" or "true".
-if (on) {
+if (pressed) {
 set("false");
 } else {
 set("true");

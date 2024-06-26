@@ -1,154 +1,289 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>ARIA Date Picker (Basic, Auto Open) - Apex 4X Technical Style Guide</title>
-    <meta name="description" content="Scalable ARIA Components">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
-    <link rel="stylesheet" type="text/css" href="css/datepicker.css">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>
+      ARIA Date Picker (Basic, Auto Open) - Apex 4X Technical Style Guide
+    </title>
+    <meta name="description" content="Scalable ARIA Components" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../_common/css/components-style.css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/datepicker.css" />
     <script src="/4X/4X.js"></script>
     <script src="js/setup.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="bypass">
-        <ul class="list-unstyled">
-            <li>
-                <a class="skip--link" href="javascript:void(0);" onclick="document.getElementById('main').focus();">
-                    Skip to Main Content
-                </a>
-            </li>
-        </ul>
+      <ul class="list-unstyled">
+        <li>
+          <a
+            class="skip--link"
+            href="javascript:void(0);"
+            onclick="document.getElementById('main').focus();"
+          >
+            Skip to Main Content
+          </a>
+        </li>
+      </ul>
     </div>
     <div class="outer-wrapper">
-        <header class="header flex-container">
-            <div class="logo flex-item">
-                <a href="https://whatsock.com">
-                    <img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg"></a>
-            </div>
-            <div class="site-name flex-item">
-                <strong>Apex 4X</strong> Technical Style Guide
-            </div>
-        </header>
-        <div class="wrapper">
-            <div class="left-aside">
-                <nav>
-                    <p><a href="/Tutorials/Beginner-Introduction.htm">Beginner Tutorial</a></p>
-                    <h2>Template Examples</h2>
-                    <ul>
-                        <li><a href="../../index.htm">Back to Components</a></li>
-                        <li><a href="../index.htm">Back to Parent Widget</a></li>
-                        <li><a href="../Basic/index.htm">Basic</a></li>
-                        <li><a href="../Basic - Straylight/index.htm">Basic - Straylight</a></li>
-                        <li><a href="../Basic Short/index.htm">Basic Short</a></li>
-                        <li><a href="../Basic, Auto Open/index.htm" aria-current="page">Basic, Auto Open</a></li>
-                        <li><a href="../Basic, ReadOnly Auto Open plus Disabled Ranges/index.htm">Basic, ReadOnly Auto Open plus Disabled Ranges</a></li>
-                        <li><a href="../With Absolute Disabled Date Ranges/index.htm">With Absolute Disabled Date Ranges</a></li>
-                        <li><a href="../With Complex Custom Disabled Date Ranges/index.htm">With Complex Custom Disabled Date Ranges</a></li>
-                        <li><a href="../With Custom Date Formats/index.htm">With Custom Date Formats</a></li>
-                        <li><a href="../With Disabled Weekends/index.htm">With Disabled Weekends</a></li>
-                        <li><a href="../With Editable Tooltip Comments/index.htm">With Editable Tooltip Comments</a></li>
-                        <li><a href="../With Full Calendar Display, Condense Year and Natural PageUpDown/index.htm">With Full Calendar Display, Condense Year and Natural PageUpDown</a></li>
-                        <li><a href="../With Relative Disabled Date Ranges/index.htm">With Relative Disabled Date Ranges</a></li>
-                        <li><a href="../With Tooltip Comments/index.htm">With Tooltip Comments</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <main id="main" class="main" tabindex="-1">
-                <div class="demo-block flex-container">
-                    <div class="component flex-item">
-                        <h1 class="pageTitle">ARIA Date Picker <small> (Basic, Auto Open)</small></h1>
-                        <div class="dateField">
-                            <div class="dateField--flex-item">
-                                <label for="date">Set Date:</label>
-                                <input placeholder="MM/DD/YYYY" id="date" type="text" name="date">
-                                <kbd id="keyboardHint" hidden class="down"></kbd>
-                                <button id="dateIcon" class="accCalendar aria-date-picker">
-                                    <img src="img/calendar-button.svg" alt="Calendar" title="Calendar">
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="keyboard flex-item">
-                        <h2>The calendar is keyboard accessible:</h2>
-                        <ul>
-                            <li>Set focus to the input field to automatically open the calendar, focus will remain on the input field.</li>
-                            <li>When the input has focus, press the <kbd class="down">Down</kbd> arrow to set focus on the current date within the calendar.</li>
-                            <li>Press the <kbd class="left">Left</kbd> and <kbd class="right">Right</kbd> arrow keys to navigate the row by week day.</li>
-                            <li>Press the <kbd class="home">Home</kbd> and <kbd class="end">End</kbd> keys to jump to the beginning or end of the current row.</li>
-                            <li>Press the <kbd class="up">Up</kbd> and <kbd class="down">Down</kbd> arrow keys to navigate between weeks on the same week day.</li>
-                            <li>Press the <kbd>PageDown</kbd> and <kbd>PageUp</kbd> keys to navigate backwards or forwards by month.</li>
-                            <li>Press <kbd>Alt</kbd>+<kbd>PageDown</kbd> and <kbd>Alt</kbd>+<kbd>PageUp</kbd> to navigate backwards or forwards by year.</li>
-                            <li>Press the <kbd>Enter</kbd> key to activate the selected date.</li>
-                            <li>Press <kbd>Escape</kbd> to close the calendar without making a selection.</li>
-                            <li>Mouse users can click the desired date buttons as usual.</li>
-                        </ul>
-                    </div>
-                </div>
-            </main>
+      <header class="header flex-container">
+        <div class="logo flex-item">
+          <a href="https://whatsock.com">
+            <img
+              alt="WhatSock : Changing the world one step at a time"
+              src="../../_common/img/whatsock.svg"
+          /></a>
         </div>
-        <footer class="footer">
-            <div class="flex-container-row">
-                <div class="flex-item">
-                    <h2>License</h2>
-                    <p>
-                        Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
-                    </p>
+        <div class="site-name flex-item">
+          <strong>Apex 4X</strong> Technical Style Guide
+        </div>
+      </header>
+      <div class="wrapper">
+        <div class="left-aside">
+          <nav>
+            <p>
+              <a href="/Tutorials/Beginner-Introduction.htm"
+                >Beginner Tutorial</a
+              >
+            </p>
+            <h2>Template Examples</h2>
+            <ul>
+              <li><a href="../../index.htm">Back to Components</a></li>
+              <li><a href="../index.htm">Back to Parent Widget</a></li>
+              <li><a href="../Basic/index.htm">Basic</a></li>
+              <li>
+                <a href="../Basic - Straylight/index.htm">Basic - Straylight</a>
+              </li>
+              <li><a href="../Basic Short/index.htm">Basic Short</a></li>
+              <li>
+                <a href="../Basic, Auto Open/index.htm" aria-current="page"
+                  >Basic, Auto Open</a
+                >
+              </li>
+              <li>
+                <a
+                  href="../Basic, ReadOnly Auto Open plus Disabled Ranges/index.htm"
+                  >Basic, ReadOnly Auto Open plus Disabled Ranges</a
+                >
+              </li>
+              <li>
+                <a href="../With Absolute Disabled Date Ranges/index.htm"
+                  >With Absolute Disabled Date Ranges</a
+                >
+              </li>
+              <li>
+                <a href="../With Complex Custom Disabled Date Ranges/index.htm"
+                  >With Complex Custom Disabled Date Ranges</a
+                >
+              </li>
+              <li>
+                <a href="../With Custom Date Formats/index.htm"
+                  >With Custom Date Formats</a
+                >
+              </li>
+              <li>
+                <a href="../With Disabled Weekends/index.htm"
+                  >With Disabled Weekends</a
+                >
+              </li>
+              <li>
+                <a href="../With Editable Tooltip Comments/index.htm"
+                  >With Editable Tooltip Comments</a
+                >
+              </li>
+              <li>
+                <a
+                  href="../With Full Calendar Display, Condense Year and Natural PageUpDown/index.htm"
+                  >With Full Calendar Display, Condense Year and Natural
+                  PageUpDown</a
+                >
+              </li>
+              <li>
+                <a href="../With Relative Disabled Date Ranges/index.htm"
+                  >With Relative Disabled Date Ranges</a
+                >
+              </li>
+              <li>
+                <a href="../With Tooltip Comments/index.htm"
+                  >With Tooltip Comments</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <main id="main" class="main" tabindex="-1">
+          <div class="demo-block flex-container">
+            <div class="component flex-item">
+              <h1 class="pageTitle">
+                ARIA Date Picker <small> (Basic, Auto Open)</small>
+              </h1>
+              <div class="dateField">
+                <div class="dateField--flex-item">
+                  <label for="date">Set Date:</label>
+                  <input
+                    placeholder="MM/DD/YYYY"
+                    id="date"
+                    type="text"
+                    name="date"
+                  />
+                  <kbd id="keyboardHint" hidden class="down"></kbd>
+                  <button id="dateIcon" class="accCalendar aria-date-picker">
+                    <img
+                      src="img/calendar-button.svg"
+                      alt="Calendar"
+                      title="Calendar"
+                    />
+                  </button>
                 </div>
-                <div class="flex-item">
-                    <h2>Resources</h2>
-                    <ul>
-                        <li>
-                            <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex-item">
-                    <h2>Acknowledgements</h2>
-                    <ul class="list--horizontal">
-                        <li>
-                            Author and developer:
-                            <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
-                        </li>
-                        <li>
-                            Website designer:
-                            <a target="ext" href="https://gericci.me/">Angela Ricci</a>
-                        </li>
-                        <li>
-                            Style and markup editor:
-                            <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
-                        </li>
-                        <li>
-                            Code contributor:
-                            <a target="ext" href="https://dannya.com">Danny Allen</a>
-                        </li>
-                    </ul>
-                </div>
+              </div>
             </div>
-        </footer>
+            <div class="keyboard flex-item">
+              <h2>The calendar is keyboard accessible:</h2>
+              <ul>
+                <li>
+                  Set focus to the input field to automatically open the
+                  calendar, focus will remain on the input field.
+                </li>
+                <li>
+                  When the input has focus, press the
+                  <kbd class="down">Down</kbd> arrow to set focus on the current
+                  date within the calendar.
+                </li>
+                <li>
+                  Press the <kbd class="left">Left</kbd> and
+                  <kbd class="right">Right</kbd> arrow keys to navigate the row
+                  by week day.
+                </li>
+                <li>
+                  Press the <kbd class="home">Home</kbd> and
+                  <kbd class="end">End</kbd> keys to jump to the beginning or
+                  end of the current row.
+                </li>
+                <li>
+                  Press the <kbd class="up">Up</kbd> and
+                  <kbd class="down">Down</kbd> arrow keys to navigate between
+                  weeks on the same week day.
+                </li>
+                <li>
+                  Press the <kbd>PageDown</kbd> and <kbd>PageUp</kbd> keys to
+                  navigate backwards or forwards by month.
+                </li>
+                <li>
+                  Press <kbd>Alt</kbd>+<kbd>PageDown</kbd> and
+                  <kbd>Alt</kbd>+<kbd>PageUp</kbd> to navigate backwards or
+                  forwards by year.
+                </li>
+                <li>
+                  Press the <kbd>Enter</kbd> key to activate the selected date.
+                </li>
+                <li>
+                  Press <kbd>Escape</kbd> to close the calendar without making a
+                  selection.
+                </li>
+                <li>
+                  Mouse users can click the desired date buttons as usual.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </main>
+      </div>
+      <footer class="footer">
+        <div class="flex-container-row">
+          <div class="flex-item">
+            <h2>License</h2>
+            <p>
+              Apex 4X including all template design patterns is distributed
+              under the terms of the Open Source Initiative OSI - MIT License,
+              and may be freely used for any purpose within any web technology.
+            </p>
+          </div>
+          <div class="flex-item">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+                <a target="ext" href="https://github.com/WhatSock/apex"
+                  >Apex 4X on GitHub</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm"
+                  >Visual ARIA Bookmarklet</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk"
+                  >Visual ARIA Chrome Extension</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/"
+                  >Visual ARIA Firefox Extension</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://github.com/AccDC/visual-aria"
+                  >Visual ARIA on GitHub</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/matrices/"
+                  >ARIA Role Conformance Matrices</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/"
+                  >Accessibility Tree Training Guide</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-item">
+            <h2>Acknowledgements</h2>
+            <ul class="list--horizontal">
+              <li>
+                Author and developer:
+                <a target="ext" href="https://www.linkedin.com/in/bgaraventa"
+                  >Bryan Garaventa</a
+                >
+              </li>
+              <li>
+                Website designer:
+                <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+              </li>
+              <li>
+                Style and markup editor:
+                <a
+                  target="ext"
+                  href="https://www.linkedin.com/in/laurence-lewis-77520365/"
+                  >Laurence Lewis</a
+                >
+              </li>
+              <li>
+                Code contributor:
+                <a target="ext" href="https://dannya.com">Danny Allen</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
-</body>
+  </body>
 
-<script async src="https://api.whatsock.com/accdc-updates.js?4x=template"></script>
-
+  <script
+    async
+    src="https://api.whatsock.com/accdc-updates.js?4x=template"
+  ></script>
 </html>

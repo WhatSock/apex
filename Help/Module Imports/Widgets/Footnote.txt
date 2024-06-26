@@ -30,6 +30,8 @@ $A.setFootnotes( DOM-NodeList-or-CSS-Selector-forFootnote-Links , {
 // Configuration key / value map
 });
 
+Module file: Footnote.js - Requires Velocity.js, VelocityUI.js, Animate.js, SmoothScroll.js.
+
 Parameters
 
 1: A DOM element list or CSS selector to specify the footnote triggering elements.

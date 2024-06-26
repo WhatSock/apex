@@ -1167,8 +1167,8 @@ var tns = function (options) {
     result = navAsThumbnails
       ? absIndex
       : fixedWidth || autoWidth
-      ? Math.ceil(((absIndex + 1) * pages) / slideCount - 1)
-      : Math.floor(absIndex / items); // set active nav to the last one when reaches the right edge
+        ? Math.ceil(((absIndex + 1) * pages) / slideCount - 1)
+        : Math.floor(absIndex / items); // set active nav to the last one when reaches the right edge
 
     if (!loop && carousel && index === indexMax) {
       result = pages - 1;
@@ -2951,16 +2951,16 @@ var tns = function (options) {
         (getPages() === slideCount
           ? 0
           : arr[0] === slideCount + cloneCount
-          ? slideCount + cloneCount
-          : cloneCount),
+            ? slideCount + cloneCount
+            : cloneCount),
       end =
         arr[1] +
         1 -
         (getPages() === slideCount
           ? 0
           : arr[1] === slideCount + cloneCount
-          ? slideCount + cloneCount
-          : cloneCount);
+            ? slideCount + cloneCount
+            : cloneCount);
     if (start === end && end > slideCount) return "1";
     if (start < 1 || end > slideCount) return "";
     return start === end ? start + "" : start + " to " + end;
@@ -3370,8 +3370,8 @@ var tns = function (options) {
           (slidePositions[num + 1] - slidePositions[num] - gutter)) /
           2
       : fixedWidth
-      ? (viewport - fixedWidth) / 2
-      : (items - 1) / 2;
+        ? (viewport - fixedWidth) / 2
+        : (items - 1) / 2;
   }
 
   function getRightBoundary() {

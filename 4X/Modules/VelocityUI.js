@@ -172,8 +172,8 @@
           totalDuration >= 1
             ? 0
             : properties.calls.length
-            ? (1 - totalDuration) / properties.calls.length
-            : 1;
+              ? (1 - totalDuration) / properties.calls.length
+              : 1;
 
         /* Iterate through each effect's call array. */
         for (callIndex = 0; callIndex < properties.calls.length; callIndex++) {

@@ -1,153 +1,250 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Straylight Tooltip (Internal Content) - 4X Technical Style Guide</title>
-    <meta name="description" content="Scalable ARIA Components">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../../_common/css/components-style.css">
-    <link rel="stylesheet" type="text/css" href="css/customize.css">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>
+      Straylight Tooltip (Internal Content) - 4X Technical Style Guide
+    </title>
+    <meta name="description" content="Scalable ARIA Components" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../_common/css/components-style.css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/customize.css" />
     <script src="/4X/4X.js#Straylight"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="bypass">
-        <ul class="list-unstyled">
-            <li>
-                <a class="skip--link" href="javascript:void(0);" onclick="document.getElementById('main').focus();">
-                    Skip to Main Content
-                </a>
-            </li>
-        </ul>
+      <ul class="list-unstyled">
+        <li>
+          <a
+            class="skip--link"
+            href="javascript:void(0);"
+            onclick="document.getElementById('main').focus();"
+          >
+            Skip to Main Content
+          </a>
+        </li>
+      </ul>
     </div>
     <div class="outer-wrapper">
-        <header class="header flex-container">
-            <div class="logo flex-item">
-                <a href="https://whatsock.com">
-                    <img alt="WhatSock : Changing the world one step at a time" src="../../_common/img/whatsock.svg"></a>
-            </div>
-            <div class="site-name flex-item">
-                <strong>Apex 4X</strong> Technical Style Guide
-            </div>
-        </header>
-        <div class="wrapper">
-            <div class="left-aside">
-                <nav>
-                    <p><a href="/Tutorials/Beginner-Introduction.htm">Beginner Tutorial</a></p>
-                    <h2>Template Examples</h2>
-                    <ul>
-                        <li><a href="../../index.htm">Back to Components</a></li>
-                        <li><a href="../index.htm">Back to Parent Widget</a></li>
-                        <li><a href="../Error (External)/index.htm">Error (External)</a></li>
-                        <li><a href="../Error (Inline)/index.htm">Error (Inline)</a></li>
-                        <li><a href="../External/index.htm">External</a></li>
-                        <li><a href="../External - Straylight/index.htm">External - Straylight</a></li>
-                        <li><a href="../Help (Responsive)/index.htm">Help (Responsive)</a></li>
-                        <li><a href="../Internal/index.htm">Internal</a></li>
-                        <li><a href="../Internal - Straylight/index.htm" aria-current="page">Internal - Straylight</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <main id="main" class="main" tabindex="-1">
-                <div class="demo-block flex-container">
-                    <div class="component flex-item">
-                        <h1 class="pageTitle">Straylight Tooltip <small>Internal Content</small></h1>
-                        <section>
-                            <h2>Tooltip with manual click to render</h2>
-                            <!-- Here the tooltip attribute is used to set the tooltip content. -->
-                            <p><a data-mode="click" data-tooltip='<p>"It is a mistake to think you can solve any major problems just with potatoes.", Douglas Adams</p>' role="button" id="helpIcon" href="#" class="helpIcon aria-tooltip"><img src="img/ic_help.svg" alt="What is the greatest secret known to man?" title="What is the greatest secret known to man?" /></a></p>
-                        </section>
-                        <section>
-                            <h2>Tooltip with explicit onFocus to render</h2>
-                            <!-- Here the tooltip attribute is used to reference the id of the hidden tooltip container element. -->
-                            <p><label for="pWord">Password:</label>
-                                <input data-mode="focus" data-delay="1000" data-tooltip="#password-tooltip" id="pWord" type="password" class="aria-tooltip" />
-                            </p>
-                            <div hidden id="password-tooltip">
-                                <p>
-                                    Important:
-                                </p>
-                                <ul>
-                                    <li> Must be 8 characters in length.</li>
-                                    <li> Must not contain special characters.</li>
-                                    <li> Must not contain any whitespace characters.</li>
-                                </ul>
-                            </div>
-                        </section>
-                        <section>
-                            <h2>Tooltip with hover support to render</h2>
-                            <p><button data-delay="600" data-timeout="3000" data-tooltip='<div id="hover-tooltip"><p>Wow, look at that!</p></div>' class="action-btn aria-tooltip" onclick="alert('Do something else.')">Action</button></p>
-                        </section>
-                    </div>
-                    <div class="keyboard flex-item">
-                        <h2>The tooltip is optimized for screen reader and keyboard only users:</h2>
-                        <ul>
-                            <li>Set focus on one of the Focus fields,
-                                then press <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> to navigate between them.</li>
-                            <li>Tabbing away from an active element with a tooltip, or pressing <kbd>Escape</kbd>, will close the tooltip.</li>
-                        </ul>
-                    </div>
-                </div>
-
-            </main>
+      <header class="header flex-container">
+        <div class="logo flex-item">
+          <a href="https://whatsock.com">
+            <img
+              alt="WhatSock : Changing the world one step at a time"
+              src="../../_common/img/whatsock.svg"
+          /></a>
         </div>
-        <footer class="footer">
-            <div class="flex-container-row">
-                <div class="flex-item">
-                    <h2>License</h2>
-                    <p>
-                        Apex 4X including all template design patterns is distributed under the terms of the Open Source Initiative OSI - MIT License, and may be freely used for any purpose within any web technology.
-                    </p>
+        <div class="site-name flex-item">
+          <strong>Apex 4X</strong> Technical Style Guide
+        </div>
+      </header>
+      <div class="wrapper">
+        <div class="left-aside">
+          <nav>
+            <p>
+              <a href="/Tutorials/Beginner-Introduction.htm"
+                >Beginner Tutorial</a
+              >
+            </p>
+            <h2>Template Examples</h2>
+            <ul>
+              <li><a href="../../index.htm">Back to Components</a></li>
+              <li><a href="../index.htm">Back to Parent Widget</a></li>
+              <li>
+                <a href="../Error (External)/index.htm">Error (External)</a>
+              </li>
+              <li><a href="../Error (Inline)/index.htm">Error (Inline)</a></li>
+              <li><a href="../External/index.htm">External</a></li>
+              <li>
+                <a href="../External - Straylight/index.htm"
+                  >External - Straylight</a
+                >
+              </li>
+              <li>
+                <a href="../Help (Responsive)/index.htm">Help (Responsive)</a>
+              </li>
+              <li><a href="../Internal/index.htm">Internal</a></li>
+              <li>
+                <a href="../Internal - Straylight/index.htm" aria-current="page"
+                  >Internal - Straylight</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <main id="main" class="main" tabindex="-1">
+          <div class="demo-block flex-container">
+            <div class="component flex-item">
+              <h1 class="pageTitle">
+                Straylight Tooltip <small>Internal Content</small>
+              </h1>
+              <section>
+                <h2>Tooltip with manual click to render</h2>
+                <!-- Here the tooltip attribute is used to set the tooltip content. -->
+                <p>
+                  <a
+                    data-mode="click"
+                    data-tooltip='<p>"It is a mistake to think you can solve any major problems just with potatoes.", Douglas Adams</p>'
+                    role="button"
+                    id="helpIcon"
+                    href="#"
+                    class="helpIcon aria-tooltip"
+                    ><img
+                      src="img/ic_help.svg"
+                      alt="What is the greatest secret known to man?"
+                      title="What is the greatest secret known to man?"
+                  /></a>
+                </p>
+              </section>
+              <section>
+                <h2>Tooltip with explicit onFocus to render</h2>
+                <!-- Here the tooltip attribute is used to reference the id of the hidden tooltip container element. -->
+                <p>
+                  <label for="pWord">Password:</label>
+                  <input
+                    data-mode="focus"
+                    data-delay="1000"
+                    data-tooltip="#password-tooltip"
+                    id="pWord"
+                    type="password"
+                    class="aria-tooltip"
+                  />
+                </p>
+                <div hidden id="password-tooltip">
+                  <p>Important:</p>
+                  <ul>
+                    <li>Must be 8 characters in length.</li>
+                    <li>Must not contain special characters.</li>
+                    <li>Must not contain any whitespace characters.</li>
+                  </ul>
                 </div>
-                <div class="flex-item">
-                    <h2>Resources</h2>
-                    <ul>
-                        <li>
-                            <a target="ext" href="https://github.com/WhatSock/apex">Apex 4X on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm">Visual ARIA Bookmarklet</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk">Visual ARIA Chrome Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/">Visual ARIA Firefox Extension</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://github.com/AccDC/visual-aria">Visual ARIA on GitHub</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/matrices/">ARIA Role Conformance Matrices</a>
-                        </li>
-                        <li>
-                            <a target="ext" href="https://whatsock.com/training/">Accessibility Tree Training Guide</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex-item">
-                    <h2>Acknowledgements</h2>
-                    <ul class="list--horizontal">
-                        <li>
-                            Author and developer:
-                            <a target="ext" href="https://www.linkedin.com/in/bgaraventa">Bryan Garaventa</a>
-                        </li>
-                        <li>
-                            Website designer:
-                            <a target="ext" href="https://gericci.me/">Angela Ricci</a>
-                        </li>
-                        <li>
-                            Style and markup editor:
-                            <a target="ext" href="https://www.linkedin.com/in/laurence-lewis-77520365/">Laurence Lewis</a>
-                        </li>
-                    </ul>
-                </div>
+              </section>
+              <section>
+                <h2>Tooltip with hover support to render</h2>
+                <p>
+                  <button
+                    data-delay="600"
+                    data-timeout="3000"
+                    data-tooltip='<div id="hover-tooltip"><p>Wow, look at that!</p></div>'
+                    class="action-btn aria-tooltip"
+                    onclick="alert('Do something else.')"
+                  >
+                    Action
+                  </button>
+                </p>
+              </section>
             </div>
-        </footer>
+            <div class="keyboard flex-item">
+              <h2>
+                The tooltip is optimized for screen reader and keyboard only
+                users:
+              </h2>
+              <ul>
+                <li>
+                  Set focus on one of the Focus fields, then press
+                  <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> to navigate
+                  between them.
+                </li>
+                <li>
+                  Tabbing away from an active element with a tooltip, or
+                  pressing <kbd>Escape</kbd>, will close the tooltip.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </main>
+      </div>
+      <footer class="footer">
+        <div class="flex-container-row">
+          <div class="flex-item">
+            <h2>License</h2>
+            <p>
+              Apex 4X including all template design patterns is distributed
+              under the terms of the Open Source Initiative OSI - MIT License,
+              and may be freely used for any purpose within any web technology.
+            </p>
+          </div>
+          <div class="flex-item">
+            <h2>Resources</h2>
+            <ul>
+              <li>
+                <a target="ext" href="https://github.com/WhatSock/apex"
+                  >Apex 4X on GitHub</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://whatsock.github.io/visual-aria/github-bookmarklet/visual-aria.htm"
+                  >Visual ARIA Bookmarklet</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://chrome.google.com/webstore/detail/visual-aria/lhbmajchkkmakajkjenkchhnhbadmhmk"
+                  >Visual ARIA Chrome Extension</a
+                >
+              </li>
+              <li>
+                <a
+                  target="ext"
+                  href="https://addons.mozilla.org/en-US/firefox/addon/visual-aria/"
+                  >Visual ARIA Firefox Extension</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://github.com/AccDC/visual-aria"
+                  >Visual ARIA on GitHub</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/matrices/"
+                  >ARIA Role Conformance Matrices</a
+                >
+              </li>
+              <li>
+                <a target="ext" href="https://whatsock.com/training/"
+                  >Accessibility Tree Training Guide</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="flex-item">
+            <h2>Acknowledgements</h2>
+            <ul class="list--horizontal">
+              <li>
+                Author and developer:
+                <a target="ext" href="https://www.linkedin.com/in/bgaraventa"
+                  >Bryan Garaventa</a
+                >
+              </li>
+              <li>
+                Website designer:
+                <a target="ext" href="https://gericci.me/">Angela Ricci</a>
+              </li>
+              <li>
+                Style and markup editor:
+                <a
+                  target="ext"
+                  href="https://www.linkedin.com/in/laurence-lewis-77520365/"
+                  >Laurence Lewis</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </div>
-</body>
+  </body>
 
-<script async src="https://api.whatsock.com/accdc-updates.js?4x=template"></script>
-
+  <script
+    async
+    src="https://api.whatsock.com/accdc-updates.js?4x=template"
+  ></script>
 </html>
