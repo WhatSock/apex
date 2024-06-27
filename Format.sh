@@ -72,3 +72,4 @@ uglifyjs 4X\/Standard\/Modules\/Tree.js --comments --compress --mangle --output 
 uglifyjs 4X\/Standard\/Modules\/Velocity.js --comments --compress --mangle --output 4X\/Standard\/Min\/Velocity.js 2>> FormatErrors.txt
 uglifyjs 4X\/Standard\/Modules\/VelocityUI.js --comments --compress --mangle --output 4X\/Standard\/Min\/VelocityUI.js 2>> FormatErrors.txt
 .\/BuildBundle.sh
+python .\/Templates\/_common\/_doc_files\/Save4X.py 2>> FormatErrors.txt
