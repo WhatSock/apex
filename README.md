@@ -10,6 +10,7 @@
 + [Using Dynamic Module Imports](#dynamicimports)
 + [Using Standard Script Tags](#standardscripttags)
 + [Using NPM Install](#npm)
++ [Importing Into ReactJS](#react)
 + [ReactJS Disambiguation](#reactjs)
 + [License](#license)
 + [Acknowledgements](#acknowledgements)
@@ -137,6 +138,21 @@ import "./node_modules/apex4x/4X/Standard/Modules/Velocity.js";
 import "./node_modules/apex4x/4X/Standard/Modules/VelocityUI.js";
 import "./node_modules/apex4x/4X/Standard/Modules/Datepicker.js";
 ```
+
+<!----><a name="react" tabindex="-1"></a>
+### Importing Into ReactJS
+
+Apex 4X can be imported into any React project as a bundle and used to render dynamic ARIA widgets.
+
+1. Using Git Cmd or Git Bash, navigate to the root of your React project.
+
+2. Enter "npm install apex4x" to install 4X.
+
+3. At the top of your React JS component file, include: `import 'apex4x';`
+
+4. Use window.$A to render any desired widget type. For syntax and config examples, view the folder: `Help/Module Imports/Widgets`
+
+Usage examples can be found within the folder: `React/src`
 
 <!----><a name="reactjs" tabindex="-1"></a>
 ## ReactJS Disambiguation

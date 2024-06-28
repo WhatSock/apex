@@ -4,6 +4,7 @@ prettier --write "4X\\4X.Max.Export.js" 2>> FormatErrors.txt
 prettier --write "index.js" 2>> FormatErrors.txt
 prettier --write "rollup.config.js" 2>> FormatErrors.txt
 prettier --write ".\/**\/*.css" 2>> FormatErrors.txt
+prettier --write ".\/React\/**\/*{.js,.json}" 2>> FormatErrors.txt
 prettier --write ".\/4X\/Modules\/*{.js,.json}" 2>> FormatErrors.txt
 prettier --write ".\/4X\/Standard\/Modules\/*{.js,.json}" 2>> FormatErrors.txt
 prettier --write ".\/Templates\/**\/*{.js,.json}" 2>> FormatErrors.txt
