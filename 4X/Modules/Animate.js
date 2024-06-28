@@ -1,5 +1,5 @@
 /*@license
-Animate Module 1.1 for Apex 4X
+Animate Module 1.2 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -32,7 +32,7 @@ Required dependencies: Velocity.js, VelocityUI.js
             config = null;
           }
           if ($A.isNode(o)) {
-            Velocity(
+            window.Velocity(
               o,
               effect || "transition.fadeOut",
               $A.extend(
@@ -65,7 +65,7 @@ Required dependencies: Velocity.js, VelocityUI.js
             config = null;
           }
           if ($A.isNode(o)) {
-            Velocity(
+            window.Velocity(
               o,
               effect || "transition.fadeIn",
               $A.extend(

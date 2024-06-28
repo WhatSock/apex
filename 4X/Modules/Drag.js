@@ -1,5 +1,5 @@
 /*@license
-ARIA Drag and Drop Module 1.0 for Apex 4X
+ARIA Drag and Drop Module 1.1 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -291,7 +291,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                       },
                       animate: {
                         onRender: function (dc, wrapper, next) {
-                          Velocity(wrapper, "transition.slideUpIn", {
+                          window.Velocity(wrapper, "transition.slideUpIn", {
                             complete: function () {
                               // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                               next();
@@ -299,7 +299,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                           });
                         },
                         onRemove: function (dc, wrapper, next) {
-                          Velocity(wrapper, "transition.slideUpOut", {
+                          window.Velocity(wrapper, "transition.slideUpOut", {
                             complete: function () {
                               // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                               next();
@@ -334,7 +334,8 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                 );
                 $A.data(el, "actions", actions);
               },
-              drake = dragula(config.dragula)
+              drake = window
+                .dragula(config.dragula)
                 .on("beforeClone", function (el) {
                   build(el);
                 })

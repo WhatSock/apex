@@ -1,5 +1,5 @@
 /*@license
-4X Straylight 2.2 for Apex 4X
+4X Straylight 2.3 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -70,7 +70,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
     style: { display: "none" },
     animate: {
       onRender: function(dc, wrapper, next) {
-        Velocity(wrapper, "transition.slideDownIn", {
+        window.Velocity(wrapper, "transition.slideDownIn", {
           duration: 1500,
           complete: function() {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
@@ -79,7 +79,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
         });
       },
       onRemove: function(dc, wrapper, next) {
-        Velocity(wrapper, "transition.slideDownOut", {
+        window.Velocity(wrapper, "transition.slideDownOut", {
           delay: 500,
           duration: 1500,
           complete: function() {
@@ -152,7 +152,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                         style: { display: "none" },
                         animate: {
                           onRender: function(dc, wrapper, next) {
-                            Velocity(wrapper, "transition.slideDownIn", {
+                            window.Velocity(wrapper, "transition.slideDownIn", {
                               duration: 1500,
                               complete: function() {
                                 // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
@@ -161,7 +161,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                             });
                           },
                           onRemove: function(dc, wrapper, next) {
-                            Velocity(wrapper, "transition.slideDownOut", {
+                            window.Velocity(wrapper, "transition.slideDownOut", {
                               delay: 500,
                               duration: 1500,
                               complete: function() {
@@ -232,7 +232,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                         },
                         animate: {
                           onRender: function (dc, wrapper, next) {
-                            Velocity(wrapper, "transition.fadeIn", {
+                            window.Velocity(wrapper, "transition.fadeIn", {
                               complete: function () {
                                 // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                                 next();
@@ -240,7 +240,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                             });
                           },
                           onRemove: function (dc, wrapper, next) {
-                            Velocity(wrapper, "transition.fadeOut", {
+                            window.Velocity(wrapper, "transition.fadeOut", {
                               complete: function () {
                                 // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                                 next();
@@ -286,7 +286,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                         style: { display: "none" },
                         animate: {
                           onRender: function (dc, wrapper, next) {
-                            Velocity(wrapper, "transition.slideDownIn", {
+                            window.Velocity(wrapper, "transition.slideDownIn", {
                               complete: function () {
                                 // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                                 next();
@@ -294,12 +294,16 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                             });
                           },
                           onRemove: function (dc, wrapper, next) {
-                            Velocity(wrapper, "transition.slideDownOut", {
-                              complete: function () {
-                                // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
-                                next();
+                            window.Velocity(
+                              wrapper,
+                              "transition.slideDownOut",
+                              {
+                                complete: function () {
+                                  // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                                  next();
+                                },
                               },
-                            });
+                            );
                           },
                         },
                       });
@@ -362,7 +366,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                         style: { display: "none" },
                         animate: {
                           onRender: function (dc, wrapper, next) {
-                            Velocity(wrapper, "transition.fadeIn", {
+                            window.Velocity(wrapper, "transition.fadeIn", {
                               complete: function () {
                                 // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                                 next();
@@ -370,7 +374,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                             });
                           },
                           onRemove: function (dc, wrapper, next) {
-                            Velocity(wrapper, "transition.fadeOut", {
+                            window.Velocity(wrapper, "transition.fadeOut", {
                               complete: function () {
                                 // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                                 next();
@@ -419,7 +423,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                         style: { display: "none" },
                         animate: {
                           onRender: function (dc, wrapper, next) {
-                            Velocity(wrapper, "transition.fadeIn", {
+                            window.Velocity(wrapper, "transition.fadeIn", {
                               complete: function () {
                                 // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                                 next();
@@ -427,7 +431,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                             });
                           },
                           onRemove: function (dc, wrapper, next) {
-                            Velocity(wrapper, "transition.fadeOut", {
+                            window.Velocity(wrapper, "transition.fadeOut", {
                               complete: function () {
                                 // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                                 next();
@@ -524,7 +528,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                         style: { display: "none" },
                         animate: {
                           onRender: function (dc, wrapper, next) {
-                            Velocity(wrapper, "transition.slideUpIn", {
+                            window.Velocity(wrapper, "transition.slideUpIn", {
                               duration: 1000,
                               complete: function () {
                                 // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
@@ -533,7 +537,7 @@ Required dependencies: Animate.js, Accordion.js, Tab.js, Datepicker.js, Dialog.j
                             });
                           },
                           onRemove: function (dc, wrapper, next) {
-                            Velocity(wrapper, "transition.slideUpOut", {
+                            window.Velocity(wrapper, "transition.slideUpOut", {
                               duration: 1000,
                               complete: function () {
                                 // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
