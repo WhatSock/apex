@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "../node_modules/apex4x/Templates/Popups/Internal/css/customize.css";
 import "apex4x";
 
 const ExamplePopup = ({ id, label, message, title }) => {

@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import "../node_modules/apex4x/Templates/Buttons/Standard/css/buttons.css";
 import "apex4x";
 
 const ExampleButton = ({ id, label, onActivate }) => {

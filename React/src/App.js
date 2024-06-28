@@ -1,6 +1,8 @@
 import React from "react";
 import logo from "./logo.svg";
+import "../node_modules/apex4x/Templates/_common/css/colors.css";
 import "./App.css";
+
 import ExampleButton from "./ExampleButton";
 import ExamplePopup from "./ExamplePopup";
 
