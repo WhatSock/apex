@@ -35,7 +35,7 @@ const Button = ({ label, onActivate, config }) => {
 
   return (
     <div className="aria-button" id={id}>
-      {label}
+      <span>{label}</span>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 
 import Button from "./4X/Button";
+import Checkbox from "./4X/Checkbox";
 import Popup from "./4X/Popup";
 
 function App() {
@@ -29,6 +30,34 @@ function App() {
           label="What?"
           onActivate={(ev) => {
             alert("Button activated from App.js!");
+          }}
+          config={
+            {
+              // Optional config overrides.
+            }
+          }
+        />
+      </div>
+
+      <h2>ARIA Checkbox</h2>
+      <div>
+        <Checkbox
+          label="Subscribe"
+          checked="false"
+          onActivate={(ev, triggerNode, boundCheckbox, checked, set) => {
+            // 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
+            // if 0, the checked state is "false".
+            // if 1, the checked state is "true".
+            // if 2, the checked state is "mixed".
+            // The 'set' argument is a function that will set the checkable item to a new state.
+            // The new value must be a string consisting of "false", "true", or "mixed".
+            if (checked) {
+              set("false");
+              // Do something.
+            } else {
+              set("true");
+              // Do something else.
+            }
           }}
           config={
             {
