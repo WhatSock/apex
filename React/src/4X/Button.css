@@ -1,0 +1,95 @@
+/**********************************************
+Common Button styles
+*************************************************/
+
+.aria-button {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  width: 10em;
+  font-size: 0.8em;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(
+    var(--button-blue--light),
+    var(--button-blue-medium)
+  );
+  padding: 10em 0 1em;
+}
+
+.aria-button::before {
+  display: block;
+  position: absolute;
+  top: 1em;
+  left: 1.2em;
+  width: 20px;
+  height: 8em;
+  content: "";
+  background: linear-gradient(
+      90deg,
+      var(--button-orange-dark),
+      transparent,
+      transparent 15px,
+      var(--button-orange-dark) 2px
+    ),
+    linear-gradient(
+      var(--button-orange-dark),
+      transparent,
+      transparent 15px,
+      var(--button-orange-dark) 2px
+    );
+  background-size: 20px 20px;
+}
+.aria-button::after {
+  display: block;
+  position: absolute;
+  top: 3.5em;
+  right: 0.8em;
+  width: 20px;
+  height: 8em;
+  content: "";
+  background: linear-gradient(
+      90deg,
+      var(--button-orange-dark),
+      transparent,
+      transparent 15px,
+      var(--button-orange-dark) 2px
+    ),
+    linear-gradient(
+      var(--button-orange-dark),
+      transparent,
+      transparent 15px,
+      var(--button-orange-dark) 2px
+    );
+  background-size: 20px 20px;
+  -webkit-transform: scale(0.3);
+  -ms-transform: scale(0.3);
+  transform: scale(0.3);
+}
+
+.aria-button span::before {
+  display: block;
+  position: absolute;
+  top: 7.8em;
+  left: 0.8em;
+  width: 8em;
+  height: 3px;
+  content: "";
+  background: var(--button-orange-dark);
+  -webkit-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+  opacity: 0.7;
+}
+.aria-button span::after {
+  display: block;
+  position: absolute;
+  top: 4.3em;
+  left: 0;
+  width: 10em;
+  height: 5em;
+  content: "";
+  background: linear-gradient(transparent, var(--globalWhite));
+}

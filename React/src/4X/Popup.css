@@ -1,0 +1,35 @@
+/* Specific styles for ACCESSIBLE POPUP */
+
+div.popup {
+  position: absolute;
+  z-index: 1;
+  background-color: #f5f5f5;
+  color: var(--button-orange-dark);
+  padding: 0.5rem;
+  text-align: left;
+  border: 1px solid #286278;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+div.popup a.CloseDC,
+div.popup a.CloseDC:link,
+div.popup a.CloseDC:visited {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  top: 0.5rem;
+  right: 0;
+  z-index: 2;
+  background: transparent;
+}
+button.CloseDC {
+  background: transparent;
+  border: none;
+  position: absolute;
+  right: 0.25em;
+  top: 0.5em;
+}
+.popup div:first-child[tabindex="-1"]:focus {
+  outline: none;
+  border: none;
+}

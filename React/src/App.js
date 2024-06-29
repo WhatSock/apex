@@ -1,43 +1,15 @@
 import React from "react";
 import logo from "./logo.svg";
-import "../node_modules/apex4x/Templates/_common/css/colors.css";
 import "./App.css";
 
-import ExampleButton from "./ExampleButton";
-import ExamplePopup from "./ExamplePopup";
+import Button from "./4X/Button";
+import Popup from "./4X/Popup";
 
 function App() {
-  const handleButtonActivate = (ev) => {
-    alert("Button activated from App.js!");
-  };
-
-  const popupMessage = `
-<h1>Information</h1>
-<div>Consider yourself informed!</div>
-`;
-
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-
-        <div>
-          <ExampleButton
-            id="customButton"
-            label="What?"
-            onActivate={handleButtonActivate}
-          />
-        </div>
-
-        <div>
-          <ExamplePopup
-            id="customPopupTrigger"
-            label="More Info"
-            title="Info Popup"
-            message={popupMessage}
-          />
-        </div>
-
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -50,6 +22,38 @@ function App() {
           Learn React
         </a>
       </header>
+
+      <h2>ARIA Button</h2>
+      <div>
+        <Button
+          label="What?"
+          onActivate={(ev) => {
+            alert("Button activated from App.js!");
+          }}
+          config={
+            {
+              // Optional config overrides.
+            }
+          }
+        />
+      </div>
+
+      <h2>ARIA Popup</h2>
+      <div>
+        <Popup
+          buttonLabel="More Info"
+          popupTitle="Info Popup"
+          popupMessage={`
+<h1>Information</h1>
+<div>Consider yourself informed!</div>
+`}
+          config={
+            {
+              // Optional config overrides.
+            }
+          }
+        />
+      </div>
     </div>
   );
 }
