@@ -18,7 +18,7 @@ $A.import(["Animate", "Tree"], { defer: true }, function () {
     style: { display: "none" },
     animate: {
       onRender: function (dc, wrapper, next) {
-        Velocity(wrapper, "transition.slideLeftIn", {
+        window.Velocity(wrapper, "transition.slideLeftIn", {
           container: document.querySelector("div.treeview"),
           complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
@@ -27,7 +27,7 @@ $A.import(["Animate", "Tree"], { defer: true }, function () {
         });
       },
       onRemove: function (dc, wrapper, next) {
-        Velocity(wrapper, "transition.slideLeftOut", {
+        window.Velocity(wrapper, "transition.slideLeftOut", {
           container: document.querySelector("div.treeview"),
           complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.

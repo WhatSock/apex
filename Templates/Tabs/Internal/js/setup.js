@@ -19,7 +19,7 @@ $A.import(["Animate", "Tab"], { defer: true }, function () {
     style: { display: "none" },
     animate: {
       onRender: function(dc, wrapper, next) {
-        Velocity(wrapper, "transition.slideDownIn", {
+        window.Velocity(wrapper, "transition.slideDownIn", {
           duration: 1500,
           complete: function() {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
@@ -28,7 +28,7 @@ $A.import(["Animate", "Tab"], { defer: true }, function () {
         });
       },
       onRemove: function(dc, wrapper, next) {
-        Velocity(wrapper, "transition.slideDownOut", {
+        window.Velocity(wrapper, "transition.slideDownOut", {
           delay: 500,
           duration: 1500,
           complete: function() {

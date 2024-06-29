@@ -8,7 +8,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function () {
     style: { display: "none" },
     animate: {
       onRender: function (dc, wrapper, next) {
-        Velocity(wrapper, "transition.fadeIn", {
+        window.Velocity(wrapper, "transition.fadeIn", {
           complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
@@ -16,7 +16,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function () {
         });
       },
       onRemove: function (dc, wrapper, next) {
-        Velocity(wrapper, "transition.fadeOut", {
+        window.Velocity(wrapper, "transition.fadeOut", {
           complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
@@ -35,7 +35,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function () {
     style: { display: "none" },
     animate: {
       onRender: function (dc, wrapper, next) {
-        Velocity(wrapper, "transition.swoopIn", {
+        window.Velocity(wrapper, "transition.swoopIn", {
           complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
@@ -43,7 +43,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function () {
         });
       },
       onRemove: function (dc, wrapper, next) {
-        Velocity(wrapper, "transition.swoopOut", {
+        window.Velocity(wrapper, "transition.swoopOut", {
           complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
@@ -63,7 +63,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function () {
     style: { display: "none" },
     animate: {
       onRender: function (dc, wrapper, next) {
-        Velocity(wrapper, "transition.bounceLeftIn", {
+        window.Velocity(wrapper, "transition.bounceLeftIn", {
           complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
@@ -71,7 +71,7 @@ $A.import(["Animate", "Tooltip"], { defer: true }, function () {
         });
       },
       onRemove: function (dc, wrapper, next) {
-        Velocity(wrapper, "transition.bounceRightOut", {
+        window.Velocity(wrapper, "transition.bounceRightOut", {
           complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();

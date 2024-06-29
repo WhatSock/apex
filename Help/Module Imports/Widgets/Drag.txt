@@ -169,7 +169,7 @@ return false;
 // View implementations within "Templates/Menus" for practical animation usage examples.
 animate: {
 onRender: function(dc, wrapper, next) {
-Velocity(wrapper, "transition.slideUpIn", {
+window.Velocity(wrapper, "transition.slideUpIn", {
 complete: function() {
 // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
 next();
@@ -177,7 +177,7 @@ next();
 });
 },
 onRemove: function(dc, wrapper, next) {
-Velocity(wrapper, "transition.slideUpOut", {
+window.Velocity(wrapper, "transition.slideUpOut", {
 complete: function() {
 // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
 next();
