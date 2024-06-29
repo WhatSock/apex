@@ -14,7 +14,7 @@ Distributed under the terms of the Open Source Initiative OSI - MIT License
     window[nameSpace] = {};
     nameSpace = window[nameSpace];
   }
-  nameSpace.getAccNameVersion = "2.60";
+  nameSpace.getAccNameVersion = "2.62";
   // AccName Computation Prototype
   nameSpace.getAccName = nameSpace.calcNames = function (
     node,
@@ -1079,6 +1079,7 @@ Plus roles extended for the Role Parity project.
           "form",
           "main",
           "navigation",
+          "progressbar",
           "region",
           "search",
           "article",
@@ -1132,6 +1133,7 @@ Plus roles extended for the Role Parity project.
           "tbody",
           "tfoot",
           "fieldset",
+          "progress",
         ],
       };
       // As an override of list2, conditionally include name from content if current node is focusable, or if the current node matches list3 while the referenced parent node (root node) matches list1.
@@ -1211,8 +1213,19 @@ Plus roles extended for the Role Parity project.
         "sup",
       ];
 
-      var nativeFormFields = ["button", "input", "select", "textarea"];
-      var rangeWidgetRoles = ["scrollbar", "slider", "spinbutton"];
+      var nativeFormFields = [
+        "button",
+        "input",
+        "progress",
+        "select",
+        "textarea",
+      ];
+      var rangeWidgetRoles = [
+        "scrollbar",
+        "slider",
+        "spinbutton",
+        "progressbar",
+      ];
       var editWidgetRoles = ["searchbox", "textbox"];
       var selectWidgetRoles = [
         "grid",
@@ -1322,10 +1335,7 @@ Plus roles extended for the Role Parity project.
             s = s.replace(m[i], b);
           }
         }
-        s = s
-          .replace(/url\((.*?)\)\s+\/|url\((.*?)\)/g, "")
-          .replace(/^\s+|\s+$/g, "")
-          .replace(/\"/g, "");
+        s = s.replace(/url\((.*?)\)\s+\/|url\((.*?)\)/g, "").replace(/\"/g, "");
         return s;
       };
 
