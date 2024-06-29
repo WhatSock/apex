@@ -1,5 +1,5 @@
 /*@license
-Beep Module 1.1 for Apex 4X
+Beep Module 1.2 for Apex 4X
 It goes beep, just because. (BEEP BEEP BEEP)
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
@@ -9,7 +9,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 (function () {
   if (!("beep" in $A))
     $A.extend({
-      beep: function () {
+      beep: function (duration) {
         // Create an instance of the AudioContext
         var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -38,7 +38,7 @@ License: MIT (https://opensource.org/licenses/MIT)
         oscillator.start();
 
         // Stop the oscillator after 0.1 seconds (100 ms)
-        oscillator.stop(audioCtx.currentTime + 0.1);
+        oscillator.stop(audioCtx.currentTime + (duration || 0.1));
       },
     });
 })();
