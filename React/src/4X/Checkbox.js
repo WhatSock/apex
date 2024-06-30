@@ -14,7 +14,7 @@ const Checkbox = ({ label, onActivate, checked, config }) => {
     const ariaCheckbox = $A.get(id);
     ariaCheckbox.setAttribute(
       "data-check",
-      checked === "true" ? "true" : "false",
+      checked === "mixed" ? "mixed" : checked === "true" ? "true" : "false",
     );
 
     const handleActivate = (ev, triggerNode, boundCheckbox, checked, set) => {

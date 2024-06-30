@@ -4,6 +4,7 @@ import "./App.css";
 
 import Button from "./4X/Button";
 import Checkbox from "./4X/Checkbox";
+import Switch from "./4X/Switch";
 import Popup from "./4X/Popup";
 
 function App() {
@@ -34,6 +35,8 @@ function App() {
           config={
             {
               // Optional config overrides.
+              // View config options at:
+              // node_modules/apex4x/Help/Module Imports/Widgets/Button.txt
             }
           }
         />
@@ -43,7 +46,7 @@ function App() {
       <div>
         <Checkbox
           label="Subscribe"
-          checked="false"
+          checked="mixed"
           onActivate={(ev, triggerNode, boundCheckbox, checked, set) => {
             // 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
             // if 0, the checked state is "false".
@@ -51,17 +54,48 @@ function App() {
             // if 2, the checked state is "mixed".
             // The 'set' argument is a function that will set the checkable item to a new state.
             // The new value must be a string consisting of "false", "true", or "mixed".
-            if (checked) {
+            if (checked === 1) {
               set("false");
-              // Do something.
-            } else {
+            } else if (checked === 2) {
               set("true");
-              // Do something else.
+            } else if (checked === 0) {
+              set("mixed");
             }
           }}
           config={
             {
               // Optional config overrides.
+              // View config options at:
+              // node_modules/apex4x/Help/Module Imports/Widgets/Checkbox.txt
+            }
+          }
+        />
+      </div>
+
+      <h2>ARIA Switch</h2>
+      <div>
+        <Switch
+          label="Thermostat"
+          on="false"
+          onActivate={(ev, triggerNode, boundCheckbox, on, set) => {
+            // 'on' reflects the current attribute value for the checkable item, and is always a number if applicable.
+            // if 0, the toggle state is "false".
+            // if 1, the toggle state is "true".
+            // The 'set' argument is a function that will set the checkable item to a new state.
+            // The new value must be a string consisting of "false" or "true".
+            if (on) {
+              set("false");
+            } else {
+              set("true");
+              window.Velocity(triggerNode, "callout.bounce");
+            }
+            ev.preventDefault();
+          }}
+          config={
+            {
+              // Optional config overrides.
+              // View config options at:
+              // node_modules/apex4x/Help/Module Imports/Widgets/Switch.txt
             }
           }
         />
@@ -79,6 +113,8 @@ function App() {
           config={
             {
               // Optional config overrides.
+              // View config options at:
+              // node_modules/apex4x/Help/Module Imports/Widgets/Popup.txt
             }
           }
         />
