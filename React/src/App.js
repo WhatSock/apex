@@ -5,6 +5,7 @@ import "./App.css";
 import Button from "./4X/Button";
 import Checkbox from "./4X/Checkbox";
 import Switch from "./4X/Switch";
+import Toggle from "./4X/Toggle";
 import Popup from "./4X/Popup";
 
 function App() {
@@ -27,6 +28,14 @@ function App() {
 
       <h2>ARIA Button</h2>
       <div>
+        <a
+          href="https://whatsock.com/Templates/Accordions/#configure"
+          target=""
+        >
+          Config Options...
+        </a>
+      </div>
+      <div>
         <Button
           label="What?"
           onActivate={(ev) => {
@@ -43,6 +52,14 @@ function App() {
       </div>
 
       <h2>ARIA Checkbox</h2>
+      <div>
+        <a
+          href="https://whatsock.com/Templates/Checkboxes/#configure"
+          target=""
+        >
+          Config Options...
+        </a>
+      </div>
       <div>
         <Checkbox
           label="Subscribe"
@@ -74,6 +91,11 @@ function App() {
 
       <h2>ARIA Switch</h2>
       <div>
+        <a href="https://whatsock.com/Templates/Switches/#configure" target="">
+          Config Options...
+        </a>
+      </div>
+      <div>
         <Switch
           label="Thermostat"
           on="false"
@@ -101,7 +123,45 @@ function App() {
         />
       </div>
 
+      <h2>ARIA Toggle</h2>
+      <div>
+        <a href="https://whatsock.com/Templates/Buttons/#configure" target="">
+          Config Options...
+        </a>
+      </div>
+      <div>
+        <Toggle
+          label="FAVORITE"
+          pressed="true"
+          onActivate={(ev, triggerNode, boundTo, pressed, set) => {
+            // 'pressed' reflects the current attribute value for the toggleable item, and is always a number if applicable.
+            // if 0, the pressed state is "false".
+            // if 1, the pressed state is "true".
+            // The 'set' argument is a function that will set the toggleable item to a new state.
+            // The new value must be a string consisting of "false" or "true".
+            if (pressed) {
+              set("false");
+            } else {
+              set("true");
+            }
+            ev.preventDefault();
+          }}
+          config={
+            {
+              // Optional config overrides.
+              // View config options at:
+              // node_modules/apex4x/Help/Module Imports/Widgets/Button.txt
+            }
+          }
+        />
+      </div>
+
       <h2>ARIA Popup</h2>
+      <div>
+        <a href="https://whatsock.com/Templates/Popups/#configure" target="">
+          Config Options...
+        </a>
+      </div>
       <div>
         <Popup
           buttonLabel="More Info"
