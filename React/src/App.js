@@ -6,9 +6,15 @@ import Button from "./4X/Button";
 import Checkbox from "./4X/Checkbox";
 import Switch from "./4X/Switch";
 import Toggle from "./4X/Toggle";
+import RadioGroup from "./4X/RadioGroup";
 import Popup from "./4X/Popup";
 
+// Import the Apex 4X bundle build.
+import "apex4x";
+
 function App() {
+  const $A = window.$A;
+
   return (
     <div className="App">
       <header className="App-header">
@@ -151,6 +157,46 @@ function App() {
               // Optional config overrides.
               // View config options at:
               // node_modules/apex4x/Help/Module Imports/Widgets/Button.txt
+            }
+          }
+        />
+      </div>
+
+      <h2>ARIA RadioGroup</h2>
+      <div>
+        <a href="https://whatsock.com/Templates/Radios/#configure" target="">
+          Config Options...
+        </a>
+      </div>
+      <div>
+        <RadioGroup
+          groupName="uniqueSharedGroupName1"
+          label="Rate your experience."
+          radios={[
+            { label: "Horrible", value: "radio-value1-horrible" },
+            { label: "Shrug", value: "radio-value2-shrug" },
+            { label: "Okay", value: "radio-value3-okay" },
+            { label: "GNARLY!", value: "radio-value4-gnarly", checked: true },
+          ]}
+          onActivate={(ev, ariaRadio, boundTo, checked, set) => {
+            // 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
+            // if 0, the checked state is "false".
+            // if 1, the checked state is "true".
+            // The 'set' argument is a function that will set the checkable item to a new state.
+            // The new value must be a string consisting of "false" or "true".
+            set("true"); // All other radios in the same group will be set to "false".
+            let currentValue = $A.data(ariaRadio, "value");
+            let currentRadioGroupName = $A.data(ariaRadio, "groupName");
+            console.log(
+              `The currently checked radio's value is "${currentValue}" within the radiogroup named "${currentRadioGroupName}".`,
+            );
+            ev.preventDefault();
+          }}
+          config={
+            {
+              // Optional config overrides.
+              // View config options at:
+              // node_modules/apex4x/Help/Module Imports/Widgets/Radio.txt
             }
           }
         />
