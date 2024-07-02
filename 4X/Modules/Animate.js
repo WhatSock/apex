@@ -32,7 +32,7 @@ Required dependencies: Velocity.js, VelocityUI.js
             config = null;
           }
           if ($A.isNode(o)) {
-            window.Velocity(
+            $A.Velocity(
               o,
               effect || "transition.fadeOut",
               $A.extend(
@@ -65,7 +65,7 @@ Required dependencies: Velocity.js, VelocityUI.js
             config = null;
           }
           if ($A.isNode(o)) {
-            window.Velocity(
+            $A.Velocity(
               o,
               effect || "transition.fadeIn",
               $A.extend(

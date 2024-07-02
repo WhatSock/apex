@@ -349,8 +349,8 @@ Required dependencies: CurrentDevice.js, Dragdealer.js
 
         if (
           $A.isTouch ||
-          window.device.type === "mobile" ||
-          window.device.type === "tablet"
+          $A.device.type === "mobile" ||
+          $A.device.type === "tablet"
         ) {
           $A(config.slideBar.parentNode.querySelector(config.decreaseBtn))
             .on(

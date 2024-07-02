@@ -7,7 +7,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
     style: { display: "none" },
     animate: {
       onRender: function (dc, wrapper, next) {
-        window.Velocity(wrapper, "transition.fadeIn", {
+        $A.Velocity(wrapper, "transition.fadeIn", {
           complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
@@ -15,7 +15,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
         });
       },
       onRemove: function (dc, wrapper, next) {
-        window.Velocity(wrapper, "transition.fadeOut", {
+        $A.Velocity(wrapper, "transition.fadeOut", {
           complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
@@ -78,7 +78,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
   }
 
   // Dynamically toggle help text for desktops that support dual touch and keyboard interaction.
-  if (window.device.type === "desktop") {
+  if ($A.device.type === "desktop") {
     $A.on("toggletouch", function (ev) {
       myAuthorCombobox.setPromptText(
         $A.isTouch
@@ -90,11 +90,7 @@ $A.import(["CurrentDevice", "Combobox"], { defer: true }, function () {
 
   // Set a default list option display size for standard screens
   myAuthorCombobox.setSize(
-    window.device.type === "mobile"
-      ? 3
-      : window.device.type === "tablet"
-        ? 5
-        : 7,
+    $A.device.type === "mobile" ? 3 : $A.device.type === "tablet" ? 5 : 7,
   );
 
   // Get the Close icon triggering element for sighted mouse and touch device users

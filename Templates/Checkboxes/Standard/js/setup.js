@@ -47,7 +47,7 @@ $A.import(["Animate", "Checkbox"], { defer: true }, function () {
       } else if (checked === 2) {
         // If partially checked, then
         set("true");
-        window.Velocity(triggerNode, "callout.bounce");
+        $A.Velocity(triggerNode, "callout.bounce");
       } else if (checked === 1) {
         // If fully checked, then
         set("false");

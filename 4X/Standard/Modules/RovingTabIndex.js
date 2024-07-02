@@ -140,7 +140,7 @@ Required dependencies: AccName.js
                 "AccName",
                 $A
                   .trim(
-                    ($A.isFn(window.getAccName) && window.getAccName(o).name) ||
+                    ($A.isFn($A.getAccName) && $A.getAccName(o).name) ||
                       $A.getText(o),
                   )
                   .toLowerCase(),

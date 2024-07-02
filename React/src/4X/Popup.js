@@ -24,7 +24,7 @@ const Popup = ({ buttonLabel, popupTitle, popupMessage, config }) => {
           announce: false,
           animate: {
             onRender: function (dc, wrapper, next) {
-              window.Velocity(wrapper, "transition.fadeIn", {
+              $A.Velocity(wrapper, "transition.fadeIn", {
                 complete: function () {
                   // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                   next();
@@ -32,7 +32,7 @@ const Popup = ({ buttonLabel, popupTitle, popupMessage, config }) => {
               });
             },
             onRemove: function (dc, wrapper, next) {
-              window.Velocity(wrapper, "transition.fadeOut", {
+              $A.Velocity(wrapper, "transition.fadeOut", {
                 complete: function () {
                   // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                   next();

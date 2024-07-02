@@ -280,7 +280,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                   },
                   animate: {
                     onRender: function (dc, wrapper, next) {
-                      window.Velocity(wrapper, "transition.slideUpIn", {
+                      $A.Velocity(wrapper, "transition.slideUpIn", {
                         complete: function () {
                           // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                           next();
@@ -288,7 +288,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
                       });
                     },
                     onRemove: function (dc, wrapper, next) {
-                      window.Velocity(wrapper, "transition.slideUpOut", {
+                      $A.Velocity(wrapper, "transition.slideUpOut", {
                         complete: function () {
                           // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                           next();
@@ -323,7 +323,7 @@ Required dependencies: Animate.js, Menu.js, Dragula.css, Dragula.js
             );
             $A.data(el, "actions", actions);
           },
-          drake = window
+          drake = $A
             .dragula(config.dragula)
             .on("beforeClone", function (el) {
               build(el);

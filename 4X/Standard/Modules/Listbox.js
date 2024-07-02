@@ -255,8 +255,7 @@ Required dependencies: RovingTabIndex.js
               if (init.select.nodeType && $A.isHidden(init.select)) {
                 var tmp = init.select.cloneNode();
                 tmp.hidden = false;
-                hiddenName =
-                  $A.isFn(window.getAccName) && window.getAccName(tmp).name;
+                hiddenName = $A.isFn($A.getAccName) && $A.getAccName(tmp).name;
               }
               $A.setAttr(
                 init.listbox,
@@ -264,8 +263,8 @@ Required dependencies: RovingTabIndex.js
                 config.label ||
                   hiddenName ||
                   (init.select.nodeType
-                    ? $A.isFn(window.getAccName)
-                      ? window.getAccName(init.select).name
+                    ? $A.isFn($A.getAccName)
+                      ? $A.getAccName(init.select).name
                       : ""
                     : ""),
               );

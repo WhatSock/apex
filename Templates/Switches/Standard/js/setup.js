@@ -12,7 +12,7 @@ $A.import(["Animate", "Switch"], { defer: true }, function () {
           set("false");
         } else {
           set("true");
-          // window.Velocity(triggerNode, "callout.bounce");
+          // $A.Velocity(triggerNode, "callout.bounce");
         }
         ev.preventDefault();
       },

@@ -43,9 +43,9 @@ Required dependencies: RovingTabIndex.js
             var mDC = $A.dcMenus[i];
             if (mDC && dc !== mDC) {
               if (mDC.loaded) mDC.bypass();
-              else if (mDC.isAnimating && mDC.loading && window.Velocity) {
+              else if (mDC.isAnimating && mDC.loading && $A.Velocity) {
                 mDC.abortLoad = true;
-                window.Velocity.animate(mDC.wrapper, "finish");
+                $A.Velocity.animate(mDC.wrapper, "finish");
                 mDC.css(mDC.style);
               }
             }

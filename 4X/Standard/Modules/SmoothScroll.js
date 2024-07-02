@@ -24,7 +24,7 @@ Required dependencies: Animate.js
         if (!$A.isNode(o)) o = $A.morph(o);
         if ($A.isNode(o)) {
           $A.isScrolling = true;
-          window.Velocity(
+          $A.Velocity(
             o,
             "scroll",
             $A.extend(

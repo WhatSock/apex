@@ -161,7 +161,7 @@ animate: {
 onRender: function(dc, wrapper, next) {
 
 // Specify the render animation effect, including the callback function statement to execute when the animation effect completes.
-window.Velocity(wrapper, "transition.TYPE", {
+$A.Velocity(wrapper, "transition.TYPE", {
 // Velocity options here, plus the callback declaration after the animation completes.
 complete: function() {
 next(); // REQUIRED: next() must be executed so control is passed back to 4X for rendering.
@@ -173,7 +173,7 @@ next(); // REQUIRED: next() must be executed so control is passed back to 4X for
 onRemove: function(dc, wrapper, next) {
 
 // Specify the removal animation effect, including the callback function statement to execute when the animation effect completes.
-window.Velocity(wrapper, "transition.TYPE", {
+$A.Velocity(wrapper, "transition.TYPE", {
 // Velocity options here, plus the callback declaration after the animation completes.
 complete: function() {
 next(); // REQUIRED: next() must be executed so control is passed back to 4X for removal.

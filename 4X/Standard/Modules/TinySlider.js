@@ -4260,4 +4260,7 @@ var tns = function (options) {
     },
   };
 };
-$A.tns = tns;
+
+$A.extend({
+  tns: tns,
+});

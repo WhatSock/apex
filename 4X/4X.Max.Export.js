@@ -1,5 +1,5 @@
 /*@license
-Apex 4X: The Comprehensive ARIA Development Suite ( Iron Sunrise - 2023.8.12 )
+Apex 4X: The Comprehensive ARIA Development Suite ( Neuromancer - 2024.7.2 )
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Home: WhatSock.com  :  Download: https://github.com/whatsock/apex
 License: MIT (https://opensource.org/licenses/MIT)
@@ -7,7 +7,7 @@ License: MIT (https://opensource.org/licenses/MIT)
 
 export const $A = (function () {
   var moduleFolder = "/4X/Modules/",
-    Version = "2023.8.12",
+    Version = "2024.7.2",
     BN = {},
     $A = (function () {
       var $A = function (dc, dcA, dcI, onReady, disableAsync) {
@@ -3583,9 +3583,9 @@ error: function(error, promise){}
                     wt.top.isAnimating &&
                     wt.top.loading &&
                     !wt.top.currentWT &&
-                    window.Velocity
+                    $A.Velocity
                   ) {
-                    window.Velocity.animate(wt.top.wrapper, "finish");
+                    $A.Velocity.animate(wt.top.wrapper, "finish");
                     wt.top.css(wt.top.style);
                   }
                 }

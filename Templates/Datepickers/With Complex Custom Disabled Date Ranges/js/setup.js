@@ -22,7 +22,7 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function () {
     style: { position: "absolute", zIndex: 1, display: "none" },
     animate: {
       onRender: function (dc, wrapper, next) {
-        window.Velocity(wrapper, "transition.fadeIn", {
+        $A.Velocity(wrapper, "transition.fadeIn", {
           complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();
@@ -30,7 +30,7 @@ $A.import(["Animate", "Datepicker"], { defer: true }, function () {
         });
       },
       onRemove: function (dc, wrapper, next) {
-        window.Velocity(wrapper, "transition.fadeOut", {
+        $A.Velocity(wrapper, "transition.fadeOut", {
           complete: function () {
             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
             next();

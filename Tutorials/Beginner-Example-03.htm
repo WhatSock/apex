@@ -250,7 +250,7 @@
                                     animate: {
                                       onRender: function(dc, wrapper, next) {
                                         // Help/VelocityUI-Effects-Index
-                                        Velocity(wrapper, "transition.slideDownIn", {
+                                        $A.Velocity(wrapper, "transition.slideDownIn", {
                                           complete: function() {
                                             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                                             next();
@@ -258,7 +258,7 @@
                                         });
                                       },
                                       onRemove: function(dc, wrapper, next) {
-                                        Velocity(wrapper, "transition.slideDownOut", {
+                                        $A.Velocity(wrapper, "transition.slideDownOut", {
                                           complete: function() {
                                             // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                                             next();

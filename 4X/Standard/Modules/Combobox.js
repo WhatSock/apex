@@ -14,9 +14,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
         var sel = config.select || false,
           combobox = config.input || false,
           accName =
-            ($A.isFn(window.getAccName) &&
-              window.getAccName(config.input).name) ||
-            "",
+            ($A.isFn($A.getAccName) && $A.getAccName(config.input).name) || "",
           child = config.childNode || false;
 
         if (!sel || !combobox) return null;
@@ -359,8 +357,8 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
 
                 $A.setAttr(o, {
                   "aria-label":
-                    ($A.isFn(window.getAccName) &&
-                      window.getAccName(dc.triggerNode).name) ||
+                    ($A.isFn($A.getAccName) &&
+                      $A.getAccName(dc.triggerNode).name) ||
                     $A.getText(dc.triggerNode),
                 });
 
@@ -934,7 +932,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
 
             dc.cb.fn.setSize();
 
-            if (window.device.type !== "desktop")
+            if ($A.device.type !== "desktop")
               setTimeout(function () {
                 $A.announce(
                   dc.cb.options[dc.cb.matches[dc.cb.sIndex]].no,
@@ -1066,7 +1064,7 @@ Required dependencies: SmoothScroll.js, AccName.js, CurrentDevice.js
             dc.cb.fn.render();
 
             dc.render(function () {
-              if (window.device.type === "desktop")
+              if ($A.device.type === "desktop")
                 dc.cb.select(
                   dc,
                   dc.cb.options[dc.cb.matches[dc.cb.sIndex]].o,

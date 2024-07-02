@@ -532,3 +532,7 @@
     ],
   )["default"];
 });
+
+$A.extend({
+  device: window["device"],
+});

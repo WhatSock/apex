@@ -2,6 +2,7 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
+import Datepicker from "./4X/Datepicker";
 import Button from "./4X/Button";
 import Checkbox from "./4X/Checkbox";
 import Switch from "./4X/Switch";
@@ -31,6 +32,41 @@ function App() {
           Learn React
         </a>
       </header>
+
+      <h2>ARIA Datepicker</h2>
+      <div>
+        <a
+          href="https://whatsock.com/Templates/Datepickers/#configure"
+          target=""
+        >
+          Config Options...
+        </a>
+      </div>
+      <div>
+        <Datepicker
+          label="Date of birth:"
+          placeholder="MM/DD/YYYY"
+          inputName="birthDate"
+          config={{
+            // Optional config overrides.
+
+            // Using a token system, set a specific date string format to be used when setting the selected value into the calendar input box
+            // 'YYYY': 4 digit year, 2019
+            // 'YY': 2 digit year, 19
+            // 'MMMM': Full name of month, January, etc.
+            // 'dddd': Full name of weekday, Monday, etc.
+            // 'MM': 2 digit month, 01, etc.
+            // 'DD': 2 digit day, 01, etc.
+            // 'Do': getDateOrdinalSuffix, 1st, 2nd, 3rd.
+            // 'M': 1 or 2 digit month, 1 through 12
+            // 'D': 1 or 2 digit day, 1 through 31.
+
+            inputDateFormat: "MM/DD/YYYY",
+            // View config options at:
+            // node_modules/apex4x/Help/Module Imports/Widgets/Datepicker.txt
+          }}
+        />
+      </div>
 
       <h2>ARIA Button</h2>
       <div>
@@ -115,7 +151,7 @@ function App() {
               set("false");
             } else {
               set("true");
-              window.Velocity(triggerNode, "callout.bounce");
+              $A.Velocity(triggerNode, "callout.bounce");
             }
             ev.preventDefault();
           }}

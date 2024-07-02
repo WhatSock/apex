@@ -1703,3 +1703,7 @@ Plus roles extended for the Role Parity project.
     };
   }
 })();
+
+$A.extend({
+  getAccName: window["getAccName"],
+});
