@@ -1,31 +1,30 @@
 import React, { useEffect } from "react";
 import "../../node_modules/apex4x/Templates/_common/css/colors.css";
-import "./Popup.css";
+import "./Dialog.css";
 import closeIcon from "./img/ic_close.svg";
 
 // Import the Apex 4X bundle build.
 import "apex4x";
 
-const Popup = ({ buttonLabel, popupTitle, popupMessage, config }) => {
+const Dialog = ({ buttonLabel, dialogTitle, dialogMessage, config }) => {
   const $A = window.$A;
   const buttonId = $A.genId();
-  const popupId = $A.genId();
+  const dialogId = $A.genId();
 
   useEffect(() => {
     // Initialize or use $A functionalities here
     const triggerButton = $A.get(buttonId);
 
-    $A.setPopup(
+    $A.setDialog(
       triggerButton,
       $A.extend(
         {
           // View config options at:
-          // node_modules/apex4x/Help/Module Imports/Widgets/Popup.txt
-          role: popupTitle,
-          announce: false,
+          // node_modules/apex4x/Help/Module Imports/Widgets/Dialog.txt
+          role: dialogTitle,
           animate: {
             onRender: function (dc, wrapper, next) {
-              $A.Velocity(wrapper, "transition.fadeIn", {
+              $A.Velocity(wrapper, "transition.slideDownIn", {
                 complete: function () {
                   // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                   next();
@@ -33,7 +32,7 @@ const Popup = ({ buttonLabel, popupTitle, popupMessage, config }) => {
               });
             },
             onRemove: function (dc, wrapper, next) {
-              $A.Velocity(wrapper, "transition.fadeOut", {
+              $A.Velocity(wrapper, "transition.slideDownOut", {
                 complete: function () {
                   // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                   next();
@@ -42,31 +41,30 @@ const Popup = ({ buttonLabel, popupTitle, popupMessage, config }) => {
             },
           },
           afterRender: function (dc) {
-            // Do something after the popup is rendered.
-            $A.announce(popupMessage);
+            // Do something after the dialog is rendered.
           },
         },
         config || {},
       ),
     );
-  }, [$A, buttonLabel, popupTitle, popupMessage, config, buttonId, popupId]);
+  }, [$A, buttonLabel, dialogTitle, dialogMessage, config, buttonId, dialogId]);
 
   return (
     <span>
-      <button className="popupTrigger" id={buttonId} data-controls={popupId}>
-        {buttonLabel}
+      <button id={buttonId} className="dialog-button" data-controls={dialogId}>
+        <span>{buttonLabel}</span>
       </button>
-      <div className="popup" id={popupId} hidden>
+      <div hidden id={dialogId}>
         <button className="CloseDC">
-          <img src={closeIcon} alt="Close Popup" title="Close Popup" />
+          <img src={closeIcon} alt="Close Dialog" title="Close Dialog" />
         </button>
-        <h3>{popupTitle}</h3>
+        <h1>{dialogTitle}</h1>
         <div>
-          <div dangerouslySetInnerHTML={{ __html: popupMessage }} />
+          <div dangerouslySetInnerHTML={{ __html: dialogMessage }} />
         </div>
       </div>
     </span>
   );
 };
 
-export default Popup;
+export default Dialog;

@@ -9,6 +9,7 @@ import Switch from "./4X/Switch";
 import Toggle from "./4X/Toggle";
 import RadioGroup from "./4X/RadioGroup";
 import Popup from "./4X/Popup";
+import Dialog from "./4X/Dialog";
 
 // Import the Apex 4X bundle build.
 import "apex4x";
@@ -269,10 +270,12 @@ function App() {
       <div>
         <Popup
           buttonLabel="More Info"
-          popupTitle="Info Popup"
+          popupTitle="Information"
           popupMessage={`
-<h1>Information</h1>
-<div>Consider yourself informed!</div>
+<div class="message">
+<p>Consider yourself informed!</p>
+<p>So there...</p>
+</div>
 `}
           config={
             {
@@ -281,6 +284,89 @@ function App() {
               // node_modules/apex4x/Help/Module Imports/Widgets/Popup.txt
             }
           }
+        />
+      </div>
+
+      <h2>ARIA Dialog</h2>
+      <div>
+        <a href="https://whatsock.com/Templates/Dialogs/#configure" target="">
+          Config Options...
+        </a>
+      </div>
+      <div>
+        <Dialog
+          buttonLabel="Login"
+          dialogTitle="Login"
+          dialogMessage={`
+<div class="message">
+                <form id="lbForm">
+                  <p>
+                    <label for="uname">Username:</label>
+                    <input type="text" id="uname" name="uname" />
+                  </p>
+                  <p>
+                    <label for="pass">Password:</label>
+                    <input type="password" id="pass" name="pass" />
+                  </p>
+                  <p className="buttons-bar">
+                    <input type="submit" id="lbSubmit" value="OK" />
+                    <input
+                      type="reset"
+                      class="lbClose CloseDC"
+                      id="lbCancel"
+                      value="Cancel"
+                    />
+                  </p>
+                </form>
+</div>
+`}
+          config={{
+            // Optional config overrides.
+
+            // Specify the role name for the dialog that will be conveyed to screen reader users.
+            role: "Login",
+
+            // Set the class name for the top level container element
+            className: "modal",
+
+            // Set the class name for the close button.
+            // This must match the class name for any close links or buttons within the dialog content, which will cause close event binding to automatically occur when the content is rendered.
+            closeClassName: "CloseDC",
+
+            // Optionally specify if the dialog is an alert message.
+            // If true, a system alert will be fired when the dialog is rendered that will instantly convey the dialog content to screen reader users.
+            isAlert: false,
+
+            // Specify if the dialog is a modal dialog.
+            isModal: true,
+
+            // Optionally run a script after the dialog finishes rendering.
+            afterRender: function (DC) {
+              // DC.container includes the rendered dialog content.
+              let frm = $A.get("lbForm");
+              $A(frm).on("submit", (ev) => {
+                if (!frm.uname.value) {
+                  alert("Woops! You forgot your username...");
+                  frm.uname.focus();
+                } else if (!frm.pass.value) {
+                  alert("Woops! You forgot your password...");
+                  frm.pass.focus();
+                } else {
+                  alert("WOW!");
+                  DC.remove();
+                }
+                ev.preventDefault();
+              });
+            },
+
+            // Optionally run a script after the dialog is removed.
+            afterRemove: function (DC) {
+              // Do something.
+            },
+
+            // View config options at:
+            // node_modules/apex4x/Help/Module Imports/Widgets/Dialog.txt
+          }}
         />
       </div>
     </div>
