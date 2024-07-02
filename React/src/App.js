@@ -67,6 +67,28 @@ function App() {
           }}
         />
       </div>
+      <div>
+        <Datepicker
+          label="Credit card expiration date:"
+          placeholder="MM/YY"
+          inputName="expirationDate"
+          config={{
+            // Optionally hide individual dates to render month / year selector only.
+            monthOnly: true,
+            inputDateFormat: "MM/YY",
+            // Optionally convert the static year field into a year selector dropdown.
+            //    yearSelect: true,
+            yearSelectMin: new Date().getFullYear(),
+            yearSelectMax: new Date().getFullYear() + 5,
+            // Optionally convert the static month field into a month selector dropdown.
+            //    monthSelect: true,
+            // Force the month/year select dropdown to render instead of a button.
+            //    forceSelect: true,
+            helpText:
+              "Press the Spacebar on the Year or Month selector to open available options, use the Up and Down arrow keys to navigate, and Enter to save the current selection and close the calendar.",
+          }}
+        />
+      </div>
 
       <h2>ARIA Button</h2>
       <div>

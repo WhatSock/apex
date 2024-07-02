@@ -59,7 +59,7 @@ const Datepicker = ({ label, placeholder, inputName, config }) => {
   return (
     <div className="dateField">
       <div className="dateField--flex-item">
-        <label for={inputId}>{label}</label>
+        <label htmlFor={inputId}>{label}</label>
         <input
           placeholder={placeholder}
           id={inputId}
