@@ -1,0 +1,87 @@
+/**********************************************
+Common Menu Colours - update in colors.css
+*************************************************/
+/*
+--button-blueGrey: #286278;
+--globalWhite: #ffffff;
+--whatsock-red: #c13836;
+--tablist-black: #2e3135;
+--datepicker-lightGrey: #cccccc;
+--datepicker-lmGrey: #bdbdbd;
+*/
+
+/**********************************************
+Common Menu styles
+*************************************************/
+
+button.aria-menu {
+  font-size: 100%;
+  text-transform: uppercase;
+  color: var(--globalWhite);
+  background: var(--button-blueGrey) url(./img/menu/sprite.svg) right -290px no-repeat;
+  padding: 0.3em 36px 0.3em 0.5em;
+  border: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  border-radius: 2px;
+  cursor: pointer;
+}
+button.aria-menu:hover,
+button.aria-menu:focus {
+  color: var(--globalWhite);
+  background-color: var(--whatsock-red);
+  box-shadow: none;
+  border-radius: 0;
+}
+
+ul.top.menu {
+  background: var(--tablist-black);
+  margin: 2em 0 0;
+}
+
+ul.top.menu > li {
+  text-transform: uppercase;
+}
+
+ul.top.menu > li li {
+  font-size: 100%;
+}
+
+ul.menu {
+  width: 10em;
+  list-style: none;
+  margin-left: 11em;
+}
+
+ul.top.menu a {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: var(--globalWhite);
+  background: var(--tablist-black);
+  padding: 0.3em 0.8em;
+}
+
+ul.top.menu a.has-submenu {
+  color: var(--globalWhite);
+  background: var(--tablist-black) url(./img/menu/sprite.svg) right -288px no-repeat;
+  padding: 0.3em 36px 0.3em 0.8em;
+}
+
+ul.top.menu a:focus,
+ul.top.menu a:hover,
+ul.top.menu a.has-submenu:hover,
+ul.top.menu a.has-submenu:focus {
+  color: var(--globalWhite);
+  background-color: var(--whatsock-red);
+}
+
+ul.top.menu a.has-submenu {
+  background: var(--tablist-black) url(./img/menu/sprite.svg) right -288px no-repeat;
+  padding: 0.3em 36px 0.3em 0.8em;
+}
+
+a[aria-disabled="true"] {
+  color: var(--datepicker-lightGrey);
+  background: var(--datepicker-lmGrey);
+  cursor: auto;
+}

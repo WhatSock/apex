@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "../../node_modules/apex4x/Templates/_common/css/colors.css";
 import "./Datepicker.css";
 import icon from "./img/datepicker/calendar-button.svg";
@@ -8,8 +8,8 @@ import "apex4x";
 
 const Datepicker = ({ label, placeholder, inputName, config }) => {
   const $A = window.$A;
-  const inputId = $A.genId();
-  const toggleId = $A.genId();
+  const inputId = useRef($A.genId()).current;
+  const toggleId = useRef($A.genId()).current;
 
   useEffect(() => {
     // Initialize or use $A functionalities here

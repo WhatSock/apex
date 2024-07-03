@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "../../node_modules/apex4x/Templates/_common/css/colors.css";
 import "./Dialog.css";
 import closeIcon from "./img/ic_close.svg";
@@ -8,12 +8,15 @@ import "apex4x";
 
 const Dialog = ({ buttonLabel, dialogTitle, dialogMessage, config }) => {
   const $A = window.$A;
-  const buttonId = $A.genId();
-  const dialogId = $A.genId();
+  const buttonId = useRef($A.genId()).current;
+  const dialogId = useRef($A.genId()).current;
+  const messageId = useRef($A.genId()).current;
 
   useEffect(() => {
     // Initialize or use $A functionalities here
     const triggerButton = $A.get(buttonId);
+    const message = $A.get(messageId);
+    $A.insert(dialogMessage, message);
 
     $A.setDialog(
       triggerButton,
@@ -42,12 +45,22 @@ const Dialog = ({ buttonLabel, dialogTitle, dialogMessage, config }) => {
           },
           afterRender: function (dc) {
             // Do something after the dialog is rendered.
+            // $A.announce(message);
           },
         },
         config || {},
       ),
     );
-  }, [$A, buttonLabel, dialogTitle, dialogMessage, config, buttonId, dialogId]);
+  }, [
+    $A,
+    buttonLabel,
+    dialogTitle,
+    dialogMessage,
+    config,
+    buttonId,
+    dialogId,
+    messageId,
+  ]);
 
   return (
     <span>
@@ -59,9 +72,7 @@ const Dialog = ({ buttonLabel, dialogTitle, dialogMessage, config }) => {
           <img src={closeIcon} alt="Close Dialog" title="Close Dialog" />
         </button>
         <h1>{dialogTitle}</h1>
-        <div>
-          <div dangerouslySetInnerHTML={{ __html: dialogMessage }} />
-        </div>
+        <div id={messageId} />
       </div>
     </span>
   );

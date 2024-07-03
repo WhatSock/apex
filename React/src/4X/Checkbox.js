@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "../../node_modules/apex4x/Templates/_common/css/colors.css";
 import "./Checkbox.css";
 
@@ -7,7 +7,7 @@ import "apex4x";
 
 const Checkbox = ({ label, onActivate, checked, config }) => {
   const $A = window.$A;
-  const id = $A.genId();
+  const id = useRef($A.genId()).current;
 
   useEffect(() => {
     // Initialize or use $A functionalities here

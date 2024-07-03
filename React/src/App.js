@@ -7,6 +7,7 @@ import Button from "./4X/Button";
 import Checkbox from "./4X/Checkbox";
 import Switch from "./4X/Switch";
 import Toggle from "./4X/Toggle";
+import Menu from "./4X/Menu";
 import RadioGroup from "./4X/RadioGroup";
 import Popup from "./4X/Popup";
 import Dialog from "./4X/Dialog";
@@ -216,6 +217,264 @@ function App() {
               // Optional config overrides.
               // View config options at:
               // node_modules/apex4x/Help/Module Imports/Widgets/Button.txt
+            }
+          }
+        />
+      </div>
+
+      <h2>ARIA Menu</h2>
+      <div>
+        <a href="https://whatsock.com/Templates/Menus/#configure" target="">
+          Config Options...
+        </a>
+      </div>
+
+      <div>
+        <Menu
+          buttonLabel="Simple Example"
+          menuList={`
+<ul hidden class="top menu">
+  <li>
+    <a href="#" class="has-submenu">
+      Social Media
+    </a>
+    <ul hidden class="menu">
+      <li>
+        <a href="https://twitter.com" class="link">
+          Twitter (X)
+        </a>
+      </li>
+      <li>
+        <a href="https://fb.com" class="link">
+          Facebook (Meta)
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a href="https://google.com" class="link">
+      Google
+    </a>
+  </li>
+</ul>
+`}
+          onActivate={(
+            ev,
+            triggerNode,
+            RTI,
+            boundElement,
+            checked,
+            set,
+            isRadio,
+          ) => {
+            if (
+              $A(triggerNode).hasAttr("href") &&
+              $A(triggerNode).getAttr("href").indexOf("https://") !== -1
+            )
+              RTI.DC.top.remove(() => {
+                window.location.href = triggerNode.href;
+              });
+          }}
+          config={
+            {
+              // Optional config overrides.
+              // View config options at:
+              // node_modules/apex4x/Help/Module Imports/Widgets/Menu.txt
+            }
+          }
+        />
+      </div>
+
+      <div>
+        <Menu
+          buttonLabel="Settings"
+          menuList={`
+                <ul hidden class="top menu">
+                  <li>
+                    <a href="#" class="has-submenu">Profile</a>
+                    <ul hidden class="menu">
+                      <li>
+                        <a href="#" class="has-submenu">Personal</a>
+                        <ul hidden class="menu">
+                          <li>
+                            <a href="#" class="link" id="personal-name">Name</a>
+                          </li>
+                          <li>
+                            <a href="#" class="link" id="personal-interests"
+                              >Interests</a
+                            >
+                          </li>
+                          <li>
+                            <a href="#" class="link" id="personal-education"
+                              >Education</a
+                            >
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="#" class="has-submenu">Business</a>
+                        <ul hidden class="menu">
+                          <li>
+                            <a href="#" class="link" id="business-name">Name</a>
+                          </li>
+                          <li>
+                            <a href="#" class="link" id="business-contact"
+                              >Contact</a
+                            >
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#" class="has-submenu">Checkable Options</a>
+                    <ul hidden class="menu">
+                      <li>
+                        <a data-check href="#" class="link" id="settings-editor"
+                          >Editor</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          data-check="true"
+                          href="#"
+                          class="link"
+                          id="settings-cookies"
+                          >Cookies</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          data-check="mixed"
+                          href="#"
+                          class="link"
+                          id="settings-toolbar"
+                          >Toolbar</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#" class="has-submenu">Radio Options</a>
+                    <ul hidden class="menu">
+                      <li>
+                        <a
+                          data-radio
+                          href="#"
+                          class="link"
+                          id="account-username"
+                          >Username</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          data-radio="true"
+                          href="#"
+                          class="link"
+                          id="account-password"
+                          >Password</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a
+                      aria-disabled="true"
+                      title="Disabled"
+                      href="#"
+                      class="has-submenu"
+                      >Services</a
+                    >
+                    <ul hidden class="menu">
+                      <li>
+                        <a href="#" class="link" id="services-campaigns"
+                          >Campaigns</a
+                        >
+                      </li>
+                      <li>
+                        <a href="#" class="link" id="services-payments"
+                          >Payments</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a
+                      aria-disabled="true"
+                      href="#"
+                      class="link"
+                      id="properties"
+                      >Properties...</a
+                    >
+                  </li>
+                  <li>
+                    <a href="https://google.com/" class="link" id="help"
+                      >Help...</a
+                    >
+                  </li>
+                </ul>
+`}
+          onActivate={(
+            ev,
+            triggerNode,
+            RTI,
+            boundElement,
+            checked,
+            set,
+            isRadio,
+          ) => {
+            // 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
+            // if 0, the checked state is "false".
+            // if 1, the checked state is "true".
+            // if 2, the checked state is "mixed".
+            // The 'set' argument is a function that will set the checkable item to a new state.
+            // The new value must be a string consisting of "false", "true", or "mixed".
+            if ($A.isNum(checked)) {
+              if (checked === 0 || isRadio) {
+                set("true");
+                RTI.DC.top.remove(() => {
+                  alert(
+                    "The new checked state for " +
+                      triggerNode.id +
+                      " is 'true'",
+                  );
+                });
+              } else if (checked === 1) {
+                set("mixed");
+                RTI.DC.top.remove(() => {
+                  alert(
+                    "The new checked state for " +
+                      triggerNode.id +
+                      " is 'mixed'",
+                  );
+                });
+              } else if (checked === 2) {
+                set("false");
+                RTI.DC.top.remove(() => {
+                  alert(
+                    "The new checked state for " +
+                      triggerNode.id +
+                      " is 'false'",
+                  );
+                });
+              }
+            } else if (
+              $A(triggerNode).hasAttr("href") &&
+              $A(triggerNode).getAttr("href").indexOf("https://") !== -1
+            )
+              RTI.DC.top.remove(() => {
+                window.location.href = triggerNode.href;
+              });
+            else
+              RTI.DC.top.remove(() => {
+                alert(triggerNode.id);
+              });
+          }}
+          config={
+            {
+              // Optional config overrides.
+              // View config options at:
+              // node_modules/apex4x/Help/Module Imports/Widgets/Menu.txt
             }
           }
         />

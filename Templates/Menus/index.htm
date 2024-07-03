@@ -102,8 +102,8 @@
 
             <ul>
               <li>
-                menu : The resource path and pointer to the ID attribute of the
-                menu container element.
+                data-menu : The resource path and pointer to the ID attribute of
+                the menu container element.
               </li>
             </ul>
 
@@ -255,12 +255,13 @@ child: "a" // Will become the focusable active element with role="menuitem", "me
 },
 
 // Set a custom event handler to process every time a menu item is activated.
-onActivate: function(event, triggerNode, RTI, boundElement, currentState, set) {
-// If triggerNode opens a submenu, boundElement will reference the associated submenu DC object.
-// Otherwise, if triggerNode is checkable, boundElement will reference the hidden checkbox or radio element if present.
-// If the menu item is checkable, currentState will include a number from 0 to 2.
-// (0 = "false", 1 = "true", 2 = "mixed".)
-// The set function can be used to set a new state for the option.
+onActivate: function(event, triggerNode, RTI, boundElement, checked, set, isRadio) {
+// 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
+// if 0, the checked state is "false".
+// if 1, the checked state is "true".
+// if 2, the checked state is "mixed".
+// The 'set' argument is a function that will set the checkable item to a new state.
+// The new value must be a string consisting of "false", "true", or "mixed".
 // E.G. set("false"), set("true"), or set("mixed") for checkbox menu items only.
 },
 

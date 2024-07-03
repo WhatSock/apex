@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "../../node_modules/apex4x/Templates/_common/css/colors.css";
 import "./Popup.css";
 import closeIcon from "./img/ic_close.svg";
@@ -8,12 +8,15 @@ import "apex4x";
 
 const Popup = ({ buttonLabel, popupTitle, popupMessage, config }) => {
   const $A = window.$A;
-  const buttonId = $A.genId();
-  const popupId = $A.genId();
+  const buttonId = useRef($A.genId()).current;
+  const popupId = useRef($A.genId()).current;
+  const messageId = useRef($A.genId()).current;
 
   useEffect(() => {
     // Initialize or use $A functionalities here
     const triggerButton = $A.get(buttonId);
+    const message = $A.get(messageId);
+    $A.insert(popupMessage, message);
 
     $A.setPopup(
       triggerButton,
@@ -43,13 +46,22 @@ const Popup = ({ buttonLabel, popupTitle, popupMessage, config }) => {
           },
           afterRender: function (dc) {
             // Do something after the popup is rendered.
-            $A.announce(popupMessage);
+            $A.announce(message);
           },
         },
         config || {},
       ),
     );
-  }, [$A, buttonLabel, popupTitle, popupMessage, config, buttonId, popupId]);
+  }, [
+    $A,
+    buttonLabel,
+    popupTitle,
+    popupMessage,
+    config,
+    buttonId,
+    popupId,
+    messageId,
+  ]);
 
   return (
     <span>
@@ -61,9 +73,7 @@ const Popup = ({ buttonLabel, popupTitle, popupMessage, config }) => {
           <img src={closeIcon} alt="Close Popup" title="Close Popup" />
         </button>
         <h3>{popupTitle}</h3>
-        <div>
-          <div dangerouslySetInnerHTML={{ __html: popupMessage }} />
-        </div>
+        <div id={messageId} />
       </div>
     </span>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "../../node_modules/apex4x/Templates/_common/css/colors.css";
 import "./RadioGroup.css";
 
@@ -9,7 +9,7 @@ import Radio from "./Radio";
 
 const RadioGroup = ({ label, groupName, onActivate, radios, config }) => {
   const $A = window.$A;
-  const id = $A.genId();
+  const id = useRef($A.genId()).current;
 
   useEffect(() => {
     // Initialize or use $A functionalities here

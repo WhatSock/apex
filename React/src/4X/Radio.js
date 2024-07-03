@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 // Import the Apex 4X bundle build.
 import "apex4x";
 
 const Radio = ({ label, value, checked, groupName }) => {
   const $A = window.$A;
-  const id = $A.genId();
+  const id = useRef($A.genId()).current;
 
   useEffect(() => {
     // Initialize or use $A functionalities here
