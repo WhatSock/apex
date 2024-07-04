@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 5.8 for Apex 4X
+ARIA Date Picker Module 5.9 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -92,8 +92,8 @@ License: MIT <https://opensource.org/licenses/MIT>
               returnFocus: false,
               openOnFocus: config.openOnFocus === true,
               openOnFocusHelpText: openOnFocusHelpText,
-              showEscBtn: config.showEscBtn === true,
-              escBtnName: config.escBtnName || "Close",
+              showEscBtn: monthOnly || config.showEscBtn === true,
+              escBtnName: config.escBtnName || (monthOnly ? "Save" : "Close"),
               escBtnIcon: config.escBtnIcon || "&times;",
               tooltipTxt: config.tooltipTxt || "Press Escape to cancel",
               markedTxt: config.markedTxt || "Selected",
@@ -2136,10 +2136,15 @@ License: MIT <https://opensource.org/licenses/MIT>
                     dc.buttons.esc,
                     {
                       click: function (ev) {
-                        dc.remove();
                         onFocusInit = false;
                         onFocusTraverse = true;
-                        $A.focus(config.returnFocusTo || targ);
+                        if (monthOnly) {
+                          dc.storeCurrentDate(dc);
+                          handleClick.apply(this, [ev, dc, targ]);
+                        } else {
+                          dc.remove();
+                          $A.focus(config.returnFocusTo || targ);
+                        }
                         ev.preventDefault();
                       },
                       keydown: function (ev) {
@@ -2147,10 +2152,15 @@ License: MIT <https://opensource.org/licenses/MIT>
                         var k = $A.keyEvent(ev);
 
                         if (k === 27 || k === 13 || k === 32) {
-                          dc.remove();
                           onFocusInit = false;
                           onFocusTraverse = true;
-                          $A.focus(config.returnFocusTo || targ);
+                          if (monthOnly && k !== 27) {
+                            dc.storeCurrentDate(dc);
+                            handleClick.apply(this, [ev, dc, targ]);
+                          } else {
+                            dc.remove();
+                            $A.focus(config.returnFocusTo || targ);
+                          }
                         } else if (
                           k === 9 &&
                           !pressed.alt &&
