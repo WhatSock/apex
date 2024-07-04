@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 5.7 for Apex 4X
+ARIA Date Picker Module 5.8 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -2384,14 +2384,6 @@ License: MIT <https://opensource.org/licenses/MIT>
                     $A.on(
                       mSel,
                       {
-                        click: function (ev) {
-                          if (monthOnly) {
-                            onFocusInit = false;
-                            onFocusTraverse = true;
-                            dc.storeCurrentDate(dc);
-                            handleClick.apply(this, [ev, dc, targ]);
-                          }
-                        },
                         keydown: function (ev) {
                           changePressed(ev);
                           var k = $A.keyEvent(ev);

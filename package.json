@@ -8,7 +8,7 @@
   },
   "name": "apex4x",
   "description": "The Comprehensive ARIA Development Suite",
-  "version": "2023.8.1-2.33",
+  "version": "2023.8.1-2.34",
   "main": "./Bundle/4X.js",
   "type": "module",
   "scripts": {
