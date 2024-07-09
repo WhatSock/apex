@@ -24,6 +24,24 @@ const Tooltip = ({ trigger, message, config }) => {
           content: tooltip,
           autoCloseSameWidget: true,
           className: "tooltip",
+          animate: {
+            onRender: function (dc, wrapper, next) {
+              $A.Velocity(wrapper, "transition.fadeIn", {
+                complete: function () {
+                  // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                  next();
+                },
+              });
+            },
+            onRemove: function (dc, wrapper, next) {
+              $A.Velocity(wrapper, "transition.fadeOut", {
+                complete: function () {
+                  // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                  next();
+                },
+              });
+            },
+          },
         },
         config || {},
       ),
