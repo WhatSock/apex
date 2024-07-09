@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 5.9 for Apex 4X
+ARIA Date Picker Module 5.10 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -512,8 +512,13 @@ License: MIT <https://opensource.org/licenses/MIT>
                     dc.navBtn === "CM" ||
                     (monthOnly && (!dc.openOnFocus || triggered))
                   ) {
-                    if (!dc.buttons.cYS.hidden) dc.buttons.cYS.focus();
-                    else if (!dc.buttons.cY.hidden) dc.buttons.cY.focus();
+                    if (dc.navBtn === "CM") {
+                      if (!dc.buttons.cMS.hidden) dc.buttons.cMS.focus();
+                      else if (!dc.buttons.cM.hidden) dc.buttons.cM.focus();
+                    } else {
+                      if (!dc.buttons.cYS.hidden) dc.buttons.cYS.focus();
+                      else if (!dc.buttons.cY.hidden) dc.buttons.cY.focus();
+                    }
                   } else {
                     // Toggles for openOnFocus support.
                     if (
@@ -932,6 +937,22 @@ License: MIT <https://opensource.org/licenses/MIT>
               },
               onceBeforeRender: function (dc) {
                 if (!(dc.date instanceof Date)) {
+                  if (
+                    dc.yearSelect &&
+                    !(dc.minDate instanceof Date) &&
+                    !$A.isNum(dc.minDate) &&
+                    $A.isNum(dc.yearSelectMin)
+                  ) {
+                    dc.minDate = new Date(dc.yearSelectMin, 0, 1);
+                  }
+                  if (
+                    dc.yearSelect &&
+                    !(dc.maxDate instanceof Date) &&
+                    !$A.isNum(dc.maxDate) &&
+                    $A.isNum(dc.yearSelectMax)
+                  ) {
+                    dc.maxDate = new Date(dc.yearSelectMax, 11, 31);
+                  }
                   dc.setDateComparisons(dc);
                   dc.setDate(dc);
                 }
@@ -2236,14 +2257,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                         keydown: function (ev) {
                           changePressed(ev);
                           var k = $A.keyEvent(ev);
-                          if (k === 13) {
-                            if (monthOnly) {
-                              onFocusInit = false;
-                              onFocusTraverse = true;
-                              dc.storeCurrentDate(dc);
-                              handleClick.apply(this, [ev, dc, targ]);
-                            }
-                          } else if (k === 27) {
+                          if (k === 27) {
                             if (!forceSelect) {
                               dc.buttons.cYS.hidden = true;
                               dc.buttons.cY.hidden = false;
@@ -2397,14 +2411,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                         keydown: function (ev) {
                           changePressed(ev);
                           var k = $A.keyEvent(ev);
-                          if (k === 13) {
-                            if (monthOnly) {
-                              onFocusInit = false;
-                              onFocusTraverse = true;
-                              dc.storeCurrentDate(dc);
-                              handleClick.apply(this, [ev, dc, targ]);
-                            }
-                          } else if (k === 27) {
+                          if (k === 27) {
                             if (!forceSelect) {
                               dc.buttons.cMS.hidden = true;
                               dc.buttons.cM.hidden = false;
@@ -2452,14 +2459,8 @@ License: MIT <https://opensource.org/licenses/MIT>
                           changePressed(ev);
                         },
                         change: function (ev) {
-                          dc.navBtn = "cM";
+                          dc.navBtn = "CM";
                           mSelHandle(ev);
-                          if (monthOnly) {
-                            onFocusInit = false;
-                            onFocusTraverse = true;
-                            dc.storeCurrentDate(dc);
-                            handleClick.apply(this, [ev, dc, targ]);
-                          }
                         },
                       },
                       "." + baseId,
