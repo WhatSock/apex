@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import "../../node_modules/apex4x/Templates/_common/css/colors.css";
-import "./Tooltip.css";
+import "./ErrorTooltip.css";
 
 // Import the Apex 4X bundle build.
 import "apex4x";
 
-const Tooltip = ({ trigger, message, config }) => {
+const ErrorTooltip = ({ trigger, message, config }) => {
   const $A = window.$A;
   const id = useRef($A.genId()).current;
 
@@ -14,6 +14,7 @@ const Tooltip = ({ trigger, message, config }) => {
     const triggerElement = $A.get(trigger);
     const tooltip = $A.get(id);
     $A.insert(message, tooltip);
+    triggerElement.setAttribute("data-error", id);
 
     $A.setTooltip(
       triggerElement,
@@ -21,17 +22,22 @@ const Tooltip = ({ trigger, message, config }) => {
         {
           // View config options at:
           // node_modules/apex4x/Help/Module Imports/Widgets/Tooltip.txt
-          content: tooltip,
-          autoCloseSameWidget: true,
-          className: "tooltip",
+          validate: function (dc, target) {
+            if (!target.value) {
+              dc.isValid = false;
+              return dc.content;
+            }
+            dc.isValid = true;
+          },
+          onValidate: function (dc) {
+            // Do something every time validation is processed.
+          },
+          autoCloseSameWidget: false,
+          className: "error-tooltip",
           delay: 0,
           delayTimeout: 0,
-          isError: false,
-          isFocusOnly: false,
-          isResponsive: false,
-          isManualOpen: false,
-          isManualClose: true,
-          isAlert: false,
+          isError: true,
+          isAlert: true,
           animate: {
             onRender: function (dc, wrapper, next) {
               $A.Velocity(wrapper, "transition.fadeIn", {
@@ -59,4 +65,4 @@ const Tooltip = ({ trigger, message, config }) => {
   return <div hidden id={id} />;
 };
 
-export default Tooltip;
+export default ErrorTooltip;

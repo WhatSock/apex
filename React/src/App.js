@@ -12,6 +12,7 @@ import RadioGroup from "./4X/RadioGroup";
 import Popup from "./4X/Popup";
 import Dialog from "./4X/Dialog";
 import Tooltip from "./4X/Tooltip";
+import ErrorTooltip from "./4X/ErrorTooltip";
 
 // Import the Apex 4X bundle build.
 import "apex4x";
@@ -497,8 +498,7 @@ function App() {
             radios={[
               { label: "Horrible", value: "radio-value1-horrible" },
               { label: "Shrug", value: "radio-value2-shrug" },
-              { label: "Okay", value: "radio-value3-okay" },
-              { label: "GNARLY!", value: "radio-value4-gnarly", checked: true },
+              { label: "GNARLY!", value: "radio-value3-gnarly", checked: true },
             ]}
             onActivate={(ev, ariaRadio, boundTo, checked, set) => {
               // 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
@@ -660,9 +660,8 @@ function App() {
                 // Optional config overrides.
                 // View config options at:
                 // node_modules/apex4x/Help/Module Imports/Widgets/Tooltip.txt
-                autoPosition: 4,
                 delay: 600,
-                // delayTimeout: 3000,
+                delayTimeout: 3000,
                 animate: {
                   onRender: function (dc, wrapper, next) {
                     $A.Velocity(wrapper, "transition.bounceLeftIn", {
@@ -674,6 +673,89 @@ function App() {
                   },
                   onRemove: function (dc, wrapper, next) {
                     $A.Velocity(wrapper, "transition.bounceRightOut", {
+                      complete: function () {
+                        // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                        next();
+                      },
+                    });
+                  },
+                },
+              }}
+            />
+          </div>
+
+          <div>
+            <p>
+              <label htmlFor="trigger2id">Set focus here:</label>
+              <input id="trigger2id" type="text" />
+            </p>
+            <Tooltip
+              trigger="trigger2id"
+              message={`<p>Now, press the Tab key.</p>`}
+              config={{
+                // Optional config overrides.
+                // View config options at:
+                // node_modules/apex4x/Help/Module Imports/Widgets/Tooltip.txt
+                isFocusOnly: true,
+                className: "tooltip on-focus",
+                delay: 1000,
+                delayTimeout: 3000,
+              }}
+            />
+            <ErrorTooltip
+              trigger="trigger2id"
+              message={`<p>HEY GET BACK HERE!</p>`}
+              config={{
+                // Optional config overrides.
+                // View config options at:
+                // node_modules/apex4x/Help/Module Imports/Widgets/Tooltip.txt
+                validate: function (dc, target) {
+                  if (!target.value) {
+                    dc.isValid = false;
+                    return dc.content;
+                  }
+                  dc.isValid = true;
+                },
+                onValidate: function (dc) {
+                  // Do something every time validation is processed.
+                },
+              }}
+            />
+          </div>
+
+          <div>
+            <p>
+              <label htmlFor="trigger3id">Password:</label>
+              <input id="trigger3id" type="password" />
+            </p>
+            <Tooltip
+              trigger="trigger3id"
+              message={`
+                  <p>Important:</p>
+                  <ul>
+                    <li>Must be 8 characters in length.</li>
+                    <li>Must not contain special characters.</li>
+                    <li>Must not contain any whitespace characters.</li>
+                  </ul>
+`}
+              config={{
+                // Optional config overrides.
+                // View config options at:
+                // node_modules/apex4x/Help/Module Imports/Widgets/Tooltip.txt
+                isFocusOnly: true,
+                className: "tooltip on-focus",
+                delay: 1000,
+                animate: {
+                  onRender: function (dc, wrapper, next) {
+                    $A.Velocity(wrapper, "transition.swoopIn", {
+                      complete: function () {
+                        // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+                        next();
+                      },
+                    });
+                  },
+                  onRemove: function (dc, wrapper, next) {
+                    $A.Velocity(wrapper, "transition.swoopOut", {
                       complete: function () {
                         // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
                         next();

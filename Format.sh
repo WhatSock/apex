@@ -9,10 +9,6 @@ prettier --write "./4X/Modules/*{.js,.json}" 2>> FormatErrors.txt
 prettier --write "./4X/Standard/Modules/*{.js,.json}" 2>> FormatErrors.txt
 prettier --write "./React/src/*{.js,.json,.css}" 2>> FormatErrors.txt
 prettier --write "./React/src/**/*{.js,.json,.css}" 2>> FormatErrors.txt
-if [ -d "./React/test-react-app/src" ]; then
-prettier --write "./React/test-react-app/src/*{.js,.json,.css}" 2>> FormatErrors.txt
-prettier --write "./React/test-react-app/src/**/*{.js,.json,.css}" 2>> FormatErrors.txt
-fi
 prettier --write "./Templates/*{.htm,.html}" 2>> FormatErrors.txt
 prettier --write "./Templates/**/*{.js,.json,.css,.htm,.html}" 2>> FormatErrors.txt
 prettier --write "./Tutorials/*{.htm,.html}" 2>> FormatErrors.txt
