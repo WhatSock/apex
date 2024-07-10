@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import "../../node_modules/apex4x/Templates/_common/css/colors.css";
 import "./RadioGroup.css";
 
@@ -9,7 +9,6 @@ import Radio from "./Radio";
 
 const RadioGroup = ({ label, groupName, onActivate, radios, config }) => {
   const $A = window.$A;
-  const id = useRef($A.genId()).current;
 
   useEffect(() => {
     // Initialize or use $A functionalities here
@@ -22,7 +21,7 @@ const RadioGroup = ({ label, groupName, onActivate, radios, config }) => {
     };
 
     $A.setRadio(
-      `div[data-radio][data-name="${groupName}"]`,
+      `div[data-radio][data-group="${groupName}"]`,
       $A.extend(
         {
           // View config options at:
@@ -33,10 +32,10 @@ const RadioGroup = ({ label, groupName, onActivate, radios, config }) => {
         config || {},
       ),
     );
-  }, [$A, id, label, groupName, onActivate, radios, config]);
+  }, [$A, label, groupName, onActivate, radios, config]);
 
   return (
-    <div className="aria-radiogroup" id={id} aria-label={label}>
+    <div className="aria-radiogroup" role="radiogroup" aria-label={label}>
       <h3>{label}</h3>
       <div>
         {radios.map((radio, i) => (

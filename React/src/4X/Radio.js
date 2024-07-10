@@ -19,7 +19,7 @@ const Radio = ({ label, value, checked, groupName }) => {
       data-radio={checked ? "true" : "false"}
       className="aria-radio"
       id={id}
-      data-name={groupName}
+      data-group={groupName}
       data-value={value}
     >
       <span>{label}</span>

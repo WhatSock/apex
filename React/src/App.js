@@ -2,15 +2,16 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-import Datepicker from "./4X/Datepicker";
+import AccordionGroup from "./4X/AccordionGroup";
 import Button from "./4X/Button";
 import Checkbox from "./4X/Checkbox";
+import Datepicker from "./4X/Datepicker";
+import Dialog from "./4X/Dialog";
+import Menu from "./4X/Menu";
+import Popup from "./4X/Popup";
+import RadioGroup from "./4X/RadioGroup";
 import Switch from "./4X/Switch";
 import Toggle from "./4X/Toggle";
-import Menu from "./4X/Menu";
-import RadioGroup from "./4X/RadioGroup";
-import Popup from "./4X/Popup";
-import Dialog from "./4X/Dialog";
 import Tooltip from "./4X/Tooltip";
 import ErrorTooltip from "./4X/ErrorTooltip";
 
@@ -37,60 +38,55 @@ function App() {
         </a>
       </header>
       <main>
-        <h2>ARIA Datepicker</h2>
+        <h2>ARIA Accordion</h2>
         <div>
           <a
-            href="https://whatsock.com/Templates/Datepickers/#configure"
+            href="https://whatsock.com/Templates/Accordions/#configure"
             target=""
           >
             Config Options...
           </a>
         </div>
         <div>
-          <Datepicker
-            label="Date of birth:"
-            placeholder="MM/DD/YYYY"
-            inputName="birthDate"
-            config={{
-              // Optional config overrides.
-
-              // Using a token system, set a specific date string format to be used when setting the selected value into the calendar input box
-              // 'YYYY': 4 digit year, 2019
-              // 'YY': 2 digit year, 19
-              // 'MMMM': Full name of month, January, etc.
-              // 'dddd': Full name of weekday, Monday, etc.
-              // 'MM': 2 digit month, 01, etc.
-              // 'DD': 2 digit day, 01, etc.
-              // 'Do': getDateOrdinalSuffix, 1st, 2nd, 3rd.
-              // 'M': 1 or 2 digit month, 1 through 12
-              // 'D': 1 or 2 digit day, 1 through 31.
-
-              inputDateFormat: "MM/DD/YYYY",
-              // View config options at:
-              // node_modules/apex4x/Help/Module Imports/Widgets/Datepicker.txt
-            }}
-          />
-        </div>
-        <div>
-          <Datepicker
-            label="Credit card expiration date:"
-            placeholder="MM/YY"
-            inputName="expirationDate"
-            config={{
-              // Optionally hide individual dates to render month / year selector only.
-              monthOnly: true,
-              inputDateFormat: "MM/YY",
-              // Optionally convert the static year field into a year selector dropdown.
-              //    yearSelect: true,
-              yearSelectMin: new Date().getFullYear(),
-              yearSelectMax: new Date().getFullYear() + 5,
-              // Optionally convert the static month field into a month selector dropdown.
-              //    monthSelect: true,
-              // Force the month/year select dropdown to render instead of a button.
-              //    forceSelect: true,
-              helpText:
-                "Press the Spacebar on the Year or Month selector to open available options, use the Up and Down arrow keys to navigate, and Enter to save the current selection and close the calendar.",
-            }}
+          <AccordionGroup
+            groupName="uniqueSharedGroupName1"
+            headingLevel="3"
+            accordions={[
+              {
+                label: "Alternative",
+                active: "true",
+                content: `
+<div class="accordion-panel">
+<span>YEA!</span>
+</div>
+`,
+              },
+              {
+                label: "Rock",
+                active: "false",
+                content: `
+<div class="accordion-panel">
+<span>ALRIGHT!</span>
+</div>
+`,
+              },
+              {
+                label: "Country",
+                active: "false",
+                content: `
+<div class="accordion-panel">
+<span>WHAT?</span>
+</div>
+`,
+              },
+            ]}
+            config={
+              {
+                // Optional config overrides.
+                // View config options at:
+                // node_modules/apex4x/Help/Module Imports/Widgets/Accordion.txt
+              }
+            }
           />
         </div>
 
@@ -157,73 +153,143 @@ function App() {
           />
         </div>
 
-        <h2>ARIA Switch</h2>
+        <h2>ARIA Datepicker</h2>
         <div>
           <a
-            href="https://whatsock.com/Templates/Switches/#configure"
+            href="https://whatsock.com/Templates/Datepickers/#configure"
             target=""
           >
             Config Options...
           </a>
         </div>
         <div>
-          <Switch
-            label="Thermostat"
-            on="false"
-            onActivate={(ev, triggerNode, boundCheckbox, on, set) => {
-              // 'on' reflects the current attribute value for the checkable item, and is always a number if applicable.
-              // if 0, the toggle state is "false".
-              // if 1, the toggle state is "true".
-              // The 'set' argument is a function that will set the checkable item to a new state.
-              // The new value must be a string consisting of "false" or "true".
-              if (on) {
-                set("false");
-              } else {
-                set("true");
-                $A.Velocity(triggerNode, "callout.bounce");
-              }
-              ev.preventDefault();
+          <Datepicker
+            label="Date of birth:"
+            placeholder="MM/DD/YYYY"
+            inputName="birthDate"
+            config={{
+              // Optional config overrides.
+
+              // Using a token system, set a specific date string format to be used when setting the selected value into the calendar input box
+              // 'YYYY': 4 digit year, 2019
+              // 'YY': 2 digit year, 19
+              // 'MMMM': Full name of month, January, etc.
+              // 'dddd': Full name of weekday, Monday, etc.
+              // 'MM': 2 digit month, 01, etc.
+              // 'DD': 2 digit day, 01, etc.
+              // 'Do': getDateOrdinalSuffix, 1st, 2nd, 3rd.
+              // 'M': 1 or 2 digit month, 1 through 12
+              // 'D': 1 or 2 digit day, 1 through 31.
+
+              inputDateFormat: "MM/DD/YYYY",
+              // View config options at:
+              // node_modules/apex4x/Help/Module Imports/Widgets/Datepicker.txt
             }}
-            config={
-              {
-                // Optional config overrides.
-                // View config options at:
-                // node_modules/apex4x/Help/Module Imports/Widgets/Switch.txt
-              }
-            }
+          />
+        </div>
+        <div>
+          <Datepicker
+            label="Credit card expiration date:"
+            placeholder="MM/YY"
+            inputName="expirationDate"
+            config={{
+              // Optionally hide individual dates to render month / year selector only.
+              monthOnly: true,
+              inputDateFormat: "MM/YY",
+              // Optionally convert the static year field into a year selector dropdown.
+              //    yearSelect: true,
+              yearSelectMin: new Date().getFullYear(),
+              yearSelectMax: new Date().getFullYear() + 5,
+              // Optionally convert the static month field into a month selector dropdown.
+              //    monthSelect: true,
+              // Force the month/year select dropdown to render instead of a button.
+              //    forceSelect: true,
+              helpText:
+                "Press the Spacebar on the Year or Month selector to open available options, use the Up and Down arrow keys to navigate, and Enter to save the current selection and close the calendar.",
+            }}
           />
         </div>
 
-        <h2>ARIA Toggle</h2>
+        <h2>ARIA Dialog</h2>
         <div>
-          <a href="https://whatsock.com/Templates/Buttons/#configure" target="">
+          <a href="https://whatsock.com/Templates/Dialogs/#configure" target="">
             Config Options...
           </a>
         </div>
         <div>
-          <Toggle
-            label="FAVORITE"
-            pressed="true"
-            onActivate={(ev, triggerNode, boundTo, pressed, set) => {
-              // 'pressed' reflects the current attribute value for the toggleable item, and is always a number if applicable.
-              // if 0, the pressed state is "false".
-              // if 1, the pressed state is "true".
-              // The 'set' argument is a function that will set the toggleable item to a new state.
-              // The new value must be a string consisting of "false" or "true".
-              if (pressed) {
-                set("false");
-              } else {
-                set("true");
-              }
-              ev.preventDefault();
+          <Dialog
+            buttonLabel="Login"
+            dialogTitle="Login"
+            dialogMessage={`
+<div class="message">
+                <form id="lbForm">
+                  <p>
+                    <label for="uname">Username:</label>
+                    <input type="text" id="uname" name="uname" />
+                  </p>
+                  <p>
+                    <label for="pass">Password:</label>
+                    <input type="password" id="pass" name="pass" />
+                  </p>
+                  <p className="buttons-bar">
+                    <input type="submit" id="lbSubmit" value="OK" />
+                    <input
+                      type="reset"
+                      class="lbClose CloseDC"
+                      id="lbCancel"
+                      value="Cancel"
+                    />
+                  </p>
+                </form>
+</div>
+`}
+            config={{
+              // Optional config overrides.
+
+              // Specify the role name for the dialog that will be conveyed to screen reader users.
+              role: "Login",
+
+              // Set the class name for the top level container element
+              className: "modal",
+
+              // Set the class name for the close button.
+              // This must match the class name for any close links or buttons within the dialog content, which will cause close event binding to automatically occur when the content is rendered.
+              closeClassName: "CloseDC",
+
+              // Optionally specify if the dialog is an alert message.
+              // If true, a system alert will be fired when the dialog is rendered that will instantly convey the dialog content to screen reader users.
+              isAlert: false,
+
+              // Specify if the dialog is a modal dialog.
+              isModal: true,
+
+              // Optionally run a script after the dialog finishes rendering.
+              afterRender: function (DC) {
+                // DC.container includes the rendered dialog content.
+                let frm = $A.get("lbForm");
+                $A(frm).on("submit", (ev) => {
+                  if (!frm.uname.value) {
+                    alert("Woops! You forgot your username...");
+                    frm.uname.focus();
+                  } else if (!frm.pass.value) {
+                    alert("Woops! You forgot your password...");
+                    frm.pass.focus();
+                  } else {
+                    alert("WOW!");
+                    DC.remove();
+                  }
+                  ev.preventDefault();
+                });
+              },
+
+              // Optionally run a script after the dialog is removed.
+              afterRemove: function (DC) {
+                // Do something.
+              },
+
+              // View config options at:
+              // node_modules/apex4x/Help/Module Imports/Widgets/Dialog.txt
             }}
-            config={
-              {
-                // Optional config overrides.
-                // View config options at:
-                // node_modules/apex4x/Help/Module Imports/Widgets/Button.txt
-              }
-            }
           />
         </div>
 
@@ -485,6 +551,32 @@ function App() {
           />
         </div>
 
+        <h2>ARIA Popup</h2>
+        <div>
+          <a href="https://whatsock.com/Templates/Popups/#configure" target="">
+            Config Options...
+          </a>
+        </div>
+        <div>
+          <Popup
+            buttonLabel="More Info"
+            popupTitle="Information"
+            popupMessage={`
+<div class="message">
+<p>Consider yourself informed!</p>
+<p>So there...</p>
+</div>
+`}
+            config={
+              {
+                // Optional config overrides.
+                // View config options at:
+                // node_modules/apex4x/Help/Module Imports/Widgets/Popup.txt
+              }
+            }
+          />
+        </div>
+
         <h2>ARIA RadioGroup</h2>
         <div>
           <a href="https://whatsock.com/Templates/Radios/#configure" target="">
@@ -524,112 +616,73 @@ function App() {
           />
         </div>
 
-        <h2>ARIA Popup</h2>
+        <h2>ARIA Switch</h2>
         <div>
-          <a href="https://whatsock.com/Templates/Popups/#configure" target="">
+          <a
+            href="https://whatsock.com/Templates/Switches/#configure"
+            target=""
+          >
             Config Options...
           </a>
         </div>
         <div>
-          <Popup
-            buttonLabel="More Info"
-            popupTitle="Information"
-            popupMessage={`
-<div class="message">
-<p>Consider yourself informed!</p>
-<p>So there...</p>
-</div>
-`}
+          <Switch
+            label="Thermostat"
+            on="false"
+            onActivate={(ev, triggerNode, boundCheckbox, on, set) => {
+              // 'on' reflects the current attribute value for the checkable item, and is always a number if applicable.
+              // if 0, the toggle state is "false".
+              // if 1, the toggle state is "true".
+              // The 'set' argument is a function that will set the checkable item to a new state.
+              // The new value must be a string consisting of "false" or "true".
+              if (on) {
+                set("false");
+              } else {
+                set("true");
+                $A.Velocity(triggerNode, "callout.bounce");
+              }
+              ev.preventDefault();
+            }}
             config={
               {
                 // Optional config overrides.
                 // View config options at:
-                // node_modules/apex4x/Help/Module Imports/Widgets/Popup.txt
+                // node_modules/apex4x/Help/Module Imports/Widgets/Switch.txt
               }
             }
           />
         </div>
 
-        <h2>ARIA Dialog</h2>
+        <h2>ARIA Toggle</h2>
         <div>
-          <a href="https://whatsock.com/Templates/Dialogs/#configure" target="">
+          <a href="https://whatsock.com/Templates/Buttons/#configure" target="">
             Config Options...
           </a>
         </div>
         <div>
-          <Dialog
-            buttonLabel="Login"
-            dialogTitle="Login"
-            dialogMessage={`
-<div class="message">
-                <form id="lbForm">
-                  <p>
-                    <label for="uname">Username:</label>
-                    <input type="text" id="uname" name="uname" />
-                  </p>
-                  <p>
-                    <label for="pass">Password:</label>
-                    <input type="password" id="pass" name="pass" />
-                  </p>
-                  <p className="buttons-bar">
-                    <input type="submit" id="lbSubmit" value="OK" />
-                    <input
-                      type="reset"
-                      class="lbClose CloseDC"
-                      id="lbCancel"
-                      value="Cancel"
-                    />
-                  </p>
-                </form>
-</div>
-`}
-            config={{
-              // Optional config overrides.
-
-              // Specify the role name for the dialog that will be conveyed to screen reader users.
-              role: "Login",
-
-              // Set the class name for the top level container element
-              className: "modal",
-
-              // Set the class name for the close button.
-              // This must match the class name for any close links or buttons within the dialog content, which will cause close event binding to automatically occur when the content is rendered.
-              closeClassName: "CloseDC",
-
-              // Optionally specify if the dialog is an alert message.
-              // If true, a system alert will be fired when the dialog is rendered that will instantly convey the dialog content to screen reader users.
-              isAlert: false,
-
-              // Specify if the dialog is a modal dialog.
-              isModal: true,
-
-              // Optionally run a script after the dialog finishes rendering.
-              afterRender: function (DC) {
-                // DC.container includes the rendered dialog content.
-                let frm = $A.get("lbForm");
-                $A(frm).on("submit", (ev) => {
-                  if (!frm.uname.value) {
-                    alert("Woops! You forgot your username...");
-                    frm.uname.focus();
-                  } else if (!frm.pass.value) {
-                    alert("Woops! You forgot your password...");
-                    frm.pass.focus();
-                  } else {
-                    alert("WOW!");
-                    DC.remove();
-                  }
-                  ev.preventDefault();
-                });
-              },
-
-              // Optionally run a script after the dialog is removed.
-              afterRemove: function (DC) {
-                // Do something.
-              },
-
-              // View config options at:
-              // node_modules/apex4x/Help/Module Imports/Widgets/Dialog.txt
+          <Toggle
+            label="FAVORITE"
+            pressed="true"
+            onActivate={(ev, triggerNode, boundTo, pressed, set) => {
+              // 'pressed' reflects the current attribute value for the toggleable item, and is always a number if applicable.
+              // if 0, the pressed state is "false".
+              // if 1, the pressed state is "true".
+              // The 'set' argument is a function that will set the toggleable item to a new state.
+              // The new value must be a string consisting of "false" or "true".
+              if (pressed) {
+                set("false");
+              } else {
+                set("true");
+              }
+              ev.preventDefault();
             }}
+            config={
+              {
+                // Optional config overrides.
+                // View config options at:
+                // node_modules/apex4x/Help/Module Imports/Widgets/Button.txt
+              }
+            }
           />
         </div>
 
