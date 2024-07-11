@@ -11,6 +11,7 @@ import Menu from "./4X/Menu";
 import Popup from "./4X/Popup";
 import RadioGroup from "./4X/RadioGroup";
 import Switch from "./4X/Switch";
+import TabList from "./4X/TabList";
 import Toggle from "./4X/Toggle";
 import Tooltip from "./4X/Tooltip";
 import ErrorTooltip from "./4X/ErrorTooltip";
@@ -648,6 +649,54 @@ function App() {
                 // Optional config overrides.
                 // View config options at:
                 // node_modules/apex4x/Help/Module Imports/Widgets/Switch.txt
+              }
+            }
+          />
+        </div>
+
+        <h2>ARIA Tabs</h2>
+        <div>
+          <a href="https://whatsock.com/Templates/Tabs/#configure" target="">
+            Config Options...
+          </a>
+        </div>
+        <div>
+          <TabList
+            groupName="uniqueSharedGroupName1"
+            tabs={[
+              {
+                label: "Alternative",
+                active: "true",
+                content: `
+<div class="tab-content">
+<span>YEA!</span>
+</div>
+`,
+              },
+              {
+                label: "Rock",
+                active: "false",
+                content: `
+<div class="tab-content">
+<span>ALRIGHT!</span>
+</div>
+`,
+              },
+              {
+                label: "Country",
+                active: "false",
+                content: `
+<div class="tab-content">
+<span>WHAT?</span>
+</div>
+`,
+              },
+            ]}
+            config={
+              {
+                // Optional config overrides.
+                // View config options at:
+                // node_modules/apex4x/Help/Module Imports/Widgets/Tab.txt
               }
             }
           />
