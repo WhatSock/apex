@@ -1,0 +1,104 @@
+/* Specific styles for Accessible Tree */
+
+div.viewport {
+  margin: 2rem 0;
+}
+
+div.treeview {
+  overflow: auto;
+  width: 40%;
+  height: 350px;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border: 1px solid #a0a0a0;
+  float: left;
+}
+
+div.treeview ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+div.treeview li {
+  font-size: 1.1em;
+  border-bottom: 1px dotted #c0c0c0;
+}
+
+div.treeview li li {
+  font-size: 100%;
+}
+
+div.treeview li li:last-child {
+  border: none;
+}
+
+div.treeview ul ul {
+  margin-left: 2em;
+}
+
+div.treeview ul > li > a {
+  display: block;
+  text-decoration: none;
+  background: transparent;
+  padding: 0.3em 0.5em;
+}
+
+div.treeview ul > li > a.branch[aria-selected="true"] {
+  color: #000;
+  background: #f2d3a1;
+}
+
+div.treeview ul > li > a[aria-expanded="false"]:before {
+  color: red;
+  content: "+ \00A0";
+}
+
+div.treeview ul > li > a[aria-expanded="true"]:before {
+  color: blue;
+  content: "- \00A0";
+}
+
+div.treeview ul > li > a.leaf[aria-selected="true"] {
+  color: #000;
+  background: #f2d3a1;
+}
+
+a[aria-disabled="true"] {
+  color: #ccc;
+  background: #bdbdbd;
+  cursor: auto;
+}
+
+a[aria-checked="false"] {
+  background: url("./img/tree/unchecked.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+a[aria-checked="mixed"] {
+  background: url("./img/tree/indeterminate.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+a[aria-checked="true"] {
+  background: url("./img/tree/checked.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@media screen and (min-width: 1600px) {
+  div.treeview {
+    float: left;
+    width: 40%;
+    margin-top: 1rem;
+    height: 450px;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+  }
+  ul.top.tree {
+    flex: 1 0 25%;
+  }
+}

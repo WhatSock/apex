@@ -15,6 +15,7 @@ import TabList from "./4X/TabList";
 import Toggle from "./4X/Toggle";
 import Tooltip from "./4X/Tooltip";
 import ErrorTooltip from "./4X/ErrorTooltip";
+import Tree from "./4X/Tree";
 
 // Import the Apex 4X bundle build.
 import "apex4x";
@@ -868,6 +869,160 @@ function App() {
               }}
             />
           </div>
+        </div>
+
+        <h2>ARIA Tree</h2>
+        <div>
+          <a href="https://whatsock.com/Templates/Trees/#configure" target="">
+            Config Options...
+          </a>
+        </div>
+
+        <div>
+          <Tree
+            label="Library"
+            treeList={`
+                      <!-- Tree structure does not require ID attribute mapping, and may be nested to any level.
+The focusable A tags may include any type of markup for formatting purposes. -->
+                      <ul class="top tree">
+                        <!-- First branch -->
+                        <li>
+                          <a href="#" class="branch"><span>Cyberpunk</span></a>
+                          <ul hidden class="tree">
+                            <li>
+                              <a href="#" class="branch"
+                                ><span>Neal Stephenson</span></a
+                              >
+                              <ul hidden class="tree">
+                                <li>
+                                  <a
+                                    data-author="Neal Stephenson"
+                                    data-check
+                                    href="#"
+                                    class="leaf"
+                                    ><span>Snow Crash</span></a
+                                  >
+                                </li>
+                                <li>
+                                  <a
+                                    data-author="Neal Stephenson"
+                                    data-check
+                                    href="#"
+                                    class="leaf"
+                                    ><span>The Diamond Age</span></a
+                                  >
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <a href="#" class="branch"
+                                ><span>Richard K. Morgan</span></a
+                              >
+                              <ul hidden class="tree">
+                                <li>
+                                  <a
+                                    data-author="Richard K. Morgan"
+                                    data-check
+                                    href="#"
+                                    class="leaf"
+                                    ><span>Altered Carbon</span></a
+                                  >
+                                </li>
+                                <li>
+                                  <a
+                                    data-author="Richard K. Morgan"
+                                    data-check
+                                    href="#"
+                                    class="leaf"
+                                    ><span>Broken Angels</span></a
+                                  >
+                                </li>
+                                <li>
+                                  <a
+                                    data-author="Richard K. Morgan"
+                                    data-check
+                                    href="#"
+                                    class="leaf"
+                                    ><span>Woken Furies</span></a
+                                  >
+                                </li>
+                              </ul>
+                            </li>
+                            <li>
+                              <a href="#" class="branch"
+                                ><span>William Gibson</span></a
+                              >
+                              <ul hidden class="tree">
+                                <li>
+                                  <a
+                                    data-author="William Gibson"
+                                    data-check
+                                    href="#"
+                                    class="leaf"
+                                    ><span>Neuromancer</span></a
+                                  >
+                                </li>
+                                <li>
+                                  <a
+                                    data-author="William Gibson"
+                                    data-check
+                                    href="#"
+                                    class="leaf"
+                                    ><span>Count Zero</span></a
+                                  >
+                                </li>
+                                <li>
+                                  <a
+                                    data-author="William Gibson"
+                                    data-check
+                                    href="#"
+                                    class="leaf"
+                                    ><span>Mona Lisa Overdrive</span></a
+                                  >
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <a
+                            aria-disabled="true"
+                            href="https://www.goodreads.com/"
+                            class="leaf"
+                            ><span>Goodreads...</span></a
+                          >
+                        </li>
+                        <li>
+                          <a href="https://google.com/" class="leaf"
+                            ><span>Help...</span></a
+                          >
+                        </li>
+                      </ul>
+`}
+            onActivate={(ev, triggerNode, RTI, boundElement, checked, set) => {
+              // var tree = RTI.DC.top;
+              // 'checked' reflects the current attribute value for the checkable item, and is always a number if applicable.
+              // if 0, the checked state is "false".
+              // if 1, the checked state is "true".
+              // if 2, the checked state is "mixed".
+              // The 'set' argument is a function that will set the checkable item to a new state.
+              // The new value must be a string consisting of "false", "true", or "mixed".
+              if (triggerNode.hasAttribute("aria-checked")) {
+                if (checked) {
+                  set("false");
+                } else {
+                  set("true");
+                }
+              }
+            }}
+            config={
+              {
+                // Optional config overrides.
+                // View config options at:
+                // node_modules/apex4x/Help/Module Imports/Widgets/Tree.txt
+              }
+            }
+          />
         </div>
       </main>
     </div>
