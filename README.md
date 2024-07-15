@@ -1,5 +1,5 @@
 # Apex 4X : The Comprehensive ARIA Development Suite
-(Version: Neuromancer - 2024.7.2)
+(Version: Neuromancer - 2024.7.15)
 
 "Art should comfort the disturbed and disturb the comfortable.", Banksy
 
@@ -192,7 +192,8 @@ https://github.com/whatsock
 <!----><a name="changelog" tabindex="-1"></a>
 ## Change log:
 
-2024.7.2 (Neuromancer): Updated the core API plus all modules to ensure that all supporting methods and properties are routed through the $A namespace for seamless integration with ReactJS and other encapsulated environments.
+2024.7.15 (Neuromancer): Updated location to window.location for better universal support and changed the parseDebug function to use console.log instead of throw for debugging; removed IE polyfills for Promise and Fetch since Internet Explorer is no longer supported.
+(2024.7.2) Updated the core API plus all modules to ensure that all supporting methods and properties are routed through the $A namespace for seamless integration with ReactJS and other encapsulated environments.
 
 2023.8.12 (Iron Sunrise): Updated the DC lifecycle process within core 4X to automatically detect when a Velocity animation is running so that it can be properly reversed when autoCloseSameWidget is true. Updated modules: Datepicker, Menu, Straylight. Added DC.abortLoad within core 4X.
 
