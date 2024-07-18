@@ -5,6 +5,7 @@ import "./App.css";
 import AccordionGroup from "./4X/AccordionGroup";
 import Button from "./4X/Button";
 import Checkbox from "./4X/Checkbox";
+import Combobox from "./4X/Combobox";
 import Datepicker from "./4X/Datepicker";
 import Dialog from "./4X/Dialog";
 import Menu from "./4X/Menu";
@@ -19,6 +20,10 @@ import Tree from "./4X/Tree";
 
 // Import the Apex 4X bundle build.
 import "apex4x";
+
+import StateSelect from "./4X/cb/StateSelect";
+import CountrySelect from "./4X/cb/CountrySelect";
+import LanguageSelect from "./4X/cb/LanguageSelect";
 
 function App() {
   const $A = window.$A;
@@ -153,6 +158,75 @@ function App() {
               }
             }
           />
+        </div>
+
+        <h2>ARIA Combobox</h2>
+        <div>
+          <a
+            href="https://whatsock.com/Templates/Comboboxes/#configure"
+            target=""
+          >
+            Config Options...
+          </a>
+        </div>
+        <div>
+          <div>
+            <Combobox
+              label="Choose State"
+              select={<StateSelect />}
+              preset={(CB) => {
+                // Change default presets
+              }}
+              config={
+                {
+                  // Optional config overrides.
+                  // View config options at:
+                  // node_modules/apex4x/Help/Module Imports/Widgets/Combobox.txt
+                }
+              }
+            />
+          </div>
+
+          <div>
+            <Combobox
+              label="Choose Country"
+              required={true}
+              readOnly={true}
+              addToggle={true}
+              toggleLabel="Open options."
+              select={<CountrySelect selector={`[value="United States"]`} />}
+              preset={(CB) => {
+                CB.setDefault(true);
+                CB.setShowAllIfEmpty(true);
+              }}
+              config={
+                {
+                  // Optional config overrides.
+                  // View config options at:
+                  // node_modules/apex4x/Help/Module Imports/Widgets/Combobox.txt
+                }
+              }
+            />
+          </div>
+
+          <div>
+            <Combobox
+              label="Language"
+              useButton={true}
+              insertValueAt="span.aria-combobox span.aria-combobox.button span.label"
+              select={<LanguageSelect selector={`[value="English"]`} />}
+              preset={(CB) => {
+                CB.setDefault(true);
+              }}
+              config={
+                {
+                  // Optional config overrides.
+                  // View config options at:
+                  // node_modules/apex4x/Help/Module Imports/Widgets/Combobox.txt
+                }
+              }
+            />
+          </div>
         </div>
 
         <h2>ARIA Datepicker</h2>

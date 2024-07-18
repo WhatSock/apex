@@ -1,0 +1,69 @@
+/**********************************************
+Common Combobox styles
+*************************************************/
+
+span.aria-combobox {
+  position: relative;
+  list-style-type: none;
+}
+
+span.aria-combobox ul.listbox {
+  position: relative;
+  overflow-y: scroll;
+  margin-left: 0;
+  height: 10em;
+  background-color: var(--globalWhite);
+}
+
+span.aria-combobox li.option {
+  margin-bottom: 0.3em;
+  padding-right: 1em;
+}
+
+span.aria-combobox li.option a,
+span.aria-combobox li.option a:visited {
+  text-decoration: none;
+  color: var(--bodyText);
+  padding: 0.3em;
+}
+
+span.aria-combobox li.option a:hover,
+span.aria-combobox li.option a:focus,
+span.aria-combobox li.option.active a,
+span.aria-combobox li.option.active a:visited {
+  color: var(--globalWhite);
+  background: var(--elementBlack);
+}
+
+span.aria-combobox li [role="option"][aria-selected="true"] {
+  background: url("./img/cb/checked.svg");
+  background-repeat: no-repeat;
+  background-position: right 0.3em center; /* moves the SVG 0.3em to the left */
+  border: 2px solid var(--apexDarkGreen);
+  padding: 0.3em 0 0.3em;
+  margin-right: 0.3em;
+  font-weight: 700;
+}
+
+span.aria-combobox li [role="option"][aria-selected="false"] {
+  background: url("./img/cb/unchecked.svg");
+  background-repeat: no-repeat;
+  background-position: right 0.3em center; /* moves the SVG 0.3em to the left */
+  border: 2px solid var(--apexDarkGreen);
+  padding: 0.3em 0 0.3em;
+  margin-right: 0.3em;
+  font-weight: 700;
+}
+
+span.aria-combobox div.toplevel-div {
+  background-color: var(--globalWhite);
+  border: 1px solid var(--listbox-darkGrey);
+  position: absolute;
+  -webkit-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  -moz-box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  box-shadow: 0 10px 6px -6px var(--combobox-midGrey);
+  padding: 0.3em;
+  padding-bottom: 0;
+  padding-right: 0;
+  z-index: 1;
+}
