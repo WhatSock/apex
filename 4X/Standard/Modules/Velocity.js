@@ -5608,5 +5608,5 @@
  will produce an inaccurate conversion value. The same issue exists with the cx/cy attributes of SVG circles and ellipses. */
 
 $A.extend({
-  Velocity: window["Velocity"],
+  Velocity: (window.jQuery ? window.jQuery : window)["Velocity"],
 });
