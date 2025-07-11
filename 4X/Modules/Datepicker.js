@@ -1,5 +1,5 @@
 /*@license
-ARIA Date Picker Module 5.11 for Apex 4X
+ARIA Date Picker Module 5.12 for Apex 4X
 Author: Bryan Garaventa (https://www.linkedin.com/in/bgaraventa)
 Contributions by Danny Allen (dannya.com) / Wonderscore Ltd (wonderscore.co.uk)
 https://github.com/whatsock/apex
@@ -979,7 +979,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 }
 
                 var dateValue = targ.value.replace(/\.|\-/g, "/"),
-                  dateParts = targ.value.split("/");
+                  dateParts = targ.value.split(/[-\/]/);
                 if (dateParts.length === 2) {
                   if (dateParts[1] > 12) {
                     if (dateParts[1].length === 2)
@@ -991,7 +991,8 @@ License: MIT <https://opensource.org/licenses/MIT>
                     dateValue = dateParts[1] + "/01/" + dateParts[0];
                   }
                 } else if (
-                  config.inputDateFormat === "DD/MM/YYYY" &&
+                  (config.inputDateFormat === "DD/MM/YYYY" ||
+                    config.inputDateFormat === "DD-MM-YYYY") &&
                   dateParts.length === 3
                 ) {
                   if (dateParts[2].length === 2)
@@ -999,7 +1000,8 @@ License: MIT <https://opensource.org/licenses/MIT>
                   dateValue =
                     dateParts[1] + "/" + dateParts[0] + "/" + dateParts[2];
                 } else if (
-                  config.inputDateFormat === "MM/DD/YYYY" &&
+                  (config.inputDateFormat === "MM/DD/YYYY" ||
+                    config.inputDateFormat === "MM-DD-YYYY") &&
                   dateParts.length === 3
                 ) {
                   if (dateParts[2].length === 2)
