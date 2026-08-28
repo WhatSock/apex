@@ -979,7 +979,7 @@ License: MIT <https://opensource.org/licenses/MIT>
                 }
 
                 var dateValue = targ.value.replace(/\.|\-/g, "/"),
-                  dateParts = targ.value.split(/[-\/]/);
+                  dateParts = dateValue.split("/");
                 if (dateParts.length === 2) {
                   if (dateParts[1] > 12) {
                     if (dateParts[1].length === 2)
@@ -990,36 +990,48 @@ License: MIT <https://opensource.org/licenses/MIT>
                       dateParts[0] = "20" + dateParts[0];
                     dateValue = dateParts[1] + "/01/" + dateParts[0];
                   }
-                } else if (
-                  (config.inputDateFormat === "DD/MM/YYYY" ||
-                    config.inputDateFormat === "DD-MM-YYYY") &&
-                  dateParts.length === 3
-                ) {
-                  if (dateParts[2].length === 2)
-                    dateParts[2] = "20" + dateParts[2];
-                  dateValue =
-                    dateParts[1] + "/" + dateParts[0] + "/" + dateParts[2];
-                } else if (
-                  (config.inputDateFormat === "MM/DD/YYYY" ||
-                    config.inputDateFormat === "MM-DD-YYYY") &&
-                  dateParts.length === 3
-                ) {
-                  if (dateParts[2].length === 2)
-                    dateParts[2] = "20" + dateParts[2];
-                  dateValue =
-                    dateParts[0] + "/" + dateParts[1] + "/" + dateParts[2];
+                } else if (dateParts.length === 3) {
+                  if (
+                    config.inputDateFormat === "DD/MM/YYYY" ||
+                    config.inputDateFormat === "DD-MM-YYYY" ||
+                    config.inputDateFormat === "DD.MM.YYYY"
+                  ) {
+                    if (dateParts[2].length === 2)
+                      dateParts[2] = "20" + dateParts[2];
+                    dateValue =
+                      dateParts[1] + "/" + dateParts[0] + "/" + dateParts[2];
+                  } else if (
+                    config.inputDateFormat === "MM/DD/YYYY" ||
+                    config.inputDateFormat === "MM-DD-YYYY"
+                  ) {
+                    if (dateParts[2].length === 2)
+                      dateParts[2] = "20" + dateParts[2];
+                    dateValue =
+                      dateParts[0] + "/" + dateParts[1] + "/" + dateParts[2];
+                  } else if (
+                    config.inputDateFormat === "YYYY/MM/DD" ||
+                    config.inputDateFormat === "YYYY-MM-DD" ||
+                    config.inputDateFormat === "YYYY.MM.DD"
+                  ) {
+                    if (dateParts[0].length === 2)
+                      dateParts[0] = "20" + dateParts[0];
+                    dateValue =
+                      dateParts[1] + "/" + dateParts[2] + "/" + dateParts[0];
+                  }
                 }
                 var isValid = isValidDateString(dateValue);
                 if (!isValid) {
                   dateValue = dc.initialDate;
                 }
+                var parsedDate = isValid ? new Date(dateValue) : null;
                 if (
                   !dc.rerendering &&
                   isValid &&
-                  dateValue &&
-                  !dc.isOutsideDateRange(new Date(dateValue))
+                  parsedDate &&
+                  !isNaN(parsedDate.getTime()) &&
+                  !dc.isOutsideDateRange(parsedDate)
                 ) {
-                  dc.presetDate(dc, new Date(dateValue));
+                  dc.presetDate(dc, parsedDate);
                 }
 
                 // based on config option, disable weekdays?
