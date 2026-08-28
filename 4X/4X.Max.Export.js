@@ -5267,7 +5267,7 @@ error: function(error, promise){}
            */
           (function (name, context, definition) {
             if (typeof module !== "undefined" && module.exports)
-              module.exports = definition();
+              module.exports = BN = definition();
             else if (typeof define === "function" && define.amd)
               define(definition);
             else context[name] = BN = definition();
