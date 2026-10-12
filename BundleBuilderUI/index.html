@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>ARIA 4X | Offline Bundle Builder</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to bundle settings</a>
+  <header class="site-head">
+    <div class="brand">ARIA <span>4X</span></div>
+    <div>
+      <h1>Offline Apex4X Bundle Builder</h1>
+      <p>Choose your modules, resolve dependencies, and compile with the original Rollup toolchain.</p>
+    </div>
+  </header>
+  <main id="main">
+    <div class="intro">
+      <p><strong>Entirely local.</strong> This application runs only on your computer. It does not contact the internet or modify <code>BuildBundle.js</code> or <code>rollup.config.js</code>.</p>
+      <p id="environment" class="environment" role="status" aria-live="polite">Checking the Apex4X source tree...</p>
+    </div>
+
+    <form id="build-form" novalidate>
+      <section class="panel" aria-labelledby="select-heading">
+        <div class="panel-head">
+          <h2 id="select-heading">Choose included modules</h2>
+          <p>Selected modules automatically include their dependencies. Source order follows the original Apex4X <code>BuildBundle.js</code>.</p>
+        </div>
+        <fieldset class="core-fieldset">
+          <legend>Required core</legend>
+          <label class="choice"><input type="checkbox" checked disabled><span>4X.Max.Export.js (always included)</span></label>
+        </fieldset>
+        <div class="button-row" role="group" aria-label="Module selection shortcuts">
+          <button type="button" id="all-btn" class="secondary">Select all modules</button>
+          <button type="button" id="widgets-btn" class="secondary">Select all widgets</button>
+          <button type="button" id="clear-btn" class="secondary">Clear choices (core only)</button>
+        </div>
+        <div id="module-groups" aria-label="Available module checkboxes"></div>
+        <p id="selection-count" class="selection-count" role="status" aria-live="polite">Loading module choices...</p>
+      </section>
+
+      <section class="panel" aria-labelledby="output-heading">
+        <h2 id="output-heading">Bundle output</h2>
+        <div class="field">
+          <label for="output-filename">JavaScript filename</label>
+          <input id="output-filename" type="text" spellcheck="false" autocomplete="off" value="4X.Custom.js" maxlength="63" aria-describedby="filename-hint">
+          <p id="filename-hint" class="hint">The generated JavaScript is saved in <code>Bundle/</code>. Use a simple filename ending in <code>.js</code>, with no folders or spaces.</p>
+        </div>
+        <label class="choice replace-choice">
+          <input type="checkbox" id="replace-stock">
+          <span><strong>Replace Bundle/4X.js</strong> (the existing file will be backed up automatically). Otherwise your compiled file uses the name above.</span>
+        </label>
+        <div class="button-row">
+          <button type="button" id="preview-btn" class="secondary">Preview included modules</button>
+          <button type="submit" id="build-btn" class="primary">Compile selected bundle</button>
+        </div>
+      </section>
+    </form>
+
+    <section class="panel" aria-labelledby="preview-heading">
+      <h2 id="preview-heading">Dependency preview</h2>
+      <p>The original Apex4X standard modules, required utilities, and CSS will be included automatically.</p>
+      <pre id="preview-text" tabindex="0">Choose modules and select Preview included modules.</pre>
+    </section>
+
+    <section class="panel" aria-labelledby="status-heading">
+      <h2 id="status-heading">Compilation status</h2>
+      <p id="build-status" class="build-status" role="status" aria-live="polite" aria-atomic="true">Ready to compile.</p>
+      <div id="build-error" role="alert" hidden></div>
+      <div id="download-links" hidden>
+        <h3>Completed bundle downloads</h3>
+        <p><a id="download-js" href="#">Download compiled JavaScript</a></p>
+        <p><a id="download-zip" href="#">Download complete bundle ZIP</a></p>
+        <p class="hint">A copy of the JavaScript is also saved under <code>Bundle/</code>. ZIP packages are saved under <code>BundleBuilderUI/output/</code>.</p>
+      </div>
+      <details id="log-details">
+        <summary>Compiler output and validation log</summary>
+        <pre id="build-log" tabindex="0">No compilation has started.</pre>
+      </details>
+    </section>
+  </main>
+  <footer>
+    <p>ARIA 4X • WhatSock Apex4X original Rollup compilation • Offline and localhost only</p>
+    <p>JavaScript syntax validation is automatic. Browser interaction and screen-reader testing must be performed separately.</p>
+  </footer>
+</body>
+</html>

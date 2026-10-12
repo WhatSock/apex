@@ -1,0 +1,39 @@
+ARIA 4X OFFLINE BUNDLE BUILDER - TEST REPORT
+============================================
+Test source: user-supplied Apex4X archive /mnt/data/apex.zip
+Source package version: 2023.8.1-2.47 (README Neuromancer 2024.7.15)
+Runtime used: Linux test host, Python 3.13, Node.js 22.16.0
+
+PASS - 11 standard-library unit and HTTP API checks:
+- Core/module list, dependency closure, CSS injection selection
+- Checkbox, Radio and Switch correctly resolve to Button implementation
+- Full Straylight module selection and canonical source order
+- Input validation rejects invalid module names and unsafe output filenames
+- UI HTML/CSS/JS server endpoints and local preview
+- Cross-origin POST request blocked
+
+PASS - Real offline Rollup builds using only compiler-dependencies.zip
+- Core-only bundle, Node.js syntax checked
+- Accordion, Dialog, Combobox, Datepicker with dependencies, syntax checked
+- Carousel and Drag with both required CSS files, syntax checked
+- Full Straylight build, syntax checked
+- Replace Bundle/4X.js with backup confirmed
+- Rebuild custom filename with previous output backup confirmed
+
+PASS - HTTP end-to-end compile workflow
+- Local POST /api/plan then /api/build
+- Polling GET /api/status/<id> until complete
+- Downloading finished JavaScript and ZIP over localhost
+- ZIP file integrity verified
+- Original BuildBundle.js, rollup.config.js, package.json, and original 4X core
+  matched the user's source archive after compilation
+
+LIMITATIONS
+- Chromium was blocked from navigating even to localhost in this execution
+  environment (ERR_BLOCKED_BY_ADMINISTRATOR); therefore the interface's
+  graphical rendering and in-browser button/checkbox clicks were NOT verified.
+- Windows 11/Jaws screen-reader testing was NOT performed.
+- Generated bundle JavaScript was compiled and syntax checked; the full
+  interactive behavior of every component on target browsers was NOT certified.
+- This is a LOCAL tool only, not a hosted website, and requires local Python
+  and Node.js installations. It does not require internet for building.

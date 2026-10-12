@@ -1,4 +1,4 @@
-To recompile a new bundled 4X build and customize the module imports that are included, edit the file `BuildBundle.js` then run the build script `BuildBundle.sh`.
+To recompile a new bundled 4X build and customize the module imports that are included, read BuildBundleGUI.txt
 
 By default, all Apex 4X modules are included in the bundled 4X build. Activate WebserverRun.sh in the project root folder to test within the 4X landing page.
 

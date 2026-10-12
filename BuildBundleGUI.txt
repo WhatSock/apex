@@ -1,0 +1,42 @@
+ARIA 4X - OFFLINE APEX4X BUNDLE BUILDER
+=====================================
+
+This ZIP is an ADD-ON for the root of the WhatSock Apex4X Git repository.
+It does not contain the whole Apex4X framework and does not replace its original code.
+
+QUICK INSTALL ON WINDOWS 11
+1. Extract the ZIP to a temporary location.
+2. Copy BuildBundleGUI.py, BuildBundleGUI.bat, BuildBundleGUI.sh and the entire
+   BundleBuilderUI folder into the Apex4X repository's ROOT directory.
+   The root directory is the one that contains:
+       BuildBundle.js
+       BuildBundle.sh
+       rollup.config.js
+       package.json
+       4X\
+       Bundle\
+3. Have Node.js and Python 3 installed and available in the Windows PATH.
+   The included compiler-dependencies.zip means no internet connection or
+   npm install is necessary after Node.js and Python are installed.
+4. Double-click BuildBundleGUI.bat.
+5. Your browser should open http://127.0.0.1:8766/.
+   If it doesn't, open that address manually. (It is a LOCAL address.)
+6. Use Tab to navigate the controls, Space to check module checkboxes,
+   and Enter to activate Compile selected bundle.
+7. After completion, download the JS or ZIP from the local interface.
+
+The new custom bundle is saved to Bundle\4X.Custom.js by default.
+Choosing the special Replace Bundle/4X.js option saves a backup of that file first.
+The original BuildBundle.js, BuildBundle.sh and rollup.config.js remain untouched.
+
+For Git Bash / macOS / Linux, run: sh ./BuildBundleGUI.sh
+Or manually: python3 BuildBundleGUI.py
+To avoid auto-opening the browser: python BuildBundleGUI.py --no-browser
+To change port: python BuildBundleGUI.py --port 8888
+Stop the server with Ctrl+C in the command window.
+
+READ THE FULL GUIDE: BundleBuilderUI/README.md
+TESTS: python -m unittest discover -s BundleBuilderUI/tests -v
+
+IMPORTANT: Build validation includes Rollup success, node --check and ZIP integrity.
+It is NOT a functional browser or screen-reader certification of the bundle's widgets.
