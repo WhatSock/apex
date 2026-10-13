@@ -9,6 +9,7 @@ This is a **standalone local web interface** for the existing WhatSock Apex4X co
 ```text
 Apex4X-repository-root/
   BuildBundle.js              # existing: unchanged
+  BuildBundle.sh              # existing: unchanged
   rollup.config.js            # existing: unchanged
   package.json                # existing: unchanged
   4X/                        # existing: unchanged
@@ -33,7 +34,7 @@ Apex4X-repository-root/
 - The complete Apex4X source tree and `Help/Module Dependency Index.txt` in the same repository.
 - A browser capable of loading `http://127.0.0.1`.
 
-The ZIP includes **an offline archive of installed Rollup build dependencies**, previously extracted from the Apex4X source environment provided by the publisher. The builder prefers an existing `node_modules/` in the repository; if absent, it checks the included archive's SHA-256 and extracts it under `BundleBuilderUI/.cache/node_modules/` on first build. This may take a few seconds. Package license files are preserved. It will **not** run `npm install`, `npx`, `update-browserslist-db@latest`, or any network request.
+The ZIP includes **an offline archive of installed Rollup build dependencies**, previously extracted from the Apex4X source environment provided by the publisher. The builder **always** checks the included archive's SHA-256 and extracts its patched Rollup 2.80.0 compiler into `BundleBuilderUI/.cache/node_modules/` on first build. Any existing repository `node_modules/` is ignored to avoid accidentally using a vulnerable Rollup version. This may take a few seconds. Package license files are preserved. It will **not** run `npm install`, `npx`, `update-browserslist-db@latest`, or any network request.
 
 > A message from Browserslist saying its locally stored database is outdated is not a build failure and is not a reason for the builder to fetch updates. Updating dependencies is a separate, explicitly online maintenance action.
 
@@ -78,7 +79,7 @@ The dependency rules and canonical import order are transcribed from the reposit
 
 ## The compile process and output
 
-The builder invokes the **original `rollup.config.js`** using the locally installed `rollup` executable via Node.js. With the archived dependencies, a byte-for-byte copy of that config is placed beside the cached Node packages so module resolution works without installing packages into the repo. Rollup's input/output options are overridden to use a temporary, generated import list and a temporary compiled output file.
+The builder invokes the **original `rollup.config.js`** using its packaged, security-updated Rollup 2.80.0 executable via Node.js. With the archived dependencies, a byte-for-byte copy of that config is placed beside the cached Node packages so module resolution works without installing packages into the repo. Rollup's input/output options are overridden to use a temporary, generated import list and a temporary compiled output file.
 
 The only generated source is the temporary import list. The following **existing repository files are never modified**:
 
@@ -135,4 +136,18 @@ python -m unittest discover -s BundleBuilderUI/tests -v
 
 Check actual compilation by selecting one or more modules and clicking Compile. The build ZIP records the selected modules and exact source version.
 
-**Testing status for this release:** Compiled core-only, a four-widget build, a CSS-dependent Carousel/Drag build, the full Straylight build, and safe stock-bundle replacement against the publisher's `2023.8.1-2.47` source. Rollup finished successfully, compiled output passed `node --check`, and ZIP CRC validation passed. Browser/JAWS widget interactions were not certified.
+**Testing status for this release:** With the patched Rollup 2.80.0, compiled core-only, a four-widget build, a CSS-dependent Carousel/Drag build, and the full Straylight build against the publisher's `2023.8.1-2.47` source. The original release also tested safe stock-bundle replacement. Rollup finished successfully, compiled output passed `node --check`, and ZIP CRC validation passed. Browser/JAWS widget interactions were not certified.
+
+SECURITY UPDATE (OCTOBER 2026)
+------------------------------
+The included offline compiler has Rollup 2.80.0, replacing the vulnerable
+2.79.1 bundled in the original ZIP. This patches CVE-2024-47068 and
+CVE-2026-27606. The builder ALWAYS uses this bundled patched compiler,
+even if the Git repository has a different or older node_modules directory.
+The previous .cache/node_modules directory is automatically refreshed when
+the offline compiler ZIP changes. NO npm, npx, npm install, or download is
+needed for compilation. Node.js and Python 3 remain prerequisites.
+
+Updating the standalone builder does not edit the Git repository's own
+package.json or package-lock.json; GitHub Dependabot remediation for the
+repository remains a separate operation.

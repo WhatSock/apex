@@ -13,6 +13,25 @@ import BuildBundleGUI as gui
 
 
 class SelectionTests(unittest.TestCase):
+    def test_vendored_rollup_is_patched(self):
+        self.assertEqual(gui.rollup_version(gui.offline_deps()), (2, 80, 0))
+        self.assertEqual(gui.sha256(gui.DEPS_ZIP), gui.DEPS_ZIP_SHA256)
+
+    def test_legacy_root_rollup_is_not_preferred(self):
+        # A repository may still have a vulnerable Rollup installed.
+        offline = gui.offline_deps()
+        self.assertNotEqual(offline, gui.ROOT / 'node_modules')
+        self.assertEqual(gui.rollup_version(offline), (2, 80, 0))
+
+    def test_reject_old_rollup_version(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as folder:
+            target = Path(folder) / 'rollup'
+            target.mkdir()
+            (target / 'package.json').write_text('{"name":"rollup","version":"2.79.1"}')
+            with self.assertRaises(RuntimeError):
+                gui.rollup_version(Path(folder))
+
     def test_source_modules_are_exact(self):
         self.assertEqual(len(gui.ORDER), 28)
         self.assertTrue(set(gui.DEPS).issubset(gui.ORDER))

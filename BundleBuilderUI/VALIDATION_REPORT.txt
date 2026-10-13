@@ -4,13 +4,15 @@ Test source: user-supplied Apex4X archive /mnt/data/apex.zip
 Source package version: 2023.8.1-2.47 (README Neuromancer 2024.7.15)
 Runtime used: Linux test host, Python 3.13, Node.js 22.16.0
 
-PASS - 11 standard-library unit and HTTP API checks:
+PASS - 14 standard-library unit and HTTP API checks:
 - Core/module list, dependency closure, CSS injection selection
 - Checkbox, Radio and Switch correctly resolve to Button implementation
 - Full Straylight module selection and canonical source order
 - Input validation rejects invalid module names and unsafe output filenames
 - UI HTML/CSS/JS server endpoints and local preview
 - Cross-origin POST request blocked
+- Bundled Rollup verified as 2.80.0 and older 2.79.1 rejected
+- Root node_modules is ignored even when its Rollup is obsolete
 
 PASS - Real offline Rollup builds using only compiler-dependencies.zip
 - Core-only bundle, Node.js syntax checked
@@ -37,3 +39,9 @@ LIMITATIONS
   interactive behavior of every component on target browsers was NOT certified.
 - This is a LOCAL tool only, not a hosted website, and requires local Python
   and Node.js installations. It does not require internet for building.
+
+SECURITY UPDATE: Patched bundled Rollup 2.80.0 from user-supplied node_modules.zip;
+compiler selected independent of repository installations. The new package
+was CRC-checked and SHA-256 pinned. All four listed source builds were
+recompiled successfully with 2.80.0, passed node --check and ZIP CRC.
+This does not certify the generated application against all vulnerabilities.

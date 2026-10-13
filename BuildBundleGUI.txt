@@ -40,3 +40,17 @@ TESTS: python -m unittest discover -s BundleBuilderUI/tests -v
 
 IMPORTANT: Build validation includes Rollup success, node --check and ZIP integrity.
 It is NOT a functional browser or screen-reader certification of the bundle's widgets.
+
+SECURITY UPDATE (OCTOBER 2026)
+------------------------------
+The included offline compiler has Rollup 2.80.0, replacing the vulnerable
+2.79.1 bundled in the original ZIP. This patches CVE-2024-47068 and
+CVE-2026-27606. The builder ALWAYS uses this bundled patched compiler,
+even if the Git repository has a different or older node_modules directory.
+The previous .cache/node_modules directory is automatically refreshed when
+the offline compiler ZIP changes. NO npm, npx, npm install, or download is
+needed for compilation. Node.js and Python 3 remain prerequisites.
+
+Updating the standalone builder does not edit the Git repository's own
+package.json or package-lock.json; GitHub Dependabot remediation for the
+repository remains a separate operation.

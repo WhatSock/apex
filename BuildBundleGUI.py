@@ -3,7 +3,7 @@
 
 Place beside BuildBundle.js, rollup.config.js, 4X/, and Bundle/.
 Uses ONLY Python's standard library; compilation uses locally installed Node.js
-and Rollup dependencies already in node_modules or the bundled offline archive.
+and the patched, bundled, offline Rollup 2.80.0 dependencies.
 """
 from __future__ import annotations
 
@@ -33,7 +33,11 @@ UI = ROOT / 'BundleBuilderUI'
 CACHE = UI / '.cache'
 OUTPUT_DIR = UI / 'output'
 DEPS_ZIP = UI / 'compiler-dependencies.zip'
-DEPS_ZIP_SHA256 = 'c57c7789d761120996517e3cfa3a3f19c456672121856f61b6eacc3bd668853c'
+DEPS_ZIP_SHA256 = '97dace286fcf7a87d3debda069b87b4b6797803e6265b791924278a7d902280b'
+# The bundled compiler is the only supported Rollup source, regardless of any old
+# repository node_modules installation. Rollup 2.80.0 patches security advisories
+# CVE-2024-47068 and CVE-2026-27606. No npm or network calls are made.
+MIN_ROLLUP_VERSION = (2, 80, 0)
 MAX_DEPS_UNPACKED = 100_000_000
 MAX_DEPS_FILES = 5000
 BUILD_TIMEOUT = 240
@@ -147,23 +151,48 @@ def portable_build_script(mods: list[str], css: list[str]) -> str:
     return '\n'.join(src) + '\n'
 
 
+def rollup_version(deps_dir: Path) -> tuple[int, int, int]:
+    """Read a Rollup package version without invoking npm or remote commands."""
+    path = deps_dir / 'rollup/package.json'
+    if not path.is_file():
+        raise RuntimeError('Rollup package metadata is missing from offline compiler.')
+    info = json.loads(path.read_text(encoding='utf-8-sig'))
+    if info.get('name') != 'rollup':
+        raise RuntimeError('Bundled compiler package is not Rollup.')
+    value = info.get('version', '')
+    match = re.fullmatch(r'(\d+)\.(\d+)\.(\d+)', value)
+    if not match:
+        raise RuntimeError('Unexpected Rollup package version: ' + str(value))
+    version = tuple(int(x) for x in match.groups())
+    if version < MIN_ROLLUP_VERSION:
+        raise RuntimeError('Rollup ' + value + ' is older than the required patched release 2.80.0.')
+    return version
+
+
 def offline_deps() -> Path:
-    """Choose installed dependencies, or extract only bundled, integrity-checked offline deps."""
-    root_rollup = ROOT / 'node_modules/rollup/dist/bin/rollup'
-    if root_rollup.is_file():
-        return ROOT / 'node_modules'
+    """Always use the authenticated bundled offline compiler, not repository packages.
+
+    This prevents a legacy node_modules/rollup 2.79.1 from silently overriding
+    the patched build, and means npm/npx/network access are never necessary.
+    """
     target = CACHE / 'node_modules'
     binary = target / 'rollup/dist/bin/rollup'
-    if binary.is_file() and (CACHE / '.offline-deps-sha256').is_file() and (CACHE / '.offline-deps-sha256').read_text().strip() == DEPS_ZIP_SHA256:
-        return target
+    stamp = CACHE / '.offline-deps-sha256'
+    if (binary.is_file() and stamp.is_file() and
+            stamp.read_text(encoding='utf-8').strip() == DEPS_ZIP_SHA256):
+        try:
+            rollup_version(target)
+            return target
+        except (ValueError, RuntimeError, OSError, json.JSONDecodeError):
+            # Rebuild a stale or incomplete cache from the packaged compiler.
+            pass
     if not DEPS_ZIP.is_file():
-        raise RuntimeError('Neither root node_modules nor the bundled compiler-dependencies.zip was found.')
+        raise RuntimeError('Bundled offline compiler-dependencies.zip not found. Re-extract the complete tool ZIP.')
     if sha256(DEPS_ZIP) != DEPS_ZIP_SHA256:
         raise RuntimeError('Bundled offline dependencies failed their SHA-256 integrity check.')
-    # Extract into a newly created directory and replace cache atomically.
     CACHE.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix='aria4x-deps-', dir=str(CACHE)) as staging:
-        staging = Path(staging)
+    with tempfile.TemporaryDirectory(prefix='aria4x-deps-', dir=str(CACHE)) as tmp:
+        staging = Path(tmp)
         count = 0
         size = 0
         with zipfile.ZipFile(DEPS_ZIP) as z:
@@ -187,10 +216,11 @@ def offline_deps() -> Path:
                     shutil.copyfileobj(inp, out)
         if not (staging / 'node_modules/rollup/dist/bin/rollup').is_file():
             raise RuntimeError('Offline compiler does not contain Rollup')
+        rollup_version(staging / 'node_modules')
         if target.exists():
             shutil.rmtree(target)
         shutil.move(str(staging / 'node_modules'), str(target))
-        (CACHE / '.offline-deps-sha256').write_text(DEPS_ZIP_SHA256 + '\n', encoding='utf-8')
+        stamp.write_text(DEPS_ZIP_SHA256 + '\n', encoding='utf-8')
     return target
 
 
@@ -285,15 +315,14 @@ def build(ident: str, payload: dict) -> None:
         note('Using Node.js ' + version.stdout.strip())
         note('Locating offline Rollup dependencies...')
         deps_path = offline_deps()
-        note('Compiler packages: ' + ('repository node_modules' if deps_path == ROOT / 'node_modules' else 'bundled offline cache'))
-        # Copy the original rollup config to the same folder as fallback node_modules so
-        # Node can resolve plugins without any npm/network operation. This is a copy, not an edit.
-        config = CACHE / 'rollup.gui.config.mjs'
-        if deps_path == ROOT / 'node_modules':
-            config = ROOT / 'rollup.config.js'
-        else:
-            config.write_bytes((ROOT / 'rollup.config.js').read_bytes())
+        note('Compiler packages: patched bundled offline cache (ignoring repository node_modules).')
+        v = rollup_version(deps_path)
+        note('Verified Rollup ' + '.'.join(str(n) for n in v) + ' (minimum 2.80.0).')
+        # Resolve plugins beside the patched offline node_modules directory.
+        # We copy the configuration exactly; the original file remains untouched.
         CACHE.mkdir(parents=True, exist_ok=True)
+        config = CACHE / 'rollup.gui.config.mjs'
+        config.write_bytes((ROOT / 'rollup.config.js').read_bytes())
         with tempfile.TemporaryDirectory(prefix='build-', dir=str(CACHE)) as scratch:
             scratch = Path(scratch)
             entry = scratch / 'BuildBundle.generated.js'
@@ -328,6 +357,9 @@ def build(ident: str, payload: dict) -> None:
                 'sourcePackageVersion': json.loads((ROOT / 'package.json').read_text(encoding='utf-8-sig')).get('version'),
                 'sourceRollupConfigSHA256': sha256(ROOT / 'rollup.config.js'),
                 'sourceEntryBuildBundleSHA256': sha256(ROOT / 'BuildBundle.js'),
+                'compilerRollupVersion': '.'.join(str(n) for n in v),
+                'compilerOfflineArchiveSHA256': DEPS_ZIP_SHA256,
+                'compilerOutputFormat': 'esm',
                 'requestedModules': p['requested'], 'resolvedModules': p['modules'],
                 'automaticallyAddedModules': p['autoAdded'], 'includedCSS': p['css'],
                 'aliases': p['aliases'], 'outputFilename': filename,
@@ -344,6 +376,7 @@ def build(ident: str, payload: dict) -> None:
                     'ARIA 4X custom JavaScript bundle\n\n'
                     f'Built from the current Apex4X repository. Load Bundle/{filename} as configured in your application.\n'
                     'The compiled JS includes the requested modules, their dependencies, and any required injected CSS.\n'
+                    'Compiled offline with the patched bundled Rollup 2.80.0 in ESM format.\n'
                     'Original BuildBundle.js and rollup.config.js were not modified.\n'
                     'JavaScript syntax was checked; browser or screen-reader behavior was NOT tested.\n'
                     'See build-manifest.json for included modules, SHA-256 and source version.\n')
