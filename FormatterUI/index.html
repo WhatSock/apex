@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ARIA 4X — Offline Repository Formatter</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+  <header>
+    <div class="header-inner">
+      <p class="eyebrow">WhatSock Apex4X Developer Tool</p>
+      <h1>ARIA 4X Offline Formatter</h1>
+      <p>Format and minify the framework, rebuild its bundle, and prepare the minified module path — all on your computer.</p>
+    </div>
+  </header>
+  <main id="main" class="container">
+    <div class="note" id="runtime-note"><strong>Local and offline:</strong> Nothing is uploaded. Python and Node.js are required, but you never need NPM, npx, or an internet connection.</div>
+    <section aria-labelledby="settings-title" class="panel">
+      <h2 id="settings-title">1. Select operations</h2>
+      <p>All four options are checked by default, reproducing the original <code>Format.sh</code> sequence.</p>
+      <fieldset>
+        <legend>Formatting steps, in execution order</legend>
+        <div class="option">
+          <input type="checkbox" id="format" checked>
+          <label for="format"><strong>Format source files</strong> — Prettier</label>
+          <p>Formats HTML, JavaScript, CSS, and JSON in the same Apex4X source locations as <code>Format.sh</code>.</p>
+        </div>
+        <div class="option">
+          <input type="checkbox" id="minify" checked>
+          <label for="minify"><strong>Minify framework scripts</strong> — UglifyJS</label>
+          <p>Generates <code>4X/4X.js</code> and the <code>4X/Min/</code> and <code>4X/Standard/Min/</code> module files, using the original command flags.</p>
+        </div>
+        <div class="option">
+          <input type="checkbox" id="bundle" checked>
+          <label for="bundle"><strong>Rebuild the complete distribution bundle</strong> — Rollup 2.80.0</label>
+          <p>Compiles the existing <code>BuildBundle.js</code> with the repository's original <code>rollup.config.js</code>. Output: <code>Bundle/4X.js</code>.</p>
+        </div>
+        <div class="option">
+          <input type="checkbox" id="switch_module_path" checked>
+          <label for="switch_module_path"><strong>Use minified modules from the core</strong></label>
+          <p>Applies the exact module-folder change made by the original <code>Save4X.py</code>: <code>/4X/Modules/</code> to <code>/4X/Min/</code>.</p>
+        </div>
+      </fieldset>
+      <div class="actions">
+        <button id="preview" type="button" class="secondary">Preview operations</button>
+        <button id="run" type="button">Run selected operations</button>
+      </div>
+      <div class="preview" id="preview-area" aria-labelledby="preview-title">
+        <h3 id="preview-title">Preview</h3>
+        <p id="preview-text">Loading repository information…</p>
+      </div>
+    </section>
+    <section aria-labelledby="status-title" class="panel">
+      <h2 id="status-title">2. Progress and results</h2>
+      <p id="status" role="status" aria-live="polite" aria-atomic="true">Ready.</p>
+      <p id="summary"></p>
+      <div class="actions">
+        <a id="report" href="/api/report" hidden>Download last run report</a>
+      </div>
+      <details id="logs-box">
+        <summary>Show compiler and formatter log</summary>
+        <pre id="log" tabindex="0" aria-label="Execution log">No run yet.</pre>
+      </details>
+    </section>
+    <section aria-labelledby="backup-title" class="panel">
+      <h2 id="backup-title">3. Backup and restore</h2>
+      <p>Operations run in an isolated staging folder first. Only after all steps succeed are changed files applied to the repository. Each successful run saves copies of every replaced file in <code>FormatterUI/backups/</code>.</p>
+      <p>If something fails before the commit, the repository is left untouched. If a commit fails, previously applied files are rolled back.</p>
+      <button id="restore" type="button" class="secondary">Restore last successful run</button>
+      <p class="subtle">Restore checks whether files changed after formatting. It refuses to overwrite newer work. This tool does not modify your original <code>Format.sh</code> or <code>FormatInstall.sh</code>.</p>
+    </section>
+  </main>
+  <footer class="container">ARIA 4X — standalone local developer utility. Do not expose this server publicly. Press Ctrl+C in the command window to close it.</footer>
+</body>
+</html>

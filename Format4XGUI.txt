@@ -1,0 +1,33 @@
+ARIA 4X OFFLINE FORMAT AND MINIFY UTILITY
+=====================================
+
+Quick installation into your existing Apex4X Git repository:
+
+1. Extract this ZIP.
+2. Copy these items into the Apex4X repository ROOT (beside Format.sh):
+      Format4XGUI.py
+      Format4XGUI.bat
+      Format4XGUI.sh
+      FormatterUI/            [entire folder, including offline-dependencies.zip]
+3. Confirm Python 3.10+ and Node.js are installed. They must be on PATH.
+4. Double-click Format4XGUI.bat.
+5. Select options in your browser at http://127.0.0.1:8767/ and click Run.
+6. Wait for completion; review results and optional report.
+
+All default options match the original Format.sh sequence:
+- Prettier source formatting
+- UglifyJS minification of core + both module families
+- Original Rollup ESM bundle rebuild
+- Save4X.py module-folder adjustment
+
+Offline dependencies included: Prettier 3.9.10, UglifyJS 3.19.3,
+Rollup 2.80.0, and existing Rollup build plugins.
+
+No NPM, npx, download, internet, or FormatInstall.sh is required.
+The tool keeps the original scripts unchanged. It stages and checks all output,
+backs up replaced files, and automatically rolls back on commit failures.
+
+For full installation, options, backups, restore, testing and troubleshooting,
+read: FormatterUI/README.md
+
+Testing: python -m unittest discover -s FormatterUI/tests -v

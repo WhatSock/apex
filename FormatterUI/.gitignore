@@ -1,0 +1,5 @@
+.cache/
+backups/
+reports/
+__pycache__/
+*.pyc
